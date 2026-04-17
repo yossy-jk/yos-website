@@ -164,12 +164,17 @@ export default function Home() {
             </h2>
           </FadeIn>
 
-          <div className="flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-x-visible -mx-5 md:mx-0 px-5 md:px-0 pb-4 md:pb-0 scroll-snap-x no-scrollbar">
+          {/* Swipe hint mask on mobile only */}
+          <div className="md:hidden mb-3 flex items-center gap-2">
+            <span className="text-mid-grey text-xs font-medium tracking-wide">Swipe to explore</span>
+            <span className="text-teal text-xs">→</span>
+          </div>
+          <div className="swipe-hint md:[mask-image:none] flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-x-visible -mx-5 md:mx-0 px-5 md:px-0 pb-4 md:pb-0 scroll-snap-x no-scrollbar">
             {SERVICES.map((service, i) => (
               <FadeIn key={service.title} delay={i * 80}>
                 <Link
                   href={service.href}
-                  className="group flex-shrink-0 w-[78vw] sm:w-[55vw] md:w-auto no-underline block"
+                  className="group flex-shrink-0 w-[82vw] sm:w-[55vw] md:w-auto no-underline block"
                   style={{ scrollSnapAlign: 'start' }}
                 >
                   <div className="relative h-52 md:h-64 overflow-hidden bg-warm-grey">
