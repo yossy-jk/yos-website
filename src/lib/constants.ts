@@ -19,6 +19,7 @@ export const NAV_LINKS = [
   { label: 'Buyers Agency', href: '/buyers-agency' },
   { label: 'Furniture', href: '/furniture' },
   { label: 'Cleaning', href: '/cleaning' },
+  { label: 'Lease Review', href: '/lease-review' },
   { label: 'Case Studies', href: '/case-studies' },
   { label: 'Resources', href: '/resources' },
   { label: 'Blog', href: '/blog' }

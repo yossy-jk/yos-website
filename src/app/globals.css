@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme inline {
@@ -18,23 +18,50 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   background: #ffffff;
   color: #1A1A1A;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile padding for sticky CTA bar */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 56px;
+  }
+}
+
+/* Touch targets */
+a, button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+p, li, span {
+  display: revert;
+  min-height: revert;
 }
 
 .btn-primary {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: #00B5A5;
   color: #ffffff;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   padding: 14px 28px;
-  border-radius: 4px;
+  border-radius: 2px;
   text-decoration: none;
   transition: background 0.2s;
   border: none;
@@ -46,22 +73,38 @@ body {
 }
 
 .btn-ghost {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: transparent;
   color: #ffffff;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   padding: 14px 28px;
-  border-radius: 4px;
+  border-radius: 2px;
   text-decoration: none;
   transition: all 0.2s;
-  border: 2px solid #ffffff;
+  border: 2px solid rgba(255,255,255,0.4);
   cursor: pointer;
 }
 
 .btn-ghost:hover {
-  background: #ffffff;
-  color: #1A1A1A;
+  border-color: #ffffff;
+  color: #ffffff;
 }
+
+/* Horizontal scroll for mobile carousels */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-snap-x > * {
+  scroll-snap-align: start;
+}
+
+/* Hide scrollbar on mobile carousels */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
