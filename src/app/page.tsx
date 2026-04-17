@@ -1,146 +1,125 @@
-import Image from "next/image";
-import Link from "next/link";
-import Nav from "@/components/Nav";
+import Image from 'next/image'
+import Link from 'next/link'
+import Nav from '@/components/Nav'
+import SectionLabel from '@/components/SectionLabel'
+import Button from '@/components/Button'
+import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 export default function Home() {
   return (
     <>
       <Nav />
 
-      {/* HERO — full viewport, dark overlay on real office image */}
-      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center" }}>
+      {/* HERO SECTION */}
+      <section className="relative min-h-screen flex items-center pt-72px">
         <Image
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80"
           alt="Premium Newcastle commercial office space"
           fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          className="object-cover object-center"
           priority
         />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,0.78)" }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "1280px", margin: "0 auto", padding: "0 5%", paddingTop: "72px" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "13px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "24px" }}>
-            Newcastle Commercial Property
-          </p>
-          <h1 style={{
-            color: "#ffffff", fontWeight: 700,
-            fontSize: "clamp(40px, 6vw, 80px)",
-            lineHeight: "1.05", letterSpacing: "-0.02em",
-            maxWidth: "800px", marginBottom: "28px"
-          }}>
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-near-black/78" />
+        
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-5% pt-20">
+          <SectionLabel>Newcastle Commercial Property</SectionLabel>
+          <h1 className="text-white font-bold text-6xl lg:text-8xl leading-tight tracking-tight max-w-2xl mb-7">
             Your space is your competitive advantage.
           </h1>
-          <p style={{
-            color: "rgba(255,255,255,0.7)", fontWeight: 300,
-            fontSize: "clamp(18px, 2vw, 22px)", lineHeight: "1.6",
-            maxWidth: "580px", marginBottom: "48px"
-          }}>
+          <p className="text-white/70 font-light text-xl lg:text-2xl leading-relaxed max-w-2xl mb-12">
             We handle the lease, the fitout, the furniture, and the cleaning. One team. Your interests first. Newcastle through and through.
           </p>
-          <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
-            <a href="https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354"
-              style={{
-                background: "#00B5A5", color: "#ffffff", fontWeight: 600,
-                fontSize: "16px", padding: "16px 32px", borderRadius: "4px",
-                textDecoration: "none", letterSpacing: "0.02em"
-              }}>
+          <div className="flex gap-4 flex-wrap">
+            <Button href={HUBSPOT.bookingUrl} variant="primary" external>
               Book a Clarity Call
-            </a>
-            <Link href="/resources"
-              style={{
-                background: "transparent", color: "#ffffff", fontWeight: 600,
-                fontSize: "16px", padding: "16px 32px", borderRadius: "4px",
-                textDecoration: "none", border: "2px solid rgba(255,255,255,0.4)",
-                letterSpacing: "0.02em"
-              }}>
-              Explore free tools
-            </Link>
+            </Button>
+            <Button href="/resources" variant="secondary">
+              Explore free tools →
+            </Button>
           </div>
         </div>
+
         {/* Scroll indicator */}
-        <div style={{ position: "absolute", bottom: "40px", left: "50%", transform: "translateX(-50%)", color: "rgba(255,255,255,0.4)", fontSize: "12px", letterSpacing: "0.1em", textAlign: "center" }}>
-          <div style={{ width: "1px", height: "48px", background: "rgba(255,255,255,0.2)", margin: "0 auto 8px" }} />
+        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/40 text-sm tracking-widest text-center">
+          <div className="w-px h-12 bg-white/20 mx-auto mb-2" />
           SCROLL
         </div>
       </section>
 
       {/* SOCIAL PROOF BAR */}
-      <section style={{ background: "#ffffff", borderBottom: "1px solid #F5F5F5", padding: "32px 5%" }}>
-        <div style={{
-          maxWidth: "1280px", margin: "0 auto",
-          display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "0", alignItems: "center"
-        }}>
+      <section className="bg-white border-b border-gray-100 py-8 lg:py-8">
+        <div className="max-w-7xl mx-auto px-5% grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-200">
           {[
-            { stat: "100+", label: "Fitouts delivered" },
-            { stat: "Newcastle & Hunter", label: "Exclusively local" },
-            { stat: "Tenant-side only", label: "No conflicts of interest" },
-            { stat: "Lease to clean", label: "End-to-end service" },
+            { stat: '100+', label: 'Fitouts delivered' },
+            { stat: 'Newcastle & Hunter', label: 'Exclusively local' },
+            { stat: 'Tenant-side only', label: 'No conflicts of interest' },
+            { stat: 'Lease to clean', label: 'End-to-end service' }
           ].map((item, i) => (
-            <div key={i} style={{
-              padding: "16px 32px",
-              borderRight: i < 3 ? "1px solid #F0F0F0" : "none",
-              textAlign: "center"
-            }}>
-              <p style={{ color: "#1A1A1A", fontWeight: 700, fontSize: "18px", marginBottom: "4px" }}>{item.stat}</p>
-              <p style={{ color: "#9B9B9B", fontWeight: 400, fontSize: "13px" }}>{item.label}</p>
+            <div key={i} className="py-4 md:py-0 px-0 md:px-8 text-center">
+              <p className="text-near-black font-bold text-xl mb-1">{item.stat}</p>
+              <p className="text-mid-grey text-sm">{item.label}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section style={{ background: "#ffffff", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>
-            What we do
-          </p>
-          <h2 style={{ color: "#1A1A1A", fontWeight: 700, fontSize: "clamp(30px, 4vw, 48px)", lineHeight: "1.15", marginBottom: "72px", maxWidth: "600px" }}>
+      {/* SERVICES SECTION */}
+      <section className="bg-white py-28 lg:py-32">
+        <div className="max-w-7xl mx-auto px-5%">
+          <SectionLabel>What we do</SectionLabel>
+          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-20 max-w-xl">
             Every part of the workspace problem. One team.
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "40px" }}>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16">
             {[
               {
                 title: "Tenant Rep",
                 tagline: "Your lease. Your terms. Your call.",
                 body: "We represent the tenant — never the landlord. Every negotiation, every clause, every deal is done purely in your interest. Most businesses sign without anyone in their corner. Ours don't.",
                 href: "/tenant-rep",
-                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80",
-                alt: "Commercial lease negotiation"
+                img: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80"
               },
               {
                 title: "Buyers Agency",
                 tagline: "Buy commercial in Newcastle without getting burned.",
                 body: "Off-market access, rigorous due diligence, and hard negotiations — handled by someone who does this every day. Not just when your lease expires.",
                 href: "/buyers-agency",
-                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80",
-                alt: "Commercial property Newcastle"
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80"
               },
               {
                 title: "Furniture",
                 tagline: "Spaces that work. Furniture that lasts.",
                 body: "Government-approved supplier. Fitout project management, ergonomic workstations, full office solutions — delivered across Newcastle and the Hunter Valley.",
                 href: "/furniture",
-                img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80",
-                alt: "Premium office furniture"
+                img: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80"
               },
               {
                 title: "Cleaning",
                 tagline: "Shows up. Does the job. Every time.",
                 body: "Commercial cleaning for offices, childcare centres, medical practices, and industrial facilities. Consistent, accountable, and Newcastle-based.",
                 href: "/cleaning",
-                img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
-                alt: "Commercial cleaning Newcastle"
-              },
-            ].map((s) => (
-              <div key={s.title} style={{ display: "flex", flexDirection: "column" }}>
-                <div style={{ position: "relative", height: "240px", overflow: "hidden", marginBottom: "0" }}>
-                  <Image src={s.img} alt={s.alt} fill style={{ objectFit: "cover" }} />
+                img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
+              }
+            ].map((service) => (
+              <div key={service.title} className="flex flex-col">
+                <div className="relative h-60 overflow-hidden mb-0">
+                  <Image
+                    src={service.img}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div style={{ borderTop: "4px solid #00B5A5", paddingTop: "24px", flex: 1, display: "flex", flexDirection: "column" }}>
-                  <h3 style={{ color: "#1A1A1A", fontWeight: 700, fontSize: "22px", marginBottom: "8px" }}>{s.title}</h3>
-                  <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "14px", marginBottom: "14px" }}>{s.tagline}</p>
-                  <p style={{ color: "#333333", fontWeight: 400, fontSize: "15px", lineHeight: "1.65", marginBottom: "20px", flex: 1 }}>{s.body}</p>
-                  <Link href={s.href} style={{ color: "#00B5A5", fontWeight: 600, fontSize: "14px", textDecoration: "none", letterSpacing: "0.02em" }}>
+                <div className="border-t-4 border-teal pt-6 flex-1 flex flex-col">
+                  <h3 className="text-near-black font-bold text-2xl mb-2">{service.title}</h3>
+                  <p className="text-teal font-semibold text-sm mb-3">{service.tagline}</p>
+                  <p className="text-charcoal font-normal text-sm leading-relaxed mb-5 flex-1">
+                    {service.body}
+                  </p>
+                  <Link href={service.href} className="text-teal font-semibold text-sm no-underline hover:text-dark-teal transition-colors">
                     Learn more →
                   </Link>
                 </div>
@@ -150,19 +129,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WHY YOS — DARK */}
-      <section style={{ background: "#1A1A1A", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "80px", alignItems: "start" }}>
+      {/* WHY YOS — DARK SECTION */}
+      <section className="bg-near-black py-28 lg:py-32">
+        <div className="max-w-7xl mx-auto px-5% grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32 items-start">
           <div>
-            <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>Why YOS</p>
-            <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(30px, 4vw, 48px)", lineHeight: "1.15", marginBottom: "32px" }}>
-              One team.<br />No conflicts.<br />No shortcuts.
+            <SectionLabel>Why YOS</SectionLabel>
+            <h2 className="text-white font-bold text-4xl lg:text-5xl leading-tight mb-8">
+              One team.<br />
+              No conflicts.<br />
+              No shortcuts.
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.5)", fontWeight: 300, fontSize: "16px", lineHeight: "1.7" }}>
+            <p className="text-white/50 font-light text-lg leading-relaxed">
               Most commercial property advisors work both sides of the deal. We don't. Every decision we make is in your interest — because that's the only interest we have.
             </p>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "40px" }}>
+          
+          <div className="flex flex-col gap-10">
             {[
               {
                 label: "Tenant-side only",
@@ -175,50 +157,44 @@ export default function Home() {
               {
                 label: "End-to-end",
                 body: "Lease to clean. One relationship, one accountable team from your first property decision through to the day your space is running properly."
-              },
-            ].map((p) => (
-              <div key={p.label} style={{ paddingLeft: "24px", borderLeft: "4px solid #00B5A5" }}>
-                <p style={{ color: "#ffffff", fontWeight: 700, fontSize: "18px", marginBottom: "10px" }}>{p.label}</p>
-                <p style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300, fontSize: "15px", lineHeight: "1.7" }}>{p.body}</p>
+              }
+            ].map((point) => (
+              <div key={point.label} className="pl-6 border-l-4 border-teal">
+                <p className="text-white font-bold text-xl mb-2">{point.label}</p>
+                <p className="text-white/55 font-light text-sm leading-relaxed">{point.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* RESOURCE HUB — TEAL */}
-      <section style={{ background: "#00B5A5", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "64px", alignItems: "center" }}>
+      {/* RESOURCE HUB — TEAL SECTION */}
+      <section className="bg-teal py-28 lg:py-32">
+        <div className="max-w-7xl mx-auto px-5% grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
-            <p style={{ color: "rgba(255,255,255,0.7)", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>Free tools</p>
-            <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: "1.15", marginBottom: "20px" }}>
+            <SectionLabel>Free tools</SectionLabel>
+            <h2 className="text-white font-bold text-4xl lg:text-5xl leading-tight mb-6">
               Built for Newcastle businesses. Free to use.
             </h2>
-            <p style={{ color: "rgba(255,255,255,0.8)", fontWeight: 300, fontSize: "18px", lineHeight: "1.65", marginBottom: "40px" }}>
+            <p className="text-white/80 font-light text-xl leading-relaxed mb-10">
               Lease review analysis. Fitout cost estimator. Cap rate calculator. Commercial lease comparison. No signup required to start.
             </p>
-            <Link href="/resources" style={{
-              display: "inline-block", background: "#1A1A1A", color: "#ffffff",
-              fontWeight: 600, fontSize: "16px", padding: "16px 32px",
-              borderRadius: "4px", textDecoration: "none", letterSpacing: "0.02em"
-            }}>
+            <Button href="/resources" variant="dark">
               Explore the Resource Hub →
-            </Link>
+            </Button>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          
+          <div className="flex flex-col gap-3">
             {[
-              "Lease Review Analysis — free basic report, $150 detailed",
-              "Fitout Cost Estimator — Newcastle market rates",
-              "Cap Rate Calculator — for commercial investors",
-              "Lease Comparison Tool — true cost across 3 options",
-              "Commercial Purchase Checklist — 25-point due diligence",
+              'Lease Review Analysis — free basic report, $150 detailed',
+              'Fitout Cost Estimator — Newcastle market rates',
+              'Cap Rate Calculator — for commercial investors',
+              'Lease Comparison Tool — true cost across 3 options',
+              'Commercial Purchase Checklist — 25-point due diligence'
             ].map((tool, i) => (
-              <div key={i} style={{
-                background: "rgba(255,255,255,0.15)", borderRadius: "4px",
-                padding: "16px 20px", display: "flex", alignItems: "center", gap: "12px"
-              }}>
-                <div style={{ width: "8px", height: "8px", background: "#ffffff", borderRadius: "50%", flexShrink: 0 }} />
-                <p style={{ color: "#ffffff", fontWeight: 400, fontSize: "15px" }}>{tool}</p>
+              <div key={i} className="bg-white/15 rounded px-5 py-4 flex items-center gap-3">
+                <div className="w-2 h-2 bg-white rounded-full flex-shrink-0" />
+                <p className="text-white font-normal text-sm">{tool}</p>
               </div>
             ))}
           </div>
@@ -226,71 +202,95 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIAL */}
-      <section style={{ background: "#F5F5F5", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "800px", margin: "0 auto", textAlign: "center" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 700, fontSize: "64px", lineHeight: "1", marginBottom: "24px" }}>"</p>
-          <p style={{ color: "#1A1A1A", fontWeight: 300, fontSize: "clamp(18px, 2.5vw, 24px)", lineHeight: "1.65", marginBottom: "32px" }}>
+      <section className="bg-warm-grey py-28 lg:py-32">
+        <div className="max-w-2xl mx-auto px-5% text-center">
+          <p className="text-teal font-bold text-7xl mb-6 leading-none">"</p>
+          <p className="text-near-black font-light text-2xl lg:text-3xl leading-relaxed mb-8">
             Thanks to Joe and the YOS team, we now have a state-of-the-art facility that not only meets but exceeds our expectations. I wholeheartedly recommend them to anyone seeking a dedicated and knowledgeable commercial property advisor in Newcastle.
           </p>
-          <p style={{ color: "#9B9B9B", fontWeight: 600, fontSize: "14px", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+          <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase">
             Newcastle Business Owner
           </p>
         </div>
       </section>
 
-      {/* FINAL CTA — DARK */}
-      <section style={{ background: "#1A1A1A", padding: "112px 5%", textAlign: "center" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto" }}>
-          <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(32px, 4vw, 52px)", lineHeight: "1.1", marginBottom: "20px" }}>
+      {/* FINAL CTA */}
+      <section className="bg-near-black py-28 lg:py-32 text-center">
+        <div className="max-w-2xl mx-auto px-5%">
+          <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
             Ready to talk?
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300, fontSize: "18px", lineHeight: "1.65", marginBottom: "48px" }}>
+          <p className="text-white/55 font-light text-xl leading-relaxed mb-12">
             20 minutes. No pitch. Just a conversation about what you are trying to build and whether we can help.
           </p>
-          <a href="https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354"
-            style={{
-              background: "#00B5A5", color: "#ffffff", fontWeight: 600,
-              fontSize: "18px", padding: "18px 40px", borderRadius: "4px",
-              textDecoration: "none", letterSpacing: "0.02em"
-            }}>
+          <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
             Book a Clarity Call
-          </a>
+          </Button>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "#111111", padding: "64px 5% 32px" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "48px", marginBottom: "64px" }}>
+      <footer className="bg-black py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-5%">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 700, fontSize: "16px", marginBottom: "12px", letterSpacing: "0.04em" }}>YOUR OFFICE SPACE</p>
-              <p style={{ color: "#9B9B9B", fontWeight: 300, fontSize: "14px", lineHeight: "1.7" }}>Newcastle's commercial property team. Lease, fitout, furniture, cleaning.</p>
+              <p className="text-white font-bold text-sm tracking-widest mb-3 uppercase">Your Office Space</p>
+              <p className="text-mid-grey font-light text-sm leading-relaxed">
+                Newcastle's commercial property team. Lease, fitout, furniture, cleaning.
+              </p>
             </div>
+            
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 600, fontSize: "13px", marginBottom: "16px", letterSpacing: "0.08em" }}>SERVICES</p>
-              {["Tenant Rep", "Buyers Agency", "Furniture", "Cleaning"].map((s) => (
-                <Link key={s} href={`/${s.toLowerCase().replace(" ", "-")}`} style={{ display: "block", color: "#9B9B9B", fontSize: "14px", textDecoration: "none", marginBottom: "10px" }}>{s}</Link>
-              ))}
+              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Services</p>
+              <nav className="flex flex-col gap-2">
+                {[
+                  { label: 'Tenant Rep', href: '/tenant-rep' },
+                  { label: 'Buyers Agency', href: '/buyers-agency' },
+                  { label: 'Furniture', href: '/furniture' },
+                  { label: 'Cleaning', href: '/cleaning' }
+                ].map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-mid-grey text-sm no-underline hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
+            
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 600, fontSize: "13px", marginBottom: "16px", letterSpacing: "0.08em" }}>RESOURCES</p>
-              {["Lease Review Tool", "Fitout Estimator", "Cap Rate Calculator", "Lease Comparison"].map((s) => (
-                <p key={s} style={{ color: "#9B9B9B", fontSize: "14px", marginBottom: "10px" }}>{s}</p>
-              ))}
+              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Resources</p>
+              <div className="flex flex-col gap-2">
+                {['Lease Review Tool', 'Fitout Estimator', 'Cap Rate Calculator', 'Lease Comparison'].map((label) => (
+                  <p key={label} className="text-mid-grey text-sm">
+                    {label}
+                  </p>
+                ))}
+              </div>
             </div>
+            
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 600, fontSize: "13px", marginBottom: "16px", letterSpacing: "0.08em" }}>CONTACT</p>
-              <p style={{ color: "#9B9B9B", fontSize: "14px", marginBottom: "10px" }}>jk@yourofficespace.au</p>
-              <p style={{ color: "#9B9B9B", fontSize: "14px", marginBottom: "10px" }}>0434 655 511</p>
-              <p style={{ color: "#9B9B9B", fontSize: "14px" }}>Newcastle, NSW 2300</p>
+              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Contact</p>
+              <div className="flex flex-col gap-2">
+                <a href={`mailto:${CONTACT.email}`} className="text-mid-grey text-sm no-underline hover:text-white transition-colors">
+                  {CONTACT.email}
+                </a>
+                <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="text-mid-grey text-sm no-underline hover:text-white transition-colors">
+                  {CONTACT.phone}
+                </a>
+                <p className="text-mid-grey text-sm">{CONTACT.location}</p>
+              </div>
             </div>
           </div>
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "32px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
-            <p style={{ color: "#9B9B9B", fontSize: "12px" }}>NSW Real Estate Licence — Class 2</p>
-            <p style={{ color: "#9B9B9B", fontSize: "12px" }}>© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
+          
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between gap-4">
+            <p className="text-mid-grey text-xs">{CONTACT.license}</p>
+            <p className="text-mid-grey text-xs">© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
           </div>
         </div>
       </footer>
     </>
-  );
+  )
 }
