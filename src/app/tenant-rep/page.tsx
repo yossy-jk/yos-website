@@ -1,8 +1,8 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
+import Footer from '@/components/Footer'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 export default function TenantRepPage() {
