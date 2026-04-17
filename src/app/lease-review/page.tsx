@@ -184,7 +184,7 @@ export default function LeaseReviewPage() {
               <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-center justify-between gap-8">
                 <div>
                   <p className="text-white font-black text-3xl mb-1">$97 <span className="text-white/40 font-light text-base">ex GST</span></p>
-                  <p className="text-white/40 text-sm">24-hour turnaround · Emailed directly to you</p>
+                  <p className="text-white/40 text-sm">24-hour turnaround · Invoiced via email · Pay before delivery</p>
                 </div>
                 <button
                   onClick={handleFreeStart}
@@ -426,8 +426,9 @@ export default function LeaseReviewPage() {
                 {[
                   'Free summary arrives in your inbox',
                   'Your top 3 risks and overall rating explained',
-                  'Option to upgrade to full $97 report — 24hr turnaround',
-                  'Request a free Clarity Call with Joe if you want to talk it through',
+                  'Want the full report? Reply to the email — we\'ll send a $97 invoice via Xero',
+                  'Full 10-section report delivered within 24 hours of payment',
+                  'Request a free Clarity Call with Joe any time',
                 ].map((step, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <span className="text-teal font-black text-sm mt-0.5">{i + 1}.</span>
