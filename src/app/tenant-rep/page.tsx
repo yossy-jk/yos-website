@@ -1,210 +1,271 @@
-import Image from "next/image";
-import Link from "next/link";
-import Nav from "@/components/Nav";
+import Image from 'next/image'
+import Link from 'next/link'
+import Nav from '@/components/Nav'
+import SectionLabel from '@/components/SectionLabel'
+import Button from '@/components/Button'
+import { HUBSPOT, CONTACT } from '@/lib/constants'
 
-export const metadata = {
-  title: "Commercial Tenant Rep Newcastle | Your Office Space",
-  description: "Newcastle's only dedicated tenant representative. We negotiate commercial leases purely on your behalf — no landlord mandates, no conflicts. Hunter Valley and Lake Macquarie.",
-};
-
-export default function TenantRep() {
+export default function TenantRepPage() {
   return (
     <>
       <Nav />
 
-      {/* HERO */}
-      <section style={{ position: "relative", minHeight: "85vh", display: "flex", alignItems: "center" }}>
-        <Image
-          src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80"
-          alt="Commercial lease negotiation Newcastle"
-          fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          priority
-        />
-        <div style={{ position: "absolute", inset: 0, background: "rgba(26,26,26,0.80)" }} />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "1280px", margin: "0 auto", padding: "100px 5% 80px" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "13px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "24px" }}>
-            Tenant Representation — Newcastle & Hunter Valley
-          </p>
-          <h1 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(38px, 5.5vw, 72px)", lineHeight: "1.05", letterSpacing: "-0.02em", maxWidth: "820px", marginBottom: "28px" }}>
-            Your lease. Your terms. We make sure of it.
+      {/* HERO SECTION */}
+      <section className="relative min-h-screen flex items-center pt-72px bg-near-black">
+        <div className="max-w-7xl mx-auto px-5% w-full pt-20">
+          <SectionLabel>Tenant Representation</SectionLabel>
+          <h1 className="text-white font-bold text-6xl lg:text-8xl leading-tight tracking-tight max-w-3xl mb-8">
+            We negotiate leases for tenants. Never landlords.
           </h1>
-          <p style={{ color: "rgba(255,255,255,0.68)", fontWeight: 300, fontSize: "clamp(17px, 2vw, 21px)", lineHeight: "1.65", maxWidth: "560px", marginBottom: "48px" }}>
-            Your landlord has a professional negotiator in their corner. We put one in yours. Newcastle businesses stop accepting leases they should have fought harder on.
+          <p className="text-white/70 font-light text-xl lg:text-2xl leading-relaxed max-w-2xl mb-12">
+            Your interests first. No split loyalty. No backdoor deals. Every negotiation is structured to protect you and position your business for growth.
           </p>
-          <a href="https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354"
-            style={{ background: "#00B5A5", color: "#ffffff", fontWeight: 600, fontSize: "16px", padding: "16px 32px", borderRadius: "4px", textDecoration: "none", letterSpacing: "0.02em" }}>
+          <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
             Book a Clarity Call
-          </a>
+          </Button>
         </div>
       </section>
 
-      {/* THE PROBLEM — WHITE */}
-      <section style={{ background: "#ffffff", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>The problem</p>
-          <h2 style={{ color: "#1A1A1A", fontWeight: 700, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: "1.15", marginBottom: "72px", maxWidth: "640px" }}>
-            Every commercial lease is a negotiation. Most businesses don't realise it.
+      {/* HOW IT WORKS */}
+      <section className="bg-white py-28 lg:py-32">
+        <div className="max-w-7xl mx-auto px-5%">
+          <SectionLabel>How it works</SectionLabel>
+          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-20 max-w-2xl">
+            Four clear steps to your next lease.
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "48px" }}>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                number: "01",
-                title: "The landlord has a specialist. You don't.",
-                body: "The agent showing you the space works for the landlord. Their job is to get the best deal for their client. Without a rep, you are negotiating alone against someone who does this every day."
+                step: '01',
+                title: 'Briefing',
+                body: 'We understand your business. Space requirements, budget, timeline, non-negotiables. Nothing goes unsigned until you are completely clear on what it means.'
               },
               {
-                number: "02",
-                title: "Make-good clauses can cost tens of thousands.",
-                body: "Most tenants don't read make-good obligations properly until they're exiting a lease. By then, it's too late. A poorly worded clause can mean stripping a fitout you paid for."
+                step: '02',
+                title: 'Market Search',
+                body: 'We canvass the market — on-market, off-market, pre-release. Newcastle commercial inside out. We find options your broker missed.'
               },
               {
-                number: "03",
-                title: "Rent reviews are structured against you by default.",
-                body: "Fixed percentage increases, market reviews, CPI escalations — each one has implications for your cashflow over the life of the lease. The difference between a good clause and a bad one is significant."
+                step: '03',
+                title: 'Negotiation',
+                body: 'We handle every clause, every rate, every timeline. Legal review included. Your seat at the table is secured from day one.'
               },
-            ].map((p) => (
-              <div key={p.number}>
-                <p style={{ color: "#00B5A5", fontWeight: 700, fontSize: "13px", letterSpacing: "0.1em", marginBottom: "16px" }}>{p.number}</p>
-                <h3 style={{ color: "#1A1A1A", fontWeight: 700, fontSize: "20px", lineHeight: "1.3", marginBottom: "14px" }}>{p.title}</h3>
-                <p style={{ color: "#333333", fontWeight: 400, fontSize: "15px", lineHeight: "1.7" }}>{p.body}</p>
+              {
+                step: '04',
+                title: 'Handover',
+                body: 'Signed. Settled. We coordinate the fitout, furniture, and cleaning. You focus on running your business, not managing contractors.'
+              }
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col">
+                <p className="text-teal font-bold text-5xl mb-4 leading-none">{item.step}</p>
+                <h3 className="text-near-black font-bold text-2xl mb-4">{item.title}</h3>
+                <p className="text-charcoal font-light text-sm leading-relaxed flex-1">{item.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* HOW WE WORK — DARK */}
-      <section style={{ background: "#1A1A1A", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>How we work</p>
-          <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: "1.15", marginBottom: "72px", maxWidth: "560px" }}>
-            From first brief to signed lease — we run the process.
+      {/* WHAT'S INCLUDED */}
+      <section className="bg-warm-grey py-28 lg:py-32">
+        <div className="max-w-7xl mx-auto px-5%">
+          <SectionLabel>What's included</SectionLabel>
+          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-20 max-w-2xl">
+            Everything you need to make the right call.
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "48px" }}>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {[
-              { step: "01", title: "Initial strategy", body: "We start by understanding your business — what space you need, what flexibility matters, what your budget really allows. Most advisors skip this step." },
-              { step: "02", title: "Property search", body: "We search on-market and off-market options across Newcastle, Lake Macquarie, and the Hunter. We shortlist based on your requirements, not what's easiest to show." },
-              { step: "03", title: "Lease negotiation", body: "We negotiate directly with the landlord's agent. Rent, incentives, fit-out contributions, review clauses, make-good obligations — every term, reviewed and pushed." },
-              { step: "04", title: "Final review", body: "Before you sign anything, we walk through the final lease with you. No surprises. No clauses you don't understand. You sign knowing exactly what you've agreed to." },
-            ].map((s) => (
-              <div key={s.step} style={{ paddingLeft: "24px", borderLeft: "4px solid #00B5A5" }}>
-                <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "13px", letterSpacing: "0.1em", marginBottom: "12px" }}>{s.step}</p>
-                <h3 style={{ color: "#ffffff", fontWeight: 700, fontSize: "19px", marginBottom: "12px" }}>{s.title}</h3>
-                <p style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300, fontSize: "15px", lineHeight: "1.7" }}>{s.body}</p>
+              {
+                title: 'Lease Review',
+                items: [
+                  'Full clause-by-clause analysis',
+                  'Risk flagging and explanation',
+                  'Negotiation strategy',
+                  'Legal review (included)'
+                ]
+              },
+              {
+                title: 'Market Comparison',
+                items: [
+                  'Rate benchmarking across Newcastle',
+                  'Comparable properties',
+                  'Market trends',
+                  'Negotiating leverage data'
+                ]
+              },
+              {
+                title: 'Negotiation Support',
+                items: [
+                  'Direct landlord contact',
+                  'Counter-offer strategy',
+                  'Timeline management',
+                  'Deal closure coordination'
+                ]
+              },
+              {
+                title: 'Fitout Coordination',
+                items: [
+                  'Furniture and design brief',
+                  'Contractor quotes',
+                  'Timeline management',
+                  'Quality assurance'
+                ]
+              },
+              {
+                title: 'Cleaning Handover',
+                items: [
+                  'Cleaning provider setup',
+                  'Initial deep clean',
+                  'Ongoing maintenance plan',
+                  'Team training'
+                ]
+              },
+              {
+                title: 'Ongoing Support',
+                items: [
+                  'Lease milestone reminders',
+                  'Renewal negotiation prep',
+                  'Dispute resolution',
+                  'Direct line to Joe'
+                ]
+              }
+            ].map((category, i) => (
+              <div key={i} className="bg-white rounded-lg p-8 shadow-sm">
+                <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">
+                  {category.title}
+                </h3>
+                <ul className="space-y-3">
+                  {category.items.map((item, j) => (
+                    <li key={j} className="flex gap-3 items-start">
+                      <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-1.5" />
+                      <span className="text-charcoal font-light text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* NEWCASTLE SPECIFIC — TEAL */}
-      <section style={{ background: "#00B5A5", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "64px", alignItems: "center" }}>
-          <div>
-            <p style={{ color: "rgba(255,255,255,0.7)", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>Newcastle-first</p>
-            <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: "1.15", marginBottom: "20px" }}>
-              We know this market. Not from a database — from being here.
-            </h2>
-            <p style={{ color: "rgba(255,255,255,0.85)", fontWeight: 300, fontSize: "18px", lineHeight: "1.65" }}>
-              Honeysuckle. Hunter Street. Broadmeadow. East Maitland. Maitland CBD. We know which landlords are flexible, which buildings have hidden outgoings, and where the real value sits in each precinct. That knowledge takes years to build. You get it from day one.
-            </p>
-          </div>
-          <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "4px", padding: "40px" }}>
-            <p style={{ color: "#ffffff", fontWeight: 700, fontSize: "16px", marginBottom: "24px" }}>Unlike advisors who work both sides of the deal:</p>
-            {[
-              "We only ever represent tenants — never landlords",
-              "No vendor mandates, no sales commissions, no split loyalty",
-              "Every recommendation is made purely in your interest",
-              "We get paid when you get a better lease",
-            ].map((point, i) => (
-              <div key={i} style={{ display: "flex", gap: "12px", marginBottom: "16px", alignItems: "flex-start" }}>
-                <div style={{ width: "6px", height: "6px", background: "#ffffff", borderRadius: "50%", marginTop: "7px", flexShrink: 0 }} />
-                <p style={{ color: "rgba(255,255,255,0.9)", fontWeight: 400, fontSize: "15px", lineHeight: "1.6" }}>{point}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* SERVICES LIST — WHITE */}
-      <section style={{ background: "#ffffff", padding: "112px 5%" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <p style={{ color: "#00B5A5", fontWeight: 600, fontSize: "12px", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "16px" }}>What's included</p>
-          <h2 style={{ color: "#1A1A1A", fontWeight: 700, fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: "1.15", marginBottom: "64px", maxWidth: "560px" }}>
-            Full tenant representation — from brief to signed lease.
+      {/* WHY IT MATTERS */}
+      <section className="bg-near-black py-28 lg:py-32">
+        <div className="max-w-4xl mx-auto px-5%">
+          <SectionLabel>Why conflict of interest matters</SectionLabel>
+          <h2 className="text-white font-bold text-4xl lg:text-5xl leading-tight mb-12">
+            The problem with standard practice.
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "32px" }}>
-            {[
-              "Requirements brief and space strategy",
-              "On-market and off-market property search",
-              "Shortlisting and site inspection management",
-              "Heads of agreement negotiation",
-              "Lease clause review and risk assessment",
-              "Make-good obligation analysis",
-              "Rent review clause negotiation",
-              "Fitout contribution and incentive negotiation",
-              "Final lease walkthrough before execution",
-              "Coordination with your solicitor",
-            ].map((service, i) => (
-              <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start", padding: "20px 0", borderBottom: "1px solid #F0F0F0" }}>
-                <div style={{ width: "8px", height: "8px", background: "#00B5A5", borderRadius: "50%", marginTop: "6px", flexShrink: 0 }} />
-                <p style={{ color: "#333333", fontWeight: 400, fontSize: "15px", lineHeight: "1.5" }}>{service}</p>
-              </div>
-            ))}
+          
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-white font-bold text-2xl mb-4">Most brokers work both sides</h3>
+              <p className="text-white/70 font-light text-lg leading-relaxed">
+                The majority of commercial property advisors make money from both tenants and landlords. It's impossible to be fully on your side when someone is also representing the person across the table from you. The incentives are split. The leverage is negotiated away.
+              </p>
+            </div>
+
+            <div className="border-l-4 border-teal pl-8 py-4">
+              <p className="text-white font-light text-lg leading-relaxed">
+                We only represent tenants. We will never represent a landlord. That means every word of every lease is read through one lens: does this protect the tenant? Every negotiation has one outcome: the best deal for the business signing the lease.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-white font-bold text-2xl mb-4">What you get from this</h3>
+              <ul className="space-y-3">
+                {[
+                  'Harder negotiation on rent, fit-out contributions, lease length',
+                  'Protective clauses most tenants never get',
+                  'Real market intelligence about which landlords negotiate in good faith',
+                  'A second pair of eyes on the fine print',
+                  'Someone in the room whose job it is to stop you from signing a bad deal'
+                ].map((item, i) => (
+                  <li key={i} className="flex gap-3 items-start">
+                    <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-2" />
+                    <span className="text-white/70 font-light text-lg">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA — DARK */}
-      <section style={{ background: "#1A1A1A", padding: "112px 5%", textAlign: "center" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto" }}>
-          <h2 style={{ color: "#ffffff", fontWeight: 700, fontSize: "clamp(30px, 4vw, 50px)", lineHeight: "1.1", marginBottom: "20px" }}>
-            Ready to negotiate from strength?
+      {/* CTA SECTION */}
+      <section className="bg-teal py-28 lg:py-32 text-center">
+        <div className="max-w-2xl mx-auto px-5%">
+          <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
+            Let's talk about your next lease.
           </h2>
-          <p style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300, fontSize: "18px", lineHeight: "1.65", marginBottom: "48px" }}>
-            20 minutes. Tell us about your lease situation. We will tell you whether we can help and what the realistic outcome looks like.
+          <p className="text-white/80 font-light text-xl leading-relaxed mb-12">
+            20 minutes. No pitch. Just a conversation about your space and what you're trying to achieve.
           </p>
-          <a href="https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354"
-            style={{ background: "#00B5A5", color: "#ffffff", fontWeight: 600, fontSize: "18px", padding: "18px 40px", borderRadius: "4px", textDecoration: "none", letterSpacing: "0.02em" }}>
+          <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
             Book a Clarity Call
-          </a>
+          </Button>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ background: "#111111", padding: "64px 5% 32px" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "48px", marginBottom: "64px" }}>
+      <footer className="bg-black py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-5%">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 700, fontSize: "16px", marginBottom: "12px", letterSpacing: "0.04em" }}>YOUR OFFICE SPACE</p>
-              <p style={{ color: "#9B9B9B", fontWeight: 300, fontSize: "14px", lineHeight: "1.7" }}>Newcastle's commercial property team. Lease, fitout, furniture, cleaning.</p>
+              <p className="text-white font-bold text-sm tracking-widest mb-3 uppercase">Your Office Space</p>
+              <p className="text-mid-grey font-light text-sm leading-relaxed">
+                Newcastle's commercial property team. Lease, fitout, furniture, cleaning.
+              </p>
             </div>
+            
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 600, fontSize: "13px", marginBottom: "16px", letterSpacing: "0.08em" }}>SERVICES</p>
-              {[["Tenant Rep", "/tenant-rep"], ["Buyers Agency", "/buyers-agency"], ["Furniture", "/furniture"], ["Cleaning", "/cleaning"]].map(([s, h]) => (
-                <Link key={s} href={h} style={{ display: "block", color: "#9B9B9B", fontSize: "14px", textDecoration: "none", marginBottom: "10px" }}>{s}</Link>
-              ))}
+              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Services</p>
+              <nav className="flex flex-col gap-2">
+                {[
+                  { label: 'Tenant Rep', href: '/tenant-rep' },
+                  { label: 'Buyers Agency', href: '/buyers-agency' },
+                  { label: 'Furniture', href: '/furniture' },
+                  { label: 'Cleaning', href: '/cleaning' }
+                ].map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="text-mid-grey text-sm no-underline hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </nav>
             </div>
+            
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 600, fontSize: "13px", marginBottom: "16px", letterSpacing: "0.08em" }}>RESOURCES</p>
-              {["Lease Review Tool", "Fitout Estimator", "Cap Rate Calculator", "Lease Comparison"].map((s) => (
-                <p key={s} style={{ color: "#9B9B9B", fontSize: "14px", marginBottom: "10px" }}>{s}</p>
-              ))}
+              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Contact</p>
+              <div className="flex flex-col gap-2">
+                <a href={`mailto:${CONTACT.email}`} className="text-mid-grey text-sm no-underline hover:text-white transition-colors">
+                  {CONTACT.email}
+                </a>
+                <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="text-mid-grey text-sm no-underline hover:text-white transition-colors">
+                  {CONTACT.phone}
+                </a>
+                <p className="text-mid-grey text-sm">{CONTACT.location}</p>
+              </div>
             </div>
+
             <div>
-              <p style={{ color: "#ffffff", fontWeight: 600, fontSize: "13px", marginBottom: "16px", letterSpacing: "0.08em" }}>CONTACT</p>
-              <p style={{ color: "#9B9B9B", fontSize: "14px", marginBottom: "10px" }}>jk@yourofficespace.au</p>
-              <p style={{ color: "#9B9B9B", fontSize: "14px", marginBottom: "10px" }}>0434 655 511</p>
-              <p style={{ color: "#9B9B9B", fontSize: "14px" }}>Newcastle, NSW 2300</p>
+              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">More</p>
+              <Link href="/" className="text-mid-grey text-sm no-underline hover:text-white transition-colors block">
+                Home
+              </Link>
             </div>
           </div>
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", paddingTop: "32px", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "16px" }}>
-            <p style={{ color: "#9B9B9B", fontSize: "12px" }}>NSW Real Estate Licence — Class 2</p>
-            <p style={{ color: "#9B9B9B", fontSize: "12px" }}>© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
+          
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between gap-4">
+            <p className="text-mid-grey text-xs">{CONTACT.license}</p>
+            <p className="text-mid-grey text-xs">© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
           </div>
         </div>
       </footer>
     </>
-  );
+  )
 }
