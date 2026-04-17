@@ -1,6 +1,7 @@
-import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Button from '@/components/Button'
+import Footer from '@/components/Footer'
+import HubSpotForm from '@/components/HubSpotForm'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 export default function ContactPage() {
@@ -24,18 +25,17 @@ export default function ContactPage() {
       <section className="bg-white py-28 lg:py-32">
         <div className="max-w-7xl mx-auto px-5%">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* Book a Call */}
+            {/* HubSpot Contact Form */}
             <div className="flex flex-col">
-              <h2 className="text-near-black font-bold text-3xl mb-6">Book a Clarity Call</h2>
+              <h2 className="text-near-black font-bold text-3xl mb-6">Send us a message</h2>
               <p className="text-charcoal font-light text-lg leading-relaxed mb-8">
-                Select a time that works for you. We&apos;ll dial in and talk through your situation — what you&apos;re trying to build, where you&apos;re stuck, and whether YOS is the right fit.
+                Tell us what you&apos;re working on. We&apos;ll come back to you within one business day.
               </p>
-              <p className="text-mid-grey font-light text-sm mb-6">
-                Calls are typically 20–30 minutes and run via Zoom or phone — your choice.
-              </p>
-              <div>
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                  Book a Call
+              <HubSpotForm targetId="hs-contact-form" className="min-h-[200px]" />
+              <div className="mt-8 pt-8 border-t border-gray-200">
+                <p className="text-mid-grey font-light text-sm mb-4">Prefer to book directly?</p>
+                <Button href={HUBSPOT.bookingUrl} variant="primary" external>
+                  Book a Clarity Call
                 </Button>
               </div>
             </div>
@@ -145,64 +145,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="bg-black py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-5%">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div>
-              <p className="text-white font-bold text-sm tracking-widest mb-3 uppercase">Your Office Space</p>
-              <p className="text-mid-grey font-light text-sm leading-relaxed">
-                Newcastle&apos;s commercial property team. Lease, fitout, furniture, cleaning.
-              </p>
-            </div>
-            
-            <div>
-              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Services</p>
-              <nav className="flex flex-col gap-2">
-                {[
-                  { label: "Tenant Rep", href: "/tenant-rep" },
-                  { label: "Buyers Agency", href: "/buyers-agency" },
-                  { label: "Furniture", href: "/furniture" },
-                  { label: "Cleaning", href: "/cleaning" }
-                ].map((link) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className="text-mid-grey text-sm no-underline hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            </div>
-            
-            <div>
-              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">Contact</p>
-              <div className="flex flex-col gap-2">
-                <a href={`mailto:${CONTACT.email}`} className="text-mid-grey text-sm no-underline hover:text-white transition-colors">
-                  {CONTACT.email}
-                </a>
-                <a href={`tel:${CONTACT.phone.replace(/\s+/g, "")}`} className="text-mid-grey text-sm no-underline hover:text-white transition-colors">
-                  {CONTACT.phone}
-                </a>
-                <p className="text-mid-grey text-sm">{CONTACT.location}</p>
-              </div>
-            </div>
-
-            <div>
-              <p className="text-white font-semibold text-xs tracking-widest mb-4 uppercase">More</p>
-              <Link href="/" className="text-mid-grey text-sm no-underline hover:text-white transition-colors block">
-                Home
-              </Link>
-            </div>
-          </div>
-          
-          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between gap-4">
-            <p className="text-mid-grey text-xs">{CONTACT.license}</p>
-            <p className="text-mid-grey text-xs">© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   )
 }

@@ -1,0 +1,28 @@
+{
+  "slug": "newcastle-cbd-lease-negotiation",
+  "title": "Saving a Newcastle professional services firm $180,000 over 5 years through lease negotiation",
+  "client": "A Newcastle professional services firm",
+  "location": "Newcastle CBD, NSW",
+  "division": "tenant-rep",
+  "date": "2026-02-01",
+  "excerpt": "The firm was renewing their CBD lease and had already agreed to the landlord's first offer. We stepped in, renegotiated from scratch, and recovered $180,000 over the term.",
+  "featured": true,
+  "heroImage": "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80",
+  "challenge": "A 12-person professional services firm in the Newcastle CBD was approaching lease renewal. They had a good relationship with the landlord and had already verbally agreed to a 5-year renewal at the current rent with a 4% annual increase. They engaged us to 'just check the paperwork'. What we found was that the agreed terms were significantly above market, the make-good clause required full reinstatement, and there was no fitout contribution despite the firm planning a full office refresh.",
+  "solution": "We paused the process, conducted a thorough market analysis of comparable CBD tenancies, and presented the landlord's agent with a counter-proposal. We negotiated: face rent reduced to market rate (saving $28,000 p.a.), a $45,000 fitout contribution to fund the planned refresh, a 3-month rent-free period at commencement, CPI-capped rent reviews instead of fixed 4% increases, and make-good amended to fair wear and tear.",
+  "outcome": "The firm signed a lease that was materially better across every commercial term. Total saving over the 5-year term: approximately $180,000 when including fitout contribution, reduced rent, rent-free, and avoided make-good liability. Our fee was $12,000.",
+  "metrics": [
+    { "label": "Annual rent saving", "value": "$28,000" },
+    { "label": "Fitout contribution secured", "value": "$45,000" },
+    { "label": "Rent-free period", "value": "3 months" },
+    { "label": "Total 5-year saving", "value": "~$180,000" },
+    { "label": "YOS fee", "value": "$12,000" }
+  ],
+  "quote": {
+    "text": "We thought we'd already done the deal. Joe looked at it and within a week had fundamentally changed every major term. The difference between what we were about to sign and what we actually signed was extraordinary.",
+    "attribution": "Managing Partner, Newcastle CBD"
+  },
+  "tags": ["lease negotiation", "tenant rep", "Newcastle CBD", "commercial lease"],
+  "metaTitle": "Lease Negotiation Case Study Newcastle | Your Office Space",
+  "metaDescription": "How Your Office Space saved a Newcastle professional services firm $180,000 over 5 years through commercial lease renegotiation."
+}

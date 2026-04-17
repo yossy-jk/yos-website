@@ -19,7 +19,9 @@ export const NAV_LINKS = [
   { label: 'Buyers Agency', href: '/buyers-agency' },
   { label: 'Furniture', href: '/furniture' },
   { label: 'Cleaning', href: '/cleaning' },
-  { label: 'Resources', href: '/resources' }
+  { label: 'Case Studies', href: '/case-studies' },
+  { label: 'Resources', href: '/resources' },
+  { label: 'Blog', href: '/blog' }
 ]
 
 export const COLORS = {

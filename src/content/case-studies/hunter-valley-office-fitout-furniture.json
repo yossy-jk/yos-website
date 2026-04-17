@@ -1,0 +1,28 @@
+{
+  "slug": "hunter-valley-office-fitout-furniture",
+  "title": "Full office furniture specification and supply for a 35-person Hunter Valley business",
+  "client": "A Hunter Valley engineering firm",
+  "location": "Broadmeadow, NSW",
+  "division": "furniture",
+  "date": "2026-01-15",
+  "excerpt": "A growing engineering firm was moving into a new 600m² office and needed a full furniture package — specified, supplied, and installed in 6 weeks.",
+  "featured": true,
+  "heroImage": "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=1200&q=80",
+  "challenge": "The firm had signed a new lease in Broadmeadow and had a hard move-in date 10 weeks out. They had 35 staff, a mix of open plan and private offices, a boardroom, two meeting rooms, and a breakout area — all needing furniture. Previous quotes from Sydney suppliers had come in 30–40% over budget, with 12-week lead times that didn't fit the programme.",
+  "solution": "We conducted a site visit within 48 hours of engagement, produced a full furniture BOQ within the week, and sourced through our EOF Group partnership in Lambton — Newcastle-based supply with competitive lead times. We specified: 28 sit-stand workstations with ergonomic chairs, 7 private office configurations, boardroom table and 14 chairs, two meeting room sets, and a full breakout lounge. Installation was coordinated around the builder's handover timeline.",
+  "outcome": "Full furniture installation completed 3 days after builder handover. Staff moved in on schedule. The fit was within budget, with the sit-stand specification coming in at mid-range pricing through local supply. Post-installation defect walk conducted with zero outstanding items at 30 days.",
+  "metrics": [
+    { "label": "Staff accommodated", "value": "35" },
+    { "label": "Floor area", "value": "600m²" },
+    { "label": "Weeks from engagement to install", "value": "6" },
+    { "label": "Budget outcome", "value": "On budget" },
+    { "label": "30-day defects", "value": "0" }
+  ],
+  "quote": {
+    "text": "We went from a blank floor to a fully furnished office in six weeks. Joe's team handled everything — spec, supply, delivery, install. We just had to walk in.",
+    "attribution": "Operations Manager, Broadmeadow"
+  },
+  "tags": ["office furniture", "fitout", "Broadmeadow", "Hunter Valley", "sit-stand"],
+  "metaTitle": "Office Furniture Supply Case Study Newcastle | Your Office Space",
+  "metaDescription": "How Your Office Space delivered a full furniture package for a 35-person Hunter Valley engineering firm in 6 weeks — on budget, on time."
+}

@@ -1,0 +1,27 @@
+{
+  "slug": "edgeworth-childcare-cleaning",
+  "title": "Consistent clinical-standard cleaning for a Hunter Valley childcare centre",
+  "client": "A Hunter Valley childcare centre",
+  "location": "Edgeworth, NSW",
+  "division": "cleaning",
+  "date": "2026-03-01",
+  "excerpt": "A growing childcare centre was cycling through cleaning contractors every few months. Poor consistency, wrong products, and zero accountability. We fixed it.",
+  "featured": true,
+  "heroImage": "https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?auto=format&fit=crop&w=1200&q=80",
+  "challenge": "The centre had used three different commercial cleaning contractors over 18 months. Each one started well and deteriorated. Staff were spending time re-cleaning areas before opening. A regulatory inspection had flagged cleanliness as a concern. The director needed a cleaner they didn't have to think about — one that showed up, did it properly, and stayed.",
+  "solution": "Sarah Kelley conducted a full site assessment to understand the specific cleaning requirements — play areas, cot rooms, bathrooms, kitchen, entry zones. We developed a written cleaning protocol specific to the centre using child-safe, non-toxic products approved for childcare environments. A dedicated two-person team was assigned to the site. Monthly quality audits were built into the contract from day one.",
+  "outcome": "The centre has had the same cleaning team for over 12 months. Zero regulatory concerns at the next inspection. Staff no longer re-clean before opening. The director has a direct line to Sarah and has used it twice — both resolved same day.",
+  "metrics": [
+    { "label": "Contractor changes in prior 18 months", "value": "3" },
+    { "label": "Months with current team", "value": "12+" },
+    { "label": "Regulatory concerns at next inspection", "value": "0" },
+    { "label": "Staff re-cleaning incidents", "value": "Eliminated" }
+  ],
+  "quote": {
+    "text": "We've had the same team every week for over a year. They know our centre, they know our standards, and I don't have to think about it anymore. That's exactly what we needed.",
+    "attribution": "Centre Director, Edgeworth"
+  },
+  "tags": ["childcare cleaning", "Hunter Valley", "commercial cleaning", "Edgeworth"],
+  "metaTitle": "Childcare Centre Cleaning Case Study | Your Office Space Newcastle",
+  "metaDescription": "How Your Office Space delivered consistent, child-safe commercial cleaning for a Hunter Valley childcare centre after 3 failed contractors in 18 months."
+}
