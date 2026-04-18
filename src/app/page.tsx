@@ -24,7 +24,7 @@ const SERVICES = [
   {
     title: 'Furniture & Fitout',
     tagline: 'Spaces that perform.',
-    body: 'Government-approved supplier. From brief to fully delivered workspace — project managed end-to-end across the Hunter.',
+    body: 'From brief to fully delivered workspace — furniture specified, coordinated and installed end-to-end across Newcastle and the Hunter.',
     href: '/furniture',
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
   },
@@ -431,7 +431,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
               { step: '01', label: 'Find the right space', detail: 'Tenant rep or buyers agency. We identify, shortlist, and negotiate your next commercial property in Newcastle.', service: 'Tenant Rep / Buyers Agency' },
-              { step: '02', label: 'Fit it out', detail: 'Furniture, workstations, storage, collaboration spaces. Spec’d, sourced, delivered and installed. NSW Government approved.', service: 'Furniture & Fitout' },
+              { step: '02', label: 'Fit it out', detail: 'Furniture, workstations, storage, collaboration spaces. Spec’d, sourced, delivered and installed. End to end, no gaps.', service: 'Furniture & Fitout' },
               { step: '03', label: 'Keep it clean', detail: 'Same team, every visit. Monthly audits. Direct line to Sarah. No call centres, no surprises.', service: 'Commercial Cleaning' },
               { step: '04', label: 'Run it smart', detail: 'LeaseIntel™ tracks your lease obligations. We remind you when options are due. You focus on your business.', service: 'LeaseIntel™' },
             ].map((item, i) => (

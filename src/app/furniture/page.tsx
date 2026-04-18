@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Office Furniture & Fitout Newcastle | Your Office Space',
-  description: 'Government-approved office furniture supplier in Newcastle. Fitout project management, ergonomic workstations, full office solutions across the Hunter Valley.'
+  description: 'Office furniture and fitout project management in Newcastle. Workstations, seating, storage, collaboration spaces — specified, delivered and installed across the Hunter Valley.'
 }
 
 export default function FurniturePage() {
@@ -40,7 +40,7 @@ export default function FurniturePage() {
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              NSW Government-approved supplier. We handle the brief, the spec, the contractors, and the install. You walk into a finished workspace. One team, end to end.
+              We manage your furniture and fitout end to end — brief, specification, supplier coordination, delivery and install. You walk into a finished workspace. One team, no gaps.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -57,10 +57,10 @@ export default function FurniturePage() {
           <div className="max-w-7xl mx-auto px-[5%]">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
-                { stat: 'NSW Gov', label: 'Approved supplier panel' },
-                { stat: '200+', label: 'Offices fitted out' },
+                { stat: '200+', label: 'Projects delivered in the Hunter' },
                 { stat: '4–6 weeks', label: 'Typical delivery & install' },
-                { stat: '$0', label: 'Hidden charges or surprises' }
+                { stat: '$0', label: 'Hidden charges or surprises' },
+                { stat: '1', label: 'Point of contact, start to finish' }
               ].map((item) => (
                 <div key={item.label} className="py-8 px-6 text-center">
                   <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
@@ -125,31 +125,31 @@ export default function FurniturePage() {
         </div>
       </section>
 
-      {/* GOVERNMENT APPROVED */}
+      {/* WHO WE WORK WITH */}
       <section className="bg-near-black py-28 lg:py-32">
         <div className="max-w-7xl mx-auto px-[5%] grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <FadeIn direction="left">
             <div>
-              <SectionLabel>Government approved</SectionLabel>
+              <SectionLabel>Who we work with</SectionLabel>
               <h2 className="text-white font-bold leading-tight mb-8"
                 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
-                On the approved supplier list. So your procurement is straightforward.
+                Private businesses, councils, schools, and health facilities across the Hunter.
               </h2>
               <p className="text-white/60 font-light text-lg leading-relaxed mb-8">
-                Your Office Space is an approved government furniture supplier. For government departments, councils, schools, and public sector organisations in NSW — procurement is simple, compliant, and fast.
+                We work with organisations of all sizes — from 5-person professional services firms to multi-site government and health sector clients. The spec, the process, and the standard of work is the same regardless of project size.
               </p>
               <p className="text-white/60 font-light text-lg leading-relaxed">
-                Private sector clients get the same quality, the same service, and competitive pricing on everything we supply.
+                Every project is managed by us from start to finish. You deal with one person. We coordinate the rest.
               </p>
             </div>
           </FadeIn>
           <FadeIn direction="right">
             <div className="flex flex-col gap-6">
               {[
-                { label: 'NSW Government approved', body: 'On the State Government procurement panel. No additional approvals required for eligible entities.' },
-                { label: 'Local councils', body: 'We supply councils across the Hunter and Mid-North Coast region with compliant, quality furniture.' },
-                { label: 'Schools & education', body: 'Student furniture, staff workstations, staffrooms, and learning spaces — all compliant.' },
-                { label: 'Health & community', body: 'NDIS-registered environments, medical practices, and community facilities supplied and fitted.' }
+                { label: 'Commercial offices', body: 'Private sector businesses across Newcastle, Maitland, Lake Macquarie and the broader Hunter region.' },
+                { label: 'Councils & government', body: 'Local government and public sector organisations across the Hunter and Mid-North Coast.' },
+                { label: 'Schools & education', body: 'Student furniture, staff workstations, staffrooms and learning spaces across the region.' },
+                { label: 'Health & community', body: 'Medical practices, NDIS environments, allied health and community facilities.' }
               ].map((item) => (
                 <div key={item.label} className="pl-6 border-l-4 border-teal">
                   <p className="text-white font-bold text-base mb-1">{item.label}</p>
