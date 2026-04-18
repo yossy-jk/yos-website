@@ -378,17 +378,17 @@ export default function Home() {
             {[
               {
                 name: 'Liz Murray',
-                tag: 'Workplace Strategy',
+                tag: 'Edge of Possibilities — Workplace Strategy',
                 quote: 'Joe stands out because he takes the time to really listen and understand what you need. He asks thoughtful questions and builds genuine, lasting relationships. His approach makes the entire process seamless, collaborative, and enjoyable.',
               },
               {
                 name: 'Nathan Franks',
-                tag: 'Furniture & Fitout',
+                tag: 'Dynamic Business Technologies — Furniture & Fitout',
                 quote: 'Joe was particularly instrumental in building out our boardroom — delivering a high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent attention to detail, and a result that was both functional and professional.',
               },
               {
                 name: 'Sophie',
-                tag: 'Commercial Cleaning',
+                tag: 'Jirsch Sutherland — Commercial Cleaning',
                 quote: 'We are very happy with the service provided by Sarah and Joe at Your Office Space. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met. We highly recommend.',
               },
             ].map((t, i) => (
