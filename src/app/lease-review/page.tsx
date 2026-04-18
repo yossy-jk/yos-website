@@ -407,7 +407,7 @@ export default function LeaseReviewPage() {
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
                   <div className={[
                     'p-8 rounded-sm border-2 h-full',
-                    opt.highlight ? 'border-teal bg-white shadow-xl' : 'border-gray-200 bg-white',
+                    opt.highlight ? 'border-teal bg-white' : 'border-gray-200 bg-white',
                   ].join(' ')}>
                     {opt.highlight && (
                       <div className="bg-teal text-white text-xs font-black tracking-widest uppercase px-3 py-1 rounded-full inline-block mb-4">

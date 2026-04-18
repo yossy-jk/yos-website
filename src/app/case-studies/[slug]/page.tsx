@@ -36,7 +36,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         {cs.heroImage && (
           <div className="relative h-72 lg:h-96 overflow-hidden">
             <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" />
-            <div className="absolute inset-0 bg-gradient-to-t from-near-black to-transparent" />
+            <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
         <div className="max-w-4xl mx-auto px-[5%] pt-12 pb-16">

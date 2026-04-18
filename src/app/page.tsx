@@ -58,7 +58,7 @@ export default function Home() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-near-black/85 via-near-black/78 to-near-black/92" />
+        <div className="absolute inset-0 bg-near-black/80" />
 
         <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-10 pt-24 pb-24 md:pt-36 md:pb-36">
           <div
@@ -76,7 +76,7 @@ export default function Home() {
             <span className="text-teal">One outcome.</span>
           </h1>
           <p
-            className="text-white/70 font-light leading-relaxed mb-10 max-w-xl"
+            className="text-white/85 font-light leading-relaxed mb-10 max-w-xl"
             style={{ fontSize: 'clamp(1rem, 2.2vw, 1.2rem)' }}
           >
             Newcastle&apos;s only commercial property advisor working exclusively for tenants and buyers.
