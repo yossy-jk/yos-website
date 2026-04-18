@@ -1,8 +1,14 @@
 import Nav from '@/components/Nav'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
+import FadeIn from '@/components/FadeIn'
 import HubSpotForm from '@/components/HubSpotForm'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
+
+export const metadata = {
+  title: 'Contact | Your Office Space — Newcastle Commercial Property Advisory',
+  description: 'Talk to Joe Kelley at Your Office Space. 20 minutes, no pitch. Commercial property advice for Newcastle and Hunter Valley businesses.'
+}
 
 export default function ContactPage() {
   return (
@@ -10,20 +16,30 @@ export default function ContactPage() {
       <Nav />
 
       {/* HERO SECTION */}
-      <section className="relative min-h-screen flex items-center pt-72px bg-near-black">
-        <div className="max-w-7xl mx-auto px-5% w-full pt-20">
-          <h1 className="text-white font-bold text-7xl lg:text-8xl leading-tight tracking-tight max-w-2xl mb-6">
-            Let&apos;s talk.
-          </h1>
-          <p className="text-white/70 font-light text-2xl leading-relaxed max-w-2xl">
-            20 minutes. No pitch. Just a conversation about your space and whether we can help.
-          </p>
+      <section className="relative min-h-[70vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
+        <div className="relative max-w-7xl mx-auto px-5 md:px-10 w-full pt-16 pb-20">
+          <FadeIn delay={0}>
+            <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">Newcastle &amp; Hunter Valley</p>
+          </FadeIn>
+          <FadeIn delay={80}>
+            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-2xl mb-6"
+              style={{ fontSize: 'clamp(2.8rem, 7vw, 6rem)' }}>
+              Let&apos;s talk.
+            </h1>
+          </FadeIn>
+          <FadeIn delay={160}>
+            <p className="text-white/60 font-light leading-relaxed max-w-xl"
+              style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)' }}>
+              20 minutes. No pitch. Just a conversation about your space and whether we can help.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
       {/* CONTACT OPTIONS */}
       <section className="bg-white py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-5%">
+        <div className="max-w-7xl mx-auto px-5 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* HubSpot Contact Form */}
             <div className="flex flex-col">
@@ -88,7 +104,7 @@ export default function ContactPage() {
 
       {/* WHAT TO EXPECT */}
       <section className="bg-warm-grey py-28 lg:py-32">
-        <div className="max-w-4xl mx-auto px-5%">
+        <div className="max-w-4xl mx-auto px-5 md:px-10">
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-16">
             What to expect.
           </h2>
@@ -127,7 +143,7 @@ export default function ContactPage() {
 
       {/* FINAL CTA */}
       <section className="bg-near-black py-28 lg:py-32 text-center">
-        <div className="max-w-2xl mx-auto px-5%">
+        <div className="max-w-2xl mx-auto px-5 md:px-10">
           <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
             Ready?
           </h2>

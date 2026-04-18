@@ -3,11 +3,12 @@ import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
+import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Free Commercial Property Tools | Your Office Space',
-  description: 'Free commercial property tools for Newcastle businesses. Lease review analysis, fitout cost estimator, cap rate calculator, and more.'
+  title: 'Free Commercial Property Tools | Your Office Space Newcastle',
+  description: 'Free commercial property tools built for Newcastle businesses. Lease risk checker, fitout cost estimator, cap rate calculator, lease comparison — no sign-up required.'
 }
 
 const tools = [
@@ -59,15 +60,24 @@ export default function ResourcesPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-[60vh] flex items-center pt-[72px] bg-near-black">
-        <div className="max-w-7xl mx-auto px-[5%] w-full pt-20 pb-20">
-          <SectionLabel>Free tools</SectionLabel>
-          <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-8">
-            Built for Newcastle businesses. Free to use.
-          </h1>
-          <p className="text-white/70 font-light text-xl lg:text-2xl leading-relaxed max-w-2xl">
-            Real tools that help you make better commercial property decisions — no signup required to start.
-          </p>
+      <section className="relative min-h-[65vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
+        <div className="relative max-w-7xl mx-auto px-[5%] w-full pt-20 pb-20">
+          <FadeIn delay={0}>
+            <SectionLabel>Free tools</SectionLabel>
+          </FadeIn>
+          <FadeIn delay={80}>
+            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-3xl mb-7"
+              style={{ fontSize: 'clamp(2.4rem, 6vw, 5.5rem)' }}>
+              Built for Newcastle businesses. Free to use.
+            </h1>
+          </FadeIn>
+          <FadeIn delay={160}>
+            <p className="text-white/60 font-light leading-relaxed max-w-2xl"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}>
+              Real tools that help you make better commercial property decisions. No signup to start.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -75,8 +85,9 @@ export default function ResourcesPage() {
       <section className="bg-white py-28 lg:py-32">
         <div className="max-w-7xl mx-auto px-[5%]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-            {tools.map((tool) => (
-              <div key={tool.title} className="border border-gray-200 rounded-lg p-10 flex flex-col hover:border-teal transition-colors duration-200">
+            {tools.map((tool, i) => (
+              <FadeIn key={tool.title} delay={i * 80} direction="up">
+              <div className="border border-gray-200 rounded-sm p-10 flex flex-col hover:border-teal transition-colors duration-200 h-full">
                 <div className="flex items-start justify-between mb-6">
                   <h2 className="text-near-black font-bold text-2xl max-w-xs">{tool.title}</h2>
                   <span className={`${tool.tagColor} text-white font-semibold text-xs px-3 py-1 rounded-full flex-shrink-0 ml-4`}>
@@ -94,11 +105,12 @@ export default function ResourcesPage() {
                 </ul>
                 <Link
                   href={tool.href}
-                  className="text-teal font-semibold text-sm no-underline hover:text-dark-teal transition-colors"
+                  className="text-teal font-bold text-xs tracking-widest uppercase no-underline hover:text-dark-teal transition-colors"
                 >
                   Open tool →
                 </Link>
               </div>
+              </FadeIn>
             ))}
           </div>
         </div>
