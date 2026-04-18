@@ -4,7 +4,7 @@ import { CONTACT } from '@/lib/constants'
 export default function Footer() {
   return (
     <footer className="bg-near-black py-16 md:py-20">
-      <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-14">
           <div className="col-span-2 md:col-span-1">
             <p className="text-white font-black text-xs tracking-[0.2em] uppercase mb-3">Your Office Space</p>

@@ -62,7 +62,7 @@ export default function ResourcesPage() {
       {/* HERO */}
       <section className="relative min-h-[65vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-7xl mx-auto px-[5%] w-full pt-20 pb-20">
+        <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-20 pb-20">
           <FadeIn delay={0}>
             <SectionLabel>Free tools</SectionLabel>
           </FadeIn>
@@ -83,7 +83,7 @@ export default function ResourcesPage() {
 
       {/* TOOLS GRID */}
       <section className="bg-white py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {tools.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 80} direction="up">
@@ -118,7 +118,7 @@ export default function ResourcesPage() {
 
       {/* NEED MORE HELP */}
       <section className="bg-warm-grey py-28 lg:py-32">
-        <div className="max-w-4xl mx-auto px-[5%] text-center">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center">
           <SectionLabel>Need more?</SectionLabel>
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8">
             Tools are a starting point. Advice is what moves the needle.

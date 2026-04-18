@@ -39,7 +39,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
-        <div className="max-w-4xl mx-auto px-[5%] pt-12 pb-16">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 pt-12 pb-16">
           <div className="flex items-center gap-3 mb-6">
             <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[cs.division as Division]}`}>
               {DIVISION_LABELS[cs.division as Division]}
@@ -54,7 +54,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       {/* METRICS BAR */}
       {cs.metrics.length > 0 && (
         <section className="bg-teal py-10">
-          <div className="max-w-4xl mx-auto px-[5%]">
+          <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
             <div className={`grid grid-cols-2 md:grid-cols-${Math.min(cs.metrics.length, 4)} gap-6`}>
               {cs.metrics.map(m => (
                 <div key={m.label} className="text-center">
@@ -69,7 +69,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* BODY */}
       <section className="bg-white py-20">
-        <div className="max-w-4xl mx-auto px-[5%]">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
             <div className="lg:col-span-2 space-y-12">
               <div>

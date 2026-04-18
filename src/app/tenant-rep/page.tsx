@@ -23,7 +23,7 @@ export default function TenantRepPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-[5%] w-full pt-20 pb-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-32 pb-32">
           <FadeIn delay={0}>
             <SectionLabel>Tenant Representation</SectionLabel>
           </FadeIn>
@@ -56,7 +56,7 @@ export default function TenantRepPage() {
       {/* COST REALITY — new section */}
       <section className="bg-teal py-16 lg:py-20">
         <FadeIn>
-          <div className="max-w-7xl mx-auto px-[5%]">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               {[
                 { stat: '8–15%', label: 'Average rent saving we negotiate' },
@@ -75,8 +75,8 @@ export default function TenantRepPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-white py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-white py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
@@ -121,8 +121,8 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHAT'S AT STAKE */}
-      <section className="bg-near-black py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-near-black py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What's at stake</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-6 max-w-3xl"
@@ -176,8 +176,8 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHAT'S INCLUDED */}
-      <section className="bg-warm-grey py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-warm-grey py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What&apos;s included</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
@@ -264,8 +264,8 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHY CONFLICT OF INTEREST MATTERS */}
-      <section className="bg-white py-28 lg:py-32">
-        <div className="max-w-4xl mx-auto px-[5%]">
+      <section className="bg-white py-24 lg:py-32">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>Why it matters</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-12"
@@ -318,7 +318,7 @@ export default function TenantRepPage() {
       {/* LEASEINTEL CALLOUT */}
       <section className="bg-warm-grey py-20 lg:py-24">
         <FadeIn>
-          <div className="max-w-5xl mx-auto px-[5%]">
+          <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
@@ -340,9 +340,9 @@ export default function TenantRepPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="bg-teal py-28 lg:py-32 text-center">
+      <section className="bg-teal py-24 lg:py-32 text-center">
         <FadeIn>
-          <div className="max-w-2xl mx-auto px-[5%]">
+          <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
             <h2 className="text-white font-bold leading-tight mb-6"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}>
               Let&apos;s talk about your next lease.

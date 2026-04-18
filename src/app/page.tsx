@@ -60,7 +60,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/80" />
 
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 md:px-10 pt-24 pb-24 md:pt-36 md:pb-36">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-32 pb-28 md:pt-48 md:pb-40">
           <div
             className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6"
             style={{ opacity: 1 }}
@@ -108,7 +108,7 @@ export default function Home() {
 
       {/* ── STATS BAR ────────────────────────────────────────── */}
       <section className="bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100">
           {[
             { stat: '100+', label: 'Fitouts delivered' },
             { stat: 'Tenant-side only', label: 'Zero conflicts of interest' },
@@ -125,7 +125,7 @@ export default function Home() {
 
       {/* ── MARKET PULSE ─────────────────────────────────────── */}
       <section className="bg-near-black border-b border-white/5 py-14">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-teal rounded-full animate-pulse" />
@@ -153,8 +153,8 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <section className="bg-white py-24 md:py-36">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">What we do</p>
             <h2
@@ -203,8 +203,8 @@ export default function Home() {
       </section>
 
       {/* ── WHY YOS ──────────────────────────────────────────── */}
-      <section className="bg-near-black py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-5 md:px-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
+      <section className="bg-near-black py-24 md:py-36">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <FadeIn direction="left">
             <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-5">Why YOS</p>
             <h2
@@ -213,7 +213,7 @@ export default function Home() {
             >
               One team.<br />No conflicts.<br />No shortcuts.
             </h2>
-            <p className="text-white/45 text-sm md:text-base leading-relaxed font-light">
+            <p className="text-white/45 text-sm md:text-base leading-relaxed font-light max-w-lg">
               Most commercial property advisors work both sides of the deal. We don&apos;t.
               Every decision we make is in your interest — because that&apos;s the only interest we have.
             </p>
@@ -237,8 +237,8 @@ export default function Home() {
       </section>
 
       {/* ── LEASEINTEL™ FEATURE ──────────────────────────────── */}
-      <section className="bg-warm-grey py-20 md:py-28 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <section className="bg-warm-grey py-24 md:py-36 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <FadeIn direction="left">
               <div className="inline-flex items-center gap-2 bg-near-black px-4 py-2 rounded-full mb-6">
@@ -251,7 +251,7 @@ export default function Home() {
               >
                 Is your lease<br />costing you more<br />than it should?
               </h2>
-              <p className="text-charcoal text-sm md:text-base leading-relaxed mb-6 font-light">
+              <p className="text-charcoal text-sm md:text-base leading-relaxed mb-6 font-light max-w-xl">
                 Most business owners sign commercial leases they don&apos;t fully understand.
                 LeaseIntel™ gives you a complete plain-English risk analysis — every clause rated
                 Red, Amber, or Green — before you sign. Or after.
@@ -315,8 +315,8 @@ export default function Home() {
       </section>
 
       {/* ── TOOLS + ESTIMATOR ────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <section className="bg-white py-24 md:py-36">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
             <FadeIn direction="left">
               <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Market intelligence</p>
@@ -326,7 +326,7 @@ export default function Home() {
               >
                 Know your numbers<br />before you commit.
               </h2>
-              <p className="text-charcoal text-sm md:text-base leading-relaxed mb-8 font-light">
+              <p className="text-charcoal text-sm md:text-base leading-relaxed mb-8 font-light max-w-sm">
                 Real market data for Newcastle commercial property decisions. No sign-up to start.
               </p>
               <div className="flex flex-col gap-4 mb-8">
@@ -360,8 +360,8 @@ export default function Home() {
       </section>
 
       {/* ── TESTIMONIALS ─────────────────────────────────────── */}
-      <section className="bg-near-black py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <section className="bg-near-black py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <div className="flex items-center gap-3 mb-12">
               <div className="w-10 h-1 bg-teal" />
@@ -414,8 +414,8 @@ export default function Home() {
       </section>
 
       {/* ── END-TO-END JOURNEY ───────────────────────────────── */}
-      <section className="bg-warm-grey py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <section className="bg-warm-grey py-24 md:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">How it works</p>
             <h2
@@ -449,8 +449,8 @@ export default function Home() {
       </section>
 
       {/* ── CASE STUDIES ─────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-5 md:px-10">
+      <section className="bg-white py-24 md:py-36">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
               <div>
@@ -495,8 +495,8 @@ export default function Home() {
       </section>
 
       {/* ── FINAL CTA ─────────────────────────────────────────── */}
-      <section className="bg-teal py-20 md:py-28 text-center">
-        <div className="max-w-2xl mx-auto px-5 md:px-10">
+      <section className="bg-teal py-24 lg:py-32 text-center">
+        <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <h2
               className="text-white font-black leading-tight tracking-tight mb-5"
@@ -504,7 +504,7 @@ export default function Home() {
             >
               Let&apos;s talk.
             </h2>
-            <p className="text-white/75 text-sm md:text-base leading-relaxed mb-10 font-light">
+            <p className="text-white/75 text-sm md:text-base leading-relaxed mb-10 font-light max-w-xl mx-auto">
               20 minutes. No pitch. Just a straight conversation about what you&apos;re trying to build
               and whether we can help.
             </p>

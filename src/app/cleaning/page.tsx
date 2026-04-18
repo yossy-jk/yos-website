@@ -21,7 +21,7 @@ export default function CleaningPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-[5%] w-full pt-20 pb-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-20 pb-24">
           <FadeIn delay={0}>
             <SectionLabel>Commercial Cleaning</SectionLabel>
           </FadeIn>
@@ -49,7 +49,7 @@ export default function CleaningPage() {
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5 py-14 lg:py-16">
         <FadeIn>
-          <div className="max-w-7xl mx-auto px-[5%]">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
@@ -68,8 +68,8 @@ export default function CleaningPage() {
       </section>
 
       {/* WHAT WE CLEAN */}
-      <section className="bg-white py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-white py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
@@ -149,8 +149,8 @@ export default function CleaningPage() {
       </section>
 
       {/* THE YOS DIFFERENCE */}
-      <section className="bg-near-black py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-near-black py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-20 max-w-2xl"
@@ -202,7 +202,7 @@ export default function CleaningPage() {
       {/* BUNDLE — cross-sell to fitout */}
       <section className="bg-warm-grey py-20 lg:py-24">
         <FadeIn>
-          <div className="max-w-5xl mx-auto px-[5%]">
+          <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
@@ -225,9 +225,9 @@ export default function CleaningPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal py-28 lg:py-32 text-center">
+      <section className="bg-teal py-24 lg:py-32 text-center">
         <FadeIn>
-          <div className="max-w-2xl mx-auto px-[5%]">
+          <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
             <h2 className="text-white font-bold leading-tight mb-6"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}>
               Ready to move to a better standard?

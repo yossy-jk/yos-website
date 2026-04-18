@@ -25,7 +25,7 @@ export default function Nav() {
           scrolled ? 'bg-near-black shadow-2xl' : 'bg-near-black/95 backdrop-blur-md'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-5 md:px-10 flex justify-between items-center h-16 md:h-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
           <Link
             href="/"

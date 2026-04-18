@@ -26,7 +26,7 @@ export default function FurniturePage() {
           priority
         />
         <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-7xl mx-auto px-[5%] pt-20 pb-24 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-24 w-full">
           <FadeIn delay={0}>
             <SectionLabel>Office Furniture &amp; Fitout</SectionLabel>
           </FadeIn>
@@ -54,7 +54,7 @@ export default function FurniturePage() {
       {/* GOVT APPROVED BANNER */}
       <section className="bg-warm-grey border-b border-gray-200 py-14 lg:py-16">
         <FadeIn>
-          <div className="max-w-7xl mx-auto px-[5%]">
+          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
                 { stat: '200+', label: 'Projects delivered in the Hunter' },
@@ -73,8 +73,8 @@ export default function FurniturePage() {
       </section>
 
       {/* WHAT WE SUPPLY */}
-      <section className="bg-white py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-white py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
@@ -126,8 +126,8 @@ export default function FurniturePage() {
       </section>
 
       {/* WHO WE WORK WITH */}
-      <section className="bg-near-black py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%] grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <section className="bg-near-black py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
@@ -162,8 +162,8 @@ export default function FurniturePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-warm-grey py-28 lg:py-32">
-        <div className="max-w-7xl mx-auto px-[5%]">
+      <section className="bg-warm-grey py-24 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
@@ -194,7 +194,7 @@ export default function FurniturePage() {
       {/* BUNDLE CALLOUT — cross-sell to cleaning */}
       <section className="bg-white py-20 lg:py-24">
         <FadeIn>
-          <div className="max-w-5xl mx-auto px-[5%]">
+          <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
@@ -216,9 +216,9 @@ export default function FurniturePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-near-black py-28 lg:py-32 text-center">
+      <section className="bg-near-black py-24 lg:py-32 text-center">
         <FadeIn>
-          <div className="max-w-2xl mx-auto px-[5%]">
+          <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
             <h2 className="text-white font-bold leading-tight mb-6"
               style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}>
               Ready to kit out your space?

@@ -8,7 +8,7 @@ export default function NotFound() {
     <>
       <Nav />
       <section className="bg-near-black min-h-screen flex items-center pt-[72px]">
-        <div className="max-w-4xl mx-auto px-5 md:px-10 py-28 text-center">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 py-28 text-center">
           <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">404</p>
           <h1 className="text-white font-black leading-[0.95] tracking-tight mb-6"
             style={{ fontSize: 'clamp(2.4rem, 6vw, 5rem)' }}>

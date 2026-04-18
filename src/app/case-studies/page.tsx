@@ -60,7 +60,7 @@ export default function CaseStudiesPage() {
       <Nav />
 
       <section className="bg-near-black pt-[72px] pb-20">
-        <div className="max-w-7xl mx-auto px-[5%] pt-16">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-16">
           <SectionLabel>Case studies</SectionLabel>
           <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-8">
             Real projects. Real outcomes.
@@ -72,7 +72,7 @@ export default function CaseStudiesPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-[5%]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           {all.length === 0 ? (
             <p className="text-mid-grey font-light text-lg">Case studies coming soon.</p>
           ) : (
@@ -84,7 +84,7 @@ export default function CaseStudiesPage() {
       </section>
 
       <section className="bg-near-black py-20 text-center">
-        <div className="max-w-2xl mx-auto px-[5%]">
+        <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want results like these?</h2>
           <p className="text-white/60 font-light text-lg mb-8">Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.</p>
           <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">Book a Clarity Call</Button>

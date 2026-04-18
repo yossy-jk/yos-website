@@ -20,7 +20,7 @@ export default function BlogPage() {
       <Nav />
 
       <section className="bg-near-black pt-[72px] pb-20">
-        <div className="max-w-7xl mx-auto px-[5%] pt-16">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-16">
           <SectionLabel>Insights</SectionLabel>
           <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-6">
             The YOS Blog
@@ -32,7 +32,7 @@ export default function BlogPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-[5%]">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
 
           {posts.length === 0 ? (
             <p className="text-mid-grey font-light text-lg">Posts coming soon.</p>

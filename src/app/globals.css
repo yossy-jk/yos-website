@@ -12,6 +12,23 @@
   --font-sans: 'Montserrat', sans-serif;
 }
 
+/* ─── Layout system ──────────────────────────────────────── */
+:root {
+  /* Content widths */
+  --content-xs: 36rem;    /* 576px  — narrow text, pull quotes */
+  --content-sm: 48rem;    /* 768px  — body copy, single col */
+  --content-md: 64rem;    /* 1024px — wide text, 2-col layouts */
+  --content-lg: 80rem;    /* 1280px — full layout grid */
+
+  /* Section rhythm — vary these to create breathing room */
+  --section-sm: 5rem;     /* 80px  — tight, bar sections */
+  --section-md: 8rem;     /* 128px — standard */
+  --section-lg: 12rem;    /* 192px — spacious, hero-adjacent */
+
+  /* Page inset — generous horizontal padding */
+  --page-inset: clamp(1.5rem, 6vw, 6rem);
+}
+
 /* ─── Reset ─────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;

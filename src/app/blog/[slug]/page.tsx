@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Nav />
 
       <section className="bg-near-black pt-[72px] pb-16">
-        <div className="max-w-3xl mx-auto px-[5%] pt-16">
+        <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20 pt-16">
           <div className="flex items-center gap-3 mb-6">
             <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[post.division as Division]}`}>
               {DIVISION_LABELS[post.division as Division]}
@@ -99,7 +99,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </section>
 
       <section className="bg-white py-16">
-        <div className="max-w-3xl mx-auto px-[5%]">
+        <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20">
           <p className="text-charcoal font-light text-xl leading-relaxed mb-12 pb-10 border-b border-gray-100">{post.excerpt}</p>
           <div className="prose-custom">
             {renderBody(post.body)}
