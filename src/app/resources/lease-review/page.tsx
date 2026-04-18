@@ -183,11 +183,11 @@ export default function LeaseReviewPage() {
           ) : (
             <>
               {/* Summary */}
-              <div className={`rounded-sm p-8 mb-8 ${highCount > 0 ? 'bg-red-50 border-2 border-red-200' : mediumCount > 0 ? 'bg-amber-50 border-2 border-amber-200' : 'bg-green-50 border-2 border-green-200'}`}>
-                <p className="font-bold text-xl mb-2 text-near-black">
+              <div className={`rounded-sm p-8 mb-8 border-2 ${highCount > 0 ? 'bg-near-black border-near-black' : mediumCount > 0 ? 'bg-warm-grey border-gray-200' : 'bg-light-teal border-teal'}`}>
+                <p className={`font-bold text-xl mb-2 ${highCount > 0 ? 'text-white' : 'text-near-black'}`}>
                   {highCount > 0 ? `${highCount} high-risk clause${highCount > 1 ? 's' : ''} identified` : mediumCount > 0 ? 'Some clauses worth reviewing' : 'No major red flags detected'}
                 </p>
-                <p className="text-charcoal font-light text-sm">
+                <p className={`font-light text-sm ${highCount > 0 ? 'text-white/70' : 'text-charcoal'}`}>
                   {highCount > 0
                     ? `This lease has ${highCount} high-risk item${highCount > 1 ? 's' : ''} that should be negotiated before signing. We strongly recommend getting advice.`
                     : mediumCount > 0
@@ -200,11 +200,11 @@ export default function LeaseReviewPage() {
               {flags.length > 0 && (
                 <div className="space-y-4 mb-10">
                   {flags.map((flag, i) => (
-                    <div key={i} className={`rounded-sm p-6 border-l-4 ${flag.level === 'high' ? 'border-red-500 bg-red-50' : 'border-amber-400 bg-amber-50'}`}>
-                      <p className={`font-bold text-sm mb-2 ${flag.level === 'high' ? 'text-red-700' : 'text-amber-700'}`}>
+                    <div key={i} className={`rounded-sm p-6 border-l-4 ${flag.level === 'high' ? 'border-teal bg-near-black' : 'border-teal/50 bg-warm-grey'}`}>
+                      <p className={`font-bold text-sm mb-2 ${flag.level === 'high' ? 'text-white' : 'text-near-black'}`}>
                         {flag.level === 'high' ? '⚠ ' : '→ '}{flag.flag}
                       </p>
-                      <p className="text-charcoal font-light text-sm leading-relaxed">{flag.advice}</p>
+                      <p className={`font-light text-sm leading-relaxed ${flag.level === 'high' ? 'text-white/65' : 'text-charcoal'}`}>{flag.advice}</p>
                     </div>
                   ))}
                 </div>

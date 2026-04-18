@@ -52,19 +52,19 @@ export default function FurniturePage() {
       </section>
 
       {/* GOVT APPROVED BANNER */}
-      <section className="bg-teal py-14 lg:py-16">
+      <section className="bg-warm-grey border-b border-gray-200 py-14 lg:py-16">
         <FadeIn>
           <div className="max-w-7xl mx-auto px-[5%]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
                 { stat: 'NSW Gov', label: 'Approved supplier panel' },
                 { stat: '200+', label: 'Offices fitted out' },
-                { stat: '4–6wk', label: 'Typical delivery & install' },
+                { stat: '4–6 weeks', label: 'Typical delivery & install' },
                 { stat: '$0', label: 'Hidden charges or surprises' }
               ].map((item) => (
-                <div key={item.label}>
-                  <p className="text-white font-black text-4xl lg:text-5xl mb-2 leading-none">{item.stat}</p>
-                  <p className="text-white/75 font-light text-sm leading-snug">{item.label}</p>
+                <div key={item.label} className="py-8 px-6 text-center">
+                  <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
+                  <p className="text-mid-grey font-light text-sm leading-snug">{item.label}</p>
                 </div>
               ))}
             </div>

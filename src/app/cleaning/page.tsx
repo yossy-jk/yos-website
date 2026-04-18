@@ -47,19 +47,19 @@ export default function CleaningPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-teal py-14 lg:py-16">
+      <section className="bg-near-black border-b border-white/5 py-14 lg:py-16">
         <FadeIn>
           <div className="max-w-7xl mx-auto px-[5%]">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
               {[
-                { stat: 'Same', label: 'Team every visit — no surprises' },
+                { stat: 'Same team', label: 'Every visit — no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
-                { stat: 'Direct', label: 'Line to Sarah, not a call centre' },
+                { stat: 'Direct line', label: 'To Sarah, not a call centre' },
                 { stat: '100%', label: 'Newcastle-owned and operated' },
               ].map(item => (
-                <div key={item.label}>
-                  <p className="text-white font-black text-4xl lg:text-5xl mb-2 leading-none">{item.stat}</p>
-                  <p className="text-white/75 font-light text-sm leading-snug">{item.label}</p>
+                <div key={item.label} className="bg-near-black px-6 py-8 text-center">
+                  <p className="text-teal font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
+                  <p className="text-white/50 font-light text-sm leading-snug">{item.label}</p>
                 </div>
               ))}
             </div>

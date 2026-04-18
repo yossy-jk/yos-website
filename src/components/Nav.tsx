@@ -127,7 +127,7 @@ export default function Nav() {
           rel="noopener noreferrer"
           className="flex items-center justify-center text-white font-bold text-xs tracking-widest uppercase py-4 no-underline w-full"
         >
-          Book a Free Clarity Call &rarr;
+          Book a Clarity Call &rarr;
         </a>
       </div>
     </>
