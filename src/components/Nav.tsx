@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import { NAV_LINKS, HUBSPOT } from '@/lib/constants'
+import { NAV_LINKS, HUBSPOT, CONTACT } from '@/lib/constants'
 
 export default function Nav() {
   const [open, setOpen] = useState(false)
@@ -113,9 +113,15 @@ export default function Nav() {
             onClick={() => setOpen(false)}
             className="bg-teal text-white font-bold text-sm py-4 px-8 text-center no-underline tracking-widest uppercase rounded-sm"
           >
-            Book a Free Call →
+            Book a Clarity Call →
           </a>
-          <p className="text-white/30 text-xs text-center tracking-wider">Newcastle & Hunter Valley</p>
+          <a
+            href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+            onClick={() => setOpen(false)}
+            className="border border-white/20 text-white/70 font-light text-sm py-4 px-8 text-center no-underline tracking-wider rounded-sm"
+          >
+            {CONTACT.phone}
+          </a>
         </div>
       </div>
 

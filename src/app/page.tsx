@@ -268,12 +268,20 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <Link
-                href="/lease-review"
-                className="inline-flex items-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-teal transition-colors duration-200 no-underline"
-              >
-                Get Free Lease Review →
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/lease-review"
+                  className="inline-flex items-center justify-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-teal transition-colors duration-200 no-underline"
+                >
+                  Get Free Summary →
+                </Link>
+                <Link
+                  href="/lease-review#full-report"
+                  className="inline-flex items-center justify-center gap-2 border border-near-black text-near-black font-black text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:border-teal hover:text-teal transition-colors duration-200 no-underline"
+                >
+                  Full Report — $97
+                </Link>
+              </div>
             </FadeIn>
 
             <FadeIn direction="right" delay={150}>
@@ -311,7 +319,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-5 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
             <FadeIn direction="left">
-              <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Free tools</p>
+              <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Market intelligence</p>
               <h2
                 className="text-near-black font-black leading-tight tracking-tight mb-5"
                 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
@@ -319,7 +327,7 @@ export default function Home() {
                 Know your numbers<br />before you commit.
               </h2>
               <p className="text-charcoal text-sm md:text-base leading-relaxed mb-8 font-light">
-                Built for Newcastle businesses. Real market rates. No sign-up to start.
+                Real market data for Newcastle commercial property decisions. No sign-up to start.
               </p>
               <div className="flex flex-col gap-4 mb-8">
                 {[
@@ -398,6 +406,41 @@ export default function Home() {
                     <p className="text-white font-bold text-sm">{t.name}</p>
                     <p className="text-teal font-medium text-xs tracking-wide mt-0.5">{t.tag}</p>
                   </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── END-TO-END JOURNEY ───────────────────────────────── */}
+      <section className="bg-warm-grey py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-5 md:px-10">
+          <FadeIn>
+            <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">How it works</p>
+            <h2
+              className="text-near-black font-black leading-tight tracking-tight mb-4"
+              style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
+            >
+              One team. Start to finish.
+            </h2>
+            <p className="text-charcoal font-light text-sm md:text-base leading-relaxed mb-16 max-w-xl">
+              Most businesses deal with five different advisors across a single office move. We handle it all — one contact, one relationship, no gaps.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {[
+              { step: '01', label: 'Find the right space', detail: 'Tenant rep or buyers agency. We identify, shortlist, and negotiate your next commercial property in Newcastle.', service: 'Tenant Rep / Buyers Agency' },
+              { step: '02', label: 'Fit it out', detail: 'Furniture, workstations, storage, collaboration spaces. Spec’d, sourced, delivered and installed. NSW Government approved.', service: 'Furniture & Fitout' },
+              { step: '03', label: 'Keep it clean', detail: 'Same team, every visit. Monthly audits. Direct line to Sarah. No call centres, no surprises.', service: 'Commercial Cleaning' },
+              { step: '04', label: 'Run it smart', detail: 'LeaseIntel™ tracks your lease obligations. We remind you when options are due. You focus on your business.', service: 'LeaseIntel™' },
+            ].map((item, i) => (
+              <FadeIn key={item.step} delay={i * 80} direction="up">
+                <div className="flex flex-col h-full">
+                  <p className="text-teal font-black text-5xl mb-4 leading-none">{item.step}</p>
+                  <h3 className="text-near-black font-bold text-lg mb-3 tracking-tight">{item.label}</h3>
+                  <p className="text-charcoal font-light text-sm leading-relaxed flex-1 mb-4">{item.detail}</p>
+                  <p className="text-teal font-bold text-[10px] tracking-widest uppercase">{item.service}</p>
                 </div>
               </FadeIn>
             ))}

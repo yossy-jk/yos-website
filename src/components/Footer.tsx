@@ -74,9 +74,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/8 pt-8 flex flex-col md:flex-row justify-between gap-3">
+        <div className="border-t border-white/8 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="text-white/20 text-xs font-light">{CONTACT.license}</p>
-          <p className="text-white/20 text-xs font-light">© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
+          <div className="flex items-center gap-6">
+            <a
+              href="https://www.linkedin.com/company/your-office-space-au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/30 text-xs font-light no-underline hover:text-teal transition-colors tracking-wide"
+            >
+              LinkedIn →
+            </a>
+            <p className="text-white/20 text-xs font-light">© {new Date().getFullYear()} Your Office Space Pty Ltd</p>
+          </div>
         </div>
       </div>
     </footer>
