@@ -41,7 +41,7 @@ export default function BlogPage() {
               {/* Featured post */}
               {featured && (
                 <Link href={`/blog/${featured.slug}`} className="no-underline group block mb-16">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-gray-200 rounded-xl overflow-hidden hover:border-teal transition-colors duration-200">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-gray-200 rounded-sm overflow-hidden hover:border-teal transition-colors duration-200">
                     <div className="bg-warm-grey h-64 lg:h-auto" />
                     <div className="p-10 lg:p-14 flex flex-col justify-center">
                       <div className="flex items-center gap-3 mb-4">
@@ -67,7 +67,7 @@ export default function BlogPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {rest.map(post => (
                     <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline group">
-                      <div className="border border-gray-200 rounded-lg p-8 hover:border-teal transition-colors duration-200 h-full flex flex-col">
+                      <div className="border border-gray-200 rounded-sm p-8 hover:border-teal transition-colors duration-200 h-full flex flex-col">
                         <div className="flex items-center gap-3 mb-4">
                           <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[post.division as Division]}`}>
                             {DIVISION_LABELS[post.division as Division]}

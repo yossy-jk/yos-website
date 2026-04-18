@@ -147,7 +147,7 @@ export default function LeaseComparisonPage() {
               <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-6">Comparison results</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {validResults.map(r => (
-                  <div key={r.name} className={`rounded-xl p-8 ${r.netPresentCost === bestNPV ? 'bg-teal text-white border-2 border-teal' : 'bg-warm-grey'}`}>
+                  <div key={r.name} className={`rounded-sm p-8 ${r.netPresentCost === bestNPV ? 'bg-teal text-white border-2 border-teal' : 'bg-warm-grey'}`}>
                     {r.netPresentCost === bestNPV && (
                       <p className="text-white/70 font-semibold text-xs tracking-widest uppercase mb-3">Lowest true cost</p>
                     )}

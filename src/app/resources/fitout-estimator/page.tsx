@@ -164,7 +164,7 @@ export default function FitoutEstimatorPage() {
                 <button
                   key={key}
                   onClick={() => setTier(key)}
-                  className={`text-left p-6 rounded-lg border-2 transition-all duration-200 ${
+                  className={`text-left p-6 rounded-sm border-2 transition-all duration-200 ${
                     tier === key ? 'border-teal bg-light-teal' : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
@@ -185,7 +185,7 @@ export default function FitoutEstimatorPage() {
           {/* Results */}
           {result && (
             <div className="mt-12 space-y-6">
-              <div className="bg-warm-grey rounded-xl p-10">
+              <div className="bg-warm-grey rounded-sm p-10">
                 <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-8">Cost breakdown — {t.label} finish</p>
 
                 <div className="space-y-4">
@@ -233,7 +233,7 @@ export default function FitoutEstimatorPage() {
                 </div>
               </div>
 
-              <div className="bg-near-black rounded-xl p-8">
+              <div className="bg-near-black rounded-sm p-8">
                 <p className="text-white font-semibold text-sm mb-3">What&apos;s not included in this estimate</p>
                 <ul className="space-y-2">
                   {[

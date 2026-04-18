@@ -183,7 +183,7 @@ export default function LeaseReviewPage() {
           ) : (
             <>
               {/* Summary */}
-              <div className={`rounded-xl p-8 mb-8 ${highCount > 0 ? 'bg-red-50 border-2 border-red-200' : mediumCount > 0 ? 'bg-amber-50 border-2 border-amber-200' : 'bg-green-50 border-2 border-green-200'}`}>
+              <div className={`rounded-sm p-8 mb-8 ${highCount > 0 ? 'bg-red-50 border-2 border-red-200' : mediumCount > 0 ? 'bg-amber-50 border-2 border-amber-200' : 'bg-green-50 border-2 border-green-200'}`}>
                 <p className="font-bold text-xl mb-2 text-near-black">
                   {highCount > 0 ? `${highCount} high-risk clause${highCount > 1 ? 's' : ''} identified` : mediumCount > 0 ? 'Some clauses worth reviewing' : 'No major red flags detected'}
                 </p>
@@ -200,7 +200,7 @@ export default function LeaseReviewPage() {
               {flags.length > 0 && (
                 <div className="space-y-4 mb-10">
                   {flags.map((flag, i) => (
-                    <div key={i} className={`rounded-lg p-6 border-l-4 ${flag.level === 'high' ? 'border-red-500 bg-red-50' : 'border-amber-400 bg-amber-50'}`}>
+                    <div key={i} className={`rounded-sm p-6 border-l-4 ${flag.level === 'high' ? 'border-red-500 bg-red-50' : 'border-amber-400 bg-amber-50'}`}>
                       <p className={`font-bold text-sm mb-2 ${flag.level === 'high' ? 'text-red-700' : 'text-amber-700'}`}>
                         {flag.level === 'high' ? '⚠ ' : '→ '}{flag.flag}
                       </p>
@@ -211,7 +211,7 @@ export default function LeaseReviewPage() {
               )}
 
               {flags.length === 0 && (
-                <div className="bg-warm-grey rounded-xl p-8 mb-10">
+                <div className="bg-warm-grey rounded-sm p-8 mb-10">
                   <p className="text-near-black font-semibold text-base mb-2">Your answers didn&apos;t trigger any specific flags.</p>
                   <p className="text-charcoal font-light text-sm">This is a good sign — but a lease review tool is not a substitute for professional advice. Have a solicitor and a tenant representative review the full document before you sign.</p>
                 </div>

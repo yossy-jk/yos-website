@@ -203,7 +203,7 @@ export default function CleaningPage() {
       <section className="bg-warm-grey py-20 lg:py-24">
         <FadeIn>
           <div className="max-w-5xl mx-auto px-[5%]">
-            <div className="bg-near-black rounded-2xl p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">

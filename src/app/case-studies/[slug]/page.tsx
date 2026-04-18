@@ -97,7 +97,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
             {/* SIDEBAR */}
             <div className="space-y-8">
-              <div className="bg-warm-grey rounded-xl p-8">
+              <div className="bg-warm-grey rounded-sm p-8">
                 <p className="text-near-black font-bold text-sm mb-6">Project details</p>
                 <div className="space-y-4">
                   <div>
@@ -125,7 +125,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </div>
               </div>
 
-              <div className="bg-near-black rounded-xl p-8">
+              <div className="bg-near-black rounded-sm p-8">
                 <p className="text-white font-bold text-base mb-3">Want a similar outcome?</p>
                 <p className="text-white/60 font-light text-sm mb-6">Talk to us about your situation. First conversation is always free.</p>
                 <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a call</Button>

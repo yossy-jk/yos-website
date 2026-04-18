@@ -57,7 +57,7 @@ export default function ContactPage() {
             </div>
 
             {/* Direct Contact */}
-            <div className="flex flex-col bg-warm-grey rounded-lg p-12">
+            <div className="flex flex-col bg-warm-grey rounded-sm p-12">
               <h2 className="text-near-black font-bold text-3xl mb-8">Direct Contact</h2>
               
               <div className="space-y-8">

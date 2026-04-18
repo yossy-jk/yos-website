@@ -162,7 +162,7 @@ export default function TenantRepPage() {
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="border border-white/10 rounded-lg p-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
+                <div className="border border-white/10 rounded-sm p-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
                   <div className="flex gap-3 items-start mb-3">
                     <div className="w-2 h-2 rounded-full bg-teal flex-shrink-0 mt-1.5" />
                     <h3 className="text-white font-bold text-lg leading-snug">{item.risk}</h3>
@@ -244,7 +244,7 @@ export default function TenantRepPage() {
               }
             ].map((category, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="bg-white rounded-lg p-8 shadow-sm h-full">
+                <div className="bg-white rounded-sm p-8 shadow-sm h-full">
                   <h3 className="text-near-black font-bold text-lg mb-5 border-b-2 border-teal pb-4">
                     {category.title}
                   </h3>
@@ -319,7 +319,7 @@ export default function TenantRepPage() {
       <section className="bg-warm-grey py-20 lg:py-24">
         <FadeIn>
           <div className="max-w-5xl mx-auto px-[5%]">
-            <div className="bg-near-black rounded-2xl p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">

@@ -99,7 +99,7 @@ export default function CapRateCalculatorPage() {
 
           {result && (
             <div className="mt-12 space-y-8">
-              <div className="bg-warm-grey rounded-xl p-10">
+              <div className="bg-warm-grey rounded-sm p-10">
                 <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-6">Results</p>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div>
@@ -117,7 +117,7 @@ export default function CapRateCalculatorPage() {
                 </div>
               </div>
 
-              <div className="bg-warm-grey rounded-xl p-10">
+              <div className="bg-warm-grey rounded-sm p-10">
                 <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-6">Implied value at different cap rates</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {[{rate: '5.0%', val: result.valueAt5}, {rate: '6.0%', val: result.valueAt6}, {rate: '7.0%', val: result.valueAt7}].map(item => (
@@ -129,7 +129,7 @@ export default function CapRateCalculatorPage() {
                 </div>
               </div>
 
-              <div className="bg-warm-grey rounded-xl p-10">
+              <div className="bg-warm-grey rounded-sm p-10">
                 <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-6">Newcastle market benchmarks (April 2026)</p>
                 <div className="space-y-3">
                   {BENCHMARKS.map(b => (

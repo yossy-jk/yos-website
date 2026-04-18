@@ -179,7 +179,7 @@ export default function BuyersAgencyPage() {
               }
             ].map((item, i) => (
               <FadeIn key={item.label} delay={i * 70} direction="up">
-                <div className="bg-white rounded-lg p-8 shadow-sm">
+                <div className="bg-white rounded-sm p-8 shadow-sm">
                   <p className="text-teal font-black text-4xl mb-1 leading-none">{item.figure}</p>
                   <p className="text-near-black font-bold text-base mb-3">{item.label}</p>
                   <p className="text-charcoal font-light text-sm leading-relaxed">{item.context}</p>

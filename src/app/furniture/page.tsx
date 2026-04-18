@@ -107,7 +107,7 @@ export default function FurniturePage() {
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-lg p-10 h-full">
+                <div className="bg-warm-grey rounded-sm p-10 h-full">
                   <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">{cat.category}</h3>
                   <ul className="space-y-3 mb-6">
                     {cat.items.map((item, j) => (
@@ -195,7 +195,7 @@ export default function FurniturePage() {
       <section className="bg-white py-20 lg:py-24">
         <FadeIn>
           <div className="max-w-5xl mx-auto px-[5%]">
-            <div className="bg-near-black rounded-2xl p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">

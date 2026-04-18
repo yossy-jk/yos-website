@@ -113,7 +113,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           )}
 
-          <div className="mt-12 bg-warm-grey rounded-xl p-10">
+          <div className="mt-12 bg-warm-grey rounded-sm p-10">
             <p className="text-near-black font-bold text-xl mb-3">Want to talk about your situation?</p>
             <p className="text-charcoal font-light text-base mb-6">
               First conversation is always free. No pitch — just an honest assessment of what you&apos;re dealing with and whether we can help.

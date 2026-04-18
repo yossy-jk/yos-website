@@ -16,7 +16,7 @@ export const metadata = {
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   return (
     <Link href={`/case-studies/${cs.slug}`} className="no-underline group">
-      <div className="border border-gray-200 rounded-lg overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
+      <div className="border border-gray-200 rounded-sm overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
         {cs.heroImage && (
           <div className="h-52 overflow-hidden">
             <img
