@@ -33,14 +33,14 @@ export default function FurniturePage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
               style={{ fontSize: 'clamp(2.8rem, 7vw, 6.5rem)' }}>
-              Spaces that work.{' '}
-              <span className="text-teal">Furniture that lasts.</span>
+              Your office is a business decision.{' '}
+              <span className="text-teal">Treat it like one.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              Government-approved supplier. Fitout project management, ergonomic workstations, full office solutions — delivered across Newcastle and the Hunter Valley.
+              NSW Government-approved supplier. We handle the brief, the spec, the contractors, and the install. You walk into a finished workspace. One team, end to end.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
