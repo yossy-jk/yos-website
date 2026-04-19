@@ -107,7 +107,7 @@ export default function Home() {
       </section>
 
       {/* ── STATS BAR ────────────────────────────────────────── */}
-      <section className="bg-white border-b border-gray-100">
+      <section className="bg-white border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-gray-100">
           {[
             { stat: '100+', label: 'Fitouts delivered' },
@@ -115,7 +115,7 @@ export default function Home() {
             { stat: 'Newcastle & Hunter', label: 'Exclusively local' },
             { stat: 'Lease to clean', label: 'One team, end-to-end' },
           ].map(item => (
-            <div key={item.stat} className="py-7 px-5 md:px-8 text-center">
+            <div key={item.stat} className="py-6 px-4 md:px-8 text-center">
               <p className="text-near-black font-black text-base md:text-lg mb-1 tracking-tight">{item.stat}</p>
               <p className="text-mid-grey text-xs font-medium tracking-wide">{item.label}</p>
             </div>
@@ -124,9 +124,9 @@ export default function Home() {
       </section>
 
       {/* ── MARKET PULSE ─────────────────────────────────────── */}
-      <section className="bg-near-black border-b border-white/5 py-14">
+      <section className="bg-near-black border-b border-white/5 py-10">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-teal rounded-full animate-pulse" />
               <p className="text-white/50 font-bold text-xs tracking-[0.25em] uppercase">Newcastle CRE Market Pulse — April 2026</p>
@@ -153,12 +153,12 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES ─────────────────────────────────────────── */}
-      <section className="bg-white py-24 md:py-36">
+      <section className="bg-white py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">What we do</p>
             <h2
-              className="text-near-black font-black leading-tight tracking-tight mb-14"
+              className="text-near-black font-black leading-tight tracking-tight mb-8"
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
             >
               Every part of the<br className="hidden md:block" /> workspace problem. One team.
@@ -203,8 +203,9 @@ export default function Home() {
       </section>
 
       {/* ── WHY YOS ──────────────────────────────────────────── */}
-      <section className="bg-near-black py-24 md:py-36">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      <section className="bg-near-black py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-8 md:px-12 lg:px-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
           <FadeIn direction="left">
             <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-5">Why YOS</p>
             <h2
@@ -219,19 +220,20 @@ export default function Home() {
             </p>
           </FadeIn>
 
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col divide-y divide-white/[0.08]">
             {[
               { label: 'Tenant-side only', body: 'We never represent landlords or vendors. No split loyalty. No backdoor deals. When we negotiate, we negotiate for you.' },
               { label: 'Newcastle-first', body: "We live and work here. We know which landlords play fair and which ones don't. That knowledge is worth more than any Sydney firm's database." },
               { label: 'End-to-end', body: 'Lease to clean. One relationship, one accountable team from your first property decision through to the day your space is running.' },
             ].map((point, i) => (
-              <FadeIn key={point.label} delay={i * 100} direction="right">
-                <div className="pl-5 border-l-2 border-teal">
-                  <p className="text-white font-black text-base mb-2 tracking-tight">{point.label}</p>
+              <FadeIn key={point.label} delay={i * 80}>
+                <div className="py-5">
+                  <p className="text-white font-bold text-sm tracking-tight mb-1.5">{point.label}</p>
                   <p className="text-white/45 text-sm leading-relaxed font-light">{point.body}</p>
                 </div>
               </FadeIn>
             ))}
+          </div>
           </div>
         </div>
       </section>
@@ -315,7 +317,7 @@ export default function Home() {
       </section>
 
       {/* ── TOOLS + ESTIMATOR ────────────────────────────────── */}
-      <section className="bg-white py-24 md:py-36">
+      <section className="bg-white py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
             <FadeIn direction="left">
@@ -449,7 +451,7 @@ export default function Home() {
       </section>
 
       {/* ── CASE STUDIES ─────────────────────────────────────── */}
-      <section className="bg-white py-24 md:py-36">
+      <section className="bg-white py-20 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
