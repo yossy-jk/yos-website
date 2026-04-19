@@ -26,19 +26,19 @@ export default function FurniturePage() {
           priority
         />
         <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-20 pb-24 w-full">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 w-full">
           <FadeIn delay={0}>
             <SectionLabel>Office Furniture &amp; Fitout</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
-            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
-              style={{ fontSize: 'clamp(2.8rem, 7vw, 6.5rem)' }}>
+            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
+              style={{ fontSize: 'clamp(2rem, 7vw, 6.5rem)' }}>
               Your office is a business decision.{' '}
               <span className="text-teal">Treat it like one.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-12"
+            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
               We manage your furniture and fitout end to end — brief, specification, supplier coordination, delivery and install. You walk into a finished workspace. One team, no gaps.
             </p>
@@ -52,7 +52,7 @@ export default function FurniturePage() {
       </section>
 
       {/* GOVT APPROVED BANNER */}
-      <section className="bg-warm-grey border-b border-gray-200 py-14 lg:py-16">
+      <section className="bg-warm-grey border-b border-gray-200 py-8 sm:py-12 lg:py-16">
         <FadeIn>
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
@@ -62,7 +62,7 @@ export default function FurniturePage() {
                 { stat: '$0', label: 'Hidden charges or surprises' },
                 { stat: '1', label: 'Point of contact, start to finish' }
               ].map((item) => (
-                <div key={item.label} className="py-8 px-6 text-center">
+                <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
                   <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
                   <p className="text-mid-grey font-light text-sm leading-snug">{item.label}</p>
                 </div>
@@ -73,12 +73,12 @@ export default function FurniturePage() {
       </section>
 
       {/* WHAT WE SUPPLY */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-white py-14 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Everything your workspace needs. Nothing it doesn&apos;t.
             </h2>
           </FadeIn>
@@ -107,7 +107,7 @@ export default function FurniturePage() {
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-sm p-10 h-full">
+                <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
                   <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">{cat.category}</h3>
                   <ul className="space-y-3 mb-6">
                     {cat.items.map((item, j) => (
@@ -126,8 +126,8 @@ export default function FurniturePage() {
       </section>
 
       {/* WHO WE WORK WITH */}
-      <section className="bg-near-black py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <section className="bg-near-black py-14 sm:py-20 lg:py-32">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
@@ -162,12 +162,12 @@ export default function FurniturePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-warm-grey py-24 lg:py-32">
+      <section className="bg-warm-grey py-14 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               From brief to delivered. No hassle.
             </h2>
           </FadeIn>
@@ -181,7 +181,7 @@ export default function FurniturePage() {
             ].map((step, i) => (
               <FadeIn key={step.step} delay={i * 80} direction="up">
                 <div>
-                  <p className="text-teal font-black text-5xl mb-4 leading-none">{step.step}</p>
+                  <p className="text-teal font-black text-4xl sm:text-5xl mb-4 leading-none">{step.step}</p>
                   <h3 className="text-near-black font-bold text-xl mb-3">{step.title}</h3>
                   <p className="text-charcoal font-light text-sm leading-relaxed">{step.body}</p>
                 </div>
@@ -192,10 +192,10 @@ export default function FurniturePage() {
       </section>
 
       {/* BUNDLE CALLOUT — cross-sell to cleaning */}
-      <section className="bg-white py-20 lg:py-24">
+      <section className="bg-white py-12 sm:py-16 lg:py-24">
         <FadeIn>
           <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
-            <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
@@ -216,14 +216,14 @@ export default function FurniturePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-near-black py-24 lg:py-32 text-center">
+      <section className="bg-near-black py-14 sm:py-20 lg:py-32 text-center">
         <FadeIn>
           <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
-            <h2 className="text-white font-bold leading-tight mb-6"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}>
+            <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
+              style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to kit out your space?
             </h2>
-            <p className="text-white/55 font-light text-xl leading-relaxed mb-12">
+            <p className="text-white/55 font-light text-lg leading-relaxed mb-8 sm:mb-12">
               Send us your floor plan, tell us your headcount, and we&apos;ll put together a specification and quote.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">

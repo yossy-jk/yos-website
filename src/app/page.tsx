@@ -51,16 +51,16 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/80" />
 
-        <div className="relative z-10 w-full mx-auto px-6 sm:px-8 md:px-16 lg:px-24 pt-40 pb-32 md:pt-52 md:pb-40 max-w-4xl">
+        <div className="relative z-10 w-full mx-auto px-6 sm:px-8 md:px-16 lg:px-24 pt-28 pb-14 sm:pt-36 sm:pb-20 md:pt-52 md:pb-40 max-w-4xl">
           <FadeIn delay={0}>
-            <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-10">
+            <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-6 sm:mb-10">
               Newcastle &amp; Hunter Valley
             </p>
           </FadeIn>
           <FadeIn delay={100}>
             <h1
-              className="text-white font-black uppercase leading-[1.0] tracking-tight mb-10"
-              style={{ fontSize: 'clamp(2.8rem, 8vw, 7rem)' }}
+              className="text-white font-black uppercase leading-[1.0] tracking-tight mb-7 sm:mb-10"
+              style={{ fontSize: 'clamp(2rem, 8vw, 7rem)' }}
             >
               One team.<br />
               One relationship.<br />
@@ -69,7 +69,7 @@ export default function Home() {
           </FadeIn>
           <FadeIn delay={200}>
             <p
-              className="text-white/70 font-light leading-relaxed mb-14 max-w-md"
+              className="text-white/70 font-light leading-relaxed mb-10 sm:mb-14 max-w-md"
               style={{ fontSize: 'clamp(1rem, 2vw, 1.15rem)' }}
             >
               Newcastle&apos;s only commercial property advisor working exclusively for tenants and buyers.
@@ -109,7 +109,7 @@ export default function Home() {
             { stat: 'Newcastle & Hunter', label: 'Exclusively local' },
             { stat: 'Lease to clean', label: 'One team, end-to-end' },
           ].map(item => (
-            <div key={item.stat} className="py-8 px-8 text-center">
+            <div key={item.stat} className="py-5 px-4 sm:py-8 sm:px-8 text-center">
               <p className="text-near-black font-black text-sm md:text-base mb-1.5 tracking-tight">{item.stat}</p>
               <p className="text-mid-grey text-xs font-medium tracking-wide">{item.label}</p>
             </div>
@@ -121,19 +121,19 @@ export default function Home() {
           3. WHAT WE DO
           bg: near-black — DARK
       ──────────────────────────────────────────── */}
-      <section className="bg-near-black py-24 md:py-36">
+      <section className="bg-near-black py-16 sm:py-24 md:py-28 lg:py-36">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
-            <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-6">What we do</p>
+            <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-5 sm:mb-6">What we do</p>
             <h2
-              className="text-white font-black uppercase leading-tight tracking-tight mb-8 border-l-4 border-teal pl-6"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)' }}
+              className="text-white font-black uppercase leading-tight tracking-tight mb-6 sm:mb-8 border-l-4 border-teal pl-6"
+              style={{ fontSize: 'clamp(1.65rem, 5vw, 3.8rem)' }}
             >
               Commercial property advisory.<br />
               One team.<br />
               Every part of the problem.
             </h2>
-            <p className="text-white/55 font-light text-base leading-relaxed mb-20 max-w-lg pl-6 border-l-4 border-transparent">
+            <p className="text-white/55 font-light text-base leading-relaxed mb-10 sm:mb-16 lg:mb-20 max-w-lg pl-6 border-l-4 border-transparent">
               Tenant representation, fitout, buyers agency, and cleaning — all under one roof. You deal with Joe, start to finish.
             </p>
           </FadeIn>
@@ -143,7 +143,7 @@ export default function Home() {
               <FadeIn key={service.title} delay={i * 60}>
                 <Link
                   href={service.href}
-                  className="group flex items-baseline justify-between gap-8 py-8 no-underline hover:pl-2 transition-all duration-200"
+                  className="group flex items-baseline justify-between gap-8 py-6 sm:py-8 no-underline hover:pl-2 transition-all duration-200"
                 >
                   <div className="flex items-baseline gap-6 flex-1">
                     <span className="text-teal font-black text-xs tracking-widest flex-shrink-0 w-6">
@@ -167,17 +167,17 @@ export default function Home() {
           4. WHY YOS
           bg: white — LIGHT BREAK
       ──────────────────────────────────────────── */}
-      <section className="bg-white py-24 md:py-36">
+      <section className="bg-white py-16 sm:py-24 md:py-28 lg:py-36">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
-            <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-6">Why YOS</p>
+            <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-5 sm:mb-6">Why YOS</p>
             <h2
-              className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)' }}
+              className="text-near-black font-black uppercase leading-tight tracking-tight mb-6 sm:mb-8"
+              style={{ fontSize: 'clamp(1.65rem, 5vw, 3.8rem)' }}
             >
               No conflicts.<br />No shortcuts.<br />No split loyalty.
             </h2>
-            <p className="text-charcoal font-light text-base leading-relaxed mb-20 max-w-lg">
+            <p className="text-charcoal font-light text-base leading-relaxed mb-10 sm:mb-16 lg:mb-20 max-w-lg">
               Most commercial property advisors work both sides of the deal. We don&apos;t.
               Every decision we make is in your interest — because that&apos;s the only interest we have.
             </p>
@@ -190,8 +190,8 @@ export default function Home() {
               { num: '03', label: 'End-to-end', body: 'Lease to clean. One relationship, one accountable team from your first property decision through to the day your space is running.' },
             ].map((point, i) => (
               <FadeIn key={point.label} delay={i * 80}>
-                <div className="flex gap-8 py-10 border-b border-gray-100 last:border-0">
-                  <span className="text-teal font-black text-4xl md:text-5xl leading-none flex-shrink-0 w-16">{point.num}</span>
+                <div className="flex gap-6 sm:gap-8 py-7 sm:py-10 border-b border-gray-100 last:border-0">
+                  <span className="text-teal font-black text-3xl sm:text-4xl md:text-5xl leading-none flex-shrink-0 w-12 sm:w-16">{point.num}</span>
                   <div className="pt-1">
                     <p className="text-near-black font-black text-lg tracking-tight mb-3">{point.label}</p>
                     <p className="text-charcoal font-light text-sm leading-relaxed max-w-md">{point.body}</p>
@@ -207,20 +207,20 @@ export default function Home() {
           5. LEASEINTEL
           bg: near-black — DARK BREAK
       ──────────────────────────────────────────── */}
-      <section className="bg-near-black py-24 md:py-36">
+      <section className="bg-near-black py-16 sm:py-24 md:py-28 lg:py-36">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 border border-teal/30 px-4 py-2 mb-8">
+            <div className="inline-flex items-center gap-2 border border-teal/30 px-4 py-2 mb-6 sm:mb-8">
               <span className="w-1.5 h-1.5 bg-teal rounded-full" />
               <span className="text-teal font-bold text-[10px] tracking-[0.35em] uppercase">New — LeaseIntel™</span>
             </div>
             <h2
-              className="text-white font-black uppercase leading-tight tracking-tight mb-8 border-l-4 border-teal pl-6"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)' }}
+              className="text-white font-black uppercase leading-tight tracking-tight mb-6 sm:mb-8 border-l-4 border-teal pl-6"
+              style={{ fontSize: 'clamp(1.65rem, 5vw, 3.8rem)' }}
             >
               Is your lease costing you<br />more than it should?
             </h2>
-            <p className="text-white/55 font-light text-base leading-relaxed mb-12 max-w-lg">
+            <p className="text-white/55 font-light text-base leading-relaxed mb-8 sm:mb-12 max-w-lg">
               Most business owners sign commercial leases they don&apos;t fully understand.
               LeaseIntel™ gives you a complete plain-English risk analysis — every clause rated
               Red, Amber, or Green — before you sign. Or after.
@@ -228,7 +228,7 @@ export default function Home() {
           </FadeIn>
 
           <FadeIn delay={100}>
-            <div className="flex flex-col gap-4 mb-14 max-w-lg">
+            <div className="flex flex-col gap-4 mb-8 sm:mb-14 max-w-lg">
               {[
                 'Free summary: overall risk rating + top 3 issues — instant',
                 'Full report: all 12 risk categories + negotiation roadmap — $97',
@@ -266,7 +266,7 @@ export default function Home() {
           MARKET INTELLIGENCE TEASER
           bg: white — references resources page
       ──────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-24 border-t border-gray-100">
+      <section className="bg-white py-12 sm:py-16 md:py-24 border-t border-gray-100">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
@@ -296,12 +296,12 @@ export default function Home() {
           6. TESTIMONIALS
           bg: warm-grey — LIGHT BREAK
       ──────────────────────────────────────────── */}
-      <section className="bg-warm-grey py-24 md:py-36">
+      <section className="bg-warm-grey py-16 sm:py-24 md:py-28 lg:py-36">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <h2
-              className="text-near-black font-black uppercase leading-tight tracking-tight mb-20 text-center"
-              style={{ fontSize: 'clamp(2rem, 5vw, 3.8rem)' }}
+              className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 text-center"
+              style={{ fontSize: 'clamp(1.65rem, 5vw, 3.8rem)' }}
             >
               What our clients say
             </h2>
@@ -329,7 +329,7 @@ export default function Home() {
               },
             ].map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="border-t border-gray-200 py-12 last:border-b">
+                <div className="border-t border-gray-200 py-8 sm:py-12 last:border-b">
                   <div className="flex gap-0.5 mb-6">
                     {[...Array(5)].map((_, j) => (
                       <svg key={j} className="w-4 h-4 text-yellow-500 fill-current" viewBox="0 0 20 20">
@@ -356,16 +356,16 @@ export default function Home() {
           7. FINAL CTA
           bg: near-black — DARK BREAK + CLOSE
       ──────────────────────────────────────────── */}
-      <section className="bg-near-black py-24 md:py-36">
+      <section className="bg-near-black py-16 sm:py-24 md:py-28 lg:py-36">
         <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <h2
-              className="text-white font-black uppercase leading-tight tracking-tight mb-8 border-l-4 border-teal pl-6"
-              style={{ fontSize: 'clamp(2.2rem, 5vw, 4.5rem)' }}
+              className="text-white font-black uppercase leading-tight tracking-tight mb-6 sm:mb-8 border-l-4 border-teal pl-6"
+              style={{ fontSize: 'clamp(1.8rem, 5vw, 4.5rem)' }}
             >
               Speak to<br />Joe directly.
             </h2>
-            <p className="text-white/55 font-light text-base leading-relaxed mb-14 max-w-md">
+            <p className="text-white/55 font-light text-base leading-relaxed mb-10 sm:mb-14 max-w-md">
               20 minutes. No pitch. Just a straight conversation about your space and whether we can help.
             </p>
           </FadeIn>

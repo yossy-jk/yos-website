@@ -85,7 +85,7 @@ export default function Nav() {
         }`}
       >
         <nav className="flex flex-col mt-16">
-          {NAV_LINKS.map((link, i) => (
+          {NAV_LINKS.filter(link => link.label !== 'Resources').map((link, i) => (
             <Link
               key={link.href}
               href={link.href}

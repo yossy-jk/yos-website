@@ -21,19 +21,19 @@ export default function CleaningPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-20 pb-24">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24">
           <FadeIn delay={0}>
             <SectionLabel>Commercial Cleaning</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
-              style={{ fontSize: 'clamp(2.8rem, 7vw, 6.5rem)' }}>
+              style={{ fontSize: 'clamp(2rem, 7vw, 6.5rem)' }}>
               Your space reflects<br />
               <span className="text-teal">your business.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-12"
+            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
               Consistent. Accountable. Newcastle-based. We clean offices that can&apos;t afford a bad first impression — and neither can yours.
             </p>
@@ -47,7 +47,7 @@ export default function CleaningPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-near-black border-b border-white/5 py-14 lg:py-16">
+      <section className="bg-near-black border-b border-white/5 py-8 sm:py-12 lg:py-16">
         <FadeIn>
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
@@ -68,12 +68,12 @@ export default function CleaningPage() {
       </section>
 
       {/* WHAT WE CLEAN */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-white py-14 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Every property type. Same standard.
             </h2>
           </FadeIn>
@@ -126,7 +126,7 @@ export default function CleaningPage() {
               },
             ].map((category, i) => (
               <FadeIn key={category.type} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-sm p-10 h-full">
+                <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
                   <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">
                     {category.type}
                   </h3>
@@ -149,17 +149,17 @@ export default function CleaningPage() {
       </section>
 
       {/* THE YOS DIFFERENCE */}
-      <section className="bg-near-black py-24 lg:py-32">
+      <section className="bg-near-black py-14 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mb-20 max-w-2xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Why clients don&apos;t leave.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10 sm:mb-16">
             {[
               {
                 title: 'Same team, every time',
@@ -178,7 +178,7 @@ export default function CleaningPage() {
               },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">
-                <div className="bg-white/[0.04] border border-white/10 rounded-sm p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
+                <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
                   <h3 className="text-white font-bold text-xl mb-5">{item.title}</h3>
                   <p className="text-white/65 font-light text-sm leading-relaxed mb-5">{item.body}</p>
                   <p className="text-white/35 font-light text-xs italic border-t border-white/10 pt-4">{item.aside}</p>
@@ -200,10 +200,10 @@ export default function CleaningPage() {
       </section>
 
       {/* BUNDLE — cross-sell to fitout */}
-      <section className="bg-warm-grey py-20 lg:py-24">
+      <section className="bg-warm-grey py-12 sm:py-16 lg:py-24">
         <FadeIn>
           <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
-            <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
@@ -225,14 +225,14 @@ export default function CleaningPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal py-24 lg:py-32 text-center">
+      <section className="bg-teal py-14 sm:py-20 lg:py-32 text-center">
         <FadeIn>
           <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
-            <h2 className="text-white font-bold leading-tight mb-6"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}>
+            <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
+              style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to move to a better standard?
             </h2>
-            <p className="text-white/80 font-light text-xl leading-relaxed mb-12">
+            <p className="text-white/80 font-light text-lg leading-relaxed mb-8 sm:mb-12">
               We&apos;ll visit your site, understand your needs, and give you a clear proposal.
               No pressure. No surprises.
             </p>

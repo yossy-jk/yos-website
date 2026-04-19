@@ -20,13 +20,28 @@
   --content-md: 64rem;    /* 1024px — wide text, 2-col layouts */
   --content-lg: 80rem;    /* 1280px — full layout grid */
 
-  /* Section rhythm — vary these to create breathing room */
-  --section-sm: 5rem;     /* 80px  — tight, bar sections */
-  --section-md: 8rem;     /* 128px — standard */
-  --section-lg: 12rem;    /* 192px — spacious, hero-adjacent */
+  /* Section rhythm — mobile-first, 3-tier scale */
+  --section-xs:  3.5rem;   /* 56px  — mobile tight (stats bars) */
+  --section-sm:  5rem;     /* 80px  — mobile standard */
+  --section-md:  8rem;     /* 128px — tablet standard */
+  --section-lg:  12rem;    /* 192px — desktop spacious */
 
-  /* Page inset — generous horizontal padding */
-  --page-inset: clamp(1.5rem, 6vw, 6rem);
+  /* Page inset — graceful mobile horizontal padding */
+  --page-inset: clamp(1.25rem, 5.5vw, 6rem);
+}
+
+/* ─── Responsive section padding helpers ─────────────────── */
+.section-standard {
+  padding-top:    clamp(3.5rem, 8vw, 8rem);
+  padding-bottom: clamp(3.5rem, 8vw, 8rem);
+}
+.section-spacious {
+  padding-top:    clamp(3.5rem, 10vw, 12rem);
+  padding-bottom: clamp(3.5rem, 10vw, 12rem);
+}
+.section-tight {
+  padding-top:    clamp(2.5rem, 5vw, 5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 5rem);
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */

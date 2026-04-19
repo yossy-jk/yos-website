@@ -16,7 +16,7 @@ export default function AboutPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="bg-near-black pt-32 pb-28 md:pt-44 md:pb-36 relative overflow-hidden">
+      <section className="bg-near-black pt-20 pb-16 sm:pt-28 sm:pb-20 md:pt-44 md:pb-36 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
@@ -27,7 +27,7 @@ export default function AboutPage() {
           </FadeIn>
           <FadeIn delay={80}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight mb-8 max-w-3xl"
-              style={{ fontSize: 'clamp(2.8rem, 7vw, 6rem)' }}>
+              style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}>
               One team.<br />
               <span className="text-teal">Genuinely on your side.</span>
             </h1>
@@ -44,7 +44,7 @@ export default function AboutPage() {
       </section>
 
       {/* THE STORY */}
-      <section className="bg-white py-28 lg:py-36">
+      <section className="bg-white py-16 sm:py-24 lg:py-36">
         <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn direction="left">
@@ -102,19 +102,19 @@ export default function AboutPage() {
       </section>
 
       {/* TEAM */}
-      <section className="bg-warm-grey py-24 lg:py-32">
+      <section className="bg-warm-grey py-14 sm:py-20 lg:py-32">
         <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>Meet the team</SectionLabel>
-            <h2 className="text-near-black font-black leading-tight tracking-tight mb-16"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}>
+            <h2 className="text-near-black font-black leading-tight tracking-tight mb-10 sm:mb-16"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.75rem)' }}>
               The people behind every deal.
             </h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             <FadeIn direction="left">
-              <div className="bg-white rounded-sm p-10 shadow-sm">
+              <div className="bg-white rounded-sm p-7 sm:p-10 shadow-sm">
                 <div className="flex items-start gap-6 mb-7">
                   <div className="w-16 h-16 bg-warm-grey rounded-full flex items-center justify-center flex-shrink-0 border-2 border-dashed border-gray-200">
                     <span className="text-mid-grey text-xs">Photo</span>
@@ -146,7 +146,7 @@ export default function AboutPage() {
             </FadeIn>
 
             <FadeIn direction="right" delay={100}>
-              <div className="bg-white rounded-sm p-10 shadow-sm">
+              <div className="bg-white rounded-sm p-7 sm:p-10 shadow-sm">
                 <div className="flex items-start gap-6 mb-7">
                   <div className="w-16 h-16 bg-warm-grey rounded-full flex items-center justify-center flex-shrink-0 border-2 border-dashed border-gray-200">
                     <span className="text-mid-grey text-xs">Photo</span>
@@ -180,12 +180,12 @@ export default function AboutPage() {
       </section>
 
       {/* WHY TENANT-SIDE ONLY */}
-      <section className="bg-near-black py-24 lg:py-32">
+      <section className="bg-near-black py-14 sm:py-20 lg:py-32">
         <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>Our position</SectionLabel>
-            <h2 className="text-white font-black leading-tight tracking-tight mb-12"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}>
+            <h2 className="text-white font-black leading-tight tracking-tight mb-8 sm:mb-12"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.75rem)' }}>
               Why we only work for tenants and buyers.
             </h2>
           </FadeIn>
@@ -220,14 +220,14 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal py-24 lg:py-28 text-center">
+      <section className="bg-teal py-14 sm:py-20 lg:py-28 text-center">
         <FadeIn>
           <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
             <h2 className="text-white font-black leading-tight mb-5"
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}>
               Ready to have someone genuinely on your side?
             </h2>
-            <p className="text-white/80 font-light text-lg leading-relaxed mb-10">
+            <p className="text-white/80 font-light text-lg leading-relaxed mb-6 sm:mb-10">
               20 minutes. No pitch. Just a straight conversation about your space and what you&apos;re trying to achieve.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">

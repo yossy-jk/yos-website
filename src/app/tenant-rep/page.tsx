@@ -18,25 +18,24 @@ export default function TenantRepPage() {
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center pt-[72px] bg-near-black overflow-hidden">
-        {/* Background grid */}
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-32 pb-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-20 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-32">
           <FadeIn delay={0}>
             <SectionLabel>Tenant Representation</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
-            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
-              style={{ fontSize: 'clamp(2.8rem, 7vw, 6.5rem)' }}>
+            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
+              style={{ fontSize: 'clamp(2rem, 7vw, 6.5rem)' }}>
               We negotiate leases for tenants.{' '}
               <span className="text-teal">Never landlords.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-12"
-              style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
+            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-10 sm:mb-12"
+              style={{ fontSize: 'clamp(1rem, 2vw, 1.375rem)' }}>
               Your interests first. No split loyalty. No backdoor deals. Every negotiation is structured to protect you and position your business for growth.
             </p>
           </FadeIn>
@@ -53,11 +52,11 @@ export default function TenantRepPage() {
         </div>
       </section>
 
-      {/* COST REALITY — new section */}
-      <section className="bg-teal py-16 lg:py-20">
+      {/* STATS BAR */}
+      <section className="bg-teal py-10 sm:py-14 lg:py-16">
         <FadeIn>
           <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '8–15%', label: 'Average rent saving we negotiate' },
                 { stat: '$18k+', label: 'Average saving per lease deal' },
@@ -65,8 +64,8 @@ export default function TenantRepPage() {
                 { stat: '24hr', label: 'Initial lease review turnaround' }
               ].map((item) => (
                 <div key={item.label}>
-                  <p className="text-white font-black text-4xl lg:text-5xl mb-2 leading-none">{item.stat}</p>
-                  <p className="text-white/75 font-light text-sm leading-snug">{item.label}</p>
+                  <p className="text-white font-black text-3xl sm:text-4xl lg:text-5xl mb-1.5 sm:mb-2 leading-none">{item.stat}</p>
+                  <p className="text-white/75 font-light text-xs sm:text-sm leading-snug">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -74,18 +73,49 @@ export default function TenantRepPage() {
         </FadeIn>
       </section>
 
+      {/* THE GUARANTEE */}
+      <section className="bg-near-black py-16 sm:py-20 lg:py-28 border-t border-white/10">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center">
+          <FadeIn>
+            <SectionLabel>The Guarantee</SectionLabel>
+            <h2 className="text-white font-black leading-tight mb-6 sm:mb-8"
+              style={{ fontSize: 'clamp(1.9rem, 5vw, 4rem)' }}>
+              We pay for ourselves.<br />
+              <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
+            </h2>
+            <p className="text-white/65 font-light leading-relaxed max-w-2xl mx-auto mb-8 sm:mb-12"
+              style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>
+              Our fee for tenant representation is $12,000 ex GST or 3 months rent equivalent — whichever is higher.
+              The savings we negotiate — rent-free periods, fitout contributions, reduced make-good liability,
+              below-market rent — routinely exceed this multiple times over.
+            </p>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className="border border-teal/40 rounded-sm p-7 sm:p-10 lg:p-12 bg-teal/5 max-w-2xl mx-auto">
+              <p className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-relaxed mb-4">
+                If the documented savings we achieve don&apos;t exceed our professional fee — we waive it.
+              </p>
+              <p className="text-white/55 font-light text-sm sm:text-base leading-relaxed">
+                No invoice. No fee. This is not a marketing promise. It is a commercial commitment.
+                We are on your side. If we don&apos;t deliver a return, we don&apos;t charge for it.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-white py-16 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Four clear steps to your next lease.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
             {[
               {
                 step: '01',
@@ -110,8 +140,8 @@ export default function TenantRepPage() {
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 80} direction="up">
                 <div className="flex flex-col">
-                  <p className="text-teal font-black text-5xl mb-4 leading-none">{item.step}</p>
-                  <h3 className="text-near-black font-bold text-xl mb-3">{item.title}</h3>
+                  <p className="text-teal font-black text-4xl sm:text-5xl mb-3 sm:mb-4 leading-none">{item.step}</p>
+                  <h3 className="text-near-black font-bold text-xl mb-2 sm:mb-3">{item.title}</h3>
                   <p className="text-charcoal font-light text-sm leading-relaxed flex-1">{item.body}</p>
                 </div>
               </FadeIn>
@@ -121,20 +151,20 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHAT'S AT STAKE */}
-      <section className="bg-near-black py-24 lg:py-32">
+      <section className="bg-near-black py-16 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
-            <SectionLabel>What's at stake</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mb-6 max-w-3xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <SectionLabel>What&apos;s at stake</SectionLabel>
+            <h2 className="text-white font-bold leading-tight mb-4 sm:mb-6 max-w-3xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               The cost of a bad lease is never just rent.
             </h2>
-            <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl mb-16">
+            <p className="text-white/60 font-light text-base sm:text-lg leading-relaxed max-w-2xl mb-10 sm:mb-16">
               Most tenants don&apos;t realise how much they&apos;ve overpaid until the lease is up. By then, the leverage is gone. Here&apos;s what goes wrong without proper representation:
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 risk: 'Above-market rent',
@@ -162,10 +192,10 @@ export default function TenantRepPage() {
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="border border-white/10 rounded-sm p-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
+                <div className="border border-white/10 rounded-sm p-6 sm:p-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
                   <div className="flex gap-3 items-start mb-3">
                     <div className="w-2 h-2 rounded-full bg-teal flex-shrink-0 mt-1.5" />
-                    <h3 className="text-white font-bold text-lg leading-snug">{item.risk}</h3>
+                    <h3 className="text-white font-bold text-base sm:text-lg leading-snug">{item.risk}</h3>
                   </div>
                   <p className="text-white/55 font-light text-sm leading-relaxed">{item.detail}</p>
                 </div>
@@ -176,17 +206,17 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHAT'S INCLUDED */}
-      <section className="bg-warm-grey py-24 lg:py-32">
+      <section className="bg-warm-grey py-16 sm:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What&apos;s included</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Everything you need to make the right call.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 title: 'Lease Review',
@@ -244,8 +274,8 @@ export default function TenantRepPage() {
               }
             ].map((category, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="bg-white rounded-sm p-8 shadow-sm h-full">
-                  <h3 className="text-near-black font-bold text-lg mb-5 border-b-2 border-teal pb-4">
+                <div className="bg-white rounded-sm p-7 sm:p-8 shadow-sm h-full">
+                  <h3 className="text-near-black font-bold text-lg mb-4 sm:mb-5 border-b-2 border-teal pb-3 sm:pb-4">
                     {category.title}
                   </h3>
                   <ul className="space-y-3">
@@ -264,29 +294,29 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHY CONFLICT OF INTEREST MATTERS */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-white py-16 sm:py-20 lg:py-32">
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>Why it matters</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-12"
-              style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+            <h2 className="text-near-black font-bold leading-tight mb-8 sm:mb-12"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               The problem with standard practice.
             </h2>
           </FadeIn>
 
-          <div className="space-y-8">
+          <div className="space-y-7 sm:space-y-8">
             <FadeIn delay={100}>
               <div>
-                <h3 className="text-near-black font-bold text-2xl mb-4">Most brokers work both sides</h3>
-                <p className="text-charcoal font-light text-lg leading-relaxed">
+                <h3 className="text-near-black font-bold text-xl sm:text-2xl mb-3 sm:mb-4">Most brokers work both sides</h3>
+                <p className="text-charcoal font-light text-base sm:text-lg leading-relaxed">
                   The majority of commercial property advisors make money from both tenants and landlords. It&apos;s impossible to be fully on your side when someone is also representing the person across the table from you. The incentives are split. The leverage is negotiated away.
                 </p>
               </div>
             </FadeIn>
 
             <FadeIn delay={150}>
-              <div className="border-l-4 border-teal pl-8 py-4 bg-teal/5 rounded-r-lg">
-                <p className="text-near-black font-light text-lg leading-relaxed">
+              <div className="border-l-4 border-teal pl-6 sm:pl-8 py-4 bg-teal/5 rounded-r-lg">
+                <p className="text-near-black font-light text-base sm:text-lg leading-relaxed">
                   We only represent tenants. We will never represent a landlord. That means every word of every lease is read through one lens: does this protect the tenant? Every negotiation has one outcome: the best deal for the business signing the lease.
                 </p>
               </div>
@@ -294,7 +324,7 @@ export default function TenantRepPage() {
 
             <FadeIn delay={200}>
               <div>
-                <h3 className="text-near-black font-bold text-2xl mb-4">What you get from this</h3>
+                <h3 className="text-near-black font-bold text-xl sm:text-2xl mb-3 sm:mb-4">What you get from this</h3>
                 <ul className="space-y-3">
                   {[
                     'Harder negotiation on rent, fit-out contributions, lease length',
@@ -305,7 +335,7 @@ export default function TenantRepPage() {
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 items-start">
                       <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-2" />
-                      <span className="text-charcoal font-light text-lg">{item}</span>
+                      <span className="text-charcoal font-light text-base sm:text-lg">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -316,21 +346,21 @@ export default function TenantRepPage() {
       </section>
 
       {/* LEASEINTEL CALLOUT */}
-      <section className="bg-warm-grey py-20 lg:py-24">
+      <section className="bg-warm-grey py-14 sm:py-16 lg:py-20">
         <FadeIn>
           <div className="max-w-5xl mx-auto px-6 md:px-12 lg:px-20">
-            <div className="bg-near-black rounded-sm p-10 lg:p-16 flex flex-col lg:flex-row gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-8 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 sm:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
-                <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
+                <h3 className="text-white font-bold text-xl sm:text-2xl lg:text-3xl leading-tight mb-3 sm:mb-4">
                   Already have a lease? Get a free risk review.
                 </h3>
-                <p className="text-white/60 font-light text-base leading-relaxed">
+                <p className="text-white/60 font-light text-sm sm:text-base leading-relaxed">
                   Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation, options — every clause rated Red / Amber / Green. Free summary within 24 hours.
                 </p>
               </div>
-              <div className="flex-shrink-0">
-                <Button href="/lease-review" variant="primary" size="lg">
+              <div className="flex-shrink-0 w-full sm:w-auto">
+                <Button href="/lease-review" variant="primary" size="lg" className="w-full sm:w-auto">
                   Start Free Review →
                 </Button>
               </div>
@@ -340,14 +370,14 @@ export default function TenantRepPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="bg-teal py-24 lg:py-32 text-center">
+      <section className="bg-teal py-16 sm:py-20 lg:py-32 text-center">
         <FadeIn>
           <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
-            <h2 className="text-white font-bold leading-tight mb-6"
-              style={{ fontSize: 'clamp(2rem, 4.5vw, 3.75rem)' }}>
+            <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
+              style={{ fontSize: 'clamp(1.7rem, 4.5vw, 3.75rem)' }}>
               Let&apos;s talk about your next lease.
             </h2>
-            <p className="text-white/80 font-light text-xl leading-relaxed mb-12">
+            <p className="text-white/80 font-light text-base sm:text-xl leading-relaxed mb-8 sm:mb-12">
               20 minutes. No pitch. Just a conversation about your space and what you&apos;re trying to achieve.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
