@@ -77,7 +77,7 @@ export default function FurniturePage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
               Everything your workspace needs. Nothing it doesn&apos;t.
             </h2>
@@ -135,10 +135,10 @@ export default function FurniturePage() {
                 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
                 Private businesses, councils, schools, and health facilities across the Hunter.
               </h2>
-              <p className="text-white/60 font-light text-lg leading-relaxed mb-8">
+              <p className="text-white/60 font-light text-lg leading-relaxed mb-8 max-w-2xl">
                 We work with organisations of all sizes — from 5-person professional services firms to multi-site government and health sector clients. The spec, the process, and the standard of work is the same regardless of project size.
               </p>
-              <p className="text-white/60 font-light text-lg leading-relaxed">
+              <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
                 Every project is managed by us from start to finish. You deal with one person. We coordinate the rest.
               </p>
             </div>
@@ -166,7 +166,7 @@ export default function FurniturePage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
               From brief to delivered. No hassle.
             </h2>

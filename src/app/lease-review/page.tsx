@@ -242,7 +242,7 @@ export default function LeaseReviewPage() {
         <Nav />
 
         {/* HERO */}
-        <section className="bg-near-black pt-32 pb-20 md:pt-44 md:pb-28 relative overflow-hidden">
+        <section className="bg-near-black pt-32 pb-28 md:pt-44 md:pb-32 relative overflow-hidden">
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
             backgroundSize: '60px 60px'
@@ -495,7 +495,7 @@ export default function LeaseReviewPage() {
     return (
       <>
         <Nav />
-        <div className="min-h-screen bg-near-black flex items-start justify-center px-5 py-28 md:py-36">
+        <div className="min-h-screen bg-near-black flex items-start justify-center px-6 md:px-12 lg:px-20 py-24 md:py-32">
           <div className="w-full max-w-md">
             <button
               onClick={() => setStep('landing')}
@@ -578,7 +578,7 @@ export default function LeaseReviewPage() {
     return (
       <>
         <Nav />
-        <div className="min-h-screen bg-near-black flex items-start justify-center px-5 py-28 md:py-36">
+        <div className="min-h-screen bg-near-black flex items-start justify-center px-6 md:px-12 lg:px-20 py-24 md:py-32">
           <form onSubmit={handleSubmit} className="w-full max-w-md">
             <button
               type="button"
@@ -677,7 +677,7 @@ export default function LeaseReviewPage() {
   return (
     <>
       <Nav />
-      <div className="min-h-screen bg-near-black flex items-center justify-center px-5">
+      <div className="min-h-screen bg-near-black flex items-center justify-center px-6 md:px-12 lg:px-20">
         <div className="w-full max-w-lg text-center">
           <div className="w-16 h-16 bg-teal/15 border border-teal/30 rounded-full flex items-center justify-center mx-auto mb-8">
             <span className="text-teal text-2xl font-black">✓</span>

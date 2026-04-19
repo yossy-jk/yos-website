@@ -82,7 +82,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* TOOLS GRID */}
-      <section className="bg-white py-28 lg:py-32">
+      <section className="bg-white py-24 lg:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {tools.map((tool, i) => (
@@ -117,7 +117,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* NEED MORE HELP */}
-      <section className="bg-warm-grey py-28 lg:py-32">
+      <section className="bg-warm-grey py-24 lg:py-32">
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center">
           <SectionLabel>Need more?</SectionLabel>
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8">

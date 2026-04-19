@@ -77,7 +77,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
               First-time commercial buyers to seasoned investors.
             </h2>
@@ -118,7 +118,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mb-20 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mb-20 max-w-2xl"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
               Every step of the acquisition. Done properly.
             </h2>

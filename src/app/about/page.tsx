@@ -16,7 +16,7 @@ export default function AboutPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="bg-near-black pt-36 pb-24 relative overflow-hidden">
+      <section className="bg-near-black pt-32 pb-28 md:pt-44 md:pb-36 relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'

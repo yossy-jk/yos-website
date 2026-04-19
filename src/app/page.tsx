@@ -170,7 +170,7 @@ export default function Home() {
             <span className="text-mid-grey text-xs font-medium tracking-wide">Swipe to explore</span>
             <span className="text-teal text-xs">→</span>
           </div>
-          <div className="swipe-hint md:[mask-image:none] flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-x-visible -mx-5 md:mx-0 px-5 md:px-0 pb-4 md:pb-0 scroll-snap-x no-scrollbar">
+          <div className="swipe-hint md:[mask-image:none] flex md:grid md:grid-cols-2 gap-6 overflow-x-auto md:overflow-x-visible -mx-6 md:mx-0 px-6 md:px-0 pb-4 md:pb-0 scroll-snap-x no-scrollbar">
             {SERVICES.map((service, i) => (
               <FadeIn key={service.title} delay={i * 80}>
                 <Link

@@ -72,7 +72,7 @@ export default function CleaningPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-20 max-w-2xl"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
               Every property type. Same standard.
             </h2>
@@ -153,7 +153,7 @@ export default function CleaningPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mb-20 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mb-20 max-w-2xl"
               style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
               Why clients don&apos;t leave.
             </h2>
