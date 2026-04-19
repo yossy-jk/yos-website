@@ -51,7 +51,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/80" />
 
-        <div className="relative z-10 w-full px-8 md:px-16 lg:px-24 pt-40 pb-32 md:pt-52 md:pb-40 max-w-4xl">
+        <div className="relative z-10 w-full mx-auto px-6 sm:px-8 md:px-16 lg:px-24 pt-40 pb-32 md:pt-52 md:pb-40 max-w-4xl">
           <FadeIn delay={0}>
             <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-10">
               Newcastle &amp; Hunter Valley
@@ -122,7 +122,7 @@ export default function Home() {
           bg: near-black — DARK
       ──────────────────────────────────────────── */}
       <section className="bg-near-black py-24 md:py-36">
-        <div className="max-w-4xl mx-auto px-8 md:px-16 lg:px-24">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-6">What we do</p>
             <h2
@@ -168,7 +168,7 @@ export default function Home() {
           bg: white — LIGHT BREAK
       ──────────────────────────────────────────── */}
       <section className="bg-white py-24 md:py-36">
-        <div className="max-w-4xl mx-auto px-8 md:px-16 lg:px-24">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-6">Why YOS</p>
             <h2
@@ -208,7 +208,7 @@ export default function Home() {
           bg: near-black — DARK BREAK
       ──────────────────────────────────────────── */}
       <section className="bg-near-black py-24 md:py-36">
-        <div className="max-w-4xl mx-auto px-8 md:px-16 lg:px-24">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <div className="inline-flex items-center gap-2 border border-teal/30 px-4 py-2 mb-8">
               <span className="w-1.5 h-1.5 bg-teal rounded-full" />
@@ -261,12 +261,43 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* ─────────────────────────────────────────────
+          MARKET INTELLIGENCE TEASER
+          bg: white — references resources page
+      ──────────────────────────────────────────── */}
+      <section className="bg-white py-20 md:py-24 border-t border-gray-100">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
+          <FadeIn>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
+              <div>
+                <p className="text-teal font-bold text-xs tracking-[0.35em] uppercase mb-4">Market intelligence</p>
+                <h2
+                  className="text-near-black font-black uppercase leading-tight tracking-tight mb-4"
+                  style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.6rem)' }}
+                >
+                  Free tools.<br />Better decisions.
+                </h2>
+                <p className="text-charcoal font-light text-sm leading-relaxed max-w-sm">
+                  Cap rate calculator, lease comparison, purchase checklist and more. No sign-up required.
+                </p>
+              </div>
+              <Link
+                href="/resources"
+                className="flex-shrink-0 border border-near-black text-near-black font-black text-xs tracking-[0.2em] uppercase px-8 py-4 rounded-sm hover:border-teal hover:text-teal transition-colors duration-200 no-underline whitespace-nowrap text-center"
+              >
+                View all tools →
+              </Link>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
       {/* ─────────────────────────────────────────────
           6. TESTIMONIALS
           bg: warm-grey — LIGHT BREAK
       ──────────────────────────────────────────── */}
       <section className="bg-warm-grey py-24 md:py-36">
-        <div className="max-w-4xl mx-auto px-8 md:px-16 lg:px-24">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <h2
               className="text-near-black font-black uppercase leading-tight tracking-tight mb-20 text-center"
@@ -326,7 +357,7 @@ export default function Home() {
           bg: near-black — DARK BREAK + CLOSE
       ──────────────────────────────────────────── */}
       <section className="bg-near-black py-24 md:py-36">
-        <div className="max-w-4xl mx-auto px-8 md:px-16 lg:px-24">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 md:px-16 lg:px-24">
           <FadeIn>
             <h2
               className="text-white font-black uppercase leading-tight tracking-tight mb-8 border-l-4 border-teal pl-6"
