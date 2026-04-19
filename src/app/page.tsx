@@ -3,7 +3,6 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import QuickEstimator from '@/components/QuickEstimator'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 const SERVICES = [
@@ -13,13 +12,7 @@ const SERVICES = [
     body: 'We represent the tenant — never the landlord. Pure negotiation in your interest. No conflicts, no compromise.',
     href: '/tenant-rep',
     img: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Buyers Agency',
-    tagline: 'Buy without getting burned.',
-    body: 'Off-market access, hard negotiations, and due diligence — handled by specialists who do this every day in Newcastle.',
-    href: '/buyers-agency',
-    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    primary: true,
   },
   {
     title: 'Furniture & Fitout',
@@ -27,6 +20,15 @@ const SERVICES = [
     body: 'From brief to fully delivered workspace — furniture specified, coordinated and installed end-to-end across Newcastle and the Hunter.',
     href: '/furniture',
     img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80',
+    primary: true,
+  },
+  {
+    title: 'Buyers Agency',
+    tagline: 'Buy without getting burned.',
+    body: 'Off-market access, hard negotiations, and due diligence — handled by specialists who do this every day in Newcastle.',
+    href: '/buyers-agency',
+    img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80',
+    primary: true,
   },
   {
     title: 'Cleaning',
@@ -34,6 +36,7 @@ const SERVICES = [
     body: 'Commercial cleaning for offices, childcare, medical and industrial facilities. Consistent, accountable, Newcastle-based.',
     href: '/cleaning',
     img: 'https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80',
+    primary: false,
   },
 ]
 
@@ -316,52 +319,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── TOOLS + ESTIMATOR ────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-start">
-            <FadeIn direction="left">
-              <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Market intelligence</p>
-              <h2
-                className="text-near-black font-black leading-tight tracking-tight mb-5"
-                style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
-              >
-                Know your numbers<br />before you commit.
-              </h2>
-              <p className="text-charcoal text-sm md:text-base leading-relaxed mb-8 font-light max-w-sm">
-                Real market data for Newcastle commercial property decisions. No sign-up to start.
-              </p>
-              <div className="flex flex-col gap-4 mb-8">
-                {[
-                  { icon: '📄', name: 'Lease Review', href: '/lease-review', desc: 'Flag the clauses that cost you' },
-                  { icon: '⚖️', name: 'Lease Comparison', href: '/resources/lease-comparison', desc: 'True cost across 3 options' },
-                  { icon: '📈', name: 'Cap Rate Calculator', href: '/resources/cap-rate-calculator', desc: 'Investment return analysis' },
-                  { icon: '✅', name: 'Purchase Checklist', href: '/resources/purchase-checklist', desc: '25-point due diligence' },
-                ].map(tool => (
-                  <Link
-                    key={tool.name}
-                    href={tool.href}
-                    className="group flex items-center gap-4 border border-gray-100 p-4 rounded-sm hover:border-teal hover:shadow-sm transition-all duration-200 no-underline"
-                  >
-                    <span className="text-xl">{tool.icon}</span>
-                    <div className="flex-1">
-                      <p className="text-near-black font-black text-sm group-hover:text-teal transition-colors">{tool.name}</p>
-                      <p className="text-mid-grey text-xs font-light">{tool.desc}</p>
-                    </div>
-                    <span className="text-teal font-bold text-xs opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-                  </Link>
-                ))}
+      {/* ── MARKET INTELLIGENCE ──────────────────────────────── */}
+      <section className="bg-warm-grey py-16 md:py-20">
+        <div className="max-w-7xl mx-auto px-8 md:px-12 lg:px-20">
+          <FadeIn>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+              <div>
+                <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-3">Market intelligence</p>
+                <h2
+                  className="text-near-black font-black leading-tight tracking-tight mb-3 max-w-xl"
+                  style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)' }}
+                >
+                  Free tools to help you make better commercial property decisions.
+                </h2>
+                <p className="text-charcoal text-sm leading-relaxed font-light max-w-lg">
+                  Cap rate calculator, lease comparison tool, purchase checklist, and more. No sign-up. No catch.
+                </p>
               </div>
-            </FadeIn>
-
-            <FadeIn direction="right" delay={120}>
-              <QuickEstimator />
-            </FadeIn>
-          </div>
+              <div className="flex-shrink-0">
+                <Link
+                  href="/resources"
+                  className="inline-flex items-center gap-3 bg-near-black text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-teal transition-colors duration-200 no-underline whitespace-nowrap"
+                >
+                  View all tools &rarr;
+                </Link>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ─────────────────────────────────────── */}
+            {/* ── TESTIMONIALS ─────────────────────────────────────── */}
       <section className="bg-near-black py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
           <FadeIn>
