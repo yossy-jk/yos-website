@@ -55,7 +55,8 @@ export default function ContactPage() {
                 >
                   <input type="hidden" name="_subject" value="New enquiry — Your Office Space website" />
                   <input type="hidden" name="_next" value="https://yourofficespace.au/contact?sent=true" />
-                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_captcha" value="true" />
+                  <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>

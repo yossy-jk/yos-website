@@ -23,6 +23,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
       <div className="border border-gray-200 overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
         {cs.heroImage && (
           <div className="h-52 overflow-hidden">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={cs.heroImage}
               alt={cs.title}

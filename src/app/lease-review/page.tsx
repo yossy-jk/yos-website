@@ -193,8 +193,10 @@ export default function LeaseReviewPage() {
   /* Step 2 validation */
   const validateUpload = (): boolean => {
     const e: FieldErrors = {}
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
     if (!form.file) e.file = 'Please upload your lease document'
     else if (form.file.size > 50 * 1024 * 1024) e.file = 'File must be under 50MB'
+    else if (!allowedTypes.includes(form.file.type) && !form.file.name.match(/\.(pdf|doc|docx)$/i)) e.file = 'Please upload a PDF or Word document'
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -210,6 +212,8 @@ export default function LeaseReviewPage() {
     e.preventDefault()
     if (!validateUpload()) return
     setSubmitting(true)
+
+    // 1. Submit lead data to HubSpot CRM
     try {
       await fetch(
         'https://api.hsforms.com/submissions/v3/integration/submit/442709765/e3e49521-0831-49ba-8929-610c7cc7f282',
@@ -223,14 +227,38 @@ export default function LeaseReviewPage() {
               { name: 'email', value: form.email },
               { name: 'company', value: form.company },
               { name: 'phone', value: form.phone },
-              { name: 'message', value: `LeaseIntel™ — ${form.leaseType} lease — ${form.state}` },
+              { name: 'message', value: `LeaseIntel™ Free Review — ${form.leaseType} lease — ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})` },
             ],
           }),
         }
       )
-    } catch (_) {
-      // Non-blocking — proceed to confirmation regardless
+    } catch {
+      // Non-blocking CRM entry — continue
     }
+
+    // 2. Send the actual lease file to Joe via FormSubmit (multipart)
+    if (form.file) {
+      try {
+        const fd = new FormData()
+        fd.append('name', form.name)
+        fd.append('email', form.email)
+        fd.append('_replyto', form.email)
+        fd.append('company', form.company || '—')
+        fd.append('phone', form.phone || '—')
+        fd.append('leaseType', form.leaseType)
+        fd.append('state', form.state)
+        fd.append('_subject', `LeaseIntel™ Free Review — ${form.name} (${form.company || form.email})`)
+        fd.append('_captcha', 'false')
+        fd.append('attachment', form.file, form.file.name)
+        await fetch('https://formsubmit.co/jk@yourofficespace.au', {
+          method: 'POST',
+          body: fd,
+        })
+      } catch {
+        // Non-blocking — lease file delivery best-effort
+      }
+    }
+
     setSubmitting(false)
     setStep('submitted')
   }

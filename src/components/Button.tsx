@@ -67,7 +67,7 @@ export default function Button({
           href={href}
           className={combinedClassName}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
         >
           {children}
         </a>

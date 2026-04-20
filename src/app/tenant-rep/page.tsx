@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
@@ -108,7 +108,7 @@ export default function TenantRepPage() {
 
       {/* ─── IMAGE BREAK ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
-        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80" alt="Professional negotiation" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <Image src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80" alt="Professional negotiation" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
         <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
           <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>

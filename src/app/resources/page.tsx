@@ -183,8 +183,10 @@ export default function ResourcesPage() {
                 <Link href={`/case-studies/${cs.slug}`} className="group no-underline flex flex-col h-full bg-near-black border border-white/8 hover:border-teal transition-colors duration-200">
                   {cs.heroImage && (
                     <div className="overflow-hidden" style={{ height: '13rem' }}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={cs.heroImage} alt={cs.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy" />
                     </div>
                   )}
                   <div className="flex flex-col flex-1" style={{ padding: '2rem' }}>

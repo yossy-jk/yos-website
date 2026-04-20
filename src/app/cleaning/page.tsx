@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
@@ -72,7 +73,7 @@ export default function CleaningPage() {
       {/* WHAT WE CLEAN */}
       {/* ─── IMAGE BREAK ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
-        <img src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1920&q=80" alt="Clean professional office" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <Image src="https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1920&q=80" alt="Clean professional office" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
         <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>

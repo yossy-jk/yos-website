@@ -35,7 +35,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <section className="bg-near-black pt-[72px]">
         {cs.heroImage && (
           <div className="relative h-72 lg:h-96 overflow-hidden">
-            <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" />
             <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
