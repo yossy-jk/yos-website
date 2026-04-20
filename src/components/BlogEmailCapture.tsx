@@ -12,7 +12,7 @@ export default function BlogEmailCapture() {
     if (!email.trim()) return
     setLoading(true)
     try {
-      await submitLead({ email, source: 'Blog Email Capture', context: 'Subscribed to blog updates from blog index page.' })
+      await submitLead({ firstname: 'Blog Subscriber', email, source: 'Blog Email Capture', context: 'Subscribed to blog updates from blog index page.' })
     } catch { /* fail silently */ }
     setSubmitted(true)
     setLoading(false)
