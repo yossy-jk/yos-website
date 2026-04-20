@@ -367,7 +367,7 @@ export default function StampDutyCalculatorPage() {
               We help commercial buyers negotiate the right price and structure the purchase correctly.
             </h2>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-              className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+              className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
               style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
               Book a Buyer Consultation →
             </a>

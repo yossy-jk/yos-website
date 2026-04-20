@@ -39,12 +39,12 @@ export default function Nav() {
         scrolled ? 'bg-near-black border-b border-white/10' : 'bg-near-black/95 backdrop-blur-md'
       }`}>
         <div
-          className="max-w-screen-xl mx-auto flex justify-between items-center h-16 md:h-20"
+          className="max-w-screen-xl mx-auto flex justify-between items-center h-16 md:h-20 px-5 md:px-0"
           style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
           <Link href="/" onClick={() => setOpen(false)}
             className="text-white font-black no-underline z-50 relative uppercase"
-            style={{ fontSize: '0.72rem', letterSpacing: '0.2em' }}>
+            style={{ fontSize: 'clamp(0.8rem,2.5vw,0.72rem)', letterSpacing: '0.2em' }}>
             Your Office Space
           </Link>
 

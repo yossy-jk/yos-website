@@ -179,7 +179,7 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <button onClick={() => setStep(1)}
-                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                 style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                 Start estimator →
               </button>
@@ -355,7 +355,7 @@ export default function FitoutEstimatorPage() {
 
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(5)}
-                  className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                  className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
                 </button>
@@ -440,7 +440,7 @@ export default function FitoutEstimatorPage() {
               {/* CTAs */}
               <div className="flex flex-col gap-3 max-w-sm">
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                  className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                  className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Book a Fitout Consultation →
                 </a>

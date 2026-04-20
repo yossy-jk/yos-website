@@ -9,10 +9,10 @@ export default function Footer() {
         style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
       >
         {/* Top grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-10 mb-14 md:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-5 md:gap-10 mb-14 md:mb-16">
 
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-1 sm:col-span-2 md:col-span-1">
             <p className="text-white font-black uppercase tracking-[0.2em] mb-4" style={{ fontSize: '0.72rem' }}>
               Your Office Space
             </p>
@@ -67,12 +67,12 @@ export default function Footer() {
             <p className="text-white/40 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Get in touch</p>
             <div className="flex flex-col gap-3">
               <a href={`mailto:${CONTACT.email}`}
-                className="text-white/35 font-light no-underline hover:text-white transition-colors"
+                className="text-white/35 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.email}
               </a>
               <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                className="text-white/35 font-light no-underline hover:text-white transition-colors"
+                className="text-white/35 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.phone}
               </a>

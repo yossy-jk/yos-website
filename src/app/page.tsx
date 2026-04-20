@@ -141,19 +141,19 @@ export default function Home() {
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/65 font-light leading-relaxed"
-              style={{ fontSize: '1rem', maxWidth: '32rem', lineHeight: 1.75, marginBottom: '2rem' }}>
+              style={{ fontSize: 'clamp(0.95rem,2.5vw,1.05rem)', maxWidth: '32rem', lineHeight: 1.85, marginBottom: '2rem' }}>
               One team, working only for you — from the first conversation to the day your space is running.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col sm:flex-row gap-3">
               <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] sm:w-auto w-full"
                 style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                 Book a Clarity Call
               </a>
               <Link href="/lease-review"
-                className="text-white/70 font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors border border-white/30 inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                className="text-white/70 font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors border border-white/30 inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] sm:w-auto w-full"
                 style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                 Free Lease Review →
               </Link>
@@ -239,7 +239,7 @@ export default function Home() {
       </section>
 
       {/* ─── IMAGE BREAK ────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
+      <section className="relative overflow-hidden" style={{ height: 'clamp(22rem,35vw,28rem)' }}>
         <Image src={IMAGES.meeting} alt="Business meeting" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
         <div className="absolute inset-0 flex items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -325,7 +325,7 @@ export default function Home() {
       </section>
 
       {/* ─── IMAGE BREAK ────────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
+      <section className="relative overflow-hidden" style={{ height: 'clamp(22rem,35vw,28rem)' }}>
         <Image src={IMAGES.boardroom} alt="Modern office boardroom" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
         <div className="absolute inset-0 flex items-center justify-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -359,13 +359,13 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link href="/lease-review"
-                  className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', minWidth: '14rem', borderRadius: '0.5rem' }}>
+                  className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Get Free Summary →
                 </Link>
                 <Link href="/lease-review#full-report"
-                  className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', background: 'rgba(255,255,255,0.12)', minWidth: '14rem', borderRadius: '0.5rem' }}>
+                  className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', background: 'rgba(255,255,255,0.12)', borderRadius: '0.5rem' }}>
                   Full Report — $97
                 </Link>
               </div>
@@ -436,13 +436,13 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                  className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', minWidth: '16rem', borderRadius: '0.5rem' }}>
+                  className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Book a Clarity Call
                 </a>
                 <Link href="/contact"
-                  className="text-white font-medium no-underline text-center hover:text-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', border: '1px solid rgba(255,255,255,0.2)', minWidth: '16rem', borderRadius: '0.5rem' }}>
+                  className="text-white font-medium no-underline text-center hover:text-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '0.5rem' }}>
                   Get in Touch
                 </Link>
               </div>
