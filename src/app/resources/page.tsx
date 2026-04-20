@@ -94,7 +94,7 @@ export default function ResourcesPage() {
                     {tool.tag}
                   </span>
                 </div>
-                <p className="text-charcoal font-light text-sm leading-relaxed mb-6 flex-1">{tool.description}</p>
+                <p className="text-charcoal font-light leading-relaxed mb-6 flex-1" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{tool.description}</p>
                 <ul className="grid grid-cols-2 gap-2 mb-8">
                   {tool.features.map((f, i) => (
                     <li key={i} className="flex gap-2 items-center">

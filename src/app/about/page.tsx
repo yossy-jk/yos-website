@@ -45,7 +45,7 @@ export default function AboutPage() {
       </section>
 
       {/* THE STORY */}
-      <section className="bg-white py-16 sm:py-24 lg:py-36">
+      <section className="bg-white py-20 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn direction="left">
@@ -135,7 +135,7 @@ export default function AboutPage() {
                     <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1">Founder &amp; Managing Director</p>
                   </div>
                 </div>
-                <p className="text-charcoal font-light text-sm leading-relaxed mb-8">
+                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>
                   Over a decade in commercial fitouts, furniture and workplace strategy before founding
                   Your Office Space. Joe leads all tenant representation and buyers agency engagements —
                   personally handling every negotiation, every clause, every deal.
@@ -168,7 +168,7 @@ export default function AboutPage() {
                     <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1">Cleaning Division Manager</p>
                   </div>
                 </div>
-                <p className="text-charcoal font-light text-sm leading-relaxed mb-8">
+                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>
                   Sarah runs the commercial cleaning division end to end — site audits, team management,
                   quality assurance, and client relationships. Every site gets a monthly personal audit
                   from Sarah. If something&apos;s wrong, you call her directly.
@@ -223,7 +223,7 @@ export default function AboutPage() {
               <FadeIn key={item.heading} delay={i * 70} direction="up">
                 <div className="pl-6 border-l-4 border-teal py-1">
                   <p className="text-white font-bold text-base mb-2">{item.heading}</p>
-                  <p className="text-white/55 font-light text-sm leading-relaxed">{item.body}</p>
+                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
                 </div>
               </FadeIn>
             ))}

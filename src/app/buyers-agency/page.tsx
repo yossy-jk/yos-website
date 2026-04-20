@@ -26,7 +26,7 @@ export default function BuyersAgencyPage() {
           priority
         />
         <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Buyers Agency</SectionLabel>
           </FadeIn>
@@ -54,7 +54,7 @@ export default function BuyersAgencyPage() {
       {/* STATS BAR */}
       <section className="bg-teal py-8 sm:py-12 lg:py-16">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '$0', label: 'Vendor-side fees — ever' },
@@ -85,7 +85,7 @@ export default function BuyersAgencyPage() {
       </section>
 
       <section className="bg-white py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -116,7 +116,7 @@ export default function BuyersAgencyPage() {
                 <div className="border-t-4 border-teal pt-6 h-full flex flex-col">
                   <span className="inline-block text-teal text-xs font-bold tracking-widest uppercase mb-3">{item.tag}</span>
                   <h3 className="text-near-black font-bold text-2xl mb-4">{item.title}</h3>
-                  <p className="text-charcoal font-light text-sm leading-relaxed flex-1">{item.body}</p>
+                  <p className="text-charcoal font-light leading-relaxed flex-1" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -126,7 +126,7 @@ export default function BuyersAgencyPage() {
 
       {/* WHAT WE DO */}
       <section className="bg-near-black py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -147,7 +147,7 @@ export default function BuyersAgencyPage() {
               <FadeIn key={item.label} delay={i * 60} direction={i % 2 === 0 ? 'left' : 'right'}>
                 <div className="pl-6 border-l-4 border-teal py-2">
                   <p className="text-white font-bold text-lg mb-2">{item.label}</p>
-                  <p className="text-white/55 font-light text-sm leading-relaxed">{item.body}</p>
+                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -157,7 +157,7 @@ export default function BuyersAgencyPage() {
 
       {/* MARKET SNAPSHOT */}
       <section className="bg-warm-grey py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>Newcastle market right now</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-14 lg:mb-16 max-w-2xl"
@@ -193,7 +193,7 @@ export default function BuyersAgencyPage() {
                 <div className="bg-white rounded-sm p-8 shadow-sm">
                   <p className="text-teal font-black text-4xl mb-1 leading-none">{item.figure}</p>
                   <p className="text-near-black font-bold text-base mb-3">{item.label}</p>
-                  <p className="text-charcoal font-light text-sm leading-relaxed">{item.context}</p>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.context}</p>
                 </div>
               </FadeIn>
             ))}
@@ -203,7 +203,7 @@ export default function BuyersAgencyPage() {
 
       {/* WHY YOS */}
       <section className="bg-near-black py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>Why YOS</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-7 sm:mb-10"
@@ -229,7 +229,7 @@ export default function BuyersAgencyPage() {
       {/* CTA */}
       <section className="bg-teal py-20 md:py-32 lg:py-40 text-center">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to buy smart?

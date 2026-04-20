@@ -21,7 +21,7 @@ export default function CleaningPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Cleaning</SectionLabel>
           </FadeIn>
@@ -49,7 +49,7 @@ export default function CleaningPage() {
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5 py-8 sm:py-12 lg:py-16">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
@@ -80,7 +80,7 @@ export default function CleaningPage() {
       </section>
 
       <section className="bg-white py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -161,7 +161,7 @@ export default function CleaningPage() {
 
       {/* THE YOS DIFFERENCE */}
       <section className="bg-near-black py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -191,7 +191,7 @@ export default function CleaningPage() {
               <FadeIn key={item.title} delay={i * 80} direction="up">
                 <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
                   <h3 className="text-white font-bold text-xl mb-5">{item.title}</h3>
-                  <p className="text-white/65 font-light text-sm leading-relaxed mb-5">{item.body}</p>
+                  <p className="text-white/65 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
                   <p className="text-white/35 font-light text-xs italic border-t border-white/10 pt-4">{item.aside}</p>
                 </div>
               </FadeIn>
@@ -213,7 +213,7 @@ export default function CleaningPage() {
       {/* BUNDLE — cross-sell to fitout */}
       <section className="bg-warm-grey py-12 sm:py-16 lg:py-24">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
@@ -238,7 +238,7 @@ export default function CleaningPage() {
       {/* CTA */}
       <section className="bg-teal py-20 md:py-32 lg:py-40 text-center">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to move to a better standard?
