@@ -5,37 +5,72 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
-/* WRAP: Unispace-standard margins — content sits in ~65% of viewport on large screens */
+/* ─── Design system ─────────────────────────────────────────────
+   Side padding: clamp(2rem, 10vw, 10rem)
+   On 1440px → 144px each side → 992px content width (comfortable)
+   On 390px  →  78px max but capped at clamp min → 32px each side
+   Section vertical: clamp(6rem, 11vw, 10rem)
+   ──────────────────────────────────────────────────────────────── */
 const WRAP = 'max-w-screen-xl mx-auto'
-const PAD  = { paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }
+const PAD  = 'clamp(2rem, 10vw, 10rem)'
 
 const SERVICES = [
-  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We sit on your side of the table. Every clause negotiated to protect your business — never the landlord’s.', href: '/tenant-rep' },
-  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered workspace.', body: 'Specified, sourced, coordinated and installed. One contact from concept to final chair.', href: '/furniture' },
-  { num: '03', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers.', href: '/buyers-agency' },
-  { num: '04', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: 'Offices, childcare, medical and industrial. Consistent, accountable, locally managed.', href: '/cleaning' },
+  {
+    num: '01',
+    title: 'Tenant Representation',
+    tagline: 'Your lease. Your terms.',
+    body: 'We sit on your side of the table. Every clause, every incentive, every negotiation handled to protect your business — never the landlord\'s.',
+    href: '/tenant-rep',
+  },
+  {
+    num: '02',
+    title: 'Furniture & Fitout',
+    tagline: 'Brief to delivered workspace.',
+    body: 'Specified, sourced, coordinated and installed. One point of contact from the first conversation to the final chair in place.',
+    href: '/furniture',
+  },
+  {
+    num: '03',
+    title: 'Buyers Agency',
+    tagline: 'Buy without getting burned.',
+    body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
+    href: '/buyers-agency',
+  },
+  {
+    num: '04',
+    title: 'Commercial Cleaning',
+    tagline: 'Shows up. Every time.',
+    body: 'Offices, childcare, medical and industrial facilities. Consistent, accountable, and locally managed by Sarah Kelley.',
+    href: '/cleaning',
+  },
 ]
 
 const TESTIMONIALS = [
   {
-    name: 'Liz Murray', company: 'Edge of Possibilities', service: 'Workplace Strategy',
-    quote: 'Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.',
+    name: 'Liz Murray',
+    company: 'Edge of Possibilities',
+    service: 'Workplace Strategy',
+    quote: 'Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative and enjoyable.',
   },
   {
-    name: 'Nathan Franks', company: 'Dynamic Business Technologies', service: 'Furniture & Fitout',
-    quote: 'Joe was instrumental in building out our boardroom — delivering a high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.',
+    name: 'Nathan Franks',
+    company: 'Dynamic Business Technologies',
+    service: 'Furniture & Fitout',
+    quote: 'Joe was instrumental in building out our boardroom — delivering a high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent attention to detail.',
   },
   {
-    name: 'Sophie', company: 'Jirsch Sutherland', service: 'Commercial Cleaning',
-    quote: 'We are very happy with the service provided by Sarah and Joe. They are reliable, consistent, and go above and beyond to make sure all our cleaning needs are met.',
+    name: 'Sophie',
+    company: 'Jirsch Sutherland',
+    service: 'Commercial Cleaning',
+    quote: 'We are very happy with the service provided by Sarah and Joe. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.',
   },
 ]
 
 function Stars() {
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1.5">
       {[...Array(5)].map((_, i) => (
-        <svg key={i} style={{ width: '0.8rem', height: '0.8rem', fill: '#EAB308' }} viewBox="0 0 20 20">
+        <svg key={i} style={{ width: '0.85rem', height: '0.85rem', fill: '#EAB308' }} viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
@@ -43,57 +78,85 @@ function Stars() {
   )
 }
 
+const sectionPad = (extra?: string) => ({
+  paddingLeft: PAD,
+  paddingRight: PAD,
+  ...(extra ? {} : {}),
+})
+
 export default function Home() {
   return (
     <>
       <Nav />
 
-      {/* ── 1. HERO ─── dark · full screen */}
+      {/* ─────────────────────────────────────────────────────────
+          HERO — dark, full screen, editorial
+      ───────────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-near-black">
         <Image
           src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80"
           alt="Modern commercial workspace"
           fill className="object-cover object-center" priority
         />
-        <div className="absolute inset-0 bg-near-black/58" />
+        <div className="absolute inset-0 bg-near-black/55" />
 
-        <div className={`relative z-10 w-full ${WRAP}`} style={{ paddingTop: 'clamp(8rem,18vw,14rem)', paddingBottom: 'clamp(6rem,14vw,10rem)', paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+        <div
+          className={`relative z-10 w-full ${WRAP}`}
+          style={{
+            paddingLeft: PAD,
+            paddingRight: PAD,
+            paddingTop: 'clamp(9rem, 18vw, 15rem)',
+            paddingBottom: 'clamp(7rem, 14vw, 11rem)',
+          }}
+        >
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-6" style={{ fontSize: '0.7rem' }}>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-8" style={{ fontSize: '0.72rem' }}>
               Commercial Property Advisors — Australia
             </p>
           </FadeIn>
+
           <FadeIn delay={80}>
-            <h1 className="text-white font-black uppercase leading-none tracking-tight mb-8"
-              style={{ fontSize: 'clamp(3rem, 6vw, 6.5rem)', maxWidth: '16ch' }}>
+            <h1
+              className="text-white font-black uppercase leading-none tracking-tight mb-8"
+              style={{ fontSize: 'clamp(3rem, 6vw, 6.5rem)', maxWidth: '14ch' }}
+            >
               Your workspace.<br />Our responsibility.
             </h1>
           </FadeIn>
+
           <FadeIn delay={160}>
-            <p className="text-white/65 font-light leading-relaxed mb-12"
-              style={{ fontSize: '1.15rem', maxWidth: '36rem' }}>
+            <p
+              className="text-white/65 font-light leading-relaxed mb-12"
+              style={{ fontSize: '1.2rem', maxWidth: '34rem', lineHeight: 1.7 }}
+            >
               Working exclusively for tenants and buyers.
               We never represent landlords — not once, not ever.
             </p>
           </FadeIn>
+
           <FadeIn delay={240}>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+              <a
+                href={HUBSPOT.bookingUrl}
+                target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors duration-200"
-                style={{ padding: '1.05rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              >
                 Book a Clarity Call
               </a>
-              <Link href="/lease-review"
-                className="text-white font-medium no-underline text-center hover:border-teal hover:text-teal transition-colors duration-200"
-                style={{ padding: '1.05rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.3)' }}>
+              <Link
+                href="/lease-review"
+                className="text-white font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors duration-200"
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.3)' }}
+              >
                 Free Lease Review →
               </Link>
             </div>
           </FadeIn>
 
-          {/* Proof stats — anchored bottom of hero */}
-          <FadeIn delay={340}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 md:mt-32 pt-10 border-t border-white/10">
+          {/* Proof stats — anchored at base of hero */}
+          <FadeIn delay={350}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-28 md:mt-36 pt-10 border-t border-white/10">
               {[
                 { stat: '100+',           label: 'Projects delivered' },
                 { stat: 'In Your Corner', label: 'Every project. Every client.' },
@@ -101,8 +164,12 @@ export default function Home() {
                 { stat: 'Lease to clean', label: 'One team, no handoffs' },
               ].map(item => (
                 <div key={item.stat}>
-                  <p className="text-white font-black mb-1" style={{ fontSize: 'clamp(0.85rem, 1.8vw, 1.05rem)' }}>{item.stat}</p>
-                  <p className="text-white/35 font-light" style={{ fontSize: '0.68rem', letterSpacing: '0.04em' }}>{item.label}</p>
+                  <p className="text-white font-black mb-2" style={{ fontSize: 'clamp(0.9rem, 1.6vw, 1.1rem)' }}>
+                    {item.stat}
+                  </p>
+                  <p className="text-white/35 font-light" style={{ fontSize: '0.7rem', letterSpacing: '0.05em' }}>
+                    {item.label}
+                  </p>
                 </div>
               ))}
             </div>
@@ -110,45 +177,60 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 2. SERVICES ─── white · numbered list (zimple.digital style) */}
+      {/* ─────────────────────────────────────────────────────────
+          SERVICES — white, numbered list
+      ───────────────────────────────────────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
-        <div className={WRAP} style={PAD}>
+        <div className={WRAP} style={sectionPad()}>
+
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What we do</p>
-            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-10"
-              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
-              One team. Everything covered.
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>
+              What we do
+            </p>
+            <h2
+              className="text-near-black font-black uppercase leading-tight tracking-tight mb-14"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.5rem)' }}
+            >
+              One team.<br />Everything covered.
             </h2>
           </FadeIn>
 
-          <div style={{ borderTop: '1px solid #f3f4f6' }}>
+          <div style={{ borderTop: '1px solid #efefef' }}>
             {SERVICES.map((s, i) => (
               <FadeIn key={s.href} delay={i * 60}>
-                <Link href={s.href}
-                  className="group flex items-start justify-between no-underline transition-colors duration-200"
-                  style={{ padding: '2.25rem 0', borderBottom: '1px solid #f3f4f6' }}>
-                  <div className="flex items-start gap-6 md:gap-10 flex-1">
-                    <span className="text-teal font-bold flex-shrink-0 mt-1"
-                      style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '1.75rem' }}>
+                <Link
+                  href={s.href}
+                  className="group flex items-start justify-between no-underline"
+                  style={{ padding: '2.75rem 0', borderBottom: '1px solid #efefef' }}
+                >
+                  <div className="flex items-start gap-8 flex-1">
+                    <span
+                      className="text-teal font-bold flex-shrink-0"
+                      style={{ fontSize: '0.68rem', letterSpacing: '0.25em', minWidth: '2rem', paddingTop: '0.4rem' }}
+                    >
                       {s.num}
                     </span>
                     <div>
-                      <span className="text-near-black font-black uppercase leading-tight tracking-tight group-hover:text-teal transition-colors duration-200 block mb-2"
-                        style={{ fontSize: 'clamp(1.1rem, 2vw, 1.6rem)' }}>
+                      <span
+                        className="text-near-black font-black uppercase leading-tight tracking-tight group-hover:text-teal transition-colors duration-200 block mb-3"
+                        style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.25rem)' }}
+                      >
                         {s.title}
                       </span>
-                      <span className="text-mid-grey font-light leading-relaxed hidden md:block"
-                        style={{ fontSize: '0.875rem', maxWidth: '36rem' }}>
+                      <span
+                        className="text-charcoal font-light leading-relaxed hidden md:block"
+                        style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.7 }}
+                      >
                         {s.body}
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 flex-shrink-0 ml-6 mt-1">
-                    <span className="text-teal/50 font-bold group-hover:text-teal group-hover:translate-x-1 transition-all duration-200"
-                      style={{ fontSize: '1.1rem' }}>
-                      →
-                    </span>
-                  </div>
+                  <span
+                    className="text-teal/40 font-bold flex-shrink-0 group-hover:text-teal group-hover:translate-x-2 transition-all duration-200 ml-6"
+                    style={{ fontSize: '1.25rem', paddingTop: '0.3rem' }}
+                  >
+                    →
+                  </span>
                 </Link>
               </FadeIn>
             ))}
@@ -156,39 +238,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3. WHY US ─── near-black · clean 3-column cards */}
+      {/* ─────────────────────────────────────────────────────────
+          WHY US — dark, three pillars
+      ───────────────────────────────────────────────────────── */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
-        <div className={WRAP} style={PAD}>
+        <div className={WRAP} style={sectionPad()}>
+
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>Why us</p>
-            <h2 className="text-white font-black uppercase leading-none tracking-tight mb-12"
-              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
-              We work for you. Not the other side.
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>
+              Why us
+            </p>
+            <h2
+              className="text-white font-black uppercase leading-tight tracking-tight mb-16"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.5rem)', maxWidth: '22ch' }}
+            >
+              We work for you.<br />Not the other side.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: 'rgba(255,255,255,0.06)' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: 'rgba(255,255,255,0.07)' }}>
             {[
-              { title: 'Tenant-side only', body: 'We never represent landlords or vendors. No split loyalty. No backdoor deals. Pure representation in your interest.' },
-              { title: '12+ years experience', body: 'Real deals across commercial property, fitout and workplace strategy. On the ground wherever you need us.' },
-              { title: 'Start to finish', body: 'Lease, fitout, furniture, cleaning. One relationship, one team, no gaps and no handoffs.' },
+              {
+                title: 'Tenant-side only',
+                body: 'We never represent landlords or vendors. No split loyalty, no backdoor deals. Every engagement is built around one party only — you.',
+              },
+              {
+                title: '12+ years experience',
+                body: 'Real deals across commercial property, fitout and workplace strategy. We have seen what goes wrong when business owners go it alone. We fix it before it happens.',
+              },
+              {
+                title: 'Start to finish',
+                body: 'Lease, fitout, furniture, cleaning. One relationship, one team, no gaps. Your business stays focused while we manage the rest.',
+              },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="bg-near-black" style={{ padding: '2.5rem 2.5rem' }}>
-                  <div className="w-8 h-px bg-teal mb-6" />
-                  <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
-                  <p className="text-white/45 font-light leading-relaxed" style={{ fontSize: '0.85rem' }}>{p.body}</p>
+                <div className="bg-near-black" style={{ padding: '3rem 2.75rem' }}>
+                  <div className="w-8 h-0.5 bg-teal mb-8" />
+                  <h3
+                    className="text-white font-black uppercase tracking-tight mb-5"
+                    style={{ fontSize: '1.2rem' }}
+                  >
+                    {p.title}
+                  </h3>
+                  <p
+                    className="text-white/50 font-light leading-relaxed"
+                    style={{ fontSize: '0.95rem', lineHeight: 1.75 }}
+                  >
+                    {p.body}
+                  </p>
                 </div>
               </FadeIn>
             ))}
           </div>
 
-          <FadeIn delay={200}>
-            <div className="mt-16 md:mt-20 pt-10 border-t border-white/8">
-              <p className="text-white/50 font-light leading-relaxed italic" style={{ fontSize: '1rem', maxWidth: '44rem' }}>
-                &ldquo;The agent across the table does this every day. Most business owners do it once. That experience gap costs real money.&rdquo;
+          <FadeIn delay={250}>
+            <div className="mt-20 pt-12 border-t border-white/8">
+              <p
+                className="text-white/55 font-light leading-relaxed italic"
+                style={{ fontSize: '1.1rem', maxWidth: '44rem', lineHeight: 1.8 }}
+              >
+                &ldquo;The agent across the table does this every day.
+                Most business owners do it once.
+                That experience gap costs real money.&rdquo;
               </p>
-              <p className="text-teal font-semibold uppercase tracking-[0.25em] mt-4" style={{ fontSize: '0.62rem' }}>
+              <p className="text-teal font-semibold uppercase tracking-[0.25em] mt-5" style={{ fontSize: '0.65rem' }}>
                 Joe Kelley — Managing Director
               </p>
             </div>
@@ -196,30 +309,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 4. TESTIMONIALS ─── warm-grey */}
+      {/* ─────────────────────────────────────────────────────────
+          TESTIMONIALS — warm grey
+      ───────────────────────────────────────────────────────── */}
       <section className="bg-warm-grey" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
-        <div className={WRAP} style={PAD}>
+        <div className={WRAP} style={sectionPad()}>
+
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What clients say</p>
-            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-12"
-              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
-              Real people. Real outcomes.
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>
+              What clients say
+            </p>
+            <h2
+              className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.5rem)' }}
+            >
+              Real people.<br />Real outcomes.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="bg-white flex flex-col" style={{ padding: '2.5rem 2.25rem' }}>
+                <div className="bg-white flex flex-col h-full" style={{ padding: '2.75rem 2.5rem' }}>
                   <Stars />
-                  <p className="text-near-black font-light leading-relaxed flex-1 mt-6 mb-8"
-                    style={{ fontSize: '0.95rem' }}>
+                  <p
+                    className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
+                    style={{ fontSize: '1rem', lineHeight: 1.8 }}
+                  >
                     &ldquo;{t.quote}&rdquo;
                   </p>
-                  <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '1.25rem' }}>
-                    <p className="text-near-black font-bold" style={{ fontSize: '0.875rem' }}>{t.name}</p>
-                    <p className="text-mid-grey font-light mt-0.5" style={{ fontSize: '0.75rem' }}>{t.company}</p>
-                    <p className="text-teal font-semibold uppercase tracking-widest mt-1" style={{ fontSize: '0.6rem' }}>{t.service}</p>
+                  <div style={{ borderTop: '1px solid #efefef', paddingTop: '1.5rem' }}>
+                    <p className="text-near-black font-bold mb-1" style={{ fontSize: '0.9rem' }}>{t.name}</p>
+                    <p className="text-mid-grey font-light mb-2" style={{ fontSize: '0.78rem' }}>{t.company}</p>
+                    <p className="text-teal font-semibold uppercase tracking-widest" style={{ fontSize: '0.62rem' }}>{t.service}</p>
                   </div>
                 </div>
               </FadeIn>
@@ -228,35 +350,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 5. LEASEINTEL ─── teal · single accent section */}
+      {/* ─────────────────────────────────────────────────────────
+          LEASEINTEL — teal, centred
+      ───────────────────────────────────────────────────────── */}
       <section className="bg-teal" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
-        <div className={`${WRAP} text-center`} style={PAD}>
+        <div className={`${WRAP} text-center`} style={sectionPad()}>
           <FadeIn>
-            <div className="inline-flex items-center gap-2 border border-white/30 mb-10"
-              style={{ padding: '0.45rem 1rem' }}>
-              <span className="bg-white rounded-full flex-shrink-0" style={{ width: '0.35rem', height: '0.35rem' }} />
+            <div
+              className="inline-flex items-center gap-2 border border-white/30 mb-10"
+              style={{ padding: '0.5rem 1.25rem' }}
+            >
+              <span className="bg-white rounded-full flex-shrink-0" style={{ width: '0.4rem', height: '0.4rem' }} />
               <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>
                 New — LeaseIntel™
               </span>
             </div>
-            <h2 className="text-white font-black uppercase leading-none tracking-tight mb-6 mx-auto"
-              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)', maxWidth: '26ch' }}>
+
+            <h2
+              className="text-white font-black uppercase leading-tight tracking-tight mb-8 mx-auto"
+              style={{ fontSize: 'clamp(2rem, 3.5vw, 3.5rem)', maxWidth: '22ch' }}
+            >
               Is your lease costing you more than it should?
             </h2>
-            <p className="text-white/75 font-light leading-relaxed mb-12 mx-auto"
-              style={{ fontSize: '1.1rem', maxWidth: '36rem' }}>
+
+            <p
+              className="text-white/80 font-light leading-relaxed mb-14 mx-auto"
+              style={{ fontSize: '1.15rem', maxWidth: '34rem', lineHeight: 1.75 }}
+            >
               Plain-English risk analysis. Every clause rated Red, Amber, or Green.
-              Free summary — or full report for $97.
+              Free summary — or a full report for $97.
             </p>
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/lease-review"
+              <Link
+                href="/lease-review"
                 className="bg-white text-teal font-bold no-underline text-center hover:bg-light-teal transition-colors duration-200"
-                style={{ padding: '1.05rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+              >
                 Get Free Summary →
               </Link>
-              <Link href="/lease-review"
+              <Link
+                href="/lease-review"
                 className="text-white font-medium no-underline text-center hover:bg-white/10 transition-colors duration-200"
-                style={{ padding: '1.05rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.4)' }}>
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.4)' }}
+              >
                 Full Report — $97
               </Link>
             </div>
@@ -264,27 +401,40 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. CTA ─── dark · centered · simple */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem, 13vw, 12rem)', paddingBottom: 'clamp(7rem, 13vw, 12rem)' }}>
-        <div className={`${WRAP} text-center`} style={PAD}>
+      {/* ─────────────────────────────────────────────────────────
+          CTA — dark, centred, confident
+      ───────────────────────────────────────────────────────── */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem, 14vw, 13rem)', paddingBottom: 'clamp(7rem, 14vw, 13rem)' }}>
+        <div className={`${WRAP} text-center`} style={sectionPad()}>
           <FadeIn>
-            <h2 className="text-white font-black uppercase leading-none tracking-tight mb-8 mx-auto"
-              style={{ fontSize: 'clamp(4rem, 9vw, 10rem)' }}>
+            <h2
+              className="text-white font-black uppercase leading-none tracking-tight mb-8 mx-auto"
+              style={{ fontSize: 'clamp(4rem, 10vw, 11rem)' }}
+            >
               Talk to us.
             </h2>
-            <p className="text-white/45 font-light leading-relaxed mb-12 mx-auto"
-              style={{ fontSize: '1.15rem', maxWidth: '24rem' }}>
+            <p
+              className="text-white/45 font-light leading-relaxed mb-14 mx-auto"
+              style={{ fontSize: '1.2rem', maxWidth: '22rem', lineHeight: 1.75 }}
+            >
               20 minutes. No pitch.<br />Just a straight conversation.
             </p>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+            <a
+              href={HUBSPOT.bookingUrl}
+              target="_blank" rel="noopener noreferrer"
               className="inline-block bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors duration-200"
-              style={{ padding: '1.15rem 2.75rem', fontSize: '0.72rem', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+              style={{ padding: '1.2rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+            >
               Book a Clarity Call
             </a>
-            <p className="text-white/20 font-light mt-10" style={{ fontSize: '0.8rem' }}>
-              <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>
+            <p className="text-white/20 font-light mt-12" style={{ fontSize: '0.82rem' }}>
+              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">
+                {CONTACT.phone}
+              </a>
               {' · '}
-              <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">hello@yourofficespace.au</a>
+              <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">
+                hello@yourofficespace.au
+              </a>
             </p>
           </FadeIn>
         </div>
