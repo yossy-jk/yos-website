@@ -263,34 +263,34 @@ export default function Home() {
       </section>
 
       {/* ─── LEASEINTEL ────────────────────────────── teal */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
+      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,11vw,10rem)', paddingBottom: 'clamp(5rem,11vw,10rem)' }}>
         <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <div className="inline-flex items-center gap-2 border border-white/30 mb-8"
+            <div className="inline-flex items-center gap-2 border border-white/30 mb-10"
               style={{ padding: '0.5rem 1.25rem' }}>
               <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
               <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>
                 New — LeaseIntel™
               </span>
             </div>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8 mx-auto"
-              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mx-auto"
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch', marginBottom: '1.5rem' }}>
               Is your lease costing you more than it should?
             </h2>
-            <p className="text-white/80 font-light leading-relaxed mb-10 mx-auto"
-              style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.8 }}>
+            <p className="text-white/80 font-light leading-relaxed mx-auto"
+              style={{ fontSize: '1rem', maxWidth: '30rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
               Plain-English risk analysis. Every clause rated Red, Amber, or Green.
               Free summary — or a full report for $97.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col gap-3 max-w-xs mx-auto sm:max-w-none sm:flex-row sm:justify-center">
               <Link href="/lease-review"
-                className="bg-white text-teal font-bold no-underline text-center hover:bg-light-teal transition-colors"
+                className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors"
                 style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
                 Get Free Summary →
               </Link>
               <Link href="/lease-review"
-                className="text-white font-medium no-underline text-center hover:bg-white/10 transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.4)' }}>
+                className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors"
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', background: 'rgba(255,255,255,0.12)' }}>
                 Full Report — $97
               </Link>
             </div>
