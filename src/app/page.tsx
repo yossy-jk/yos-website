@@ -108,7 +108,7 @@ export default function Home() {
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What we do</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Whatever your workspace<br />needs — we handle it.
+              Four services.<br />One relationship.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-7 md:mb-14" style={{ fontSize: '1.1rem', maxWidth: '40rem', lineHeight: 1.75 }}>
               Most businesses deal with five different advisors on a single office move. We think that&apos;s too complicated. One relationship, from lease to clean.
