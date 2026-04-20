@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory',
-  description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Australia's tenant-side commercial property advisor. Licence 20565455."
+  description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Australia's tenant-side commercial property advisor. Licensed. Experienced. On your side."
 }
 
 export default function AboutPage() {
@@ -142,10 +142,7 @@ export default function AboutPage() {
                 </p>
                 <div className="flex flex-col gap-3 border-t border-gray-100 pt-7">
                   {[
-                    { label: 'Licence', value: 'NSW Property — Individual #20565455' },
-                    { label: 'Expiry', value: '18 February 2027' },
-                    { label: 'Affiliation', value: 'Elders Advantage Group' },
-                    { label: 'Location', value: 'Cameron Park, NSW' },
+                                                                                { label: 'Location', value: 'Cameron Park, NSW' },
                   ].map(item => (
                     <div key={item.label} className="flex gap-4 items-baseline">
                       <span className="text-mid-grey text-xs font-semibold tracking-wide uppercase w-20 flex-shrink-0">{item.label}</span>

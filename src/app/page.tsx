@@ -285,20 +285,16 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-            {/* Left — team photo */}
+            {/* Left — workspace image */}
             <FadeIn>
               <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
                 <Image
-                  src="/team/joe-kelley.jpg"
-                  alt="Your Office Space team"
-                  fill className="object-cover object-top"
-                  style={{ filter: 'grayscale(20%)' }}
+                  src={IMAGES.twoPersonMeet}
+                  alt="Your Office Space team in consultation"
+                  fill className="object-cover object-center"
+                  style={{ filter: 'grayscale(15%)' }}
                 />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.6) 0%, transparent 50%)' }} />
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <p className="text-white font-black" style={{ fontSize: '1rem' }}>Your Office Space</p>
-                  <p className="text-white/60 font-light" style={{ fontSize: '0.78rem' }}>Commercial Property Advisors</p>
-                </div>
+                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.5) 0%, transparent 60%)' }} />
               </div>
             </FadeIn>
 

@@ -7,7 +7,6 @@ export const CONTACT = {
   email: 'hello@yourofficespace.au',
   phone: '0434 655 511',
   location: 'Newcastle, NSW',
-  license: 'NSW Real Estate Licence — Class 2'
 }
 
 export const HUBSPOT = {
