@@ -42,15 +42,16 @@ export default function TenantRepPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mt-3 mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              For business owners{' '}
-              <span className="text-teal">who know better.</span>
+              Your lease is a business decision.{' '}
+              <span className="text-teal">Treat it like one.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-10"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
-              We represent business owners in Newcastle and Sydney who want more than just space.
-              Our goal is to secure a lease that builds your business — not just houses it.
+              Most businesses sign what the landlord puts in front of them. We represent the ones
+              who don&apos;t. Independent tenant representation across Newcastle and Sydney —
+              negotiating rent, terms, and incentives that protect your bottom line.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
