@@ -7,8 +7,8 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Free Commercial Property Tools | Your Office Space Newcastle',
-  description: 'Free commercial property tools built for Newcastle businesses. Lease risk checker, fitout cost estimator, cap rate calculator, lease comparison — no sign-up required.'
+  title: 'Free Commercial Property Tools | Your Office Space',
+  description: 'Free commercial property tools for Australian businesses. Lease risk checker, fitout cost estimator, cap rate calculator, lease comparison — no sign-up required.'
 }
 
 const tools = [
@@ -62,20 +62,20 @@ export default function ResourcesPage() {
       {/* HERO */}
       <section className="relative min-h-[65vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-20 pb-20">
+        <div className="relative max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-20 pb-20">
           <FadeIn delay={0}>
             <SectionLabel>Free tools</SectionLabel>
           </FadeIn>
           <FadeIn delay={80}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-3xl mb-7"
               style={{ fontSize: 'clamp(2.4rem, 6vw, 5.5rem)' }}>
-              Built for Newcastle businesses. Free to use.
+              Smart tools for commercial property decisions.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/60 font-light leading-relaxed max-w-2xl"
               style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}>
-              Real tools that help you make better commercial property decisions. No signup to start.
+              Built for business owners. Free to use. No sign-up required.
             </p>
           </FadeIn>
         </div>
@@ -83,7 +83,7 @@ export default function ResourcesPage() {
 
       {/* TOOLS GRID */}
       <section className="bg-white py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {tools.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 80} direction="up">
@@ -118,7 +118,7 @@ export default function ResourcesPage() {
 
       {/* NEED MORE HELP */}
       <section className="bg-warm-grey py-24 lg:py-32">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center">
+        <div className="max-w-4xl mx-auto px-8 md:px-14 lg:px-24 text-center">
           <SectionLabel>Need more?</SectionLabel>
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8">
             Tools get you started. A straight conversation gets you moving.

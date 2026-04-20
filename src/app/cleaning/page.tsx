@@ -21,7 +21,7 @@ export default function CleaningPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24">
+        <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24">
           <FadeIn delay={0}>
             <SectionLabel>Commercial Cleaning</SectionLabel>
           </FadeIn>
@@ -49,7 +49,7 @@ export default function CleaningPage() {
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5 py-8 sm:py-12 lg:py-16">
         <FadeIn>
-          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+          <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
@@ -69,7 +69,7 @@ export default function CleaningPage() {
 
       {/* WHAT WE CLEAN */}
       <section className="bg-white py-14 sm:py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -150,7 +150,7 @@ export default function CleaningPage() {
 
       {/* THE YOS DIFFERENCE */}
       <section className="bg-near-black py-14 sm:py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"

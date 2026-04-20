@@ -7,8 +7,8 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Tenant Representation Newcastle | Your Office Space',
-  description: 'Commercial lease negotiation for tenants only. No split loyalties, no backdoor deals — just hard negotiation to protect your business in Newcastle and the Hunter Valley.'
+  title: 'Tenant Representation | Your Office Space',
+  description: 'Commercial lease negotiation for tenants only. No split loyalties, no backdoor deals — hard negotiation to protect your business wherever you are in Australia.'
 }
 
 export default function TenantRepPage() {
@@ -22,7 +22,7 @@ export default function TenantRepPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-20 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-32">
+        <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-20 pb-16 sm:pt-28 sm:pb-20 md:pt-32 md:pb-32">
           <FadeIn delay={0}>
             <SectionLabel>Tenant Representation</SectionLabel>
           </FadeIn>
@@ -55,7 +55,7 @@ export default function TenantRepPage() {
       {/* STATS BAR */}
       <section className="bg-teal py-10 sm:py-14 lg:py-16">
         <FadeIn>
-          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+          <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '8–15%', label: 'Average rent saving we negotiate' },
@@ -75,7 +75,7 @@ export default function TenantRepPage() {
 
       {/* THE GUARANTEE */}
       <section className="bg-near-black py-16 sm:py-20 lg:py-28 border-t border-white/10">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center">
+        <div className="max-w-4xl mx-auto px-8 md:px-14 lg:px-24 text-center">
           <FadeIn>
             <SectionLabel>The Guarantee</SectionLabel>
             <h2 className="text-white font-black leading-tight mb-6 sm:mb-8"
@@ -106,7 +106,7 @@ export default function TenantRepPage() {
 
       {/* HOW IT WORKS */}
       <section className="bg-white py-16 sm:py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -152,7 +152,7 @@ export default function TenantRepPage() {
 
       {/* WHAT'S AT STAKE */}
       <section className="bg-near-black py-16 sm:py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <FadeIn>
             <SectionLabel>What&apos;s at stake</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-4 sm:mb-6 max-w-3xl"
@@ -207,7 +207,7 @@ export default function TenantRepPage() {
 
       {/* WHAT'S INCLUDED */}
       <section className="bg-warm-grey py-16 sm:py-20 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <FadeIn>
             <SectionLabel>What&apos;s included</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -295,7 +295,7 @@ export default function TenantRepPage() {
 
       {/* WHY CONFLICT OF INTEREST MATTERS */}
       <section className="bg-white py-16 sm:py-20 lg:py-32">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-4xl mx-auto px-8 md:px-14 lg:px-24">
           <FadeIn>
             <SectionLabel>Why it matters</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-8 sm:mb-12"

@@ -26,8 +26,8 @@
   --section-md:  8rem;     /* 128px — tablet standard */
   --section-lg:  12rem;    /* 192px — desktop spacious */
 
-  /* Page inset — graceful mobile horizontal padding */
-  --page-inset: clamp(1.25rem, 5.5vw, 6rem);
+  /* Page inset — generous horizontal padding for premium feel */
+  --page-inset: clamp(1.75rem, 6vw, 6rem);
 }
 
 /* ─── Responsive section padding helpers ─────────────────── */

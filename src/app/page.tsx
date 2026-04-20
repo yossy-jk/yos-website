@@ -5,7 +5,7 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
-const WRAP = 'max-w-6xl mx-auto px-6 md:px-12 lg:px-20'
+const WRAP = 'max-w-6xl mx-auto px-8 md:px-14 lg:px-24'
 
 export default function Home() {
   return (
@@ -28,7 +28,7 @@ export default function Home() {
         <div className={`relative z-10 w-full ${WRAP} pt-32 pb-24 md:pt-48 md:pb-36`}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-8" style={{ fontSize: '0.7rem' }}>
-              Newcastle &amp; Hunter Valley
+              Commercial Property Advisors — Australia
             </p>
           </FadeIn>
           <FadeIn delay={100}>
@@ -41,8 +41,8 @@ export default function Home() {
           <FadeIn delay={180}>
             <p className="text-white/70 font-light leading-relaxed mb-12"
               style={{ fontSize: 'clamp(1rem, 1.8vw, 1.25rem)', maxWidth: '38rem' }}>
-              Newcastle&apos;s only commercial property advisor working exclusively
-              for tenants and buyers. We never represent landlords.
+              Australia&apos;s only full-service commercial workspace advisor
+              working exclusively for tenants and buyers. We never represent landlords.
             </p>
           </FadeIn>
           <FadeIn delay={260}>
@@ -72,7 +72,7 @@ export default function Home() {
               {[
                 { stat: '100+', label: 'Projects delivered' },
                 { stat: 'Tenant-side only', label: 'Zero conflicts of interest' },
-                { stat: '12+ years', label: 'Newcastle experience' },
+                { stat: '12+ years', label: 'Industry experience' },
                 { stat: 'Lease to clean', label: 'One team, no handoffs' },
               ].map(item => (
                 <div key={item.stat}>
@@ -125,7 +125,7 @@ export default function Home() {
                 num: '03',
                 title: 'Buyers\nAgency',
                 tagline: 'Buy without getting burned.',
-                body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial buyers across Newcastle and the Hunter Valley.',
+                body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
                 href: '/buyers-agency',
               },
               {
@@ -200,8 +200,8 @@ export default function Home() {
                 },
                 {
                   num: '02',
-                  title: 'Newcastle embedded',
-                  body: 'Twelve-plus years in this market. The relationships, the off-market access, the agent network — built here, not imported.',
+                  title: 'Deep market knowledge',
+                  body: 'Twelve-plus years of real deals across commercial property, fitout and workplace strategy. On the ground, wherever you are.',
                 },
                 {
                   num: '03',

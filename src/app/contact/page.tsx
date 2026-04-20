@@ -18,7 +18,7 @@ export default function ContactPage() {
       {/* HERO SECTION */}
       <section className="relative min-h-[70vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-7xl mx-auto px-6 md:px-12 lg:px-20 w-full pt-16 pb-20">
+        <div className="relative max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-16 pb-20">
           <FadeIn delay={0}>
             <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">Newcastle &amp; Hunter Valley</p>
           </FadeIn>
@@ -39,7 +39,7 @@ export default function ContactPage() {
 
       {/* CONTACT OPTIONS */}
       <section className="bg-white py-24 lg:py-32">
-        <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* HubSpot Contact Form */}
             <div className="flex flex-col">
