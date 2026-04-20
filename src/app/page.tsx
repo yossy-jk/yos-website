@@ -12,8 +12,8 @@ const PAD  = 'clamp(1.5rem,8vw,10rem)'
 
 const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We represent the tenant — never the landlord. Every clause, every negotiation, every make-good obligation reviewed to protect your business.', href: '/tenant-rep' },
-  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered.', body: 'From brief to fully delivered workspace. Specified, coordinated and installed end to end. One team, no gaps.', href: '/furniture' },
-  { num: '03', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.', href: '/buyers-agency' },
+  { num: '02', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.', href: '/buyers-agency' },
+  { num: '03', title: 'Furniture & Fitout',    tagline: 'Brief to delivered.', body: 'From brief to fully delivered workspace. Specified, coordinated and installed end to end. One team, no gaps.', href: '/furniture' },
   { num: '04', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: 'Commercial cleaning for offices, childcare, medical and industrial. Consistent, accountable, locally managed.', href: '/cleaning' },
 ]
 

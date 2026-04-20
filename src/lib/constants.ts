@@ -22,8 +22,8 @@ export const NAV_LINKS = [
 
 export const SERVICE_LINKS = [
   { label: 'Tenant Representation', href: '/tenant-rep', tagline: 'Your lease. Your terms.' },
-  { label: 'Furniture & Fitout', href: '/furniture', tagline: 'Brief to delivered workspace.' },
   { label: 'Buyers Agency', href: '/buyers-agency', tagline: 'Buy without getting burned.' },
+  { label: 'Furniture & Fitout', href: '/furniture', tagline: 'Brief to delivered workspace.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
   { label: 'Lease Review', href: '/lease-review', tagline: 'Free risk analysis.' },
 ]
