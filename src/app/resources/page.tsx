@@ -1,135 +1,234 @@
 import Link from 'next/link'
 import Nav from '@/components/Nav'
-import SectionLabel from '@/components/SectionLabel'
-import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import { getAllPosts, DIVISION_LABELS } from '@/lib/blog'
+import { getAllCaseStudies } from '@/lib/case-studies'
 
 export const metadata = {
-  title: 'Free Commercial Property Tools | Your Office Space',
-  description: 'Free commercial property tools for Australian businesses. Lease risk checker, fitout cost estimator, cap rate calculator, lease comparison — no sign-up required.'
+  title: 'Resources & Insights | Your Office Space',
+  description: 'Free commercial property tools, articles and case studies for Australian businesses. Lease checkers, fitout estimators, market insights and real project outcomes.'
 }
 
 const tools = [
-  {
-    title: 'Lease Risk Checker',
-    description: 'Answer 10 questions about your lease and get an instant risk report. We flag the clauses that need attention — and tell you what to negotiate before you sign.',
-    tag: 'Free',
-    tagColor: 'bg-teal',
-    href: '/resources/lease-review',
-    features: ['10-question risk assessment', 'Clause-by-clause flags', 'Plain-English advice', 'Instant results']
-  },
-  {
-    title: 'Fitout Cost Estimator',
-    description: 'Estimate your fitout cost using the YOS Cost Guide — Newcastle and Hunter Region market rates. Full breakdown by category across Basic, Mid-Range and Premium tiers.',
-    tag: 'Free',
-    tagColor: 'bg-teal',
-    href: '/resources/fitout-estimator',
-    features: ['April 2026 market rates', 'Three quality tiers', 'Category-by-category breakdown', 'Contingency included']
-  },
-  {
-    title: 'Cap Rate Calculator',
-    description: 'Calculate the capitalisation rate on any commercial property investment. Understand yield, net income, implied value at multiple cap rates, and how it compares to Newcastle market benchmarks.',
-    tag: 'Free',
-    tagColor: 'bg-teal',
-    href: '/resources/cap-rate-calculator',
-    features: ['Net income calculation', 'Implied value at 5%, 6%, 7%', 'Newcastle market benchmarks', 'Vacancy + outgoings included']
-  },
-  {
-    title: 'Lease Comparison Tool',
-    description: 'Compare up to three lease options side-by-side on true occupancy cost — not just face rent. Factor in rent-free periods, outgoings, make-good, and get a net present value comparison.',
-    tag: 'Free',
-    tagColor: 'bg-teal',
-    href: '/resources/lease-comparison',
-    features: ['3-way side-by-side comparison', 'Effective rent after incentives', 'Net Present Value (7% discount)', 'Lowest true cost highlighted']
-  },
-  {
-    title: 'Commercial Purchase Checklist',
-    description: 'An interactive 25-point due diligence checklist for commercial property buyers in NSW. Tick each item off as you complete it and track your progress to exchange.',
-    tag: 'Free',
-    tagColor: 'bg-teal',
-    href: '/resources/purchase-checklist',
-    features: ['25 due diligence checks', 'Tick-off as you go', 'Zoning, title, building & tenancy', 'NSW-specific']
-  }
+  { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention — and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
+  { title: 'Fitout Cost Estimator', description: 'Estimate your fitout cost using real market rates. Full breakdown across Basic, Mid-Range and Premium tiers.', href: '/resources/fitout-estimator', features: ['2026 market rates', 'Three quality tiers', 'Contingency included'] },
+  { title: 'Cap Rate Calculator', description: 'Calculate the cap rate on any commercial property. Understand yield, net income and implied value at multiple scenarios.', href: '/resources/cap-rate-calculator', features: ['Net income calculation', 'Multiple cap rate scenarios', 'Vacancy + outgoings'] },
+  { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost — not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
+  { title: 'Purchase Checklist', description: 'A 25-point due diligence checklist for commercial property buyers in NSW. Tick off as you go.', href: '/resources/purchase-checklist', features: ['25 due diligence checks', 'Zoning, title, building', 'NSW-specific'] },
+]
+
+const FILTERS = [
+  { id: 'all', label: 'All' },
+  { id: 'tenant-rep', label: 'Tenant Rep' },
+  { id: 'furniture', label: 'Furniture & Fitout' },
+  { id: 'buyers-agency', label: 'Buyers Agency' },
+  { id: 'cleaning', label: 'Cleaning' },
+  { id: 'general', label: 'General' },
 ]
 
 export default function ResourcesPage() {
+  const posts = getAllPosts()
+  const caseStudies = getAllCaseStudies()
+
   return (
     <>
       <Nav />
 
-      {/* HERO */}
-      <section className="relative min-h-[65vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-screen-xl mx-auto w-full pt-20 pb-20">
-          <FadeIn delay={0}>
-            <SectionLabel>Free tools</SectionLabel>
-          </FadeIn>
-          <FadeIn delay={80}>
-            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-3xl mb-7"
-              style={{ fontSize: 'clamp(2.4rem, 6vw, 5.5rem)' }}>
-              SMART TOOLS.
-BETTER DECISIONS.
+      {/* ─── HERO ─────────────────────────────── */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Resources</p>
+            <h1 className="text-white font-black uppercase leading-none tracking-tight mb-8"
+              style={{ fontSize: 'clamp(2.75rem,6vw,6.5rem)' }}>
+              Tools. Insights.<br />Real outcomes.
             </h1>
-          </FadeIn>
-          <FadeIn delay={160}>
-            <p className="text-white/60 font-light leading-relaxed max-w-2xl"
-              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}>
-              Built for business owners. Free to use. No sign-up required.
+            <p className="text-white/60 font-light leading-relaxed"
+              style={{ fontSize: '1.2rem', maxWidth: '38rem', lineHeight: 1.75 }}>
+              Free tools for commercial property decisions, practical articles, and real project case studies. No sign-up required.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* TOOLS GRID */}
-      <section className="bg-white py-24 md:py-36">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      {/* ─── FREE TOOLS ───────────────────────── */}
+      <section className="bg-white" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Free tools</p>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
+              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+              Built for decisions.<br />Free to use.
+            </h2>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
             {tools.map((tool, i) => (
-              <FadeIn key={tool.title} delay={i * 80} direction="up">
-              <div className="border border-gray-200 rounded-sm flex flex-col hover:border-teal transition-colors duration-200 h-full" style={{ padding: '2.75rem 2.5rem' }}>
-                <div className="flex items-start justify-between mb-6">
-                  <h2 className="text-near-black font-bold text-2xl max-w-xs">{tool.title}</h2>
-                  <span className={`${tool.tagColor} text-white font-semibold text-xs px-3 py-1 rounded-full flex-shrink-0 ml-4`}>
-                    {tool.tag}
-                  </span>
-                </div>
-                <p className="text-charcoal font-light leading-relaxed mb-6 flex-1" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{tool.description}</p>
-                <ul className="grid grid-cols-2 gap-2 mb-8">
-                  {tool.features.map((f, i) => (
-                    <li key={i} className="flex gap-2 items-center">
-                      <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0" />
-                      <span className="text-mid-grey text-xs">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={tool.href}
-                  className="text-teal font-bold text-xs tracking-widest uppercase no-underline hover:text-dark-teal transition-colors"
-                >
-                  Open tool →
+              <FadeIn key={tool.title} delay={i * 60}>
+                <Link href={tool.href} className="group no-underline flex flex-col h-full bg-white border border-gray-100 hover:border-teal transition-colors duration-200"
+                  style={{ padding: '2.5rem 2.25rem' }}>
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-near-black font-black uppercase tracking-tight group-hover:text-teal transition-colors"
+                      style={{ fontSize: '1.05rem', maxWidth: '16ch' }}>{tool.title}</h3>
+                    <span className="bg-teal text-white font-bold flex-shrink-0 ml-3"
+                      style={{ fontSize: '0.58rem', letterSpacing: '0.15em', padding: '0.3rem 0.65rem', textTransform: 'uppercase' }}>Free</span>
+                  </div>
+                  <p className="text-charcoal font-light leading-relaxed flex-1 mb-6"
+                    style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>{tool.description}</p>
+                  <ul className="flex flex-col gap-2 mb-6">
+                    {tool.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2">
+                        <div className="w-1 h-1 bg-teal rounded-full flex-shrink-0" />
+                        <span className="text-mid-grey" style={{ fontSize: '0.78rem' }}>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="text-teal font-bold uppercase tracking-widest group-hover:text-dark-teal transition-colors"
+                    style={{ fontSize: '0.65rem' }}>Open tool →</span>
                 </Link>
-              </div>
               </FadeIn>
             ))}
           </div>
         </div>
       </section>
 
-      {/* NEED MORE HELP */}
-      <section className="bg-warm-grey py-24 md:py-36">
-        <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
-          <SectionLabel>Need more?</SectionLabel>
-          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8">
-            Tools get you started. A straight conversation gets you moving.
-          </h2>
-          <p className="text-charcoal font-light text-xl leading-relaxed mb-12">
-            Use the tools to build your understanding. Then talk to Joe when you&apos;re ready to act. First conversation is free — no pitch, no obligation.
-          </p>
-          <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-            Book a Clarity Call
-          </Button>
+      {/* ─── INSIGHTS: ARTICLES ───────────────── */}
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+              <div>
+                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Articles</p>
+                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight"
+                  style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  Insights &amp; advice.
+                </h2>
+              </div>
+              <Link href="/blog"
+                className="text-teal font-bold uppercase tracking-widest no-underline hover:text-dark-teal transition-colors flex-shrink-0"
+                style={{ fontSize: '0.72rem' }}>
+                View all articles →
+              </Link>
+            </div>
+          </FadeIn>
+
+          {/* Filter tabs */}
+          <FadeIn delay={60}>
+            <div className="flex flex-wrap gap-2 mb-12">
+              {FILTERS.map(f => (
+                <Link key={f.id} href={f.id === 'all' ? '/blog' : `/blog?division=${f.id}`}
+                  className="no-underline border border-gray-200 bg-white hover:border-teal hover:text-teal transition-colors text-near-black font-medium"
+                  style={{ padding: '0.5rem 1.25rem', fontSize: '0.75rem', letterSpacing: '0.05em' }}>
+                  {f.label}
+                </Link>
+              ))}
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {posts.slice(0, 6).map((post, i) => (
+              <FadeIn key={post.slug} delay={i * 60}>
+                <Link href={`/blog/${post.slug}`} className="group no-underline flex flex-col h-full bg-white hover:border-teal border border-gray-100 transition-colors duration-200"
+                  style={{ padding: '2.25rem 2rem' }}>
+                  <span className="bg-teal text-white font-bold uppercase tracking-widest inline-block mb-5 self-start"
+                    style={{ fontSize: '0.6rem', padding: '0.3rem 0.75rem' }}>
+                    {DIVISION_LABELS[post.division as keyof typeof DIVISION_LABELS]}
+                  </span>
+                  <h3 className="text-near-black font-black leading-tight tracking-tight group-hover:text-teal transition-colors flex-1 mb-4"
+                    style={{ fontSize: '1.05rem' }}>
+                    {post.title}
+                  </h3>
+                  <p className="text-charcoal font-light leading-relaxed mb-6"
+                    style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
+                    {post.excerpt}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-mid-grey font-light" style={{ fontSize: '0.75rem' }}>
+                      {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                    </span>
+                    <span className="text-teal font-bold group-hover:text-dark-teal transition-colors" style={{ fontSize: '0.75rem' }}>Read →</span>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CASE STUDIES ────────────────────── */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+              <div>
+                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Case studies</p>
+                <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+                  style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  Real projects.<br />Real outcomes.
+                </h2>
+              </div>
+              <Link href="/case-studies"
+                className="text-teal font-bold uppercase tracking-widest no-underline hover:text-dark-teal transition-colors flex-shrink-0"
+                style={{ fontSize: '0.72rem' }}>
+                View all case studies →
+              </Link>
+            </div>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {caseStudies.slice(0, 3).map((cs, i) => (
+              <FadeIn key={cs.slug} delay={i * 60}>
+                <Link href={`/case-studies/${cs.slug}`} className="group no-underline flex flex-col h-full bg-near-black border border-white/8 hover:border-teal transition-colors duration-200">
+                  {cs.heroImage && (
+                    <div className="overflow-hidden" style={{ height: '13rem' }}>
+                      <img src={cs.heroImage} alt={cs.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                    </div>
+                  )}
+                  <div className="flex flex-col flex-1" style={{ padding: '2rem' }}>
+                    <span className="bg-teal text-white font-bold uppercase tracking-widest inline-block mb-4 self-start"
+                      style={{ fontSize: '0.6rem', padding: '0.3rem 0.75rem' }}>
+                      {DIVISION_LABELS[cs.division as keyof typeof DIVISION_LABELS] || 'Project'}
+                    </span>
+                    <h3 className="text-white font-black leading-tight tracking-tight group-hover:text-teal transition-colors flex-1 mb-4"
+                      style={{ fontSize: '1.05rem' }}>
+                      {cs.title}
+                    </h3>
+                    <p className="text-white/45 font-light leading-relaxed mb-6"
+                      style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
+                      {cs.excerpt}
+                    </p>
+                    <span className="text-teal font-bold group-hover:text-dark-teal transition-colors" style={{ fontSize: '0.75rem' }}>
+                      View project →
+                    </span>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA ──────────────────────────────── */}
+      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,8rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+        <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+              Tools get you started.<br />A conversation gets you moving.
+            </h2>
+            <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
+              style={{ fontSize: '1.15rem', maxWidth: '36rem', lineHeight: 1.75 }}>
+              Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
+            </p>
+            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+              className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
+              style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              Book a Clarity Call
+            </a>
+          </FadeIn>
         </div>
       </section>
 
