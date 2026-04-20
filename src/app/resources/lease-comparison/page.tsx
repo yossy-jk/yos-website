@@ -8,6 +8,14 @@ import { HUBSPOT } from '@/lib/constants'
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
 }
+function fmtK(n: number) {
+  if (n >= 1000000) return `$${(n / 1000000).toFixed(1)}M`
+  if (n >= 1000) return `$${(n / 1000).toFixed(0)}k`
+  return fmt(n)
+}
+function pct(n: number) {
+  return `${n.toFixed(1)}%`
+}
 
 interface LeaseInput {
   name: string
@@ -17,99 +25,245 @@ interface LeaseInput {
   incentive: string
   outgoings: string
   makegood: string
+  rentReview: string
 }
 
-const empty = (): LeaseInput => ({ name: '', faceRent: '', area: '', term: '', incentive: '', outgoings: '', makegood: '' })
+const empty = (): LeaseInput => ({
+  name: '', faceRent: '', area: '', term: '', incentive: '', outgoings: '', makegood: '', rentReview: '3.5'
+})
+
+interface YearlyBreakdown {
+  year: number
+  rent: number
+  outgoings: number
+  total: number
+}
 
 interface LeaseResult {
   name: string
-  netRentPa: number
-  totalOutgoings: number
+  faceRentPa: number
+  effectiveRentPa: number
+  effectiveRentSqm: number
+  effectiveRentDay: number
+  totalOutgoingsPa: number
   trueCostPa: number
   trueCostTotal: number
   netPresentCost: number
   incentiveValue: number
+  totalSavingVsWorst: number | null
+  yearlyBreakdown: YearlyBreakdown[]
+  flags: string[]
+  area: number
+  term: number
 }
 
-function calcLease(l: LeaseInput): LeaseResult | null {
+function calcLease(l: LeaseInput, idx: number): LeaseResult | null {
   const rent = parseFloat(l.faceRent.replace(/,/g, ''))
   const area = parseFloat(l.area.replace(/,/g, '')) || 1
   const term = parseFloat(l.term) || 1
   const incentiveMths = parseFloat(l.incentive) || 0
   const outgoings = parseFloat(l.outgoings.replace(/,/g, '')) || 0
   const makegood = parseFloat(l.makegood.replace(/,/g, '')) || 0
+  const reviewPct = parseFloat(l.rentReview) / 100 || 0.035
   if (!rent || !area) return null
 
   const grossPa = rent * area
   const incentiveValue = grossPa * (incentiveMths / 12)
-  const netRentPa = grossPa - (incentiveValue / term)
-  const totalOutgoings = outgoings * area
-  const trueCostPa = netRentPa + totalOutgoings
-  const trueCostTotal = trueCostPa * term + makegood
+  const effectiveRentPa = grossPa - (incentiveValue / term)
+  const totalOutgoingsPa = outgoings * area
 
-  // Simple NPV at 7% discount rate
+  // Year-by-year with rent reviews
+  const breakdown: YearlyBreakdown[] = []
+  let totalRentCost = 0
+  let totalOutCost = 0
+  for (let y = 1; y <= Math.min(term, 10); y++) {
+    const yearRent = effectiveRentPa * Math.pow(1 + reviewPct, y - 1)
+    // Outgoings also escalate (typically CPI ~3%)
+    const yearOut = totalOutgoingsPa * Math.pow(1.03, y - 1)
+    breakdown.push({ year: y, rent: yearRent, outgoings: yearOut, total: yearRent + yearOut })
+    totalRentCost += yearRent
+    totalOutCost += yearOut
+  }
+
+  const trueCostTotal = totalRentCost + totalOutCost + makegood
+  const trueCostPa = trueCostTotal / term
+
+  // NPV at 7%
   const r = 0.07
   let npv = 0
-  for (let y = 1; y <= term; y++) {
-    npv += trueCostPa / Math.pow(1 + r, y)
+  for (let y = 1; y <= Math.min(term, breakdown.length); y++) {
+    npv += breakdown[y - 1].total / Math.pow(1 + r, y)
   }
   npv += makegood / Math.pow(1 + r, term)
 
-  return { name: l.name || `Option ${1}`, netRentPa, totalOutgoings, trueCostPa, trueCostTotal, netPresentCost: npv, incentiveValue }
+  // Flags
+  const flags: string[] = []
+  if (incentiveMths < term * 1.5 && term >= 3) flags.push(`Rent-free of ${incentiveMths} months is below market for a ${term}-year lease — push for more`)
+  if (outgoings > 120) flags.push(`Outgoings at $${outgoings}/m² are high — verify what's included`)
+  if (outgoings === 0 && term >= 2) flags.push('No outgoings entered — confirm if gross or net lease')
+  if (makegood > grossPa * 0.5) flags.push('Make-good estimate is significant — get a contractor quote before signing')
+  if (reviewPct > 0.05) flags.push(`${pct(reviewPct * 100)} rent reviews will add up — model a longer term carefully`)
+  if (term >= 5 && incentiveMths === 0) flags.push('No incentive on a long lease — there is almost always room to negotiate one')
+
+  return {
+    name: l.name || `Option ${idx + 1}`,
+    faceRentPa: grossPa,
+    effectiveRentPa,
+    effectiveRentSqm: effectiveRentPa / area,
+    effectiveRentDay: (effectiveRentPa / area) / 365,
+    totalOutgoingsPa,
+    trueCostPa,
+    trueCostTotal,
+    netPresentCost: npv,
+    incentiveValue,
+    totalSavingVsWorst: null,
+    yearlyBreakdown: breakdown,
+    flags,
+    area,
+    term
+  }
+}
+
+function BarChart({ results, bestIdx }: { results: LeaseResult[]; bestIdx: number }) {
+  const max = Math.max(...results.map(r => r.netPresentCost))
+  return (
+    <div className="mt-8 mb-2">
+      <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-4">True cost comparison (net present value)</p>
+      <div className="space-y-3">
+        {results.map((r, i) => {
+          const w = (r.netPresentCost / max) * 100
+          const isBest = i === bestIdx
+          return (
+            <div key={r.name}>
+              <div className="flex justify-between mb-1">
+                <span className="text-near-black font-semibold text-sm">{r.name}</span>
+                <span className={`font-bold text-sm ${isBest ? 'text-teal' : 'text-near-black'}`}>{fmtK(r.netPresentCost)}</span>
+              </div>
+              <div className="h-8 bg-warm-grey rounded overflow-hidden">
+                <div
+                  className={`h-full rounded transition-all duration-500 flex items-center px-3 ${isBest ? 'bg-teal' : 'bg-mid-grey/40'}`}
+                  style={{ width: `${w}%` }}
+                >
+                  {isBest && <span className="text-white font-semibold text-xs whitespace-nowrap">Lowest cost</span>}
+                </div>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function YearTable({ result, isBest }: { result: LeaseResult; isBest: boolean }) {
+  return (
+    <div className="mt-6">
+      <p className={`font-semibold text-xs tracking-widest uppercase mb-3 ${isBest ? 'text-white/70' : 'text-mid-grey'}`}>Year-by-year cost</p>
+      <div className="space-y-1">
+        {result.yearlyBreakdown.map(y => (
+          <div key={y.year} className={`flex justify-between text-xs py-1 border-b ${isBest ? 'border-white/10' : 'border-gray-100'}`}>
+            <span className={isBest ? 'text-white/60' : 'text-mid-grey'}>Year {y.year}</span>
+            <span className={`font-semibold ${isBest ? 'text-white' : 'text-near-black'}`}>{fmt(y.total)}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default function LeaseComparisonPage() {
   const [leases, setLeases] = useState<LeaseInput[]>([empty(), empty(), empty()])
-  const [results, setResults] = useState<(LeaseResult | null)[]>([])
+  const [results, setResults] = useState<LeaseResult[]>([])
+  const [showYearly, setShowYearly] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   function update(i: number, field: keyof LeaseInput, val: string) {
     setLeases(prev => prev.map((l, idx) => idx === i ? { ...l, [field]: val } : l))
   }
 
   function compare() {
-    setResults(leases.map((l, i) => {
-      const r = calcLease(l)
-      if (r) r.name = l.name || `Option ${i + 1}`
-      return r
-    }))
+    const raw = leases.map((l, i) => calcLease(l, i)).filter(Boolean) as LeaseResult[]
+    if (raw.length === 0) return
+    const worst = Math.max(...raw.map(r => r.netPresentCost))
+    raw.forEach(r => { r.totalSavingVsWorst = worst - r.netPresentCost })
+    setResults(raw)
+    setShowYearly(false)
+    setTimeout(() => {
+      document.getElementById('results')?.scrollIntoView({ behavior: 'smooth' })
+    }, 100)
   }
 
-  const validResults = results.filter(Boolean) as LeaseResult[]
-  const bestNPV = validResults.length ? Math.min(...validResults.map(r => r.netPresentCost)) : null
+  function copyResults() {
+    if (!results.length) return
+    const lines = results.map(r =>
+      `${r.name}\nEffective rent: ${fmt(r.effectiveRentPa)}/yr | True cost p.a.: ${fmt(r.trueCostPa)} | NPV: ${fmt(r.netPresentCost)}`
+    ).join('\n\n')
+    navigator.clipboard.writeText(`YOS Lease Comparison\n\n${lines}\n\nGenerated at yourofficespace.au/resources/lease-comparison`)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
-  const fields: { key: keyof LeaseInput; label: string; hint?: string }[] = [
+  const validResults = results
+  const bestIdx = validResults.length ? validResults.reduce((bi, r, i, a) => r.netPresentCost < a[bi].netPresentCost ? i : bi, 0) : -1
+
+  const fields: { key: keyof LeaseInput; label: string; hint?: string; prefix?: string; suffix?: string; type?: string }[] = [
     { key: 'name', label: 'Option name', hint: 'e.g. 10 Smith St' },
-    { key: 'faceRent', label: 'Face rent ($/m²/yr)', hint: 'Gross face rent' },
-    { key: 'area', label: 'Area (m²)' },
-    { key: 'term', label: 'Lease term (years)' },
-    { key: 'incentive', label: 'Rent-free (months)', hint: 'Free rent incentive' },
-    { key: 'outgoings', label: 'Outgoings ($/m²/yr)', hint: 'Rates, insurance etc.' },
-    { key: 'makegood', label: 'Make-good estimate ($)', hint: 'End of lease cost' }
+    { key: 'faceRent', label: 'Face rent', hint: '$/m²/yr gross', prefix: '$' },
+    { key: 'area', label: 'Area', hint: 'm²', suffix: 'm²' },
+    { key: 'term', label: 'Lease term', hint: 'years', suffix: 'yrs' },
+    { key: 'incentive', label: 'Rent-free', hint: 'months', suffix: 'mths' },
+    { key: 'outgoings', label: 'Outgoings', hint: '$/m²/yr', prefix: '$' },
+    { key: 'makegood', label: 'Make-good', hint: 'estimated $', prefix: '$' },
+    { key: 'rentReview', label: 'Rent review', hint: '% per year', suffix: '%' },
   ]
+
+  // Determine which options have data
+  const filledCount = leases.filter(l => l.faceRent && l.area).length
 
   return (
     <>
       <Nav />
 
-      <section className="bg-near-black ">
+      {/* Hero */}
+      <section className="bg-near-black">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,10vw,9rem)', paddingBottom: 'clamp(3rem,7vw,7rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Lease Comparison Tool</h1>
-          <p className="text-white/60 font-light text-lg">Compare up to three lease options on true occupancy cost — not just face rent.</p>
+          <p className="text-white/60 font-light text-lg max-w-2xl">
+            Enter up to three lease options. We calculate the true cost — factoring in rent-free periods, outgoings, make-good, and annual rent reviews — then tell you which deal is actually cheaper.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-6">
+            {[
+              { stat: 'Accounts for rent reviews', desc: 'Year-by-year cost escalation' },
+              { stat: 'Net present value', desc: 'Discounts future costs to today' },
+              { stat: 'Plain-English verdict', desc: 'Not just numbers — a recommendation' },
+            ].map(item => (
+              <div key={item.stat} className="border-l-2 border-teal pl-4">
+                <p className="text-white font-semibold text-sm">{item.stat}</p>
+                <p className="text-white/40 font-light text-xs">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-white py-20">
+      {/* Input */}
+      <section className="bg-white py-16">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
-          <div className="overflow-x-auto">
-            <table className="w-full">
+          <div className="overflow-x-auto -mx-4 px-4">
+            <table className="w-full min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="text-left text-mid-grey font-semibold text-xs tracking-widest uppercase pb-4 pr-6 w-48">Field</th>
+                  <th className="text-left pb-5 pr-6 w-48">
+                    <span className="text-mid-grey font-semibold text-xs tracking-widest uppercase">Field</span>
+                  </th>
                   {[0, 1, 2].map(i => (
-                    <th key={i} className="text-left pb-4 px-4">
-                      <span className="text-near-black font-bold text-sm">Option {i + 1}</span>
+                    <th key={i} className="text-left pb-5 px-4">
+                      <div className="flex items-center gap-2">
+                        <div className={`w-2 h-2 rounded-full ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
+                        <span className="text-near-black font-bold text-sm">Option {i + 1}</span>
+                      </div>
                     </th>
                   ))}
                 </tr>
@@ -119,16 +273,26 @@ export default function LeaseComparisonPage() {
                   <tr key={f.key} className="border-t border-gray-100">
                     <td className="py-3 pr-6">
                       <p className="text-near-black font-semibold text-sm">{f.label}</p>
-                      {f.hint && <p className="text-mid-grey font-light text-xs">{f.hint}</p>}
+                      {f.hint && <p className="text-mid-grey font-light text-xs mt-0.5">{f.hint}</p>}
                     </td>
                     {[0, 1, 2].map(i => (
                       <td key={i} className="py-3 px-4">
-                        <input
-                          type="text"
-                          value={leases[i][f.key]}
-                          onChange={e => update(i, f.key, e.target.value)}
-                          className="w-full border border-gray-200 rounded px-3 py-2 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors"
-                        />
+                        <div className="relative">
+                          {f.prefix && (
+                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mid-grey text-sm font-light">{f.prefix}</span>
+                          )}
+                          <input
+                            type={f.type || 'text'}
+                            inputMode={f.key === 'name' ? 'text' : 'decimal'}
+                            value={leases[i][f.key]}
+                            onChange={e => update(i, f.key, e.target.value)}
+                            placeholder={f.key === 'rentReview' ? '3.5' : ''}
+                            className={`w-full border border-gray-200 rounded px-3 py-2.5 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-6' : ''} ${f.suffix ? 'pr-10' : ''}`}
+                          />
+                          {f.suffix && (
+                            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-mid-grey text-xs font-light">{f.suffix}</span>
+                          )}
+                        </div>
                       </td>
                     ))}
                   </tr>
@@ -137,54 +301,157 @@ export default function LeaseComparisonPage() {
             </table>
           </div>
 
-          <button onClick={compare}
-            className="mt-8 bg-teal text-white font-semibold text-base px-10 py-4 rounded hover:bg-dark-teal transition-colors duration-200 w-full md:w-auto">
-            Compare leases
-          </button>
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 items-start">
+            <button
+              onClick={compare}
+              disabled={filledCount === 0}
+              className="bg-teal text-white font-semibold text-base px-10 py-4 rounded hover:bg-dark-teal transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {filledCount > 1 ? `Compare ${filledCount} options` : 'Compare leases'}
+            </button>
+            {filledCount === 0 && (
+              <p className="text-mid-grey font-light text-sm mt-1 sm:mt-3">Fill in at least two options to compare</p>
+            )}
+          </div>
 
-          {validResults.length > 0 && (
-            <div className="mt-12">
-              <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase mb-6">Comparison results</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {validResults.map(r => (
-                  <div key={r.name} className={`rounded-sm p-8 ${r.netPresentCost === bestNPV ? 'bg-teal text-white border-2 border-teal' : 'bg-warm-grey'}`}>
-                    {r.netPresentCost === bestNPV && (
-                      <p className="text-white/70 font-semibold text-xs tracking-widest uppercase mb-3">Lowest true cost</p>
-                    )}
-                    <h3 className={`font-bold text-xl mb-6 ${r.netPresentCost === bestNPV ? 'text-white' : 'text-near-black'}`}>{r.name}</h3>
-                    <div className="space-y-4">
-                      {[
-                        { label: 'Effective rent p.a.', val: fmt(r.netRentPa) },
-                        { label: 'Outgoings p.a.', val: fmt(r.totalOutgoings) },
-                        { label: 'True cost p.a.', val: fmt(r.trueCostPa) },
-                        { label: 'Total over term', val: fmt(r.trueCostTotal) },
-                        { label: 'Incentive value', val: fmt(r.incentiveValue) },
-                      ].map(item => (
-                        <div key={item.label} className={`flex justify-between border-b pb-2 ${r.netPresentCost === bestNPV ? 'border-white/20' : 'border-gray-200'}`}>
-                          <p className={`font-light text-sm ${r.netPresentCost === bestNPV ? 'text-white/70' : 'text-mid-grey'}`}>{item.label}</p>
-                          <p className={`font-semibold text-sm ${r.netPresentCost === bestNPV ? 'text-white' : 'text-near-black'}`}>{item.val}</p>
-                        </div>
-                      ))}
-                      <div className="pt-2">
-                        <p className={`font-light text-xs mb-1 ${r.netPresentCost === bestNPV ? 'text-white/70' : 'text-mid-grey'}`}>Net present cost (7% discount)</p>
-                        <p className={`font-bold text-2xl ${r.netPresentCost === bestNPV ? 'text-white' : 'text-teal'}`}>{fmt(r.netPresentCost)}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="text-mid-grey font-light text-xs mt-6">
-                True cost includes effective rent (after incentives), outgoings, and make-good. NPV discounts all costs to today&apos;s dollars at 7%. This tool is a guide — get advice before signing.
-              </p>
-            </div>
-          )}
+          <p className="text-mid-grey font-light text-xs mt-6 max-w-2xl">
+            Rent reviews compound annually at the rate you enter. Outgoings escalate at 3% per year. Make-good is added at end of term.
+            NPV discounts all future costs to today&apos;s dollars at 7%. This is a guide — not financial advice. Get proper advice before you sign anything.
+          </p>
         </div>
       </section>
 
+      {/* Results */}
+      {validResults.length > 0 && (
+        <section id="results" className="bg-warm-grey py-16">
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+
+            {/* Verdict banner */}
+            <div className="bg-near-black rounded-sm p-8 mb-10">
+              <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
+              {validResults.length === 1 ? (
+                <>
+                  <h2 className="text-white font-bold text-3xl mb-3">{validResults[0].name}</h2>
+                  <p className="text-white/60 font-light text-lg">
+                    One option entered. True occupancy cost is {fmt(validResults[0].trueCostPa)} per year — {fmt(validResults[0].effectiveRentSqm.toFixed(2) as unknown as number)}/m²/yr effective.
+                    Add a second option to compare.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h2 className="text-white font-bold text-3xl mb-3">
+                    {validResults[bestIdx].name} is the cheaper deal
+                  </h2>
+                  <p className="text-white/60 font-light text-lg mb-4">
+                    {validResults[bestIdx].totalSavingVsWorst && validResults[bestIdx].totalSavingVsWorst! > 0
+                      ? `It saves you ${fmt(validResults[bestIdx].totalSavingVsWorst!)} in net present cost compared to the most expensive option.`
+                      : 'All options are close in net present value — negotiate hard on incentives before deciding.'}
+                    {' '}The effective rent works out to ${validResults[bestIdx].effectiveRentSqm.toFixed(2)}/m²/yr, or ${validResults[bestIdx].effectiveRentDay.toFixed(2)}/m² per day.
+                  </p>
+                  <BarChart results={validResults} bestIdx={bestIdx} />
+                </>
+              )}
+            </div>
+
+            {/* Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {validResults.map((r, i) => {
+                const isBest = i === bestIdx
+                return (
+                  <div key={r.name} className={`rounded-sm p-8 ${isBest ? 'bg-teal text-white ring-2 ring-teal' : 'bg-white'}`}>
+                    {isBest && (
+                      <p className="text-white/70 font-semibold text-xs tracking-widest uppercase mb-3">Recommended</p>
+                    )}
+                    <h3 className={`font-bold text-xl mb-6 ${isBest ? 'text-white' : 'text-near-black'}`}>{r.name}</h3>
+
+                    <div className="space-y-3 mb-6">
+                      {[
+                        { label: 'Face rent p.a.', val: fmt(r.faceRentPa) },
+                        { label: 'Incentive value', val: fmt(r.incentiveValue) },
+                        { label: 'Effective rent p.a.', val: fmt(r.effectiveRentPa), bold: true },
+                        { label: 'Outgoings p.a.', val: fmt(r.totalOutgoingsPa) },
+                      ].map(item => (
+                        <div key={item.label} className={`flex justify-between border-b pb-2.5 ${isBest ? 'border-white/20' : 'border-gray-100'}`}>
+                          <p className={`font-light text-sm ${isBest ? 'text-white/70' : 'text-mid-grey'}`}>{item.label}</p>
+                          <p className={`text-sm ${item.bold ? 'font-bold' : 'font-semibold'} ${isBest ? 'text-white' : 'text-near-black'}`}>{item.val}</p>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Key metrics */}
+                    <div className={`rounded p-4 mb-6 ${isBest ? 'bg-white/10' : 'bg-warm-grey'}`}>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <p className={`font-light text-xs mb-1 ${isBest ? 'text-white/60' : 'text-mid-grey'}`}>True cost p.a.</p>
+                          <p className={`font-bold text-base ${isBest ? 'text-white' : 'text-near-black'}`}>{fmt(r.trueCostPa)}</p>
+                        </div>
+                        <div>
+                          <p className={`font-light text-xs mb-1 ${isBest ? 'text-white/60' : 'text-mid-grey'}`}>Total over term</p>
+                          <p className={`font-bold text-base ${isBest ? 'text-white' : 'text-near-black'}`}>{fmtK(r.trueCostTotal)}</p>
+                        </div>
+                        <div>
+                          <p className={`font-light text-xs mb-1 ${isBest ? 'text-white/60' : 'text-mid-grey'}`}>Effective $/m²/yr</p>
+                          <p className={`font-bold text-base ${isBest ? 'text-white' : 'text-near-black'}`}>${r.effectiveRentSqm.toFixed(0)}</p>
+                        </div>
+                        <div>
+                          <p className={`font-light text-xs mb-1 ${isBest ? 'text-white/60' : 'text-mid-grey'}`}>Net present cost</p>
+                          <p className={`font-bold text-base ${isBest ? 'text-white' : 'text-teal'}`}>{fmtK(r.netPresentCost)}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Flags */}
+                    {r.flags.length > 0 && (
+                      <div className={`rounded p-4 mb-6 ${isBest ? 'bg-white/10' : 'bg-amber-50 border border-amber-200'}`}>
+                        <p className={`font-semibold text-xs tracking-widest uppercase mb-2 ${isBest ? 'text-white/70' : 'text-amber-700'}`}>Watch out</p>
+                        <ul className="space-y-1.5">
+                          {r.flags.map((f, fi) => (
+                            <li key={fi} className={`font-light text-xs leading-snug ${isBest ? 'text-white/80' : 'text-amber-800'}`}>
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Year-by-year toggle */}
+                    {showYearly && <YearTable result={r} isBest={isBest} />}
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Controls */}
+            <div className="flex flex-wrap gap-4 items-center">
+              <button
+                onClick={() => setShowYearly(v => !v)}
+                className="border border-near-black text-near-black font-semibold text-sm px-6 py-3 rounded hover:bg-near-black hover:text-white transition-colors"
+              >
+                {showYearly ? 'Hide' : 'Show'} year-by-year breakdown
+              </button>
+              <button
+                onClick={copyResults}
+                className="border border-gray-300 text-mid-grey font-semibold text-sm px-6 py-3 rounded hover:border-near-black hover:text-near-black transition-colors"
+              >
+                {copied ? 'Copied' : 'Copy results'}
+              </button>
+            </div>
+
+            <p className="text-mid-grey font-light text-xs mt-8 max-w-2xl">
+              Outgoings are estimated to escalate at 3% per year. Rent reviews compound at your entered rate.
+              Make-good is added as a lump sum at end of term. NPV at 7%. These figures are indicative — lease terms vary significantly and professional advice matters before you sign.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* CTA */}
       <section className="bg-near-black py-14 md:py-28 text-center">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want us to run the numbers for real?</h2>
-          <p className="text-white/60 font-light text-lg mb-8">We review leases every day. We&apos;ll tell you which deal is actually better and why.</p>
+          <p className="text-white/60 font-light text-lg mb-8">
+            We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better — and what to negotiate.
+          </p>
           <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Lease Review Call</Button>
         </div>
       </section>
