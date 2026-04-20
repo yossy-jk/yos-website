@@ -4,6 +4,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import { virusTotalScan, encryptFile } from '@/lib/file-security'
 
 /* ─── Data ───────────────────────────────────────────────── */
 const FREE_CHECKS = [
@@ -24,6 +25,7 @@ const PAID_INCLUDES = [
 
 /* ─── Types ──────────────────────────────────────────────── */
 type FlowStep = 'landing' | 'form-details' | 'form-upload' | 'submitted'
+type SecurityStep = 'idle' | 'scanning' | 'encrypting' | 'sending'
 
 interface FormState {
   name: string
@@ -175,6 +177,7 @@ export default function LeaseReviewPage() {
   })
   const [errors, setErrors] = useState<FieldErrors>({})
   const [submitting, setSubmitting] = useState(false)
+  const [securityStep, setSecurityStep] = useState<SecurityStep>('idle')
 
   const set = (field: keyof FormState) => (value: string | File | null) =>
     setForm(prev => ({ ...prev, [field]: value }))
@@ -213,31 +216,63 @@ export default function LeaseReviewPage() {
     if (!validateUpload()) return
     setSubmitting(true)
 
-    // 1. Submit lead data to HubSpot CRM
-    try {
-      await fetch(
-        'https://api.hsforms.com/submissions/v3/integration/submit/442709765/e3e49521-0831-49ba-8929-610c7cc7f282',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: [
-              { name: 'firstname', value: form.name.split(' ')[0] },
-              { name: 'lastname', value: form.name.split(' ').slice(1).join(' ') || '' },
-              { name: 'email', value: form.email },
-              { name: 'company', value: form.company },
-              { name: 'phone', value: form.phone },
-              { name: 'message', value: `LeaseIntel™ Free Review — ${form.leaseType} lease — ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})` },
-            ],
-          }),
-        }
-      )
-    } catch {
-      // Non-blocking CRM entry — continue
-    }
-
-    // 2. Send the actual lease file to Joe via FormSubmit (multipart)
     if (form.file) {
+      // ── Step 1: VirusTotal hash scan ────────────────────
+      setSecurityStep('scanning')
+      const scanResult = await virusTotalScan(form.file)
+
+      if (scanResult.status === 'malicious') {
+        // Block submission — known malicious file
+        setErrors({ file: `This file was flagged by ${scanResult.detections} security engines and cannot be uploaded. Please contact us directly if you believe this is an error.` })
+        setSubmitting(false)
+        setSecurityStep('idle')
+        return
+      }
+      // 'clean', 'unknown', or 'error' — all proceed (fail open on API errors)
+
+      // ── Step 2: AES-256-GCM encryption ─────────────────
+      setSecurityStep('encrypting')
+      let encryptedFile: { blob: Blob; filename: string; ivHex: string; saltHex: string } | null = null
+      try {
+        encryptedFile = await encryptFile(form.file)
+      } catch {
+        // Encryption failed — fall back to unencrypted but still send
+        encryptedFile = null
+      }
+
+      // ── Step 3: Submit ──────────────────────────────────
+      setSecurityStep('sending')
+
+      // 3a. HubSpot CRM entry
+      try {
+        const scanNote = scanResult.status === 'clean'
+          ? `VT scan: CLEAN (${scanResult.engines} engines)`
+          : scanResult.status === 'unknown'
+          ? 'VT scan: hash not in database (new file)'
+          : 'VT scan: skipped (API unreachable)'
+
+        await fetch(
+          'https://api.hsforms.com/submissions/v3/integration/submit/442709765/e3e49521-0831-49ba-8929-610c7cc7f282',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fields: [
+                { name: 'firstname', value: form.name.split(' ')[0] },
+                { name: 'lastname', value: form.name.split(' ').slice(1).join(' ') || '' },
+                { name: 'email', value: form.email },
+                { name: 'company', value: form.company },
+                { name: 'phone', value: form.phone },
+                { name: 'message', value: `LeaseIntel™ Free Review — ${form.leaseType} lease — ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})\n${scanNote}\nEncryption: ${encryptedFile ? 'AES-256-GCM' : 'none (fallback)'}` },
+              ],
+            }),
+          }
+        )
+      } catch {
+        // Non-blocking CRM entry
+      }
+
+      // 3b. Send encrypted file to Joe
       try {
         const fd = new FormData()
         fd.append('name', form.name)
@@ -247,19 +282,32 @@ export default function LeaseReviewPage() {
         fd.append('phone', form.phone || '—')
         fd.append('leaseType', form.leaseType)
         fd.append('state', form.state)
-        fd.append('_subject', `LeaseIntel™ Free Review — ${form.name} (${form.company || form.email})`)
+        fd.append('_subject', `LeaseIntel™ Free Review — ${form.name} (${form.company || form.email}) — ENCRYPTED`)
         fd.append('_captcha', 'false')
-        fd.append('attachment', form.file, form.file.name)
+
+        if (encryptedFile) {
+          // Send encrypted file + decryption metadata
+          fd.append('attachment', encryptedFile.blob, encryptedFile.filename)
+          fd.append('decrypt_iv', encryptedFile.ivHex)
+          fd.append('decrypt_salt', encryptedFile.saltHex)
+          fd.append('encrypt_note', 'AES-256-GCM encrypted. Use the YOS decrypt tool at /tools/decrypt-lease.html')
+        } else {
+          // Encryption failed — send original with warning
+          fd.append('attachment', form.file, form.file.name)
+          fd.append('encrypt_note', 'WARNING: Encryption failed — unencrypted file attached')
+        }
+
         await fetch('https://formsubmit.co/jk@yourofficespace.au', {
           method: 'POST',
           body: fd,
         })
       } catch {
-        // Non-blocking — lease file delivery best-effort
+        // Non-blocking
       }
     }
 
     setSubmitting(false)
+    setSecurityStep('idle')
     setStep('submitted')
   }
 
@@ -687,8 +735,11 @@ export default function LeaseReviewPage() {
               >
                 {submitting ? (
                   <>
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Submitting…
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin flex-shrink-0" />
+                    {securityStep === 'scanning' && 'Scanning for threats…'}
+                    {securityStep === 'encrypting' && 'Encrypting document…'}
+                    {securityStep === 'sending' && 'Sending securely…'}
+                    {securityStep === 'idle' && 'Submitting…'}
                   </>
                 ) : (
                   'Get My Free Summary →'
