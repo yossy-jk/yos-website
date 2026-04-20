@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
@@ -147,11 +148,7 @@ export default function Home() {
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] sm:w-auto w-full"
-                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-                Book a Clarity Call
-              </a>
+              <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
               <Link href="/lease-review"
                 className="text-white/70 font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors border border-white/30 inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] sm:w-auto w-full"
                 style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import FloatingCTA from "@/components/FloatingCTA";
 import ExitPopup from "@/components/ExitPopup";
 import "./globals.css";
 
@@ -47,7 +46,7 @@ export default function RootLayout({
           src="//js-ap1.hs-scripts.com/442709765.js"
         />
       </head>
-      <body>{children}<FloatingCTA /><ExitPopup /></body>
+      <body>{children}<ExitPopup /></body>
     </html>
   );
 }
