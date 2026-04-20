@@ -395,7 +395,7 @@ export default function LandTaxCalculatorPage() {
               <div className="flex flex-col gap-6">
                 {/* State */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     State / Territory <span className="text-teal">*</span>
                   </label>
                   <div className="grid grid-cols-4 gap-2">
@@ -414,7 +414,7 @@ export default function LandTaxCalculatorPage() {
 
                 {/* Land value */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Land value — unimproved ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -430,7 +430,7 @@ export default function LandTaxCalculatorPage() {
 
                 {/* Owner type */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Owner type
                   </label>
                   <div className="flex gap-3">
@@ -450,7 +450,7 @@ export default function LandTaxCalculatorPage() {
 
                 {/* Weekly rent — optional */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Weekly rent ($) <span className="text-white/30 font-light">optional — for context</span>
                   </label>
                   <div className="relative">

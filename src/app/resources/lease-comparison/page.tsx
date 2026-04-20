@@ -233,14 +233,14 @@ export default function LeaseComparisonPage() {
           <p className="text-white/60 font-light text-lg max-w-2xl">
             Enter up to three lease options. We calculate the true cost — factoring in rent-free periods, outgoings, make-good, and annual rent reviews — then tell you which deal is actually cheaper.
           </p>
-          <div className="mt-8 flex flex-wrap gap-6">
+          <div className="mt-10 flex flex-wrap gap-8">
             {[
               { stat: 'Accounts for rent reviews', desc: 'Year-by-year cost escalation' },
               { stat: 'Net present value', desc: 'Discounts future costs to today' },
               { stat: 'Plain-English verdict', desc: 'Not just numbers — a recommendation' },
             ].map(item => (
-              <div key={item.stat} className="border-l-2 border-teal pl-4">
-                <p className="text-white font-semibold text-sm">{item.stat}</p>
+              <div key={item.stat} className="border-l-2 border-teal pl-5">
+                <p className="text-white font-semibold text-sm mb-1">{item.stat}</p>
                 <p className="text-white/40 font-light text-xs">{item.desc}</p>
               </div>
             ))}
@@ -256,11 +256,11 @@ export default function LeaseComparisonPage() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="text-left pb-5 pr-6 w-48">
+                  <th className="text-left pb-7 pr-8 w-52">
                     <span className="text-mid-grey font-semibold text-xs tracking-widest uppercase">Field</span>
                   </th>
                   {[0, 1, 2].map(i => (
-                    <th key={i} className="text-left pb-5 px-4">
+                    <th key={i} className="text-left pb-7 px-4">
                       <div className="flex items-center gap-2">
                         <div className={`w-2 h-2 rounded-full ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
                         <span className="text-near-black font-bold text-sm">Option {i + 1}</span>
@@ -271,13 +271,13 @@ export default function LeaseComparisonPage() {
               </thead>
               <tbody>
                 {fields.map(f => (
-                  <tr key={f.key} className="border-t border-gray-100">
-                    <td className="py-3 pr-6">
-                      <p className="text-near-black font-semibold text-sm">{f.label}</p>
-                      {f.hint && <p className="text-mid-grey font-light text-xs mt-0.5">{f.hint}</p>}
+                  <tr key={f.key} className="border-t border-gray-100 hover:bg-gray-50/50 transition-colors">
+                    <td className="py-5 pr-8">
+                      <p className="text-near-black font-semibold text-sm leading-snug">{f.label}</p>
+                      {f.hint && <p className="text-mid-grey font-light text-xs mt-1.5 leading-relaxed">{f.hint}</p>}
                     </td>
                     {[0, 1, 2].map(i => (
-                      <td key={i} className="py-3 px-4">
+                      <td key={i} className="py-5 px-4">
                         <div className="relative">
                           {f.prefix && (
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mid-grey text-sm font-light">{f.prefix}</span>
@@ -288,7 +288,7 @@ export default function LeaseComparisonPage() {
                             value={leases[i][f.key]}
                             onChange={e => update(i, f.key, e.target.value)}
                             placeholder={f.key === 'rentReview' ? '3.5' : ''}
-                            className={`w-full border border-gray-200 rounded px-3 py-2.5 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-6' : ''} ${f.suffix ? 'pr-10' : ''}`}
+                            className={`w-full border border-gray-200 rounded-lg px-4 py-3.5 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-7' : ''} ${f.suffix ? 'pr-10' : ''}`}
                           />
                           {f.suffix && (
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-mid-grey text-xs font-light">{f.suffix}</span>
@@ -315,7 +315,7 @@ export default function LeaseComparisonPage() {
             )}
           </div>
 
-          <p className="text-mid-grey font-light text-xs mt-6 max-w-2xl">
+          <p className="text-mid-grey font-light text-xs mt-8 max-w-2xl leading-relaxed">
             Rent reviews compound annually at the rate you enter. Outgoings escalate at 3% per year. Make-good is added at end of term.
             NPV discounts all future costs to today&apos;s dollars at 7%. This is a guide — not financial advice. Get proper advice before you sign anything.
           </p>

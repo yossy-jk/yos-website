@@ -170,18 +170,18 @@ export default function LeaseRiskCheckerPage() {
                 style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '36rem' }}>
                 10 questions about your lease. Answer honestly and we&apos;ll give you an instant risk rating — plus the top issues to watch out for before you sign.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3 items-start mb-12">
+              <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
                   <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.85rem' }}>Takes 2 minutes</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Takes 2 minutes</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.85rem' }}>No sign-up required</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up required</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.85rem' }}>Instant results</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Instant results</span>
                 </div>
               </div>
               <button
@@ -197,21 +197,21 @@ export default function LeaseRiskCheckerPage() {
           {typeof step === 'number' && currentQ && (
             <div className="max-w-2xl">
               {/* Step counter */}
-              <p className="text-white/30 font-light mb-8" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
+              <p className="text-white/30 font-light mb-10" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
                 Question <span className="text-white/60 font-semibold">{step + 1}</span> of {QUESTIONS.length}
               </p>
 
               {/* Question */}
               <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-3"
-                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', marginBottom: '1rem' }}>
+                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', marginBottom: '1.25rem' }}>
                 {currentQ.label}
               </h2>
-              <p className="text-white/40 font-light mb-8" style={{ fontSize: '0.875rem', lineHeight: 1.7 }}>
+              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.875rem', lineHeight: 1.8 }}>
                 {currentQ.hint}
               </p>
 
               {/* Options */}
-              <div className="flex flex-col gap-3 mb-10">
+              <div className="flex flex-col gap-4 mb-12">
                 {currentQ.options.map(option => (
                   <button
                     key={option}
@@ -221,7 +221,7 @@ export default function LeaseRiskCheckerPage() {
                         ? 'border-teal bg-teal/10 text-white'
                         : 'border-white/12 bg-white/4 text-white/70 hover:border-white/30 hover:text-white hover:bg-white/8'
                     }`}
-                    style={{ padding: '1rem 1.25rem', fontSize: '0.95rem', lineHeight: 1.4 }}
+                    style={{ padding: '1.35rem 1.75rem', fontSize: '1rem', lineHeight: 1.5, borderRadius: '0.75rem' }}
                   >
                     <span className={`inline-block w-4 h-4 rounded-full border mr-3 flex-shrink-0 align-middle transition-all ${
                       selected === option ? 'border-teal bg-teal' : 'border-white/30'
@@ -241,7 +241,7 @@ export default function LeaseRiskCheckerPage() {
                       ? 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
                       : 'bg-white/10 text-white/30 cursor-not-allowed'
                   }`}
-                  style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                  style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
                   {step === QUESTIONS.length - 1 ? 'See my results →' : 'Next →'}
                 </button>
                 {step > 0 && (

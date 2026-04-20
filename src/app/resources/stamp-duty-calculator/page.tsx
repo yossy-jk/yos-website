@@ -201,7 +201,7 @@ export default function StampDutyCalculatorPage() {
               <div className="flex flex-col gap-6">
                 {/* State */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     State / Territory <span className="text-teal">*</span>
                   </label>
                   <div className="grid grid-cols-4 gap-2">
@@ -220,7 +220,7 @@ export default function StampDutyCalculatorPage() {
 
                 {/* Purchase price */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Purchase price ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -235,7 +235,7 @@ export default function StampDutyCalculatorPage() {
 
                 {/* Buyer type */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Buyer type
                   </label>
                   <div className="flex gap-3">
@@ -276,7 +276,7 @@ export default function StampDutyCalculatorPage() {
                   </p>
 
                   {/* Key metrics */}
-                  <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="bg-teal/10 border border-teal/30" style={{ padding: '1.5rem 1.25rem' }}>
                       <p className="text-teal/70 font-light mb-1 uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Stamp duty</p>
                       <p className="text-teal font-black leading-tight" style={{ fontSize: '1.6rem' }}>{fmt(result.duty)}</p>
@@ -289,19 +289,19 @@ export default function StampDutyCalculatorPage() {
 
                   {/* Total acquisition cost */}
                   <div className="bg-white/5 border border-white/8 mb-6" style={{ padding: '1.25rem 1.5rem' }}>
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="flex justify-between items-center mb-4">
                       <span className="text-white/60 font-light" style={{ fontSize: '0.875rem' }}>Purchase price</span>
                       <span className="text-white font-semibold" style={{ fontSize: '0.9rem' }}>{fmt(priceNum)}</span>
                     </div>
-                    <div className="flex justify-between items-center mb-2">
+                    <div className="flex justify-between items-center mb-4">
                       <span className="text-white/60 font-light" style={{ fontSize: '0.875rem' }}>Stamp duty</span>
                       <span className="text-white font-semibold" style={{ fontSize: '0.9rem' }}>{fmt(result.duty)}</span>
                     </div>
-                    <div className="flex justify-between items-center border-t border-white/10 pt-2 mb-1">
+                    <div className="flex justify-between items-center border-t border-white/10 pt-4 mb-3">
                       <span className="text-white/40 font-light" style={{ fontSize: '0.8rem' }}>Legal costs (est. 2%)</span>
                       <span className="text-white/40 font-light" style={{ fontSize: '0.8rem' }}>{fmt(priceNum * 0.02)}</span>
                     </div>
-                    <div className="flex justify-between items-center pt-1">
+                    <div className="flex justify-between items-center pt-4">
                       <span className="text-white font-black uppercase tracking-tight" style={{ fontSize: '0.9rem' }}>Total acquisition cost</span>
                       <span className="text-teal font-black" style={{ fontSize: '1rem' }}>{fmt(result.totalCost)}</span>
                     </div>
@@ -309,29 +309,29 @@ export default function StampDutyCalculatorPage() {
 
                   {/* Bracket breakdown */}
                   <div className="border border-white/10 mb-5">
-                    <div className="border-b border-white/10 px-4 py-3">
+                    <div className="border-b border-white/10 px-4 py-4">
                       <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Bracket breakdown</p>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full" style={{ fontSize: '0.8rem' }}>
                         <thead>
                           <tr className="border-b border-white/8">
-                            <th className="text-left text-white/35 font-semibold uppercase tracking-wider px-4 py-2.5" style={{ fontSize: '0.62rem' }}>Range</th>
-                            <th className="text-right text-white/35 font-semibold uppercase tracking-wider px-4 py-2.5" style={{ fontSize: '0.62rem' }}>Taxable</th>
-                            <th className="text-right text-white/35 font-semibold uppercase tracking-wider px-4 py-2.5" style={{ fontSize: '0.62rem' }}>Tax</th>
+                            <th className="text-left text-white/35 font-semibold uppercase tracking-wider px-4 py-4" style={{ fontSize: '0.62rem' }}>Range</th>
+                            <th className="text-right text-white/35 font-semibold uppercase tracking-wider px-4 py-4" style={{ fontSize: '0.62rem' }}>Taxable</th>
+                            <th className="text-right text-white/35 font-semibold uppercase tracking-wider px-4 py-4" style={{ fontSize: '0.62rem' }}>Tax</th>
                           </tr>
                         </thead>
                         <tbody>
                           {result.breakdown.map((row, i) => (
                             <tr key={i} className={`border-b border-white/6 ${row.tax > 0 ? '' : 'opacity-50'}`}>
-                              <td className="text-white/65 font-light px-4 py-3">{row.range}</td>
-                              <td className="text-right text-white/65 font-light px-4 py-3">{fmt(row.taxable)}</td>
-                              <td className="text-right text-white font-semibold px-4 py-3">{fmt(row.tax)}</td>
+                              <td className="text-white/65 font-light px-4 py-4">{row.range}</td>
+                              <td className="text-right text-white/65 font-light px-4 py-4">{fmt(row.taxable)}</td>
+                              <td className="text-right text-white font-semibold px-4 py-4">{fmt(row.tax)}</td>
                             </tr>
                           ))}
                           <tr className="bg-teal/8">
-                            <td className="text-white font-black uppercase tracking-tight px-4 py-3" colSpan={2}>Total stamp duty</td>
-                            <td className="text-right text-teal font-black px-4 py-3">{fmt(result.duty)}</td>
+                            <td className="text-white font-black uppercase tracking-tight px-4 py-4" colSpan={2}>Total stamp duty</td>
+                            <td className="text-right text-teal font-black px-4 py-4">{fmt(result.duty)}</td>
                           </tr>
                         </tbody>
                       </table>
@@ -339,7 +339,7 @@ export default function StampDutyCalculatorPage() {
                   </div>
 
                   {result.note && (
-                    <div className="border border-yellow-500/20 bg-yellow-500/5 px-4 py-3 mb-4">
+                    <div className="border border-yellow-500/20 bg-yellow-500/5 px-6 py-5 mb-4">
                       <p className="text-yellow-300/70 font-light" style={{ fontSize: '0.78rem' }}>{result.note}</p>
                     </div>
                   )}

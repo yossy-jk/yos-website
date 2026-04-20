@@ -140,7 +140,7 @@ export default function FitoutEstimatorPage() {
           style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(2rem,5vw,4rem)', paddingBottom: 'clamp(3rem,6vw,6rem)' }}>
 
           {/* Step header */}
-          <div className="mb-8 md:mb-12">
+          <div className="mb-10 md:mb-14">
             {step > 0 && step < 4 && (
               <p className="text-white/30 font-light mb-3" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
                 Step <span className="text-white/50 font-semibold">{step}</span> of {STEPS.length - 1}
@@ -152,7 +152,7 @@ export default function FitoutEstimatorPage() {
               <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
             </div>
             <h1 className="text-white font-black uppercase leading-tight tracking-tight"
-              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '0.5rem' }}>
+              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '0.75rem' }}>
               {step === 0 ? 'Fitout Cost Estimator' : STEPS[step].title}
             </h1>
             <p className="text-white/40 font-light" style={{ fontSize: '0.9rem' }}>
@@ -166,15 +166,15 @@ export default function FitoutEstimatorPage() {
               <p className="text-white/60 font-light leading-relaxed mb-10" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                 Get a realistic cost range for your commercial fitout. We&apos;ll walk you through construction, furniture, meeting rooms, kitchen, reception, AV and technology — with a contingency built in.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
                 {[
                   { icon: '📐', label: '5 quick questions' },
                   { icon: '💰', label: 'Detailed breakdown' },
                   { icon: '📋', label: 'Based on real projects' },
                 ].map(f => (
-                  <div key={f.label} className="border border-white/10 bg-white/4 text-center" style={{ padding: '1.25rem 1rem' }}>
-                    <p className="text-2xl mb-2">{f.icon}</p>
-                    <p className="text-white/60 font-light" style={{ fontSize: '0.85rem' }}>{f.label}</p>
+                  <div key={f.label} className="border border-white/10 bg-white/4 text-center" style={{ padding: '2rem 1.5rem', borderRadius: '0.75rem' }}>
+                    <p className="text-3xl mb-3">{f.icon}</p>
+                    <p className="text-white/60 font-light" style={{ fontSize: '0.9rem' }}>{f.label}</p>
                   </div>
                 ))}
               </div>
@@ -249,7 +249,7 @@ export default function FitoutEstimatorPage() {
                 {(Object.entries(RATES) as [Tier, typeof RATES[Tier]][]).map(([key, tier]) => (
                   <button key={key} onClick={() => set('tier', key)}
                     className={`text-left border transition-all duration-150 ${inputs.tier === key ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
-                    style={{ padding: '1.5rem' }}>
+                    style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
@@ -287,7 +287,7 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 3: WORKSTATIONS & MEETINGS ── */}
           {step === 3 && (
             <div className="max-w-xl">
-              <div className="flex flex-col gap-8 mb-10">
+              <div className="flex flex-col gap-10 mb-12">
                 <div>
                   <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>
                     Number of workstations <span className="text-teal">*</span>
@@ -331,7 +331,7 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 4: ADDITIONAL SPACES ── */}
           {step === 4 && (
             <div className="max-w-xl">
-              <div className="flex flex-col gap-4 mb-10">
+              <div className="flex flex-col gap-4 mb-12">
                 {[
                   { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: inputs.tier ? `$${RATES[inputs.tier as Tier].kitchen.low.toLocaleString()}–$${RATES[inputs.tier as Tier].kitchen.high.toLocaleString()}` : 'Varies by tier' },
                   { key: 'hasReception' as const, label: 'Reception area', desc: inputs.tier ? `$${RATES[inputs.tier as Tier].reception.low.toLocaleString()}–$${RATES[inputs.tier as Tier].reception.high.toLocaleString()}` : 'Varies by tier' },
@@ -339,7 +339,7 @@ export default function FitoutEstimatorPage() {
                 ].map(item => (
                   <button key={item.key} onClick={() => set(item.key, !inputs[item.key])}
                     className={`text-left flex items-center justify-between border transition-all ${inputs[item.key] ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
-                    style={{ padding: '1.25rem 1.5rem' }}>
+                    style={{ padding: '1.5rem 1.75rem', borderRadius: '0.75rem' }}>
                     <div className="flex items-center gap-4">
                       <span className={`w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center transition-all ${inputs[item.key] ? 'border-teal bg-teal' : 'border-white/30'}`}>
                         {inputs[item.key] && <span className="text-white font-black" style={{ fontSize: '0.7rem' }}>✓</span>}
@@ -433,7 +433,7 @@ export default function FitoutEstimatorPage() {
               </div>
 
               {/* Disclaimer */}
-              <p className="text-white/25 font-light mb-8 leading-relaxed" style={{ fontSize: '0.78rem', lineHeight: 1.7 }}>
+              <p className="text-white/30 font-light mb-10 leading-relaxed" style={{ fontSize: '0.82rem', lineHeight: 1.8 }}>
                 This estimate is based on current Newcastle and Hunter Region market rates from the YOS Fitout Cost Guide (April 2026). Actual costs depend on site conditions, builder selection, specification detail, and market conditions at time of tender. A site visit and detailed brief will refine this estimate significantly.
               </p>
 

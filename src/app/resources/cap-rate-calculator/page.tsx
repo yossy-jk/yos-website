@@ -77,7 +77,7 @@ export default function CapRateCalculatorPage() {
               <div className="flex flex-col gap-6">
                 {/* Purchase price */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Purchase price ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -92,7 +92,7 @@ export default function CapRateCalculatorPage() {
 
                 {/* Gross rent */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Gross annual rent ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -107,7 +107,7 @@ export default function CapRateCalculatorPage() {
 
                 {/* Vacancy */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Vacancy allowance (%)
                   </label>
                   <div className="flex gap-3 flex-wrap mb-2">
@@ -126,7 +126,7 @@ export default function CapRateCalculatorPage() {
 
                 {/* Outgoings */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Annual outgoings ($) <span className="text-white/30 font-light">optional</span>
                   </label>
                   <div className="relative">
@@ -163,7 +163,7 @@ export default function CapRateCalculatorPage() {
                   <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>Your results</p>
 
                   {/* Key metrics */}
-                  <div className="grid grid-cols-2 gap-3 mb-6">
+                  <div className="grid grid-cols-2 gap-4 mb-8">
                     <div className="bg-white/5 border border-white/8" style={{ padding: '1.5rem 1.25rem' }}>
                       <p className="text-white/40 font-light mb-1" style={{ fontSize: '0.7rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Gross yield</p>
                       <p className="text-white font-black" style={{ fontSize: '1.75rem' }}>{fmtPct(result.grossYield)}</p>
@@ -182,7 +182,7 @@ export default function CapRateCalculatorPage() {
 
                   {/* Implied values */}
                   <div className="border border-white/8 mb-6">
-                    <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-3" style={{ fontSize: '0.65rem' }}>
+                    <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-4" style={{ fontSize: '0.65rem' }}>
                       Implied value at different cap rates
                     </p>
                     {[{ rate: '5.0%', val: result.valueAt5 }, { rate: '6.0%', val: result.valueAt6 }, { rate: '7.0%', val: result.valueAt7 }].map((item, i, arr) => (
@@ -195,7 +195,7 @@ export default function CapRateCalculatorPage() {
 
                   {/* Benchmarks */}
                   <div className="border border-white/8">
-                    <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-3" style={{ fontSize: '0.65rem' }}>
+                    <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-4" style={{ fontSize: '0.65rem' }}>
                       Market benchmarks — Australia (April 2026)
                     </p>
                     {BENCHMARKS.map((b, i) => (
