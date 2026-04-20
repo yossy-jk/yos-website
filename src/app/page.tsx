@@ -189,9 +189,9 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-px" style={{ background: 'transparent' }}>
             {[
-              { title: 'We only work for you', body: 'We never represent landlords or vendors. When you sit across from a landlord, you want someone who is genuinely on your side. That is what we are.' },
-              { title: 'We have done this before', body: 'Hundreds of projects across leasing, fitout, furniture and cleaning. We have seen how these deals go wrong — and we know how to stop that from happening to you.' },
-              { title: 'One relationship, not five', body: 'Lease, fitout, furniture, cleaning. You have one number to call. One team that knows your situation. You focus on your business — we handle the rest.' },
+              { title: 'We only work for you', body: 'Never the landlord. Never the vendor. You are the only party we answer to.' },
+              { title: 'We have done this before', body: 'Hundreds of projects. We know what goes wrong — and how to stop it happening to you.' },
+              { title: 'One relationship, not five', body: 'Lease, fitout, furniture, cleaning. One call. One team. You focus on your business.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
                 <div className="bg-near-black border border-white/8 md:border-0" style={{ padding: '2.5rem 2rem' }}>
@@ -200,8 +200,8 @@ export default function Home() {
                     style={{ fontSize: '1rem', letterSpacing: '-0.01em' }}>
                     {p.title}
                   </h3>
-                  <p className="text-white/55 font-light leading-relaxed"
-                    style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+                  <p className="text-white/60 font-light leading-relaxed"
+                    style={{ fontSize: '1rem', lineHeight: 1.7 }}>
                     {p.body}
                   </p>
                 </div>
@@ -232,7 +232,7 @@ export default function Home() {
                   </p>
                   <div style={{ borderTop: '1px solid #efefef', paddingTop: '1.5rem' }}>
                     <p className="text-near-black font-bold mb-1" style={{ fontSize: '0.9rem' }}>{t.name}</p>
-                    <p className="text-mid-grey font-light mb-2" style={{ fontSize: '0.78rem' }}>{t.company}</p>
+                    <p className="text-charcoal font-medium mb-2" style={{ fontSize: '0.82rem' }}>{t.company}</p>
                     <p className="text-teal font-semibold uppercase tracking-widest" style={{ fontSize: '0.62rem' }}>{t.service}</p>
                   </div>
                 </div>
@@ -331,7 +331,7 @@ export default function Home() {
                     <div className="flex gap-6 items-start py-6 border-b border-gray-100">
                       <span className="text-teal font-black flex-shrink-0" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '2rem', paddingTop: '0.2rem' }}>{item.step}</span>
                       <div>
-                        <p className="text-near-black font-black uppercase tracking-tight mb-2" style={{ fontSize: '1rem' }}>{item.title}</p>
+                        <p className="text-near-black font-black uppercase tracking-tight mb-3" style={{ fontSize: '1.1rem' }}>{item.title}</p>
                         <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.body}</p>
                       </div>
                     </div>
@@ -348,8 +348,8 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
-            {/* Left — bold statement */}
-            <FadeIn>
+            {/* On mobile: text first, stat block second */}
+            <FadeIn className="order-2 lg:order-1">
               <div className="flex flex-col justify-center">
                 <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-8">
                   Commercial Property Advisors
@@ -364,8 +364,8 @@ export default function Home() {
               </div>
             </FadeIn>
 
-            {/* Right — CTA text */}
-            <FadeIn delay={120}>
+            {/* Right on desktop, first on mobile */}
+            <FadeIn delay={120} className="order-1 lg:order-2">
               <div>
                 <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">Get started</p>
                 <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8"
