@@ -53,21 +53,21 @@ export default function Home() {
           style={{ paddingLeft: PAD, paddingRight: PAD, paddingTop: 'clamp(9rem,18vw,15rem)', paddingBottom: 'clamp(7rem,14vw,11rem)' }}
         >
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-8">
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">
               Commercial Property Advisors — Australia
             </p>
           </FadeIn>
           <FadeIn delay={80}>
-            <h1 className="text-white font-black uppercase leading-[1.05] tracking-tight mb-8"
+            <h1 className="text-white font-black uppercase leading-[1.05] tracking-tight mb-10"
               style={{ fontSize: 'clamp(2.25rem,6vw,6.5rem)', maxWidth: '12ch' }}>
               Your workspace.<br />Our responsibility.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-white/65 font-light leading-relaxed mb-8"
+            <p className="text-white/65 font-light leading-relaxed mb-10"
               style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.75 }}>
-              Most commercial property decisions are made without anyone truly in your corner.
-              We change that. One team, working only for you — from the first conversation to the day your space is running.
+              <span className="md:hidden">One team, working only for you.</span>
+              <span className="hidden md:inline">Most commercial property decisions are made without anyone truly in your corner. We change that. One team, working only for you — from the first conversation to the day your space is running.</span>
             </p>
           </FadeIn>
           <FadeIn delay={240}>
@@ -78,8 +78,8 @@ export default function Home() {
                 Book a Clarity Call
               </a>
               <Link href="/lease-review"
-                className="text-white font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors"
-                style={{ padding: '1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.3)' }}>
+                className="text-white/70 font-medium no-underline text-center hover:text-teal transition-colors sm:border sm:border-white/30 sm:hover:border-teal"
+                style={{ padding: '0.75rem 0.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
                 Free Lease Review →
               </Link>
             </div>
