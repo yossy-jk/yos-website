@@ -158,15 +158,15 @@ export default function Nav() {
               </Link>
             ))}
           </div>
-          <div className="flex flex-col gap-3 mt-auto">
+          <div className="flex flex-col gap-3 pb-4" style={{ marginTop: 'auto' }}>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}
               className="bg-teal text-white font-bold text-center no-underline block"
               style={{ padding: '1.1rem', fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Book a Clarity Call →
             </a>
             <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} onClick={() => setOpen(false)}
-              className="text-white/60 font-light text-center no-underline block"
-              style={{ padding: '0.9rem', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.15)' }}>
+              className="text-white font-light text-center no-underline block"
+              style={{ padding: '0.9rem', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)' }}>
               {CONTACT.phone}
             </a>
           </div>
