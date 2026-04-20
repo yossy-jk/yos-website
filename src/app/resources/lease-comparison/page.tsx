@@ -4,6 +4,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
 import { HUBSPOT } from '@/lib/constants'
+import ToolGate from '@/components/ToolGate'
 
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
@@ -325,6 +326,32 @@ export default function LeaseComparisonPage() {
       {validResults.length > 0 && (
         <section id="results" className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <ToolGate
+            tool="Lease Comparison Tool"
+            context={() => `Comparing ${validResults.length} leases: ${validResults.map(r => `${r.name} ($${r.trueCostPa.toLocaleString()}/yr)`).join(' vs ')}`}
+            heading="Where should we send your comparison?"
+            subheading="Unlock the full year-by-year breakdown and negotiation flags."
+            teaser={
+              <div className="bg-near-black rounded-sm p-8 mb-4">
+                <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
+                <h2 className="text-white font-bold text-3xl mb-3">
+                  {validResults.length === 1 ? validResults[0].name : `${validResults[bestIdx]?.name} is the better deal`}
+                </h2>
+                <div className="flex flex-wrap gap-4 mt-4">
+                  {validResults.map((r, i) => (
+                    <div key={i} className="bg-white/5 border border-white/10 rounded-sm px-4 py-3">
+                      <p className="text-white/60 text-xs mb-1">{r.name}</p>
+                      <p className="text-white font-black">{fmt(r.trueCostPa)}<span className="text-white/40 font-light text-sm">/yr</span></p>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 border-t border-white/10 pt-4">
+                  {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded" /><span className="w-20 h-3 bg-white/10 rounded" /></div>)}
+                  <p className="text-white/25 text-xs mt-3">Year-by-year breakdown — unlock to view</p>
+                </div>
+              </div>
+            }
+          >
 
             {/* Verdict banner */}
             <div className="bg-near-black rounded-sm p-8 mb-10">
@@ -441,6 +468,7 @@ export default function LeaseComparisonPage() {
               Outgoings are estimated to escalate at 3% per year. Rent reviews compound at your entered rate.
               Make-good is added as a lump sum at end of term. NPV at 7%. These figures are indicative — lease terms vary significantly and professional advice matters before you sign.
             </p>
+            </ToolGate>
           </div>
         </section>
       )}

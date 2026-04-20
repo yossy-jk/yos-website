@@ -2,6 +2,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata = {
   title: 'Contact | Your Office Space',
@@ -46,9 +47,10 @@ export default function ContactPage() {
                   We&apos;ll come back to you<br />within one business day.
                 </h2>
 
-                {/* Contact Form */}
-                <form
-                  name="contact"
+                {/* Contact Form — sends to HubSpot CRM + email */}
+                <ContactForm />
+                {false && <form
+                  name="contact-legacy"
                   method="POST"
                   action={`https://formsubmit.co/${CONTACT.email}`}
                   className="flex flex-col gap-4"
@@ -146,7 +148,7 @@ export default function ContactPage() {
                   >
                     Send Message →
                   </button>
-                </form>
+                </form>}
               </div>
             </FadeIn>
 

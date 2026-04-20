@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { HUBSPOT } from '@/lib/constants'
+import ToolGate from '@/components/ToolGate'
 
 /* ─── Rate data (YOS Fitout Cost Guide — April 2026, ex GST) ─── */
 const RATES = {
@@ -365,6 +366,39 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 5: RESULT ── */}
           {step === 5 && estimate && inputs.tier && (
             <div className="max-w-2xl">
+            <ToolGate
+              tool="Fitout Estimator"
+              context={() => `Budget range: ${fmt(estimate!.totalLow)} – ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m² | Quality: ${RATES[inputs.tier as Tier].label}`}
+              heading="Where should we send your estimate?"
+              subheading="Unlock your full cost breakdown — including line-by-line categories and per m² rate."
+              teaser={
+                <div className="max-w-2xl">
+                  <div className="mb-8">
+                    <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.7rem' }}>
+                      {inputs.sqm}m² · {RATES[inputs.tier as Tier].label} quality
+                    </p>
+                    <h2 className="text-white font-black uppercase leading-none tracking-tight mb-2"
+                      style={{ fontSize: 'clamp(2rem,5vw,4rem)' }}>
+                      {fmt(estimate!.totalLow)} – {fmt(estimate!.totalHigh)}
+                    </h2>
+                    <p className="text-white/40 font-light" style={{ fontSize: '0.85rem' }}>
+                      {fmt(estimate!.perSqm.low)}–{fmt(estimate!.perSqm.high)} per m² · All figures ex GST
+                    </p>
+                  </div>
+                  <div className="border border-white/10">
+                    <div className="border-b border-white/10 px-5 py-3">
+                      <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Cost breakdown — unlock to view</p>
+                    </div>
+                    {[1,2,3].map(i => (
+                      <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
+                        <span className="w-32 h-3 bg-white/10 rounded" />
+                        <span className="w-20 h-3 bg-white/10 rounded" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              }
+            >
               <div className="mb-8">
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.7rem' }}>
                   {inputs.sqm}m² · {RATES[inputs.tier as Tier].label} quality
@@ -420,6 +454,7 @@ export default function FitoutEstimatorPage() {
                 className="block mt-6 text-white/25 hover:text-white/50 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
                 ← Start again
               </button>
+            </ToolGate>
             </div>
           )}
 
