@@ -1,249 +1,329 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import Button from '@/components/Button'
 import { HUBSPOT } from '@/lib/constants'
 
 const QUESTIONS = [
   {
     id: 'term',
     label: 'What is the initial lease term?',
-    type: 'select',
+    hint: 'Longer terms carry more financial risk if your business needs change.',
     options: ['1–2 years', '3 years', '5 years', '7+ years'],
     risk: { '7+ years': 'high', '1–2 years': 'medium' }
   },
   {
     id: 'options',
     label: 'Do you have options to renew?',
-    type: 'select',
+    hint: 'Options give you certainty. No options means you could be forced out.',
     options: ['No options', '1 option', '2+ options'],
     risk: { 'No options': 'high' }
   },
   {
     id: 'rent_review',
-    label: 'How is rent reviewed?',
-    type: 'select',
+    label: 'How is rent reviewed during the lease?',
+    hint: 'Market reviews can result in significant rent increases with little control.',
     options: ['Fixed % increases', 'CPI (Consumer Price Index)', 'Market review', 'Combination / not sure'],
     risk: { 'Market review': 'high', 'Combination / not sure': 'medium' }
   },
   {
     id: 'outgoings',
     label: 'Who pays outgoings (rates, insurance, maintenance)?',
-    type: 'select',
+    hint: 'Outgoings can add 20–40% on top of face rent. Clarity is critical.',
     options: ['Landlord pays all', 'Tenant pays some', 'Tenant pays all', 'Not clear in lease'],
     risk: { 'Tenant pays all': 'high', 'Not clear in lease': 'high', 'Tenant pays some': 'medium' }
   },
   {
     id: 'makegood',
     label: 'Does the lease include make-good obligations?',
-    type: 'select',
+    hint: 'Full reinstatement clauses can cost hundreds of thousands at lease end.',
     options: ['No make-good clause', 'Fair wear and tear only', 'Full reinstatement required', 'Not sure'],
     risk: { 'Full reinstatement required': 'high', 'Not sure': 'high' }
   },
   {
     id: 'assignment',
     label: 'Can you assign or sublet the lease?',
-    type: 'select',
+    hint: 'Restrictions here can trap you if you sell your business or need to exit.',
     options: ['Yes, with landlord consent', 'No — not permitted', 'Not mentioned / not sure'],
     risk: { 'No — not permitted': 'high', 'Not mentioned / not sure': 'medium' }
   },
   {
-    id: 'personal_guarantee',
+    id: 'guarantee',
     label: 'Does the lease require a personal guarantee?',
-    type: 'select',
+    hint: 'Unlimited personal guarantees put your personal assets at risk.',
     options: ['No personal guarantee', 'Yes — limited guarantee', 'Yes — unlimited guarantee', 'Not sure'],
     risk: { 'Yes — unlimited guarantee': 'high', 'Not sure': 'medium' }
   },
   {
     id: 'demolition',
     label: 'Does the landlord have a demolition or redevelopment clause?',
-    type: 'select',
+    hint: 'This clause can allow the landlord to terminate your lease early.',
     options: ['No such clause', 'Yes — with notice period', 'Yes — without adequate notice', 'Not sure'],
-    risk: { 'Yes — without adequate notice': 'high', 'Not sure': 'medium', 'Yes — with notice period': 'medium' }
+    risk: { 'Yes — without adequate notice': 'high', 'Not sure': 'medium' }
   },
   {
-    id: 'fitout_contribution',
+    id: 'fitout',
     label: 'Have you negotiated a fitout contribution or rent-free period?',
-    type: 'select',
+    hint: 'Most landlords offer these — if you haven\'t asked, you\'ve likely left money on the table.',
     options: ['Yes — documented in lease', 'Agreed verbally but not in lease', 'No incentive offered', 'Not requested'],
     risk: { 'Agreed verbally but not in lease': 'high', 'No incentive offered': 'medium', 'Not requested': 'medium' }
   },
   {
-    id: 'legal_review',
+    id: 'solicitor',
     label: 'Has a solicitor reviewed this lease?',
-    type: 'select',
+    hint: 'A lease review by a property solicitor can identify clauses that cost you significantly.',
     options: ['Yes — fully reviewed', 'Skimmed it myself', 'No review yet'],
-    risk: { 'No review yet': 'high', 'Skimmed it myself': 'high' }
+    risk: { 'No review yet': 'high', 'Skimmed it myself': 'medium' }
+  },
+]
+
+type RiskLevel = 'high' | 'medium' | 'low'
+
+function getRisk(answers: Record<string, string>): { level: RiskLevel; high: number; medium: number } {
+  let high = 0, medium = 0
+  for (const q of QUESTIONS) {
+    const answer = answers[q.id]
+    if (!answer) continue
+    const r = ((q.risk as unknown) as Record<string, string>)[answer]
+    if (r === 'high') high++
+    else if (r === 'medium') medium++
   }
-] as const
-
-type QuestionId = typeof QUESTIONS[number]['id']
-
-const RISK_ADVICE: Record<string, { flag: string; advice: string }> = {
-  term_high: { flag: 'Long term — limited flexibility', advice: 'A 7+ year lease is a significant commitment. Ensure you have adequate options, assignment rights, and an early termination clause before signing.' },
-  term_medium: { flag: 'Short term — limited security', advice: 'Short terms can work in your favour but make it harder to invest in the space and limit your ability to lock in good conditions long-term.' },
-  options_high: { flag: 'No renewal options', advice: 'Without options to renew, you have no right to stay at the property when the lease expires. The landlord can remove you or reset rent entirely. Negotiate at least one option.' },
-  rent_review_high: { flag: 'Market rent review — highest risk', advice: 'Market reviews can result in significant rent increases with no cap. Always negotiate a ratchet clause (rent cannot fall below current) removal, and cap any market review increase.' },
-  rent_review_medium: { flag: 'Clarify rent review mechanism', advice: 'The rent review mechanism directly affects your occupancy cost for the lease term. Ensure you understand exactly how and when it applies.' },
-  outgoings_high: { flag: 'Outgoings risk — review carefully', advice: 'Full outgoings or unclear outgoings clauses are common sources of unexpected cost. Get a schedule of current outgoings from the landlord and cap any uncontrolled items.' },
-  outgoings_medium: { flag: 'Outgoings — confirm what is included', advice: 'Confirm exactly which outgoings you are responsible for and get a recent outgoings schedule to budget accurately.' },
-  makegood_high: { flag: 'Make-good risk identified', advice: 'Full reinstatement obligations can cost $50–$200/m² at lease end. Negotiate "fair wear and tear" instead, or agree a cash settlement amount at lease commencement.' },
-  assignment_high: { flag: 'Cannot assign or sublet', advice: 'If you cannot assign, you cannot exit the lease by selling your business without significant risk. This is a material restriction — negotiate it out or ensure you have adequate termination rights.' },
-  assignment_medium: { flag: 'Assignment terms — clarify', advice: 'Ensure the lease specifies the grounds on which the landlord can withhold consent. "Reasonably withheld" is better than "absolute discretion".' },
-  personal_guarantee_high: { flag: 'Unlimited personal guarantee — high risk', advice: 'An unlimited personal guarantee exposes your personal assets for the full lease liability. Negotiate a cap equal to 3–6 months rent, or a bank guarantee instead.' },
-  personal_guarantee_medium: { flag: 'Confirm guarantee terms', advice: 'Ensure you understand the full extent of any guarantee — the amount, term, and triggering events.' },
-  demolition_high: { flag: 'Demolition clause — significant risk', advice: 'A demolition clause without adequate notice (minimum 6 months) gives the landlord the right to remove you with little warning. Negotiate minimum notice periods and compensation provisions.' },
-  demolition_medium: { flag: 'Demolition clause present', advice: 'Review the notice period carefully. Any period shorter than 6 months should be renegotiated. Ensure you are compensated for unamortised fitout costs.' },
-  fitout_contribution_high: { flag: 'Incentive not documented in lease', advice: 'Verbal incentive agreements are unenforceable. Any fitout contribution or rent-free period must be documented in the lease deed or a formal side agreement before you sign.' },
-  fitout_contribution_medium: { flag: 'No incentive — may be leaving money behind', advice: 'In most markets, incentives (fitout contribution, rent-free) are negotiable. If you have not asked, you should before signing.' },
-  legal_review_high: { flag: 'No legal review — significant risk', advice: 'A commercial lease is one of the most significant financial commitments your business will make. Signing without a solicitor review is a false economy — lease disputes are expensive and protracted.' }
+  const level: RiskLevel = high >= 3 ? 'high' : high >= 1 || medium >= 3 ? 'medium' : 'low'
+  return { level, high, medium }
 }
 
-export default function LeaseReviewPage() {
-  const [answers, setAnswers] = useState<Partial<Record<QuestionId, string>>>({})
-  const [submitted, setSubmitted] = useState(false)
+const RISK_CONFIG = {
+  high: { label: 'HIGH RISK', colour: '#ef4444', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', message: 'This lease has significant risk factors. Before you sign anything, you need a professional review.' },
+  medium: { label: 'MODERATE RISK', colour: '#f59e0b', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', message: 'There are some areas worth attention. A full review will show you exactly what to negotiate.' },
+  low: { label: 'LOWER RISK', colour: '#10b981', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', message: 'Your lease looks relatively standard. A full review will confirm there are no hidden issues.' },
+}
 
-  function answer(id: QuestionId, val: string) {
-    setAnswers(prev => ({ ...prev, [id]: val }))
+export default function LeaseRiskCheckerPage() {
+  const [step, setStep] = useState<'intro' | number | 'result'>('intro')
+  const [answers, setAnswers] = useState<Record<string, string>>({})
+  const [selected, setSelected] = useState<string | null>(null)
+
+  const currentQ = typeof step === 'number' ? QUESTIONS[step] : null
+  const progress = typeof step === 'number' ? ((step) / QUESTIONS.length) * 100 : step === 'result' ? 100 : 0
+
+  function handleSelect(option: string) {
+    setSelected(option)
   }
 
-  const allAnswered = QUESTIONS.every(q => answers[q.id])
+  function handleNext() {
+    if (!selected || !currentQ) return
+    const newAnswers = { ...answers, [currentQ.id]: selected }
+    setAnswers(newAnswers)
+    setSelected(null)
+    if (typeof step === 'number' && step < QUESTIONS.length - 1) {
+      setStep(step + 1)
+    } else {
+      setStep('result')
+    }
+  }
 
-  const flags = submitted ? QUESTIONS.flatMap(q => {
-    const val = answers[q.id]
-    if (!val) return []
-    const risk = (q.risk as Record<string, string>)[val]
-    if (!risk) return []
-    const key = `${q.id}_${risk}`
-    const advice = RISK_ADVICE[key]
-    if (!advice) return []
-    return [{ ...advice, level: risk as 'high' | 'medium' }]
-  }) : []
+  function handleBack() {
+    if (typeof step === 'number' && step > 0) {
+      setStep(step - 1)
+      setSelected(answers[QUESTIONS[step - 1].id] || null)
+    } else if (step === 'result') {
+      setStep(QUESTIONS.length - 1)
+      setSelected(answers[QUESTIONS[QUESTIONS.length - 1].id] || null)
+    }
+  }
 
-  const highCount = flags.filter(f => f.level === 'high').length
-  const mediumCount = flags.filter(f => f.level === 'medium').length
+  const risk = step === 'result' ? getRisk(answers) : null
+  const riskConfig = risk ? RISK_CONFIG[risk.level] : null
 
   return (
     <>
       <Nav />
 
-      <section className="bg-near-black ">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,10vw,9rem)', paddingBottom: 'clamp(3rem,7vw,7rem)' }}>
-          <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
-          <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Lease Risk Checker</h1>
-          <p className="text-white/60 font-light text-lg leading-relaxed">
-            Answer 10 questions about your lease. We&apos;ll flag the risks and tell you what to watch out for before you sign.
-          </p>
-        </div>
-      </section>
+      <div className="min-h-screen bg-near-black flex flex-col" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
 
-      <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        {/* Progress bar */}
+        {step !== 'intro' && (
+          <div className="fixed top-16 md:top-20 left-0 right-0 z-40 h-0.5 bg-white/10">
+            <div
+              className="h-full bg-teal transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        )}
 
-          {!submitted ? (
-            <>
-              <div className="space-y-8 mb-10">
-                {QUESTIONS.map((q, i) => (
-                  <div key={q.id} className="border-b border-gray-100 pb-8">
-                    <p className="text-near-black font-semibold text-base mb-4">
-                      <span className="text-teal mr-2">{i + 1}.</span>{q.label}
-                    </p>
-                    <div className="flex flex-wrap gap-3">
-                      {q.options.map(opt => (
-                        <button
-                          key={opt}
-                          onClick={() => answer(q.id, opt)}
-                          className={`px-4 py-2.5 rounded text-sm font-light border transition-all duration-200 ${
-                            answers[q.id] === opt
-                              ? 'bg-teal text-white border-teal font-semibold'
-                              : 'border-gray-300 text-charcoal hover:border-teal'
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+        <div className="flex-1 flex flex-col justify-center max-w-screen-xl mx-auto w-full"
+          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(2rem,5vw,4rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+
+          {/* ── INTRO ── */}
+          {step === 'intro' && (
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 border border-teal/30 mb-8"
+                style={{ padding: '0.4rem 1rem' }}>
+                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
+              </div>
+              <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+                style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
+                Lease Risk Checker
+              </h1>
+              <p className="text-white/60 font-light leading-relaxed mb-10"
+                style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '36rem' }}>
+                10 questions about your lease. Answer honestly and we&apos;ll give you an instant risk rating — plus the top issues to watch out for before you sign.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 items-start mb-12">
+                <div className="flex items-center gap-2">
+                  <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.85rem' }}>Takes 2 minutes</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.85rem' }}>No sign-up required</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.85rem' }}>Instant results</span>
+                </div>
+              </div>
+              <button
+                onClick={() => setStep(0)}
+                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors"
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                Start the checker →
+              </button>
+            </div>
+          )}
+
+          {/* ── QUESTION ── */}
+          {typeof step === 'number' && currentQ && (
+            <div className="max-w-2xl">
+              {/* Step counter */}
+              <p className="text-white/30 font-light mb-8" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
+                Question <span className="text-white/60 font-semibold">{step + 1}</span> of {QUESTIONS.length}
+              </p>
+
+              {/* Question */}
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-3"
+                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', marginBottom: '1rem' }}>
+                {currentQ.label}
+              </h2>
+              <p className="text-white/40 font-light mb-8" style={{ fontSize: '0.875rem', lineHeight: 1.7 }}>
+                {currentQ.hint}
+              </p>
+
+              {/* Options */}
+              <div className="flex flex-col gap-3 mb-10">
+                {currentQ.options.map(option => (
+                  <button
+                    key={option}
+                    onClick={() => handleSelect(option)}
+                    className={`text-left font-medium transition-all duration-150 border ${
+                      selected === option
+                        ? 'border-teal bg-teal/10 text-white'
+                        : 'border-white/12 bg-white/4 text-white/70 hover:border-white/30 hover:text-white hover:bg-white/8'
+                    }`}
+                    style={{ padding: '1rem 1.25rem', fontSize: '0.95rem', lineHeight: 1.4 }}
+                  >
+                    <span className={`inline-block w-4 h-4 rounded-full border mr-3 flex-shrink-0 align-middle transition-all ${
+                      selected === option ? 'border-teal bg-teal' : 'border-white/30'
+                    }`} style={{ display: 'inline-block', verticalAlign: 'middle', marginTop: '-2px' }} />
+                    {option}
+                  </button>
                 ))}
               </div>
 
-              <button
-                onClick={() => setSubmitted(true)}
-                disabled={!allAnswered}
-                className={`px-10 py-4 rounded font-semibold text-base transition-all duration-200 ${
-                  allAnswered
-                    ? 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
-                    : 'bg-gray-200 text-mid-grey cursor-not-allowed'
-                }`}
-              >
-                {allAnswered ? 'Show my risk report' : `Answer all questions to continue (${Object.keys(answers).length}/${QUESTIONS.length})`}
-              </button>
-            </>
-          ) : (
-            <>
-              {/* Summary */}
-              <div className={`rounded-sm p-8 mb-8 border-2 ${highCount > 0 ? 'bg-near-black border-near-black' : mediumCount > 0 ? 'bg-warm-grey border-gray-200' : 'bg-light-teal border-teal'}`}>
-                <p className={`font-bold text-xl mb-2 ${highCount > 0 ? 'text-white' : 'text-near-black'}`}>
-                  {highCount > 0 ? `${highCount} high-risk clause${highCount > 1 ? 's' : ''} identified` : mediumCount > 0 ? 'Some clauses worth reviewing' : 'No major red flags detected'}
-                </p>
-                <p className={`font-light text-sm ${highCount > 0 ? 'text-white/70' : 'text-charcoal'}`}>
-                  {highCount > 0
-                    ? `This lease has ${highCount} high-risk item${highCount > 1 ? 's' : ''} that should be negotiated before signing. We strongly recommend getting advice.`
-                    : mediumCount > 0
-                    ? 'This lease looks reasonable but has some areas worth clarifying with a solicitor or tenant representative.'
-                    : 'Based on your answers, this lease appears relatively well-structured. A solicitor review is still recommended before signing.'}
-                </p>
-              </div>
-
-              {/* Risk flags */}
-              {flags.length > 0 && (
-                <div className="space-y-4 mb-10">
-                  {flags.map((flag, i) => (
-                    <div key={i} className={`rounded-sm p-6 border-l-4 ${flag.level === 'high' ? 'border-teal bg-near-black' : 'border-teal/50 bg-warm-grey'}`}>
-                      <p className={`font-bold text-sm mb-2 ${flag.level === 'high' ? 'text-white' : 'text-near-black'}`}>
-                        {flag.level === 'high' ? '⚠ ' : '→ '}{flag.flag}
-                      </p>
-                      <p className={`font-light text-sm leading-relaxed ${flag.level === 'high' ? 'text-white/65' : 'text-charcoal'}`}>{flag.advice}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {flags.length === 0 && (
-                <div className="bg-warm-grey rounded-sm p-8 mb-10">
-                  <p className="text-near-black font-semibold text-base mb-2">Your answers didn&apos;t trigger any specific flags.</p>
-                  <p className="text-charcoal font-light text-sm">This is a good sign — but a lease review tool is not a substitute for professional advice. Have a solicitor and a tenant representative review the full document before you sign.</p>
-                </div>
-              )}
-
-              <div className="flex gap-4 flex-wrap">
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external>Get expert lease advice</Button>
+              {/* Navigation */}
+              <div className="flex items-center gap-4">
                 <button
-                  onClick={() => { setSubmitted(false); setAnswers({}) }}
-                  className="px-8 py-4 rounded font-semibold text-sm border-2 border-gray-300 text-charcoal hover:border-near-black transition-colors"
-                >
-                  Start again
+                  onClick={handleNext}
+                  disabled={!selected}
+                  className={`font-bold transition-all ${
+                    selected
+                      ? 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
+                      : 'bg-white/10 text-white/30 cursor-not-allowed'
+                  }`}
+                  style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                  {step === QUESTIONS.length - 1 ? 'See my results →' : 'Next →'}
                 </button>
+                {step > 0 && (
+                  <button
+                    onClick={handleBack}
+                    className="text-white/30 font-light hover:text-white/60 transition-colors"
+                    style={{ fontSize: '0.85rem' }}>
+                    ← Back
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ── RESULT ── */}
+          {step === 'result' && risk && riskConfig && (
+            <div className="max-w-2xl">
+              <p className="text-white/40 font-light mb-6" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
+                Your lease risk assessment
+              </p>
+
+              {/* Risk badge */}
+              <div className={`inline-flex items-center gap-2 mb-6 px-4 py-2`}
+                style={{ background: riskConfig.colour + '20', border: `1px solid ${riskConfig.colour}40` }}>
+                <span className="font-black" style={{ fontSize: '0.85rem', color: riskConfig.colour }}>
+                  {riskConfig.label}
+                </span>
               </div>
 
-              <p className="text-mid-grey font-light text-xs mt-8 leading-relaxed">
-                This tool is a general risk indicator only — not legal or professional advice. Every lease is different. Always have a commercial solicitor and a qualified tenant representative review your full lease document before signing.
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+                style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
+                {risk.level === 'high' ? 'This lease needs attention.' : risk.level === 'medium' ? 'Some things to watch.' : 'Looking reasonable.'}
+              </h2>
+
+              <p className="text-white/65 font-light leading-relaxed mb-8"
+                style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+                {riskConfig.message}
               </p>
-            </>
+
+              {/* Risk summary */}
+              <div className="flex gap-6 mb-10 p-5 border border-white/10 bg-white/4">
+                <div className="text-center">
+                  <p className="font-black text-red-400 leading-none mb-1" style={{ fontSize: '2rem' }}>{risk.high}</p>
+                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>HIGH RISK<br />CLAUSES</p>
+                </div>
+                <div className="w-px bg-white/10" />
+                <div className="text-center">
+                  <p className="font-black text-amber-400 leading-none mb-1" style={{ fontSize: '2rem' }}>{risk.medium}</p>
+                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>MODERATE<br />CONCERNS</p>
+                </div>
+                <div className="w-px bg-white/10" />
+                <div className="text-center">
+                  <p className="font-black text-white/60 leading-none mb-1" style={{ fontSize: '2rem' }}>{QUESTIONS.length - risk.high - risk.medium}</p>
+                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>LOWER<br />RISK</p>
+                </div>
+              </div>
+
+              {/* CTAs */}
+              <div className="flex flex-col gap-3 mb-8">
+                <Link href="/lease-review"
+                  className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
+                  style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                  Get Full LeaseIntel™ Report — $97 →
+                </Link>
+                <Link href="/lease-review"
+                  className="text-white font-medium no-underline text-center hover:bg-white/10 transition-colors"
+                  style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)' }}>
+                  Get Free Summary First
+                </Link>
+              </div>
+
+              <button
+                onClick={() => { setStep('intro'); setAnswers({}); setSelected(null) }}
+                className="text-white/25 font-light hover:text-white/50 transition-colors"
+                style={{ fontSize: '0.82rem' }}>
+                ← Start again
+              </button>
+            </div>
           )}
         </div>
-      </section>
-
-      <section className="bg-near-black py-14 md:py-28 text-center">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want us to review the full lease?</h2>
-          <p className="text-white/60 font-light text-lg mb-8">
-            We review commercial leases for Newcastle businesses every week. We&apos;ll tell you what to push back on — and negotiate it on your behalf.
-          </p>
-          <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Lease Review Call</Button>
-        </div>
-      </section>
+      </div>
 
       <Footer />
     </>
