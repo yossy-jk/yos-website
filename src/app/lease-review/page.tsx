@@ -299,10 +299,21 @@ export default function LeaseReviewPage() {
           fd.append('encrypt_note', 'WARNING: Encryption failed — unencrypted file attached')
         }
 
-        await fetch('https://formsubmit.co/jk@yourofficespace.au', {
-          method: 'POST',
-          body: fd,
-        })
+        // Email notification via API route
+        await Promise.allSettled([
+          fetch('https://formsubmit.co/jk@yourofficespace.au', { method: 'POST', body: fd }),
+          fetch('/api/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              name: form.name,
+              email: form.email,
+              phone: form.phone,
+              source: 'LeaseIntel™ — Lease Review Submission',
+              context: `Company: ${form.company || '—'}\nLease type: ${form.leaseType}\nState: ${form.state}\nFile: ${form.file?.name || 'no file'}`,
+            }),
+          }),
+        ])
       } catch {
         // Non-blocking
       }

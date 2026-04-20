@@ -50,12 +50,15 @@ export default function ExitPopup() {
     if (!email.trim()) return
     setSubmitting(true)
     try {
-      await submitLead({
-        firstname: name || 'Exit Popup Lead',
-        email,
-        source: 'Exit Intent Popup',
-        context: `Exit intent popup — $100 furniture voucher claimed. Name: ${name || 'not provided'}, Email: ${email}`,
-      })
+      await Promise.allSettled([
+        submitLead({
+          firstname: name || 'Exit Popup Lead',
+          email,
+          source: 'Exit Intent Popup',
+          context: `Exit intent popup — $100 furniture voucher claimed. Name: ${name || 'not provided'}, Email: ${email}`,
+        }),
+        fetch('/api/notify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ name, email, source: 'Exit Intent Popup — $100 Voucher', context: `Voucher claimed. Min spend $1,000 ex GST. Valid 7 days.` }) }),
+      ])
     } catch { /* fail silently */ }
     setSubmitted(true)
     setSubmitting(false)

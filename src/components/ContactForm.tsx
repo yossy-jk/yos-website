@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
-import { CONTACT } from '@/lib/constants'
 
 /**
  * Contact form — sends to FormSubmit (email delivery) + HubSpot CRM (deal creation).
@@ -34,19 +33,21 @@ export default function ContactForm() {
     if (!validate()) return
     setSubmitting(true)
 
-    // 1. FormSubmit — email delivery to Joe
-    const fd = new FormData()
-    fd.append('name', fields.name)
-    fd.append('company', fields.company || '—')
-    fd.append('email', fields.email)
-    fd.append('phone', fields.phone || '—')
-    fd.append('message', fields.message)
-    fd.append('_subject', `New enquiry — ${fields.name} (${fields.company || fields.email})`)
-    fd.append('_captcha', 'true')
-
-    const [, ] = await Promise.allSettled([
-      // Email delivery
-      fetch(`https://formsubmit.co/${CONTACT.email}`, { method: 'POST', body: fd }),
+    // Run email + HubSpot in parallel
+    await Promise.allSettled([
+      // Email delivery via server-side API route
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: fields.name,
+          company: fields.company || '',
+          email: fields.email,
+          phone: fields.phone || '',
+          message: fields.message,
+          source: 'Contact Form',
+        }),
+      }),
       // HubSpot CRM — contact + deal
       submitLead({
         firstname: fields.name.split(' ')[0],

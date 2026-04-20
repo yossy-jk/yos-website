@@ -12,7 +12,10 @@ export default function BlogEmailCapture() {
     if (!email.trim()) return
     setLoading(true)
     try {
-      await submitLead({ firstname: 'Blog Subscriber', email, source: 'Blog Email Capture', context: 'Subscribed to blog updates from blog index page.' })
+      await Promise.allSettled([
+        submitLead({ firstname: 'Blog Subscriber', email, source: 'Blog Email Capture', context: 'Subscribed to blog updates from blog index page.' }),
+        fetch('/api/notify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email, source: 'Blog Email Capture', context: 'Subscribed to blog article notifications.' }) }),
+      ])
     } catch { /* fail silently */ }
     setSubmitted(true)
     setLoading(false)
