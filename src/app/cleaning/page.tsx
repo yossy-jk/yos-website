@@ -87,7 +87,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Every property type. Same standard.
             </h2>
@@ -142,10 +142,10 @@ export default function CleaningPage() {
             ].map((category, i) => (
               <FadeIn key={category.type} delay={i * 70} direction="up">
                 <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
-                  <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">
+                  <h3 className="text-near-black font-bold text-base mb-5 border-b-2 border-teal pb-3">
                     {category.type}
                   </h3>
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-2.5 mb-5">
                     {category.services.map(service => (
                       <li key={service} className="flex items-start pl-4 border-l-2 border-teal">
                         <span className="text-charcoal font-light text-sm">{service}</span>
@@ -168,13 +168,13 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Why clients don&apos;t leave.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 md:mb-14">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
             {[
               {
                 title: 'Same team, every time',
@@ -194,8 +194,8 @@ export default function CleaningPage() {
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">
                 <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
-                  <h3 className="text-white font-bold text-xl mb-5">{item.title}</h3>
-                  <p className="text-white/65 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
+                  <h3 className="text-white font-bold text-lg mb-4">{item.title}</h3>
+                  <p className="text-white/65 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                   <p className="text-white/35 font-light text-xs italic border-t border-white/10 pt-4">{item.aside}</p>
                 </div>
               </FadeIn>

@@ -55,7 +55,7 @@ export default function AboutPage() {
             <FadeIn direction="left">
               <div>
                 <SectionLabel>The story</SectionLabel>
-                <h2 className="text-near-black font-black leading-tight tracking-tight mb-8"
+                <h2 className="text-near-black font-black leading-tight tracking-tight mt-3 mb-7"
                   style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
                   I got tired of watching good businesses get taken advantage of.
                 </h2>
@@ -117,7 +117,7 @@ export default function AboutPage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>Meet the team</SectionLabel>
-            <h2 className="text-near-black font-black leading-tight tracking-tight mb-10 md:mb-16"
+            <h2 className="text-near-black font-black leading-tight tracking-tight mt-3 mb-12"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>
               The people behind every deal.
             </h2>
@@ -198,7 +198,7 @@ export default function AboutPage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>Our position</SectionLabel>
-            <h2 className="text-white font-black leading-tight tracking-tight mb-10 md:mb-16"
+            <h2 className="text-white font-black leading-tight tracking-tight mt-3 mb-12"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>
               Why we only work for tenants and buyers.
             </h2>

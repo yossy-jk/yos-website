@@ -91,7 +91,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Everything your workspace needs. Nothing it doesn&apos;t.
             </h2>
@@ -163,7 +163,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Inspiration</SectionLabel>
-            <h2 style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }} className="text-near-black font-bold leading-tight mb-10 md:mb-14 max-w-2xl">
+            <h2 style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }} className="text-near-black font-bold leading-tight mt-3 mb-12 max-w-2xl">
               What a well-specified workspace looks like.
             </h2>
           </FadeIn>
@@ -211,11 +211,11 @@ export default function FurniturePage() {
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
-              <h2 className="text-white font-bold leading-tight mb-8"
+              <h2 className="text-white font-bold leading-tight mt-3 mb-6"
                 style={{ fontSize: 'clamp(1.6rem,3.5vw,3rem)' }}>
                 Private businesses, councils, schools, and health facilities across Australia.
               </h2>
-              <p className="text-white/60 font-light text-lg leading-relaxed mb-8 max-w-2xl">
+              <p className="text-white/60 font-light leading-relaxed mb-8 max-w-2xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
                 We work with organisations of all sizes — from 5-person professional services firms to multi-site government and health sector clients. The spec, the process, and the standard of work is the same regardless of project size.
               </p>
               <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
@@ -247,7 +247,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               From brief to delivered. No hassle.
             </h2>

@@ -91,7 +91,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 md:mb-14 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               First-time commercial buyers to seasoned investors.
             </h2>
@@ -133,7 +133,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mb-10 md:mb-14 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Every step of the acquisition. Done properly.
             </h2>
@@ -165,7 +165,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Newcastle market right now</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-10 md:mb-14 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Why commercial in the Hunter is the move.
             </h2>
@@ -212,13 +212,13 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Why YOS</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mb-7 sm:mb-10"
+            <h2 className="text-white font-bold leading-tight mt-3 mb-8"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Local knowledge. No conflicts.
             </h2>
           </FadeIn>
           <FadeIn delay={100}>
-            <p className="text-white/60 font-light text-xl leading-relaxed mb-8">
+            <p className="text-white/60 font-light leading-relaxed mb-8 max-w-3xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
               Most buyers agents claim to know your market. We actually live and operate in it. We&apos;ve done deals across the Newcastle CBD, Broadmeadow, Kotara, Maitland, and the broader Hunter Valley. We know which vendors are motivated, which agents play fair, and where the real opportunities sit right now.
             </p>
           </FadeIn>

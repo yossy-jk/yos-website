@@ -119,12 +119,12 @@ export default function Home() {
       <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What we do</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">What we do</p>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Four services.<br />One relationship.
             </h2>
-            <p className="text-charcoal font-light leading-relaxed mb-10 md:mb-16" style={{ fontSize: '1.1rem', maxWidth: '40rem', lineHeight: 1.75 }}>
+            <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1.05rem', maxWidth: '40rem', lineHeight: 1.85 }}>
               Most businesses deal with five different advisors on a single office move. We think that&apos;s too complicated. One relationship, from lease to clean.
             </p>
           </FadeIn>
@@ -193,8 +193,8 @@ export default function Home() {
       <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">Why us</p>
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mt-2 mb-10"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '20ch' }}>
               Someone genuinely<br />in your corner.
             </h2>
@@ -227,8 +227,8 @@ export default function Home() {
       <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">What clients say</p>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-12"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Straight from<br />the people we work with.
             </h2>
