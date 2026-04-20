@@ -80,24 +80,25 @@ export default function Nav() {
 
       {/* Full-screen mobile overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-near-black flex flex-col justify-center px-8 md:hidden transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ease-in-out ${
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
+        style={{ display: 'flex', flexDirection: 'column', paddingTop: '4.5rem' }}
       >
-        <nav className="flex flex-col mt-16">
-          {NAV_LINKS.filter(link => link.label !== 'Resources').map((link, i) => (
+        {/* Nav links — top aligned with generous padding */}
+        <nav style={{ padding: '2rem clamp(2rem, 8vw, 4rem) 0', flex: 1 }}>
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="text-white no-underline py-4 border-b border-white/10 hover:text-teal transition-all duration-200"
+              className="text-white no-underline block hover:text-teal transition-colors duration-200"
               style={{
-                fontWeight: 800,
-                fontSize: 'clamp(1.5rem, 7vw, 2.5rem)',
+                fontWeight: 700,
+                fontSize: 'clamp(1.3rem, 5vw, 1.8rem)',
                 letterSpacing: '-0.01em',
-                transitionDelay: open ? `${i * 40}ms` : '0ms',
-                transform: open ? 'translateY(0)' : 'translateY(12px)',
-                opacity: open ? 1 : 0,
+                padding: '0.85rem 0',
+                borderBottom: '1px solid rgba(255,255,255,0.08)',
               }}
             >
               {link.label}
@@ -105,20 +106,23 @@ export default function Nav() {
           ))}
         </nav>
 
-        <div className="mt-10 flex flex-col gap-4">
+        {/* CTAs — bottom */}
+        <div style={{ padding: '2rem clamp(2rem, 8vw, 4rem)' }}>
           <a
             href={HUBSPOT.bookingUrl}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
-            className="bg-teal text-white font-bold text-sm py-4 px-8 text-center no-underline tracking-widest uppercase rounded-sm"
+            className="bg-teal text-white font-black text-center no-underline block"
+            style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '1.1rem 2rem', marginBottom: '0.75rem' }}
           >
             Book a Clarity Call →
           </a>
           <a
             href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
             onClick={() => setOpen(false)}
-            className="border border-white/20 text-white/70 font-light text-sm py-4 px-8 text-center no-underline tracking-wider rounded-sm"
+            className="text-white/60 font-light text-center no-underline block"
+            style={{ fontSize: '0.85rem', padding: '0.75rem 2rem', letterSpacing: '0.05em', border: '1px solid rgba(255,255,255,0.15)' }}
           >
             {CONTACT.phone}
           </a>

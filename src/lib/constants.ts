@@ -22,6 +22,8 @@ export const NAV_LINKS = [
   { label: 'Cleaning', href: '/cleaning' },
   { label: 'Lease Review', href: '/lease-review' },
   { label: 'Resources', href: '/resources' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
 ]
 
 
