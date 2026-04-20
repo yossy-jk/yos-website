@@ -83,7 +83,7 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      <section className="bg-near-black py-20 md:py-28 text-center">
+      <section className="bg-near-black py-14 md:py-28 text-center">
         <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want results like these?</h2>
           <p className="text-white/60 font-light text-lg mb-8">Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.</p>

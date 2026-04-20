@@ -17,7 +17,7 @@ export default function NotFound() {
           <p className="text-white/55 font-light text-lg leading-relaxed mb-12 max-w-md mx-auto">
             If you were looking for a specific service or resource, use the links below.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 md:mb-16">
             <Link
               href="/"
               className="bg-teal text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal transition-colors no-underline text-center"

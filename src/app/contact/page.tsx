@@ -38,7 +38,7 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT OPTIONS */}
-      <section className="bg-white py-24 md:py-36">
+      <section className="bg-white py-14 md:py-32">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* HubSpot Contact Form */}
@@ -103,9 +103,9 @@ export default function ContactPage() {
       </section>
 
       {/* WHAT TO EXPECT */}
-      <section className="bg-warm-grey py-24 md:py-36">
+      <section className="bg-warm-grey py-14 md:py-32">
         <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20">
-          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-16">
+          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8 md:mb-16">
             What to expect.
           </h2>
 
@@ -142,7 +142,7 @@ export default function ContactPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-near-black py-24 md:py-36 text-center">
+      <section className="bg-near-black py-14 md:py-32 text-center">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
             Ready?

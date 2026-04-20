@@ -92,7 +92,7 @@ export default function LeaseComparisonPage() {
       <Nav />
 
       <section className="bg-near-black ">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,10vw,9rem)', paddingBottom: 'clamp(3rem,7vw,7rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Lease Comparison Tool</h1>
           <p className="text-white/60 font-light text-lg">Compare up to three lease options on true occupancy cost — not just face rent.</p>
@@ -181,7 +181,7 @@ export default function LeaseComparisonPage() {
         </div>
       </section>
 
-      <section className="bg-near-black py-20 md:py-28 text-center">
+      <section className="bg-near-black py-14 md:py-28 text-center">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want us to run the numbers for real?</h2>
           <p className="text-white/60 font-light text-lg mb-8">We review leases every day. We&apos;ll tell you which deal is actually better and why.</p>

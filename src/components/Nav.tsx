@@ -79,7 +79,7 @@ export default function Nav() {
                           href={link.href}
                           onClick={() => setServicesOpen(false)}
                           className="no-underline flex flex-col justify-between bg-near-black hover:bg-white/5 transition-colors"
-                          style={{ padding: '2rem 1.75rem', minHeight: '7rem' }}
+                          style={{ padding: 'clamp(1.25rem,3vw,2rem) clamp(1rem,2.5vw,1.75rem)', minHeight: '7rem' }}
                         >
                           <span className="text-white font-black uppercase leading-tight block mb-3"
                             style={{ fontSize: '0.82rem', letterSpacing: '0.03em' }}>

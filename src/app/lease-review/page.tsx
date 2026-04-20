@@ -307,7 +307,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* FREE SUMMARY */}
-        <section className="bg-white py-20 md:py-28 md:py-32">
+        <section className="bg-white py-14 md:py-28 md:py-32">
           <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <FadeIn direction="left">
               <div>
@@ -345,10 +345,10 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* FULL REPORT */}
-        <section id="full-report" className="bg-near-black py-20 md:py-28 md:py-32">
+        <section id="full-report" className="bg-near-black py-14 md:py-28 md:py-32">
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
-              <div className="max-w-2xl mb-14">
+              <div className="max-w-2xl mb-7 md:mb-14">
                 <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full paid report — $97 ex GST</p>
                 <h2 className="text-white font-black leading-tight tracking-tight mb-5"
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
@@ -361,7 +361,7 @@ export default function LeaseReviewPage() {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-14">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-7 md:mb-14">
               {PAID_INCLUDES.map((item, i) => (
                 <FadeIn key={item.title} delay={i * 60} direction="up">
                   <div className="border border-white/10 p-6 rounded-sm hover:border-teal/40 hover:bg-white/[0.02] transition-all duration-200">
@@ -390,7 +390,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* COMPARISON */}
-        <section className="bg-warm-grey py-20 md:py-28 md:py-28">
+        <section className="bg-warm-grey py-14 md:py-28 md:py-28">
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
               <h2 className="text-near-black font-black leading-tight tracking-tight mb-12 text-center"
@@ -467,7 +467,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* JOE QUOTE */}
-        <section className="bg-near-black py-20 md:py-28 md:py-28 text-center">
+        <section className="bg-near-black py-14 md:py-28 md:py-28 text-center">
           <FadeIn>
             <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               <div className="w-10 h-1 bg-teal mx-auto mb-8" />

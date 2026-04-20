@@ -45,7 +45,7 @@ export default function AboutPage() {
       </section>
 
       {/* THE STORY */}
-      <section className="bg-white py-20 md:py-28 md:py-32 lg:py-40">
+      <section className="bg-white py-14 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn direction="left">
@@ -109,11 +109,11 @@ export default function AboutPage() {
       </section>
 
       {/* TEAM */}
-      <section className="bg-warm-grey py-20 md:py-28 md:py-32 lg:py-40">
+      <section className="bg-warm-grey py-14 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Meet the team</SectionLabel>
-            <h2 className="text-near-black font-black leading-tight tracking-tight mb-10 sm:mb-16"
+            <h2 className="text-near-black font-black leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 2.75rem)' }}>
               The people behind every deal.
             </h2>
@@ -190,7 +190,7 @@ export default function AboutPage() {
       </section>
 
       {/* WHY TENANT-SIDE ONLY */}
-      <section className="bg-near-black py-20 md:py-28 md:py-32 lg:py-40">
+      <section className="bg-near-black py-14 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Our position</SectionLabel>

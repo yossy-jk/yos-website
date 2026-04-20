@@ -9,7 +9,7 @@ export default function Footer() {
         style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
       >
         {/* Top grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-14 mb-14 md:mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 md:gap-10 mb-14 md:mb-10 md:mb-20">
 
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">

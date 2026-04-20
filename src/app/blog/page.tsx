@@ -40,7 +40,7 @@ export default function BlogPage() {
             <>
               {/* Featured post */}
               {featured && (
-                <Link href={`/blog/${featured.slug}`} className="no-underline group block mb-16">
+                <Link href={`/blog/${featured.slug}`} className="no-underline group block mb-8 md:mb-16">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-gray-200 rounded-sm overflow-hidden hover:border-teal transition-colors duration-200">
                     <div className="bg-warm-grey h-64 lg:h-auto" />
                     <div className="p-10 lg:p-14 flex flex-col justify-center">
