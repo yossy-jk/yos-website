@@ -1,8 +1,9 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Footer from '@/components/Footer'
-import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
+import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
 export const metadata = {
@@ -74,22 +75,32 @@ export default function BlogPage() {
               {rest.length > 0 && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {rest.map(post => (
-                    <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline group">
-                      <div className="border border-gray-200 p-8 hover:border-teal transition-colors duration-200 h-full flex flex-col">
-                        <div className="flex items-center gap-3 mb-4">
+                    <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline group flex flex-col border border-gray-200 hover:border-teal transition-colors duration-200 overflow-hidden">
+                      {/* Feature image */}
+                      <div className="relative overflow-hidden" style={{ height: '12rem' }}>
+                        <Image
+                          src={post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]}
+                          alt={post.title}
+                          fill
+                          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute top-3 left-3">
                           <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[post.division as Division]}`}>
                             {DIVISION_LABELS[post.division as Division]}
                           </span>
                         </div>
-                        <h2 className="text-near-black font-bold text-xl leading-snug mb-3 group-hover:text-teal transition-colors flex-1">
+                      </div>
+                      {/* Content */}
+                      <div className="p-7 flex flex-col flex-1">
+                        <h2 className="text-near-black font-bold text-lg leading-snug mb-3 group-hover:text-teal transition-colors flex-1">
                           {post.title}
                         </h2>
                         <p className="text-charcoal font-light text-sm leading-relaxed mb-4">{post.excerpt}</p>
-                        <div className="flex justify-between items-center mt-auto">
+                        <div className="flex justify-between items-center mt-auto pt-4 border-t border-gray-100">
                           <p className="text-mid-grey text-xs">
                             {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </p>
-                          <p className="text-teal font-semibold text-sm group-hover:text-dark-teal transition-colors">Read →</p>
+                          <p className="text-teal font-semibold text-xs tracking-widest uppercase group-hover:text-dark-teal transition-colors">Read →</p>
                         </div>
                       </div>
                     </Link>

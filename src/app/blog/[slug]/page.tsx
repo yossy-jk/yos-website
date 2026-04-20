@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
-import { getAllPosts, getPostBySlug, DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
+import { getAllPosts, getPostBySlug, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import { HUBSPOT } from '@/lib/constants'
 import type { Division } from '@/lib/blog'
 
@@ -82,18 +83,29 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <>
       <Nav />
 
-      <section className="bg-near-black pt-[72px] pb-16">
-        <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20 pt-16">
-          <div className="flex items-center gap-3 mb-6">
-            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[post.division as Division]}`}>
-              {DIVISION_LABELS[post.division as Division]}
-            </span>
-            <span className="text-white/40 text-xs">
-              {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </span>
-            <span className="text-white/40 text-xs">by {post.author}</span>
+      {/* Hero — full-bleed feature image with title overlay */}
+      <section className="relative bg-near-black overflow-hidden" style={{ minHeight: 'clamp(22rem,45vw,36rem)' }}>
+        <Image
+          src={post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]}
+          alt={post.title}
+          fill
+          className="object-cover object-center"
+          priority
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.92) 40%, rgba(26,26,26,0.55) 100%)' }} />
+        <div className="absolute inset-0 flex items-end">
+          <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20 w-full pb-12 pt-32">
+            <div className="flex items-center gap-3 mb-5">
+              <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[post.division as Division]}`}>
+                {DIVISION_LABELS[post.division as Division]}
+              </span>
+              <span className="text-white/50 text-xs">
+                {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}
+              </span>
+              <span className="text-white/50 text-xs">by {post.author}</span>
+            </div>
+            <h1 className="text-white font-black leading-tight tracking-tight" style={{ fontSize: 'clamp(1.75rem,4vw,3.25rem)' }}>{post.title}</h1>
           </div>
-          <h1 className="text-white font-bold text-4xl lg:text-5xl leading-tight">{post.title}</h1>
         </div>
       </section>
 

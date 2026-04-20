@@ -12,8 +12,18 @@ export interface BlogPost {
   author: string
   body: string
   tags: string[]
+  heroImage?: string   // URL or /images/... path — optional, falls back to division default
   metaTitle?: string
   metaDescription?: string
+}
+
+// Default hero images per division — used when heroImage is not set on a post
+export const DIVISION_HERO_IMAGES: Record<Division, string> = {
+  'tenant-rep':     'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80',
+  'buyers-agency':  'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80',
+  'furniture':      '/images/furniture/opal-office.jpg',
+  'cleaning':       'https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=1920&q=80',
+  'general':        'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80',
 }
 
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog')
