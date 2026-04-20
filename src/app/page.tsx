@@ -64,22 +64,22 @@ export default function Home() {
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-white/65 font-light leading-relaxed mb-12"
+            <p className="text-white/65 font-light leading-relaxed mb-8"
               style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.75 }}>
               Most commercial property decisions are made without anyone truly in your corner.
               We change that. One team, working only for you — from the first conversation to the day your space is running.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                style={{ padding: '1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
                 Book a Clarity Call
               </a>
               <Link href="/lease-review"
                 className="text-white font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.3)' }}>
+                style={{ padding: '1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.3)' }}>
                 Free Lease Review →
               </Link>
             </div>
