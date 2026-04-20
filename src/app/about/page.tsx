@@ -131,68 +131,74 @@ export default function AboutPage() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <FadeIn direction="left">
-              <div className="bg-white p-7 sm:p-10 shadow-sm">
-                <div className="flex items-start gap-6 mb-7">
-                  <Image
-                    src="/team/joe-kelley.jpg"
-                    alt="Joe Kelley"
-                    width={64} height={64}
-                    className="rounded-full object-cover flex-shrink-0"
-                    style={{ width: '4rem', height: '4rem' }}
-                  />
-                  <div>
-                    <h3 className="text-near-black font-black text-xl">Joe Kelley</h3>
-                    <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1">Founder &amp; Managing Director</p>
-                  </div>
-                </div>
-                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                  Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
-                </p>
-                <div className="flex flex-col gap-3 border-t border-gray-100 pt-7">
-                  {[
-                    { label: 'Location', value: 'Cameron Park, NSW' },
-                  ].map(item => (
-                    <div key={item.label} className="flex gap-4 items-baseline">
-                      <span className="text-mid-grey text-xs font-semibold tracking-wide uppercase w-20 flex-shrink-0">{item.label}</span>
-                      <span className="text-near-black text-sm font-medium">{item.value}</span>
+              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full flex flex-col">
+                {/* Card header */}
+                <div className="p-8 sm:p-10 flex-1">
+                  <div className="flex items-center gap-5 mb-7">
+                    <Image
+                      src="/team/joe-kelley.jpg"
+                      alt="Joe Kelley"
+                      width={80} height={80}
+                      className="rounded-full object-cover flex-shrink-0 border-2 border-warm-grey"
+                      style={{ width: '5rem', height: '5rem' }}
+                    />
+                    <div>
+                      <h3 className="text-near-black font-black text-2xl leading-tight">Joe Kelley</h3>
+                      <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1.5">Founder &amp; Managing Director</p>
                     </div>
+                  </div>
+                  <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                    Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
+                  </p>
+                  {/* Personal note */}
+                  <blockquote className="border-l-4 border-teal pl-5 py-1">
+                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>
+                      &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing — straight advice, and someone who actually gives a damn about the outcome.&rdquo;
+                    </p>
+                  </blockquote>
+                </div>
+                {/* Footer tag */}
+                <div className="px-8 sm:px-10 py-5 bg-warm-grey border-t border-gray-100 flex flex-wrap gap-3">
+                  {['Commercial Property', 'Tenant Representation', 'Fitout Strategy'].map(tag => (
+                    <span key={tag} className="text-xs font-semibold text-mid-grey uppercase tracking-wider px-3 py-1.5 bg-white rounded-lg border border-gray-200">{tag}</span>
                   ))}
                 </div>
               </div>
             </FadeIn>
 
             <FadeIn direction="right" delay={100}>
-              <div className="bg-white p-7 sm:p-10 shadow-sm">
-                <div className="flex items-start gap-6 mb-7">
-                  <Image
-                    src="/team/sarah-kelley.jpg"
-                    alt="Sarah Kelley"
-                    width={64} height={64}
-                    className="rounded-full object-cover flex-shrink-0"
-                    style={{ width: '4rem', height: '4rem' }}
-                  />
-                  <div>
-                    <h3 className="text-near-black font-black text-xl">Sarah Kelley</h3>
-                    <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1">Cleaning Division Manager</p>
-                  </div>
-                </div>
-                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                  Sarah runs the commercial cleaning division end to end — site audits, team management,
-                  quality assurance, and client relationships. Every site gets a monthly personal audit
-                  from Sarah. If something&apos;s wrong, you call her directly.
-                </p>
-                <div className="flex flex-col gap-3 border-t border-gray-100 pt-7">
-                  {[
-                    { label: 'Focus', value: 'Commercial, medical, childcare & industrial' },
-                    { label: 'Standard', value: 'Monthly audits on every site' },
-                    { label: 'Location', value: 'Newcastle, NSW' },
-                  ].map(item => (
-                    <div key={item.label} className="flex gap-4 items-baseline">
-                      <span className="text-mid-grey text-xs font-semibold tracking-wide uppercase w-20 flex-shrink-0">{item.label}</span>
-                      <span className="text-near-black text-sm font-medium">{item.value}</span>
+              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full flex flex-col">
+                {/* Card header */}
+                <div className="p-8 sm:p-10 flex-1">
+                  <div className="flex items-center gap-5 mb-7">
+                    <Image
+                      src="/team/sarah-kelley.jpg"
+                      alt="Sarah Kelley"
+                      width={80} height={80}
+                      className="rounded-full object-cover flex-shrink-0 border-2 border-warm-grey"
+                      style={{ width: '5rem', height: '5rem' }}
+                    />
+                    <div>
+                      <h3 className="text-near-black font-black text-2xl leading-tight">Sarah Kelley</h3>
+                      <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1.5">Cleaning Division Director</p>
                     </div>
+                  </div>
+                  <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                    Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month — not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
+                  </p>
+                  {/* Personal note */}
+                  <blockquote className="border-l-4 border-teal pl-5 py-1">
+                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>
+                      &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple — if I wouldn&apos;t be happy with it, neither should you.&rdquo;
+                    </p>
+                  </blockquote>
+                </div>
+                {/* Footer tag */}
+                <div className="px-8 sm:px-10 py-5 bg-warm-grey border-t border-gray-100 flex flex-wrap gap-3">
+                  {['Commercial Offices', 'Medical & Childcare', 'Quality Assurance'].map(tag => (
+                    <span key={tag} className="text-xs font-semibold text-mid-grey uppercase tracking-wider px-3 py-1.5 bg-white rounded-lg border border-gray-200">{tag}</span>
                   ))}
                 </div>
               </div>
