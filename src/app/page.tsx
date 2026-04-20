@@ -5,7 +5,9 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
-const WRAP = 'max-w-6xl mx-auto px-8 md:px-16 lg:px-24'
+/* WRAP: Unispace-standard margins — content sits in ~65% of viewport on large screens */
+const WRAP = 'max-w-screen-xl mx-auto'
+const PAD  = { padding: '0 clamp(2rem, 10vw, 10rem)' }
 
 const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', href: '/tenant-rep' },
@@ -55,7 +57,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/58" />
 
-        <div className={`relative z-10 w-full ${WRAP}`} style={{ paddingTop: 'clamp(8rem,18vw,14rem)', paddingBottom: 'clamp(6rem,14vw,10rem)' }}>
+        <div className={`relative z-10 w-full ${WRAP}`} style={{ paddingTop: 'clamp(8rem,18vw,14rem)', paddingBottom: 'clamp(6rem,14vw,10rem)', ...PAD }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-6" style={{ fontSize: '0.7rem' }}>
               Commercial Property Advisors — Australia
@@ -109,8 +111,8 @@ export default function Home() {
       </section>
 
       {/* ── 2. SERVICES ─── white · numbered list (zimple.digital style) */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
-        <div className={WRAP}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What we do</p>
             <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-12"
@@ -152,8 +154,8 @@ export default function Home() {
       </section>
 
       {/* ── 3. WHY US ─── near-black · clean 3-column cards */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
-        <div className={WRAP}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>Why us</p>
             <h2 className="text-white font-black uppercase leading-none tracking-tight mb-12"
@@ -192,8 +194,8 @@ export default function Home() {
       </section>
 
       {/* ── 4. TESTIMONIALS ─── warm-grey */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
-        <div className={WRAP}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What clients say</p>
             <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-12"
@@ -224,8 +226,8 @@ export default function Home() {
       </section>
 
       {/* ── 5. LEASEINTEL ─── teal · single accent section */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
-        <div className={`${WRAP} text-center`}>
+      <section className="bg-teal" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
+        <div className={`${WRAP} text-center`} style={PAD}>
           <FadeIn>
             <div className="inline-flex items-center gap-2 border border-white/30 mb-10"
               style={{ padding: '0.45rem 1rem' }}>
@@ -260,8 +262,8 @@ export default function Home() {
       </section>
 
       {/* ── 6. CTA ─── dark · centered · simple */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem, 12vw, 11rem)', paddingBottom: 'clamp(6rem, 12vw, 11rem)' }}>
-        <div className={`${WRAP} text-center`}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem, 13vw, 12rem)', paddingBottom: 'clamp(7rem, 13vw, 12rem)' }}>
+        <div className={`${WRAP} text-center`} style={PAD}>
           <FadeIn>
             <h2 className="text-white font-black uppercase leading-none tracking-tight mb-8 mx-auto"
               style={{ fontSize: 'clamp(4rem, 9vw, 10rem)' }}>
