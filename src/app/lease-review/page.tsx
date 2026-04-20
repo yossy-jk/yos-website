@@ -356,7 +356,7 @@ export default function LeaseReviewPage() {
                   </button>
                   <a
                     href="#full-report"
-                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-sm tracking-widest uppercase px-8 py-4 hover:border-white/60 transition-colors duration-200 min-h-[52px]"
+                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:border-white/60 transition-colors duration-200 min-h-[52px]"
                   >
                     View Full Report — $97
                   </a>
@@ -411,7 +411,7 @@ export default function LeaseReviewPage() {
                 </p>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-black hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 min-h-[48px]"
+                  className="inline-flex items-center justify-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-black transition-all duration-200 min-h-[48px]"
                 >
                   Start Free Review →
                 </button>
@@ -469,7 +469,7 @@ export default function LeaseReviewPage() {
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-10 py-4 rounded-sm hover:bg-dark-teal hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 min-h-[52px] w-full md:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] w-full md:w-auto"
                 >
                   Upload Your Lease →
                 </button>
@@ -668,7 +668,7 @@ export default function LeaseReviewPage() {
 
               <button
                 onClick={handleDetailsNext}
-                className="inline-flex items-center justify-center bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 min-h-[52px] mt-2"
+                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2"
               >
                 Continue — Upload Lease →
               </button>
@@ -774,7 +774,7 @@ export default function LeaseReviewPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px]"
+                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px]"
               >
                 {submitting ? (
                   <>

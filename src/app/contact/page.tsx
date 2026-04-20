@@ -143,12 +143,13 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors self-start"
-                    style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                    className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                    style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}
                   >
                     Send Message →
                   </button>
-                </form>}
+                </form>
+                }
               </div>
             </FadeIn>
 
@@ -170,8 +171,8 @@ export default function ContactPage() {
                       20 minutes. Pick a time that suits you and we will call.
                     </p>
                     <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                      className="bg-teal text-white font-bold no-underline inline-block hover:bg-dark-teal transition-colors"
-                      style={{ padding: '0.85rem 1.75rem', fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                      className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                      style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
                       Book a Call →
                     </a>
                   </div>

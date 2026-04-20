@@ -306,7 +306,7 @@ export default function LeaseComparisonPage() {
             <button
               onClick={compare}
               disabled={filledCount === 0}
-              className="bg-teal text-white font-semibold text-base px-10 py-4 rounded hover:bg-dark-teal transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-teal text-white font-bold uppercase tracking-[0.14em] inline-flex items-center justify-center hover:bg-dark-teal transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed min-h-[52px]" style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}
             >
               {filledCount > 1 ? `Compare ${filledCount} options` : 'Compare leases'}
             </button>

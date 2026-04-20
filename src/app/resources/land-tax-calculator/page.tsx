@@ -581,8 +581,8 @@ export default function LandTaxCalculatorPage() {
               Land tax is one of the holding costs most buyers underestimate. We model the full picture.
             </h2>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-block bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
-              style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+              style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
               Book a Buyer Consultation →
             </a>
           </div>
