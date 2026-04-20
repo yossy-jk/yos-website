@@ -102,7 +102,7 @@ export default function Home() {
       </section>
 
       {/* ── 3. SERVICES ─────────────────────── near-black */}
-      <section className="bg-near-black" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
+      <section className="bg-near-black" style={{ padding: 'clamp(3.5rem, 8vw, 6rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <p className="text-teal font-bold tracking-[0.3em] uppercase mb-5" style={{ fontSize: '0.65rem' }}>What we do</p>
@@ -112,7 +112,7 @@ export default function Home() {
             >
               Every part of the<br />workspace problem.<br />One team.
             </h2>
-            <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.9rem', maxWidth: '32rem', marginBottom: '3.5rem' }}>
+            <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.9rem', maxWidth: '32rem', marginBottom: '2rem' }}>
               Tenant representation, fitout, buyers agency, and cleaning — all under one roof.
             </p>
           </FadeIn>
@@ -144,7 +144,7 @@ export default function Home() {
       </section>
 
       {/* ── 4. WHY YOS ──────────────────────── white */}
-      <section className="bg-white" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
+      <section className="bg-white" style={{ padding: 'clamp(3.5rem, 8vw, 6rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <p className="text-teal font-bold tracking-[0.3em] uppercase mb-5" style={{ fontSize: '0.65rem' }}>Why YOS</p>
@@ -154,7 +154,7 @@ export default function Home() {
             >
               No conflicts.<br />No shortcuts.<br />No split loyalty.
             </h2>
-            <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.9rem', maxWidth: '32rem', marginBottom: '3.5rem' }}>
+            <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.9rem', maxWidth: '32rem', marginBottom: '2rem' }}>
               Most commercial property advisors work both sides of the deal. We don&apos;t.
               Every decision we make is in your interest.
             </p>
@@ -166,7 +166,7 @@ export default function Home() {
             { num: '03', label: 'End-to-end', body: 'Lease to clean. One relationship, one accountable team from your first property decision through to the day your space is running.' },
           ].map((point, i) => (
             <FadeIn key={point.label} delay={i * 80}>
-              <div className="flex gap-6" style={{ padding: '2rem 0', borderBottom: '1px solid #f3f4f6' }}>
+              <div className="flex gap-6" style={{ padding: '1.5rem 0', borderBottom: '1px solid #f3f4f6' }}>
                 <span className="text-teal font-black flex-shrink-0" style={{ fontSize: 'clamp(2rem, 6vw, 3rem)', lineHeight: 1, width: '3rem' }}>{point.num}</span>
                 <div style={{ paddingTop: '0.25rem' }}>
                   <p className="text-near-black font-black tracking-tight" style={{ fontSize: 'clamp(1rem, 3vw, 1.2rem)', marginBottom: '0.5rem' }}>{point.label}</p>
@@ -179,7 +179,7 @@ export default function Home() {
       </section>
 
       {/* ── 5. LEASEINTEL ───────────────────── near-black */}
-      <section className="bg-near-black" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
+      <section className="bg-near-black" style={{ padding: 'clamp(3.5rem, 8vw, 6rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <div className="inline-flex items-center gap-2 mb-8" style={{ border: '1px solid rgba(0,181,165,0.3)', padding: '0.4rem 0.85rem' }}>
@@ -197,7 +197,7 @@ export default function Home() {
             </p>
           </FadeIn>
           <FadeIn delay={100}>
-            <div style={{ marginBottom: '2.5rem' }}>
+            <div style={{ marginBottom: '1.75rem' }}>
               {[
                 'Free summary: overall risk rating + top 3 issues — instant',
                 'Full report: all 12 risk categories + negotiation roadmap — $97',
@@ -224,7 +224,7 @@ export default function Home() {
       </section>
 
       {/* ── 6. TOOLS TEASER ─────────────────── white */}
-      <section className="bg-white" style={{ padding: 'clamp(4rem, 10vw, 6rem) 0', borderTop: '1px solid #f3f4f6', borderBottom: '1px solid #f3f4f6' }}>
+      <section className="bg-white" style={{ padding: 'clamp(3rem, 7vw, 5rem) 0', borderTop: '1px solid #f3f4f6', borderBottom: '1px solid #f3f4f6' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-8">
@@ -248,7 +248,7 @@ export default function Home() {
       </section>
 
       {/* ── 7. TESTIMONIALS ─────────────────── warm-grey */}
-      <section className="bg-warm-grey" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
+      <section className="bg-warm-grey" style={{ padding: 'clamp(3.5rem, 8vw, 6rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight text-center mb-16"
@@ -262,7 +262,7 @@ export default function Home() {
             { name: 'Sophie', tag: 'Jirsch Sutherland', service: 'Commercial Cleaning', quote: 'We are very happy with the service provided by Sarah and Joe at Your Office Space. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.' },
           ].map((t, i) => (
             <FadeIn key={t.name} delay={i * 80}>
-              <div style={{ borderTop: '1px solid #e5e7eb', padding: '2.5rem 0' }}>
+              <div style={{ borderTop: '1px solid #e5e7eb', padding: '1.75rem 0' }}>
                 <div className="flex gap-0.5 mb-5">
                   {[...Array(5)].map((_, j) => (
                     <svg key={j} style={{ width: '0.9rem', height: '0.9rem', color: '#EAB308', fill: 'currentColor' }} viewBox="0 0 20 20">
@@ -284,7 +284,7 @@ export default function Home() {
       </section>
 
       {/* ── 8. CTA ──────────────────────────── near-black */}
-      <section className="bg-near-black" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
+      <section className="bg-near-black" style={{ padding: 'clamp(3.5rem, 8vw, 6rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <h2

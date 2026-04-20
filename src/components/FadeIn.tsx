@@ -25,18 +25,23 @@ export default function FadeIn({
   className = '',
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
+  // Start visible — content is always readable (no flash of invisible content)
+  // Animation is a progressive enhancement only
+  const [visible, setVisible] = useState(true)
+  const [animated, setAnimated] = useState(false)
 
   useEffect(() => {
-    // Respect prefers-reduced-motion
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced) {
-      setVisible(true)
-      return
-    }
+    if (prefersReduced) return
 
+    // Only animate elements below the fold
     const el = ref.current
     if (!el) return
+    const rect = el.getBoundingClientRect()
+    if (rect.top < window.innerHeight) return // already in view — skip animation
+
+    setVisible(false)
+    setAnimated(true)
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -58,8 +63,8 @@ export default function FadeIn({
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'none' : INITIAL_TRANSFORM[direction],
-        transition: `opacity 0.6s ${EASING} ${delay}ms, transform 0.6s ${EASING} ${delay}ms`,
-        willChange: visible ? 'auto' : 'opacity, transform',
+        transition: animated ? `opacity 0.6s ${EASING} ${delay}ms, transform 0.6s ${EASING} ${delay}ms` : 'none',
+        willChange: (!visible && animated) ? 'opacity, transform' : 'auto',
       }}
     >
       {children}
