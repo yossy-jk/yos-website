@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/resources/cap-rate-calculator`,  lastModified: now, changeFrequency: 'yearly',  priority: 0.6 },
     { url: `${BASE}/resources/purchase-checklist`,   lastModified: now, changeFrequency: 'yearly',  priority: 0.6 },
     { url: `${BASE}/resources/furniture-quote`,      lastModified: now, changeFrequency: 'yearly',  priority: 0.5 },
+    { url: `${BASE}/leaseintel`,                         lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${BASE}/blog`,                           lastModified: now, changeFrequency: 'weekly',  priority: 0.7 },
     { url: `${BASE}/case-studies`,                   lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
   ]

@@ -135,6 +135,7 @@ export default function TenantRepPage() {
       {/* ─── IMAGE BREAK ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
         <Image
+              priority
           src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80"
           alt="Professional lease negotiation"
           fill className="object-cover object-center"

@@ -26,6 +26,7 @@ export const SERVICE_LINKS = [
   { label: 'Furniture & Fitout', href: '/furniture', tagline: 'Brief to delivered workspace.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
   { label: 'Lease Review', href: '/lease-review', tagline: 'Free risk analysis.' },
+  { label: 'LeaseIntel™', href: '/leaseintel', tagline: '$97 professional review.' },
 ]
 
 

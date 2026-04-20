@@ -5,6 +5,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Footer from '@/components/Footer'
 import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
+import BlogEmailCapture from '@/components/BlogEmailCapture'
 
 export const metadata = {
   title: 'Blog | Your Office Space',
@@ -117,6 +118,23 @@ export default function BlogPage() {
               )}
             </>
           )}
+        </div>
+      </section>
+
+
+      {/* Email capture */}
+      <section style={{ paddingTop: 'clamp(3rem,6vw,6rem)', paddingBottom: 'clamp(3rem,6vw,6rem)', background: '#FAFAFA' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="flex flex-col items-center text-center" style={{ maxWidth: '36rem', margin: '0 auto' }}>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Stay sharp</p>
+            <h2 className="text-near-black font-bold mb-4" style={{ fontSize: 'clamp(1.5rem,3vw,2rem)' }}>
+              Get new articles when they land.
+            </h2>
+            <p className="text-mid-grey font-light mb-8" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
+              Commercial property insights for Australian business owners. No noise, no pitch — just useful.
+            </p>
+            <BlogEmailCapture />
+          </div>
         </div>
       </section>
 

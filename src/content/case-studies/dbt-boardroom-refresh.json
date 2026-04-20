@@ -1,0 +1,25 @@
+{
+  "slug": "dbt-boardroom-refresh",
+  "title": "Boardroom Refresh — Dynamic Business Technologies",
+  "client": "Dynamic Business Technologies",
+  "location": "Newcastle, NSW",
+  "division": "furniture",
+  "date": "2026-03-01",
+  "featured": true,
+  "excerpt": "A cluttered, underutilised boardroom transformed into a high-impression meeting space with custom joinery, integrated bar fridge credenza, barrel base boardroom table, and a fully integrated Microsoft Teams conference room setup.",
+  "heroImage": "/images/furniture/space-cogc-office.jpg",
+  "challenge": "Dynamic Business Technologies had a boardroom that wasn't working. The room was cluttered, the AV setup was ad-hoc, and the furniture didn't reflect the calibre of the business. For a technology company that regularly hosts clients and runs hybrid meetings with national teams, a first impression that didn't land was costing them — in confidence, in credibility, and in the perception of their brand.",
+  "solution": "We scoped and delivered a complete boardroom transformation. The brief was clear: the room needed to look impressive, function flawlessly, and make every person in it — physically or on screen — feel like they were in a serious environment.\n\nThe centrepiece is a custom joinery credenza running the full width of the room, with built-in bar fridges integrated seamlessly into the cabinetry. Above it, the wall-mounted display and Rally Bar sit flush and clean — no visible cables, no afterthought mounting.\n\nThe barrel base boardroom table was specified for DBT specifically — proportioned to the room, with a profile that reads as confident without being heavy. Leather-bound executive chairs complete the setting.\n\nOn the technology side, we coordinated the full integration of a Logitech Rally Bar system with MS Teams Rooms programming. Every camera angle, every audio zone, every control layout — tested and signed off before handover. Walk in, tap a button, the meeting starts.",
+  "outcome": "The boardroom now does what a boardroom should: it makes people feel like they're dealing with the best in the business. DBT's team reported an immediate lift in confidence when hosting client meetings. The hybrid meeting capability has simplified their national team coordination significantly — no more patchy Zoom calls from a laptop camera.",
+  "metrics": [
+    { "label": "Lead time", "value": "6 weeks" },
+    { "label": "Space", "value": "Boardroom" },
+    { "label": "Scope", "value": "Custom joinery, furniture, AV integration" },
+    { "label": "Technology", "value": "MS Teams Rooms with Rally Bar" }
+  ],
+  "quote": {
+    "text": "The room completely changed how we present ourselves. Clients notice it immediately. Our team actually wants to use it now.",
+    "attribution": "Dynamic Business Technologies"
+  },
+  "tags": ["boardroom", "custom joinery", "MS Teams", "AV integration", "Newcastle", "furniture fitout"]
+}
