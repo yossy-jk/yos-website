@@ -263,16 +263,17 @@ export default function FitoutEstimatorPage() {
                         </p>
                       </div>
                       <div className="text-right flex-shrink-0">
-                        <p className="text-white/40 font-light" style={{ fontSize: '0.7rem', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>Construction rate</p>
-                        <p className="text-white font-black" style={{ fontSize: '0.95rem' }}>
-                          ${tier.sqm.low}–${tier.sqm.high}<span className="text-white/40 font-light">/m²</span>
+                        <p className="text-white/40 font-light" style={{ fontSize: '0.7rem', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>
+                          {key === 'basic' && 'Entry level'}
+                          {key === 'mid' && 'Most popular'}
+                          {key === 'premium' && 'High specification'}
                         </p>
                       </div>
                     </div>
                   </button>
                 ))}
               </div>
-              <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Rates are for construction only. Furniture, meeting rooms and other items are added separately in the next steps.</p>
+              <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Your full cost estimate — including all items — will be shown at the end.</p>
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
