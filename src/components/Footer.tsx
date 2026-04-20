@@ -76,7 +76,9 @@ export default function Footer() {
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.phone}
               </a>
-              <p className="text-white/20 font-light" style={{ fontSize: '0.875rem' }}>{CONTACT.location}</p>
+              <p className="text-white/20 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
+                Newcastle · Sydney · Central Coast<br />Illawarra · Mid North Coast · Regional NSW
+              </p>
             </div>
           </div>
         </div>
