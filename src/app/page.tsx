@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -5,6 +6,19 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import { IMAGES } from '@/lib/images'
+
+export const metadata: Metadata = {
+  title: 'Your Office Space | Tenant-Side Commercial Property Advisory',
+  description: 'One team working only for you. Tenant representation, buyers agency, furniture & fitout, and commercial cleaning. Honest advice. Real outcomes.',
+  openGraph: {
+    title: 'Your Office Space | Tenant-Side Commercial Property Advisory',
+    description: 'One team working only for you — from the first conversation to the day your space is running.',
+    url: 'https://yourofficespace.au',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
+}
 
 /* ─── Layout constants ───────────────────────────────────────── */
 const WRAP = 'max-w-screen-xl mx-auto'

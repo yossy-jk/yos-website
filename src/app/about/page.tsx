@@ -22,7 +22,7 @@ export default function AboutPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative max-w-screen-xl mx-auto">
+        <div className="relative max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>About</SectionLabel>
           </FadeIn>
