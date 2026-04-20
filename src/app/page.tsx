@@ -277,34 +277,36 @@ export default function Home() {
 
       {/* ─── LEASEINTEL ────────────────────────────── teal */}
       <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <div className="inline-flex items-center gap-2 border border-white/30 mb-10"
-              style={{ padding: '0.5rem 1.25rem' }}>
-              <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
-              <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>
-                New — LeaseIntel™
-              </span>
-            </div>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mx-auto"
-              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '26ch', marginBottom: '1.5rem' }}>
-              Is your lease costing you more than it should?
-            </h2>
-            <p className="text-white/80 font-light leading-relaxed mx-auto"
-              style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
-              Plain-English risk analysis. Every clause rated Red, Amber, or Green. Free summary — or a full report for $97.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
-              <Link href="/lease-review"
-                className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-block"
-                style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '14rem' }}>
-                Get Free Summary →
-              </Link>
-              <Link href="/lease-review#full-report"
-                className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-block"
-                style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', background: 'rgba(255,255,255,0.12)', minWidth: '14rem' }}>
-                Full Report — $97
-              </Link>
+            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
+              <div className="inline-flex items-center gap-2 border border-white/30 mb-8"
+                style={{ padding: '0.5rem 1.25rem' }}>
+                <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
+                <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>
+                  New — LeaseIntel™
+                </span>
+              </div>
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
+                style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.5rem' }}>
+                Is your lease costing you more than it should?
+              </h2>
+              <p className="text-white/80 font-light leading-relaxed w-full"
+                style={{ fontSize: '1rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
+                Plain-English risk analysis. Every clause rated Red, Amber, or Green. Free summary — or a full report for $97.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link href="/lease-review"
+                  className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-block"
+                  style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '14rem' }}>
+                  Get Free Summary →
+                </Link>
+                <Link href="/lease-review#full-report"
+                  className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-block"
+                  style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', background: 'rgba(255,255,255,0.12)', minWidth: '14rem' }}>
+                  Full Report — $97
+                </Link>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -356,36 +358,38 @@ export default function Home() {
 
       {/* ─── CTA ───────────────────────────────────── dark, clean, centred */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">
-              Get started
-            </p>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mx-auto"
-              style={{ fontSize: 'clamp(2rem,5vw,5rem)', marginBottom: '1.25rem' }}>
-              Let&apos;s have<br />a conversation.
-            </h2>
-            <p className="text-white/50 font-light leading-relaxed mx-auto"
-              style={{ fontSize: '1rem', lineHeight: 1.75, maxWidth: '36rem', marginBottom: '2rem' }}>
-              No obligation. No pitch. Tell us what you&apos;re working with — we&apos;ll give you an honest view.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
-                style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '16rem' }}>
-                Book a Clarity Call
-              </a>
-              <Link href="/contact"
-                className="text-white font-medium no-underline text-center hover:text-teal transition-colors"
-                style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)', minWidth: '16rem' }}>
-                Get in Touch
-              </Link>
+            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
+              <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">
+                Get started
+              </p>
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
+                style={{ fontSize: 'clamp(2rem,5vw,5rem)', marginBottom: '1.25rem' }}>
+                Let&apos;s have<br />a conversation.
+              </h2>
+              <p className="text-white/50 font-light leading-relaxed w-full"
+                style={{ fontSize: '1rem', lineHeight: 1.75, marginBottom: '2rem' }}>
+                No obligation. No pitch. Tell us what you&apos;re working with — we&apos;ll give you an honest view.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                  className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
+                  style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '16rem' }}>
+                  Book a Clarity Call
+                </a>
+                <Link href="/contact"
+                  className="text-white font-medium no-underline text-center hover:text-teal transition-colors"
+                  style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)', minWidth: '16rem' }}>
+                  Get in Touch
+                </Link>
+              </div>
+              <p className="text-white/20 font-light mt-8" style={{ fontSize: '0.78rem' }}>
+                <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>
+                {' · '}
+                <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">hello@yourofficespace.au</a>
+              </p>
             </div>
-            <p className="text-white/20 font-light mt-8" style={{ fontSize: '0.78rem' }}>
-              <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>
-              {' · '}
-              <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">hello@yourofficespace.au</a>
-            </p>
           </FadeIn>
         </div>
       </section>
