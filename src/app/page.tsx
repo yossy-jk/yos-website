@@ -58,16 +58,15 @@ export default function Home() {
             </p>
           </FadeIn>
           <FadeIn delay={80}>
-            <h1 className="text-white font-black uppercase leading-[1.05] tracking-tight mb-10"
-              style={{ fontSize: 'clamp(2.25rem,6vw,6.5rem)', maxWidth: '12ch' }}>
+            <h1 className="text-white font-black uppercase leading-[1.05] tracking-tight"
+              style={{ fontSize: 'clamp(2.25rem,6vw,6.5rem)', maxWidth: '12ch', marginBottom: '1.5rem' }}>
               Your workspace.<br />Our responsibility.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-white/65 font-light leading-relaxed mb-10"
-              style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.75 }}>
-              <span className="md:hidden">One team, working only for you.</span>
-              <span className="hidden md:inline">Most commercial property decisions are made without anyone truly in your corner. We change that. One team, working only for you — from the first conversation to the day your space is running.</span>
+            <p className="text-white/65 font-light leading-relaxed"
+              style={{ fontSize: '1rem', maxWidth: '32rem', lineHeight: 1.75, marginBottom: '2rem' }}>
+              One team, working only for you — from the first conversation to the day your space is running.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
