@@ -179,7 +179,7 @@ export default function FitoutEstimatorPage() {
               </div>
               <button onClick={() => setStep(1)}
                 className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
+                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                 Start estimator →
               </button>
             </div>
@@ -233,7 +233,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(2)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                   Next →
                 </button>
                 <button onClick={() => setStep(0)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -275,7 +275,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                   Next →
                 </button>
                 <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -319,7 +319,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(4)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                   Next →
                 </button>
                 <button onClick={() => setStep(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -355,7 +355,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(5)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                   Show my estimate →
                 </button>
                 <button onClick={() => setStep(3)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -440,7 +440,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex flex-col gap-3 max-w-sm">
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                   className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                   Book a Fitout Consultation →
                 </a>
                 <Link href="/furniture"

@@ -358,7 +358,7 @@ export default function LeaseReviewPage() {
                   </button>
                   <a
                     href="#full-report"
-                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:border-white/60 transition-colors duration-200 min-h-[52px]"
+                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:border-white/60 transition-colors duration-200 min-h-[52px]"
                   >
                     View Full Report — $97
                   </a>
@@ -471,7 +471,7 @@ export default function LeaseReviewPage() {
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] w-full md:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] w-full md:w-auto"
                 >
                   Upload Your Lease →
                 </button>
@@ -670,7 +670,7 @@ export default function LeaseReviewPage() {
 
               <button
                 onClick={handleDetailsNext}
-                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2"
+                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2"
               >
                 Continue — Upload Lease →
               </button>
@@ -776,7 +776,7 @@ export default function LeaseReviewPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px]"
+                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px]"
               >
                 {submitting ? (
                   <>

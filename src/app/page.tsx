@@ -87,12 +87,12 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-3">
               <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                style={{ padding: '0 2.75rem', fontSize: '0.72rem' }}>
+                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                 Book a Clarity Call
               </a>
               <Link href="/lease-review"
                 className="text-white/70 font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors border border-white/30 inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                style={{ padding: '0 2.75rem', fontSize: '0.72rem' }}>
+                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
                 Free Lease Review →
               </Link>
             </div>
@@ -298,12 +298,12 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link href="/lease-review"
                   className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem', minWidth: '14rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', minWidth: '14rem' }}>
                   Get Free Summary →
                 </Link>
                 <Link href="/lease-review#full-report"
                   className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '0 2.5rem', fontSize: '0.72rem', background: 'rgba(255,255,255,0.12)', minWidth: '14rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', background: 'rgba(255,255,255,0.12)', minWidth: '14rem' }}>
                   Full Report — $97
                 </Link>
               </div>
@@ -375,12 +375,12 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                   className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '0 2.75rem', fontSize: '0.72rem', minWidth: '16rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', minWidth: '16rem' }}>
                   Book a Clarity Call
                 </a>
                 <Link href="/contact"
                   className="text-white font-medium no-underline text-center hover:text-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '0 2.75rem', fontSize: '0.72rem', border: '1px solid rgba(255,255,255,0.2)', minWidth: '16rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', border: '1px solid rgba(255,255,255,0.2)', minWidth: '16rem' }}>
                   Get in Touch
                 </Link>
               </div>

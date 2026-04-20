@@ -46,8 +46,8 @@ export default function Button({
 
   const sizeStyles = {
     sm: 'px-6 py-3 text-[0.68rem]',
-    md: 'px-8 py-3.5 text-[0.7rem]',
-    lg: 'px-10 py-[1.1rem] text-[0.72rem]',
+    md: 'px-8 py-4 text-[0.7rem]',
+    lg: 'px-14 py-[1.25rem] text-[0.72rem]',
   }
 
   const combinedClassName = [
