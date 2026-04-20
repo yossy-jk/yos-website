@@ -248,7 +248,7 @@ export default function Home() {
       <section className="bg-teal" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
         <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <div className="inline-flex items-center gap-2 border border-white/30 mb-10"
+            <div className="inline-flex items-center gap-2 border border-white/30 mb-12"
               style={{ padding: '0.5rem 1.25rem' }}>
               <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
               <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>
@@ -259,8 +259,8 @@ export default function Home() {
               style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
               Is your lease costing you more than it should?
             </h2>
-            <p className="text-white/80 font-light leading-relaxed mb-14 mx-auto"
-              style={{ fontSize: '1.15rem', maxWidth: '34rem', lineHeight: 1.75 }}>
+            <p className="text-white/80 font-light leading-relaxed mb-16 mx-auto"
+              style={{ fontSize: '1.2rem', maxWidth: '34rem', lineHeight: 1.8 }}>
               Plain-English risk analysis. Every clause rated Red, Amber, or Green.
               Free summary — or a full report for $97.
             </p>
@@ -285,16 +285,19 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
-            {/* Left — workspace image */}
+            {/* Left — bold statement */}
             <FadeIn>
-              <div className="relative overflow-hidden" style={{ aspectRatio: '4/3' }}>
-                <Image
-                  src={IMAGES.twoPersonMeet}
-                  alt="Your Office Space team in consultation"
-                  fill className="object-cover object-center"
-                  style={{ filter: 'grayscale(15%)' }}
-                />
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.5) 0%, transparent 60%)' }} />
+              <div className="flex flex-col justify-center">
+                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-8">
+                  Commercial Property Advisors
+                </p>
+                <p className="text-white font-black uppercase leading-none tracking-tight"
+                  style={{ fontSize: 'clamp(3rem,7vw,8rem)', lineHeight: 1 }}>
+                  100+<br />projects<br />delivered.
+                </p>
+                <p className="text-white/30 font-light mt-8" style={{ fontSize: '1rem', lineHeight: 1.7 }}>
+                  Lease negotiations. Fitout projects. Furniture packages. Cleaning contracts. One team, start to finish.
+                </p>
               </div>
             </FadeIn>
 

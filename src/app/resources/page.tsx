@@ -69,7 +69,8 @@ export default function ResourcesPage() {
           <FadeIn delay={80}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-3xl mb-7"
               style={{ fontSize: 'clamp(2.4rem, 6vw, 5.5rem)' }}>
-              Smart tools for commercial property decisions.
+              SMART TOOLS.
+BETTER DECISIONS.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
@@ -87,7 +88,7 @@ export default function ResourcesPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {tools.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 80} direction="up">
-              <div className="border border-gray-200 rounded-sm p-10 flex flex-col hover:border-teal transition-colors duration-200 h-full">
+              <div className="border border-gray-200 rounded-sm flex flex-col hover:border-teal transition-colors duration-200 h-full" style={{ padding: '2.75rem 2.5rem' }}>
                 <div className="flex items-start justify-between mb-6">
                   <h2 className="text-near-black font-bold text-2xl max-w-xs">{tool.title}</h2>
                   <span className={`${tool.tagColor} text-white font-semibold text-xs px-3 py-1 rounded-full flex-shrink-0 ml-4`}>
