@@ -121,10 +121,10 @@ export default function ResourcesPage() {
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 text-center">
           <SectionLabel>Need more?</SectionLabel>
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8">
-            Tools are a starting point. Advice is what moves the needle.
+            Tools get you started. A straight conversation gets you moving.
           </h2>
           <p className="text-charcoal font-light text-xl leading-relaxed mb-12">
-            Use our free tools to build your understanding. Then talk to us when you&apos;re ready to make a move. We don&apos;t charge for the first conversation.
+            Use the tools to build your understanding. Then talk to Joe when you&apos;re ready to act. First conversation is free — no pitch, no obligation.
           </p>
           <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
             Book a Clarity Call
