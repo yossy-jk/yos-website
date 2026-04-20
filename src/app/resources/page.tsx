@@ -80,14 +80,15 @@ export default function ResourcesPage() {
                   </div>
                   <p className="text-charcoal font-light leading-relaxed flex-1 mb-6"
                     style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>{tool.description}</p>
-                  <ul className="flex flex-col gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {tool.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2">
-                        <div className="w-1 h-1 bg-teal rounded-full flex-shrink-0" />
-                        <span className="text-mid-grey" style={{ fontSize: '0.78rem' }}>{f}</span>
-                      </li>
+                      <span key={f}
+                        className="text-charcoal font-medium border border-gray-200 bg-gray-50"
+                        style={{ fontSize: '0.72rem', letterSpacing: '0.02em', padding: '0.25rem 0.65rem' }}>
+                        {f}
+                      </span>
                     ))}
-                  </ul>
+                  </div>
                   <span className="text-teal font-bold uppercase tracking-widest group-hover:text-dark-teal transition-colors"
                     style={{ fontSize: '0.65rem' }}>Open tool →</span>
                 </Link>
