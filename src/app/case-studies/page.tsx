@@ -13,10 +13,14 @@ export const metadata = {
   description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.'
 }
 
+const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const WRAP = 'max-w-screen-xl mx-auto'
+const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   return (
     <Link href={`/case-studies/${cs.slug}`} className="no-underline group">
-      <div className="border border-gray-200 rounded-sm overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
+      <div className="border border-gray-200 overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
         {cs.heroImage && (
           <div className="h-52 overflow-hidden">
             <img
@@ -38,7 +42,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
           {cs.metrics.length > 0 && (
             <div className="grid grid-cols-2 gap-3 mb-6">
               {cs.metrics.slice(0, 2).map(m => (
-                <div key={m.label} className="bg-warm-grey rounded p-3">
+                <div key={m.label} className="bg-warm-grey p-3">
                   <p className="text-teal font-bold text-lg leading-none mb-1">{m.value}</p>
                   <p className="text-mid-grey font-light text-xs">{m.label}</p>
                 </div>
@@ -59,20 +63,24 @@ export default function CaseStudiesPage() {
     <>
       <Nav />
 
-      <section className="bg-near-black ">
-        <div className="max-w-screen-xl mx-auto pt-16" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      {/* ─── HERO ─────────────────────────────────────────── */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+        <div className={WRAP} style={PAD}>
           <SectionLabel>Case studies</SectionLabel>
-          <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-8">
-            Real projects. Real outcomes.
+          <h1 className="text-white font-bold leading-tight tracking-tight max-w-3xl mb-6"
+            style={{ fontSize: 'clamp(2.25rem,6vw,5rem)' }}>
+            Real projects.<br />Real outcomes.
           </h1>
-          <p className="text-white/60 font-light text-xl leading-relaxed max-w-2xl">
+          <p className="text-white/60 font-light leading-relaxed max-w-2xl"
+            style={{ fontSize: 'clamp(1rem,2vw,1.25rem)' }}>
             Our next clients come from our past work. Here&apos;s the evidence — what we were asked to do, what we did, and what it delivered.
           </p>
         </div>
       </section>
 
-      <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      {/* ─── GRID ─────────────────────────────────────────── */}
+      <section className="bg-white" style={SEC}>
+        <div className={WRAP} style={PAD}>
           {all.length === 0 ? (
             <p className="text-mid-grey font-light text-lg">Case studies coming soon.</p>
           ) : (
@@ -83,10 +91,15 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      <section className="bg-near-black py-14 md:py-28 text-center">
-        <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
-          <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want results like these?</h2>
-          <p className="text-white/60 font-light text-lg mb-8">Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.</p>
+      {/* ─── CTA ──────────────────────────────────────────── */}
+      <section className="bg-near-black text-center" style={SEC}>
+        <div className={WRAP} style={{ ...PAD, maxWidth: '48rem' }}>
+          <h2 className="text-white font-bold leading-tight mb-4" style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
+            Want results like these?
+          </h2>
+          <p className="text-white/60 font-light text-lg mb-10">
+            Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.
+          </p>
           <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">Book a Clarity Call</Button>
         </div>
       </section>

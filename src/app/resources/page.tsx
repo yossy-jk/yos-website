@@ -37,7 +37,7 @@ export default function ResourcesPage() {
       <Nav />
 
       {/* ─── HERO ─────────────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Resources</p>
@@ -54,7 +54,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── FREE TOOLS ───────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Free tools</p>
@@ -95,7 +95,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── INSIGHTS: ARTICLES ───────────────── */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-16">
@@ -158,7 +158,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── CASE STUDIES ────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-16">
@@ -212,7 +212,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────── */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(3rem,7vw,7rem)', paddingBottom: 'clamp(3rem,7vw,7rem)' }}>
+      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"

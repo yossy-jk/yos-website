@@ -14,7 +14,7 @@ export default function ContactPage() {
       <Nav />
 
       {/* HERO — compact, no dead space */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,11rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>
@@ -33,7 +33,7 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT — form + direct details */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,7rem)', paddingBottom: 'clamp(3rem,8vw,7rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
 
@@ -212,7 +212,7 @@ export default function ContactPage() {
       </section>
 
       {/* WHAT TO EXPECT */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(3rem,8vw,7rem)', paddingBottom: 'clamp(3rem,8vw,7rem)' }}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>What to expect</p>

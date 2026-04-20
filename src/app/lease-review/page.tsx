@@ -289,7 +289,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* STATS */}
-        <section className="bg-teal py-10">
+        <section className="bg-teal" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-3 gap-6 text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {[
@@ -307,7 +307,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* FREE SUMMARY */}
-        <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,8rem)', paddingBottom: 'clamp(3rem,8vw,8rem)' }}>
+        <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn direction="left">
               <div>
@@ -345,7 +345,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* FULL REPORT */}
-        <section id="full-report" className="bg-near-black py-14 md:py-28 md:py-32">
+        <section id="full-report" className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
               <div className="max-w-2xl mb-7 md:mb-14">
@@ -390,7 +390,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* COMPARISON */}
-        <section className="bg-warm-grey py-14 md:py-28 md:py-28">
+        <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
               <h2 className="text-near-black font-black leading-tight tracking-tight mb-12 text-center"
@@ -437,7 +437,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* SECURITY */}
-        <section className="bg-white py-14 border-t border-gray-100">
+        <section className="bg-white border-t border-gray-100" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn direction="left">
               <div>
@@ -467,7 +467,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* JOE QUOTE */}
-        <section className="bg-near-black py-14 md:py-28 md:py-28 text-center">
+        <section className="bg-near-black text-center" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <FadeIn>
             <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               <div className="w-10 h-1 bg-teal mx-auto mb-8" />

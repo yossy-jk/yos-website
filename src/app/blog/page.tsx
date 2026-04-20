@@ -10,6 +10,10 @@ export const metadata = {
   description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.'
 }
 
+const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const WRAP = 'max-w-screen-xl mx-auto'
+const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+
 export default function BlogPage() {
   const posts = getAllPosts()
   const featured = posts[0]
@@ -19,29 +23,32 @@ export default function BlogPage() {
     <>
       <Nav />
 
-      <section className="bg-near-black ">
-        <div className="max-w-screen-xl mx-auto pt-16" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      {/* ─── HERO ─────────────────────────────────────────── */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+        <div className={WRAP} style={PAD}>
           <SectionLabel>Insights</SectionLabel>
-          <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-6">
+          <h1 className="text-white font-bold leading-tight tracking-tight max-w-3xl mb-6"
+            style={{ fontSize: 'clamp(2.25rem,6vw,5rem)' }}>
             The YOS Blog
           </h1>
-          <p className="text-white/60 font-light text-xl leading-relaxed max-w-2xl">
+          <p className="text-white/60 font-light leading-relaxed max-w-2xl"
+            style={{ fontSize: 'clamp(1rem,2vw,1.25rem)' }}>
             Practical insights on commercial leasing, fitout, furniture, cleaning, and the property market. No fluff.
           </p>
         </div>
       </section>
 
-      <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-
+      {/* ─── POSTS ────────────────────────────────────────── */}
+      <section className="bg-white" style={SEC}>
+        <div className={WRAP} style={PAD}>
           {posts.length === 0 ? (
             <p className="text-mid-grey font-light text-lg">Posts coming soon.</p>
           ) : (
             <>
               {/* Featured post */}
               {featured && (
-                <Link href={`/blog/${featured.slug}`} className="no-underline group block mb-8 md:mb-16">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-gray-200 rounded-sm overflow-hidden hover:border-teal transition-colors duration-200">
+                <Link href={`/blog/${featured.slug}`} className="no-underline group block mb-10 md:mb-16">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 border border-gray-200 overflow-hidden hover:border-teal transition-colors duration-200">
                     <div className="bg-warm-grey h-64 lg:h-auto" />
                     <div className="p-10 lg:p-14 flex flex-col justify-center">
                       <div className="flex items-center gap-3 mb-4">
@@ -52,7 +59,8 @@ export default function BlogPage() {
                           {new Date(featured.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}
                         </span>
                       </div>
-                      <h2 className="text-near-black font-bold text-3xl lg:text-4xl leading-tight mb-4 group-hover:text-teal transition-colors">
+                      <h2 className="text-near-black font-bold leading-tight mb-4 group-hover:text-teal transition-colors"
+                        style={{ fontSize: 'clamp(1.5rem,2.5vw,2.25rem)' }}>
                         {featured.title}
                       </h2>
                       <p className="text-charcoal font-light text-base leading-relaxed mb-6">{featured.excerpt}</p>
@@ -67,7 +75,7 @@ export default function BlogPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {rest.map(post => (
                     <Link key={post.slug} href={`/blog/${post.slug}`} className="no-underline group">
-                      <div className="border border-gray-200 rounded-sm p-8 hover:border-teal transition-colors duration-200 h-full flex flex-col">
+                      <div className="border border-gray-200 p-8 hover:border-teal transition-colors duration-200 h-full flex flex-col">
                         <div className="flex items-center gap-3 mb-4">
                           <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[post.division as Division]}`}>
                             {DIVISION_LABELS[post.division as Division]}

@@ -225,8 +225,8 @@ export default function LeaseComparisonPage() {
       <Nav />
 
       {/* Hero */}
-      <section className="bg-near-black">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,10vw,9rem)', paddingBottom: 'clamp(3rem,7vw,7rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Lease Comparison Tool</h1>
           <p className="text-white/60 font-light text-lg max-w-2xl">
@@ -248,7 +248,7 @@ export default function LeaseComparisonPage() {
       </section>
 
       {/* Input */}
-      <section className="bg-white py-16">
+      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
           <div className="overflow-x-auto -mx-4 px-4">
@@ -323,7 +323,7 @@ export default function LeaseComparisonPage() {
 
       {/* Results */}
       {validResults.length > 0 && (
-        <section id="results" className="bg-warm-grey py-16">
+        <section id="results" className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
             {/* Verdict banner */}
@@ -446,7 +446,7 @@ export default function LeaseComparisonPage() {
       )}
 
       {/* CTA */}
-      <section className="bg-near-black py-14 md:py-28 text-center">
+      <section className="bg-near-black text-center" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want us to run the numbers for real?</h2>
           <p className="text-white/60 font-light text-lg mb-8">
