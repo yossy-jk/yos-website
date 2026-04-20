@@ -474,13 +474,15 @@ export default function LeaseComparisonPage() {
       )}
 
       {/* CTA */}
-      <section className="bg-near-black text-center" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want us to run the numbers for real?</h2>
-          <p className="text-white/60 font-light text-lg mb-8">
-            We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better — and what to negotiate.
-          </p>
-          <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Lease Review Call</Button>
+          <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
+            <h2 className="text-white font-bold text-4xl leading-tight mb-4 w-full">Want us to run the numbers for real?</h2>
+            <p className="text-white/60 font-light text-lg mb-8 w-full">
+              We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better — and what to negotiate.
+            </p>
+            <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Lease Review Call</Button>
+          </div>
         </div>
       </section>
 

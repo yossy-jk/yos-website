@@ -144,7 +144,7 @@ export default function CapRateCalculatorPage() {
 
                 <button onClick={calculate} disabled={!canCalc}
                   className={`font-bold transition-all ${canCalc ? 'bg-teal text-white hover:bg-dark-teal cursor-pointer' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', alignSelf: 'flex-start' }}>
+                  style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', alignSelf: 'flex-start', borderRadius: '0.5rem' }}>
                   Calculate →
                 </button>
               </div>
@@ -215,8 +215,11 @@ export default function CapRateCalculatorPage() {
             </div>
           </div>
 
+          {/* spacer */}
+          <div style={{ paddingBottom: 'clamp(2rem,4vw,3rem)' }} />
+
           {/* CTA */}
-          <div className="mt-14 md:mt-20 pt-10 border-t border-white/8 max-w-2xl">
+          <div className="mt-20 md:mt-28 pt-12 border-t border-white/8 max-w-2xl">
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.7rem' }}>Want expert analysis?</p>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-4"
               style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
