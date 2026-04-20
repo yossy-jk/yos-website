@@ -111,7 +111,7 @@ export default function ExitPopup() {
               style={{ fontSize: '0.95rem', lineHeight: 1.85 }}
             >
               Drop your details and we&apos;ll send you a $100 voucher toward any YOS furniture or fitout project.
-              Minimum order $1,000 ex GST. Valid for 90 days.
+              Minimum order $1,000 ex GST. Valid for 7 days only.
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '1rem' }}>
