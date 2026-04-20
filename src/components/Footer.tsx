@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-1">
             <p className="text-white font-black text-xs tracking-[0.2em] uppercase mb-3">Your Office Space</p>
             <p className="text-white/35 text-sm leading-relaxed font-light">
-              Newcastle&apos;s commercial property team. Lease, fitout, furniture, cleaning.
+              Australia&apos;s tenant-side commercial property team. Lease, fitout, furniture, cleaning.
             </p>
           </div>
 

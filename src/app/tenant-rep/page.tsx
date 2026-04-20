@@ -125,7 +125,7 @@ export default function TenantRepPage() {
               {
                 step: '02',
                 title: 'Market Search',
-                body: 'We canvass the market — on-market, off-market, pre-release. Newcastle commercial inside out. We find options your broker missed.'
+                body: 'We canvass the market — on-market, off-market, pre-release. Commercial inside out. We find options your broker missed.'
               },
               {
                 step: '03',
@@ -230,7 +230,7 @@ export default function TenantRepPage() {
               {
                 title: 'Market Comparison',
                 items: [
-                  'Rate benchmarking across Newcastle',
+                  'Rate benchmarking across your market',
                   'Comparable properties',
                   'Market trends',
                   'Negotiating leverage data'
