@@ -78,7 +78,7 @@ export default function PurchaseChecklistPage() {
       <Nav />
 
       <section className="bg-near-black ">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Commercial Purchase Checklist</h1>
           <p className="text-white/60 font-light text-lg leading-relaxed">
@@ -88,7 +88,7 @@ export default function PurchaseChecklistPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
           {/* Progress */}
           <div className="mb-10 bg-warm-grey rounded-sm p-6">

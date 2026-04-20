@@ -42,11 +42,11 @@ export default function ResourcesPage() {
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Resources</p>
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-8"
-              style={{ fontSize: 'clamp(2.75rem,6vw,6.5rem)' }}>
+              style={{ fontSize: 'clamp(2.25rem,6vw,6.5rem)' }}>
               Tools. Insights.<br />Real outcomes.
             </h1>
             <p className="text-white/60 font-light leading-relaxed"
-              style={{ fontSize: '1.2rem', maxWidth: '38rem', lineHeight: 1.75 }}>
+              style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.75 }}>
               Free tools for commercial property decisions, practical articles, and real project case studies. No sign-up required.
             </p>
           </FadeIn>
@@ -58,8 +58,8 @@ export default function ResourcesPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Free tools</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
-              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Built for decisions.<br />Free to use.
             </h2>
           </FadeIn>
@@ -102,7 +102,7 @@ export default function ResourcesPage() {
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Articles</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight"
-                  style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
                   Insights &amp; advice.
                 </h2>
               </div>
@@ -165,7 +165,7 @@ export default function ResourcesPage() {
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Case studies</p>
                 <h2 className="text-white font-black uppercase leading-tight tracking-tight"
-                  style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
                   Real projects.<br />Real outcomes.
                 </h2>
               </div>
@@ -216,11 +216,11 @@ export default function ResourcesPage() {
         <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
-              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Tools get you started.<br />A conversation gets you moving.
             </h2>
             <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
-              style={{ fontSize: '1.15rem', maxWidth: '36rem', lineHeight: 1.75 }}>
+              style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
               Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
             </p>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"

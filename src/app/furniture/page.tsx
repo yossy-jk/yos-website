@@ -143,7 +143,7 @@ export default function FurniturePage() {
             <div>
               <SectionLabel>Who we work with</SectionLabel>
               <h2 className="text-white font-bold leading-tight mb-8"
-                style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
+                style={{ fontSize: 'clamp(1.6rem,3.5vw,3rem)' }}>
                 Private businesses, councils, schools, and health facilities across Australia.
               </h2>
               <p className="text-white/60 font-light text-lg leading-relaxed mb-8 max-w-2xl">

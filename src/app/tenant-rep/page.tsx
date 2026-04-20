@@ -79,7 +79,7 @@ export default function TenantRepPage() {
           <FadeIn>
             <SectionLabel>The Guarantee</SectionLabel>
             <h2 className="text-white font-black leading-tight mb-6 sm:mb-8"
-              style={{ fontSize: 'clamp(1.9rem, 5vw, 4rem)' }}>
+              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
               We pay for ourselves.<br />
               <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
             </h2>

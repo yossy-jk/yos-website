@@ -167,7 +167,7 @@ export default function Home() {
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
         <Image src={IMAGES.meeting} alt="Business meeting" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
-        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
               We pick up the phone. We show up. We deliver.
@@ -181,7 +181,7 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-16"
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '20ch' }}>
               Someone genuinely<br />in your corner.
             </h2>
@@ -197,7 +197,7 @@ export default function Home() {
                 <div className="bg-near-black border border-white/8 md:border-0" style={{ padding: '2.5rem 2rem' }}>
                   <div style={{ width: '2.5rem', height: '2px', background: '#00B5A5', marginBottom: '2rem' }} />
                   <h3 className="text-white font-black uppercase tracking-tight mb-5"
-                    style={{ fontSize: '1.2rem', letterSpacing: '-0.01em' }}>
+                    style={{ fontSize: '1rem', letterSpacing: '-0.01em' }}>
                     {p.title}
                   </h3>
                   <p className="text-white/55 font-light leading-relaxed"
@@ -216,7 +216,7 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               What clients say<br />about working with us.
             </h2>
@@ -254,7 +254,7 @@ export default function Home() {
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
         <Image src={IMAGES.boardroom} alt="Modern office boardroom" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
-        <div className="absolute inset-0 flex items-center justify-end" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+        <div className="absolute inset-0 flex items-center justify-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '20ch' }}>
               Spaces built around how your business works.
@@ -279,7 +279,7 @@ export default function Home() {
               Is your lease costing you more than it should?
             </h2>
             <p className="text-white/80 font-light leading-relaxed mb-16 mx-auto"
-              style={{ fontSize: '1.2rem', maxWidth: '34rem', lineHeight: 1.8 }}>
+              style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.8 }}>
               Plain-English risk analysis. Every clause rated Red, Amber, or Green.
               Free summary — or a full report for $97.
             </p>
@@ -302,7 +302,7 @@ export default function Home() {
 
       {/* ─── HOW WE WORK ───────────────────────── white */}
       <section className="bg-white" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
               <div>
@@ -369,11 +369,11 @@ export default function Home() {
               <div>
                 <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">Get started</p>
                 <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8"
-                  style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
+                  style={{ fontSize: 'clamp(1.75rem,4vw,4rem)' }}>
                   Let&apos;s have<br />a conversation.
                 </h2>
                 <p className="text-white/55 font-light leading-relaxed mb-12"
-                  style={{ fontSize: '1.15rem', lineHeight: 1.8, maxWidth: '30rem' }}>
+                  style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '30rem' }}>
                   No obligation. No pitch. Tell us what you are working with and we will give you an honest view of your options. Most people find it useful even if they are not ready to move yet.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">

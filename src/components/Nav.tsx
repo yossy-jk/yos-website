@@ -40,7 +40,7 @@ export default function Nav() {
       }`}>
         <div
           className="max-w-screen-xl mx-auto flex justify-between items-center h-16 md:h-20"
-          style={{ paddingLeft: 'clamp(1.5rem,5vw,4rem)', paddingRight: 'clamp(1.5rem,5vw,4rem)' }}
+          style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
           <Link href="/" onClick={() => setOpen(false)}
             className="text-white font-black no-underline z-50 relative uppercase"
@@ -143,7 +143,7 @@ export default function Nav() {
             {SERVICE_LINKS.map(link => (
               <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
                 className="text-white no-underline font-bold hover:text-teal transition-colors"
-                style={{ fontSize: '1.2rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
+                style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
                 {link.label}
               </Link>
             ))}
@@ -153,7 +153,7 @@ export default function Nav() {
             {NAV_LINKS.map(link => (
               <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
                 className="text-white no-underline font-bold hover:text-teal transition-colors"
-                style={{ fontSize: '1.2rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
+                style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
                 {link.label}
               </Link>
             ))}
