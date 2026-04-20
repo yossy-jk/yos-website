@@ -96,7 +96,7 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 md:mt-32 pt-10 border-t border-white/10">
               {[
                 { stat: '100+',           label: 'Projects delivered' },
-                { stat: 'Tenant-only',    label: 'Zero conflicts of interest' },
+                { stat: 'In Your Corner', label: 'Every project. Every client.' },
                 { stat: '12+ years',      label: 'Industry experience' },
                 { stat: 'Lease to clean', label: 'One team, no handoffs' },
               ].map(item => (

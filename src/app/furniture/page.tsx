@@ -57,7 +57,7 @@ export default function FurniturePage() {
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
-                { stat: '200+', label: 'Projects delivered in the Hunter' },
+                { stat: '200+', label: 'Projects delivered' },
                 { stat: '4–6 weeks', label: 'Typical delivery & install' },
                 { stat: '$0', label: 'Hidden charges or surprises' },
                 { stat: '1', label: 'Point of contact, start to finish' }
@@ -127,13 +127,13 @@ export default function FurniturePage() {
 
       {/* WHO WE WORK WITH */}
       <section className="bg-near-black py-20 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="max-w-screen-xl mx-auto px-8 md:px-14 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
               <h2 className="text-white font-bold leading-tight mb-8"
                 style={{ fontSize: 'clamp(1.75rem, 3.5vw, 3rem)' }}>
-                Private businesses, councils, schools, and health facilities across the Hunter.
+                Private businesses, councils, schools, and health facilities across Australia.
               </h2>
               <p className="text-white/60 font-light text-lg leading-relaxed mb-8 max-w-2xl">
                 We work with organisations of all sizes — from 5-person professional services firms to multi-site government and health sector clients. The spec, the process, and the standard of work is the same regardless of project size.
@@ -146,9 +146,9 @@ export default function FurniturePage() {
           <FadeIn direction="right">
             <div className="flex flex-col gap-6">
               {[
-                { label: 'Commercial offices', body: 'Private sector businesses across Newcastle, Maitland, Lake Macquarie and the broader Hunter region.' },
-                { label: 'Councils & government', body: 'Local government and public sector organisations across the Hunter and Mid-North Coast.' },
-                { label: 'Schools & education', body: 'Student furniture, staff workstations, staffrooms and learning spaces across the region.' },
+                { label: 'Commercial offices', body: 'Private sector businesses of all sizes — from boutique professional services to multi-site operations.' },
+                { label: 'Councils & government', body: 'Local government and public sector organisations across Australia.' },
+                { label: 'Schools & education', body: 'Student furniture, staff workstations, staffrooms and learning spaces.' },
                 { label: 'Health & community', body: 'Medical practices, NDIS environments, allied health and community facilities.' }
               ].map((item) => (
                 <div key={item.label} className="pl-6 border-l-4 border-teal">
