@@ -7,7 +7,7 @@ import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 /* WRAP: Unispace-standard margins — content sits in ~65% of viewport on large screens */
 const WRAP = 'max-w-screen-xl mx-auto'
-const PAD  = { padding: '0 clamp(2rem, 10vw, 10rem)' }
+const PAD  = { paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }
 
 const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', href: '/tenant-rep' },
@@ -57,7 +57,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/58" />
 
-        <div className={`relative z-10 w-full ${WRAP}`} style={{ paddingTop: 'clamp(8rem,18vw,14rem)', paddingBottom: 'clamp(6rem,14vw,10rem)', ...PAD }}>
+        <div className={`relative z-10 w-full ${WRAP}`} style={{ paddingTop: 'clamp(8rem,18vw,14rem)', paddingBottom: 'clamp(6rem,14vw,10rem)', paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-6" style={{ fontSize: '0.7rem' }}>
               Commercial Property Advisors — Australia
@@ -115,7 +115,7 @@ export default function Home() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What we do</p>
-            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-12"
+            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-10"
               style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
               One team. Everything covered.
             </h2>
@@ -171,7 +171,7 @@ export default function Home() {
               { title: 'Start to finish', body: 'Lease, fitout, furniture, cleaning. One relationship, one team, no gaps and no handoffs.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="bg-near-black" style={{ padding: '2.5rem 2rem' }}>
+                <div className="bg-near-black" style={{ padding: '2.5rem 2.5rem' }}>
                   <div className="w-8 h-px bg-teal mb-6" />
                   <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
                   <p className="text-white/45 font-light leading-relaxed" style={{ fontSize: '0.85rem' }}>{p.body}</p>
