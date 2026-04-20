@@ -97,40 +97,60 @@ export default function FurniturePage() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               {
                 category: 'Workstations & Desks',
-                items: ['Sit-stand desks', 'Benching systems', 'Single and back-to-back workstations', 'Custom desk configurations', 'Cable management solutions'],
-                note: 'Designed for the way your team actually works.'
+                items: ['Sit-stand desks', 'Benching systems', 'Single and back-to-back workstations', 'Custom desk configurations', 'Cable management'],
+                note: 'Designed for the way your team actually works.',
+                image: '/images/furniture/halo-workstation.jpeg',
+                imageAlt: 'Halo workstation system'
               },
               {
                 category: 'Seating',
                 items: ['Ergonomic task chairs', 'Executive seating', 'Meeting and boardroom chairs', 'Visitor and reception seating', 'Breakout and lounge seating'],
-                note: 'The right chair makes a measurable difference.'
+                note: 'The right chair makes a measurable difference.',
+                image: '/images/furniture/ergo-task-chair.png',
+                imageAlt: 'Ergonomic task chair'
               },
               {
                 category: 'Storage & Filing',
                 items: ['Pedestal and mobile storage', 'Overhead lockers', 'Tall storage and shelving', 'Shared filing systems', 'Personal lockers'],
-                note: 'Clean spaces start with proper storage.'
+                note: 'Clean spaces start with proper storage.',
+                image: '/images/furniture/capri-workstation.png',
+                imageAlt: 'Workstation with integrated storage'
               },
               {
                 category: 'Collaboration & Meeting',
-                items: ['Boardroom and meeting tables', 'Collaborative workbenches', 'Breakout furniture', 'Phone booths and quiet pods', 'Whiteboard and presentation walls'],
-                note: 'Spaces that make meetings worth having.'
+                items: ['Boardroom and meeting tables', 'Collaborative workbenches', 'Breakout furniture', 'Phone booths and quiet pods', 'Presentation walls'],
+                note: 'Spaces that make meetings worth having.',
+                image: '/images/furniture/collaboration-tables.png',
+                imageAlt: 'Collaboration and meeting furniture'
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
-                  <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">{cat.category}</h3>
-                  <ul className="space-y-3 mb-6">
-                    {cat.items.map((item, j) => (
-                      <li key={j} className="flex items-start pl-4 border-l-2 border-teal">
-                        <span className="text-charcoal font-light text-sm">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="text-mid-grey font-light text-sm italic border-t border-gray-300 pt-4">{cat.note}</p>
+                <div className="bg-warm-grey rounded-sm overflow-hidden h-full flex flex-col">
+                  {/* Product image */}
+                  <div className="relative overflow-hidden" style={{ height: '14rem' }}>
+                    <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
+                    <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.18)' }} />
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                      <span className="text-white font-black text-lg tracking-tight" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{cat.category}</span>
+                    </div>
+                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#00B5A5' }} />
+                  </div>
+                  {/* Content */}
+                  <div className="p-7 flex flex-col flex-1">
+                    <ul className="space-y-2 mb-5 flex-1">
+                      {cat.items.map((item, j) => (
+                        <li key={j} className="text-charcoal font-light text-sm flex items-center gap-2">
+                          <span className="text-teal font-bold" style={{ fontSize: '0.7rem' }}>—</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="text-mid-grey font-light text-xs border-t border-gray-200 pt-4">{cat.note}</p>
+                  </div>
                 </div>
               </FadeIn>
             ))}
@@ -147,20 +167,40 @@ export default function FurniturePage() {
               What a well-specified workspace looks like.
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Row 1 — 3 images */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             {[
-              { src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80', alt: 'Modern open office' },
-              { src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80', alt: 'Bright collaborative workspace' },
-              { src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80', alt: 'Executive meeting room' },
+              { src: '/images/furniture/opal-office.jpg', alt: 'Opal office fitout', label: 'Open Plan' },
+              { src: '/images/furniture/arco-desk.png', alt: 'Arco desk workstation', label: 'Workstations' },
+              { src: '/images/furniture/orca-chair.jpg', alt: 'Orca chair', label: 'Seating' },
             ].map((img, i) => (
-              <FadeIn key={i} delay={i * 100} direction="up">
-                <div className="overflow-hidden rounded-sm aspect-[4/3] relative">
-                  <Image src={img.src} alt={img.alt} fill className="w-full h-full object-cover rounded-sm" />
+              <FadeIn key={i} delay={i * 80} direction="up">
+                <div className="overflow-hidden rounded-sm aspect-[4/3] relative group">
+                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75), transparent)' }}>
+                    <span className="text-white font-bold text-xs tracking-widest uppercase">{img.label}</span>
+                  </div>
                 </div>
               </FadeIn>
             ))}
           </div>
-          <p className="text-mid-grey font-light text-sm mt-6">Example projects. Actual project photography available on request.</p>
+          {/* Row 2 — 2 wide + 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            {[
+              { src: '/images/furniture/vol19-range.jpg', alt: 'Volume 19 furniture range', label: 'Full Range', span: 'md:col-span-3' },
+              { src: '/images/furniture/halo-workstation.jpeg', alt: 'Halo workstation', label: 'Benching Systems', span: 'md:col-span-2' },
+            ].map((img, i) => (
+              <FadeIn key={i} delay={i * 80} direction="up">
+                <div className={`overflow-hidden rounded-sm relative group ${img.span}`} style={{ height: '16rem' }}>
+                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75), transparent)' }}>
+                    <span className="text-white font-bold text-xs tracking-widest uppercase">{img.label}</span>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <p className="text-mid-grey font-light text-sm mt-5">Product imagery supplied by our manufacturing partners. Specifications and finishes available on request.</p>
         </div>
       </section>
 
