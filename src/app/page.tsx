@@ -85,7 +85,7 @@ export default function Home() {
       {/* ── 2. PROOF BAR ────────────────────── white */}
       <section className="bg-white" style={{ borderBottom: '1px solid #e5e7eb' }}>
         <div className={INNER} style={SECTION_PAD}>
-          <div className="grid grid-cols-2 gap-px bg-gray-100 mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100">
             {[
               { stat: '100+', label: 'Projects delivered' },
               { stat: 'Tenant-side only', label: 'Zero conflicts' },
@@ -135,7 +135,7 @@ export default function Home() {
                       <p className="text-white/40 font-light leading-relaxed" style={{ fontSize: '0.82rem' }}>{service.body}</p>
                     </div>
                   </div>
-                  <span className="text-white/25 font-bold flex-shrink-0 group-hover:text-teal transition-colors duration-200" style={{ fontSize: '1rem', marginTop: '0.15rem' }}>→</span>
+                  <span className="text-teal/40 font-bold flex-shrink-0 group-hover:text-teal transition-colors duration-200" style={{ fontSize: '0.8rem', marginTop: '0.2rem' }}>→</span>
                 </Link>
               </FadeIn>
             ))}
@@ -211,11 +211,11 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn delay={200}>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/lease-review" className="bg-teal text-white font-black rounded-sm hover:bg-dark-teal transition-colors no-underline text-center" style={{ fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1.1rem 2rem' }}>
+            <div className="flex flex-col gap-3">
+              <Link href="/lease-review" className="bg-teal text-white font-black rounded-sm hover:bg-dark-teal transition-colors no-underline text-center block" style={{ fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1.1rem 2rem' }}>
                 Get Free Summary →
               </Link>
-              <Link href="/lease-review" className="text-white font-bold rounded-sm hover:text-teal transition-colors no-underline text-center" style={{ fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1.1rem 2rem', border: '1px solid rgba(255,255,255,0.3)' }}>
+              <Link href="/lease-review" className="text-white font-bold rounded-sm hover:text-teal transition-colors no-underline text-center block" style={{ fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1.1rem 2rem', border: '1px solid rgba(255,255,255,0.3)' }}>
                 Full Report — $97
               </Link>
             </div>
@@ -238,7 +238,7 @@ export default function Home() {
                   Cap rate calculator, lease comparison, purchase checklist and more. No sign-up.
                 </p>
               </div>
-              <Link href="/resources" className="flex-shrink-0 text-near-black font-black rounded-sm hover:text-teal hover:border-teal transition-colors no-underline text-center sm:text-left whitespace-nowrap"
+              <Link href="/resources" className="text-near-black font-black rounded-sm hover:text-teal hover:border-teal transition-colors no-underline text-center block"
                 style={{ fontSize: '0.65rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '0.9rem 1.75rem', border: '1px solid #1A1A1A' }}>
                 View all tools →
               </Link>
