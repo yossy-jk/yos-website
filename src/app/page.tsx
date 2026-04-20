@@ -116,7 +116,7 @@ export default function Home() {
       </section>
 
       {/* ─── SERVICES ──────────────────────────────── white */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What we do</p>
@@ -124,7 +124,7 @@ export default function Home() {
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Four services.<br />One relationship.
             </h2>
-            <p className="text-charcoal font-light leading-relaxed mb-7 md:mb-14" style={{ fontSize: '1.1rem', maxWidth: '40rem', lineHeight: 1.75 }}>
+            <p className="text-charcoal font-light leading-relaxed mb-10 md:mb-16" style={{ fontSize: '1.1rem', maxWidth: '40rem', lineHeight: 1.75 }}>
               Most businesses deal with five different advisors on a single office move. We think that&apos;s too complicated. One relationship, from lease to clean.
             </p>
           </FadeIn>
@@ -190,7 +190,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHY US ────────────────────────────────── near-black */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
@@ -200,14 +200,14 @@ export default function Home() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-px" style={{ background: 'transparent' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {[
               { title: 'We only work for you', body: 'Never the landlord. Never the vendor. You are the only party we answer to.' },
               { title: 'We have done this before', body: 'Hundreds of projects. We know what goes wrong — and how to stop it happening to you.' },
               { title: 'One relationship, not five', body: 'Lease, fitout, furniture, cleaning. One call. One team. You focus on your business.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div style={{ padding: 'clamp(1.25rem,3vw,2rem) clamp(1rem,2.5vw,1.75rem)', background: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #00B5A5' }}>
+                <div style={{ padding: 'clamp(1.75rem,3.5vw,2.5rem) clamp(1.5rem,3vw,2rem)', background: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #00B5A5' }}>
                   <h3 className="text-white font-black uppercase tracking-tight mb-4"
                     style={{ fontSize: '1rem' }}>
                     {p.title}
@@ -224,7 +224,7 @@ export default function Home() {
       </section>
 
       {/* ─── TESTIMONIALS ──────────────────────────── warm grey */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
@@ -233,7 +233,7 @@ export default function Home() {
               Straight from<br />the people we work with.
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
                 <div className="bg-white flex flex-col h-full" style={{ padding: 'clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3vw,2rem)' }}>
@@ -276,7 +276,7 @@ export default function Home() {
       </section>
 
       {/* ─── LEASEINTEL ────────────────────────────── teal */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(3.5rem,8vw,10rem)', paddingBottom: 'clamp(3.5rem,8vw,10rem)' }}>
+      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <div className="inline-flex items-center gap-2 border border-white/30 mb-10"
@@ -313,7 +313,7 @@ export default function Home() {
 
 
       {/* ─── HOW WE WORK ───────────────────────── white */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
@@ -340,7 +340,7 @@ export default function Home() {
                   { step: '04', title: 'We stay', body: 'We do not disappear. Most clients come back for the next decision.' },
                 ].map((item, i) => (
                   <FadeIn key={item.step} delay={i * 80}>
-                    <div className="flex gap-6 items-start py-6 border-b border-gray-100">
+                    <div className="flex gap-6 items-start py-7 border-b border-gray-100">
                       <span className="text-teal font-black flex-shrink-0" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '2rem', paddingTop: '0.2rem' }}>{item.step}</span>
                       <div>
                         <p className="text-near-black font-black uppercase tracking-tight mb-2" style={{ fontSize: '1.15rem', letterSpacing: '-0.01em' }}>{item.title}</p>
@@ -356,7 +356,7 @@ export default function Home() {
       </section>
 
       {/* ─── CTA ───────────────────────────────────── dark, clean, centred */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">
