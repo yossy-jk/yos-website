@@ -62,23 +62,32 @@ export default function Nav() {
                 </svg>
               </button>
 
-              {/* Dropdown panel */}
+              {/* Dropdown panel — full width, attached to nav bottom */}
               {servicesOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-near-black border border-white/10 shadow-xl z-50"
-                  style={{ minWidth: '22rem', padding: '0.75rem 0' }}>
-                  {SERVICE_LINKS.map(link => (
-                    <Link key={link.href} href={link.href}
-                      onClick={() => setServicesOpen(false)}
-                      className="no-underline flex flex-col hover:bg-white/5 transition-colors duration-150"
-                      style={{ padding: '0.9rem 1.5rem' }}>
-                      <span className="text-white font-bold" style={{ fontSize: '0.8rem', letterSpacing: '0.05em' }}>
-                        {link.label}
-                      </span>
-                      <span className="text-white/35 font-light mt-0.5" style={{ fontSize: '0.72rem' }}>
-                        {link.tagline}
-                      </span>
-                    </Link>
-                  ))}
+                <div
+                  className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50" ref={dropdownRef}
+                  style={{ top: '80px' }}
+                >
+                  <div className="max-w-screen-xl mx-auto"
+                    style={{ padding: '3rem clamp(2rem, 10vw, 10rem)' }}>
+                    <div className="grid grid-cols-5 gap-px bg-white/8">
+                      {SERVICE_LINKS.map(link => (
+                        <Link key={link.href} href={link.href}
+                          onClick={() => setServicesOpen(false)}
+                          className="no-underline flex flex-col bg-near-black hover:bg-white/5 transition-colors duration-150"
+                          style={{ padding: '1.75rem 1.5rem' }}>
+                          <span className="text-white font-black uppercase tracking-tight block mb-2"
+                            style={{ fontSize: '0.875rem' }}>
+                            {link.label}
+                          </span>
+                          <span className="text-white/40 font-light leading-snug"
+                            style={{ fontSize: '0.75rem' }}>
+                            {link.tagline}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -112,6 +121,15 @@ export default function Nav() {
           </button>
         </div>
       </nav>
+
+      {/* Desktop backdrop — shades page behind services dropdown */}
+      {servicesOpen && (
+        <div
+          className="fixed inset-0 z-40 hidden md:block"
+          style={{ background: 'rgba(0,0,0,0.55)', top: '80px' }}
+          onClick={() => setServicesOpen(false)}
+        />
+      )}
 
       {/* Mobile fullscreen overlay */}
       <div className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ${
