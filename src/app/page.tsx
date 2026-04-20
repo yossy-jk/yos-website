@@ -85,7 +85,7 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn delay={340}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mt-28 md:mt-36 pt-10 border-t border-white/10">
+            <div className="hidden md:grid grid-cols-4 gap-10 mt-36 pt-10 border-t border-white/10">
               {[
                 { stat: '100+', label: 'Projects delivered' },
                 { stat: 'In Your Corner', label: 'Every project. Every client.' },
@@ -118,7 +118,7 @@ export default function Home() {
             {SERVICES.map((s, i) => (
               <FadeIn key={s.href} delay={i * 60}>
                 <Link href={s.href} className="group no-underline block"
-                  style={{ borderTop: i === 0 ? '1px solid #efefef' : undefined, borderBottom: '1px solid #efefef', padding: '2.75rem 0' }}>
+                  style={{ borderTop: i === 0 ? '1px solid #efefef' : undefined, borderBottom: '1px solid #efefef', paddingTop: 'clamp(1.75rem,4vw,2.75rem)', paddingBottom: 'clamp(1.75rem,4vw,2.75rem)' }}>
                   <div className="flex items-start justify-between gap-8">
                     <div className="flex-1">
                       {/* Number + Title row */}
@@ -133,7 +133,7 @@ export default function Home() {
                         </h3>
                       </div>
                       {/* Body below, indented to align with title */}
-                      <div style={{ paddingLeft: 'calc(2rem + 1.5rem)' }}>
+                      <div className="pl-0 md:pl-14">
                         <p className="text-charcoal font-light leading-relaxed"
                           style={{ fontSize: '1rem', lineHeight: 1.75, maxWidth: '42rem' }}>
                           {s.body}
@@ -148,6 +148,14 @@ export default function Home() {
                 </Link>
               </FadeIn>
             ))}
+          </div>
+          <div className="md:hidden mt-8 text-center">
+            <Link href="/blog"
+              className="text-teal font-bold uppercase tracking-widest no-underline hover:text-dark-teal transition-colors"
+              style={{ fontSize: '0.72rem' }}
+            >
+              Read more client stories →
+            </Link>
           </div>
         </div>
       </section>
@@ -176,14 +184,14 @@ export default function Home() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: 'rgba(255,255,255,0.07)' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-px" style={{ background: 'transparent' }}>
             {[
               { title: 'Tenant-side only', body: 'We never represent landlords or vendors. No split loyalty, no backdoor deals. Every decision is made in your interest.' },
               { title: '12+ years experience', body: 'Our team has delivered hundreds of commercial property projects across fitout, furniture, leasing and buyers agency. We know what goes wrong.' },
               { title: 'Start to finish', body: 'Lease, fitout, furniture, cleaning. One team, one relationship. Your business keeps moving while we manage the rest.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="bg-near-black" style={{ padding: '3.5rem 3rem' }}>
+                <div className="bg-near-black border border-white/8 md:border-0" style={{ padding: '2.5rem 2rem' }}>
                   <div style={{ width: '2.5rem', height: '2px', background: '#00B5A5', marginBottom: '2rem' }} />
                   <h3 className="text-white font-black uppercase tracking-tight mb-5"
                     style={{ fontSize: '1.2rem', letterSpacing: '-0.01em' }}>
@@ -213,7 +221,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="bg-white flex flex-col h-full" style={{ padding: '3rem 2.5rem' }}>
+                <div className={`bg-white flex flex-col h-full ${i > 0 ? 'hidden md:flex' : ''}`} style={{ padding: '3rem 2.5rem' }}>
                   <Stars />
                   <p className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
                     style={{ fontSize: '1.05rem', lineHeight: 1.85 }}>
@@ -227,6 +235,14 @@ export default function Home() {
                 </div>
               </FadeIn>
             ))}
+          </div>
+          <div className="md:hidden mt-8 text-center">
+            <Link href="/blog"
+              className="text-teal font-bold uppercase tracking-widest no-underline hover:text-dark-teal transition-colors"
+              style={{ fontSize: '0.72rem' }}
+            >
+              Read more client stories →
+            </Link>
           </div>
         </div>
       </section>
@@ -283,7 +299,7 @@ export default function Home() {
       {/* ─── CTA ───────────────────────────────────── dark, team-focused */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
             {/* Left — bold statement */}
             <FadeIn>
