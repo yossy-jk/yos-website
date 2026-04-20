@@ -135,15 +135,15 @@ export default function Nav() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setServicesOpen(false)}
-                    className="no-underline flex flex-col bg-near-black hover:bg-white/5 transition-colors duration-150"
-                    style={{ padding: '2rem 1.75rem' }}
+                    className="no-underline flex flex-col justify-between bg-near-black hover:bg-white/5 transition-colors duration-150"
+                    style={{ padding: '2rem 1.75rem', minHeight: '7rem' }}
                   >
-                    <span className="text-white font-black uppercase tracking-tight block mb-2"
-                      style={{ fontSize: '0.9rem' }}>
+                    <span className="text-white font-black uppercase leading-tight block mb-3"
+                      style={{ fontSize: '0.82rem', letterSpacing: '0.03em' }}>
                       {link.label}
                     </span>
-                    <span className="text-white/40 font-light leading-snug"
-                      style={{ fontSize: '0.78rem' }}>
+                    <span className="text-white/40 font-light"
+                      style={{ fontSize: '0.75rem' }}>
                       {link.tagline}
                     </span>
                   </Link>
