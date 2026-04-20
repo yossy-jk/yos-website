@@ -77,32 +77,34 @@ export default function TenantRepPage() {
 
       {/* ─── THE GUARANTEE ────────────────────────────────── */}
       <section className="bg-near-black border-t border-white/10" style={SEC}>
-        <div className={`${WRAP} text-center`} style={PAD}>
-          <FadeIn>
-            <SectionLabel>The Guarantee</SectionLabel>
-            <h2 className="text-white font-black leading-tight mb-6 sm:mb-8"
-              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
-              We pay for ourselves.<br />
-              <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
-            </h2>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-12"
-              style={{ fontSize: 'clamp(1rem,2vw,1.2rem)' }}>
-              Our fee for tenant representation is $12,000 ex GST or 3 months rent equivalent — whichever is higher.
-              The savings we negotiate — rent-free periods, fitout contributions, reduced make-good liability,
-              below-market rent — routinely exceed this multiple times over.
-            </p>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <div className="border border-teal/40 p-8 sm:p-10 lg:p-12 bg-teal/5 max-w-2xl mx-auto">
-              <p className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-relaxed mb-4">
-                If the documented savings we achieve don&apos;t exceed our professional fee — we waive it.
+        <div className={WRAP} style={PAD}>
+          <div className="max-w-3xl">
+            <FadeIn>
+              <SectionLabel>The Guarantee</SectionLabel>
+              <h2 className="text-white font-black leading-tight mb-6 sm:mb-8"
+                style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
+                We pay for ourselves.<br />
+                <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
+              </h2>
+              <p className="text-white/65 font-light leading-relaxed mb-10 sm:mb-12"
+                style={{ fontSize: 'clamp(1rem,2vw,1.2rem)' }}>
+                Our fee for tenant representation is $12,000 ex GST or 3 months rent equivalent — whichever is higher.
+                The savings we negotiate — rent-free periods, fitout contributions, reduced make-good liability,
+                below-market rent — routinely exceed this multiple times over.
               </p>
-              <p className="text-white/55 font-light text-sm sm:text-base leading-relaxed">
-                No invoice. No fee. This is not a marketing promise. It is a commercial commitment.
-                We are on your side. If we don&apos;t deliver a return, we don&apos;t charge for it.
-              </p>
-            </div>
-          </FadeIn>
+            </FadeIn>
+            <FadeIn delay={100}>
+              <div className="border border-teal/40 p-8 sm:p-10 lg:p-12 bg-teal/5">
+                <p className="text-white font-bold text-lg sm:text-xl lg:text-2xl leading-relaxed mb-4">
+                  If the documented savings we achieve don&apos;t exceed our professional fee — we waive it.
+                </p>
+                <p className="text-white/55 font-light text-sm sm:text-base leading-relaxed">
+                  No invoice. No fee. This is not a marketing promise. It is a commercial commitment.
+                  We are on your side. If we don&apos;t deliver a return, we don&apos;t charge for it.
+                </p>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
@@ -161,7 +163,7 @@ export default function TenantRepPage() {
             </p>
           </FadeIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 items-stretch">
             {[
               { risk: 'Above-market rent', detail: 'Most landlords open at 10–20% above fair market rate. Without comparable data, most tenants sign without question.' },
               { risk: 'Uncapped make-good', detail: 'Make-good clauses can cost $200–$400/sqm at lease end. Most standard leases have no cap and no clarity on what that means.' },
@@ -171,10 +173,8 @@ export default function TenantRepPage() {
               { risk: 'Outgoings exposure', detail: 'Gross vs. net leases are not the same. Unexpected outgoings charges have blindsided clients by $30–$60k over a five-year term.' }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors" style={{ padding: 'clamp(1.5rem,3vw,2rem)' }}>
-                  <div className="mb-3">
-                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug">{item.risk}</h3>
-                  </div>
+                <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors h-full" style={{ padding: 'clamp(1.5rem,3vw,2rem)' }}>
+                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug mb-3">{item.risk}</h3>
                   <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.detail}</p>
                 </div>
               </FadeIn>
@@ -305,7 +305,7 @@ export default function TenantRepPage() {
               style={{ fontSize: 'clamp(1.7rem,4.5vw,3.75rem)' }}>
               Let&apos;s talk about your next lease.
             </h2>
-            <p className="text-white/80 font-light text-base sm:text-xl leading-relaxed mb-8 sm:mb-12 mx-auto" style={{ maxWidth: '36rem' }}>
+            <p className="text-white/80 font-light text-base sm:text-xl leading-relaxed mb-8 sm:mb-12 mx-auto" style={{ maxWidth: '42rem' }}>
               20 minutes. No pitch. Just a conversation about your space and what you&apos;re trying to achieve.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">

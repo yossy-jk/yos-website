@@ -53,8 +53,8 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-teal py-8 sm:py-12 lg:py-16"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-teal"
+        style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
@@ -91,7 +91,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               First-time commercial buyers to seasoned investors.
             </h2>
@@ -133,7 +133,7 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mb-10 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Every step of the acquisition. Done properly.
             </h2>
@@ -165,13 +165,13 @@ export default function BuyersAgencyPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Newcastle market right now</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-7 md:mb-14 lg:mb-8 md:mb-16 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight mb-10 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Why commercial in the Hunter is the move.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10 sm:mb-8 md:mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
                 figure: '5.5–7.5%',
@@ -241,7 +241,7 @@ export default function BuyersAgencyPage() {
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to buy smart?
             </h2>
-            <p className="text-white/80 font-light text-lg leading-relaxed mb-8 sm:mb-12">
+            <p className="text-white/80 font-light text-lg leading-relaxed mb-8 sm:mb-12 mx-auto" style={{ maxWidth: '38rem' }}>
               Tell us what you&apos;re looking for. We&apos;ll tell you what&apos;s out there and what it would take to get it.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">

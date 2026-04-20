@@ -60,7 +60,7 @@ export default function CleaningPage() {
                 { stat: 'Direct line', label: 'To our team, not a call centre' },
                 { stat: '100%', label: 'Locally owned and operated' },
               ].map(item => (
-                <div key={item.label} className="bg-near-black px-6 py-8 text-center">
+                <div key={item.label} className="bg-near-black text-center" style={{ padding: 'clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem)' }}>
                   <p className="text-teal font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
                   <p className="text-white/50 font-light text-sm leading-snug">{item.label}</p>
                 </div>
@@ -249,9 +249,8 @@ export default function CleaningPage() {
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to move to a better standard?
             </h2>
-            <p className="text-white/80 font-light text-lg leading-relaxed mb-8 sm:mb-12">
-              We&apos;ll visit your site, understand your needs, and give you a clear proposal.
-              No pressure. No surprises.
+            <p className="text-white/80 font-light text-lg leading-relaxed mb-8 sm:mb-12 mx-auto" style={{ maxWidth: '38rem' }}>
+              We&apos;ll visit your site, understand your needs, and give you a clear proposal. No pressure. No surprises.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
               Book a Site Visit

@@ -287,13 +287,12 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mx-auto"
-              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch', marginBottom: '1.5rem' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '26ch', marginBottom: '1.5rem' }}>
               Is your lease costing you more than it should?
             </h2>
             <p className="text-white/80 font-light leading-relaxed mx-auto"
-              style={{ fontSize: '1rem', maxWidth: '30rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
-              Plain-English risk analysis. Every clause rated Red, Amber, or Green.
-              Free summary — or a full report for $97.
+              style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.8, marginBottom: '2.5rem' }}>
+              Plain-English risk analysis. Every clause rated Red, Amber, or Green. Free summary — or a full report for $97.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
               <Link href="/lease-review"
@@ -367,7 +366,7 @@ export default function Home() {
               Let&apos;s have<br />a conversation.
             </h2>
             <p className="text-white/50 font-light leading-relaxed mx-auto"
-              style={{ fontSize: '1rem', lineHeight: 1.75, maxWidth: '28rem', marginBottom: '2rem' }}>
+              style={{ fontSize: '1rem', lineHeight: 1.75, maxWidth: '36rem', marginBottom: '2rem' }}>
               No obligation. No pitch. Tell us what you&apos;re working with — we&apos;ll give you an honest view.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">

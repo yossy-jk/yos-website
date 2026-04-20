@@ -54,7 +54,7 @@ export default function Nav() {
             <div className="relative" ref={wrapperRef}>
               <button
                 onClick={() => setServicesOpen(v => !v)}
-                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0"
+                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
                 style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
               >
                 Services
@@ -78,10 +78,10 @@ export default function Nav() {
                           key={link.href}
                           href={link.href}
                           onClick={() => setServicesOpen(false)}
-                          className="no-underline flex flex-col justify-between bg-near-black hover:bg-white/5 transition-colors"
-                          style={{ padding: 'clamp(1.25rem,3vw,2rem) clamp(1rem,2.5vw,1.75rem)', minHeight: '7rem' }}
+                          className="no-underline flex flex-col bg-near-black hover:bg-white/5 transition-colors"
+                          style={{ padding: '1.75rem 1.5rem' }}
                         >
-                          <span className="text-white font-black uppercase leading-tight block mb-3"
+                          <span className="text-white font-black uppercase leading-tight block mb-2"
                             style={{ fontSize: '0.82rem', letterSpacing: '0.03em' }}>
                             {link.label}
                           </span>

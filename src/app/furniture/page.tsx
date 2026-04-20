@@ -306,7 +306,7 @@ export default function FurniturePage() {
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to kit out your space?
             </h2>
-            <p className="text-white/55 font-light text-lg leading-relaxed mb-8 sm:mb-12">
+            <p className="text-white/55 font-light text-lg leading-relaxed mb-8 sm:mb-12 mx-auto" style={{ maxWidth: '38rem' }}>
               Send us your floor plan, tell us your headcount, and we&apos;ll put together a specification and quote.
             </p>
             <Button href="/resources/furniture-quote" variant="primary" size="lg">

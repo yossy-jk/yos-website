@@ -318,60 +318,62 @@ export default function LeaseReviewPage() {
         <Nav />
 
         {/* HERO */}
-        <section className="bg-near-black relative overflow-hidden" style={{ paddingTop: 'clamp(5rem,12vw,11rem)', paddingBottom: 'clamp(4rem,10vw,8rem)' }}>
+        <section className="bg-near-black relative overflow-hidden" style={{ paddingTop: 'clamp(6rem,12vw,12rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
             backgroundSize: '60px 60px'
           }} />
           <div className="relative max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <FadeIn delay={0}>
-              <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
-                <span className="w-2 h-2 bg-teal rounded-full animate-pulse" />
-                <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ by Your Office Space</span>
-              </div>
-            </FadeIn>
-            <FadeIn delay={80}>
-              <h1 className="text-white font-black leading-[0.95] tracking-tight mb-6"
-                style={{ fontSize: 'clamp(2rem,6vw,5rem)' }}>
-                What&apos;s hiding<br />
-                <span className="text-teal">in your lease?</span>
-              </h1>
-            </FadeIn>
-            <FadeIn delay={160}>
-              <p className="text-white/60 leading-relaxed mb-10 max-w-xl font-light"
-                style={{ fontSize: 'clamp(1rem, 2vw, 1.2rem)' }}>
-                Most business owners sign commercial leases they don&apos;t fully understand.
-                LeaseIntel™ delivers complete, plain-English risk analysis — every clause rated,
-                every risk quantified, every negotiation opportunity identified.
-              </p>
-            </FadeIn>
-            <FadeIn delay={240}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 min-h-[52px]"
-                >
-                  Get Free Summary →
-                </button>
-                <a
-                  href="#full-report"
-                  className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:border-white/60 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200 min-h-[52px]"
-                >
-                  View Full Report — $97
-                </a>
-              </div>
-              <div className="flex flex-wrap gap-x-5 gap-y-1.5 mt-5">
-                {[
-                  { icon: '🔐', text: 'AES-256 encrypted' },
-                  { icon: '🛡️', text: 'Virus scanned' },
-                  { icon: '🇦🇺', text: 'Privacy Act compliant' },
-                ].map(s => (
-                  <span key={s.text} className="flex items-center gap-1.5 text-white/40 text-xs font-medium">
-                    <span>{s.icon}</span>{s.text}
-                  </span>
-                ))}
-              </div>
-            </FadeIn>
+            <div className="max-w-3xl">
+              <FadeIn delay={0}>
+                <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-sm mb-8">
+                  <span className="w-2 h-2 bg-teal rounded-full animate-pulse" />
+                  <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ by Your Office Space</span>
+                </div>
+              </FadeIn>
+              <FadeIn delay={80}>
+                <h1 className="text-white font-black leading-[0.95] tracking-tight mb-6"
+                  style={{ fontSize: 'clamp(2.25rem,6vw,5.5rem)' }}>
+                  What&apos;s hiding<br />
+                  <span className="text-teal">in your lease?</span>
+                </h1>
+              </FadeIn>
+              <FadeIn delay={160}>
+                <p className="text-white/60 leading-relaxed mb-10 font-light"
+                  style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', maxWidth: '44rem' }}>
+                  Most business owners sign commercial leases they don&apos;t fully understand.
+                  LeaseIntel™ delivers complete, plain-English risk analysis — every clause rated,
+                  every risk quantified, every negotiation opportunity identified.
+                </p>
+              </FadeIn>
+              <FadeIn delay={240}>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={() => setStep('form-details')}
+                    className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 hover:bg-dark-teal transition-colors duration-200 min-h-[52px]"
+                  >
+                    Get Free Summary →
+                  </button>
+                  <a
+                    href="#full-report"
+                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-sm tracking-widest uppercase px-8 py-4 hover:border-white/60 transition-colors duration-200 min-h-[52px]"
+                  >
+                    View Full Report — $97
+                  </a>
+                </div>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6">
+                  {[
+                    { icon: '🔐', text: 'AES-256 encrypted' },
+                    { icon: '🛡️', text: 'Virus scanned' },
+                    { icon: '🇦🇺', text: 'Privacy Act compliant' },
+                  ].map(s => (
+                    <span key={s.text} className="flex items-center gap-1.5 text-white/40 text-xs font-medium">
+                      <span>{s.icon}</span>{s.text}
+                    </span>
+                  ))}
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </section>
 
