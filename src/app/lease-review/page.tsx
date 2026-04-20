@@ -360,6 +360,17 @@ export default function LeaseReviewPage() {
                   View Full Report — $97
                 </a>
               </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-1.5 mt-5">
+                {[
+                  { icon: '🔐', text: 'AES-256 encrypted' },
+                  { icon: '🛡️', text: 'Virus scanned' },
+                  { icon: '🇦🇺', text: 'Privacy Act compliant' },
+                ].map(s => (
+                  <span key={s.text} className="flex items-center gap-1.5 text-white/40 text-xs font-medium">
+                    <span>{s.icon}</span>{s.text}
+                  </span>
+                ))}
+              </div>
             </FadeIn>
           </div>
         </section>
@@ -514,31 +525,52 @@ export default function LeaseReviewPage() {
 
         {/* SECURITY */}
         <section className="bg-white border-t border-gray-100" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-          <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <FadeIn direction="left">
-              <div>
-                <p className="text-near-black font-black text-sm mb-3 flex items-center gap-2">
-                  <span className="text-teal">🔒</span> Your document stays private
-                </p>
-                <p className="text-charcoal text-sm leading-relaxed font-light">
-                  Your lease is commercially sensitive. Stored in an access-controlled, encrypted environment
-                  accessible only to Your Office Space. Never shared with third parties, never used for AI training,
-                  deleted 30 days after delivery. Handled under the Australian Privacy Act 1988.
-                </p>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+
+            {/* Trust badge strip */}
+            <FadeIn>
+              <div className="flex flex-wrap gap-3 mb-12">
+                {[
+                  { icon: '🔐', label: 'AES-256-GCM Encrypted' },
+                  { icon: '🛡️', label: 'Virus Scanned on Upload' },
+                  { icon: '🔒', label: 'TLS Encrypted in Transit' },
+                  { icon: '🇦🇺', label: 'Privacy Act 1988 Compliant' },
+                  { icon: '🚫', label: 'Never Shared or Sold' },
+                ].map(b => (
+                  <div key={b.label} className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2 bg-gray-50">
+                    <span className="text-sm">{b.icon}</span>
+                    <span className="text-near-black font-bold text-xs tracking-wide">{b.label}</span>
+                  </div>
+                ))}
               </div>
             </FadeIn>
-            <FadeIn direction="right">
-              <div>
-                <p className="text-near-black font-black text-sm mb-3 flex items-center gap-2">
-                  <span>⚖️</span> Commercial expertise, not legal advice
-                </p>
-                <p className="text-charcoal text-sm leading-relaxed font-light">
-                  LeaseIntel™ provides commercially informed analysis, not legal advice. Every report recommends
-                  you obtain formal legal advice from a qualified solicitor before signing.
-                  We identify the risks — your solicitor confirms enforceability.
-                </p>
-              </div>
-            </FadeIn>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <FadeIn direction="left">
+                <div>
+                  <p className="text-near-black font-black text-sm mb-3">Bank-grade encryption</p>
+                  <p className="text-charcoal text-sm leading-relaxed font-light">
+                    Your lease document is encrypted with AES-256-GCM — the same standard used by banks and governments — <strong>before it leaves your browser</strong>. The file is unreadable in transit and at rest. No third party can access it, even if they intercept the transmission.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn>
+                <div>
+                  <p className="text-near-black font-black text-sm mb-3">Scanned before we touch it</p>
+                  <p className="text-charcoal text-sm leading-relaxed font-light">
+                    Every upload is checked against VirusTotal&apos;s database of 70+ security engines before processing. Files flagged as malicious are rejected automatically. This protects both you and our team.
+                  </p>
+                </div>
+              </FadeIn>
+              <FadeIn direction="right">
+                <div>
+                  <p className="text-near-black font-black text-sm mb-3">Commercial expertise, not legal advice</p>
+                  <p className="text-charcoal text-sm leading-relaxed font-light">
+                    LeaseIntel™ provides commercially informed analysis. Every report recommends formal legal advice from a qualified solicitor before signing. We identify the risks — your solicitor confirms enforceability.
+                  </p>
+                </div>
+              </FadeIn>
+            </div>
           </div>
         </section>
 
@@ -723,9 +755,18 @@ export default function LeaseReviewPage() {
                 <p className="text-red-400 text-xs font-medium -mt-2">{errors.file}</p>
               )}
 
-              <p className="text-white/25 text-xs leading-relaxed">
-                Stored securely, never shared. By submitting you agree to our privacy policy.
-                This service provides commercial analysis, not legal advice.
+              {/* Security trust signals */}
+              <div className="flex flex-wrap gap-x-4 gap-y-1.5">
+                {[
+                  '🔐 AES-256 encrypted in your browser',
+                  '🛡️ Virus scanned before processing',
+                  '🔒 TLS secured in transit',
+                ].map(s => (
+                  <span key={s} className="text-white/35 text-xs font-medium">{s}</span>
+                ))}
+              </div>
+              <p className="text-white/20 text-xs leading-relaxed">
+                Never shared or sold. Deleted 30 days after delivery. Australian Privacy Act 1988.
               </p>
 
               <button
