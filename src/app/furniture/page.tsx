@@ -17,7 +17,7 @@ export default function FurniturePage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-[72px] bg-near-black">
+      <section className="relative min-h-screen flex items-center pt-0 bg-near-black">
         <Image
           src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80"
           alt="Modern office furniture Newcastle"
@@ -138,7 +138,7 @@ export default function FurniturePage() {
 
       {/* WHO WE WORK WITH */}
       <section className="bg-near-black py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto px-8 md:px-14 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="max-w-screen-xl mx-auto px-8 md:px-14 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>

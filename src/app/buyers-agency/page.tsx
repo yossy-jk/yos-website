@@ -17,7 +17,7 @@ export default function BuyersAgencyPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-[72px] bg-near-black">
+      <section className="relative min-h-screen flex items-center pt-0 bg-near-black">
         <Image
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
           alt="Modern commercial building"

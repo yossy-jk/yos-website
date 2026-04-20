@@ -16,7 +16,7 @@ export default function ContactPage() {
       <Nav />
 
       {/* HERO SECTION */}
-      <section className="relative min-h-[70vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center pt-0 bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
         <div className="relative max-w-screen-xl mx-auto w-full pt-16 pb-20">
           <FadeIn delay={0}>

@@ -242,12 +242,12 @@ export default function LeaseReviewPage() {
         <Nav />
 
         {/* HERO */}
-        <section className="bg-near-black pt-32 pb-28 md:pt-44 md:pb-32 relative overflow-hidden">
+        <section className="bg-near-black relative overflow-hidden" style={{ paddingTop: 'clamp(5rem,12vw,11rem)', paddingBottom: 'clamp(4rem,10vw,8rem)' }}>
           <div className="absolute inset-0 opacity-[0.03]" style={{
             backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
             backgroundSize: '60px 60px'
           }} />
-          <div className="relative max-w-screen-xl mx-auto">
+          <div className="relative max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn delay={0}>
               <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
                 <span className="w-2 h-2 bg-teal rounded-full animate-pulse" />
@@ -256,7 +256,7 @@ export default function LeaseReviewPage() {
             </FadeIn>
             <FadeIn delay={80}>
               <h1 className="text-white font-black leading-[0.95] tracking-tight mb-6"
-                style={{ fontSize: 'clamp(2.5rem, 7vw, 5rem)' }}>
+                style={{ fontSize: 'clamp(2rem,6vw,5rem)' }}>
                 What&apos;s hiding<br />
                 <span className="text-teal">in your lease?</span>
               </h1>
@@ -291,7 +291,7 @@ export default function LeaseReviewPage() {
         {/* STATS */}
         <section className="bg-teal py-10">
           <FadeIn>
-            <div className="max-w-screen-xl mx-auto grid grid-cols-3 gap-6 text-center">
+            <div className="max-w-screen-xl mx-auto grid grid-cols-3 gap-6 text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {[
                 { stat: '$97', label: 'Full report ex GST' },
                 { stat: '24hr', label: 'Turnaround time' },
@@ -307,8 +307,8 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* FREE SUMMARY */}
-        <section className="bg-white py-14 md:py-28 md:py-32">
-          <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,8rem)', paddingBottom: 'clamp(3rem,8vw,8rem)' }}>
+          <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn direction="left">
               <div>
                 <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Start free</p>
@@ -438,7 +438,7 @@ export default function LeaseReviewPage() {
 
         {/* SECURITY */}
         <section className="bg-white py-14 border-t border-gray-100">
-          <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn direction="left">
               <div>
                 <p className="text-near-black font-black text-sm mb-3 flex items-center gap-2">

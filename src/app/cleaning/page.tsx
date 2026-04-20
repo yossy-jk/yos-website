@@ -16,7 +16,7 @@ export default function CleaningPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-[72px] bg-near-black overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-0 bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'

@@ -60,7 +60,7 @@ export default function CaseStudiesPage() {
       <Nav />
 
       <section className="bg-near-black ">
-        <div className="max-w-screen-xl mx-auto pt-16">
+        <div className="max-w-screen-xl mx-auto pt-16" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <SectionLabel>Case studies</SectionLabel>
           <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-8">
             Real projects. Real outcomes.
@@ -72,7 +72,7 @@ export default function CaseStudiesPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           {all.length === 0 ? (
             <p className="text-mid-grey font-light text-lg">Case studies coming soon.</p>
           ) : (
