@@ -20,7 +20,7 @@ export const metadata = {
    HEAD_GAP  = space below h2 before body / intro paragraph
    INTRO_GAP = space below intro paragraph before grid/cards
    ──────────────────────────────────────────────────────────────────────────── */
-const SEC     = { paddingTop: 'clamp(5rem,10vw,9rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }
+const SEC     = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM  = { paddingTop: 'clamp(3rem,6vw,5rem)',  paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const WRAP    = 'max-w-screen-xl mx-auto'
 const PAD     = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
@@ -91,7 +91,7 @@ export default function TenantRepPage() {
           <div className="max-w-3xl">
             <FadeIn>
               <SectionLabel>The Guarantee</SectionLabel>
-              <h2 className="text-white font-black leading-tight mt-3 mb-5"
+              <h2 className="text-white font-black leading-tight mt-3 mb-8"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
                 We pay for ourselves.<br />
                 <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
@@ -164,7 +164,7 @@ export default function TenantRepPage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>What&apos;s at stake</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mt-3 mb-4 max-w-3xl"
+            <h2 className="text-white font-bold leading-tight mt-3 mb-8 max-w-3xl"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
               The cost of a bad lease is never just rent.
             </h2>

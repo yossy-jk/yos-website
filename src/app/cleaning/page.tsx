@@ -87,7 +87,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Every property type. Same standard.
             </h2>
@@ -168,7 +168,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Why clients don&apos;t leave.
             </h2>

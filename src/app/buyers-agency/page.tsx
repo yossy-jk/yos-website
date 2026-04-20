@@ -119,7 +119,7 @@ export default function BuyersAgencyPage() {
                 <div className="border-t-4 border-teal pt-6 h-full flex flex-col">
                   <span className="inline-block text-teal text-xs font-bold tracking-widest uppercase mb-3">{item.tag}</span>
                   <h3 className="text-near-black font-bold text-2xl mb-4">{item.title}</h3>
-                  <p className="text-charcoal font-light leading-relaxed flex-1" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
+                  <p className="text-charcoal font-light leading-relaxed flex-1" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -151,7 +151,7 @@ export default function BuyersAgencyPage() {
               <FadeIn key={item.label} delay={i * 60} direction={i % 2 === 0 ? 'left' : 'right'}>
                 <div className="pl-6 border-l-4 border-teal py-2">
                   <p className="text-white font-bold text-lg mb-2">{item.label}</p>
-                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
+                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -198,7 +198,7 @@ export default function BuyersAgencyPage() {
                 <div className="bg-white rounded-sm p-8 shadow-sm">
                   <p className="text-teal font-black text-4xl mb-1 leading-none">{item.figure}</p>
                   <p className="text-near-black font-bold text-base mb-3">{item.label}</p>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.context}</p>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.context}</p>
                 </div>
               </FadeIn>
             ))}
@@ -218,7 +218,7 @@ export default function BuyersAgencyPage() {
             </h2>
           </FadeIn>
           <FadeIn delay={100}>
-            <p className="text-white/60 font-light leading-relaxed mb-8 max-w-3xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
+            <p className="text-white/60 font-light leading-relaxed mb-12 max-w-3xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
               Most buyers agents claim to know your market. We actually live and operate in it. We&apos;ve done deals across the Newcastle CBD, Broadmeadow, Kotara, Maitland, and the broader Hunter Valley. We know which vendors are motivated, which agents play fair, and where the real opportunities sit right now.
             </p>
           </FadeIn>

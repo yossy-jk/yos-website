@@ -211,11 +211,11 @@ export default function FurniturePage() {
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
-              <h2 className="text-white font-bold leading-tight mt-3 mb-6"
+              <h2 className="text-white font-bold leading-tight mt-3 mb-8"
                 style={{ fontSize: 'clamp(1.6rem,3.5vw,3rem)' }}>
                 Private businesses, councils, schools, and health facilities across Australia.
               </h2>
-              <p className="text-white/60 font-light leading-relaxed mb-8 max-w-2xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
+              <p className="text-white/60 font-light leading-relaxed mb-12 max-w-2xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
                 We work with organisations of all sizes — from 5-person professional services firms to multi-site government and health sector clients. The spec, the process, and the standard of work is the same regardless of project size.
               </p>
               <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
@@ -233,7 +233,7 @@ export default function FurniturePage() {
               ].map((item) => (
                 <div key={item.label} className="pl-6 border-l-4 border-teal">
                   <p className="text-white font-bold text-base mb-1">{item.label}</p>
-                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{item.body}</p>
+                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                 </div>
               ))}
             </div>
@@ -264,7 +264,7 @@ export default function FurniturePage() {
                 <div>
                   <p className="text-teal font-black text-4xl sm:text-5xl mb-4 leading-none">{step.step}</p>
                   <h3 className="text-near-black font-bold text-xl mb-3">{step.title}</h3>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>{step.body}</p>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{step.body}</p>
                 </div>
               </FadeIn>
             ))}
