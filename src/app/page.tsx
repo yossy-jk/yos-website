@@ -77,14 +77,14 @@ export default function Home() {
                 Book a Clarity Call
               </a>
               <Link href="/lease-review"
-                className="text-white/70 font-medium no-underline text-center hover:text-teal transition-colors sm:border sm:border-white/30 sm:hover:border-teal"
-                style={{ padding: '0.75rem 0.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                className="text-white/70 font-medium no-underline text-center hover:text-teal transition-colors border border-white/30 hover:border-teal"
+                style={{ padding: '1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
                 Free Lease Review →
               </Link>
             </div>
           </FadeIn>
           <FadeIn delay={340}>
-            <div className="hidden md:grid grid-cols-4 gap-10 mt-36 pt-10 border-t border-white/10">
+            <div className="hidden md:grid grid-cols-4 gap-10 pt-10 border-t border-white/10" style={{ marginTop: 'clamp(4rem,10vw,9rem)' }}>
               {[
                 { stat: '100+', label: 'Projects delivered' },
                 { stat: 'In Your Corner', label: 'Every project. Every client.' },
@@ -180,7 +180,7 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-10 md:mb-8 md:mb-16"
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '20ch' }}>
               Someone genuinely<br />in your corner.
             </h2>
@@ -214,15 +214,15 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-8 md:mb-16"
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              What clients say<br />about working with us.
+              Straight from<br />the people we work with.
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 lg:gap-12">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className={`bg-white flex flex-col h-full ${i > 0 ? 'hidden md:flex' : ''}`} style={{ padding: 'clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3vw,2rem)' }}>
+                <div className="bg-white flex flex-col h-full" style={{ padding: 'clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3vw,2rem)' }}>
                   <Stars />
                   <p className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
                     style={{ fontSize: '1.05rem', lineHeight: 1.85 }}>
@@ -287,7 +287,7 @@ export default function Home() {
                 style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '14rem' }}>
                 Get Free Summary →
               </Link>
-              <Link href="/lease-review"
+              <Link href="/lease-review#full-report"
                 className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-block"
                 style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', background: 'rgba(255,255,255,0.12)', minWidth: '14rem' }}>
                 Full Report — $97
@@ -300,7 +300,7 @@ export default function Home() {
 
       {/* ─── HOW WE WORK ───────────────────────── white */}
       <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
               <div>
