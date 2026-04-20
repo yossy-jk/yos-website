@@ -78,14 +78,14 @@ export default function Nav() {
                           key={link.href}
                           href={link.href}
                           onClick={() => setServicesOpen(false)}
-                          className="no-underline flex flex-col bg-near-black hover:bg-white/5 transition-colors"
-                          style={{ padding: '1.75rem 1.5rem' }}
+                          className="no-underline flex flex-col justify-between bg-near-black hover:bg-white/5 transition-colors"
+                          style={{ padding: '1.75rem 1.5rem', minHeight: '6.5rem' }}
                         >
-                          <span className="text-white font-black uppercase leading-tight block mb-2"
+                          <span className="text-white font-black uppercase leading-snug block"
                             style={{ fontSize: '0.82rem', letterSpacing: '0.03em' }}>
                             {link.label}
                           </span>
-                          <span className="text-white/40 font-light" style={{ fontSize: '0.75rem' }}>
+                          <span className="text-white/40 font-light block mt-3" style={{ fontSize: '0.75rem' }}>
                             {link.tagline}
                           </span>
                         </Link>
