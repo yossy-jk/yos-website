@@ -178,40 +178,42 @@ export default function FurniturePage() {
               What a well-specified workspace looks like.
             </h2>
           </FadeIn>
-          {/* Row 1 — 3 images */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+          {/* 3×3 inspiration grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {[
-              { src: '/images/furniture/burgtec-room-workstations.jpg', alt: 'Modern office workstations', label: 'Workstations' },
-              { src: '/images/furniture/burgtec-hero-desk.jpg', alt: 'Executive height adjustable desk', label: 'Sit-Stand' },
-              { src: '/images/furniture/burgtec-room-collaboration.jpg', alt: 'Collaboration and meeting space', label: 'Collaboration' },
+              { src: '/images/furniture/space-wsi-openplan.jpg',       alt: 'Large open plan office with Burgtec workstations',    label: 'Open Plan',       mood: 'Bright & Airy' },
+              { src: '/images/furniture/space-cogc-wide.jpg',          alt: 'Contemporary government office fitout',               label: 'Corporate',       mood: 'Clean & Modern' },
+              { src: '/images/furniture/space-pillowtalk-a.jpg',       alt: 'Vibrant contemporary office interior',                label: 'Collaborative',   mood: 'Warm & Energetic' },
+              { src: '/images/furniture/space-bendigo-wide.jpg',       alt: 'Premium large scale commercial fitout',               label: 'Premium Fitout',  mood: 'Bold & Executive' },
+              { src: '/images/furniture/space-liverpool-b.jpg',        alt: 'Civic place office with breakout zones',              label: 'Breakout Zones',  mood: 'Open & Social' },
+              { src: '/images/furniture/space-pillowtalk-b.jpg',       alt: 'Bright modern commercial interior with lounge',       label: 'Reception & Lounge', mood: 'Inviting & Relaxed' },
+              { src: '/images/furniture/space-cogc-office.jpg',        alt: 'Professional workstation layout',                     label: 'Workstations',    mood: 'Focused & Efficient' },
+              { src: '/images/furniture/space-geelong-a.jpg',          alt: 'Contemporary Geelong office with natural light',      label: 'Natural Light',   mood: 'Fresh & Bright' },
+              { src: '/images/furniture/space-liverpool-a.jpg',        alt: 'Civic office with collaborative layout',              label: 'Civic & Formal',  mood: 'Structured & Professional' },
             ].map((img, i) => (
-              <FadeIn key={i} delay={i * 80} direction="up">
-                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group">
-                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75), transparent)' }}>
-                    <span className="text-white font-bold text-xs tracking-widest uppercase">{img.label}</span>
+              <FadeIn key={i} delay={Math.floor(i / 3) * 80 + (i % 3) * 60} direction="up">
+                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group cursor-pointer">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                  />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 transition-opacity duration-300"
+                    style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.1) 55%, transparent 100%)' }} />
+                  {/* Labels */}
+                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <p className="text-white/50 font-light text-xs tracking-widest uppercase mb-1">{img.mood}</p>
+                    <p className="text-white font-bold text-sm tracking-wide uppercase">{img.label}</p>
                   </div>
                 </div>
               </FadeIn>
             ))}
           </div>
-          {/* Row 2 — 2 wide + 1 */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            {[
-              { src: '/images/furniture/burgtec-open-plan.jpg', alt: 'Open plan office fitout', label: 'Open Plan', span: 'md:col-span-3' },
-              { src: '/images/furniture/nova-storage-tambour.jpg', alt: 'Storage and tambour units with planters', label: 'Storage', span: 'md:col-span-2' },
-            ].map((img, i) => (
-              <FadeIn key={i} delay={i * 80} direction="up">
-                <div className={`overflow-hidden rounded-xl relative group ${img.span}`} style={{ height: '16rem' }}>
-                  <Image src={img.src} alt={img.alt} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75), transparent)' }}>
-                    <span className="text-white font-bold text-xs tracking-widest uppercase">{img.label}</span>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-          <p className="text-mid-grey font-light text-sm mt-5">Product imagery supplied by our manufacturing partners. Specifications and finishes available on request.</p>
+          <p className="text-mid-grey font-light text-sm mt-6 leading-relaxed">
+            Project photography supplied by our manufacturing and fitout partners. Every space is different — we work to yours.
+          </p>
         </div>
       </section>
 

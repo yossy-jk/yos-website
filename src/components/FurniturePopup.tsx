@@ -69,7 +69,7 @@ export default function FurniturePopup() {
         style={{ animation: 'slideUp 0.3s ease-out' }}>
 
         {/* Teal accent bar */}
-        <div className="h-1.5 w-full bg-teal" />
+        <div className="h-2 w-full bg-teal" />
 
         {/* Close */}
         <button onClick={dismiss}
@@ -80,31 +80,31 @@ export default function FurniturePopup() {
           </svg>
         </button>
 
-        <div className="p-8">
+        <div className="px-10 py-10">
           {!submitted ? (
             <>
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full px-3 py-1 mb-5">
+              <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full px-4 py-2 mb-7">
                 <span className="w-2 h-2 rounded-full bg-teal" />
                 <span className="font-semibold text-xs tracking-widest uppercase">Project Pricing Available</span>
               </div>
 
-              <h2 className="text-near-black font-bold leading-tight mb-3" style={{ fontSize: 'clamp(1.3rem,3vw,1.6rem)' }}>
+              <h2 className="text-near-black font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.4rem,3vw,1.75rem)' }}>
                 Get a personalised quote for your project.
               </h2>
-              <p className="text-mid-grey font-light text-sm leading-relaxed mb-6">
+              <p className="text-mid-grey font-light text-sm leading-relaxed mb-8" style={{ lineHeight: 1.8 }}>
                 Project pricing is available for fit-outs, multi-site orders, and staged rollouts.
                 Leave your contact details and we&apos;ll arrange a 20-minute consultation — no obligation.
               </p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <input
                   type="text"
                   placeholder="Your name"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
-                  style={{ padding: '0.85rem 1.1rem', fontSize: '0.95rem' }}
+                  style={{ padding: '1rem 1.25rem', fontSize: '0.95rem' }}
                 />
                 <input
                   type="text"
@@ -113,18 +113,18 @@ export default function FurniturePopup() {
                   onChange={e => setContact(e.target.value)}
                   required
                   className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
-                  style={{ padding: '0.85rem 1.1rem', fontSize: '0.95rem' }}
+                  style={{ padding: '1rem 1.25rem', fontSize: '0.95rem' }}
                 />
                 <button
                   type="submit"
                   disabled={submitting || !contact.trim()}
                   className="w-full bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                  style={{ padding: '1rem 2rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.2rem 2rem', fontSize: '0.72rem' }}>
                   {submitting ? 'Sending…' : 'Request a consultation →'}
                 </button>
               </form>
 
-              <p className="text-gray-400 font-light mt-4 text-center" style={{ fontSize: '0.72rem' }}>
+              <p className="text-gray-400 font-light mt-6 text-center" style={{ fontSize: '0.75rem' }}>
                 We respond within one business day. No sales calls without permission.
               </p>
             </>
