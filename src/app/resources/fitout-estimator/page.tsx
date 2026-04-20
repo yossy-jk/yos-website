@@ -55,11 +55,12 @@ interface Inputs {
 }
 
 const STEPS = [
-  { id: 'space', title: 'Tell us about the space', subtitle: 'Floor area and building type' },
-  { id: 'quality', title: 'What quality level?', subtitle: 'This drives the biggest cost variable' },
-  { id: 'workstations', title: 'Workstations and meeting rooms', subtitle: 'Your day-to-day workspace needs' },
-  { id: 'spaces', title: 'Additional spaces', subtitle: 'Kitchen, reception, AV and tech' },
-  { id: 'result', title: 'Your estimate', subtitle: 'Based on current market rates' },
+  { id: 'intro',       title: 'Fitout Cost Estimator',                subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
+  { id: 'space',       title: 'Tell us about the space',              subtitle: 'Floor area and building type' },
+  { id: 'quality',     title: 'What quality level?',                  subtitle: 'This drives the biggest cost variable' },
+  { id: 'workstations',title: 'Workstations and meeting rooms',       subtitle: 'Your day-to-day workspace needs' },
+  { id: 'spaces',      title: 'Additional spaces',                    subtitle: 'Kitchen, reception, AV and tech' },
+  { id: 'result',      title: 'Your estimate',                        subtitle: 'Based on current market rates' },
 ]
 
 function fmt(n: number) {
@@ -153,10 +154,10 @@ export default function FitoutEstimatorPage() {
             </div>
             <h1 className="text-white font-black uppercase leading-tight tracking-tight"
               style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '0.75rem' }}>
-              {step === 0 ? 'Fitout Cost Estimator' : STEPS[step].title}
+              {step === 0 ? 'Fitout Cost Estimator' : step < STEPS.length ? STEPS[step].title : 'Your Estimate'}
             </h1>
             <p className="text-white/40 font-light" style={{ fontSize: '0.9rem' }}>
-              {step === 0 ? 'Real market rates. Newcastle & Hunter Region. April 2026. All figures ex GST.' : STEPS[step].subtitle}
+              {step === 0 ? 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' : step < STEPS.length ? STEPS[step].subtitle : 'Based on current market rates'}
             </p>
           </div>
 
@@ -334,9 +335,9 @@ export default function FitoutEstimatorPage() {
             <div className="max-w-xl">
               <div className="flex flex-col gap-4 mb-12">
                 {[
-                  { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: inputs.tier ? `$${RATES[inputs.tier as Tier].kitchen.low.toLocaleString()}–$${RATES[inputs.tier as Tier].kitchen.high.toLocaleString()}` : 'Varies by tier' },
-                  { key: 'hasReception' as const, label: 'Reception area', desc: inputs.tier ? `$${RATES[inputs.tier as Tier].reception.low.toLocaleString()}–$${RATES[inputs.tier as Tier].reception.high.toLocaleString()}` : 'Varies by tier' },
-                  { key: 'hasAV' as const, label: 'AV & integrated technology', desc: inputs.tier ? `$${RATES[inputs.tier as Tier].av.low.toLocaleString()}–$${RATES[inputs.tier as Tier].av.high.toLocaleString()}` : 'Varies by tier' },
+                  { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' },
+                  { key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' },
+                  { key: 'hasAV' as const, label: 'AV & integrated technology', desc: 'Screens, conferencing, cabling and control' },
                 ].map(item => (
                   <button key={item.key} onClick={() => set(item.key, !inputs[item.key])}
                     className={`text-left flex items-center justify-between border transition-all ${inputs[item.key] ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
