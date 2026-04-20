@@ -53,7 +53,7 @@ export default function Home() {
           alt="Modern commercial workspace"
           fill className="object-cover object-center" priority
         />
-        <div className="absolute inset-0 bg-near-black/72" />
+        <div className="absolute inset-0 bg-near-black/58" />
 
         <div className={`relative z-10 w-full ${WRAP}`} style={{ paddingTop: 'clamp(8rem,18vw,14rem)', paddingBottom: 'clamp(6rem,14vw,10rem)' }}>
           <FadeIn>
@@ -151,47 +151,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 3. WHY US ─── white · centered (Apple style) */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)', borderTop: '1px solid #f9fafb' }}>
+      {/* ── 3. WHY US ─── near-black · clean 3-column cards */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
         <div className={WRAP}>
           <FadeIn>
-            <div className="text-center mb-16 md:mb-24">
-              <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-6" style={{ fontSize: '0.7rem' }}>Why choose us</p>
-              <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-8 mx-auto"
-                style={{ fontSize: 'clamp(2.2rem, 4.5vw, 5rem)', maxWidth: '18ch' }}>
-                We work for you.<br />Not the other side.
-              </h2>
-              <p className="text-charcoal font-light leading-relaxed mx-auto"
-                style={{ fontSize: '1.1rem', maxWidth: '38rem' }}>
-                Most commercial advisors work both sides of the deal. We don&apos;t.
-                Our licence, structure, and every engagement is built around one party only — you.
-              </p>
-            </div>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-6" style={{ fontSize: '0.7rem' }}>Why us</p>
+            <h2 className="text-white font-black uppercase leading-none tracking-tight mb-16 md:mb-20"
+              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 5rem)' }}>
+              We work for you.<br />Not the other side.
+            </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 text-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px" style={{ background: 'rgba(255,255,255,0.06)' }}>
             {[
-              { num: '01', title: 'Tenant-side only', body: 'We never represent landlords or vendors. No split loyalty. No backdoor deals. Pure representation.' },
-              { num: '02', title: '12+ years experience', body: 'Real deals. Real market knowledge. On the ground wherever you need us.' },
-              { num: '03', title: 'Start to finish', body: 'Lease, fitout, furniture, cleaning. One relationship, one team, no gaps.' },
+              { title: 'Tenant-side only', body: 'We never represent landlords or vendors. No split loyalty. No backdoor deals. Pure representation in your interest.' },
+              { title: '12+ years experience', body: 'Real deals across commercial property, fitout and workplace strategy. On the ground wherever you need us.' },
+              { title: 'Start to finish', body: 'Lease, fitout, furniture, cleaning. One relationship, one team, no gaps and no handoffs.' },
             ].map((p, i) => (
-              <FadeIn key={p.num} delay={i * 100}>
-                <div className="flex flex-col items-center">
-                  <span className="font-black text-teal mb-6" style={{ fontSize: '4rem', lineHeight: 1, opacity: 0.18 }}>{p.num}</span>
-                  <h3 className="text-near-black font-black uppercase tracking-tight mb-4" style={{ fontSize: '1.05rem' }}>{p.title}</h3>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>{p.body}</p>
+              <FadeIn key={p.title} delay={i * 80}>
+                <div className="bg-near-black" style={{ padding: '2.5rem 2rem' }}>
+                  <div className="w-8 h-px bg-teal mb-6" />
+                  <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
+                  <p className="text-white/45 font-light leading-relaxed" style={{ fontSize: '0.85rem' }}>{p.body}</p>
                 </div>
               </FadeIn>
             ))}
           </div>
 
-          {/* Quote — centred, clean */}
           <FadeIn delay={200}>
-            <div className="mt-20 md:mt-28 text-center max-w-2xl mx-auto">
-              <p className="text-near-black font-light leading-relaxed italic mb-4" style={{ fontSize: '1.1rem' }}>
+            <div className="mt-16 md:mt-20 pt-10 border-t border-white/8">
+              <p className="text-white/50 font-light leading-relaxed italic" style={{ fontSize: '1rem', maxWidth: '44rem' }}>
                 &ldquo;The agent across the table does this every day. Most business owners do it once. That experience gap costs real money.&rdquo;
               </p>
-              <p className="text-teal font-semibold uppercase tracking-[0.25em]" style={{ fontSize: '0.65rem' }}>
+              <p className="text-teal font-semibold uppercase tracking-[0.25em] mt-4" style={{ fontSize: '0.62rem' }}>
                 Joe Kelley — Managing Director
               </p>
             </div>

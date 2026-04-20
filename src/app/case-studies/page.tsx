@@ -9,8 +9,8 @@ import { HUBSPOT } from '@/lib/constants'
 import type { Division } from '@/lib/blog'
 
 export const metadata = {
-  title: 'Case Studies | Your Office Space Newcastle',
-  description: 'Real projects, real outcomes. See how Your Office Space has helped Newcastle and Hunter Valley businesses with leasing, fitout, furniture and cleaning.'
+  title: 'Case Studies | Your Office Space',
+  description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.'
 }
 
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {

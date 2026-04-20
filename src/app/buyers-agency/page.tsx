@@ -7,8 +7,8 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Commercial Buyers Agency Newcastle | Your Office Space',
-  description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers in Newcastle and the Hunter Valley.'
+  title: 'Commercial Buyers Agency | Your Office Space',
+  description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.'
 }
 
 export default function BuyersAgencyPage() {
@@ -33,7 +33,7 @@ export default function BuyersAgencyPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem, 7vw, 6.5rem)' }}>
-              Buy commercial in Newcastle{' '}
+              Buy commercial property{' '}
               <span className="text-teal">without getting burned.</span>
             </h1>
           </FadeIn>
@@ -59,7 +59,7 @@ export default function BuyersAgencyPage() {
               {[
                 { stat: '$0', label: 'Vendor-side fees — ever' },
                 { stat: '60%+', label: 'Of our deals are off-market' },
-                { stat: '12+', label: 'Newcastle submarkets covered' },
+                { stat: '12+', label: 'Years of commercial market experience' },
                 { stat: '100%', label: 'Buyer-only representation' }
               ].map((item) => (
                 <div key={item.label}>

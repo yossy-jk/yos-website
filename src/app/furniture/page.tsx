@@ -7,8 +7,8 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Office Furniture & Fitout Newcastle | Your Office Space',
-  description: 'Office furniture and fitout project management in Newcastle. Workstations, seating, storage, collaboration spaces — specified, delivered and installed across the Hunter Valley.'
+  title: 'Office Furniture & Fitout | Your Office Space',
+  description: 'Office furniture and fitout project management across Australia. Workstations, seating, storage, collaboration spaces — specified, delivered and installed.'
 }
 
 export default function FurniturePage() {

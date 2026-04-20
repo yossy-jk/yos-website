@@ -35,7 +35,7 @@ export default function CleaningPage() {
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              Consistent. Accountable. Newcastle-based. We clean offices that can&apos;t afford a bad first impression — and neither can yours.
+              Consistent. Accountable. Managed locally. We clean offices that can&apos;t afford a bad first impression — and neither can yours.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -55,7 +55,7 @@ export default function CleaningPage() {
                 { stat: 'Same team', label: 'Every visit — no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
                 { stat: 'Direct line', label: 'To Sarah, not a call centre' },
-                { stat: '100%', label: 'Newcastle-owned and operated' },
+                { stat: '100%', label: 'Locally owned and operated' },
               ].map(item => (
                 <div key={item.label} className="bg-near-black px-6 py-8 text-center">
                   <p className="text-teal font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
@@ -191,8 +191,8 @@ export default function CleaningPage() {
             <div className="border-l-4 border-teal pl-8 py-6 bg-teal/[0.06] rounded-r-sm">
               <p className="text-white font-light leading-relaxed"
                 style={{ fontSize: 'clamp(1rem, 1.8vw, 1.2rem)' }}>
-                We&apos;re Newcastle-based, Newcastle-owned. We show up because we have skin in the game.
-                Your space matters to us because your space is in our city. That changes how we work.
+                We show up because we have skin in the game.
+                Your space matters to us personally. That changes how we work.
               </p>
             </div>
           </FadeIn>

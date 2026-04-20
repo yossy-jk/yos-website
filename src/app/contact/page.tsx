@@ -6,8 +6,8 @@ import HubSpotForm from '@/components/HubSpotForm'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Contact | Your Office Space — Newcastle Commercial Property Advisory',
-  description: 'Talk to Joe Kelley at Your Office Space. 20 minutes, no pitch. Commercial property advice for Newcastle and Hunter Valley businesses.'
+  title: 'Contact | Your Office Space — Commercial Property Advisory',
+  description: 'Talk to Joe Kelley at Your Office Space. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.'
 }
 
 export default function ContactPage() {
@@ -20,7 +20,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
         <div className="relative max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-16 pb-20">
           <FadeIn delay={0}>
-            <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">Newcastle &amp; Hunter Valley</p>
+            <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">Commercial Property Advisory — Australia</p>
           </FadeIn>
           <FadeIn delay={80}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-2xl mb-6"

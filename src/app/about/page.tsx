@@ -6,8 +6,8 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'About | Your Office Space — Newcastle Commercial Property Advisory',
-  description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Newcastle's only tenant-side commercial property advisor. Licence 20565455."
+  title: 'About | Your Office Space — Commercial Property Advisory',
+  description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Australia's tenant-side commercial property advisor. Licence 20565455."
 }
 
 export default function AboutPage() {
@@ -197,7 +197,7 @@ export default function AboutPage() {
               },
               {
                 heading: 'Local knowledge. Real relationships.',
-                body: "We live and operate in Newcastle. We know which landlords negotiate in good faith, which agents play fair, and where the real opportunities are right now. That intelligence comes from a decade of doing deals in this market."
+                body: "We know which landlords negotiate in good faith, which agents play fair, and where the real opportunities are right now. That intelligence comes from a decade of doing real deals in real markets."
               },
               {
                 heading: 'End-to-end accountability.',
@@ -205,7 +205,7 @@ export default function AboutPage() {
               },
               {
                 heading: 'Skin in the game.',
-                body: "Our reputation in Newcastle is everything. We're not a national firm with a regional office. We're a Newcastle business, accountable to a Newcastle community. Every outcome matters to us personally."
+                body: "Our reputation is everything. Every market we operate in, we're accountable to the businesses in it. Every outcome matters to us personally."
               },
             ].map((item, i) => (
               <FadeIn key={item.heading} delay={i * 70} direction="up">

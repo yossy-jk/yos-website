@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Your Office Space | Commercial Property Advisory Newcastle",
-  description: "Newcastle's commercial tenant rep, buyers agency, furniture and cleaning — one team, one call. Lease, fitout, furniture, cleaning — handled.",
-  keywords: "commercial tenant rep Newcastle, commercial buyers agent Newcastle, office furniture Newcastle, commercial cleaning Newcastle",
+  title: "Your Office Space | Commercial Property Advisory Australia",
+  description: "Tenant-side commercial property advisory across Australia — tenant rep, buyers agency, furniture, fitout and cleaning. One team, one relationship.",
+  keywords: "commercial tenant rep Australia, commercial buyers agent, office furniture fitout, commercial cleaning, tenant representation",
   openGraph: {
-    title: "Your Office Space | Commercial Property Advisory Newcastle",
-    description: "Newcastle's commercial tenant rep, buyers agency, furniture and cleaning — one team, one call.",
+    title: "Your Office Space | Commercial Property Advisory Australia",
+    description: "Tenant-side commercial property advisory across Australia — tenant rep, buyers agency, furniture, fitout and cleaning.",
     url: "https://yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",

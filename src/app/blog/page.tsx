@@ -6,8 +6,8 @@ import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
 export const metadata = {
-  title: 'Blog | Your Office Space Newcastle',
-  description: 'Commercial property insights for Newcastle and Hunter Valley businesses. Leasing, fitout, furniture, cleaning and market updates.'
+  title: 'Blog | Your Office Space',
+  description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.'
 }
 
 export default function BlogPage() {
@@ -26,7 +26,7 @@ export default function BlogPage() {
             The YOS Blog
           </h1>
           <p className="text-white/60 font-light text-xl leading-relaxed max-w-2xl">
-            Practical insights on commercial leasing, fitout, furniture, cleaning, and the Newcastle property market. No fluff.
+            Practical insights on commercial leasing, fitout, furniture, cleaning, and the property market. No fluff.
           </p>
         </div>
       </section>
