@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
@@ -54,9 +55,15 @@ export default function AboutPage() {
                   style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}>
                   I built this because the industry needed someone on the other side of the table.
                 </h2>
-                {/* Photo placeholder — replace with real image */}
-                <div className="w-full aspect-[4/3] bg-warm-grey rounded-sm flex items-center justify-center border-2 border-dashed border-gray-200">
-                  <p className="text-mid-grey text-sm font-light">Photo — Joe Kelley</p>
+                <div className="w-full mt-8 overflow-hidden">
+                  <Image
+                    src="/team/joe-kelley.jpg"
+                    alt="Joe Kelley — Managing Director, Your Office Space"
+                    width={600}
+                    height={600}
+                    className="object-cover w-full"
+                    style={{ aspectRatio: '1/1' }}
+                  />
                 </div>
               </div>
             </FadeIn>
@@ -116,9 +123,13 @@ export default function AboutPage() {
             <FadeIn direction="left">
               <div className="bg-white rounded-sm p-7 sm:p-10 shadow-sm">
                 <div className="flex items-start gap-6 mb-7">
-                  <div className="w-16 h-16 bg-warm-grey rounded-full flex items-center justify-center flex-shrink-0 border-2 border-dashed border-gray-200">
-                    <span className="text-mid-grey text-xs">Photo</span>
-                  </div>
+                  <Image
+                    src="/team/joe-kelley.jpg"
+                    alt="Joe Kelley"
+                    width={64} height={64}
+                    className="rounded-full object-cover flex-shrink-0"
+                    style={{ width: '4rem', height: '4rem' }}
+                  />
                   <div>
                     <h3 className="text-near-black font-black text-xl">Joe Kelley</h3>
                     <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1">Founder &amp; Managing Director</p>
@@ -148,11 +159,15 @@ export default function AboutPage() {
             <FadeIn direction="right" delay={100}>
               <div className="bg-white rounded-sm p-7 sm:p-10 shadow-sm">
                 <div className="flex items-start gap-6 mb-7">
-                  <div className="w-16 h-16 bg-warm-grey rounded-full flex items-center justify-center flex-shrink-0 border-2 border-dashed border-gray-200">
-                    <span className="text-mid-grey text-xs">Photo</span>
-                  </div>
+                  <Image
+                    src="/team/sarah-kelley.jpg"
+                    alt="Sarah Kelley"
+                    width={64} height={64}
+                    className="rounded-full object-cover flex-shrink-0"
+                    style={{ width: '4rem', height: '4rem' }}
+                  />
                   <div>
-                    <h3 className="text-near-black font-black text-xl">Sarah</h3>
+                    <h3 className="text-near-black font-black text-xl">Sarah Kelley</h3>
                     <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1">Cleaning Division Manager</p>
                   </div>
                 </div>

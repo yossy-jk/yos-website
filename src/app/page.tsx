@@ -402,41 +402,70 @@ export default function Home() {
       </section>
 
       {/* ─────────────────────────────────────────────────────────
-          CTA — dark, centred, confident
+          CTA — dark, split layout with Joe’s photo
       ───────────────────────────────────────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem, 14vw, 13rem)', paddingBottom: 'clamp(7rem, 14vw, 13rem)' }}>
-        <div className={`${WRAP} text-center`} style={sectionPad()}>
-          <FadeIn>
-            <h2
-              className="text-white font-black uppercase leading-none tracking-tight mb-8 mx-auto"
-              style={{ fontSize: 'clamp(4rem, 10vw, 11rem)' }}
-            >
-              Talk to us.
-            </h2>
-            <p
-              className="text-white/45 font-light leading-relaxed mb-14 mx-auto"
-              style={{ fontSize: '1.2rem', maxWidth: '22rem', lineHeight: 1.75 }}
-            >
-              20 minutes. No pitch.<br />Just a straight conversation.
-            </p>
-            <a
-              href={HUBSPOT.bookingUrl}
-              target="_blank" rel="noopener noreferrer"
-              className="inline-block bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors duration-200"
-              style={{ padding: '1.2rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
-            >
-              Book a Clarity Call
-            </a>
-            <p className="text-white/20 font-light mt-12" style={{ fontSize: '0.82rem' }}>
-              <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">
-                {CONTACT.phone}
-              </a>
-              {' · '}
-              <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">
-                hello@yourofficespace.au
-              </a>
-            </p>
-          </FadeIn>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem, 11vw, 10rem)', paddingBottom: 'clamp(6rem, 11vw, 10rem)' }}>
+        <div className={WRAP} style={sectionPad()}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+            {/* Photo side */}
+            <FadeIn>
+              <div className="relative">
+                <Image
+                  src="/team/joe-kelley.jpg"
+                  alt="Joe Kelley — Managing Director, Your Office Space"
+                  width={600}
+                  height={600}
+                  className="object-cover w-full"
+                  style={{ aspectRatio: '1/1', filter: 'grayscale(15%)' }}
+                />
+                <div
+                  className="absolute bottom-0 left-0 right-0"
+                  style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.85) 0%, transparent 60%)', padding: '2rem 1.5rem 1.5rem' }}
+                >
+                  <p className="text-white font-black" style={{ fontSize: '1rem' }}>Joe Kelley</p>
+                  <p className="text-white/55 font-light" style={{ fontSize: '0.78rem' }}>Managing Director</p>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* Text side */}
+            <FadeIn delay={120}>
+              <div>
+                <h2
+                  className="text-white font-black uppercase leading-none tracking-tight mb-8"
+                  style={{ fontSize: 'clamp(2.75rem, 5vw, 5.5rem)' }}
+                >
+                  Talk to Joe<br />directly.
+                </h2>
+                <p
+                  className="text-white/55 font-light leading-relaxed mb-12"
+                  style={{ fontSize: '1.15rem', lineHeight: 1.8, maxWidth: '32rem' }}
+                >
+                  20 minutes. No pitch. Just a straight conversation about your space and whether we can help.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <a
+                    href={HUBSPOT.bookingUrl}
+                    target="_blank" rel="noopener noreferrer"
+                    className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors duration-200"
+                    style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+                  >
+                    Book a Clarity Call
+                  </a>
+                </div>
+                <p className="text-white/25 font-light mt-10" style={{ fontSize: '0.82rem' }}>
+                  <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-white/40 no-underline hover:text-white/70 transition-colors">
+                    {CONTACT.phone}
+                  </a>
+                  {' · '}
+                  <a href="mailto:hello@yourofficespace.au" className="text-white/40 no-underline hover:text-white/70 transition-colors">
+                    hello@yourofficespace.au
+                  </a>
+                </p>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
