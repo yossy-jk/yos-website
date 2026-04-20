@@ -28,7 +28,7 @@ export default function FurniturePage() {
       <section className="relative min-h-screen flex items-center bg-near-black"
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <Image
-          src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80"
+          src="/images/furniture/burgtec-room4.jpg"
           alt="Modern office furniture Newcastle"
           fill
           className="object-cover object-center"
@@ -84,13 +84,15 @@ export default function FurniturePage() {
 
       {/* WHAT WE SUPPLY */}
       {/* ─── IMAGE BREAK ─────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
-        <Image src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80" alt="Modern office interior" fill className="object-cover object-center" />
+      <section className="relative overflow-hidden" style={{ height: 'clamp(20rem,38vw,32rem)' }}>
+        <Image src="/images/furniture/burgtec-open-plan.jpg" alt="Modern commercial office fitout" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
-        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
-            From brief to delivered workspace.
-          </p>
+        <div className="absolute inset-0">
+          <div className="h-full max-w-screen-xl mx-auto flex items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+            <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
+              From brief to delivered workspace.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -111,8 +113,8 @@ export default function FurniturePage() {
                 category: 'Workstations & Desks',
                 items: ['Sit-stand desks', 'Benching systems', 'Single and back-to-back workstations', 'Custom desk configurations', 'Cable management'],
                 note: 'Designed for the way your team actually works.',
-                image: '/images/furniture/halo-workstation.jpeg',
-                imageAlt: 'Halo workstation system'
+                image: '/images/furniture/burgtec-hero-desk.jpg',
+                imageAlt: 'Height adjustable sit-stand desk'
               },
               {
                 category: 'Seating',
@@ -125,8 +127,8 @@ export default function FurniturePage() {
                 category: 'Storage & Filing',
                 items: ['Pedestal and mobile storage', 'Overhead lockers', 'Tall storage and shelving', 'Shared filing systems', 'Personal lockers'],
                 note: 'Clean spaces start with proper storage.',
-                image: '/images/furniture/capri-workstation.png',
-                imageAlt: 'Workstation with integrated storage'
+                image: '/images/furniture/nova-storage-tambour.jpg',
+                imageAlt: 'Tambour storage unit with planters'
               },
               {
                 category: 'Collaboration & Meeting',
@@ -139,7 +141,7 @@ export default function FurniturePage() {
               <FadeIn key={i} delay={i * 70} direction="up">
                 <div className="bg-warm-grey rounded-sm overflow-hidden h-full flex flex-col">
                   {/* Product image */}
-                  <div className="relative overflow-hidden" style={{ height: '14rem' }}>
+                  <div className="relative overflow-hidden" style={{ height: '17rem' }}>
                     <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
                     <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.18)' }} />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
@@ -178,9 +180,9 @@ export default function FurniturePage() {
           {/* Row 1 — 3 images */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             {[
-              { src: '/images/furniture/opal-office.jpg', alt: 'Opal office fitout', label: 'Open Plan' },
-              { src: '/images/furniture/arco-desk.png', alt: 'Arco desk workstation', label: 'Workstations' },
-              { src: '/images/furniture/orca-chair.jpg', alt: 'Orca chair', label: 'Seating' },
+              { src: '/images/furniture/burgtec-room-workstations.jpg', alt: 'Modern office workstations', label: 'Workstations' },
+              { src: '/images/furniture/burgtec-hero-desk.jpg', alt: 'Executive height adjustable desk', label: 'Sit-Stand' },
+              { src: '/images/furniture/burgtec-room-collaboration.jpg', alt: 'Collaboration and meeting space', label: 'Collaboration' },
             ].map((img, i) => (
               <FadeIn key={i} delay={i * 80} direction="up">
                 <div className="overflow-hidden rounded-sm aspect-[4/3] relative group">
@@ -195,8 +197,8 @@ export default function FurniturePage() {
           {/* Row 2 — 2 wide + 1 */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             {[
-              { src: '/images/furniture/vol19-range.jpg', alt: 'Volume 19 furniture range', label: 'Full Range', span: 'md:col-span-3' },
-              { src: '/images/furniture/halo-workstation.jpeg', alt: 'Halo workstation', label: 'Benching Systems', span: 'md:col-span-2' },
+              { src: '/images/furniture/burgtec-open-plan.jpg', alt: 'Open plan office fitout', label: 'Open Plan', span: 'md:col-span-3' },
+              { src: '/images/furniture/nova-storage-tambour.jpg', alt: 'Storage and tambour units with planters', label: 'Storage', span: 'md:col-span-2' },
             ].map((img, i) => (
               <FadeIn key={i} delay={i * 80} direction="up">
                 <div className={`overflow-hidden rounded-sm relative group ${img.span}`} style={{ height: '16rem' }}>
