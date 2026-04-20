@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Tenant Representation | Your Office Space',
-  description: 'Commercial lease negotiation for tenants only. No split loyalties, no backdoor deals — hard negotiation to protect your business wherever you are in Australia.'
+  description: 'Commercial lease negotiation for tenants only. No split loyalties, no conflicts of interest — every deal completed with integrity to protect your business wherever you are in Australia.'
 }
 
 const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
@@ -40,7 +40,7 @@ export default function TenantRepPage() {
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-10 sm:mb-12"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)' }}>
-              Your interests first. No split loyalty. No backdoor deals. Every negotiation is structured to protect you and position your business for growth.
+              Your interests first. No conflicts of interest. Every negotiation is completed with integrity — structured to protect you and position your business for growth.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
