@@ -17,7 +17,7 @@ export default function TenantRepPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-[72px] bg-near-black overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
@@ -53,9 +53,9 @@ export default function TenantRepPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-teal py-12 md:py-16">
+      <section className="bg-teal" style={{ paddingTop: "clamp(3.5rem,7vw,6rem)", paddingBottom: "clamp(3.5rem,7vw,6rem)" }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: "clamp(2rem,10vw,10rem)", paddingRight: "clamp(2rem,10vw,10rem)" }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '8–15%', label: 'Average rent saving we negotiate' },
@@ -64,8 +64,8 @@ export default function TenantRepPage() {
                 { stat: '24hr', label: 'Initial lease review turnaround' }
               ].map((item) => (
                 <div key={item.label}>
-                  <p className="text-white font-black text-3xl sm:text-4xl lg:text-5xl mb-1.5 sm:mb-2 leading-none">{item.stat}</p>
-                  <p className="text-white/75 font-light text-xs sm:text-sm leading-snug">{item.label}</p>
+                  <p className="text-white font-black leading-none mb-3">{item.stat}</p>
+                  <p className="text-white/80 font-light leading-snug" style={{ fontSize: "0.85rem" }}>{item.label}</p>
                 </div>
               ))}
             </div>
@@ -74,7 +74,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* THE GUARANTEE */}
-      <section className="bg-near-black py-20 md:py-32 lg:py-40 border-t border-white/10">
+      <section className="bg-near-black py-20 md:py-28 md:py-32 lg:py-40 border-t border-white/10">
         <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>The Guarantee</SectionLabel>
@@ -116,7 +116,7 @@ export default function TenantRepPage() {
         </div>
       </section>
 
-      <section className="bg-white py-20 md:py-32 lg:py-40">
+      <section className="bg-white py-20 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
@@ -162,7 +162,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHAT'S AT STAKE */}
-      <section className="bg-near-black py-20 md:py-32 lg:py-40">
+      <section className="bg-near-black py-20 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What&apos;s at stake</SectionLabel>
@@ -203,7 +203,7 @@ export default function TenantRepPage() {
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="border border-white/10 rounded-sm p-6 sm:p-7 bg-white/[0.03] hover:bg-white/[0.06] transition-colors">
+                <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors" style={{ padding: "2rem 1.75rem" }}>
                   <div className="flex gap-3 items-start mb-3">
                     <div className="w-2 h-2 rounded-full bg-teal flex-shrink-0 mt-1.5" />
                     <h3 className="text-white font-bold text-base sm:text-lg leading-snug">{item.risk}</h3>
@@ -217,7 +217,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHAT'S INCLUDED */}
-      <section className="bg-warm-grey py-20 md:py-32 lg:py-40">
+      <section className="bg-warm-grey py-20 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What&apos;s included</SectionLabel>
@@ -305,7 +305,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* WHY CONFLICT OF INTEREST MATTERS */}
-      <section className="bg-white py-20 md:py-32 lg:py-40">
+      <section className="bg-white py-20 md:py-28 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>Why it matters</SectionLabel>
@@ -357,7 +357,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* LEASEINTEL CALLOUT */}
-      <section className="bg-warm-grey py-16 md:py-24">
+      <section className="bg-warm-grey py-20 md:py-28 md:py-24">
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <div className="bg-near-black rounded-sm p-8 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 sm:gap-10 items-start lg:items-center">
@@ -381,7 +381,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* CTA SECTION */}
-      <section className="bg-teal py-20 md:py-32 lg:py-40 text-center">
+      <section className="bg-teal py-20 md:py-28 md:py-32 lg:py-40 text-center">
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"

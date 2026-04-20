@@ -19,7 +19,7 @@ export default function BlogPage() {
     <>
       <Nav />
 
-      <section className="bg-near-black pt-[72px] pb-20">
+      <section className="bg-near-black ">
         <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pt-16">
           <SectionLabel>Insights</SectionLabel>
           <h1 className="text-white font-bold text-6xl lg:text-7xl leading-tight tracking-tight max-w-3xl mb-6">

@@ -56,8 +56,8 @@ export default function CapRateCalculatorPage() {
     <>
       <Nav />
 
-      <section className="bg-near-black pt-[72px] pb-20">
-        <div className="max-w-screen-xl mx-auto pt-16">
+      <section className="bg-near-black ">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Cap Rate Calculator</h1>
           <p className="text-white/60 font-light text-lg">Calculate capitalisation rate, net yield, and implied value for any commercial property investment.</p>
@@ -65,7 +65,7 @@ export default function CapRateCalculatorPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-screen-xl mx-auto">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             <div>
@@ -145,8 +145,8 @@ export default function CapRateCalculatorPage() {
         </div>
       </section>
 
-      <section className="bg-near-black py-20 text-center">
-        <div className="max-w-screen-xl mx-auto">
+      <section className="bg-near-black py-20 md:py-28 text-center">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want expert analysis?</h2>
           <p className="text-white/60 font-light text-lg mb-8">We can assess any commercial opportunity in the Hunter Valley and tell you whether the numbers stack up.</p>
           <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Buyer Consultation</Button>
