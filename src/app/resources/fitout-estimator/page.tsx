@@ -434,7 +434,7 @@ export default function FitoutEstimatorPage() {
 
               {/* Disclaimer */}
               <p className="text-white/30 font-light mb-10 leading-relaxed" style={{ fontSize: '0.82rem', lineHeight: 1.8 }}>
-                This estimate is based on current Newcastle and Hunter Region market rates from the YOS Fitout Cost Guide (April 2026). Actual costs depend on site conditions, builder selection, specification detail, and market conditions at time of tender. A site visit and detailed brief will refine this estimate significantly.
+                This estimate is based on current NSW market rates from the YOS Fitout Cost Guide (April 2026). Rates vary by location — figures shown reflect Newcastle and Hunter Region benchmarks. Actual costs depend on site conditions, builder selection, specification detail, and market conditions at time of tender. A site visit and detailed brief will refine this estimate significantly.
               </p>
 
               {/* CTAs */}

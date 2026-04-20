@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Tenant Representation | Your Office Space',
-  description: 'Expert tenant representation for business owners in Newcastle and Sydney. We negotiate leases, fight for better terms, and only ever represent tenants — never landlords.',
+  description: 'Expert tenant representation for business owners across Australia, with a strong NSW focus. We negotiate leases, fight for better terms, and only ever represent tenants — never landlords.',
   openGraph: {
     title: 'Tenant Representation | Your Office Space',
     description: 'We negotiate leases for tenants. Never landlords. Stronger terms, smarter deals, better outcomes.',
@@ -50,8 +50,8 @@ export default function TenantRepPage() {
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-10"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Most businesses sign what the landlord puts in front of them. We represent the ones
-              who don&apos;t. Independent tenant representation across Newcastle and Sydney —
-              negotiating rent, terms, and incentives that protect your bottom line.
+              who don&apos;t. Independent tenant representation across Australia — with a
+              strong NSW focus — negotiating rent, terms, and incentives that protect your bottom line.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -207,7 +207,7 @@ export default function TenantRepPage() {
             </h2>
             <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
               style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              We represent tenants across Sydney and Newcastle with one clear goal: to secure terms that serve your business — not the landlord&apos;s.
+              We represent tenants across Australia — with a strong NSW focus — with one clear goal: to secure terms that serve your business — not the landlord&apos;s.
             </p>
           </FadeIn>
 
