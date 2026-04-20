@@ -1,13 +1,11 @@
 import Nav from '@/components/Nav'
-import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import HubSpotForm from '@/components/HubSpotForm'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Contact | Your Office Space — Commercial Property Advisory',
-  description: 'Talk to Joe Kelley at Your Office Space. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.'
+  title: 'Contact | Your Office Space',
+  description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.'
 }
 
 export default function ContactPage() {
@@ -15,148 +13,229 @@ export default function ContactPage() {
     <>
       <Nav />
 
-      {/* HERO SECTION */}
-      <section className="relative min-h-[70vh] flex items-center pt-0 bg-near-black overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-screen-xl mx-auto w-full pt-16 pb-20">
-          <FadeIn delay={0}>
-            <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">Commercial Property Advisory — Australia</p>
-          </FadeIn>
-          <FadeIn delay={80}>
-            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-2xl mb-6"
-              style={{ fontSize: 'clamp(2.8rem, 7vw, 6rem)' }}>
+      {/* HERO — compact, no dead space */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,11rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <FadeIn>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>
+              Commercial Property Advisory — Australia
+            </p>
+            <h1 className="text-white font-black uppercase leading-none tracking-tight mb-5"
+              style={{ fontSize: 'clamp(2.25rem,6vw,6rem)' }}>
               Let&apos;s talk.
             </h1>
-          </FadeIn>
-          <FadeIn delay={160}>
-            <p className="text-white/60 font-light leading-relaxed max-w-xl"
-              style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)' }}>
-              20 minutes. No pitch. Just a conversation about your space and whether we can help.
+            <p className="text-white/60 font-light leading-relaxed"
+              style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
+              20 minutes. No pitch. Just a conversation about your situation and whether we can help.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* CONTACT OPTIONS */}
-      <section className="bg-white py-14 md:py-32">
+      {/* CONTACT — form + direct details */}
+      <section className="bg-white" style={{ paddingTop: 'clamp(3rem,8vw,7rem)', paddingBottom: 'clamp(3rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            {/* HubSpot Contact Form */}
-            <div className="flex flex-col">
-              <h2 className="text-near-black font-bold text-3xl mb-6">Send us a message</h2>
-              <p className="text-charcoal font-light text-base leading-relaxed mb-8">
-                Tell us what you&apos;re working on. We&apos;ll come back to you within one business day.
-              </p>
-              <HubSpotForm targetId="hs-contact-form" className="min-h-[200px]" />
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <p className="text-mid-grey font-light text-sm mb-4">Prefer to book directly?</p>
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external>
-                  Book a Clarity Call
-                </Button>
-              </div>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
 
-            {/* Direct Contact */}
-            <div className="flex flex-col bg-warm-grey rounded-sm p-12">
-              <h2 className="text-near-black font-bold text-3xl mb-8">Direct Contact</h2>
-              
-              <div className="space-y-8">
-                <div>
-                  <p className="text-mid-grey font-semibold text-sm tracking-widest uppercase mb-2">Email</p>
-                  <a
-                    href={`mailto:${CONTACT.email}`}
-                    className="text-teal font-semibold text-xl no-underline hover:text-dark-teal transition-colors"
+            {/* Left — contact form */}
+            <FadeIn>
+              <div>
+                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Send a message</p>
+                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
+                  style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
+                  We&apos;ll come back to you<br />within one business day.
+                </h2>
+
+                {/* Contact Form */}
+                <form
+                  name="contact"
+                  method="POST"
+                  action={`https://formsubmit.co/${CONTACT.email}`}
+                  className="flex flex-col gap-4"
+                >
+                  <input type="hidden" name="_subject" value="New enquiry — Your Office Space website" />
+                  <input type="hidden" name="_next" value="https://yourofficespace.au/contact?sent=true" />
+                  <input type="hidden" name="_captcha" value="false" />
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-near-black font-semibold mb-2" style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}>
+                        Your name <span className="text-teal">*</span>
+                      </label>
+                      <input
+                        type="text" name="name" required
+                        placeholder="Jane Smith"
+                        className="w-full border border-gray-200 focus:border-teal outline-none transition-colors font-light"
+                        style={{ padding: '0.85rem 1rem', fontSize: '0.95rem' }}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-near-black font-semibold mb-2" style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}>
+                        Business name
+                      </label>
+                      <input
+                        type="text" name="company"
+                        placeholder="Acme Pty Ltd"
+                        className="w-full border border-gray-200 focus:border-teal outline-none transition-colors font-light"
+                        style={{ padding: '0.85rem 1rem', fontSize: '0.95rem' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-near-black font-semibold mb-2" style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}>
+                        Email <span className="text-teal">*</span>
+                      </label>
+                      <input
+                        type="email" name="email" required
+                        placeholder="jane@company.com.au"
+                        className="w-full border border-gray-200 focus:border-teal outline-none transition-colors font-light"
+                        style={{ padding: '0.85rem 1rem', fontSize: '0.95rem' }}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-near-black font-semibold mb-2" style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}>
+                        Phone
+                      </label>
+                      <input
+                        type="tel" name="phone"
+                        placeholder="0400 000 000"
+                        className="w-full border border-gray-200 focus:border-teal outline-none transition-colors font-light"
+                        style={{ padding: '0.85rem 1rem', fontSize: '0.95rem' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-near-black font-semibold mb-2" style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}>
+                      How can we help? <span className="text-teal">*</span>
+                    </label>
+                    <select
+                      name="service" required
+                      className="w-full border border-gray-200 focus:border-teal outline-none transition-colors font-light bg-white"
+                      style={{ padding: '0.85rem 1rem', fontSize: '0.95rem' }}
+                    >
+                      <option value="">Select a service...</option>
+                      <option value="Tenant Representation">Tenant Representation</option>
+                      <option value="Buyers Agency">Buyers Agency</option>
+                      <option value="Furniture & Fitout">Furniture &amp; Fitout</option>
+                      <option value="Commercial Cleaning">Commercial Cleaning</option>
+                      <option value="Lease Review">Lease Review</option>
+                      <option value="General Enquiry">General Enquiry</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-near-black font-semibold mb-2" style={{ fontSize: '0.78rem', letterSpacing: '0.05em' }}>
+                      Tell us about your situation <span className="text-teal">*</span>
+                    </label>
+                    <textarea
+                      name="message" required rows={4}
+                      placeholder="What are you working on? What's your timeline? What does success look like?"
+                      className="w-full border border-gray-200 focus:border-teal outline-none transition-colors font-light resize-none"
+                      style={{ padding: '0.85rem 1rem', fontSize: '0.95rem', lineHeight: 1.6 }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors self-start"
+                    style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
                   >
-                    {CONTACT.email}
-                  </a>
-                  <p className="text-mid-grey font-light text-sm mt-2">
-                    Send an email anytime. Joe reads everything that comes in.
-                  </p>
-                </div>
+                    Send Message →
+                  </button>
+                </form>
+              </div>
+            </FadeIn>
 
-                <div className="border-t border-gray-300 pt-8">
-                  <p className="text-mid-grey font-semibold text-sm tracking-widest uppercase mb-2">Phone</p>
-                  <a
-                    href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                    className="text-teal font-semibold text-xl no-underline hover:text-dark-teal transition-colors"
-                  >
-                    {CONTACT.phone}
-                  </a>
-                  <p className="text-mid-grey font-light text-sm mt-2">
-                    Call during business hours. Expect a real person on the other end.
-                  </p>
-                </div>
+            {/* Right — direct contact */}
+            <FadeIn delay={120}>
+              <div>
+                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Or reach us directly</p>
+                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
+                  style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
+                  Real people.<br />Real conversations.
+                </h2>
 
-                <div className="border-t border-gray-300 pt-8">
-                  <p className="text-mid-grey font-semibold text-sm tracking-widest uppercase mb-2">Location</p>
-                  <p className="text-near-black font-semibold text-lg">
-                    {CONTACT.location}
-                  </p>
-                  <p className="text-mid-grey font-light text-sm mt-2">
-                    Based in Newcastle. We know the market inside out.
-                  </p>
+                <div className="flex flex-col gap-6">
+                  {/* Book a call */}
+                  <div className="border border-gray-100 p-6">
+                    <p className="text-teal font-bold uppercase tracking-widest mb-2" style={{ fontSize: '0.65rem' }}>Fastest option</p>
+                    <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Book a Clarity Call</p>
+                    <p className="text-charcoal font-light mb-4" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
+                      20 minutes. Pick a time that suits you and we will call.
+                    </p>
+                    <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                      className="bg-teal text-white font-bold no-underline inline-block hover:bg-dark-teal transition-colors"
+                      style={{ padding: '0.85rem 1.75rem', fontSize: '0.68rem', letterSpacing: '0.18em', textTransform: 'uppercase' }}>
+                      Book a Call →
+                    </a>
+                  </div>
+
+                  {/* Email */}
+                  <div style={{ paddingLeft: '1rem', borderLeft: '3px solid #00B5A5' }}>
+                    <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Email</p>
+                    <a href={`mailto:${CONTACT.email}`}
+                      className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
+                      style={{ fontSize: '1rem' }}>
+                      {CONTACT.email}
+                    </a>
+                    <p className="text-charcoal font-light" style={{ fontSize: '0.85rem' }}>
+                      We read everything. You will hear back within one business day.
+                    </p>
+                  </div>
+
+                  {/* Phone */}
+                  <div style={{ paddingLeft: '1rem', borderLeft: '3px solid #00B5A5' }}>
+                    <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Phone</p>
+                    <a href={`tel:${CONTACT.phone.replace(/\s+/g,'')}`}
+                      className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
+                      style={{ fontSize: '1rem' }}>
+                      {CONTACT.phone}
+                    </a>
+                    <p className="text-charcoal font-light" style={{ fontSize: '0.85rem' }}>
+                      Call during business hours. We pick up the phone.
+                    </p>
+                  </div>
+
+                  {/* Location */}
+                  <div style={{ paddingLeft: '1rem', borderLeft: '1px solid #e5e7eb' }}>
+                    <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in</p>
+                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>{CONTACT.location}</p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </FadeIn>
           </div>
         </div>
       </section>
 
       {/* WHAT TO EXPECT */}
-      <section className="bg-warm-grey py-14 md:py-32">
-        <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20">
-          <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8 md:mb-16">
-            What to expect.
-          </h2>
-
-          <div className="space-y-12">
-            <div>
-              <h3 className="text-near-black font-bold text-2xl mb-4">First conversation</h3>
-              <p className="text-charcoal font-light text-base leading-relaxed">
-                We&apos;ll ask about your situation. Current space, timeline, what&apos;s driving the decision, what success looks like. No sales pitch. Real listening.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-near-black font-bold text-2xl mb-4">Honest assessment</h3>
-              <p className="text-charcoal font-light text-base leading-relaxed">
-                We&apos;ll tell you straight whether we can help. If we can&apos;t, we&apos;ll say so. If we can, we&apos;ll explain how and what it looks like.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-near-black font-bold text-2xl mb-4">Next steps</h3>
-              <p className="text-charcoal font-light text-base leading-relaxed">
-                If it makes sense to move forward, we&apos;ll outline what happens next — timeline, fee structure (if applicable), and what you&apos;ll need to do on your end.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-near-black font-bold text-2xl mb-4">No pressure</h3>
-              <p className="text-charcoal font-light text-base leading-relaxed">
-                Take your time. Think it over. We&apos;ll be here if you want to talk more. Good business relationships start with a real conversation, not a hard close.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FINAL CTA */}
-      <section className="bg-near-black py-14 md:py-32 text-center">
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(3rem,8vw,7rem)', paddingBottom: 'clamp(3rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
-            Ready?
-          </h2>
-          <p className="text-white/70 font-light text-base leading-relaxed mb-12">
-            Pick your method above and let&apos;s get started.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external>
-              Book a Call
-            </Button>
-            <Button href={`mailto:${CONTACT.email}`} variant="secondary" external>
-              Send an Email
-            </Button>
+          <FadeIn>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>What to expect</p>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10"
+              style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
+              No pressure. No pitch.<br />Just a straight conversation.
+            </h2>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { num: '01', title: 'We listen', body: 'Tell us your situation. Current space, timeline, what\'s driving the decision. Real listening, no sales script.' },
+              { num: '02', title: 'We assess', body: 'We\'ll tell you straight whether we can help. If we can\'t, we\'ll say so.' },
+              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain how — timeline, process, and what it looks like to work together.' },
+              { num: '04', title: 'Your call', body: 'No pressure. Take your time. Good relationships start with honesty, not a hard close.' },
+            ].map((item, i) => (
+              <FadeIn key={item.num} delay={i * 60}>
+                <div style={{ paddingTop: '1.5rem', borderTop: '2px solid #00B5A5' }}>
+                  <p className="text-teal font-bold mb-3" style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}>{item.num}</p>
+                  <p className="text-near-black font-black uppercase tracking-tight mb-3" style={{ fontSize: '1rem' }}>{item.title}</p>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>{item.body}</p>
+                </div>
+              </FadeIn>
+            ))}
           </div>
         </div>
       </section>
