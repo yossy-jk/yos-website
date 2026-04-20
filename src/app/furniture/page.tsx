@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
-  description: 'Office furniture and fitout project management across Australia. Workstations, seating, storage, collaboration spaces — specified, delivered and installed.'
+  description: 'Office furniture and fitout project management across Australia. In-stock express range to made-to-order — tailored to your timeline, budget and design intent.'
 }
 
 export default function FurniturePage() {
@@ -41,7 +41,7 @@ export default function FurniturePage() {
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              We manage your furniture and fitout end to end — brief, specification, supplier coordination, delivery and install. You walk into a finished workspace. One team, no gaps.
+              We manage your furniture and fitout end to end — brief, specification, sourcing, delivery and install. Products are tailored to your timeline, budget and design intent. In-stock to made-to-order. One team, no gaps.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -60,7 +60,7 @@ export default function FurniturePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
                 { stat: '200+', label: 'Projects delivered' },
-                { stat: '4–6 weeks', label: 'Typical delivery & install' },
+                { stat: 'In stock to 6 weeks', label: 'Express range or made to order' },
                 { stat: '$0', label: 'Hidden charges or surprises' },
                 { stat: '1', label: 'Point of contact, start to finish' }
               ].map((item) => (
@@ -217,7 +217,7 @@ export default function FurniturePage() {
             {[
               { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. New fitout, partial refresh, or just some new chairs — we start with your needs, not a catalogue." },
               { step: '02', title: 'Spec & Quote', body: 'We prepare a specification and quote based on your space, your people, and your budget. No surprises.' },
-              { step: '03', title: 'Manufacture', body: 'Products are manufactured or sourced to your specification. Lead times are confirmed upfront.' },
+              { step: '03', title: 'Source & Deliver', body: 'We match products to your timeline. In-stock express range ships in 1–2 weeks. Made-to-order items typically run 3–6 weeks. Lead times are confirmed before you commit.' },
               { step: '04', title: 'Deliver & Install', body: "We deliver and install. Your team walks in to a ready workspace. We don't leave until it's right." }
             ].map((step, i) => (
               <FadeIn key={step.step} delay={i * 80} direction="up">
