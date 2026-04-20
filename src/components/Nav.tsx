@@ -159,56 +159,61 @@ export default function Nav() {
         className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ${
           open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
-        style={{ display: 'flex', flexDirection: 'column', paddingTop: '4.5rem' }}
       >
-        <nav style={{ padding: '2rem clamp(2rem, 8vw, 4rem) 0', flex: 1, overflowY: 'auto' }}>
-          <p className="text-teal font-semibold uppercase tracking-[0.25em] mb-4"
-            style={{ fontSize: '0.62rem' }}>Services</p>
-          {SERVICE_LINKS.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-white no-underline block hover:text-teal transition-colors duration-200"
-              style={{ fontWeight: 700, fontSize: 'clamp(1.1rem, 4vw, 1.4rem)', padding: '0.7rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="flex flex-col h-full pt-20 pb-8" style={{ padding: '5rem 2.5rem 2.5rem' }}>
 
-          <p className="text-teal font-semibold uppercase tracking-[0.25em] mt-8 mb-4"
-            style={{ fontSize: '0.62rem' }}>More</p>
-          {NAV_LINKS.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="text-white no-underline block hover:text-teal transition-colors duration-200"
-              style={{ fontWeight: 700, fontSize: 'clamp(1.1rem, 4vw, 1.4rem)', padding: '0.7rem 0', borderBottom: '1px solid rgba(255,255,255,0.06)' }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
+          {/* Services group */}
+          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Services</p>
+          <div className="flex flex-col mb-8">
+            {SERVICE_LINKS.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="text-white no-underline font-bold hover:text-teal transition-colors"
+                style={{ fontSize: '1.2rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
 
-        <div style={{ padding: '2rem clamp(2rem, 8vw, 4rem)' }}>
-          <a
-            href={HUBSPOT.bookingUrl}
-            target="_blank" rel="noopener noreferrer"
-            onClick={() => setOpen(false)}
-            className="bg-teal text-white font-black text-center no-underline block"
-            style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '1.1rem 2rem', marginBottom: '0.75rem' }}
-          >
-            Book a Clarity Call →
-          </a>
-          <a
-            href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-            onClick={() => setOpen(false)}
-            className="text-white/60 font-light text-center no-underline block"
-            style={{ fontSize: '0.85rem', padding: '0.75rem 2rem', letterSpacing: '0.05em', border: '1px solid rgba(255,255,255,0.15)' }}
-          >
-            {CONTACT.phone}
-          </a>
+          {/* Other links */}
+          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>More</p>
+          <div className="flex flex-col mb-10">
+            {NAV_LINKS.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="text-white no-underline font-bold hover:text-teal transition-colors"
+                style={{ fontSize: '1.2rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* CTAs */}
+          <div className="flex flex-col gap-3 mt-auto">
+            <a
+              href={HUBSPOT.bookingUrl}
+              target="_blank" rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="bg-teal text-white font-bold text-center no-underline block"
+              style={{ padding: '1.1rem', fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}
+            >
+              Book a Clarity Call →
+            </a>
+            <a
+              href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+              onClick={() => setOpen(false)}
+              className="text-white/60 font-light text-center no-underline block"
+              style={{ padding: '0.9rem', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.15)' }}
+            >
+              {CONTACT.phone}
+            </a>
+          </div>
         </div>
       </div>
 
