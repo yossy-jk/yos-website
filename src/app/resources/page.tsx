@@ -54,7 +54,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── FREE TOOLS ───────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Free tools</p>
@@ -95,7 +95,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── INSIGHTS: ARTICLES ───────────────── */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -158,7 +158,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── CASE STUDIES ────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">

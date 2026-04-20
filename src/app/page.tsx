@@ -103,7 +103,7 @@ export default function Home() {
       </section>
 
       {/* ─── SERVICES ──────────────────────────────── white */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What we do</p>
@@ -131,7 +131,7 @@ export default function Home() {
                           {s.num}
                         </span>
                         <h3 className="text-near-black font-black uppercase leading-tight tracking-tight group-hover:text-teal transition-colors duration-200"
-                          style={{ fontSize: 'clamp(1.5rem,2.5vw,2.25rem)' }}>
+                          style={{ fontSize: 'clamp(1.25rem,2.5vw,2.25rem)' }}>
                           {s.title}
                         </h3>
                       </div>
@@ -177,7 +177,7 @@ export default function Home() {
       </section>
 
       {/* ─── WHY US ────────────────────────────────── near-black */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
@@ -195,7 +195,7 @@ export default function Home() {
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
                 <div className="bg-near-black border border-white/8 md:border-0" style={{ padding: '2.5rem 2rem' }}>
-                  <div style={{ width: '2.5rem', height: '2px', background: '#00B5A5', marginBottom: '2rem' }} />
+                  <div style={{ width: '3rem', height: '3px', background: '#00B5A5', marginBottom: '1.75rem' }} />
                   <h3 className="text-white font-black uppercase tracking-tight mb-5"
                     style={{ fontSize: '1rem', letterSpacing: '-0.01em' }}>
                     {p.title}
@@ -212,7 +212,7 @@ export default function Home() {
       </section>
 
       {/* ─── TESTIMONIALS ──────────────────────────── warm grey */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
@@ -224,7 +224,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className={`bg-white flex flex-col h-full ${i > 0 ? 'hidden md:flex' : ''}`} style={{ padding: '3rem 2.5rem' }}>
+                <div className={`bg-white flex flex-col h-full ${i > 0 ? 'hidden md:flex' : ''}`} style={{ padding: '2.5rem 2rem' }}>
                   <Stars />
                   <p className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
                     style={{ fontSize: '1.05rem', lineHeight: 1.85 }}>
@@ -264,10 +264,10 @@ export default function Home() {
       </section>
 
       {/* ─── LEASEINTEL ────────────────────────────── teal */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-teal" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
-            <div className="inline-flex items-center gap-2 border border-white/30 mb-12"
+            <div className="inline-flex items-center gap-2 border border-white/30 mb-8"
               style={{ padding: '0.5rem 1.25rem' }}>
               <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
               <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>
@@ -278,7 +278,7 @@ export default function Home() {
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
               Is your lease costing you more than it should?
             </h2>
-            <p className="text-white/80 font-light leading-relaxed mb-16 mx-auto"
+            <p className="text-white/80 font-light leading-relaxed mb-10 mx-auto"
               style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.8 }}>
               Plain-English risk analysis. Every clause rated Red, Amber, or Green.
               Free summary — or a full report for $97.
@@ -301,7 +301,7 @@ export default function Home() {
 
 
       {/* ─── HOW WE WORK ───────────────────────── white */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
@@ -311,10 +311,10 @@ export default function Home() {
                   style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
                   A relationship,<br />not a transaction.
                 </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
+                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                   The first call is just a conversation. We ask about your situation — what you are trying to achieve, what is worrying you, what timeline you are working with. No forms to fill in. No obligation.
                 </p>
-                <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
+                <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                   From there, we tell you honestly whether we can help and what that looks like. Some clients need one service. Others need the whole team. Either way, you will know exactly where you stand.
                 </p>
               </div>
@@ -344,7 +344,7 @@ export default function Home() {
       </section>
 
       {/* ─── CTA ───────────────────────────────────── dark, team-focused */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(4rem,11vw,10rem)', paddingBottom: 'clamp(4rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
@@ -355,10 +355,10 @@ export default function Home() {
                   Commercial Property Advisors
                 </p>
                 <p className="text-white font-black uppercase leading-none tracking-tight"
-                  style={{ fontSize: 'clamp(2rem,5vw,5.5rem)', lineHeight: 1.1 }}>
+                  style={{ fontSize: 'clamp(1.75rem,5vw,5rem)', lineHeight: 1.15 }}>
                   100+<br />projects<br />delivered.
                 </p>
-                <p className="text-white/30 font-light mt-8" style={{ fontSize: '1rem', lineHeight: 1.7 }}>
+                <p className="text-white/30 font-light mt-6" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
                   Lease negotiations. Fitout projects. Furniture packages. Cleaning contracts. One team, start to finish.
                 </p>
               </div>

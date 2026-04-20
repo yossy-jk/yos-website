@@ -84,7 +84,7 @@ export default function FurniturePage() {
         </div>
       </section>
 
-      <section className="bg-white py-20 md:py-32 lg:py-40">
+      <section className="bg-white py-16 md:py-24 lg:py-36">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
@@ -137,7 +137,7 @@ export default function FurniturePage() {
       </section>
 
       {/* WHO WE WORK WITH */}
-      <section className="bg-near-black py-20 md:py-32 lg:py-40">
+      <section className="bg-near-black py-16 md:py-24 lg:py-36">
         <div className="max-w-screen-xl mx-auto px-8 md:px-14 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <FadeIn direction="left">
             <div>
@@ -173,7 +173,7 @@ export default function FurniturePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-warm-grey py-20 md:py-32 lg:py-40">
+      <section className="bg-warm-grey py-16 md:py-24 lg:py-36">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
@@ -227,7 +227,7 @@ export default function FurniturePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-near-black py-20 md:py-32 lg:py-40 text-center">
+      <section className="bg-near-black py-16 md:py-24 lg:py-36 text-center">
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"

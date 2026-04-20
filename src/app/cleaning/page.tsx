@@ -79,7 +79,7 @@ export default function CleaningPage() {
         </div>
       </section>
 
-      <section className="bg-white py-20 md:py-32 lg:py-40">
+      <section className="bg-white py-16 md:py-24 lg:py-36">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
@@ -160,7 +160,7 @@ export default function CleaningPage() {
       </section>
 
       {/* THE YOS DIFFERENCE */}
-      <section className="bg-near-black py-20 md:py-32 lg:py-40">
+      <section className="bg-near-black py-16 md:py-24 lg:py-36">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
@@ -236,7 +236,7 @@ export default function CleaningPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal py-20 md:py-32 lg:py-40 text-center">
+      <section className="bg-teal py-16 md:py-24 lg:py-36 text-center">
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
