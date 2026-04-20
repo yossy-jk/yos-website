@@ -112,10 +112,10 @@ export default function Home() {
       <section className="bg-white" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
         <div className={WRAP}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.7rem' }}>What we do</p>
-            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-16 md:mb-24"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 5rem)', maxWidth: '14ch' }}>
-              One team.<br />Everything covered.
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What we do</p>
+            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-12"
+              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
+              One team. Everything covered.
             </h2>
           </FadeIn>
 
@@ -131,7 +131,7 @@ export default function Home() {
                       {s.num}
                     </span>
                     <span className="text-near-black font-black uppercase leading-none tracking-tight group-hover:text-teal transition-colors duration-200"
-                      style={{ fontSize: 'clamp(1.35rem, 3vw, 2.5rem)' }}>
+                      style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.75rem)' }}>
                       {s.title}
                     </span>
                   </div>
@@ -155,10 +155,10 @@ export default function Home() {
       <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
         <div className={WRAP}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-6" style={{ fontSize: '0.7rem' }}>Why us</p>
-            <h2 className="text-white font-black uppercase leading-none tracking-tight mb-16 md:mb-20"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 5rem)' }}>
-              We work for you.<br />Not the other side.
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>Why us</p>
+            <h2 className="text-white font-black uppercase leading-none tracking-tight mb-12"
+              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
+              We work for you. Not the other side.
             </h2>
           </FadeIn>
 
@@ -195,20 +195,20 @@ export default function Home() {
       <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem, 10vw, 9rem)', paddingBottom: 'clamp(5rem, 10vw, 9rem)' }}>
         <div className={WRAP}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.7rem' }}>What clients say</p>
-            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-16 md:mb-20"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 5rem)' }}>
-              Real people.<br />Real outcomes.
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.7rem' }}>What clients say</p>
+            <h2 className="text-near-black font-black uppercase leading-none tracking-tight mb-12"
+              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)' }}>
+              Real people. Real outcomes.
             </h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="bg-white flex flex-col" style={{ padding: '2.5rem 2rem' }}>
+                <div className="bg-white flex flex-col" style={{ padding: '2.5rem 2.25rem' }}>
                   <Stars />
                   <p className="text-near-black font-light leading-relaxed flex-1 mt-6 mb-8"
-                    style={{ fontSize: '0.9rem' }}>
+                    style={{ fontSize: '0.95rem' }}>
                     &ldquo;{t.quote}&rdquo;
                   </p>
                   <div style={{ borderTop: '1px solid #f3f4f6', paddingTop: '1.25rem' }}>
@@ -235,7 +235,7 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-white font-black uppercase leading-none tracking-tight mb-6 mx-auto"
-              style={{ fontSize: 'clamp(2.2rem, 4.5vw, 5rem)', maxWidth: '20ch' }}>
+              style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.75rem)', maxWidth: '26ch' }}>
               Is your lease costing you more than it should?
             </h2>
             <p className="text-white/75 font-light leading-relaxed mb-12 mx-auto"
@@ -264,7 +264,7 @@ export default function Home() {
         <div className={`${WRAP} text-center`}>
           <FadeIn>
             <h2 className="text-white font-black uppercase leading-none tracking-tight mb-8 mx-auto"
-              style={{ fontSize: 'clamp(3.5rem, 8vw, 9rem)' }}>
+              style={{ fontSize: 'clamp(4rem, 9vw, 10rem)' }}>
               Talk to us.
             </h2>
             <p className="text-white/45 font-light leading-relaxed mb-12 mx-auto"
