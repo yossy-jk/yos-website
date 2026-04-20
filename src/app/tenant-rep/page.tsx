@@ -8,7 +8,9 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Tenant Representation | Your Office Space',
-  description: 'Expert tenant representation for business owners across Australia, with a strong NSW focus. We negotiate leases, fight for better terms, and only ever represent tenants — never landlords.',
+  description: 'Expert commercial tenant representation across Australia, NSW focus. We negotiate leases, secure better terms, and only ever work for tenants — never landlords.',
+  twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'We negotiate commercial leases for tenants. Never landlords. Better terms, stronger outcomes.' },
+  alternates: { canonical: 'https://yourofficespace.au/tenant-rep' },
   openGraph: {
     title: 'Tenant Representation | Your Office Space',
     description: 'We negotiate leases for tenants. Never landlords. Stronger terms, smarter deals, better outcomes.',
@@ -28,6 +30,17 @@ export default function TenantRepPage() {
   return (
     <>
       <Nav />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Commercial Tenant Representation",
+        "provider": { "@type": "ProfessionalService", "name": "Your Office Space", "url": "https://yourofficespace.au" },
+        "description": "Independent commercial tenant representation across Australia. We negotiate leases, rent-free periods, incentives and make-good terms — exclusively on behalf of tenants.",
+        "areaServed": ["New South Wales", "Australia"],
+        "serviceType": "Tenant Representation",
+        "offers": { "@type": "Offer", "description": "First consultation free. Fee typically paid by landlord." }
+      }) }} />
+
 
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden">

@@ -8,7 +8,9 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Commercial Cleaning Newcastle | Your Office Space',
-  description: 'Consistent, accountable commercial cleaning for offices, medical practices, and childcare centres across Newcastle and the Hunter Valley.',
+  description: 'Consistent, accountable commercial cleaning for offices, medical and childcare across Newcastle and the Hunter Valley. Same team every visit.',
+  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Consistent. Accountable. Same team every visit. Monthly site audits on every contract.' },
+  alternates: { canonical: 'https://yourofficespace.au/cleaning' },
   openGraph: {
     title: 'Commercial Cleaning Newcastle | Your Office Space',
     description: 'Consistent. Accountable. Same team every visit. Commercial cleaning for offices, medical and childcare across Newcastle.',

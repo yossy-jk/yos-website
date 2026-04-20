@@ -53,6 +53,68 @@ export default function Home() {
   return (
     <>
       <Nav />
+      {/* Structured data — LocalBusiness + FAQ for AEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://yourofficespace.au/#business",
+            "name": "Your Office Space",
+            "url": "https://yourofficespace.au",
+            "logo": "https://yourofficespace.au/logo.png",
+            "description": "Tenant-side commercial property advisory across Australia. Tenant representation, buyers agency, office furniture, fitout and commercial cleaning.",
+            "areaServed": ["New South Wales", "Australia"],
+            "serviceType": ["Tenant Representation", "Commercial Buyers Agency", "Office Furniture", "Office Fitout", "Commercial Cleaning"],
+            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property Investment", "Office Fitout", "Workplace Design"],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+61434655511",
+              "contactType": "Customer Service",
+              "areaServed": "AU",
+              "availableLanguage": "English"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is tenant representation in commercial property?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Tenant representation is a service where a licensed agent works exclusively for the tenant — not the landlord — in negotiating a commercial lease. They help secure better rent, favourable terms, rent-free periods and incentives. Your Office Space only ever represents tenants."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How much does commercial tenant representation cost?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "In most cases, tenant representation is paid by the landlord as part of the leasing transaction. The tenant pays nothing directly. Your Office Space will confirm the fee structure upfront before any engagement begins."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What is a make-good clause in a commercial lease?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A make-good clause requires the tenant to restore the premises to its original condition at the end of the lease. Full reinstatement clauses can cost tens of thousands of dollars. Negotiating a fair wear and tear standard — or capping the obligation — is one of the most valuable things a tenant representative can do."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I compare commercial lease options?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "To properly compare commercial leases you need to look beyond face rent. Factor in outgoings, make-good obligations, rent-free periods, annual rent reviews, and net present value over the full term. Your Office Space offers a free Lease Comparison Tool at yourofficespace.au/resources/lease-comparison."
+                }
+              }
+            ]
+          }
+        ]
+      })}} />
+
 
       {/* ─── HERO ──────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-near-black">

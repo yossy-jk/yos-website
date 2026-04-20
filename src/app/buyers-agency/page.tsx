@@ -9,9 +9,12 @@ import { HUBSPOT } from '@/lib/constants'
 export const metadata = {
   title: 'Commercial Buyers Agency | Your Office Space',
   description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
+  twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
+  alternates: { canonical: 'https://yourofficespace.au/buyers-agency' },
   openGraph: {
     title: 'Commercial Buyers Agency | Your Office Space',
     description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
+  twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
     url: 'https://yourofficespace.au/buyers-agency',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -23,6 +26,16 @@ export default function BuyersAgencyPage() {
   return (
     <>
       <Nav />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Commercial Property Buyers Agency",
+        "provider": { "@type": "ProfessionalService", "name": "Your Office Space", "url": "https://yourofficespace.au" },
+        "description": "Off-market commercial property sourcing, due diligence and purchase negotiation across Australia. We find, analyse and secure commercial property on behalf of buyers.",
+        "areaServed": ["New South Wales", "Australia"],
+        "serviceType": "Buyers Agency"
+      }) }} />
+
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center pt-0 bg-near-black"
