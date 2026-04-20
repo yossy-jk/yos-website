@@ -73,6 +73,17 @@ export default function FurniturePage() {
       </section>
 
       {/* WHAT WE SUPPLY */}
+      {/* ─── IMAGE BREAK ─────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
+        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80" alt="Modern office fitout" className="absolute inset-0 w-full h-full object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
+        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
+            From brief to delivered workspace.
+          </p>
+        </div>
+      </section>
+
       <section className="bg-white py-20 md:py-32 lg:py-40">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
           <FadeIn>

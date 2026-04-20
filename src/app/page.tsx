@@ -4,6 +4,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
+import { IMAGES } from '@/lib/images'
 
 /* ─── Layout constants ───────────────────────────────────────── */
 const WRAP = 'max-w-screen-xl mx-auto'
@@ -151,6 +152,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── IMAGE BREAK ────────────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
+        <Image src={IMAGES.meeting} alt="Business meeting" fill className="object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
+        <div className="absolute inset-0 flex items-center" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
+              Every decision we make is in your interest.
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ─── WHY US ────────────────────────────────── near-black */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
@@ -214,6 +228,19 @@ export default function Home() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── IMAGE BREAK ────────────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
+        <Image src={IMAGES.boardroom} alt="Modern office boardroom" fill className="object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
+        <div className="absolute inset-0 flex items-center justify-end" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <FadeIn>
+            <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '20ch' }}>
+              Spaces built around how your business works.
+            </p>
+          </FadeIn>
         </div>
       </section>
 
