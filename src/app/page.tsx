@@ -341,59 +341,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CTA ───────────────────────────────────── dark, team-focused */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(3rem,8vw,10rem)', paddingBottom: 'clamp(3rem,8vw,10rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
-
-            {/* On mobile: text first, stat block second */}
-            <FadeIn className="order-2 lg:order-1">
-              <div className="flex flex-col justify-center">
-                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-8">
-                  Commercial Property Advisors
-                </p>
-                <p className="text-white font-black uppercase leading-none tracking-tight"
-                  style={{ fontSize: 'clamp(1.5rem,4vw,4rem)', lineHeight: 1.2 }}>
-                  100+<br />projects<br />delivered.
-                </p>
-                <p className="text-white/30 font-light mt-6" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
-                  Lease negotiations. Fitout projects. Furniture packages. Cleaning contracts. One team, start to finish.
-                </p>
-              </div>
-            </FadeIn>
-
-            {/* Right on desktop, first on mobile */}
-            <FadeIn delay={120} className="order-1 lg:order-2">
-              <div>
-                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">Get started</p>
-                <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8"
-                  style={{ fontSize: 'clamp(1.75rem,4vw,4rem)' }}>
-                  Let&apos;s have<br />a conversation.
-                </h2>
-                <p className="text-white/55 font-light leading-relaxed mb-12"
-                  style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '30rem' }}>
-                  No obligation. No pitch. Tell us what you are working with and we will give you an honest view of your options. Most people find it useful even if they are not ready to move yet.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                    className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
-                    style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                    Book a Clarity Call
-                  </a>
-                  <Link href="/contact"
-                    className="text-white font-medium no-underline text-center hover:text-teal transition-colors"
-                    style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.25)' }}>
-                    Get in Touch
-                  </Link>
-                </div>
-                <p className="text-white/25 font-light mt-10" style={{ fontSize: '0.8rem' }}>
-                  <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/35 no-underline hover:text-white/70 transition-colors">{CONTACT.phone}</a>
-                  {' · '}
-                  <a href="mailto:hello@yourofficespace.au" className="text-white/35 no-underline hover:text-white/70 transition-colors">hello@yourofficespace.au</a>
-                </p>
-              </div>
-            </FadeIn>
-          </div>
+      {/* ─── CTA ───────────────────────────────────── dark, clean, centred */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }}>
+        <div className={`${WRAP} text-center`} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+          <FadeIn>
+            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">
+              Get started
+            </p>
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mx-auto"
+              style={{ fontSize: 'clamp(2rem,5vw,5rem)', marginBottom: '1.25rem' }}>
+              Let&apos;s have<br />a conversation.
+            </h2>
+            <p className="text-white/50 font-light leading-relaxed mx-auto"
+              style={{ fontSize: '1rem', lineHeight: 1.75, maxWidth: '28rem', marginBottom: '2rem' }}>
+              No obligation. No pitch. Tell us what you&apos;re working with — we&apos;ll give you an honest view.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
+                style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '16rem' }}>
+                Book a Clarity Call
+              </a>
+              <Link href="/contact"
+                className="text-white font-medium no-underline text-center hover:text-teal transition-colors"
+                style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)', minWidth: '16rem' }}>
+                Get in Touch
+              </Link>
+            </div>
+            <p className="text-white/20 font-light mt-8" style={{ fontSize: '0.78rem' }}>
+              <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>
+              {' · '}
+              <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">hello@yourofficespace.au</a>
+            </p>
+          </FadeIn>
         </div>
       </section>
 
