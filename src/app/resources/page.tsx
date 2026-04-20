@@ -17,6 +17,9 @@ const tools = [
   { title: 'Cap Rate Calculator', description: 'Calculate the cap rate on any commercial property. Understand yield, net income and implied value at multiple scenarios.', href: '/resources/cap-rate-calculator', features: ['Net income calculation', 'Multiple cap rate scenarios', 'Vacancy + outgoings'] },
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost — not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
   { title: 'Purchase Checklist', description: 'A 25-point due diligence checklist for commercial property buyers in NSW. Tick off as you go.', href: '/resources/purchase-checklist', features: ['25 due diligence checks', 'Zoning, title, building', 'NSW-specific'] },
+  { title: 'Rental Yield Calculator', description: 'Gross and net yield on commercial property. Factor in outgoings, vacancy, and management fees.', href: '/resources/rental-yield-calculator', features: ['Gross + net yield', 'Vacancy & outgoings', 'Break-even rent'] },
+  { title: 'Stamp Duty Calculator', description: 'Transfer duty on commercial property across all Australian states. 2025-26 verified rates.', href: '/resources/stamp-duty-calculator', features: ['All states covered', '2025-26 verified rates', 'Bracket breakdown'] },
+  { title: 'Land Tax Calculator', description: 'Annual land tax liability across all states. Know your holding costs before you buy.', href: '/resources/land-tax-calculator', features: ['All states covered', '2025-26 thresholds', 'Trusts vs individuals'] },
 ]
 
 const FILTERS = [
