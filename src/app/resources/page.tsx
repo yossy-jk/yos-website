@@ -227,14 +227,15 @@ export default function ResourcesPage() {
 
       {/* ─── CTA ──────────────────────────────── */}
       <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
+            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6 w-full"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Tools get you started.<br />A conversation gets you moving.
             </h2>
-            <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
-              style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
+            <p className="text-white/80 font-light leading-relaxed mb-12 w-full"
+              style={{ fontSize: '1rem', lineHeight: 1.75 }}>
               Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
             </p>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
@@ -242,6 +243,7 @@ export default function ResourcesPage() {
               style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Book a Clarity Call
             </a>
+            </div>
           </FadeIn>
         </div>
       </section>

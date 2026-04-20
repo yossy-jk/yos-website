@@ -101,15 +101,17 @@ export default function CaseStudiesPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────────────────── */}
-      <section className="bg-near-black text-center" style={SEC}>
-        <div className={WRAP} style={{ ...PAD, maxWidth: '48rem' }}>
-          <h2 className="text-white font-bold leading-tight mb-4" style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
-            Want results like these?
-          </h2>
-          <p className="text-white/60 font-light text-lg mb-10">
-            Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.
-          </p>
-          <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">Book a Clarity Call</Button>
+      <section className="bg-near-black" style={SEC}>
+        <div className={WRAP} style={PAD}>
+          <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
+            <h2 className="text-white font-bold leading-tight mb-4 w-full" style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
+              Want results like these?
+            </h2>
+            <p className="text-white/60 font-light text-lg mb-10 w-full">
+              Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.
+            </p>
+            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">Book a Clarity Call</Button>
+          </div>
         </div>
       </section>
 

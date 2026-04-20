@@ -241,20 +241,22 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal text-center"
+      <section className="bg-teal"
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
-              style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
-              Ready to buy smart?
-            </h2>
-            <p className="text-white/80 font-light text-lg leading-relaxed mb-8 sm:mb-12 mx-auto" style={{ maxWidth: '38rem' }}>
-              Tell us what you&apos;re looking for. We&apos;ll tell you what&apos;s out there and what it would take to get it.
-            </p>
-            <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-              Book a Buyer Consultation
-            </Button>
+            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
+              <h2 className="text-white font-bold leading-tight mb-5 w-full"
+                style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
+                Ready to buy smart?
+              </h2>
+              <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
+                Tell us what you&apos;re looking for. We&apos;ll tell you what&apos;s out there and what it would take to get it.
+              </p>
+              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
+                Book a Buyer Consultation
+              </Button>
+            </div>
           </div>
         </FadeIn>
       </section>
