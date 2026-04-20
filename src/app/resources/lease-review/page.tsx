@@ -129,7 +129,7 @@ export default function LeaseReviewPage() {
       <Nav />
 
       <section className="bg-near-black pt-[72px] pb-20">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 pt-16">
+        <div className="max-w-screen-xl mx-auto pt-16">
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Lease Risk Checker</h1>
           <p className="text-white/60 font-light text-lg leading-relaxed">
@@ -139,7 +139,7 @@ export default function LeaseReviewPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-screen-xl mx-auto">
 
           {!submitted ? (
             <>
@@ -236,7 +236,7 @@ export default function LeaseReviewPage() {
       </section>
 
       <section className="bg-near-black py-20 text-center">
-        <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
+        <div className="max-w-screen-xl mx-auto">
           <h2 className="text-white font-bold text-4xl leading-tight mb-4">Want us to review the full lease?</h2>
           <p className="text-white/60 font-light text-lg mb-8">
             We review commercial leases for Newcastle businesses every week. We&apos;ll tell you what to push back on — and negotiate it on your behalf.

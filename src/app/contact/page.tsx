@@ -18,7 +18,7 @@ export default function ContactPage() {
       {/* HERO SECTION */}
       <section className="relative min-h-[70vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-16 pb-20">
+        <div className="relative max-w-screen-xl mx-auto w-full pt-16 pb-20">
           <FadeIn delay={0}>
             <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">Commercial Property Advisory — Australia</p>
           </FadeIn>
@@ -38,8 +38,8 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT OPTIONS */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
+      <section className="bg-white py-24 md:py-36">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* HubSpot Contact Form */}
             <div className="flex flex-col">
@@ -103,7 +103,7 @@ export default function ContactPage() {
       </section>
 
       {/* WHAT TO EXPECT */}
-      <section className="bg-warm-grey py-24 lg:py-32">
+      <section className="bg-warm-grey py-24 md:py-36">
         <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20">
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-16">
             What to expect.
@@ -142,8 +142,8 @@ export default function ContactPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section className="bg-near-black py-24 lg:py-32 text-center">
-        <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-near-black py-24 md:py-36 text-center">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
           <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
             Ready?
           </h2>

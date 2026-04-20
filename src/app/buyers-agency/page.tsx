@@ -26,7 +26,7 @@ export default function BuyersAgencyPage() {
           priority
         />
         <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-14 lg:px-24 pt-12 pb-16 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 w-full">
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Buyers Agency</SectionLabel>
           </FadeIn>
@@ -54,7 +54,7 @@ export default function BuyersAgencyPage() {
       {/* STATS BAR */}
       <section className="bg-teal py-8 sm:py-12 lg:py-16">
         <FadeIn>
-          <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '$0', label: 'Vendor-side fees — ever' },
@@ -73,8 +73,8 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* WHO WE HELP */}
-      <section className="bg-white py-14 sm:py-20 lg:py-32">
-        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
+      <section className="bg-white py-20 md:py-32 lg:py-40">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -114,8 +114,8 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* WHAT WE DO */}
-      <section className="bg-near-black py-14 sm:py-20 lg:py-32">
-        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
+      <section className="bg-near-black py-20 md:py-32 lg:py-40">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -145,8 +145,8 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* MARKET SNAPSHOT */}
-      <section className="bg-warm-grey py-14 sm:py-20 lg:py-32">
-        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
+      <section className="bg-warm-grey py-20 md:py-32 lg:py-40">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
           <FadeIn>
             <SectionLabel>Newcastle market right now</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-14 lg:mb-16 max-w-2xl"
@@ -191,8 +191,8 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* WHY YOS */}
-      <section className="bg-near-black py-14 sm:py-20 lg:py-32">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
+      <section className="bg-near-black py-20 md:py-32 lg:py-40">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
           <FadeIn>
             <SectionLabel>Why YOS</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-7 sm:mb-10"
@@ -216,9 +216,9 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal py-14 sm:py-20 lg:py-32 text-center">
+      <section className="bg-teal py-20 md:py-32 lg:py-40 text-center">
         <FadeIn>
-          <div className="max-w-2xl mx-auto px-6 md:px-12 lg:px-20">
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)', paddingTop: 'clamp(7rem, 14vw, 11rem)', paddingBottom: 'clamp(5rem, 10vw, 8rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to buy smart?

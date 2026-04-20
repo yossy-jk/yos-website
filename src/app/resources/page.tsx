@@ -62,7 +62,7 @@ export default function ResourcesPage() {
       {/* HERO */}
       <section className="relative min-h-[65vh] flex items-center pt-[72px] bg-near-black overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)', backgroundSize: '80px 80px' }} />
-        <div className="relative max-w-6xl mx-auto px-8 md:px-14 lg:px-24 w-full pt-20 pb-20">
+        <div className="relative max-w-screen-xl mx-auto w-full pt-20 pb-20">
           <FadeIn delay={0}>
             <SectionLabel>Free tools</SectionLabel>
           </FadeIn>
@@ -82,8 +82,8 @@ export default function ResourcesPage() {
       </section>
 
       {/* TOOLS GRID */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="max-w-6xl mx-auto px-8 md:px-14 lg:px-24">
+      <section className="bg-white py-24 md:py-36">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {tools.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 80} direction="up">
@@ -117,8 +117,8 @@ export default function ResourcesPage() {
       </section>
 
       {/* NEED MORE HELP */}
-      <section className="bg-warm-grey py-24 lg:py-32">
-        <div className="max-w-4xl mx-auto px-8 md:px-14 lg:px-24 text-center">
+      <section className="bg-warm-grey py-24 md:py-36">
+        <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
           <SectionLabel>Need more?</SectionLabel>
           <h2 className="text-near-black font-bold text-4xl lg:text-5xl leading-tight mb-8">
             Tools get you started. A straight conversation gets you moving.
