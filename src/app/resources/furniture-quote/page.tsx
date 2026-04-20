@@ -11,7 +11,7 @@ import { submitLead } from '@/lib/hubspot-lead'
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
-const inputClass = 'w-full bg-white border border-gray-200 rounded-sm px-4 py-3 text-near-black text-sm font-light placeholder:text-mid-grey/60 focus:outline-none focus:border-teal transition-colors'
+const inputClass = 'w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-near-black text-sm font-light placeholder:text-mid-grey/60 focus:outline-none focus:border-teal transition-colors'
 const labelClass = 'block text-near-black font-medium text-sm mb-1.5'
 
 export default function FurnitureQuotePage() {
@@ -148,7 +148,7 @@ export default function FurnitureQuotePage() {
           <div className="max-w-2xl">
             {submitted ? (
               <FadeIn>
-                <div className="bg-warm-grey rounded-sm p-10 sm:p-14">
+                <div className="bg-warm-grey rounded-xl p-10 sm:p-14">
                   <div className="w-10 h-1 bg-teal mb-8" />
                   <h2 className="text-near-black font-bold text-2xl sm:text-3xl leading-tight mb-4">
                     We have your brief.
@@ -365,7 +365,7 @@ export default function FurnitureQuotePage() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex items-center gap-2 bg-teal text-white font-bold text-sm px-8 py-4 rounded-sm hover:bg-teal/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center gap-2 bg-teal text-white font-bold text-sm px-8 py-4 rounded-xl hover:bg-teal/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       {submitting ? 'Sending...' : 'Submit brief'}
                     </button>

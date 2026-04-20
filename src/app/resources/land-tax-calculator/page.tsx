@@ -523,7 +523,7 @@ export default function LandTaxCalculatorPage() {
                             {['Annual land tax', 'Effective rate', 'Monthly equivalent', 'Calculation detail'].map((label, i) => (
                               <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
                                 <span className="text-white/50 font-light" style={{ fontSize: '0.875rem' }}>{label}</span>
-                                <span className="w-24 h-3 bg-white/10 rounded" />
+                                <span className="w-24 h-3 bg-white/10 rounded-lg" />
                               </div>
                             ))}
                           </div>
@@ -582,7 +582,7 @@ export default function LandTaxCalculatorPage() {
             </h2>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
               className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-              style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+              style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
               Book a Buyer Consultation →
             </a>
           </div>

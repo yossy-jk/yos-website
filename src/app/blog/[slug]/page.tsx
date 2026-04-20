@@ -52,7 +52,7 @@ function renderBody(body: string) {
       }
     } else if (line.includes('|') && line.trim().startsWith('|')) {
       // Simple table row — skip for now, rendered as text
-      elements.push(<p key={key++} className="text-charcoal font-light text-sm leading-relaxed font-mono bg-warm-grey px-3 py-1 rounded my-1">{line}</p>)
+      elements.push(<p key={key++} className="text-charcoal font-light text-sm leading-relaxed font-mono bg-warm-grey px-3 py-1 rounded-lg my-1">{line}</p>)
     } else if (line.trim() === '') {
       elements.push(<div key={key++} className="h-2" />)
     } else {
@@ -124,7 +124,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           )}
 
-          <div className="mt-12 bg-warm-grey rounded-sm p-10">
+          <div className="mt-12 bg-warm-grey rounded-xl p-10">
             <p className="text-near-black font-bold text-xl mb-3">Want to talk about your situation?</p>
             <p className="text-charcoal font-light text-base mb-6">
               First conversation is always free. No pitch — just an honest assessment of what you&apos;re dealing with and whether we can help.

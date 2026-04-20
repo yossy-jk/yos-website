@@ -149,7 +149,7 @@ export default function CleaningPage() {
               },
             ].map((category, i) => (
               <FadeIn key={category.type} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
+                <div className="bg-warm-grey rounded-xl p-7 sm:p-10 h-full">
                   <h3 className="text-near-black font-bold text-base mb-5 border-b-2 border-teal pb-3">
                     {category.type}
                   </h3>
@@ -201,7 +201,7 @@ export default function CleaningPage() {
               },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">
-                <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
+                <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
                   <h3 className="text-white font-bold text-lg mb-4">{item.title}</h3>
                   <p className="text-white/65 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                   <p className="text-white/35 font-light text-xs italic border-t border-white/10 pt-4">{item.aside}</p>
@@ -227,7 +227,7 @@ export default function CleaningPage() {
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">

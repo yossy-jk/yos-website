@@ -62,7 +62,7 @@ export default function ContactForm() {
 
   if (sent) {
     return (
-      <div className="bg-teal/5 border border-teal/20 rounded-sm p-8 text-center">
+      <div className="bg-teal/5 border border-teal/20 rounded-xl p-8 text-center">
         <p className="text-teal font-black text-lg mb-2">Message received.</p>
         <p className="text-charcoal font-light text-sm">We&apos;ll come back to you within one business day.</p>
       </div>
@@ -123,7 +123,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="self-start bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[52px] inline-flex items-center gap-2"
+        className="self-start bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[52px] inline-flex items-center gap-2"
       >
         {submitting ? (
           <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending…</>

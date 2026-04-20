@@ -140,7 +140,7 @@ function BarChart({ results, bestIdx }: { results: LeaseResult[]; bestIdx: numbe
                 <span className="text-near-black font-semibold text-sm">{r.name}</span>
                 <span className={`font-bold text-sm ${isBest ? 'text-teal' : 'text-near-black'}`}>{fmtK(r.netPresentCost)}</span>
               </div>
-              <div className="h-8 bg-warm-grey rounded overflow-hidden">
+              <div className="h-8 bg-warm-grey rounded-lg overflow-hidden">
                 <div
                   className={`h-full rounded transition-all duration-500 flex items-center px-3 ${isBest ? 'bg-teal' : 'bg-mid-grey/40'}`}
                   style={{ width: `${w}%` }}
@@ -306,7 +306,7 @@ export default function LeaseComparisonPage() {
             <button
               onClick={compare}
               disabled={filledCount === 0}
-              className="bg-teal text-white font-bold uppercase tracking-[0.14em] inline-flex items-center justify-center hover:bg-dark-teal transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed min-h-[52px]" style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}
+              className="bg-teal text-white font-bold uppercase tracking-[0.14em] inline-flex items-center justify-center hover:bg-dark-teal transition-colors duration-200 disabled:opacity-40 disabled:cursor-not-allowed min-h-[52px]" style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}
             >
               {filledCount > 1 ? `Compare ${filledCount} options` : 'Compare leases'}
             </button>
@@ -332,21 +332,21 @@ export default function LeaseComparisonPage() {
             heading="Where should we send your comparison?"
             subheading="Unlock the full year-by-year breakdown and negotiation flags."
             teaser={
-              <div className="bg-near-black rounded-sm p-8 mb-4">
+              <div className="bg-near-black rounded-xl p-8 mb-4">
                 <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
                 <h2 className="text-white font-bold text-3xl mb-3">
                   {validResults.length === 1 ? validResults[0].name : `${validResults[bestIdx]?.name} is the better deal`}
                 </h2>
                 <div className="flex flex-wrap gap-4 mt-4">
                   {validResults.map((r, i) => (
-                    <div key={i} className="bg-white/5 border border-white/10 rounded-sm px-4 py-3">
+                    <div key={i} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                       <p className="text-white/60 text-xs mb-1">{r.name}</p>
                       <p className="text-white font-black">{fmt(r.trueCostPa)}<span className="text-white/40 font-light text-sm">/yr</span></p>
                     </div>
                   ))}
                 </div>
                 <div className="mt-6 border-t border-white/10 pt-4">
-                  {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded" /><span className="w-20 h-3 bg-white/10 rounded" /></div>)}
+                  {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded-lg" /><span className="w-20 h-3 bg-white/10 rounded-lg" /></div>)}
                   <p className="text-white/25 text-xs mt-3">Year-by-year breakdown — unlock to view</p>
                 </div>
               </div>
@@ -354,7 +354,7 @@ export default function LeaseComparisonPage() {
           >
 
             {/* Verdict banner */}
-            <div className="bg-near-black rounded-sm p-8 mb-10">
+            <div className="bg-near-black rounded-xl p-8 mb-10">
               <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
               {validResults.length === 1 ? (
                 <>
@@ -385,7 +385,7 @@ export default function LeaseComparisonPage() {
               {validResults.map((r, i) => {
                 const isBest = i === bestIdx
                 return (
-                  <div key={r.name} className={`rounded-sm p-8 ${isBest ? 'bg-teal text-white ring-2 ring-teal' : 'bg-white'}`}>
+                  <div key={r.name} className={`rounded-xl p-8 ${isBest ? 'bg-teal text-white ring-2 ring-teal' : 'bg-white'}`}>
                     {isBest && (
                       <p className="text-white/70 font-semibold text-xs tracking-widest uppercase mb-3">Recommended</p>
                     )}
@@ -452,13 +452,13 @@ export default function LeaseComparisonPage() {
             <div className="flex flex-wrap gap-4 items-center">
               <button
                 onClick={() => setShowYearly(v => !v)}
-                className="border border-near-black text-near-black font-semibold text-sm px-6 py-3 rounded hover:bg-near-black hover:text-white transition-colors"
+                className="border border-near-black text-near-black font-semibold text-sm px-6 py-3 rounded-lg hover:bg-near-black hover:text-white transition-colors"
               >
                 {showYearly ? 'Hide' : 'Show'} year-by-year breakdown
               </button>
               <button
                 onClick={copyResults}
-                className="border border-gray-300 text-mid-grey font-semibold text-sm px-6 py-3 rounded hover:border-near-black hover:text-near-black transition-colors"
+                className="border border-gray-300 text-mid-grey font-semibold text-sm px-6 py-3 rounded-lg hover:border-near-black hover:text-near-black transition-colors"
               >
                 {copied ? 'Copied' : 'Copy results'}
               </button>

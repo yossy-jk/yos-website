@@ -328,7 +328,7 @@ export default function LeaseReviewPage() {
           <div className="relative max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="max-w-3xl">
               <FadeIn delay={0}>
-                <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-sm mb-8">
+                <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-xl mb-8">
                   <span className="w-2 h-2 bg-teal rounded-full animate-pulse" />
                   <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ by Your Office Space</span>
                 </div>
@@ -413,14 +413,14 @@ export default function LeaseReviewPage() {
                 </p>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-black transition-all duration-200 min-h-[48px]"
+                  className="inline-flex items-center justify-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-xl hover:bg-black transition-all duration-200 min-h-[48px]"
                 >
                   Start Free Review →
                 </button>
               </div>
             </FadeIn>
             <FadeIn direction="right">
-              <div className="bg-warm-grey p-8 rounded-sm border-l-4 border-teal">
+              <div className="bg-warm-grey p-8 rounded-xl border-l-4 border-teal">
                 <p className="text-near-black font-bold text-xs tracking-widest uppercase mb-5">Free summary includes:</p>
                 <div className="flex flex-col gap-4">
                   {FREE_CHECKS.map(check => (
@@ -455,7 +455,7 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-7 md:mb-14">
               {PAID_INCLUDES.map((item, i) => (
                 <FadeIn key={item.title} delay={i * 60} direction="up">
-                  <div className="border border-white/10 p-6 rounded-sm hover:border-teal/40 hover:bg-white/[0.02] transition-all duration-200">
+                  <div className="border border-white/10 p-6 rounded-xl hover:border-teal/40 hover:bg-white/[0.02] transition-all duration-200">
                     <h3 className="text-white font-black text-base mb-2">{item.title}</h3>
                     <p className="text-white/50 text-sm leading-relaxed font-light">{item.desc}</p>
                   </div>
@@ -497,7 +497,7 @@ export default function LeaseReviewPage() {
               ].map((opt, i) => (
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
                   <div className={[
-                    'p-8 rounded-sm border-2 h-full',
+                    'p-8 rounded-xl border-2 h-full',
                     opt.highlight ? 'border-teal bg-white' : 'border-gray-200 bg-white',
                   ].join(' ')}>
                     {opt.highlight && (
@@ -718,7 +718,7 @@ export default function LeaseReviewPage() {
             <div className="flex flex-col gap-5">
               {/* Upload zone */}
               <label className={[
-                'border-2 border-dashed rounded-sm p-10 text-center cursor-pointer transition-all duration-200',
+                'border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-200',
                 'hover:border-teal/60 hover:bg-white/[0.03]',
                 form.file ? 'border-teal/60 bg-teal/[0.04]' : 'border-white/20',
                 errors.file ? 'border-red-400/60' : '',
@@ -814,7 +814,7 @@ export default function LeaseReviewPage() {
             Your free risk summary will be in your inbox shortly. Joe personally reviews every
             submission — if anything urgent shows up, expect to hear from him directly.
           </p>
-          <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 mb-10 text-left">
+          <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 mb-10 text-left">
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">What happens next</p>
             <div className="flex flex-col gap-4">
               {[

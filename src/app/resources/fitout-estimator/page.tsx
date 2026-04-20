@@ -113,9 +113,10 @@ export default function FitoutEstimatorPage() {
   const set = (k: keyof Inputs, v: string | boolean) => setInputs(prev => ({ ...prev, [k]: v }))
 
   const canProceed = () => {
-    if (step === 0) return !!inputs.sqm && parseFloat(inputs.sqm) > 0
-    if (step === 1) return !!inputs.tier
-    if (step === 2) return !!inputs.desks && parseInt(inputs.desks) > 0
+    if (step === 0) return true  // intro screen, no validation needed
+    if (step === 1) return !!inputs.sqm && parseFloat(inputs.sqm) > 0
+    if (step === 2) return !!inputs.tier
+    if (step === 3) return !!inputs.desks && parseInt(inputs.desks) > 0
     return true
   }
 
@@ -179,7 +180,7 @@ export default function FitoutEstimatorPage() {
               </div>
               <button onClick={() => setStep(1)}
                 className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                 Start estimator →
               </button>
             </div>
@@ -198,7 +199,7 @@ export default function FitoutEstimatorPage() {
                     value={inputs.sqm}
                     onChange={e => set('sqm', e.target.value)}
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
-                    style={{ padding: '0.9rem 1.1rem', fontSize: '1.1rem' }}
+                    style={{ padding: '0.9rem 1.1rem', fontSize: '1.1rem', borderRadius: '0.5rem' }}
                   />
                   <p className="text-white/30 mt-2" style={{ fontSize: '0.78rem' }}>The net lettable area (NLA) of the space you are fitting out</p>
                 </div>
@@ -209,7 +210,7 @@ export default function FitoutEstimatorPage() {
                     {['A-Grade', 'B-Grade', 'C-Grade / Industrial', 'Tenancy in a retail centre'].map(t => (
                       <button key={t} onClick={() => set('buildingType', t)}
                         className={`font-medium border transition-colors ${inputs.buildingType === t ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
-                        style={{ padding: '0.6rem 1.1rem', fontSize: '0.85rem' }}>
+                        style={{ padding: '0.6rem 1.1rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
                         {t}
                       </button>
                     ))}
@@ -222,7 +223,7 @@ export default function FitoutEstimatorPage() {
                     {['ASAP (under 3 months)', '3–6 months', '6–12 months', 'Planning ahead (12m+)'].map(t => (
                       <button key={t} onClick={() => set('timeframe', t)}
                         className={`font-medium border transition-colors ${inputs.timeframe === t ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
-                        style={{ padding: '0.6rem 1.1rem', fontSize: '0.85rem' }}>
+                        style={{ padding: '0.6rem 1.1rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
                         {t}
                       </button>
                     ))}
@@ -233,7 +234,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(2)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Next →
                 </button>
                 <button onClick={() => setStep(0)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -275,7 +276,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Next →
                 </button>
                 <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -294,7 +295,7 @@ export default function FitoutEstimatorPage() {
                   <input type="number" min="0" placeholder="e.g. 20"
                     value={inputs.desks} onChange={e => set('desks', e.target.value)}
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
-                    style={{ padding: '0.9rem 1.1rem', fontSize: '1.1rem' }}
+                    style={{ padding: '0.9rem 1.1rem', fontSize: '1.1rem', borderRadius: '0.5rem' }}
                   />
                   <p className="text-white/30 mt-2" style={{ fontSize: '0.78rem' }}>Includes desk, chair, and cable management. Mid-range = $1,050–$2,000 per person.</p>
                 </div>
@@ -319,7 +320,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(4)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Next →
                 </button>
                 <button onClick={() => setStep(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -355,7 +356,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex items-center gap-4">
                 <button onClick={() => setStep(5)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
                 </button>
                 <button onClick={() => setStep(3)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
@@ -391,8 +392,8 @@ export default function FitoutEstimatorPage() {
                     </div>
                     {[1,2,3].map(i => (
                       <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
-                        <span className="w-32 h-3 bg-white/10 rounded" />
-                        <span className="w-20 h-3 bg-white/10 rounded" />
+                        <span className="w-32 h-3 bg-white/10 rounded-lg" />
+                        <span className="w-20 h-3 bg-white/10 rounded-lg" />
                       </div>
                     ))}
                   </div>
@@ -440,7 +441,7 @@ export default function FitoutEstimatorPage() {
               <div className="flex flex-col gap-3 max-w-sm">
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                   className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Book a Fitout Consultation →
                 </a>
                 <Link href="/furniture"

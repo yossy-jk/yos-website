@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import FurniturePopup from '@/components/FurniturePopup'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
@@ -139,7 +140,7 @@ export default function FurniturePage() {
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-sm overflow-hidden h-full flex flex-col">
+                <div className="bg-warm-grey rounded-xl overflow-hidden h-full flex flex-col">
                   {/* Product image */}
                   <div className="relative overflow-hidden" style={{ height: '17rem' }}>
                     <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
@@ -185,7 +186,7 @@ export default function FurniturePage() {
               { src: '/images/furniture/burgtec-room-collaboration.jpg', alt: 'Collaboration and meeting space', label: 'Collaboration' },
             ].map((img, i) => (
               <FadeIn key={i} delay={i * 80} direction="up">
-                <div className="overflow-hidden rounded-sm aspect-[4/3] relative group">
+                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group">
                   <Image src={img.src} alt={img.alt} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75), transparent)' }}>
                     <span className="text-white font-bold text-xs tracking-widest uppercase">{img.label}</span>
@@ -201,7 +202,7 @@ export default function FurniturePage() {
               { src: '/images/furniture/nova-storage-tambour.jpg', alt: 'Storage and tambour units with planters', label: 'Storage', span: 'md:col-span-2' },
             ].map((img, i) => (
               <FadeIn key={i} delay={i * 80} direction="up">
-                <div className={`overflow-hidden rounded-sm relative group ${img.span}`} style={{ height: '16rem' }}>
+                <div className={`overflow-hidden rounded-xl relative group ${img.span}`} style={{ height: '16rem' }}>
                   <Image src={img.src} alt={img.alt} fill className="object-cover object-center group-hover:scale-105 transition-transform duration-500" />
                   <div className="absolute bottom-0 left-0 right-0 p-4" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.75), transparent)' }}>
                     <span className="text-white font-bold text-xs tracking-widest uppercase">{img.label}</span>
@@ -287,7 +288,7 @@ export default function FurniturePage() {
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
@@ -328,6 +329,7 @@ export default function FurniturePage() {
         </FadeIn>
       </section>
 
+      <FurniturePopup />
       <Footer />
     </>
   )

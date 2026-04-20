@@ -26,6 +26,7 @@ export default function Button({
 }: ButtonProps) {
   const baseStyles = [
     'inline-flex items-center justify-center gap-2',
+    'rounded-lg',
     'font-bold uppercase tracking-[0.14em] text-center no-underline',
     // Transitions — no scale bounce, just colour shift
     'transition-colors duration-200 ease-out',

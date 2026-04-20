@@ -245,7 +245,7 @@ export default function RentalYieldCalculatorPage() {
                           {['Net yield', 'Annual net income', 'Monthly net income', 'Weekly effective rent', 'Break-even weekly rent'].map((label, i) => (
                             <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
                               <span className="text-white/50 font-light" style={{ fontSize: '0.875rem' }}>{label}</span>
-                              <span className="w-20 h-3 bg-white/10 rounded" />
+                              <span className="w-20 h-3 bg-white/10 rounded-lg" />
                             </div>
                           ))}
                         </div>

@@ -20,7 +20,7 @@ export default function NotFound() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8 md:mb-16">
             <Link
               href="/"
-              className="bg-teal text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal transition-colors no-underline text-center"
+              className="bg-teal text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-xl hover:bg-dark-teal transition-colors no-underline text-center"
             >
               Back to Home
             </Link>
@@ -28,7 +28,7 @@ export default function NotFound() {
               href={HUBSPOT.bookingUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="border border-white/30 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:border-teal hover:text-teal transition-colors no-underline text-center"
+              className="border border-white/30 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-xl hover:border-teal hover:text-teal transition-colors no-underline text-center"
             >
               Book a Clarity Call
             </a>
@@ -47,7 +47,7 @@ export default function NotFound() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="border border-white/10 text-white/50 font-light text-xs px-4 py-3 rounded-sm hover:border-teal hover:text-teal transition-colors no-underline text-center"
+                className="border border-white/10 text-white/50 font-light text-xs px-4 py-3 rounded-xl hover:border-teal hover:text-teal transition-colors no-underline text-center"
               >
                 {link.label}
               </Link>

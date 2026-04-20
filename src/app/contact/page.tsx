@@ -152,7 +152,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                    style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}
+                    style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}
                   >
                     Send Message →
                   </button>
@@ -180,7 +180,7 @@ export default function ContactPage() {
                     </p>
                     <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                       className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                      style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem' }}>
+                      style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                       Book a Call →
                     </a>
                   </div>

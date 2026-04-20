@@ -85,7 +85,7 @@ export default function ToolGate({
       </div>
 
       {/* Gate card */}
-      <div className="border border-gray-200 rounded-sm bg-white p-8 md:p-10 mt-2 shadow-sm">
+      <div className="border border-gray-200 rounded-xl bg-white p-8 md:p-10 mt-2 shadow-sm">
         <p className="text-near-black font-black text-lg mb-1">{heading}</p>
         <p className="text-charcoal text-sm font-light mb-6">{subheading}</p>
 
@@ -102,7 +102,7 @@ export default function ToolGate({
                 placeholder="Joe"
                 autoComplete="given-name"
                 className={[
-                  'border text-sm px-4 py-3 rounded-sm outline-none transition-colors',
+                  'border text-sm px-4 py-3 rounded-xl outline-none transition-colors',
                   'placeholder:text-gray-400',
                   'focus:border-teal',
                   errors.name ? 'border-red-400' : 'border-gray-200 hover:border-gray-300',
@@ -121,7 +121,7 @@ export default function ToolGate({
                 placeholder="joe@company.com.au"
                 autoComplete="email"
                 className={[
-                  'border text-sm px-4 py-3 rounded-sm outline-none transition-colors',
+                  'border text-sm px-4 py-3 rounded-xl outline-none transition-colors',
                   'placeholder:text-gray-400',
                   'focus:border-teal',
                   errors.email ? 'border-red-400' : 'border-gray-200 hover:border-gray-300',
@@ -134,7 +134,7 @@ export default function ToolGate({
           <button
             type="submit"
             disabled={loading}
-            className="inline-flex items-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-3.5 rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-3.5 rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Unlocking…</>
