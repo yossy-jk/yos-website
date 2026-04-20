@@ -121,7 +121,7 @@ export default function Home() {
             {SERVICES.map((s, i) => (
               <FadeIn key={s.href} delay={i * 60}>
                 <Link href={s.href} className="group no-underline block"
-                  style={{ borderTop: i === 0 ? '1px solid #efefef' : undefined, borderBottom: '1px solid #efefef', paddingTop: 'clamp(1.75rem,4vw,2.75rem)', paddingBottom: 'clamp(1.75rem,4vw,2.75rem)' }}>
+                  style={{ borderTop: i === 0 ? '1px solid #e5e7eb' : undefined, borderBottom: '1px solid #e5e7eb', paddingTop: 'clamp(2rem,4vw,3rem)', paddingBottom: 'clamp(2rem,4vw,3rem)' }}>
                   <div className="flex items-start justify-between gap-8">
                     <div className="flex-1">
                       {/* Number + Title row */}
@@ -354,7 +354,7 @@ export default function Home() {
                   Commercial Property Advisors
                 </p>
                 <p className="text-white font-black uppercase leading-none tracking-tight"
-                  style={{ fontSize: 'clamp(1.75rem,5vw,5rem)', lineHeight: 1.15 }}>
+                  style={{ fontSize: 'clamp(1.5rem,4vw,4rem)', lineHeight: 1.2 }}>
                   100+<br />projects<br />delivered.
                 </p>
                 <p className="text-white/30 font-light mt-6" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
