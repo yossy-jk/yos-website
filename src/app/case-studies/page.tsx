@@ -10,7 +10,15 @@ import type { Division } from '@/lib/blog'
 
 export const metadata = {
   title: 'Case Studies | Your Office Space',
-  description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.'
+  description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.',
+  openGraph: {
+    title: 'Case Studies | Your Office Space',
+    description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture',
+    url: 'https://yourofficespace.au/case-studies',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }

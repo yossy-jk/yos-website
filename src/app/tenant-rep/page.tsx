@@ -8,7 +8,15 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Tenant Representation | Your Office Space',
-  description: 'Expert tenant representation for business owners in Newcastle and Sydney. We negotiate leases, fight for better terms, and only ever represent tenants — never landlords.'
+  description: 'Expert tenant representation for business owners in Newcastle and Sydney. We negotiate leases, fight for better terms, and only ever represent tenants — never landlords.',
+  openGraph: {
+    title: 'Tenant Representation | Your Office Space',
+    description: 'We negotiate leases for tenants. Never landlords. Stronger terms, smarter deals, better outcomes.',
+    url: 'https://yourofficespace.au/tenant-rep',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }

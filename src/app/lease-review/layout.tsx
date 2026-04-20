@@ -1,10 +1,18 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'LeaseIntel™ — Free Lease Risk Review | Your Office Space',
-  description: 'Upload your commercial lease and get a free risk summary within 24 hours. Every clause rated Red / Amber / Green across 12 risk categories.',
+  title: 'LeaseIntel™ — Commercial Lease Risk Review | Your Office Space',
+  description: 'Upload your commercial lease for a free risk summary. Every clause rated Red, Amber, or Green — rent, make-good, relocation, options. Free summary or full report for $97.',
+  openGraph: {
+    title: 'LeaseIntel™ — Commercial Lease Risk Review | Your Office Space',
+    description: 'Free commercial lease risk review. Every clause rated, every risk quantified. Free summary or full 12-category report for $97.',
+    url: 'https://yourofficespace.au/lease-review',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return children
+export default function LeaseReviewLayout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
 }

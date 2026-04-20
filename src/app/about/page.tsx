@@ -8,7 +8,15 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory',
-  description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Australia's tenant-side commercial property advisor. Licensed. Experienced. On your side."
+  description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Australia's tenant-side commercial property advisor. Licensed. Experienced. On your side.",
+  openGraph: {
+    title: 'About | Your Office Space',
+    description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Licensed. Experienced. On your side.",
+    url: 'https://yourofficespace.au/about',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }

@@ -6,7 +6,15 @@ import ContactForm from '@/components/ContactForm'
 
 export const metadata = {
   title: 'Contact | Your Office Space',
-  description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.'
+  description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
+  openGraph: {
+    title: 'Contact | Your Office Space',
+    description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
+    url: 'https://yourofficespace.au/contact',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 export default function ContactPage() {

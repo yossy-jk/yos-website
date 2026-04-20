@@ -186,8 +186,8 @@ export default function LeaseRiskCheckerPage() {
               </div>
               <button
                 onClick={() => setStep(0)}
-                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
+                style={{ padding: '0 2.5rem', fontSize: '0.72rem' }}>
                 Start the checker →
               </button>
             </div>

@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      <section className="bg-white py-16">
+      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-3xl mx-auto px-6 md:px-12 lg:px-20">
           <p className="text-charcoal font-light text-xl leading-relaxed mb-12 pb-10 border-b border-gray-100">{post.excerpt}</p>
           <div className="prose-custom">

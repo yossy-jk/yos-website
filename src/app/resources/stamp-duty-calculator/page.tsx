@@ -172,7 +172,7 @@ export default function StampDutyCalculatorPage() {
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingTop: 'clamp(2rem,5vw,4rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
 
           {/* Header */}
           <FadeIn>

@@ -8,7 +8,15 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Commercial Buyers Agency | Your Office Space',
-  description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.'
+  description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
+  openGraph: {
+    title: 'Commercial Buyers Agency | Your Office Space',
+    description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
+    url: 'https://yourofficespace.au/buyers-agency',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 export default function BuyersAgencyPage() {

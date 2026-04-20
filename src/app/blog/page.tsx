@@ -8,7 +8,15 @@ import type { Division } from '@/lib/blog'
 
 export const metadata = {
   title: 'Blog | Your Office Space',
-  description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.'
+  description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',
+  openGraph: {
+    title: 'Blog | Your Office Space',
+    description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',
+    url: 'https://yourofficespace.au/blog',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }

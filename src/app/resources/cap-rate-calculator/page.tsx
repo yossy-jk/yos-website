@@ -49,7 +49,7 @@ export default function CapRateCalculatorPage() {
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
         <div className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(2rem,5vw,4rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
+          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
 
           {/* Header */}
           <div className="max-w-2xl mb-10 md:mb-14">

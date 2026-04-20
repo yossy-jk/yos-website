@@ -32,7 +32,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <Nav />
 
       {/* HERO */}
-      <section className="bg-near-black pt-[72px]">
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,8rem)' }}>
         {cs.heroImage && (
           <div className="relative h-72 lg:h-96 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -69,7 +69,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       )}
 
       {/* BODY */}
-      <section className="bg-white py-20">
+      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
             <div className="lg:col-span-2 space-y-12">

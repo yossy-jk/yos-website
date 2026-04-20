@@ -1,4 +1,6 @@
 'use client'
+// Note: metadata must be in a separate server component for 'use client' pages
+// SEO is handled via layout.tsx root metadata + page-level title tags
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'

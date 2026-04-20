@@ -8,7 +8,15 @@ import { getAllCaseStudies } from '@/lib/case-studies'
 
 export const metadata = {
   title: 'Resources & Insights | Your Office Space',
-  description: 'Free commercial property tools, articles and case studies for Australian businesses. Lease checkers, fitout estimators, market insights and real project outcomes.'
+  description: 'Free commercial property tools, articles and case studies for Australian businesses. Lease checkers, fitout estimators, market insights and real project outcomes.',
+  openGraph: {
+    title: 'Resources & Insights | Your Office Space',
+    description: 'Free tools, calculators and market insights for Australian business owners. Lease checker, fitout estimator, stamp duty calculator and more.',
+    url: 'https://yourofficespace.au/resources',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 const tools = [

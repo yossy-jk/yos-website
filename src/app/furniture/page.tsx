@@ -8,7 +8,15 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
-  description: 'Office furniture and fitout project management across Australia. In-stock express range to made-to-order — tailored to your timeline, budget and design intent.'
+  description: 'Office furniture and fitout project management across Australia. In-stock express range to made-to-order — tailored to your timeline, budget and design intent.',
+  openGraph: {
+    title: 'Office Furniture & Fitout | Your Office Space',
+    description: 'Brief to delivered. Office furniture and fitout project management — end to end. One team, no gaps.',
+    url: 'https://yourofficespace.au/furniture',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
 }
 
 export default function FurniturePage() {
