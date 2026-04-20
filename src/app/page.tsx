@@ -10,10 +10,10 @@ const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }
 
 const SERVICES = [
-  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', href: '/tenant-rep' },
-  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered workspace.', href: '/furniture' },
-  { num: '03', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', href: '/buyers-agency' },
-  { num: '04', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', href: '/cleaning' },
+  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We sit on your side of the table. Every clause negotiated to protect your business — never the landlord’s.', href: '/tenant-rep' },
+  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered workspace.', body: 'Specified, sourced, coordinated and installed. One contact from concept to final chair.', href: '/furniture' },
+  { num: '03', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers.', href: '/buyers-agency' },
+  { num: '04', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: 'Offices, childcare, medical and industrial. Consistent, accountable, locally managed.', href: '/cleaning' },
 ]
 
 const TESTIMONIALS = [
@@ -125,24 +125,27 @@ export default function Home() {
             {SERVICES.map((s, i) => (
               <FadeIn key={s.href} delay={i * 60}>
                 <Link href={s.href}
-                  className="group flex items-center justify-between no-underline transition-colors duration-200"
-                  style={{ padding: '1.75rem 0', borderBottom: '1px solid #f3f4f6' }}>
-                  <div className="flex items-center gap-6 md:gap-10">
-                    <span className="text-teal font-bold flex-shrink-0"
-                      style={{ fontSize: '0.68rem', letterSpacing: '0.2em', minWidth: '1.75rem' }}>
+                  className="group flex items-start justify-between no-underline transition-colors duration-200"
+                  style={{ padding: '2.25rem 0', borderBottom: '1px solid #f3f4f6' }}>
+                  <div className="flex items-start gap-6 md:gap-10 flex-1">
+                    <span className="text-teal font-bold flex-shrink-0 mt-1"
+                      style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '1.75rem' }}>
                       {s.num}
                     </span>
-                    <span className="text-near-black font-black uppercase leading-none tracking-tight group-hover:text-teal transition-colors duration-200"
-                      style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.75rem)' }}>
-                      {s.title}
-                    </span>
+                    <div>
+                      <span className="text-near-black font-black uppercase leading-tight tracking-tight group-hover:text-teal transition-colors duration-200 block mb-2"
+                        style={{ fontSize: 'clamp(1.1rem, 2vw, 1.6rem)' }}>
+                        {s.title}
+                      </span>
+                      <span className="text-mid-grey font-light leading-relaxed hidden md:block"
+                        style={{ fontSize: '0.875rem', maxWidth: '36rem' }}>
+                        {s.body}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-6 flex-shrink-0 ml-4">
-                    <span className="text-mid-grey font-light hidden md:block" style={{ fontSize: '0.85rem' }}>
-                      {s.tagline}
-                    </span>
-                    <span className="text-teal font-bold group-hover:translate-x-2 transition-transform duration-200"
-                      style={{ fontSize: '1.25rem' }}>
+                  <div className="flex items-center gap-4 flex-shrink-0 ml-6 mt-1">
+                    <span className="text-teal/50 font-bold group-hover:text-teal group-hover:translate-x-1 transition-all duration-200"
+                      style={{ fontSize: '1.1rem' }}>
                       →
                     </span>
                   </div>
@@ -281,7 +284,7 @@ export default function Home() {
             <p className="text-white/20 font-light mt-10" style={{ fontSize: '0.8rem' }}>
               <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>
               {' · '}
-              <a href="mailto:jk@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">jk@yourofficespace.au</a>
+              <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">hello@yourofficespace.au</a>
             </p>
           </FadeIn>
         </div>
