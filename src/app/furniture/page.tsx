@@ -137,7 +137,7 @@ export default function FurniturePage() {
                 category: 'Collaboration & Meeting',
                 items: ['Boardroom and meeting tables', 'Collaborative workbenches', 'Breakout furniture', 'Phone booths and quiet pods', 'Presentation walls'],
                 note: 'Spaces that make meetings worth having.',
-                image: '/images/furniture/collaboration-tables.png',
+                image: '/images/furniture/collaboration-tables.jpg',
                 imageAlt: 'Collaboration and meeting furniture'
               }
             ].map((cat, i) => (

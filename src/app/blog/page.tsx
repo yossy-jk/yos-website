@@ -10,6 +10,8 @@ import BlogEmailCapture from '@/components/BlogEmailCapture'
 export const metadata = {
   title: 'Blog | Your Office Space',
   description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',
+  alternates: { canonical: 'https://yourofficespace.au/blog' },
+  twitter: { card: 'summary_large_image', title: 'Blog | Your Office Space', description: 'Commercial property insights for Australian business owners. Lease guides, fitout costs, cleaning standards and more.' },
   openGraph: {
     title: 'Blog | Your Office Space',
     description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',

@@ -7,7 +7,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'LeaseIntel™ — Professional Lease Review | Your Office Space',
-  description: 'LeaseIntel™ is a professional commercial lease review service. Upload your lease and receive a full risk report in 24 hours — every clause rated, every risk explained.',
+  description: 'Professional commercial lease review in 24 hours. Every clause rated Red / Amber / Green. Financial exposure summary + negotiation roadmap. $97 + GST.',
   alternates: { canonical: 'https://yourofficespace.au/leaseintel' },
   openGraph: {
     title: 'LeaseIntel™ — Commercial Lease Review | Your Office Space',

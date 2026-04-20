@@ -11,6 +11,7 @@ import { IMAGES } from '@/lib/images'
 export const metadata: Metadata = {
   title: 'Your Office Space | Tenant-Side Commercial Property Advisory',
   description: 'One team working only for you. Tenant representation, buyers agency, furniture & fitout, and commercial cleaning. Honest advice. Real outcomes.',
+  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory', description: 'One team working only for you. Tenant rep, buyers agency, furniture, fitout and cleaning.' },
   openGraph: {
     title: 'Your Office Space | Tenant-Side Commercial Property Advisory',
     description: 'One team working only for you — from the first conversation to the day your space is running.',

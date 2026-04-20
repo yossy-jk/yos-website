@@ -9,6 +9,7 @@ import { HUBSPOT } from '@/lib/constants'
 export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory',
   description: "Joe Kelley founded Your Office Space after a decade in commercial property. Australia's tenant-side advisor. Licensed, experienced, and genuinely on your side.",
+  alternates: { canonical: 'https://yourofficespace.au/about' },
   twitter: { card: 'summary_large_image', title: 'About | Your Office Space', description: "Licensed. Experienced. On your side. Founded by Joe Kelley after a decade in commercial property." },
   openGraph: {
     title: 'About | Your Office Space',

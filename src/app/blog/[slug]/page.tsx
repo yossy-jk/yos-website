@@ -18,7 +18,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!post) return {}
   return {
     title: post.metaTitle || `${post.title} | Your Office Space`,
-    description: post.metaDescription || post.excerpt
+    description: post.metaDescription || post.excerpt,
+    alternates: { canonical: `https://yourofficespace.au/blog/${post.slug}` },
+    openGraph: {
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.excerpt,
+      url: `https://yourofficespace.au/blog/${post.slug}`,
+      siteName: 'Your Office Space',
+      locale: 'en_AU',
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title: post.metaTitle || post.title,
+      description: post.metaDescription || post.excerpt,
+    },
   }
 }
 

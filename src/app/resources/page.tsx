@@ -10,6 +10,7 @@ export const metadata = {
   title: 'Resources & Insights | Your Office Space',
   description: 'Free commercial property tools for Australian businesses. Lease risk checker, fitout estimator, stamp duty and yield calculators, market insights.',
   twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Free lease checker, fitout estimator, stamp duty and yield calculators for Australian business owners.' },
+  alternates: { canonical: 'https://yourofficespace.au/resources' },
   openGraph: {
     title: 'Resources & Insights | Your Office Space',
     description: 'Free tools, calculators and market insights for Australian business owners. Lease checker, fitout estimator, stamp duty calculator and more.',
