@@ -17,7 +17,8 @@ export default function FurniturePage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-0 bg-near-black">
+      <section className="relative min-h-screen flex items-center pt-0 bg-near-black"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <Image
           src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80"
           alt="Modern office furniture Newcastle"
@@ -26,7 +27,7 @@ export default function FurniturePage() {
           priority
         />
         <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Office Furniture &amp; Fitout</SectionLabel>
           </FadeIn>
@@ -52,9 +53,10 @@ export default function FurniturePage() {
       </section>
 
       {/* GOVT APPROVED BANNER */}
-      <section className="bg-warm-grey border-b border-gray-200 py-8 sm:py-12 lg:py-16">
+      <section className="bg-warm-grey border-b border-gray-200 py-8 sm:py-12 lg:py-16"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
                 { stat: '200+', label: 'Projects delivered' },
@@ -84,8 +86,9 @@ export default function FurniturePage() {
         </div>
       </section>
 
-      <section className="bg-white py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-white"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
@@ -137,7 +140,8 @@ export default function FurniturePage() {
       </section>
 
       {/* WHO WE WORK WITH */}
-      <section className="bg-near-black py-12 md:py-20 lg:py-32">
+      <section className="bg-near-black"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto px-8 md:px-14 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn direction="left">
             <div>
@@ -173,8 +177,9 @@ export default function FurniturePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="bg-warm-grey py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-warm-grey"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
@@ -203,9 +208,10 @@ export default function FurniturePage() {
       </section>
 
       {/* BUNDLE CALLOUT — cross-sell to cleaning */}
-      <section className="bg-white py-12 sm:py-16 lg:py-24">
+      <section className="bg-white"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
@@ -227,9 +233,10 @@ export default function FurniturePage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-near-black py-12 md:py-20 lg:py-32 text-center">
+      <section className="bg-near-black text-center"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to kit out your space?

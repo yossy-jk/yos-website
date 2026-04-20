@@ -17,7 +17,8 @@ export default function BuyersAgencyPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-0 bg-near-black">
+      <section className="relative min-h-screen flex items-center pt-0 bg-near-black"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <Image
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
           alt="Modern commercial building"
@@ -26,7 +27,7 @@ export default function BuyersAgencyPage() {
           priority
         />
         <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Buyers Agency</SectionLabel>
           </FadeIn>
@@ -52,9 +53,10 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-teal py-8 sm:py-12 lg:py-16">
+      <section className="bg-teal py-8 sm:py-12 lg:py-16"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '$0', label: 'Vendor-side fees — ever' },
@@ -84,8 +86,9 @@ export default function BuyersAgencyPage() {
         </div>
       </section>
 
-      <section className="bg-white py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-white"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
@@ -125,8 +128,9 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* WHAT WE DO */}
-      <section className="bg-near-black py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-near-black"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
@@ -156,8 +160,9 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* MARKET SNAPSHOT */}
-      <section className="bg-warm-grey py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-warm-grey"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Newcastle market right now</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-7 md:mb-14 lg:mb-8 md:mb-16 max-w-2xl"
@@ -202,8 +207,9 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* WHY YOS */}
-      <section className="bg-near-black py-12 md:py-20 lg:py-32">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+      <section className="bg-near-black"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Why YOS</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-7 sm:mb-10"
@@ -227,9 +233,10 @@ export default function BuyersAgencyPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal py-12 md:py-20 lg:py-32 text-center">
+      <section className="bg-teal text-center"
+        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(3.5rem,8vw,7rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
               style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
               Ready to buy smart?
