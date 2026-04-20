@@ -36,9 +36,9 @@ export default function AboutPage() {
           <FadeIn delay={160}>
             <p className="text-white/60 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.25rem)' }}>
-              Your Office Space was built by someone who spent a decade watching business owners
-              get taken advantage of during the most expensive moments of their growth.
-              We exist to change that.
+              We built this business because business owners deserve someone genuinely in their corner
+              when the stakes are high. Not someone who disappears after the lease is signed.
+              A real team. A real relationship. Long after the move is done.
             </p>
           </FadeIn>
         </div>
@@ -53,7 +53,7 @@ export default function AboutPage() {
                 <SectionLabel>The story</SectionLabel>
                 <h2 className="text-near-black font-black leading-tight tracking-tight mb-8"
                   style={{ fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)' }}>
-                  I built this because the industry needed someone on the other side of the table.
+                  I got tired of watching good businesses get taken advantage of.
                 </h2>
                 <div className="w-full mt-8 overflow-hidden">
                   <Image
@@ -136,9 +136,7 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: "0.95rem", lineHeight: 1.75 }}>
-                  Over a decade in commercial fitouts, furniture and workplace strategy before founding
-                  Your Office Space. Joe leads all tenant representation and buyers agency engagements —
-                  personally handling every negotiation, every clause, every deal.
+                  Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
                 </p>
                 <div className="flex flex-col gap-3 border-t border-gray-100 pt-7">
                   {[

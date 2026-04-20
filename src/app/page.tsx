@@ -66,8 +66,8 @@ export default function Home() {
           <FadeIn delay={160}>
             <p className="text-white/65 font-light leading-relaxed mb-12"
               style={{ fontSize: '1.2rem', maxWidth: '34rem', lineHeight: 1.75 }}>
-              Working exclusively for tenants and buyers.
-              We never represent landlords — not once, not ever.
+              Most commercial property decisions are made without anyone truly in your corner.
+              We change that. One team, working only for you — from the first conversation to the day your space is running.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
@@ -107,10 +107,13 @@ export default function Home() {
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What we do</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
               style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
-              One team.<br />Everything covered.
+              Whatever your workspace<br />needs — we handle it.
             </h2>
+            <p className="text-charcoal font-light leading-relaxed mb-14" style={{ fontSize: '1.1rem', maxWidth: '40rem', lineHeight: 1.75 }}>
+              Most businesses deal with five different advisors on a single office move. We think that&apos;s too complicated. One relationship, from lease to clean.
+            </p>
           </FadeIn>
 
           {/* Service list — each item is a full block row */}
@@ -167,7 +170,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-center" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
-              Every decision we make is in your interest.
+              We pick up the phone. We show up. We deliver.
             </p>
           </FadeIn>
         </div>
@@ -180,15 +183,15 @@ export default function Home() {
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-16"
               style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)', maxWidth: '20ch' }}>
-              We work for you.<br />Not the other side.
+              Someone genuinely<br />in your corner.
             </h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-px" style={{ background: 'transparent' }}>
             {[
-              { title: 'Tenant-side only', body: 'We never represent landlords or vendors. No split loyalty, no backdoor deals. Every decision is made in your interest.' },
-              { title: '12+ years experience', body: 'Our team has delivered hundreds of commercial property projects across fitout, furniture, leasing and buyers agency. We know what goes wrong.' },
-              { title: 'Start to finish', body: 'Lease, fitout, furniture, cleaning. One team, one relationship. Your business keeps moving while we manage the rest.' },
+              { title: 'We only work for you', body: 'We never represent landlords or vendors. When you sit across from a landlord, you want someone who is genuinely on your side. That is what we are.' },
+              { title: 'We have done this before', body: 'Hundreds of projects across leasing, fitout, furniture and cleaning. We have seen how these deals go wrong — and we know how to stop that from happening to you.' },
+              { title: 'One relationship, not five', body: 'Lease, fitout, furniture, cleaning. You have one number to call. One team that knows your situation. You focus on your business — we handle the rest.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
                 <div className="bg-near-black border border-white/8 md:border-0" style={{ padding: '2.5rem 2rem' }}>
@@ -215,7 +218,7 @@ export default function Home() {
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
               style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
-              Real people.<br />Real outcomes.
+              What clients say<br />about working with us.
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
@@ -296,6 +299,50 @@ export default function Home() {
         </div>
       </section>
 
+
+      {/* ─── HOW WE WORK ───────────────────────── white */}
+      <section className="bg-white" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+            <FadeIn>
+              <div>
+                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">How it works</p>
+                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
+                  style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  A relationship,<br />not a transaction.
+                </h2>
+                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
+                  The first call is just a conversation. We ask about your situation — what you are trying to achieve, what is worrying you, what timeline you are working with. No forms to fill in. No obligation.
+                </p>
+                <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
+                  From there, we tell you honestly whether we can help and what that looks like. Some clients need one service. Others need the whole team. Either way, you will know exactly where you stand.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={120}>
+              <div className="flex flex-col gap-6">
+                {[
+                  { step: '01', title: 'We talk', body: 'Tell us what you are working on. No forms, no sales process. Just a real conversation about your situation.' },
+                  { step: '02', title: 'We assess', body: 'We give you an honest view of your options — what is realistic, what it will cost, and what outcome you can expect.' },
+                  { step: '03', title: 'We act', body: 'If you want to work together, we get moving. One team, one contact, full accountability from day one.' },
+                  { step: '04', title: 'We stay', body: 'We do not disappear after the deal. Most of our clients come back — for the next lease, the next fitout, the next decision.' },
+                ].map((item, i) => (
+                  <FadeIn key={item.step} delay={i * 80}>
+                    <div className="flex gap-6 items-start py-6 border-b border-gray-100">
+                      <span className="text-teal font-black flex-shrink-0" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '2rem', paddingTop: '0.2rem' }}>{item.step}</span>
+                      <div>
+                        <p className="text-near-black font-black uppercase tracking-tight mb-2" style={{ fontSize: '1rem' }}>{item.title}</p>
+                        <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.body}</p>
+                      </div>
+                    </div>
+                  </FadeIn>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
+        </div>
+      </section>
+
       {/* ─── CTA ───────────────────────────────────── dark, team-focused */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(6rem,11vw,10rem)', paddingBottom: 'clamp(6rem,11vw,10rem)' }}>
         <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
@@ -323,11 +370,11 @@ export default function Home() {
                 <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">Get started</p>
                 <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8"
                   style={{ fontSize: 'clamp(2.5rem,5vw,5rem)' }}>
-                  Let&apos;s talk about<br />your space.
+                  Let&apos;s have<br />a conversation.
                 </h2>
                 <p className="text-white/55 font-light leading-relaxed mb-12"
                   style={{ fontSize: '1.15rem', lineHeight: 1.8, maxWidth: '30rem' }}>
-                  20 minutes. No pitch. Our team will give you a straight assessment of your situation and whether we can help.
+                  No obligation. No pitch. Tell us what you are working with and we will give you an honest view of your options. Most people find it useful even if they are not ready to move yet.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"

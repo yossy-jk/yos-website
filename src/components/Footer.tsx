@@ -18,6 +18,7 @@ export default function Footer() {
             </p>
             <p className="text-white/35 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
               Australia&apos;s tenant-side commercial property team. Lease, fitout, furniture, cleaning.
+            <span className="block mt-3 text-teal/70 italic" style={{ fontSize: '0.8rem' }}>We pick up the phone.</span>
             </p>
           </div>
 
