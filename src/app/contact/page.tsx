@@ -39,7 +39,7 @@ export default function ContactPage() {
 
       {/* CONTACT OPTIONS */}
       <section className="bg-white py-24 md:py-36">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* HubSpot Contact Form */}
             <div className="flex flex-col">
@@ -143,7 +143,7 @@ export default function ContactPage() {
 
       {/* FINAL CTA */}
       <section className="bg-near-black py-24 md:py-36 text-center">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <h2 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-6">
             Ready?
           </h2>

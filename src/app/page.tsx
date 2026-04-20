@@ -8,7 +8,7 @@ import { IMAGES } from '@/lib/images'
 
 /* ─── Layout constants ───────────────────────────────────────── */
 const WRAP = 'max-w-screen-xl mx-auto'
-const PAD  = 'clamp(2rem, 10vw, 10rem)'
+const PAD  = 'clamp(1.5rem,8vw,10rem)'
 
 const SERVICES = [
   { num: '01', title: 'Tenant Representation', body: 'We represent the tenant — never the landlord. Every clause, every negotiation, every make-good obligation reviewed to protect your business.', href: '/tenant-rep' },
@@ -58,14 +58,14 @@ export default function Home() {
             </p>
           </FadeIn>
           <FadeIn delay={80}>
-            <h1 className="text-white font-black uppercase leading-none tracking-tight mb-8"
-              style={{ fontSize: 'clamp(3rem,6vw,6.5rem)', maxWidth: '14ch' }}>
+            <h1 className="text-white font-black uppercase leading-[1.05] tracking-tight mb-8"
+              style={{ fontSize: 'clamp(2.25rem,6vw,6.5rem)', maxWidth: '12ch' }}>
               Your workspace.<br />Our responsibility.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/65 font-light leading-relaxed mb-12"
-              style={{ fontSize: '1.2rem', maxWidth: '34rem', lineHeight: 1.75 }}>
+              style={{ fontSize: '1rem', maxWidth: '34rem', lineHeight: 1.75 }}>
               Most commercial property decisions are made without anyone truly in your corner.
               We change that. One team, working only for you — from the first conversation to the day your space is running.
             </p>
@@ -108,7 +108,7 @@ export default function Home() {
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What we do</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
-              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Whatever your workspace<br />needs — we handle it.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-14" style={{ fontSize: '1.1rem', maxWidth: '40rem', lineHeight: 1.75 }}>
@@ -182,7 +182,7 @@ export default function Home() {
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">Why us</p>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-16"
-              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)', maxWidth: '20ch' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '20ch' }}>
               Someone genuinely<br />in your corner.
             </h2>
           </FadeIn>
@@ -217,7 +217,7 @@ export default function Home() {
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">What clients say</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-16"
-              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               What clients say<br />about working with us.
             </h2>
           </FadeIn>
@@ -275,7 +275,7 @@ export default function Home() {
               </span>
             </div>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8 mx-auto"
-              style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
               Is your lease costing you more than it should?
             </h2>
             <p className="text-white/80 font-light leading-relaxed mb-16 mx-auto"
@@ -308,7 +308,7 @@ export default function Home() {
               <div>
                 <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">How it works</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
-                  style={{ fontSize: 'clamp(2rem,3.5vw,3.5rem)' }}>
+                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
                   A relationship,<br />not a transaction.
                 </h2>
                 <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1.1rem', lineHeight: 1.8 }}>
@@ -355,7 +355,7 @@ export default function Home() {
                   Commercial Property Advisors
                 </p>
                 <p className="text-white font-black uppercase leading-none tracking-tight"
-                  style={{ fontSize: 'clamp(3rem,7vw,8rem)', lineHeight: 1 }}>
+                  style={{ fontSize: 'clamp(2rem,5vw,5.5rem)', lineHeight: 1.1 }}>
                   100+<br />projects<br />delivered.
                 </p>
                 <p className="text-white/30 font-light mt-8" style={{ fontSize: '1rem', lineHeight: 1.7 }}>
@@ -369,7 +369,7 @@ export default function Home() {
               <div>
                 <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">Get started</p>
                 <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-8"
-                  style={{ fontSize: 'clamp(2.5rem,5vw,5rem)' }}>
+                  style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
                   Let&apos;s have<br />a conversation.
                 </h2>
                 <p className="text-white/55 font-light leading-relaxed mb-12"

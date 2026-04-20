@@ -6,7 +6,7 @@ export default function Footer() {
     <footer className="bg-near-black" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
       <div
         className="max-w-screen-xl mx-auto"
-        style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}
+        style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
       >
         {/* Top grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-14 mb-14 md:mb-20">

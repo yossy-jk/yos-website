@@ -28,7 +28,7 @@ export default function AboutPage() {
           </FadeIn>
           <FadeIn delay={80}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight mb-8 max-w-3xl"
-              style={{ fontSize: 'clamp(2rem, 7vw, 6rem)' }}>
+              style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
               One team.<br />
               <span className="text-teal">Genuinely on your side.</span>
             </h1>
@@ -46,7 +46,7 @@ export default function AboutPage() {
 
       {/* THE STORY */}
       <section className="bg-white py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn direction="left">
               <div>
@@ -110,7 +110,7 @@ export default function AboutPage() {
 
       {/* TEAM */}
       <section className="bg-warm-grey py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Meet the team</SectionLabel>
             <h2 className="text-near-black font-black leading-tight tracking-tight mb-10 sm:mb-16"
@@ -191,7 +191,7 @@ export default function AboutPage() {
 
       {/* WHY TENANT-SIDE ONLY */}
       <section className="bg-near-black py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>Our position</SectionLabel>
             <h2 className="text-white font-black leading-tight tracking-tight mb-8 sm:mb-12"
@@ -232,7 +232,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="bg-teal py-14 sm:py-20 lg:py-28 text-center">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <h2 className="text-white font-black leading-tight mb-5"
               style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}>
               Ready to have someone genuinely on your side?

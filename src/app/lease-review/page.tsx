@@ -346,7 +346,7 @@ export default function LeaseReviewPage() {
 
         {/* FULL REPORT */}
         <section id="full-report" className="bg-near-black py-20 md:py-28 md:py-32">
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
               <div className="max-w-2xl mb-14">
                 <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full paid report — $97 ex GST</p>
@@ -391,7 +391,7 @@ export default function LeaseReviewPage() {
 
         {/* COMPARISON */}
         <section className="bg-warm-grey py-20 md:py-28 md:py-28">
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
               <h2 className="text-near-black font-black leading-tight tracking-tight mb-12 text-center"
                 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
@@ -469,7 +469,7 @@ export default function LeaseReviewPage() {
         {/* JOE QUOTE */}
         <section className="bg-near-black py-20 md:py-28 md:py-28 text-center">
           <FadeIn>
-            <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem, 10vw, 10rem)', paddingRight: 'clamp(2rem, 10vw, 10rem)' }}>
+            <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               <div className="w-10 h-1 bg-teal mx-auto mb-8" />
               <p className="text-white font-light leading-relaxed mb-8"
                 style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>

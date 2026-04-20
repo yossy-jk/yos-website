@@ -22,13 +22,13 @@ export default function TenantRepPage() {
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Tenant Representation</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
-              style={{ fontSize: 'clamp(2rem, 7vw, 6.5rem)' }}>
+              style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
               We negotiate leases for tenants.{' '}
               <span className="text-teal">Never landlords.</span>
             </h1>
@@ -55,7 +55,7 @@ export default function TenantRepPage() {
       {/* STATS BAR */}
       <section className="bg-teal" style={{ paddingTop: "clamp(3.5rem,7vw,6rem)", paddingBottom: "clamp(3.5rem,7vw,6rem)" }}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: "clamp(2rem,10vw,10rem)", paddingRight: "clamp(2rem,10vw,10rem)" }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: "clamp(1.5rem,8vw,10rem)", paddingRight: "clamp(1.5rem,8vw,10rem)" }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '8–15%', label: 'Average rent saving we negotiate' },
@@ -75,7 +75,7 @@ export default function TenantRepPage() {
 
       {/* THE GUARANTEE */}
       <section className="bg-near-black py-20 md:py-28 md:py-32 lg:py-40 border-t border-white/10">
-        <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>The Guarantee</SectionLabel>
             <h2 className="text-white font-black leading-tight mb-6 sm:mb-8"
@@ -109,7 +109,7 @@ export default function TenantRepPage() {
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
         <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80" alt="Professional negotiation" className="absolute inset-0 w-full h-full object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
-        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)' }}>
+        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
             Your interests first. Not the landlord's.
           </p>
@@ -117,7 +117,7 @@ export default function TenantRepPage() {
       </section>
 
       <section className="bg-white py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -163,7 +163,7 @@ export default function TenantRepPage() {
 
       {/* WHAT'S AT STAKE */}
       <section className="bg-near-black py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What&apos;s at stake</SectionLabel>
             <h2 className="text-white font-bold leading-tight mb-4 sm:mb-6 max-w-3xl"
@@ -218,7 +218,7 @@ export default function TenantRepPage() {
 
       {/* WHAT'S INCLUDED */}
       <section className="bg-warm-grey py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>What&apos;s included</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-10 sm:mb-16 lg:mb-20 max-w-2xl"
@@ -306,7 +306,7 @@ export default function TenantRepPage() {
 
       {/* WHY CONFLICT OF INTEREST MATTERS */}
       <section className="bg-white py-20 md:py-28 md:py-32 lg:py-40">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
           <FadeIn>
             <SectionLabel>Why it matters</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mb-8 sm:mb-12"
@@ -359,7 +359,7 @@ export default function TenantRepPage() {
       {/* LEASEINTEL CALLOUT */}
       <section className="bg-warm-grey py-20 md:py-28 md:py-24">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <div className="bg-near-black rounded-sm p-8 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 sm:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
@@ -383,7 +383,7 @@ export default function TenantRepPage() {
       {/* CTA SECTION */}
       <section className="bg-teal py-20 md:py-28 md:py-32 lg:py-40 text-center">
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(2rem,10vw,10rem)', paddingRight: 'clamp(2rem,10vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(8rem,16vw,13rem)', paddingBottom: 'clamp(6rem,12vw,9rem)' }}>
             <h2 className="text-white font-bold leading-tight mb-5 sm:mb-6"
               style={{ fontSize: 'clamp(1.7rem, 4.5vw, 3.75rem)' }}>
               Let&apos;s talk about your next lease.
