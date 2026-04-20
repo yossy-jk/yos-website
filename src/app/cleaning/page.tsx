@@ -17,7 +17,7 @@ export default function CleaningPage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-0 bg-near-black overflow-hidden"
+      <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden"
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
@@ -49,8 +49,8 @@ export default function CleaningPage() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-near-black border-b border-white/5 py-8 sm:py-12 lg:py-16"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-near-black border-b border-white/5"
+        style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
@@ -87,7 +87,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Every property type. Same standard.
             </h2>
@@ -169,13 +169,13 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
+            <h2 className="text-white font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Why clients don&apos;t leave.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10 sm:mb-8 md:mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8 md:mb-14">
             {[
               {
                 title: 'Same team, every time',

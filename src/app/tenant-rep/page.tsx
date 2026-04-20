@@ -109,7 +109,7 @@ export default function TenantRepPage() {
       {/* ─── IMAGE BREAK ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
         <Image src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80" alt="Professional negotiation" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.38)' }} />
         <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
           <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
             Your interests first. Not the landlord&apos;s.
@@ -189,7 +189,7 @@ export default function TenantRepPage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>What&apos;s included</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-10 md:mb-16 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight mb-8 md:mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
               Everything you need to make the right call.
             </h2>
@@ -229,13 +229,13 @@ export default function TenantRepPage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>Why it matters</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mb-8 sm:mb-12"
+            <h2 className="text-near-black font-bold leading-tight mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
               The problem with standard practice.
             </h2>
           </FadeIn>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             <FadeIn delay={100}>
               <div>
                 <h3 className="text-near-black font-bold text-xl sm:text-2xl mb-4">Most brokers work both sides</h3>
@@ -277,7 +277,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* ─── LEASEINTEL CALLOUT ───────────────────────────── */}
-      <section className="bg-warm-grey" style={SEC}>
+      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="bg-near-black p-8 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 sm:gap-10 items-start lg:items-center">

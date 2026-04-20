@@ -17,7 +17,7 @@ export default function FurniturePage() {
       <Nav />
 
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-0 bg-near-black"
+      <section className="relative min-h-screen flex items-center bg-near-black"
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <Image
           src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80"
@@ -45,16 +45,16 @@ export default function FurniturePage() {
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+            <Button href="/resources/furniture-quote" variant="primary" size="lg">
               Get a Furniture Quote
             </Button>
           </FadeIn>
         </div>
       </section>
 
-      {/* GOVT APPROVED BANNER */}
-      <section className="bg-warm-grey border-b border-gray-200 py-8 sm:py-12 lg:py-16"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      {/* STATS BAR */}
+      <section className="bg-warm-grey border-b border-gray-200"
+        style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
@@ -77,7 +77,7 @@ export default function FurniturePage() {
       {/* WHAT WE SUPPLY */}
       {/* ─── IMAGE BREAK ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
-        <Image src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1920&q=80" alt="Modern office fitout" fill className="object-cover object-center" />
+        <Image src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80" alt="Modern office interior" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
         <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
@@ -91,7 +91,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Everything your workspace needs. Nothing it doesn&apos;t.
             </h2>
@@ -139,10 +139,36 @@ export default function FurniturePage() {
         </div>
       </section>
 
+      {/* ─── INSPIRATION GALLERY ──────────────────────────── */}
+      <section style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }} className="bg-warm-grey">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <FadeIn>
+            <SectionLabel>Inspiration</SectionLabel>
+            <h2 style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }} className="text-near-black font-bold leading-tight mb-10 md:mb-14 max-w-2xl">
+              What a well-specified workspace looks like.
+            </h2>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              { src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=80', alt: 'Modern open office' },
+              { src: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80', alt: 'Bright collaborative workspace' },
+              { src: 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80', alt: 'Executive meeting room' },
+            ].map((img, i) => (
+              <FadeIn key={i} delay={i * 100} direction="up">
+                <div className="overflow-hidden rounded-sm aspect-[4/3] relative">
+                  <Image src={img.src} alt={img.alt} fill className="w-full h-full object-cover rounded-sm" />
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <p className="text-mid-grey font-light text-sm mt-6">Example projects. Actual project photography available on request.</p>
+        </div>
+      </section>
+
       {/* WHO WE WORK WITH */}
       <section className="bg-near-black"
         style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto px-8 md:px-14 lg:px-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
@@ -182,7 +208,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-10 sm:mb-8 md:mb-16 lg:mb-10 md:mb-20 max-w-2xl"
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mb-8 md:mb-14 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               From brief to delivered. No hassle.
             </h2>
@@ -244,7 +270,7 @@ export default function FurniturePage() {
             <p className="text-white/55 font-light text-lg leading-relaxed mb-8 sm:mb-12">
               Send us your floor plan, tell us your headcount, and we&apos;ll put together a specification and quote.
             </p>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+            <Button href="/resources/furniture-quote" variant="primary" size="lg">
               Get a Furniture Quote
             </Button>
           </div>
