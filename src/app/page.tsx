@@ -11,10 +11,10 @@ const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = 'clamp(1.5rem,8vw,10rem)'
 
 const SERVICES = [
-  { num: '01', title: 'Tenant Representation', body: 'We represent the tenant — never the landlord. Every clause, every negotiation, every make-good obligation reviewed to protect your business.', href: '/tenant-rep' },
-  { num: '02', title: 'Furniture & Fitout',    body: 'From brief to fully delivered workspace. Specified, coordinated and installed end to end. One team, no gaps.', href: '/furniture' },
-  { num: '03', title: 'Buyers Agency',         body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.', href: '/buyers-agency' },
-  { num: '04', title: 'Commercial Cleaning',   body: 'Commercial cleaning for offices, childcare, medical and industrial. Consistent, accountable, locally managed.', href: '/cleaning' },
+  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We represent the tenant — never the landlord. Every clause, every negotiation, every make-good obligation reviewed to protect your business.', href: '/tenant-rep' },
+  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered.', body: 'From brief to fully delivered workspace. Specified, coordinated and installed end to end. One team, no gaps.', href: '/furniture' },
+  { num: '03', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.', href: '/buyers-agency' },
+  { num: '04', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: 'Commercial cleaning for offices, childcare, medical and industrial. Consistent, accountable, locally managed.', href: '/cleaning' },
 ]
 
 const TESTIMONIALS = [
@@ -187,14 +187,14 @@ export default function Home() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-px" style={{ background: 'transparent' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 md:gap-px" style={{ gap: '1px', background: 'rgba(255,255,255,0.07)' }}>
             {[
               { title: 'We only work for you', body: 'Never the landlord. Never the vendor. You are the only party we answer to.' },
               { title: 'We have done this before', body: 'Hundreds of projects. We know what goes wrong — and how to stop it happening to you.' },
               { title: 'One relationship, not five', body: 'Lease, fitout, furniture, cleaning. One call. One team. You focus on your business.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="bg-near-black border border-white/8 md:border-0" style={{ padding: '2.5rem 2rem' }}>
+                <div className="bg-white md:bg-near-black" style={{ padding: '2rem 1.75rem' }}>
                   <div style={{ width: '3rem', height: '3px', background: '#00B5A5', marginBottom: '1.75rem' }} />
                   <h3 className="text-white font-black uppercase tracking-tight mb-5"
                     style={{ fontSize: '1rem', letterSpacing: '-0.01em' }}>
@@ -322,16 +322,16 @@ export default function Home() {
             <FadeIn delay={120}>
               <div className="flex flex-col gap-6">
                 {[
-                  { step: '01', title: 'We talk', body: 'Tell us what you are working on. No forms, no sales process. Just a real conversation about your situation.' },
-                  { step: '02', title: 'We assess', body: 'We give you an honest view of your options — what is realistic, what it will cost, and what outcome you can expect.' },
-                  { step: '03', title: 'We act', body: 'If you want to work together, we get moving. One team, one contact, full accountability from day one.' },
-                  { step: '04', title: 'We stay', body: 'We do not disappear after the deal. Most of our clients come back — for the next lease, the next fitout, the next decision.' },
+                  { step: '01', title: 'We talk', body: 'A real conversation. No forms. No pressure.' },
+                  { step: '02', title: 'We assess', body: 'Honest options. What is realistic, what it costs, what you can expect.' },
+                  { step: '03', title: 'We act', body: 'One team. One contact. Full accountability from day one.' },
+                  { step: '04', title: 'We stay', body: 'We do not disappear. Most clients come back for the next decision.' },
                 ].map((item, i) => (
                   <FadeIn key={item.step} delay={i * 80}>
                     <div className="flex gap-6 items-start py-6 border-b border-gray-100">
                       <span className="text-teal font-black flex-shrink-0" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '2rem', paddingTop: '0.2rem' }}>{item.step}</span>
                       <div>
-                        <p className="text-near-black font-black uppercase tracking-tight mb-3" style={{ fontSize: '1.1rem' }}>{item.title}</p>
+                        <p className="text-near-black font-black uppercase tracking-tight mb-2" style={{ fontSize: '1.15rem', letterSpacing: '-0.01em' }}>{item.title}</p>
                         <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.body}</p>
                       </div>
                     </div>
