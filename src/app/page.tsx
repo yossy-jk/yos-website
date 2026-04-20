@@ -187,21 +187,20 @@ export default function Home() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 md:gap-px" style={{ gap: '1px', background: 'rgba(255,255,255,0.07)' }}>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-px" style={{ background: 'transparent' }}>
             {[
               { title: 'We only work for you', body: 'Never the landlord. Never the vendor. You are the only party we answer to.' },
               { title: 'We have done this before', body: 'Hundreds of projects. We know what goes wrong — and how to stop it happening to you.' },
               { title: 'One relationship, not five', body: 'Lease, fitout, furniture, cleaning. One call. One team. You focus on your business.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="bg-white md:bg-near-black" style={{ padding: '2rem 1.75rem' }}>
-                  <div style={{ width: '3rem', height: '3px', background: '#00B5A5', marginBottom: '1.75rem' }} />
-                  <h3 className="text-white font-black uppercase tracking-tight mb-5"
-                    style={{ fontSize: '1rem', letterSpacing: '-0.01em' }}>
+                <div style={{ padding: '2rem 1.75rem', background: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #00B5A5' }}>
+                  <h3 className="text-white font-black uppercase tracking-tight mb-4"
+                    style={{ fontSize: '1rem' }}>
                     {p.title}
                   </h3>
-                  <p className="text-white/60 font-light leading-relaxed"
-                    style={{ fontSize: '1rem', lineHeight: 1.7 }}>
+                  <p className="text-white/65 font-light leading-relaxed"
+                    style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
                     {p.body}
                   </p>
                 </div>
