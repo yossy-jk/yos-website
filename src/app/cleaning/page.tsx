@@ -54,7 +54,7 @@ export default function CleaningPage() {
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
-                { stat: 'Direct line', label: 'To Sarah, not a call centre' },
+                { stat: 'Direct line', label: 'To our team, not a call centre' },
                 { stat: '100%', label: 'Locally owned and operated' },
               ].map(item => (
                 <div key={item.label} className="bg-near-black px-6 py-8 text-center">
@@ -168,12 +168,12 @@ export default function CleaningPage() {
               },
               {
                 title: 'Monthly quality audits',
-                body: 'Sarah personally audits every site each month. Standards are checked. Issues are flagged before they become problems. You get a report, not an excuse.',
+                body: 'Every site is audited monthly by our management team. Standards are checked. Issues are flagged before they become problems. You get a report, not an excuse.',
                 aside: 'Accountability built into the contract.'
               },
               {
-                title: 'Direct line to Sarah',
-                body: "If something's wrong, you call Sarah. Not a call centre. Not an email queue. The person who runs the division — directly accountable for your result.",
+                title: 'Direct line to management',
+                body: "If something's wrong, you call our management team directly. Not a call centre. Not an email queue. The people who run the division — accountable for your result.",
                 aside: 'Real problems, real solutions.'
               },
             ].map((item, i) => (
