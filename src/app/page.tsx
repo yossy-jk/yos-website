@@ -8,7 +8,7 @@ import { HUBSPOT, CONTACT } from '@/lib/constants'
 /* ─── Shared wrapper — consistent padding across all sections ─── */
 /* Uses inline style to guarantee padding renders on all devices   */
 const INNER = "max-w-3xl mx-auto w-full"
-const SECTION_PAD = { padding: '0 clamp(1.75rem, 7vw, 6rem)' }
+const SECTION_PAD = { padding: '0 clamp(2.5rem, 8vw, 6rem)' }
 
 const SERVICES = [
   { title: 'Tenant Rep', tagline: 'Your lease. Your terms.', body: 'We represent the tenant — never the landlord. Pure negotiation in your interest.', href: '/tenant-rep' },
@@ -33,7 +33,7 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/78" />
 
-        <div className="relative z-10 w-full" style={{ padding: '0 clamp(1.75rem, 7vw, 6rem) clamp(3.5rem, 10vw, 8rem)' }}>
+        <div className="relative z-10 w-full" style={{ padding: '0 clamp(2.5rem, 8vw, 6rem) clamp(4rem, 12vw, 9rem)' }}>
           <div className="max-w-3xl">
             <FadeIn delay={0}>
               <p className="text-teal font-bold tracking-[0.3em] uppercase mb-8"
@@ -102,7 +102,7 @@ export default function Home() {
       </section>
 
       {/* ── 3. SERVICES ─────────────────────── near-black */}
-      <section className="bg-near-black" style={{ padding: 'clamp(4rem, 10vw, 7rem) 0' }}>
+      <section className="bg-near-black" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <p className="text-teal font-bold tracking-[0.3em] uppercase mb-5" style={{ fontSize: '0.65rem' }}>What we do</p>
@@ -144,7 +144,7 @@ export default function Home() {
       </section>
 
       {/* ── 4. WHY YOS ──────────────────────── white */}
-      <section className="bg-white" style={{ padding: 'clamp(4rem, 10vw, 7rem) 0' }}>
+      <section className="bg-white" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <p className="text-teal font-bold tracking-[0.3em] uppercase mb-5" style={{ fontSize: '0.65rem' }}>Why YOS</p>
@@ -179,7 +179,7 @@ export default function Home() {
       </section>
 
       {/* ── 5. LEASEINTEL ───────────────────── near-black */}
-      <section className="bg-near-black" style={{ padding: 'clamp(4rem, 10vw, 7rem) 0' }}>
+      <section className="bg-near-black" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <div className="inline-flex items-center gap-2 mb-8" style={{ border: '1px solid rgba(0,181,165,0.3)', padding: '0.4rem 0.85rem' }}>
@@ -224,7 +224,7 @@ export default function Home() {
       </section>
 
       {/* ── 6. TOOLS TEASER ─────────────────── white */}
-      <section className="bg-white" style={{ padding: 'clamp(3rem, 8vw, 5rem) 0', borderTop: '1px solid #f3f4f6', borderBottom: '1px solid #f3f4f6' }}>
+      <section className="bg-white" style={{ padding: 'clamp(4rem, 10vw, 6rem) 0', borderTop: '1px solid #f3f4f6', borderBottom: '1px solid #f3f4f6' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-8">
@@ -248,7 +248,7 @@ export default function Home() {
       </section>
 
       {/* ── 7. TESTIMONIALS ─────────────────── warm-grey */}
-      <section className="bg-warm-grey" style={{ padding: 'clamp(4rem, 10vw, 7rem) 0' }}>
+      <section className="bg-warm-grey" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight text-center mb-16"
@@ -284,7 +284,7 @@ export default function Home() {
       </section>
 
       {/* ── 8. CTA ──────────────────────────── near-black */}
-      <section className="bg-near-black" style={{ padding: 'clamp(4rem, 10vw, 7rem) 0' }}>
+      <section className="bg-near-black" style={{ padding: 'clamp(5rem, 12vw, 8rem) 0' }}>
         <div className={INNER} style={SECTION_PAD}>
           <FadeIn>
             <h2
