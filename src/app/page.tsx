@@ -217,12 +217,12 @@ export default function Home() {
                       >
                         {s.title}
                       </span>
-                      <span
-                        className="text-charcoal font-light leading-relaxed hidden md:block"
-                        style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.7 }}
+                      <p
+                        className="text-charcoal font-light leading-relaxed mt-3"
+                        style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.75 }}
                       >
                         {s.body}
-                      </span>
+                      </p>
                     </div>
                   </div>
                   <span
@@ -272,17 +272,17 @@ export default function Home() {
               },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="bg-near-black" style={{ padding: '3rem 2.75rem' }}>
-                  <div className="w-8 h-0.5 bg-teal mb-8" />
+                <div className="bg-near-black" style={{ padding: '3.5rem 3rem' }}>
+                  <div className="w-10 h-0.5 bg-teal mb-8" />
                   <h3
                     className="text-white font-black uppercase tracking-tight mb-5"
-                    style={{ fontSize: '1.2rem' }}
+                    style={{ fontSize: '1.35rem', letterSpacing: '-0.01em' }}
                   >
                     {p.title}
                   </h3>
                   <p
-                    className="text-white/50 font-light leading-relaxed"
-                    style={{ fontSize: '0.95rem', lineHeight: 1.75 }}
+                    className="text-white/55 font-light leading-relaxed"
+                    style={{ fontSize: '1rem', lineHeight: 1.8 }}
                   >
                     {p.body}
                   </p>
@@ -330,11 +330,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="bg-white flex flex-col h-full" style={{ padding: '2.75rem 2.5rem' }}>
+                <div className="bg-white flex flex-col h-full" style={{ padding: '3rem 2.5rem' }}>
                   <Stars />
                   <p
                     className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
-                    style={{ fontSize: '1rem', lineHeight: 1.8 }}
+                    style={{ fontSize: '1.05rem', lineHeight: 1.85 }}
                   >
                     &ldquo;{t.quote}&rdquo;
                   </p>
