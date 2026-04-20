@@ -36,8 +36,7 @@ function renderBody(body: string) {
       elements.push(<p key={key++} className="text-near-black font-semibold text-base mt-4 mb-2">{line.replace(/\*\*/g, '')}</p>)
     } else if (line.startsWith('- ')) {
       elements.push(
-        <div key={key++} className="flex gap-3 items-start mb-2">
-          <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-2.5" />
+        <div key={key++} className="flex items-start pl-4 border-l-2 border-teal mb-2">
           <p className="text-charcoal font-light text-base leading-relaxed">{line.replace('- ', '')}</p>
         </div>
       )

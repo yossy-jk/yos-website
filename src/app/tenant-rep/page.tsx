@@ -172,11 +172,10 @@ export default function TenantRepPage() {
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
                 <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors" style={{ padding: 'clamp(1.5rem,3vw,2rem)' }}>
-                  <div className="flex gap-3 items-start mb-3">
-                    <div className="w-2 h-2 rounded-full bg-teal flex-shrink-0 mt-1.5" />
-                    <h3 className="text-white font-bold text-base sm:text-lg leading-snug">{item.risk}</h3>
+                  <div className="mb-3">
+                  <h3 className="text-white font-bold text-base sm:text-lg leading-snug">{item.risk}</h3>
                   </div>
-                  <p className="text-white/55 font-light leading-relaxed pl-5" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.detail}</p>
+                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.detail}</p>
                 </div>
               </FadeIn>
             ))}
@@ -211,8 +210,7 @@ export default function TenantRepPage() {
                   </h3>
                   <ul className="space-y-3">
                     {category.items.map((item, j) => (
-                      <li key={j} className="flex gap-3 items-start">
-                        <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-1.5" />
+                      <li key={j} className="flex items-start pl-4 border-l-2 border-teal">
                         <span className="text-charcoal font-light text-sm">{item}</span>
                       </li>
                     ))}
@@ -264,8 +262,7 @@ export default function TenantRepPage() {
                     'A second pair of eyes on the fine print',
                     'Someone in the room whose job it is to stop you from signing a bad deal'
                   ].map((item, i) => (
-                    <li key={i} className="flex gap-3 items-start">
-                      <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-2" />
+                    <li key={i} className="flex items-start pl-4 border-l-2 border-teal">
                       <span className="text-charcoal font-light text-base sm:text-lg">{item}</span>
                     </li>
                   ))}

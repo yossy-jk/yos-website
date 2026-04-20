@@ -147,8 +147,7 @@ export default function CleaningPage() {
                   </h3>
                   <ul className="space-y-3 mb-6">
                     {category.services.map(service => (
-                      <li key={service} className="flex gap-3 items-start">
-                        <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-2" />
+                      <li key={service} className="flex items-start pl-4 border-l-2 border-teal">
                         <span className="text-charcoal font-light text-sm">{service}</span>
                       </li>
                     ))}

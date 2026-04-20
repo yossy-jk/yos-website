@@ -125,8 +125,7 @@ export default function FurniturePage() {
                   <h3 className="text-near-black font-bold text-xl mb-6 border-b-2 border-teal pb-4">{cat.category}</h3>
                   <ul className="space-y-3 mb-6">
                     {cat.items.map((item, j) => (
-                      <li key={j} className="flex gap-3 items-start">
-                        <div className="w-1.5 h-1.5 bg-teal rounded-full flex-shrink-0 mt-2" />
+                      <li key={j} className="flex items-start pl-4 border-l-2 border-teal">
                         <span className="text-charcoal font-light text-sm">{item}</span>
                       </li>
                     ))}
