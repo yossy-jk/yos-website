@@ -281,15 +281,15 @@ export default function Home() {
               Plain-English risk analysis. Every clause rated Red, Amber, or Green.
               Free summary — or a full report for $97.
             </p>
-            <div className="flex flex-col gap-3 max-w-xs mx-auto sm:max-w-none sm:flex-row sm:justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 items-center justify-center">
               <Link href="/lease-review"
-                className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+                className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-block"
+                style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', minWidth: '14rem' }}>
                 Get Free Summary →
               </Link>
               <Link href="/lease-review"
-                className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', background: 'rgba(255,255,255,0.12)' }}>
+                className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-block"
+                style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', background: 'rgba(255,255,255,0.12)', minWidth: '14rem' }}>
                 Full Report — $97
               </Link>
             </div>
@@ -304,12 +304,12 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
               <div>
-                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-5">How it works</p>
-                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
-                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
+                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">How it works</p>
+                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight"
+                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.5rem' }}>
                   A relationship,<br />not a transaction.
                 </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+                <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>
                   The first call is just a conversation. We ask about your situation — what you are trying to achieve, what is worrying you, what timeline you are working with. No forms to fill in. No obligation.
                 </p>
                 <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
