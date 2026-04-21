@@ -18,7 +18,11 @@ interface LeadPayload {
 
 export async function POST(req: NextRequest) {
   const body: LeadPayload = await req.json()
-  const { name, email, company, phone, items, subtotal, total, recommendations, walls, doors, windows, columns } = body
+  const { name, email, company, phone, notes, items, subtotal, total, recommendations, walls, doors, windows, columns } = body
+
+  // Determine stage: partial lead (save progress) vs full submission
+  const isPartial = !name.trim() && notes?.includes('Partial lead')
+  const stage = isPartial ? 'started' : 'submitted'
 
   const HUBSPOT_TOKEN = process.env.HUBSPOT_TOKEN
   if (!HUBSPOT_TOKEN) return NextResponse.json({ success: false, error: 'No token' }, { status: 500 })
@@ -44,6 +48,7 @@ export async function POST(req: NextRequest) {
           company: company || '',
           phone: phone || '',
           lead_source: 'Space Planner',
+          space_planner_stage: stage,
           space_planner_total: String(total),
           space_planner_items: JSON.stringify(items.slice(0, 5)),
           space_planner_recommendations: recommendations.join('; '),
