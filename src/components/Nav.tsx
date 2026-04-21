@@ -13,9 +13,9 @@ const TOOLS = [
 ]
 
 const BLOG_HIGHLIGHTS = [
-  { label: 'What Is Tenant Representation?', href: '/blog/tenant-representation-newcastle' },
-  { label: 'Fitout Costs in Newcastle 2026', href: '/blog/commercial-office-fitout-cost-newcastle' },
-  { label: 'Make Good: What It Really Means', href: '/blog/make-good-clause-commercial-lease' },
+  { label: 'What Is Tenant Representation?', href: '/blog/what-is-tenant-representation-newcastle' },
+  { label: 'Fitout Costs in Newcastle 2026', href: '/blog/commercial-fitout-cost-newcastle-2026' },
+  { label: 'Make Good: What It Really Means', href: '/blog/what-is-make-good' },
   { label: 'Buying Commercial Property in 2026', href: '/blog/buying-commercial-property-newcastle-2026' },
 ]
 
