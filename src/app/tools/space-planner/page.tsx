@@ -224,15 +224,20 @@ export default function SpacePlannerPage() {
         padding: '2rem',
         textAlign: 'center',
       }}>
-        <div>
-          <p style={{ color: '#F7F6F4', fontSize: '1.1rem', fontWeight: 600, marginBottom: '0.75rem', fontFamily: 'Montserrat, sans-serif' }}>
-            Best viewed on desktop
+        <div style={{ maxWidth: '340px' }}>
+          <div style={{ width: '48px', height: '4px', background: '#00B5A5', margin: '0 auto 1.5rem', borderRadius: '2px' }} />
+          <p style={{ color: '#F7F6F4', fontSize: '1.15rem', fontWeight: 700, marginBottom: '0.75rem', fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em' }}>
+            Open on your laptop
           </p>
-          <p style={{ color: '#6B6B6B', fontSize: '0.875rem', lineHeight: 1.6, fontFamily: 'Montserrat, sans-serif' }}>
-            Space Planner is a design tool that works best on a larger screen. Open this page on your laptop or desktop.
+          <p style={{ color: '#6B6B6B', fontSize: '0.875rem', lineHeight: 1.7, fontFamily: 'Montserrat, sans-serif', marginBottom: '2rem' }}>
+            Space Planner is a drag-and-drop design tool. It needs a full screen to work properly — open this link on your desktop or laptop.
           </p>
-          <Link href="/" style={{ display: 'inline-block', marginTop: '1.5rem', color: '#00B5A5', fontSize: '0.875rem', fontFamily: 'Montserrat, sans-serif' }}>
-            Back to yourofficespace.au
+          <div style={{ background: '#222', border: '1px solid #333', borderRadius: '8px', padding: '0.75rem 1rem', marginBottom: '1.5rem', fontFamily: 'Montserrat, sans-serif' }}>
+            <p style={{ color: '#6B6B6B', fontSize: '0.7rem', marginBottom: '0.25rem' }}>Copy this link</p>
+            <p style={{ color: '#00B5A5', fontSize: '0.8rem', wordBreak: 'break-all' }}>yourofficespace.au/tools/space-planner</p>
+          </div>
+          <Link href="/furniture" style={{ display: 'inline-block', color: '#6B6B6B', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif', textDecoration: 'none' }}>
+            Back to furniture
           </Link>
         </div>
       </div>
