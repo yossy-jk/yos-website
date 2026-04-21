@@ -374,13 +374,13 @@ export default function LeaseReviewPage() {
                     View Full Report — $97
                   </a>
                 </div>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6">
+                <div className="flex flex-wrap gap-x-4 gap-y-2 mt-6">
                   {[
                     { icon: '🔐', text: 'AES-256 encrypted' },
                     { icon: '🛡️', text: 'Virus scanned' },
                     { icon: '🇦🇺', text: 'Privacy Act compliant' },
                   ].map(s => (
-                    <span key={s.text} className="flex items-center gap-1.5 text-white/40 text-xs font-medium">
+                    <span key={s.text} className="flex items-center gap-1.5 text-white/40 text-xs font-medium whitespace-nowrap">
                       <span>{s.icon}</span>{s.text}
                     </span>
                   ))}
@@ -393,7 +393,7 @@ export default function LeaseReviewPage() {
         {/* STATS */}
         <section className="bg-teal" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <FadeIn>
-            <div className="max-w-screen-xl mx-auto grid grid-cols-3 gap-6 text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {[
                 { stat: '$97', label: 'Full report ex GST' },
                 { stat: '24hr', label: 'Turnaround time' },
@@ -482,7 +482,7 @@ export default function LeaseReviewPage() {
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] w-full md:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] w-full sm:w-auto"
                 >
                   Upload Your Lease →
                 </button>
@@ -681,7 +681,7 @@ export default function LeaseReviewPage() {
 
               <button
                 onClick={handleDetailsNext}
-                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2"
+                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2 w-full sm:w-auto"
               >
                 Continue — Upload Lease →
               </button>
@@ -787,7 +787,7 @@ export default function LeaseReviewPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px]"
+                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px] w-full sm:w-auto"
               >
                 {submitting ? (
                   <>
