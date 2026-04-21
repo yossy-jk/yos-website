@@ -74,10 +74,10 @@ export default function CapRateCalculatorPage() {
             <div>
               <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>Property details</p>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col" style={{ gap: '2.5rem' }}>
                 {/* Purchase price */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Purchase price ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -92,7 +92,7 @@ export default function CapRateCalculatorPage() {
 
                 {/* Gross rent */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Gross annual rent ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -107,7 +107,7 @@ export default function CapRateCalculatorPage() {
 
                 {/* Vacancy */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Vacancy allowance (%)
                   </label>
                   <div className="flex gap-3 flex-wrap mb-2">
@@ -126,7 +126,7 @@ export default function CapRateCalculatorPage() {
 
                 {/* Outgoings */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Annual outgoings ($) <span className="text-white/30 font-light">optional</span>
                   </label>
                   <div className="relative">

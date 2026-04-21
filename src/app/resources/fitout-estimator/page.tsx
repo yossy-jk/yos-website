@@ -191,9 +191,11 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 1: SPACE ── */}
           {step === 1 && (
             <div className="max-w-2xl">
-              <div className="flex flex-col gap-6 mb-10">
+              <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
+
+                {/* Floor area */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                     Floor area (m²) <span className="text-teal">*</span>
                   </label>
                   <input
@@ -201,36 +203,39 @@ export default function FitoutEstimatorPage() {
                     value={inputs.sqm}
                     onChange={e => set('sqm', e.target.value)}
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
-                    style={{ padding: '0.9rem 1.1rem', fontSize: '1.1rem', borderRadius: '0.5rem' }}
+                    style={{ padding: '1rem 1.25rem', fontSize: '1.15rem', borderRadius: '0.5rem', display: 'block', marginBottom: '0.75rem' }}
                   />
-                  <p className="text-white/30 mt-2" style={{ fontSize: '0.78rem' }}>The net lettable area (NLA) of the space you are fitting out</p>
+                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>The net lettable area (NLA) of the space you are fitting out</p>
                 </div>
 
+                {/* Building type */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>Building type</label>
-                  <div className="flex flex-wrap gap-3">
+                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Building type</label>
+                  <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
                     {['A-Grade', 'B-Grade', 'C-Grade / Industrial', 'Tenancy in a retail centre'].map(t => (
                       <button key={t} onClick={() => set('buildingType', t)}
                         className={`font-medium border transition-colors ${inputs.buildingType === t ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
-                        style={{ padding: '0.6rem 1.1rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
+                        style={{ padding: '0.75rem 1.25rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
                         {t}
                       </button>
                     ))}
                   </div>
                 </div>
 
+                {/* Timeframe */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>Timeframe</label>
-                  <div className="flex flex-wrap gap-3">
+                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Timeframe</label>
+                  <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
                     {['ASAP (under 3 months)', '3–6 months', '6–12 months', 'Planning ahead (12m+)'].map(t => (
                       <button key={t} onClick={() => set('timeframe', t)}
                         className={`font-medium border transition-colors ${inputs.timeframe === t ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
-                        style={{ padding: '0.6rem 1.1rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
+                        style={{ padding: '0.75rem 1.25rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
                         {t}
                       </button>
                     ))}
                   </div>
                 </div>
+
               </div>
 
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
@@ -290,34 +295,38 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 3: WORKSTATIONS & MEETINGS ── */}
           {step === 3 && (
             <div className="max-w-xl">
-              <div className="flex flex-col gap-10 mb-12">
+              <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
+
+                {/* Workstations */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-2" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                     Number of workstations <span className="text-teal">*</span>
                   </label>
                   <input type="number" min="0" placeholder="e.g. 20"
                     value={inputs.desks} onChange={e => set('desks', e.target.value)}
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
-                    style={{ padding: '0.9rem 1.1rem', fontSize: '1.1rem', borderRadius: '0.5rem' }}
+                    style={{ padding: '1rem 1.25rem', fontSize: '1.15rem', borderRadius: '0.5rem', display: 'block', marginBottom: '0.75rem' }}
                   />
-                  <p className="text-white/30 mt-2" style={{ fontSize: '0.78rem' }}>Includes desk, chair, and cable management. Mid-range = $1,050–$2,000 per person.</p>
+                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes desk, chair, and cable management. Mid-range = $1,050–$2,000 per person.</p>
                 </div>
 
+                {/* Meeting rooms */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-3" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
                     Meeting rooms
                   </label>
-                  <div className="flex gap-3 flex-wrap">
+                  <div className="flex flex-wrap" style={{ gap: '0.75rem', marginBottom: '0.875rem' }}>
                     {['0', '1', '2', '3', '4+'].map(n => (
                       <button key={n} onClick={() => set('meetingRooms', n === '4+' ? '4' : n)}
                         className={`font-bold border transition-colors w-14 ${inputs.meetingRooms === (n === '4+' ? '4' : n) ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
-                        style={{ padding: '0.7rem', fontSize: '1rem' }}>
+                        style={{ padding: '0.85rem', fontSize: '1rem' }}>
                         {n}
                       </button>
                     ))}
                   </div>
-                  <p className="text-white/30 mt-2" style={{ fontSize: '0.78rem' }}>Mid-range: $18,000–$30,000 per room incl. AV, glass, joinery.</p>
+                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Mid-range: $18,000–$30,000 per room incl. AV, glass, joinery.</p>
                 </div>
+
               </div>
 
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
@@ -334,7 +343,7 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 4: ADDITIONAL SPACES ── */}
           {step === 4 && (
             <div className="max-w-xl">
-              <div className="flex flex-col mb-12" style={{ gap: '1rem' }}>
+              <div className="flex flex-col" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
                   { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' },
                   { key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' },

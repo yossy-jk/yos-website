@@ -123,7 +123,7 @@ export default function RentalYieldCalculatorPage() {
               <div className="flex flex-col" style={{ gap: "2rem" }}>
                 {/* Purchase price */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Purchase price ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -138,7 +138,7 @@ export default function RentalYieldCalculatorPage() {
 
                 {/* Weekly rent */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Weekly rent ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
@@ -153,7 +153,7 @@ export default function RentalYieldCalculatorPage() {
 
                 {/* Annual outgoings */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Annual outgoings ($) <span className="text-white/30 font-light">optional</span>
                   </label>
                   <div className="relative">
@@ -169,7 +169,7 @@ export default function RentalYieldCalculatorPage() {
 
                 {/* Vacancy rate */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Vacancy rate (%)
                   </label>
                   <div className="flex gap-3 flex-wrap mb-2">
@@ -186,7 +186,7 @@ export default function RentalYieldCalculatorPage() {
 
                 {/* Management fee */}
                 <div>
-                  <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Annual management fee (%)
                   </label>
                   <div className="flex gap-3 flex-wrap mb-2">
