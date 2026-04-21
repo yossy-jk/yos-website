@@ -88,9 +88,9 @@ export default function ResourcesPage() {
                     <span className="bg-teal text-white font-bold flex-shrink-0 ml-3"
                       style={{ fontSize: '0.58rem', letterSpacing: '0.15em', padding: '0.3rem 0.65rem', textTransform: 'uppercase' }}>Free</span>
                   </div>
-                  <p className="text-charcoal font-light leading-relaxed flex-1 mb-6"
-                    style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>{tool.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <p className="text-charcoal font-light leading-relaxed flex-1"
+                    style={{ fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1.75rem' }}>{tool.description}</p>
+                  <div className="flex flex-wrap gap-2" style={{ marginBottom: '2rem' }}>
                     {tool.features.map((f) => (
                       <span key={f}
                         className="text-charcoal font-medium border border-gray-200 bg-gray-50"
@@ -99,8 +99,10 @@ export default function ResourcesPage() {
                       </span>
                     ))}
                   </div>
-                  <span className="text-teal font-bold uppercase tracking-widest group-hover:text-dark-teal transition-colors"
-                    style={{ fontSize: '0.65rem' }}>Open tool →</span>
+                  <div style={{ paddingTop: '1.5rem', borderTop: '1px solid #F3F4F6', marginTop: 'auto' }}>
+                    <span className="text-teal font-bold uppercase tracking-widest group-hover:text-dark-teal transition-colors"
+                      style={{ fontSize: '0.65rem', letterSpacing: '0.18em' }}>Open tool →</span>
+                  </div>
                 </Link>
               </FadeIn>
             ))}
