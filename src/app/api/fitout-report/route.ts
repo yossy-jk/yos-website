@@ -511,7 +511,7 @@ export async function POST(req: NextRequest) {
           </table>
           <div style="background:#F0FDFB;border:1px solid #00B5A525;border-radius:8px;padding:16px 20px;">
             <p style="font-size:12px;color:#374151;font-weight:600;margin-bottom:4px;">Full capability statement sent to client.</p>
-            <p style="font-size:12px;color:#6B7280;">Follow up within 24 hours while the brief is fresh.</p>
+            <p style="font-size:12px;color:#6B7280;">Follow up shortly while the brief is fresh.</p>
           </div>
         </div>
       `,

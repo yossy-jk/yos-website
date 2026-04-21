@@ -88,7 +88,7 @@ export default function TenantRepPage() {
               { stat: '8–15%', label: 'Average rent saving we negotiate' },
               { stat: '$18k+', label: 'Average saving per lease deal' },
               { stat: '100%', label: 'Tenant-only representation' },
-              { stat: '24hr', label: 'Initial lease review turnaround' }
+              { stat: 'Fast', label: 'Initial lease review turnaround' }
             ].map((item) => (
               <div key={item.label}>
                 <p className="text-white font-black leading-none mb-2" style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>{item.stat}</p>
@@ -424,7 +424,7 @@ export default function TenantRepPage() {
                 <p className="text-white/60 font-light leading-relaxed"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
                   Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation,
-                  options — every clause rated Red / Amber / Green. Free summary within 24 hours.
+                  options — every clause rated Red / Amber / Green. Free summary returned shortly.
                 </p>
               </div>
               <div className="flex-shrink-0">
