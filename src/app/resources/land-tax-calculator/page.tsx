@@ -365,12 +365,12 @@ export default function LandTaxCalculatorPage() {
     <>
       <Nav />
 
-      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
+      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingTop: 'clamp(4rem,8vw,6rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
 
           {/* Header */}
           <FadeIn>
-            <div className="max-w-2xl mb-10 md:mb-14">
+            <div className="max-w-2xl" style={{ marginBottom: "clamp(3rem,6vw,5rem)" }}>
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-6" style={{ padding: '0.4rem 1rem' }}>
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
@@ -386,7 +386,7 @@ export default function LandTaxCalculatorPage() {
           </FadeIn>
 
           {/* Calculator */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: "clamp(2.5rem,6vw,5rem)" }}>
 
             {/* Inputs */}
             <FadeIn delay={60}>

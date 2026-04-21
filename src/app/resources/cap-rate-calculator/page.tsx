@@ -47,12 +47,12 @@ export default function CapRateCalculatorPage() {
     <>
       <Nav />
 
-      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
+      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto"
           style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
 
           {/* Header */}
-          <div className="max-w-2xl mb-10 md:mb-14">
+          <div className="max-w-2xl" style={{ marginBottom: "clamp(3rem,6vw,5rem)" }}>
             <div className="inline-flex items-center gap-2 border border-teal/30 mb-6"
               style={{ padding: '0.4rem 1rem' }}>
               <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
@@ -68,7 +68,7 @@ export default function CapRateCalculatorPage() {
           </div>
 
           {/* Calculator + Results side by side on desktop */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: "clamp(2.5rem,6vw,5rem)" }}>
 
             {/* Inputs */}
             <div>

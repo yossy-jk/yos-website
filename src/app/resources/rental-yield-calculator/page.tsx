@@ -93,34 +93,34 @@ export default function RentalYieldCalculatorPage() {
     <>
       <Nav />
 
-      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
+      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingTop: 'clamp(4rem,8vw,6rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
 
           {/* Header */}
           <FadeIn>
-            <div className="max-w-2xl mb-10 md:mb-14">
-              <div className="inline-flex items-center gap-2 border border-teal/30 mb-6" style={{ padding: '0.4rem 1rem' }}>
+            <div className="max-w-2xl" style={{ marginBottom: "clamp(3rem,6vw,5rem)" }}>
+              <div className="inline-flex items-center gap-2 border border-teal/30 mb-5" style={{ padding: '0.4rem 1rem' }}>
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
               <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-4"
-                style={{ fontSize: 'clamp(2rem,5vw,4rem)' }}>
+                style={{ fontSize: 'clamp(2rem,5vw,4rem)', marginBottom: '1.25rem' }}>
                 Rental Yield Calculator
               </h1>
-              <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.75 }}>
+              <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                 Enter the property details below to see gross and net yield. Factors in vacancy, outgoings, and management fees — so you get a real number, not just face rent.
               </p>
             </div>
           </FadeIn>
 
           {/* Calculator */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: "clamp(2.5rem,6vw,5rem)" }}>
 
             {/* Inputs */}
             <FadeIn delay={60}>
-              <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>Property details</p>
+              <p className="text-white/40 font-semibold uppercase tracking-[0.25em]" style={{ fontSize: '0.7rem', marginBottom: '2rem' }}>Property details</p>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col" style={{ gap: "2rem" }}>
                 {/* Purchase price */}
                 <div>
                   <label className="block text-white/70 font-semibold mb-4" style={{ fontSize: '0.82rem', letterSpacing: '0.04em' }}>
