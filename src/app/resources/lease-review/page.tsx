@@ -152,7 +152,7 @@ export default function LeaseRiskCheckerPage() {
         )}
 
         <div className="max-w-screen-xl mx-auto w-full"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(5rem,10vw,8rem)', paddingBottom: 'clamp(6rem,12vw,10rem)' }}>
 
           {/* ── INTRO ── */}
           {step === 'intro' && (
@@ -197,21 +197,23 @@ export default function LeaseRiskCheckerPage() {
           {typeof step === 'number' && currentQ && (
             <div className="max-w-2xl">
               {/* Step counter */}
-              <p className="text-white/30 font-light mb-10" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
-                Question <span className="text-white/60 font-semibold">{step + 1}</span> of {QUESTIONS.length}
+              <p className="text-white/30 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.15em', marginBottom: '2.5rem' }}>
+                Question <span className="text-teal font-semibold">{step + 1}</span> <span className="text-white/20">/</span> {QUESTIONS.length}
               </p>
 
               {/* Question */}
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-3"
-                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', marginBottom: '1.25rem' }}>
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+                style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
                 {currentQ.label}
               </h2>
-              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.875rem', lineHeight: 1.8 }}>
+
+              {/* Hint */}
+              <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.9, marginBottom: '3rem' }}>
                 {currentQ.hint}
               </p>
 
               {/* Options */}
-              <div className="flex flex-col gap-4 mb-12">
+              <div className="flex flex-col" style={{ gap: '0.875rem', marginBottom: '3.5rem' }}>
                 {currentQ.options.map(option => (
                   <button
                     key={option}
@@ -219,12 +221,12 @@ export default function LeaseRiskCheckerPage() {
                     className={`text-left font-medium transition-all duration-150 border ${
                       selected === option
                         ? 'border-teal bg-teal/10 text-white'
-                        : 'border-white/12 bg-white/4 text-white/70 hover:border-white/30 hover:text-white hover:bg-white/8'
+                        : 'border-white/10 bg-white/[0.03] text-white/65 hover:border-white/25 hover:text-white hover:bg-white/[0.06]'
                     }`}
-                    style={{ padding: '1.35rem 1.75rem', fontSize: '1rem', lineHeight: 1.5, borderRadius: '0.75rem' }}
+                    style={{ padding: '1.25rem 1.75rem', fontSize: '0.95rem', lineHeight: 1.6, borderRadius: '0.75rem' }}
                   >
-                    <span className={`inline-block w-4 h-4 rounded-full border mr-3 flex-shrink-0 align-middle transition-all ${
-                      selected === option ? 'border-teal bg-teal' : 'border-white/30'
+                    <span className={`inline-block w-4 h-4 rounded-full border mr-4 flex-shrink-0 align-middle transition-all ${
+                      selected === option ? 'border-teal bg-teal' : 'border-white/25'
                     }`} style={{ display: 'inline-block', verticalAlign: 'middle', marginTop: '-2px' }} />
                     {option}
                   </button>
@@ -232,23 +234,23 @@ export default function LeaseRiskCheckerPage() {
               </div>
 
               {/* Navigation */}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button
                   onClick={handleNext}
                   disabled={!selected}
-                  className={`font-bold transition-all ${
+                  className={`font-bold transition-all min-h-[52px] ${
                     selected
                       ? 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
-                      : 'bg-white/10 text-white/30 cursor-not-allowed'
+                      : 'bg-white/8 text-white/25 cursor-not-allowed'
                   }`}
-                  style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem', minWidth: '12rem' }}>
                   {step === QUESTIONS.length - 1 ? 'See my results →' : 'Next →'}
                 </button>
                 {step > 0 && (
                   <button
                     onClick={handleBack}
                     className="text-white/30 font-light hover:text-white/60 transition-colors"
-                    style={{ fontSize: '0.85rem' }}>
+                    style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>
                     ← Back
                   </button>
                 )}

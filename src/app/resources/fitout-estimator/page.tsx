@@ -141,22 +141,23 @@ export default function FitoutEstimatorPage() {
           style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
 
           {/* Step header */}
-          <div className="mb-10 md:mb-14">
-            {step > 0 && step < 4 && (
-              <p className="text-white/30 font-light mb-3" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
-                Step <span className="text-white/50 font-semibold">{step}</span> of {STEPS.length - 1}
+          <div style={{ marginBottom: '3.5rem' }}>
+            {step > 0 && step < STEPS.length && (
+              <p className="text-white/30 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.15em', marginBottom: '2rem' }}>
+                Step <span className="text-teal font-semibold">{step}</span> <span className="text-white/20">/</span> {STEPS.length - 1}
               </p>
             )}
-            <div className="inline-flex items-center gap-2 border border-teal/30 mb-5"
-              style={{ padding: '0.4rem 1rem' }}>
-              <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
-              <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
-            </div>
+            {step === 0 && (
+              <div className="inline-flex items-center gap-2 border border-teal/30" style={{ padding: '0.4rem 1rem', marginBottom: '1.75rem' }}>
+                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
+              </div>
+            )}
             <h1 className="text-white font-black uppercase leading-tight tracking-tight"
-              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '0.75rem' }}>
+              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1rem' }}>
               {step === 0 ? 'Fitout Cost Estimator' : step < STEPS.length ? STEPS[step].title : 'Your Estimate'}
             </h1>
-            <p className="text-white/40 font-light" style={{ fontSize: '0.9rem' }}>
+            <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>
               {step === 0 ? 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' : step < STEPS.length ? STEPS[step].subtitle : 'Based on current market rates'}
             </p>
           </div>
@@ -232,13 +233,13 @@ export default function FitoutEstimatorPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(2)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(0)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
+                <button onClick={() => setStep(0)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -246,7 +247,7 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 2: QUALITY ── */}
           {step === 2 && (
             <div className="max-w-3xl">
-              <div className="grid grid-cols-1 gap-4 mb-10">
+              <div className="grid grid-cols-1 mb-10" style={{ gap: '1rem' }}>
                 {(Object.entries(RATES) as [Tier, typeof RATES[Tier]][]).map(([key, tier]) => (
                   <button key={key} onClick={() => set('tier', key)}
                     className={`text-left border transition-all duration-150 ${inputs.tier === key ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
@@ -275,13 +276,13 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Your full cost estimate — including all items — will be shown at the end.</p>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
+                <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -319,13 +320,13 @@ export default function FitoutEstimatorPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(4)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
+                <button onClick={() => setStep(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -333,7 +334,7 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 4: ADDITIONAL SPACES ── */}
           {step === 4 && (
             <div className="max-w-xl">
-              <div className="flex flex-col gap-4 mb-12">
+              <div className="flex flex-col mb-12" style={{ gap: '1rem' }}>
                 {[
                   { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' },
                   { key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' },
@@ -342,7 +343,7 @@ export default function FitoutEstimatorPage() {
                   <button key={item.key} onClick={() => set(item.key, !inputs[item.key])}
                     className={`text-left flex items-center justify-between border transition-all ${inputs[item.key] ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                     style={{ padding: '1.5rem 1.75rem', borderRadius: '0.75rem' }}>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center" style={{ gap: '1.5rem' }}>
                       <span className={`w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center transition-all ${inputs[item.key] ? 'border-teal bg-teal' : 'border-white/30'}`}>
                         {inputs[item.key] && <span className="text-white font-black" style={{ fontSize: '0.7rem' }}>✓</span>}
                       </span>
@@ -355,13 +356,13 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
 
-              <div className="flex items-center gap-4">
+              <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(5)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
                 </button>
-                <button onClick={() => setStep(3)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.85rem' }}>← Back</button>
+                <button onClick={() => setStep(3)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
