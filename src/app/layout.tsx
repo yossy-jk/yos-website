@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ExitPopup from "@/components/ExitPopup";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -46,7 +47,7 @@ export default function RootLayout({
           src="//js-ap1.hs-scripts.com/442709765.js"
         />
       </head>
-      <body>{children}<ExitPopup /></body>
+      <body>{children}<ExitPopup /><GoogleAnalytics /></body>
     </html>
   );
 }
