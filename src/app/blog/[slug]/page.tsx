@@ -114,11 +114,27 @@ function applyInternalLinks(text: string, currentSlug: string): React.ReactNode[
   return parts
 }
 
+function inlineRender(text: string, slug: string): React.ReactNode[] {
+  // Render inline bold (**text**) and internal links within a string
+  const parts = text.split(/\*\*(.+?)\*\*/)
+  const nodes: React.ReactNode[] = []
+  parts.forEach((part, i) => {
+    if (i % 2 === 1) {
+      nodes.push(<strong key={i} style={{ fontWeight: 700, color: '#111827' }}>{part}</strong>)
+    } else {
+      nodes.push(...applyInternalLinks(part, slug).map((n, j) => <span key={`${i}-${j}`}>{n}</span>))
+    }
+  })
+  return nodes
+}
+
 function renderBody(body: string, slug: string) {
   const lines = body.split('\n')
   const elements: React.ReactNode[] = []
   let key = 0
   let listBuffer: string[] = []
+  let numberedBuffer: string[] = []
+  let tableBuffer: string[] = []
 
   const flushList = () => {
     if (listBuffer.length === 0) return
@@ -128,7 +144,7 @@ function renderBody(body: string, slug: string) {
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.875rem' }}>
             <span style={{ flexShrink: 0, width: '3px', height: '1.4em', background: '#00B5A5', borderRadius: '2px', marginTop: '0.2em', display: 'block' }} />
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300 }}>
-              {applyInternalLinks(item, slug)}
+              {inlineRender(item, slug)}
             </span>
           </li>
         ))}
@@ -137,25 +153,99 @@ function renderBody(body: string, slug: string) {
     listBuffer = []
   }
 
+  const flushNumbered = () => {
+    if (numberedBuffer.length === 0) return
+    elements.push(
+      <ol key={key++} style={{ margin: '1.5rem 0 2rem', padding: 0, listStyle: 'none', counterReset: 'yos-counter' }}>
+        {numberedBuffer.map((item, i) => (
+          <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1rem', counterIncrement: 'yos-counter' }}>
+            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: '#00B5A5', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
+              {i + 1}
+            </span>
+            <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300, flex: 1 }}>
+              {inlineRender(item, slug)}
+            </span>
+          </li>
+        ))}
+      </ol>
+    )
+    numberedBuffer = []
+  }
+
+  const flushTable = () => {
+    if (tableBuffer.length === 0) return
+    // Parse markdown table — first row = headers, second row = separator, rest = data
+    const rows = tableBuffer.map(r =>
+      r.split('|').map(c => c.trim()).filter((_, i, a) => i > 0 && i < a.length - 1)
+    )
+    const headers = rows[0] || []
+    const dataRows = rows.slice(2) // skip separator row
+    elements.push(
+      <div key={key++} style={{ overflowX: 'auto', margin: '2rem 0 2.5rem' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', minWidth: '400px' }}>
+          <thead>
+            <tr style={{ background: '#0A0A0A' }}>
+              {headers.map((h, i) => (
+                <th key={i} style={{ padding: '0.875rem 1.1rem', textAlign: 'left', color: 'white', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {dataRows.map((row, ri) => (
+              <tr key={ri} style={{ background: ri % 2 === 0 ? 'white' : '#F9FAFB', borderBottom: '1px solid #F3F4F6' }}>
+                {row.map((cell, ci) => (
+                  <td key={ci} style={{ padding: '0.875rem 1.1rem', color: ci === 0 ? '#111827' : '#4B5563', fontWeight: ci === 0 ? 600 : 300, lineHeight: 1.6, verticalAlign: 'top' }}>
+                    {inlineRender(cell, slug)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+    tableBuffer = []
+  }
+
+  const flushAll = () => { flushList(); flushNumbered(); flushTable() }
+
   for (const line of lines) {
+    // Table row
+    if (line.trim().startsWith('|')) {
+      flushList(); flushNumbered()
+      tableBuffer.push(line)
+      continue
+    }
+
+    // Separator row for table (---|---) — already buffered above
+    // Headings
     if (line.startsWith('## ')) {
-      flushList()
+      flushAll()
       elements.push(
         <h2 key={key++} style={{ fontSize: 'clamp(1.35rem,2.5vw,1.75rem)', fontWeight: 900, color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.15, marginTop: '3.5rem', marginBottom: '1.25rem', paddingTop: '0.5rem', borderTop: '2px solid #F3F4F6' }}>
           {line.replace('## ', '')}
         </h2>
       )
     } else if (line.startsWith('### ')) {
-      flushList()
+      flushAll()
       elements.push(
         <h3 key={key++} style={{ fontSize: 'clamp(1.1rem,2vw,1.35rem)', fontWeight: 800, color: '#111827', letterSpacing: '-0.005em', lineHeight: 1.25, marginTop: '2.5rem', marginBottom: '0.875rem' }}>
           {line.replace('### ', '')}
         </h3>
       )
+    // Bullet list
     } else if (line.startsWith('- ')) {
-      listBuffer.push(line.replace('- ', ''))
+      flushTable(); flushNumbered()
+      listBuffer.push(line.slice(2))
+    // Numbered list (1. or 1) format)
+    } else if (/^\d+[.)\s]/.test(line)) {
+      flushTable(); flushList()
+      numberedBuffer.push(line.replace(/^\d+[.)\s]+/, ''))
+    // Standalone link
     } else if (line.startsWith('[') && line.includes('](')) {
-      flushList()
+      flushAll()
       const match = line.match(/\[(.+?)\]\((.+?)\)/)
       if (match) {
         elements.push(
@@ -166,29 +256,21 @@ function renderBody(body: string, slug: string) {
           </Link>
         )
       }
+    // Empty line
     } else if (line.trim() === '') {
-      flushList()
+      flushAll()
       elements.push(<div key={key++} style={{ height: '0.875rem' }} />)
+    // Paragraph
     } else {
-      flushList()
-      // Handle bold and inline links
-      const parts = line.split(/\*\*(.+?)\*\*/)
-      const nodes: React.ReactNode[] = []
-      parts.forEach((part, i) => {
-        if (i % 2 === 1) {
-          nodes.push(<strong key={i} style={{ fontWeight: 700, color: '#111827' }}>{applyInternalLinks(part, slug)}</strong>)
-        } else {
-          nodes.push(...applyInternalLinks(part, slug).map((n, j) => <span key={`${i}-${j}`}>{n}</span>))
-        }
-      })
+      flushAll()
       elements.push(
         <p key={key++} style={{ fontSize: '1.0625rem', color: '#4B5563', lineHeight: 1.85, fontWeight: 300, marginBottom: '0.5rem' }}>
-          {nodes}
+          {inlineRender(line, slug)}
         </p>
       )
     }
   }
-  flushList()
+  flushAll()
   return elements
 }
 
