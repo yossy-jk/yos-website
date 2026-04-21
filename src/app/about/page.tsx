@@ -133,78 +133,98 @@ export default function AboutPage() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '2.5rem' }}>
+
+            {/* Joe */}
             <FadeIn direction="left">
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full flex flex-col">
-                {/* Card header */}
-                <div className="p-8 sm:p-10 flex-1">
-                  <div className="flex items-center gap-5 mb-7">
-                    <Image
-                      src="/team/joe-kelley.jpg"
-                      alt="Joe Kelley"
-                      width={80} height={80}
-                      className="rounded-full object-cover flex-shrink-0 border-2 border-warm-grey"
-                      style={{ width: '5rem', height: '5rem' }}
-                    />
-                    <div>
-                      <h3 className="text-near-black font-black text-2xl leading-tight">Joe Kelley</h3>
-                      <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1.5">Founder &amp; Managing Director</p>
-                    </div>
+              <div className="bg-white rounded-2xl overflow-hidden flex flex-col" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
+
+                {/* Photo strip */}
+                <div className="relative bg-near-black" style={{ height: '22rem' }}>
+                  <Image
+                    src="/team/joe-kelley.jpg"
+                    alt="Joe Kelley — Founder & Managing Director, Your Office Space"
+                    fill
+                    className="object-cover object-top"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 55%)' }} />
+                  <div className="absolute bottom-0 left-0 right-0" style={{ padding: '2rem' }}>
+                    <h3 className="text-white font-black text-2xl leading-tight">Joe Kelley</h3>
+                    <p className="text-teal font-bold uppercase tracking-widest" style={{ fontSize: '0.65rem', marginTop: '0.35rem' }}>Founder &amp; Managing Director</p>
                   </div>
-                  <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                </div>
+
+                {/* Body */}
+                <div style={{ padding: '2.5rem' }}>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
                     Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
                   </p>
-                  {/* Personal note */}
-                  <blockquote className="border-l-4 border-teal pl-5 py-1">
-                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>
+                </div>
+
+                {/* Quote */}
+                <div style={{ margin: '0 2.5rem', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
+                  <blockquote>
+                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
                       &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing — straight advice, and someone who actually gives a damn about the outcome.&rdquo;
                     </p>
                   </blockquote>
                 </div>
-                {/* Footer tag */}
-                <div className="px-8 sm:px-10 py-5 bg-warm-grey border-t border-gray-100 flex flex-wrap gap-3">
+
+                {/* Tags */}
+                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: '1.75rem 2.5rem', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                   {['Commercial Property', 'Tenant Representation', 'Fitout Strategy'].map(tag => (
-                    <span key={tag} className="text-xs font-semibold text-mid-grey uppercase tracking-wider px-3 py-1.5 bg-white rounded-lg border border-gray-200">{tag}</span>
+                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
                 </div>
+
               </div>
             </FadeIn>
 
+            {/* Sarah */}
             <FadeIn direction="right" delay={100}>
-              <div className="bg-white rounded-xl shadow-sm overflow-hidden h-full flex flex-col">
-                {/* Card header */}
-                <div className="p-8 sm:p-10 flex-1">
-                  <div className="flex items-center gap-5 mb-7">
-                    <Image
-                      src="/team/sarah-kelley.jpg"
-                      alt="Sarah Kelley"
-                      width={80} height={80}
-                      className="rounded-full object-cover flex-shrink-0 border-2 border-warm-grey"
-                      style={{ width: '5rem', height: '5rem' }}
-                    />
-                    <div>
-                      <h3 className="text-near-black font-black text-2xl leading-tight">Sarah Kelley</h3>
-                      <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1.5">Cleaning Division Director</p>
-                    </div>
+              <div className="bg-white rounded-2xl overflow-hidden flex flex-col" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
+
+                {/* Photo strip */}
+                <div className="relative bg-near-black" style={{ height: '22rem' }}>
+                  <Image
+                    src="/team/sarah-kelley.jpg"
+                    alt="Sarah Kelley — Cleaning Division Director, Your Office Space"
+                    fill
+                    className="object-cover object-top"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 55%)' }} />
+                  <div className="absolute bottom-0 left-0 right-0" style={{ padding: '2rem' }}>
+                    <h3 className="text-white font-black text-2xl leading-tight">Sarah Kelley</h3>
+                    <p className="text-teal font-bold uppercase tracking-widest" style={{ fontSize: '0.65rem', marginTop: '0.35rem' }}>Cleaning Division Director</p>
                   </div>
-                  <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                </div>
+
+                {/* Body */}
+                <div style={{ padding: '2.5rem' }}>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
                     Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month — not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
                   </p>
-                  {/* Personal note */}
-                  <blockquote className="border-l-4 border-teal pl-5 py-1">
-                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>
+                </div>
+
+                {/* Quote */}
+                <div style={{ margin: '0 2.5rem', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
+                  <blockquote>
+                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
                       &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple — if I wouldn&apos;t be happy with it, neither should you.&rdquo;
                     </p>
                   </blockquote>
                 </div>
-                {/* Footer tag */}
-                <div className="px-8 sm:px-10 py-5 bg-warm-grey border-t border-gray-100 flex flex-wrap gap-3">
+
+                {/* Tags */}
+                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: '1.75rem 2.5rem', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                   {['Commercial Offices', 'Medical & Childcare', 'Quality Assurance'].map(tag => (
-                    <span key={tag} className="text-xs font-semibold text-mid-grey uppercase tracking-wider px-3 py-1.5 bg-white rounded-lg border border-gray-200">{tag}</span>
+                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
                 </div>
+
               </div>
             </FadeIn>
+
           </div>
         </div>
       </section>
