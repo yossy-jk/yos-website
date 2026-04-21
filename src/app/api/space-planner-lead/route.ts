@@ -5,15 +5,20 @@ interface LeadPayload {
   email: string
   company?: string
   phone?: string
+  notes?: string
   items: Array<{ name: string; price: number; qty: number }>
   subtotal: number
   total: number
   recommendations: string[]
+  walls?: Array<{ type: string; length: number }>
+  doors?: number
+  windows?: number
+  columns?: number
 }
 
 export async function POST(req: NextRequest) {
   const body: LeadPayload = await req.json()
-  const { name, email, company, phone, items, subtotal, total, recommendations } = body
+  const { name, email, company, phone, items, subtotal, total, recommendations, walls, doors, windows, columns } = body
 
   const HUBSPOT_TOKEN = process.env.HUBSPOT_TOKEN
   if (!HUBSPOT_TOKEN) return NextResponse.json({ success: false, error: 'No token' }, { status: 500 })
@@ -42,6 +47,9 @@ export async function POST(req: NextRequest) {
           space_planner_total: String(total),
           space_planner_items: JSON.stringify(items.slice(0, 5)),
           space_planner_recommendations: recommendations.join('; '),
+          space_planner_walls: String(walls?.length ?? 0),
+          space_planner_doors: String(doors ?? 0),
+          space_planner_windows: String(windows ?? 0),
         },
       }),
     })

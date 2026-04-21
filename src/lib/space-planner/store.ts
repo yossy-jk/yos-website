@@ -24,7 +24,60 @@ export interface RoomZone {
   height: number;
 }
 
+// --- Drawing types ---
+
+export type DrawingToolType =
+  | "select"
+  | "wall"
+  | "door"
+  | "window"
+  | "glazing"
+  | "partition"
+  | "column"
+  | "eraser";
+
+export type WallType =
+  | "gyprock"
+  | "glazing"
+  | "external"
+  | "partition"
+  | "existing";
+
+export interface WallSegment {
+  id: string;
+  points: number[]; // flat array [x1, y1, x2, y2]
+  wallType: WallType;
+  thickness: number; // pixels
+}
+
+export interface DoorElement {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  rotation: number;
+  swingDirection: "left" | "right";
+}
+
+export interface WindowElement {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  rotation: number;
+}
+
+export interface ColumnElement {
+  id: string;
+  x: number;
+  y: number;
+  size: number;
+}
+
+// --- Store interface ---
+
 interface PlannerStore {
+  // Existing
   items: PlannerItem[];
   zones: RoomZone[];
   selectedId: string | null;
@@ -42,9 +95,31 @@ interface PlannerStore {
   toggleSnap: () => void;
   addZone: (zone: Omit<RoomZone, "id">) => void;
   removeZone: (id: string) => void;
+
+  // Drawing tools
+  activeTool: DrawingToolType;
+  activeWallType: WallType;
+  walls: WallSegment[];
+  doors: DoorElement[];
+  windows: WindowElement[];
+  columns: ColumnElement[];
+  drawingPoints: number[];
+
+  setActiveTool: (tool: DrawingToolType) => void;
+  setActiveWallType: (type: WallType) => void;
+  addWall: (wall: Omit<WallSegment, "id">) => void;
+  removeWall: (id: string) => void;
+  addDoor: (door: Omit<DoorElement, "id">) => void;
+  removeDoor: (id: string) => void;
+  addWindow: (win: Omit<WindowElement, "id">) => void;
+  removeWindow: (id: string) => void;
+  addColumn: (col: Omit<ColumnElement, "id">) => void;
+  removeColumn: (id: string) => void;
+  setDrawingPoints: (points: number[]) => void;
 }
 
 export const usePlannerStore = create<PlannerStore>((set) => ({
+  // --- Existing defaults ---
   items: [],
   zones: [],
   selectedId: null,
@@ -78,6 +153,11 @@ export const usePlannerStore = create<PlannerStore>((set) => ({
       selectedId: null,
       floorPlanImage: null,
       roomTemplate: null,
+      walls: [],
+      doors: [],
+      windows: [],
+      columns: [],
+      drawingPoints: [],
     }),
 
   setSelected: (id) => set({ selectedId: id }),
@@ -98,6 +178,60 @@ export const usePlannerStore = create<PlannerStore>((set) => ({
     set((state) => ({
       zones: state.zones.filter((z) => z.id !== id),
     })),
+
+  // --- Drawing defaults ---
+  activeTool: "select",
+  activeWallType: "gyprock",
+  walls: [],
+  doors: [],
+  windows: [],
+  columns: [],
+  drawingPoints: [],
+
+  setActiveTool: (tool) => set({ activeTool: tool }),
+  setActiveWallType: (type) => set({ activeWallType: type }),
+
+  addWall: (wall) =>
+    set((state) => ({
+      walls: [...state.walls, { ...wall, id: nanoid() }],
+    })),
+
+  removeWall: (id) =>
+    set((state) => ({
+      walls: state.walls.filter((w) => w.id !== id),
+    })),
+
+  addDoor: (door) =>
+    set((state) => ({
+      doors: [...state.doors, { ...door, id: nanoid() }],
+    })),
+
+  removeDoor: (id) =>
+    set((state) => ({
+      doors: state.doors.filter((d) => d.id !== id),
+    })),
+
+  addWindow: (win) =>
+    set((state) => ({
+      windows: [...state.windows, { ...win, id: nanoid() }],
+    })),
+
+  removeWindow: (id) =>
+    set((state) => ({
+      windows: state.windows.filter((w) => w.id !== id),
+    })),
+
+  addColumn: (col) =>
+    set((state) => ({
+      columns: [...state.columns, { ...col, id: nanoid() }],
+    })),
+
+  removeColumn: (id) =>
+    set((state) => ({
+      columns: state.columns.filter((c) => c.id !== id),
+    })),
+
+  setDrawingPoints: (points) => set({ drawingPoints: points }),
 }));
 
 export function getCategoryColor(category: string): string {

@@ -11,7 +11,7 @@ interface QuoteModalProps {
 }
 
 export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
-  const { items } = usePlannerStore();
+  const { items, walls, doors, windows, columns } = usePlannerStore();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
@@ -55,6 +55,18 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           recommendations,
           subtotal: 0,
           total: 0,
+          walls: walls.map((w) => ({
+            type: w.wallType,
+            length: Math.round(
+              Math.sqrt(
+                Math.pow(w.points[2] - w.points[0], 2) +
+                  Math.pow(w.points[3] - w.points[1], 2)
+              )
+            ),
+          })),
+          doors: doors.length,
+          windows: windows.length,
+          columns: columns.length,
         }),
       });
       setSubmitted(true);
@@ -126,12 +138,23 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           <form onSubmit={handleSubmit} style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
 
             {/* Space summary */}
-            <div style={{ background: '#F7F6F4', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.8rem', color: '#3D3D3D' }}>
-              <span style={{ fontWeight: 600 }}>{items.length} items</span> in your layout —
-              {lineItems.slice(0, 3).map((i, idx) => (
-                <span key={idx}> {i.qty}x {i.name}{idx < Math.min(lineItems.length, 3) - 1 ? ',' : ''}</span>
-              ))}
-              {lineItems.length > 3 && <span> and {lineItems.length - 3} more</span>}
+            <div style={{ background: '#F7F6F4', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.8rem', color: '#3D3D3D', lineHeight: 1.6 }}>
+              <span style={{ fontWeight: 600 }}>{items.length} furniture item{items.length !== 1 ? 's' : ''}</span> in your layout
+              {lineItems.length > 0 && (
+                <span>
+                  {' '}—{lineItems.slice(0, 3).map((i, idx) => (
+                    <span key={idx}> {i.qty}x {i.name}{idx < Math.min(lineItems.length, 3) - 1 ? ',' : ''}</span>
+                  ))}
+                  {lineItems.length > 3 && <span> and {lineItems.length - 3} more</span>}
+                </span>
+              )}
+              {walls.length > 0 && (
+                <div style={{ marginTop: '0.25rem' }}>
+                  <span style={{ fontWeight: 600 }}>{walls.length} wall segment{walls.length !== 1 ? 's' : ''}</span> drawn
+                  {doors.length > 0 && <span>, {doors.length} door{doors.length !== 1 ? 's' : ''}</span>}
+                  {windows.length > 0 && <span>, {windows.length} window{windows.length !== 1 ? 's' : ''}</span>}
+                </div>
+              )}
             </div>
 
             <div>
