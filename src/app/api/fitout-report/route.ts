@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+// Lazy-initialised inside handler so build doesn't crash without RESEND_API_KEY
+function getResend() {
+  const key = process.env.RESEND_API_KEY
+  if (!key) throw new Error('RESEND_API_KEY not configured')
+  return new Resend(key)
+}
 
 const TEAL = '#00B5A5'
 const DARK = '#0A0A0A'
@@ -483,6 +488,7 @@ export async function POST(req: NextRequest) {
       totalLow, totalHigh, perSqmLow, perSqmHigh, breakdown, date
     })
 
+    const resend = getResend()
     const clientSend = resend.emails.send({
       from: 'Your Office Space <notifications@yourofficespace.au>',
       to: email,
