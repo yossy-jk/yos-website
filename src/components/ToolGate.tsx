@@ -39,9 +39,10 @@ export default function ToolGate({
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({})
   const [loading, setLoading] = useState(false)
 
-  // Check localStorage so returning users aren't re-gated
+  // Check localStorage so returning users aren't re-gated (keyed per tool)
+  const storageKey = `yos_tool_unlocked_${tool.toLowerCase().replace(/\s+/g, '_')}`
   if (typeof window !== 'undefined' && !unlocked) {
-    const stored = localStorage.getItem('yos_tool_unlocked')
+    const stored = localStorage.getItem(storageKey)
     if (stored === 'true') return <>{children}</>
   }
 
@@ -72,7 +73,7 @@ export default function ToolGate({
     onUnlock?.(name.trim(), email.trim())
 
     // Remember unlock so returning users skip the gate
-    try { localStorage.setItem('yos_tool_unlocked', 'true') } catch {}
+    try { localStorage.setItem(storageKey, 'true') } catch {}
 
     setLoading(false)
     setUnlocked(true)

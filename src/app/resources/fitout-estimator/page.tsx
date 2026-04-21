@@ -121,7 +121,7 @@ export default function FitoutEstimatorPage() {
     return true
   }
 
-  const estimate = step === 4 ? calcEstimate(inputs) : null
+  const estimate = step >= 4 ? calcEstimate(inputs) : null
   const progress = ((step) / (STEPS.length - 1)) * 100
 
   return (
