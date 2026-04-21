@@ -49,7 +49,7 @@ export default function CapRateCalculatorPage() {
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
         <div className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
+          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
 
           {/* Header */}
           <div className="max-w-2xl mb-10 md:mb-14">
@@ -216,7 +216,7 @@ export default function CapRateCalculatorPage() {
           </div>
 
           {/* spacer */}
-          <div style={{ paddingBottom: 'clamp(2rem,4vw,3rem)' }} />
+          <div style={{ paddingBottom: 'clamp(4rem,8vw,6rem)' }} />
 
           {/* CTA */}
           <div className="mt-20 md:mt-28 pt-12 border-t border-white/8 max-w-2xl">

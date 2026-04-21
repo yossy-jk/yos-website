@@ -128,7 +128,7 @@ export default function FitoutEstimatorPage() {
     <>
       <Nav />
 
-      <div className="min-h-screen bg-near-black flex flex-col" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
+      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
 
         {/* Progress bar */}
         {step > 0 && (
@@ -138,7 +138,7 @@ export default function FitoutEstimatorPage() {
         )}
 
         <div className="flex-1 max-w-screen-xl mx-auto w-full"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(2rem,5vw,4rem)', paddingBottom: 'clamp(3rem,6vw,6rem)' }}>
+          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
 
           {/* Step header */}
           <div className="mb-10 md:mb-14">

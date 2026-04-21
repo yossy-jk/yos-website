@@ -290,7 +290,7 @@ export default function RentalYieldCalculatorPage() {
           </div>
 
           {/* spacer */}
-          <div style={{ paddingBottom: 'clamp(2rem,4vw,3rem)' }} />
+          <div style={{ paddingBottom: 'clamp(4rem,8vw,6rem)' }} />
 
           {/* CTA */}
           <div className="mt-20 md:mt-28 pt-12 border-t border-white/8 max-w-2xl">

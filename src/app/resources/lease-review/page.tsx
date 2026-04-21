@@ -139,7 +139,7 @@ export default function LeaseRiskCheckerPage() {
     <>
       <Nav />
 
-      <div className="min-h-screen bg-near-black flex flex-col" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
+      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
 
         {/* Progress bar */}
         {step !== 'intro' && (
@@ -151,8 +151,8 @@ export default function LeaseRiskCheckerPage() {
           </div>
         )}
 
-        <div className="flex-1 flex flex-col justify-center max-w-screen-xl mx-auto w-full"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(2rem,5vw,4rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+        <div className="max-w-screen-xl mx-auto w-full"
+          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
 
           {/* ── INTRO ── */}
           {step === 'intro' && (
