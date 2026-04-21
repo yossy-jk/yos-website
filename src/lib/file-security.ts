@@ -27,7 +27,7 @@ export type ScanResult =
   | { status: 'error'; reason: string }   // API unreachable — fail open (don't block upload)
 
 export async function virusTotalScan(file: File): Promise<ScanResult> {
-  const apiKey = process.env.NEXT_PUBLIC_VIRUSTOTAL_API_KEY
+  const apiKey = process.env.VIRUSTOTAL_API_KEY
   if (!apiKey) return { status: 'error', reason: 'VT API key not configured' }
 
   let hash: string
@@ -110,7 +110,7 @@ export interface EncryptedFile {
  * The encrypted file is useless without the passphrase, IV, and salt.
  */
 export async function encryptFile(file: File): Promise<EncryptedFile> {
-  const passphrase = process.env.NEXT_PUBLIC_LEASE_ENCRYPT_KEY
+  const passphrase = process.env.LEASE_ENCRYPT_KEY
   if (!passphrase) throw new Error('Encryption key not configured')
 
   // Random 16-byte salt and 12-byte IV — both unique per file

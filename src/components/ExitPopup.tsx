@@ -27,6 +27,7 @@ export default function ExitPopup() {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden' && !triggered.current && !dismissed) {
         triggered.current = true
+        setVisible(true)
       }
     }
 

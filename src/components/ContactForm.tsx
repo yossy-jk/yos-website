@@ -9,6 +9,7 @@ import { submitLead } from '@/lib/hubspot-lead'
 export default function ContactForm() {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [honey, setHoney] = useState('')
   const [fields, setFields] = useState({
     name: '', company: '', email: '', phone: '', message: '',
   })
@@ -46,6 +47,7 @@ export default function ContactForm() {
           phone: fields.phone || '',
           message: fields.message,
           source: 'Contact Form',
+          _honey: honey,
         }),
       }),
       // HubSpot CRM — contact + deal
@@ -81,6 +83,8 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+      {/* Honeypot — hidden from real users, filled by bots */}
+      <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass} style={labelStyle}>Your name <span className="text-teal">*</span></label>

@@ -1,6 +1,6 @@
 {
   "slug": "jirsch-sutherland-cleaning",
-  "title": "Office Relocation & Cleaning Transition — Jirsch Sutherland",
+  "title": "Office Relocation & Cleaning Transition \u2014 Jirsch Sutherland",
   "client": "Jirsch Sutherland",
   "location": "Newcastle, NSW",
   "division": "cleaning",
@@ -8,18 +8,39 @@
   "featured": true,
   "excerpt": "A national insolvency firm moves into a premium King Street office. Their previous cleaning contractor had become complacent. We completed the builders clean, identified what was needed, and delivered a weekly standard that matches the quality of the space.",
   "heroImage": "/images/furniture/space-wsi-openplan.jpg",
-  "challenge": "Jirsch Sutherland is a well-regarded national insolvency and restructuring firm. When they relocated to a new office on King Street in Newcastle, they brought their existing cleaning contractor with them — out of convenience, not confidence. The previous standard had dropped. Complacency had set in. Inconsistent teams, missed areas, and a general sense that nobody was really accountable.\n\nFor a firm of Jirsch Sutherland's calibre, operating out of a new, well-designed office, that gap between the quality of the space and the quality of the maintenance was a problem.",
-  "solution": "We were engaged to complete the builders clean for the new King Street office — a full post-construction clean that sets the baseline before a business moves in. It's detail work: every surface, every fixture, every square metre cleaned to a standard the builders leave behind.\n\nDuring that engagement, we walked the space with the office manager and mapped it properly. Footprint, traffic patterns, high-touch surfaces, kitchen use, bathroom frequency, meeting room turnover. We scoped a weekly cleaning schedule that matched the actual needs of the office — not a generic template.\n\nWe presented the scope alongside our team structure: the same cleaner, every week, who knows the space and can be held accountable to it. Direct communication. Monthly audits. Written records.\n\nJirsch Sutherland made the switch.",
-  "outcome": "The King Street office now runs to the standard it was designed for. The Jirsch Sutherland team walks into a clean space every Monday. The cleaner knows the office. The audits are clean. And the feedback loop is direct — if something needs attention, it's handled at the next visit, not escalated through a call centre.",
+  "challenge": "Jirsch Sutherland is a well-regarded national insolvency and restructuring firm. When they relocated to a new office on King Street in Newcastle, they brought their existing cleaning contractor with them \u2014 out of convenience, not confidence. The previous standard had dropped. Complacency had set in. Inconsistent teams, missed areas, and a general sense that nobody was really accountable.\n\nFor a firm of Jirsch Sutherland's calibre, operating out of a new, well-designed office, that gap between the quality of the space and the quality of the maintenance was a problem.",
+  "solution": "We were engaged to complete the builders clean for the new King Street office \u2014 a full post-construction clean that sets the baseline before a business moves in. It's detail work: every surface, every fixture, every square metre cleaned to a standard the builders leave behind.\n\nDuring that engagement, we walked the space with the office manager and mapped it properly. Footprint, traffic patterns, high-touch surfaces, kitchen use, bathroom frequency, meeting room turnover. We scoped a weekly cleaning schedule that matched the actual needs of the office \u2014 not a generic template.\n\nWe presented the scope alongside our team structure: the same cleaner, every week, who knows the space and can be held accountable to it. Direct communication. Monthly audits. Written records.\n\nJirsch Sutherland made the switch.",
+  "outcome": "The King Street office now runs to the standard it was designed for. The Jirsch Sutherland team walks into a clean space every Monday. The cleaner knows the office. The audits are clean. And the feedback loop is direct \u2014 if something needs attention, it's handled at the next visit, not escalated through a call centre.",
   "metrics": [
-    { "label": "Contract type", "value": "Weekly commercial cleaning" },
-    { "label": "Location", "value": "King Street, Newcastle CBD" },
-    { "label": "Sector", "value": "Professional Services" },
-    { "label": "Started", "value": "Post-builders clean → ongoing" }
+    {
+      "label": "Contract type",
+      "value": "Weekly commercial cleaning"
+    },
+    {
+      "label": "Location",
+      "value": "King Street, Newcastle CBD"
+    },
+    {
+      "label": "Sector",
+      "value": "Professional Services"
+    },
+    {
+      "label": "Started",
+      "value": "Post-builders clean \u2192 ongoing"
+    }
   ],
   "quote": {
-    "text": "We came from a contractor who'd become complacent. The difference with YOS is straightforward — same person, every week, and if there's an issue, someone actually responds.",
-    "attribution": "Jirsch Sutherland — Newcastle Office"
+    "text": "We came from a contractor who'd become complacent. The difference with YOS is straightforward \u2014 same person, every week, and if there's an issue, someone actually responds.",
+    "attribution": "Jirsch Sutherland \u2014 Newcastle Office"
   },
-  "tags": ["commercial cleaning", "office relocation", "professional services", "Newcastle", "builders clean", "King Street"]
+  "tags": [
+    "commercial cleaning",
+    "office relocation",
+    "professional services",
+    "Newcastle",
+    "builders clean",
+    "King Street"
+  ],
+  "metaTitle": "Commercial Office Cleaning Contract Newcastle | Your Office Space",
+  "metaDescription": "How Your Office Space delivers consistent, reliable commercial cleaning for Jirsch Sutherland's Newcastle office \u2014 on time, every time."
 }

@@ -209,8 +209,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
 
+
+  const heroImage = post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.metaDescription || post.excerpt,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { '@type': 'Person', name: post.author, url: 'https://yourofficespace.au/about' },
+    publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://yourofficespace.au' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://yourofficespace.au/blog/${post.slug}` },
+    image: `https://yourofficespace.au${heroImage}`,
+    keywords: post.tags?.join(', '),
+    articleSection: DIVISION_LABELS[post.division as Division],
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Nav />
 
       {/* ── HERO ─────────────────────────────────── */}

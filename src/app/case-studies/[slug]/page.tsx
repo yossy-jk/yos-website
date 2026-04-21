@@ -41,8 +41,21 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const cs = getCaseStudyBySlug(slug)
   if (!cs) notFound()
 
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: cs.title,
+    description: cs.metaDescription || cs.excerpt,
+    author: { '@type': 'Organization', name: 'Your Office Space', url: 'https://yourofficespace.au' },
+    publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://yourofficespace.au' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://yourofficespace.au/case-studies/${cs.slug}` },
+    ...(cs.heroImage ? { image: `https://yourofficespace.au${cs.heroImage}` } : {}),
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Nav />
 
       {/* HERO */}

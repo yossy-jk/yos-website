@@ -39,9 +39,20 @@ function calcNSW(value: number, ownerType: OwnerType): LandTaxResult {
   let calcNote: string | undefined
 
   if (ownerType === 'trust') {
-    tax = value * 0.02
-    thresholdNote = 'No threshold for trusts. 2.0% flat rate applies from $0.'
-    calcNote = `$${value.toLocaleString()} × 2.0% = ${fmt(tax)}`
+    // NSW trusts: no threshold, same progressive brackets as individuals applied from $0
+    // Revenue NSW: $100 + 1.6% on value over $0 up to $5,605,000; then higher rates
+    if (value <= 0) {
+      tax = 0
+      thresholdNote = 'No land value — no tax payable.'
+    } else if (value <= 5605000) {
+      tax = 100 + value * 0.016
+      thresholdNote = 'No threshold for trusts. Progressive rates apply from $0.'
+      calcNote = `$100 + ${fmt(value)} × 1.6% = ${fmt(tax)}`
+    } else {
+      tax = 100 + 5605000 * 0.016 + (value - 5605000) * 0.02
+      thresholdNote = 'No threshold for trusts. Progressive rates apply from $0.'
+      calcNote = `$100 + ($5,605,000 × 1.6%) + (${fmt(value)} − $5,605,000) × 2.0% = ${fmt(tax)}`
+    }
   } else {
     if (value <= 1075000) {
       tax = 0
