@@ -9,6 +9,8 @@ interface ToolGateProps {
   context?: () => string                // optional fn returning lead context string
   heading?: string                      // gate heading
   subheading?: string                   // gate subheading
+  // Optional: called after successful gate unlock with name+email
+  onUnlock?: (name: string, email: string) => void
 }
 
 /**
@@ -64,6 +66,9 @@ export default function ToolGate({
       source: tool,
       context: context?.(),
     }).catch(() => {})
+
+    // Notify the parent (e.g. to trigger report email)
+    onUnlock?.(name.trim(), email.trim())
 
     // Remember unlock so returning users skip the gate
     try { localStorage.setItem('yos_tool_unlocked', 'true') } catch {}

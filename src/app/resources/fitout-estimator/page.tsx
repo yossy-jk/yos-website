@@ -374,7 +374,30 @@ export default function FitoutEstimatorPage() {
               tool="Fitout Estimator"
               context={() => `Budget range: ${fmt(estimate!.totalLow)} – ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m² | Quality: ${RATES[inputs.tier as Tier].label}`}
               heading="Where should we send your estimate?"
-              subheading="Unlock your full cost breakdown — including line-by-line categories and per m² rate."
+              subheading="Enter your details — we'll email you a branded 1-page report with your full cost breakdown."
+              onUnlock={(name, email) => {
+                // Send branded report to client + notify Joe
+                fetch('/api/fitout-report', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    name,
+                    email,
+                    sqm: inputs.sqm,
+                    tier: RATES[inputs.tier as Tier].label,
+                    desks: inputs.desks,
+                    meetingRooms: inputs.meetingRooms,
+                    hasKitchen: inputs.hasKitchen,
+                    hasReception: inputs.hasReception,
+                    hasAV: inputs.hasAV,
+                    totalLow: estimate!.totalLow,
+                    totalHigh: estimate!.totalHigh,
+                    perSqmLow: estimate!.perSqm.low,
+                    perSqmHigh: estimate!.perSqm.high,
+                    breakdown: estimate!.breakdown,
+                  }),
+                }).catch(() => {})
+              }}
               teaser={
                 <div className="max-w-2xl">
                   <div className="mb-8">
