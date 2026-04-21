@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
-import { getAllPosts, DIVISION_LABELS } from '@/lib/blog'
+import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
+import type { Division } from '@/lib/blog'
 import { getAllCaseStudies } from '@/lib/case-studies'
 
 export const metadata = {
@@ -143,32 +145,57 @@ export default function ResourcesPage() {
             </div>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.slice(0, 6).map((post, i) => (
-              <FadeIn key={post.slug} delay={i * 60}>
-                <Link href={`/blog/${post.slug}`} className="group no-underline flex flex-col h-full bg-white hover:border-teal border border-gray-100 transition-colors duration-200"
-                  style={{ padding: '2.25rem 2rem' }}>
-                  <span className="bg-teal text-white font-bold uppercase tracking-widest inline-block mb-5 self-start"
-                    style={{ fontSize: '0.6rem', padding: '0.3rem 0.75rem' }}>
-                    {DIVISION_LABELS[post.division as keyof typeof DIVISION_LABELS]}
-                  </span>
-                  <h3 className="text-near-black font-black leading-tight tracking-tight group-hover:text-teal transition-colors flex-1 mb-4"
-                    style={{ fontSize: '1.05rem' }}>
-                    {post.title}
-                  </h3>
-                  <p className="text-charcoal font-light leading-relaxed mb-6"
-                    style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-mid-grey font-light" style={{ fontSize: '0.75rem' }}>
-                      {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    </span>
-                    <span className="text-teal font-bold group-hover:text-dark-teal transition-colors" style={{ fontSize: '0.75rem' }}>Read →</span>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: '2rem' }}>
+            {posts.slice(0, 6).map((post, i) => {
+              const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
+              return (
+                <FadeIn key={post.slug} delay={i * 60}>
+                  <Link href={`/blog/${post.slug}`}
+                    className="group no-underline flex flex-col h-full bg-white hover:border-teal border border-gray-100 transition-colors duration-200"
+                    style={{ borderRadius: '0.875rem', overflow: 'hidden' }}>
+
+                    {/* Hero image */}
+                    <div style={{ position: 'relative', height: '13rem', flexShrink: 0, overflow: 'hidden', background: '#F3F4F6' }}>
+                      <Image
+                        src={post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]}
+                        alt={post.title}
+                        fill
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
+                        <span className={`text-white font-bold uppercase tracking-widest inline-block ${DIVISION_COLORS[post.division as Division]}`}
+                          style={{ fontSize: '0.58rem', padding: '0.3rem 0.7rem', borderRadius: '9999px' }}>
+                          {DIVISION_LABELS[post.division as keyof typeof DIVISION_LABELS]}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <div style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                      <h3 className="text-near-black font-black leading-tight tracking-tight group-hover:text-teal transition-colors"
+                        style={{ fontSize: '1rem', lineHeight: 1.3, marginBottom: '0.875rem' }}>
+                        {post.title}
+                      </h3>
+                      <p className="text-charcoal font-light leading-relaxed"
+                        style={{ fontSize: '0.875rem', lineHeight: 1.75, marginBottom: '1.5rem', flex: 1 }}>
+                        {post.excerpt.length > 110 ? post.excerpt.slice(0, 110) + '…' : post.excerpt}
+                      </p>
+                      {/* Footer row */}
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.25rem', borderTop: '1px solid #F3F4F6' }}>
+                        <div>
+                          <p style={{ color: '#9CA3AF', fontSize: '0.72rem', fontWeight: 400, lineHeight: 1.4 }}>
+                            {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
+                          </p>
+                          <p style={{ color: '#9CA3AF', fontSize: '0.72rem', fontWeight: 300, lineHeight: 1.4 }}>{readTime} min read</p>
+                        </div>
+                        <span className="text-teal font-bold group-hover:text-dark-teal transition-colors"
+                          style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Read →</span>
+                      </div>
+                    </div>
+                  </Link>
+                </FadeIn>
+              )
+            })}
           </div>
         </div>
       </section>
