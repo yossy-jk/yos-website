@@ -435,40 +435,41 @@ export default function FitoutEstimatorPage() {
                 </div>
               }
             >
-              <div className="mb-8">
-                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.7rem' }}>
+              {/* Summary */}
+              <div style={{ marginBottom: '3rem', paddingBottom: '3rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <p className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.7rem', marginBottom: '1rem' }}>
                   {inputs.sqm}m² · {RATES[inputs.tier as Tier].label} quality
                 </p>
-                <h2 className="text-white font-black uppercase leading-none tracking-tight mb-2"
-                  style={{ fontSize: 'clamp(2rem,5vw,4rem)' }}>
+                <h2 className="text-white font-black uppercase leading-none tracking-tight" style={{ fontSize: 'clamp(2.25rem,5vw,4.5rem)', marginBottom: '1rem' }}>
                   {fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}
                 </h2>
-                <p className="text-white/40 font-light" style={{ fontSize: '0.85rem' }}>
-                  {fmt(estimate.perSqm.low)}–{fmt(estimate.perSqm.high)} per m² · All figures ex GST · 10% contingency included
+                <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
+                  {fmt(estimate.perSqm.low)} – {fmt(estimate.perSqm.high)} per m² &nbsp;·&nbsp; All figures ex GST &nbsp;·&nbsp; 10% contingency included
                 </p>
               </div>
 
               {/* Breakdown */}
-              <div className="border border-white/10 mb-8">
-                <div className="border-b border-white/10 px-5 py-3">
-                  <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Cost breakdown</p>
-                </div>
-                {estimate.breakdown.map((row, i) => (
-                  <div key={i} className={`flex justify-between items-center px-5 py-4 ${i < estimate.breakdown.length - 1 ? 'border-b border-white/6' : ''} ${row.label.includes('Contingency') ? 'bg-white/3' : ''}`}>
-                    <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/40 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
-                    <span className={`font-bold ${row.label.includes('Contingency') ? 'text-white/40' : 'text-white'}`} style={{ fontSize: '0.9rem' }}>
-                      {fmt(row.low)} – {fmt(row.high)}
-                    </span>
+              <div style={{ marginBottom: '3rem' }}>
+                <p className="text-white/40 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', marginBottom: '1.25rem' }}>Cost breakdown</p>
+                <div className="border border-white/10" style={{ borderRadius: '0.75rem', overflow: 'hidden' }}>
+                  {estimate.breakdown.map((row, i) => (
+                    <div key={i} className={`flex justify-between items-center ${i < estimate.breakdown.length - 1 ? 'border-b border-white/8' : ''} ${row.label.includes('Contingency') ? 'bg-white/[0.02]' : ''}`}
+                      style={{ padding: '1.1rem 1.5rem' }}>
+                      <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/65'}`} style={{ fontSize: '0.95rem' }}>{row.label}</span>
+                      <span className={`font-semibold ${row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85'}`} style={{ fontSize: '0.95rem' }}>
+                        {fmt(row.low)} – {fmt(row.high)}
+                      </span>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center bg-teal/10 border-t border-teal/25" style={{ padding: '1.35rem 1.5rem' }}>
+                    <span className="text-white font-black uppercase tracking-wide" style={{ fontSize: '0.85rem' }}>Total estimate</span>
+                    <span className="text-teal font-black" style={{ fontSize: '1.1rem' }}>{fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}</span>
                   </div>
-                ))}
-                <div className="flex justify-between items-center px-5 py-4 bg-teal/10 border-t border-teal/20">
-                  <span className="text-white font-black uppercase tracking-tight" style={{ fontSize: '0.9rem' }}>Total estimate</span>
-                  <span className="text-teal font-black" style={{ fontSize: '1rem' }}>{fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}</span>
                 </div>
               </div>
 
               {/* Disclaimer */}
-              <p className="text-white/30 font-light mb-10 leading-relaxed" style={{ fontSize: '0.82rem', lineHeight: 1.8 }}>
+              <p className="text-white/25 font-light leading-relaxed" style={{ fontSize: '0.82rem', lineHeight: 1.85, marginBottom: '3rem' }}>
                 This estimate is based on current NSW market rates from the YOS Fitout Cost Guide (April 2026). Rates vary by location — figures shown reflect Newcastle and Hunter Region benchmarks. Actual costs depend on site conditions, builder selection, specification detail, and market conditions at time of tender. A site visit and detailed brief will refine this estimate significantly.
               </p>
 
