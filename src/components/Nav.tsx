@@ -3,16 +3,20 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { SERVICE_LINKS, HUBSPOT, CONTACT } from '@/lib/constants'
 
-const TOOLS = [
+const TOOLS_LEASING = [
   { label: 'Lease Risk Checker', href: '/resources/lease-review', tagline: 'Spot hidden obligations before you sign.' },
-  { label: 'Fitout Estimator', href: '/resources/fitout-estimator', tagline: 'Budget your office fitout accurately.' },
   { label: 'Lease Comparison', href: '/resources/lease-comparison', tagline: 'Compare two leases side by side.' },
+  { label: 'Should I Relocate?', href: '/resources/relocate-quiz', tagline: 'Is it time to move offices?' },
+  { label: 'Office Size Calculator', href: '/resources/office-size-calculator', tagline: 'How much space does your team need?' },
+  { label: 'Fitout Estimator', href: '/resources/fitout-estimator', tagline: 'Budget your office fitout accurately.' },
+]
+
+const TOOLS_INVESTMENT = [
+  { label: 'Lease vs Buy', href: '/resources/lease-vs-buy', tagline: '5-year cost comparison.' },
   { label: 'Stamp Duty Calculator', href: '/resources/stamp-duty-calculator', tagline: 'NSW commercial stamp duty estimate.' },
   { label: 'Rental Yield Calculator', href: '/resources/rental-yield-calculator', tagline: 'Gross and net yield in seconds.' },
   { label: 'Cap Rate Calculator', href: '/resources/cap-rate-calculator', tagline: 'Valuation metric for investors.' },
-  { label: 'Should I Relocate?', href: '/resources/relocate-quiz', tagline: 'Find out if it\'s time to move offices.' },
-  { label: 'Office Size Calculator', href: '/resources/office-size-calculator', tagline: 'How much space does your team actually need?' },
-  { label: 'Lease vs Buy', href: '/resources/lease-vs-buy', tagline: '5-year cost comparison for your situation.' },
+  { label: 'Land Tax Calculator', href: '/resources/land-tax-calculator', tagline: 'Estimate your land tax liability.' },
 ]
 
 const BLOG_HIGHLIGHTS = [
@@ -145,53 +149,73 @@ export default function Nav() {
                     style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
                     <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
 
-                      {/* Left col — Tools */}
-                      <div style={{ flex: '0 0 40%', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '2rem 2rem 2rem 0' }}>
-                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.6rem', letterSpacing: '0.25em', marginBottom: '1.25rem' }}>Free Tools</p>
-                        <div className="flex flex-col" style={{ gap: '0.125rem' }}>
-                          {TOOLS.map(tool => (
+                      {/* Col 1 — Leasing Tools */}
+                      <div style={{ flex: '1 1 0', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '1.75rem 1.75rem 1.75rem 0' }}>
+                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Leasing Tools</p>
+                        <div className="flex flex-col" style={{ gap: '0.1rem' }}>
+                          {TOOLS_LEASING.map(tool => (
                             <Link key={tool.href} href={tool.href} onClick={closeAll}
                               className="no-underline group flex flex-col hover:bg-white/[0.04] transition-colors"
-                              style={{ padding: '0.75rem 1rem', borderRadius: '0.5rem' }}>
+                              style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem' }}>
                               <span className="text-white font-semibold block group-hover:text-teal transition-colors"
-                                style={{ fontSize: '0.78rem', marginBottom: '0.2rem' }}>
+                                style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
                                 {tool.label}
                               </span>
-                              <span className="text-white/30 font-light block" style={{ fontSize: '0.68rem', lineHeight: 1.4 }}>
+                              <span className="text-white/30 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
                                 {tool.tagline}
                               </span>
                             </Link>
                           ))}
                         </div>
-                        <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                        <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                           <Link href="/resources" onClick={closeAll}
                             className="no-underline text-teal/70 hover:text-teal font-semibold transition-colors"
-                            style={{ fontSize: '0.68rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                            All resources →
+                            style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                            All tools →
                           </Link>
                         </div>
                       </div>
 
-                      {/* Right col — Blog */}
-                      <div style={{ flex: 1, padding: '2rem 0 2rem 2.5rem' }}>
-                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.6rem', letterSpacing: '0.25em', marginBottom: '1.25rem' }}>Latest Articles</p>
-                        <div className="flex flex-col" style={{ gap: '0.125rem' }}>
+                      {/* Col 2 — Investment Tools */}
+                      <div style={{ flex: '1 1 0', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '1.75rem 1.75rem 1.75rem 1.75rem' }}>
+                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Investment Tools</p>
+                        <div className="flex flex-col" style={{ gap: '0.1rem' }}>
+                          {TOOLS_INVESTMENT.map(tool => (
+                            <Link key={tool.href} href={tool.href} onClick={closeAll}
+                              className="no-underline group flex flex-col hover:bg-white/[0.04] transition-colors"
+                              style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem' }}>
+                              <span className="text-white font-semibold block group-hover:text-teal transition-colors"
+                                style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
+                                {tool.label}
+                              </span>
+                              <span className="text-white/30 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
+                                {tool.tagline}
+                              </span>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Col 3 — Blog */}
+                      <div style={{ flex: '1 1 0', padding: '1.75rem 0 1.75rem 1.75rem' }}>
+                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Latest Articles</p>
+                        <div className="flex flex-col" style={{ gap: '0.1rem' }}>
                           {BLOG_HIGHLIGHTS.map(post => (
                             <Link key={post.href} href={post.href} onClick={closeAll}
-                              className="no-underline group flex items-center gap-3 hover:bg-white/[0.04] transition-colors"
-                              style={{ padding: '0.75rem 1rem', borderRadius: '0.5rem' }}>
-                              <span className="text-white/15 group-hover:text-teal/40 transition-colors flex-shrink-0" style={{ fontSize: '0.7rem' }}>→</span>
-                              <span className="text-white/70 font-light group-hover:text-white transition-colors"
-                                style={{ fontSize: '0.8rem', lineHeight: 1.45 }}>
+                              className="no-underline group flex items-start gap-2.5 hover:bg-white/[0.04] transition-colors"
+                              style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem' }}>
+                              <span className="text-white/20 group-hover:text-teal/50 transition-colors flex-shrink-0 mt-0.5" style={{ fontSize: '0.65rem' }}>→</span>
+                              <span className="text-white/65 font-light group-hover:text-white transition-colors"
+                                style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
                                 {post.label}
                               </span>
                             </Link>
                           ))}
                         </div>
-                        <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+                        <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                           <Link href="/blog" onClick={closeAll}
                             className="no-underline text-teal/70 hover:text-teal font-semibold transition-colors"
-                            style={{ fontSize: '0.68rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                            style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                             View all articles →
                           </Link>
                         </div>
@@ -257,9 +281,20 @@ export default function Nav() {
             ))}
           </div>
 
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Free Tools</p>
+          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Leasing Tools</p>
+          <div className="flex flex-col mb-6">
+            {TOOLS_LEASING.map(link => (
+              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
+                className="text-white no-underline font-bold hover:text-teal transition-colors"
+                style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Investment Tools</p>
           <div className="flex flex-col mb-8">
-            {TOOLS.map(link => (
+            {TOOLS_INVESTMENT.map(link => (
               <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
                 className="text-white no-underline font-bold hover:text-teal transition-colors"
                 style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
