@@ -15,9 +15,17 @@ const PlannerCanvas = dynamic(() => import('@/components/space-planner/PlannerCa
 export default function SpacePlannerPage() {
   const [showModal, setShowModal] = useState(false)
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 })
+  const [isMobile, setIsMobile] = useState(false)
   const canvasContainerRef = useRef<HTMLDivElement>(null)
 
   const { clearAll, toggleSnap, snapToGrid, setFloorPlan, setRoomTemplate, addItem } = usePlannerStore()
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const update = () => {
@@ -213,7 +221,7 @@ export default function SpacePlannerPage() {
       </div>
 
       {/* Mobile guard */}
-      <div className="md:hidden" style={{
+      {isMobile && <div style={{
         position: 'fixed',
         inset: 0,
         background: '#1A1A1A',
@@ -240,7 +248,7 @@ export default function SpacePlannerPage() {
             Back to furniture
           </Link>
         </div>
-      </div>
+      </div>}
 
       {showModal && <QuoteModal isOpen={showModal} onClose={() => setShowModal(false)} />}
     </div>
