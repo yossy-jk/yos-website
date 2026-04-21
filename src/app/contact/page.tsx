@@ -215,8 +215,8 @@ export default function ContactPage() {
 
                   {/* Location */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid #e5e7eb' }}>
-                    <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in</p>
-                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>{CONTACT.location}</p>
+                    <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in Newcastle</p>
+                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Partnering with Business Owners Throughout Australia</p>
                   </div>
                 </div>
               </div>
