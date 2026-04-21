@@ -151,7 +151,7 @@ export default function AboutPage() {
                       <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1.5">Founder &amp; Managing Director</p>
                     </div>
                   </div>
-                  <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                  <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                     Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
                   </p>
                   {/* Personal note */}
@@ -187,7 +187,7 @@ export default function AboutPage() {
                       <p className="text-teal font-bold text-xs tracking-widest uppercase mt-1.5">Cleaning Division Director</p>
                     </div>
                   </div>
-                  <p className="text-charcoal font-light leading-relaxed mb-8" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                  <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                     Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month — not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
                   </p>
                   {/* Personal note */}

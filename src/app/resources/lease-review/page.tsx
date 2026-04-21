@@ -166,7 +166,7 @@ export default function LeaseRiskCheckerPage() {
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
                 Lease Risk Checker
               </h1>
-              <p className="text-white/60 font-light leading-relaxed mb-10"
+              <p className="text-white/60 font-light leading-relaxed mb-14"
                 style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '36rem' }}>
                 10 questions about your lease. Answer honestly and we&apos;ll give you an instant risk rating — plus the top issues to watch out for before you sign.
               </p>
@@ -278,7 +278,7 @@ export default function LeaseRiskCheckerPage() {
                 {risk.level === 'high' ? 'This lease needs attention.' : risk.level === 'medium' ? 'Some things to watch.' : 'Looking reasonable.'}
               </h2>
 
-              <p className="text-white/65 font-light leading-relaxed mb-8"
+              <p className="text-white/65 font-light leading-relaxed mb-12"
                 style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                 {riskConfig.message}
               </p>

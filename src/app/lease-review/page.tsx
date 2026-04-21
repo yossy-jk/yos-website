@@ -594,7 +594,7 @@ export default function LeaseReviewPage() {
           <FadeIn>
             <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               <div className="w-10 h-1 bg-teal mx-auto mb-8" />
-              <p className="text-white font-light leading-relaxed mb-8"
+              <p className="text-white font-light leading-relaxed mb-12"
                 style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
                 &ldquo;Most business owners sign commercial leases they don&apos;t fully understand.
                 LeaseIntel™ changes that. For $97, you get complete plain-English analysis —

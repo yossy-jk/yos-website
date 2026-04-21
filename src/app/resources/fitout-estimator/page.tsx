@@ -154,10 +154,10 @@ export default function FitoutEstimatorPage() {
               </div>
             )}
             <h1 className="text-white font-black uppercase leading-tight tracking-tight"
-              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1rem' }}>
+              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1.25rem' }}>
               {step === 0 ? 'Fitout Cost Estimator' : step < STEPS.length ? STEPS[step].title : 'Your Estimate'}
             </h1>
-            <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>
+            <p className="text-white/40 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.85, maxWidth: '36rem' }}>
               {step === 0 ? 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' : step < STEPS.length ? STEPS[step].subtitle : 'Based on current market rates'}
             </p>
           </div>
@@ -165,18 +165,18 @@ export default function FitoutEstimatorPage() {
           {/* ── STEP 0: INTRO ── */}
           {step === 0 && (
             <div className="max-w-2xl">
-              <p className="text-white/60 font-light leading-relaxed mb-10" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+              <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '3rem' }}>
                 Get a realistic cost range for your commercial fitout. We&apos;ll walk you through construction, furniture, meeting rooms, kitchen, reception, AV and technology — with a contingency built in.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-12">
+              <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
-                  { icon: '📐', label: '5 quick questions' },
-                  { icon: '💰', label: 'Detailed breakdown' },
-                  { icon: '📋', label: 'Based on real projects' },
+                  { num: '01', label: '5 quick questions' },
+                  { num: '02', label: 'Detailed breakdown' },
+                  { num: '03', label: 'Based on real projects' },
                 ].map(f => (
-                  <div key={f.label} className="border border-white/10 bg-white/4 text-center" style={{ padding: '2rem 1.5rem', borderRadius: '0.75rem' }}>
-                    <p className="text-3xl mb-3">{f.icon}</p>
-                    <p className="text-white/60 font-light" style={{ fontSize: '0.9rem' }}>{f.label}</p>
+                  <div key={f.label} className="border border-white/10 bg-white/[0.03]" style={{ padding: '1.75rem 1.5rem', borderRadius: '0.75rem' }}>
+                    <p className="text-teal font-black" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', marginBottom: '0.625rem' }}>{f.num}</p>
+                    <p className="text-white/70 font-medium" style={{ fontSize: '0.875rem', lineHeight: 1.5 }}>{f.label}</p>
                   </div>
                 ))}
               </div>

@@ -110,7 +110,7 @@ export default function TenantRepPage() {
                 We pay for ourselves.<br />
                 <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
               </h2>
-              <p className="text-white/65 font-light leading-relaxed mb-10"
+              <p className="text-white/65 font-light leading-relaxed mb-14"
                 style={{ fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.85 }}>
                 Our fee for tenant representation is $12,000 ex GST or 3 months rent equivalent — whichever is higher.
                 The savings we negotiate — rent-free periods, fitout contributions, reduced make-good liability,
@@ -159,13 +159,13 @@ export default function TenantRepPage() {
                   style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
                   Your lease terms shape your cashflow. We make sure they work for you.
                 </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-8"
+                <p className="text-charcoal font-light leading-relaxed mb-12"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                   Instead of accepting what&apos;s offered, we fight for stronger terms and fairer conditions.
                   Every lease decision impacts your bottom line — so we focus on long-term value, not short-term convenience.
                   We identify risks early, protect your upside, and negotiate outcomes that work in your favour.
                 </p>
-                <p className="text-charcoal font-light leading-relaxed mb-10"
+                <p className="text-charcoal font-light leading-relaxed mb-14"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                   We step in early to make sure the deal structure works for you — not the landlord.
                 </p>
@@ -274,7 +274,7 @@ export default function TenantRepPage() {
                   style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
                   Leasing the right space isn&apos;t just about price.
                 </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-10"
+                <p className="text-charcoal font-light leading-relaxed mb-14"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                   It&apos;s about fit, flexibility, and future-proofing. We work with business owners to manage the entire process — from brief to keys.
                   This isn&apos;t box-ticking. It&apos;s full-service representation that protects your business.
@@ -446,7 +446,7 @@ export default function TenantRepPage() {
                 style={{ fontSize: 'clamp(1.7rem,4.5vw,3.75rem)' }}>
                 Let&apos;s talk about your next lease.
               </h2>
-              <p className="text-white/80 font-light leading-relaxed mb-10 w-full"
+              <p className="text-white/80 font-light leading-relaxed mb-14 w-full"
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
                 20 minutes. No pitch. Just a straight conversation about your space, your situation, and what you&apos;re trying to achieve.
               </p>

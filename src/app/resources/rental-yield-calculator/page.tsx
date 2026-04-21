@@ -103,7 +103,7 @@ export default function RentalYieldCalculatorPage() {
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
-              <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-4"
+              <h1 className="text-white font-black uppercase leading-tight tracking-tight"
                 style={{ fontSize: 'clamp(2rem,5vw,4rem)', marginBottom: '1.25rem' }}>
                 Rental Yield Calculator
               </h1>
