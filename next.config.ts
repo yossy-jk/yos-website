@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
           // HSTS
           { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains; preload' },
           // CSP — prevent XSS, control resource origins
-          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js-ap1.hs-scripts.com https://js.hs-scripts.com https://js.hscollectedforms.net https://www.virustotal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://api.hubapi.com https://www.virustotal.com https://formsubmit.co; frame-src 'none'; object-src 'none'; base-uri 'self';" },
+          { key: 'Content-Security-Policy', value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js-ap1.hs-scripts.com https://js.hs-scripts.com https://js.hscollectedforms.net https://www.virustotal.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.virustotal.com https://formsubmit.co; frame-src 'none'; object-src 'none'; base-uri 'self';" },
         ],
       },
     ]

@@ -46,10 +46,10 @@ export async function POST(req: Request) {
     if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ ok: false, error: 'Invalid email' }, { status: 400 })
     }
-    if (!firstname || typeof firstname !== 'string' || firstname.length < 1) {
+    if (!firstname || typeof firstname !== 'string' || firstname.length < 1 || firstname.length > 500) {
       return NextResponse.json({ ok: false, error: 'Invalid name' }, { status: 400 })
     }
-    if (source && source.length > 200) {
+    if (source && (typeof source !== 'string' || source.length > 200)) {
       return NextResponse.json({ ok: false, error: 'Invalid source' }, { status: 400 })
     }
 
