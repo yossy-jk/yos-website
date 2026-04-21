@@ -281,41 +281,22 @@ export default function Nav() {
             ))}
           </div>
 
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Leasing Tools</p>
-          <div className="flex flex-col mb-6">
-            {TOOLS_LEASING.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
-                className="text-white no-underline font-bold hover:text-teal transition-colors"
-                style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Investment Tools</p>
+          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Resources</p>
           <div className="flex flex-col mb-8">
-            {TOOLS_INVESTMENT.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
-                className="text-white no-underline font-bold hover:text-teal transition-colors"
-                style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Articles</p>
-          <div className="flex flex-col mb-8">
-            {BLOG_HIGHLIGHTS.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
-                className="text-white no-underline font-semibold hover:text-teal transition-colors"
-                style={{ fontSize: '0.9rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
-                {link.label}
-              </Link>
-            ))}
+            <Link href="/resources" onClick={() => setOpen(false)}
+              className="text-white no-underline font-bold hover:text-teal transition-colors"
+              style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
+              Free Tools (10)
+            </Link>
             <Link href="/blog" onClick={() => setOpen(false)}
-              className="text-teal no-underline font-semibold hover:text-dark-teal transition-colors"
-              style={{ fontSize: '0.8rem', paddingTop: '0.8rem', display: 'block' }}>
-              View all articles →
+              className="text-white no-underline font-bold hover:text-teal transition-colors"
+              style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
+              Articles &amp; Guides
+            </Link>
+            <Link href="/case-studies" onClick={() => setOpen(false)}
+              className="text-white no-underline font-bold hover:text-teal transition-colors"
+              style={{ fontSize: '1rem', paddingTop: '0.8rem', paddingBottom: '0.8rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block' }}>
+              Case Studies
             </Link>
           </div>
 
