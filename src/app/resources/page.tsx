@@ -32,6 +32,7 @@ const tools = [
   { title: 'Rental Yield Calculator', description: 'Gross and net yield on commercial property. Factor in outgoings, vacancy, and management fees.', href: '/resources/rental-yield-calculator', features: ['Gross + net yield', 'Vacancy & outgoings', 'Break-even rent'] },
   { title: 'Stamp Duty Calculator', description: 'Transfer duty on commercial property across all Australian states. 2025-26 verified rates.', href: '/resources/stamp-duty-calculator', features: ['All states covered', '2025-26 verified rates', 'Bracket breakdown'] },
   { title: 'Land Tax Calculator', description: 'Annual land tax liability across all states. Know your holding costs before you buy.', href: '/resources/land-tax-calculator', features: ['All states covered', '2025-26 thresholds', 'Trusts vs individuals'] },
+  { title: 'Should I Relocate?', description: 'Answer 6 questions about your lease, space, and team. Get an instant Red, Amber, or Green verdict on whether your business should move offices.', href: '/resources/relocate-quiz', features: ['6-question assessment', 'RAG verdict', 'Specific next steps'] },
 ]
 
 const FILTERS = [

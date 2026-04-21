@@ -10,6 +10,9 @@ const TOOLS = [
   { label: 'Stamp Duty Calculator', href: '/resources/stamp-duty-calculator', tagline: 'NSW commercial stamp duty estimate.' },
   { label: 'Rental Yield Calculator', href: '/resources/rental-yield-calculator', tagline: 'Gross and net yield in seconds.' },
   { label: 'Cap Rate Calculator', href: '/resources/cap-rate-calculator', tagline: 'Valuation metric for investors.' },
+  { label: 'Should I Relocate?', href: '/resources/relocate-quiz', tagline: 'Find out if it\'s time to move offices.' },
+  { label: 'Office Size Calculator', href: '/resources/office-size-calculator', tagline: 'How much space does your team actually need?' },
+  { label: 'Lease vs Buy', href: '/resources/lease-vs-buy', tagline: '5-year cost comparison for your situation.' },
 ]
 
 const BLOG_HIGHLIGHTS = [
