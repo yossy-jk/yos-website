@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { notifyLimiter, getIp } from '@/lib/ratelimit'
 
 const TO = 'jk@yourofficespace.au'
 const esc = (s: string) =>
@@ -12,6 +13,13 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
   }
   const resend = new Resend(apiKey)
+
+  // Rate limit check
+  const limiter = notifyLimiter()
+  if (limiter) {
+    const { success } = await limiter.limit(getIp(req))
+    if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  }
 
   try {
     const body = await req.json()

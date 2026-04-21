@@ -4,6 +4,7 @@
  * All form components POST here instead of calling HubSpot directly.
  */
 import { NextResponse } from 'next/server'
+import { hubspotLimiter, getIp } from '@/lib/ratelimit'
 
 const TOKEN   = process.env.HUBSPOT_TOKEN
 const BASE    = 'https://api.hubapi.com'
@@ -28,6 +29,13 @@ export async function POST(req: Request) {
   if (!TOKEN) {
     console.error('HUBSPOT_TOKEN not configured')
     return NextResponse.json({ ok: false, error: 'Service unavailable' }, { status: 503 })
+  }
+
+  // Rate limit check
+  const limiter = hubspotLimiter()
+  if (limiter) {
+    const { success } = await limiter.limit(getIp(req))
+    if (!success) return NextResponse.json({ ok: false, error: 'Too many requests' }, { status: 429 })
   }
 
   try {

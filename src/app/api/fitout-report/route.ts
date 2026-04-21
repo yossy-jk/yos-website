@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { fitoutLimiter, getIp } from '@/lib/ratelimit'
 
 // Lazy-initialised inside handler so build doesn't crash without RESEND_API_KEY
 function getResend() {
@@ -466,6 +467,12 @@ ${section(GREY, `
 }
 
 export async function POST(req: NextRequest) {
+  const limiter = fitoutLimiter()
+  if (limiter) {
+    const { success } = await limiter.limit(getIp(req))
+    if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  }
+
   try {
     const body = await req.json()
     const {
