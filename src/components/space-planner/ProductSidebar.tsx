@@ -15,16 +15,26 @@ export interface Product {
 }
 
 export const MOCK_PRODUCTS: Product[] = [
-  { id: "1", name: "Task Chair", category: "Seating", price: 485, image: "/products/task-chair.jpg", width: 60, depth: 60 },
-  { id: "2", name: "Executive Chair", category: "Seating", price: 1200, image: "/products/exec-chair.jpg", width: 65, depth: 65 },
-  { id: "3", name: "Height Adjust Desk 1600", category: "Desks", price: 1450, image: "/products/sitstand.jpg", width: 160, depth: 80 },
-  { id: "4", name: "Workstation 1800", category: "Desks", price: 680, image: "/products/workstation.jpg", width: 180, depth: 80 },
-  { id: "5", name: "Meeting Table 2400", category: "Meeting", price: 3200, image: "/products/meeting-table.jpg", width: 240, depth: 100 },
-  { id: "6", name: "Meeting Chair", category: "Seating", price: 320, image: "/products/meeting-chair.jpg", width: 55, depth: 55 },
-  { id: "7", name: "Mobile Pedestal", category: "Storage", price: 380, image: "/products/pedestal.jpg", width: 40, depth: 50 },
-  { id: "8", name: "Lounge Chair", category: "Breakout", price: 890, image: "/products/lounge-chair.jpg", width: 75, depth: 75 },
-  { id: "9", name: "Lounge Sofa 2-Seat", category: "Breakout", price: 2100, image: "/products/sofa.jpg", width: 150, depth: 80 },
-  { id: "10", name: "Acoustic Screen", category: "Screens", price: 580, image: "/products/screen.jpg", width: 120, depth: 5 },
+  { id: '1', name: 'Task Chair', category: 'Seating', price: 0, image: '', width: 60, depth: 60 },
+  { id: '2', name: 'Executive Chair', category: 'Seating', price: 0, image: '', width: 70, depth: 70 },
+  { id: '3', name: 'Height Adjust Desk 1800', category: 'Desks', price: 0, image: '', width: 180, depth: 80 },
+  { id: '4', name: 'Height Adjust Desk 1600', category: 'Desks', price: 0, image: '', width: 160, depth: 80 },
+  { id: '5', name: 'Workstation 1800', category: 'Desks', price: 0, image: '', width: 180, depth: 75 },
+  { id: '6', name: 'Workstation 1500', category: 'Desks', price: 0, image: '', width: 150, depth: 75 },
+  { id: '7', name: 'Meeting Table 3600 (12 person)', category: 'Meeting', price: 0, image: '', width: 360, depth: 120 },
+  { id: '8', name: 'Meeting Table 2400 (8 person)', category: 'Meeting', price: 0, image: '', width: 240, depth: 100 },
+  { id: '9', name: 'Meeting Table 1800 (6 person)', category: 'Meeting', price: 0, image: '', width: 180, depth: 90 },
+  { id: '10', name: 'Meeting Chair', category: 'Seating', price: 0, image: '', width: 55, depth: 55 },
+  { id: '11', name: 'Mobile Pedestal 3-Drawer', category: 'Storage', price: 0, image: '', width: 40, depth: 50 },
+  { id: '12', name: 'Lateral Filing 2-Drawer', category: 'Storage', price: 0, image: '', width: 90, depth: 50 },
+  { id: '13', name: 'Lounge Chair', category: 'Breakout', price: 0, image: '', width: 75, depth: 75 },
+  { id: '14', name: 'Lounge Sofa 2-Seat', category: 'Breakout', price: 0, image: '', width: 150, depth: 80 },
+  { id: '15', name: 'Lounge Sofa 3-Seat', category: 'Breakout', price: 0, image: '', width: 210, depth: 80 },
+  { id: '16', name: 'Coffee Table', category: 'Breakout', price: 0, image: '', width: 100, depth: 60 },
+  { id: '17', name: 'Acoustic Screen 1200', category: 'Screens', price: 0, image: '', width: 120, depth: 5 },
+  { id: '18', name: 'Acoustic Screen 1800', category: 'Screens', price: 0, image: '', width: 180, depth: 5 },
+  { id: '19', name: 'Reception Desk', category: 'Seating', price: 0, image: '', width: 180, depth: 75 },
+  { id: '20', name: 'Visitor Chair', category: 'Seating', price: 0, image: '', width: 55, depth: 55 },
 ];
 
 const CATEGORIES = ["All", "Seating", "Desks", "Storage", "Meeting", "Breakout", "Screens"];
@@ -193,24 +203,12 @@ export default function ProductSidebar({ products: propProducts = MOCK_PRODUCTS 
               </p>
             </div>
 
-            {/* Price — only show if non-zero */}
-            {product.price > 0 && (
-              <div className="flex-shrink-0 text-right">
-                <p className="text-xs font-bold" style={{ color: "#00B5A5" }}>
-                  ${product.price.toLocaleString("en-AU")}
-                </p>
-                <p className="text-xs" style={{ color: "#9B9B9B" }}>
-                  {product.width}x{product.depth}cm
-                </p>
-              </div>
-            )}
-            {product.price === 0 && (
-              <div className="flex-shrink-0 text-right">
-                <p className="text-xs" style={{ color: "#9B9B9B" }}>
-                  {product.width}x{product.depth}cm
-                </p>
-              </div>
-            )}
+            {/* Dimensions */}
+            <div style={{ flexShrink: 0, textAlign: 'right' }}>
+              <p style={{ fontSize: '0.7rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>
+                {product.width} × {product.depth}cm
+              </p>
+            </div>
           </div>
         ))}
       </div>

@@ -157,16 +157,46 @@ function CanvasItem({
 
 function WallRenderer({ wall }: { wall: WallSegment }) {
   const style = getWallStyle(wall.wallType);
+  const [x1, y1, x2, y2] = wall.points;
+  const pixelLength = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  const lengthM = (pixelLength / 50).toFixed(1);
+  const midX = (x1 + x2) / 2;
+  const midY = (y1 + y2) / 2;
+  const labelW = 38;
+  const labelH = 16;
   return (
-    <Line
-      points={wall.points}
-      stroke={style.stroke}
-      strokeWidth={style.strokeWidth}
-      dash={style.dash}
-      lineCap="round"
-      lineJoin="round"
-      listening={false}
-    />
+    <>
+      <Line
+        points={wall.points}
+        stroke={style.stroke}
+        strokeWidth={style.strokeWidth}
+        dash={style.dash}
+        lineCap="round"
+        lineJoin="round"
+        listening={false}
+      />
+      <Rect
+        x={midX - labelW / 2}
+        y={midY - labelH / 2}
+        width={labelW}
+        height={labelH}
+        fill="white"
+        opacity={0.85}
+        listening={false}
+      />
+      <Text
+        text={`${lengthM}m`}
+        x={midX - labelW / 2}
+        y={midY - labelH / 2 + 2}
+        width={labelW}
+        fontSize={10}
+        fill="#00B5A5"
+        fontStyle="bold"
+        fontFamily="Montserrat, sans-serif"
+        align="center"
+        listening={false}
+      />
+    </>
   );
 }
 
@@ -624,29 +654,56 @@ export default function PlannerCanvas({ width, height, onDrop }: PlannerCanvasPr
 
           {/* Zones layer */}
           <Layer listening={false}>
-            {zones.map((zone) => (
-              <Group key={zone.id} x={zone.x} y={zone.y}>
-                <Rect
-                  width={zone.width}
-                  height={zone.height}
-                  stroke="#00B5A5"
-                  strokeWidth={1.5}
-                  fill="rgba(0, 181, 165, 0.05)"
-                  dash={[6, 3]}
-                  listening={false}
-                />
-                <Text
-                  text={zone.label}
-                  x={6}
-                  y={6}
-                  fontSize={11}
-                  fill="#00B5A5"
-                  fontFamily="Montserrat, sans-serif"
-                  fontStyle="bold"
-                  listening={false}
-                />
-              </Group>
-            ))}
+            {zones.map((zone) => {
+              const dimText = `${(zone.width / 50).toFixed(1)}m × ${(zone.height / 50).toFixed(1)}m`;
+              const dimW = 80;
+              const dimH = 16;
+              return (
+                <Group key={zone.id} x={zone.x} y={zone.y}>
+                  <Rect
+                    width={zone.width}
+                    height={zone.height}
+                    stroke="#00B5A5"
+                    strokeWidth={1.5}
+                    fill="rgba(0, 181, 165, 0.05)"
+                    dash={[6, 3]}
+                    listening={false}
+                  />
+                  <Text
+                    text={zone.label}
+                    x={6}
+                    y={6}
+                    fontSize={11}
+                    fill="#00B5A5"
+                    fontFamily="Montserrat, sans-serif"
+                    fontStyle="bold"
+                    listening={false}
+                  />
+                  {/* Dimension label centred in zone */}
+                  <Rect
+                    x={zone.width / 2 - dimW / 2}
+                    y={zone.height / 2 - dimH / 2}
+                    width={dimW}
+                    height={dimH}
+                    fill="white"
+                    opacity={0.85}
+                    listening={false}
+                  />
+                  <Text
+                    text={dimText}
+                    x={zone.width / 2 - dimW / 2}
+                    y={zone.height / 2 - dimH / 2 + 2}
+                    width={dimW}
+                    fontSize={10}
+                    fill="#00B5A5"
+                    fontStyle="bold"
+                    fontFamily="Montserrat, sans-serif"
+                    align="center"
+                    listening={false}
+                  />
+                </Group>
+              );
+            })}
           </Layer>
 
           {/* 3. Drawing layer (walls, doors, windows, columns) */}

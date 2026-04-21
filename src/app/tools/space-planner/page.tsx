@@ -50,6 +50,7 @@ export default function SpacePlannerPage() {
   const [showModal, setShowModal] = useState(false)
   const [showSavePrompt, setShowSavePrompt] = useState(false)
   const [progressEmailCaptured, setProgressEmailCaptured] = useState(false)
+  const [guideOpen, setGuideOpen] = useState(true)
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 })
   const [isMobile, setIsMobile] = useState(false)
   const canvasContainerRef = useRef<HTMLDivElement>(null)
@@ -67,6 +68,9 @@ export default function SpacePlannerPage() {
     setActiveWallType,
     items,
     walls,
+    doors,
+    windows,
+    zones,
   } = usePlannerStore()
 
   // Trigger save prompt on first item or wall placed
@@ -423,9 +427,118 @@ export default function SpacePlannerPage() {
           />
         </main>
 
-        {/* RIGHT: Quote panel */}
-        <div style={{ width: '260px', flexShrink: 0, overflow: 'hidden' }}>
-          <QuotePanel onGetQuote={() => setShowModal(true)} />
+        {/* RIGHT: Guide + Quote panel */}
+        <div style={{ width: '260px', flexShrink: 0, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+
+          {/* Room building guide */}
+          {(() => {
+            const guideSteps = [
+              { label: 'Draw your outer walls', complete: walls.length >= 4, hint: 'Use the Wall tool — click to place points, double-click to finish' },
+              { label: 'Add doors and windows', complete: doors.length >= 1 || windows.length >= 1, hint: 'Use the Door or Window tools in the toolbar' },
+              { label: 'Mark room zones (optional)', complete: zones.length >= 1, hint: 'Optional — skip if not needed' },
+              { label: 'Place your furniture', complete: items.length >= 1, hint: 'Drag items from the catalogue on the left' },
+              { label: 'Submit for quote', complete: false, hint: '', isSubmit: true },
+            ];
+            const firstIncomplete = guideSteps.slice(0, -1).findIndex(s => !s.complete);
+            const currentStepIndex = firstIncomplete === -1 ? guideSteps.length - 1 : firstIncomplete;
+            return (
+              <div style={{ flexShrink: 0, background: '#FAFAFA', borderBottom: '1px solid #E5E5E5' }}>
+                <button
+                  onClick={() => setGuideOpen(!guideOpen)}
+                  style={{
+                    width: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0.55rem 1rem',
+                    background: 'transparent',
+                    border: 'none',
+                    borderBottom: guideOpen ? '1px solid #E5E5E5' : 'none',
+                    cursor: 'pointer',
+                    fontFamily: 'Montserrat, sans-serif',
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    color: '#1A1A1A',
+                  }}
+                >
+                  <span>Room guide</span>
+                  <span style={{ fontSize: '0.6rem', color: '#9B9B9B' }}>{guideOpen ? '▲' : '▼'}</span>
+                </button>
+                {guideOpen && (
+                  <div style={{ padding: '0.5rem 1rem 0.65rem', maxHeight: '165px', overflowY: 'auto' }}>
+                    {guideSteps.map((step, i) => {
+                      const isCurrent = i === currentStepIndex;
+                      const isComplete = step.complete;
+                      return (
+                        <div key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', marginBottom: '5px' }}>
+                          <div style={{
+                            flexShrink: 0,
+                            width: '18px',
+                            height: '18px',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '0.6rem',
+                            fontWeight: 700,
+                            fontFamily: 'Montserrat, sans-serif',
+                            background: isComplete ? '#00B5A5' : 'transparent',
+                            border: isComplete ? 'none' : isCurrent ? '2px solid #00B5A5' : '2px solid #D0D0D0',
+                            color: isComplete ? '#FFFFFF' : isCurrent ? '#00B5A5' : '#9B9B9B',
+                            marginTop: '1px',
+                          }}>
+                            {isComplete ? '✓' : (i + 1)}
+                          </div>
+                          <div style={{ flex: 1 }}>
+                            {step.isSubmit ? (
+                              <button
+                                onClick={() => setShowModal(true)}
+                                style={{
+                                  background: 'none',
+                                  border: 'none',
+                                  padding: 0,
+                                  cursor: 'pointer',
+                                  fontSize: '0.72rem',
+                                  fontFamily: 'Montserrat, sans-serif',
+                                  color: '#00B5A5',
+                                  fontWeight: 700,
+                                  textDecoration: 'underline',
+                                  textAlign: 'left',
+                                }}
+                              >
+                                {step.label}
+                              </button>
+                            ) : (
+                              <p style={{
+                                fontSize: '0.72rem',
+                                fontFamily: 'Montserrat, sans-serif',
+                                color: isComplete ? '#00B5A5' : isCurrent ? '#1A1A1A' : '#9B9B9B',
+                                fontWeight: isCurrent ? 700 : 400,
+                                textDecoration: isComplete ? 'line-through' : 'none',
+                                margin: 0,
+                              }}>
+                                {step.label}
+                              </p>
+                            )}
+                            {isCurrent && !step.isSubmit && step.hint && (
+                              <p style={{ fontSize: '0.65rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', margin: '2px 0 0', lineHeight: 1.4 }}>
+                                {step.hint}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
+
+          {/* Quote panel */}
+          <div style={{ flex: 1, overflow: 'hidden', minHeight: 0 }}>
+            <QuotePanel onGetQuote={() => setShowModal(true)} />
+          </div>
         </div>
       </div>
 
