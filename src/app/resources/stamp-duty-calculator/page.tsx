@@ -395,6 +395,15 @@ export default function StampDutyCalculatorPage() {
         </div>
       </section>
 
+
+      {/* Disclaimer */}
+      <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>
+        <div className="max-w-screen-xl mx-auto">
+          <p className="text-mid-grey font-light text-center" style={{ fontSize: "0.72rem", lineHeight: 1.7 }}>
+            This calculator provides estimates only. Rates and thresholds change — verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
+          </p>
+        </div>
+      </div>
       <Footer />
     </>
   )

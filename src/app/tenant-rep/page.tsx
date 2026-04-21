@@ -60,11 +60,14 @@ export default function TenantRepPage() {
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-10"
+            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Most businesses sign what the landlord puts in front of them. We represent the ones
               who don&apos;t. Independent tenant representation across Australia — with a
               strong NSW focus — negotiating rent, terms, and incentives that protect your bottom line.
+            </p>
+            <p className="text-white/30 font-light mb-10" style={{ fontSize: '0.8rem' }}>
+              NSW Real Estate Licence 20565455
             </p>
           </FadeIn>
           <FadeIn delay={300}>

@@ -60,9 +60,12 @@ export default function BuyersAgencyPage() {
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
+            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-4"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
               Off-market access, rigorous due diligence, and hard negotiations — handled by someone who does this every day.
+            </p>
+            <p className="text-white/30 font-light mb-8 sm:mb-12" style={{ fontSize: '0.8rem' }}>
+              NSW Real Estate Licence 20565455
             </p>
           </FadeIn>
           <FadeIn delay={300}>

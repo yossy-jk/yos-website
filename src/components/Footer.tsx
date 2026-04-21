@@ -86,16 +86,33 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
           style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '2rem' }}>
-          <p className="text-white/20 font-light" style={{ fontSize: '0.78rem' }}>
-            © {new Date().getFullYear()} Your Office Space Pty Ltd. All rights reserved.
-          </p>
-          <a
-            href="https://www.linkedin.com/company/your-office-space-au"
-            target="_blank" rel="noopener noreferrer"
-            className="text-white/30 font-light no-underline hover:text-teal transition-colors"
-            style={{ fontSize: '0.78rem' }}>
-            LinkedIn →
-          </a>
+          <div className="flex flex-col gap-1">
+            <p className="text-white/20 font-light" style={{ fontSize: '0.78rem' }}>
+              © {new Date().getFullYear()} Your Office Space Pty Ltd. All rights reserved.
+            </p>
+            <p className="text-white/15 font-light" style={{ fontSize: '0.72rem' }}>
+              NSW Real Estate Licence 20565455
+            </p>
+          </div>
+          <div className="flex items-center gap-6">
+            <Link href="/privacy"
+              className="text-white/30 font-light no-underline hover:text-teal transition-colors"
+              style={{ fontSize: '0.78rem' }}>
+              Privacy Policy
+            </Link>
+            <Link href="/terms"
+              className="text-white/30 font-light no-underline hover:text-teal transition-colors"
+              style={{ fontSize: '0.78rem' }}>
+              Terms
+            </Link>
+            <a
+              href="https://www.linkedin.com/company/your-office-space-au"
+              target="_blank" rel="noopener noreferrer"
+              className="text-white/30 font-light no-underline hover:text-teal transition-colors"
+              style={{ fontSize: '0.78rem' }}>
+              LinkedIn →
+            </a>
+          </div>
         </div>
       </div>
     </footer>
