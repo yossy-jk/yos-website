@@ -121,7 +121,7 @@ export default function ToolGate({
                 type="text"
                 value={name}
                 onChange={e => { setName(e.target.value); setErrors(p => ({ ...p, name: undefined })) }}
-                placeholder="Joe"
+                placeholder="Frank"
                 autoComplete="given-name"
                 style={{
                   display: 'block', width: '100%',

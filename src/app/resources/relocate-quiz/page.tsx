@@ -160,18 +160,23 @@ function getVerdictConfig(score: number): VerdictConfig {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function RelocateQuizPage() {
+  // Store selected option INDEX (not score) — avoids false multi-select when options share the same score
   const [answers, setAnswers] = useState<(number | null)[]>(Array(QUESTIONS.length).fill(null))
   const [submitted, setSubmitted] = useState(false)
   const [current, setCurrent] = useState(0)
 
-  const totalScore = answers.reduce<number>((acc, a) => acc + (a ?? 0), 0)
+  // Derive score from selected option index
+  const totalScore = answers.reduce<number>((acc, selectedIdx, qi) => {
+    if (selectedIdx === null) return acc
+    return acc + (QUESTIONS[qi].options[selectedIdx]?.score ?? 0)
+  }, 0)
   const allAnswered = answers.every(a => a !== null)
   const config = getVerdictConfig(totalScore)
 
-  function selectOption(questionIdx: number, score: number) {
+  function selectOption(questionIdx: number, optionIdx: number) {
     setAnswers(prev => {
       const next = [...prev]
-      next[questionIdx] = score
+      next[questionIdx] = optionIdx
       return next
     })
     // Auto-advance to next question if not last
@@ -201,7 +206,7 @@ export default function RelocateQuizPage() {
   // Context string for ToolGate
   const contextString = () => {
     const verdictLabel = config.label
-    return `Relocate Quiz result: ${verdictLabel} (score ${totalScore}/12). Questions answered: ${QUESTIONS.map((q, i) => `${q.text}: ${q.options.find(o => o.score === answers[i])?.label ?? '?'}`).join('; ')}`
+    return `Relocate Quiz result: ${verdictLabel} (score ${totalScore}/12). Questions answered: ${QUESTIONS.map((q, i) => `${q.text}: ${answers[i] !== null ? q.options[answers[i]!]?.label : '?'}`).join('; ')}`
   }
 
   // Teaser content (blurred/obscured)
@@ -369,23 +374,13 @@ export default function RelocateQuizPage() {
                     gap: '0.75rem',
                     paddingLeft: '3.25rem',
                   }}>
-                    {q.options.map(opt => {
-                      const isSelected = answers[qi] === opt.score && answers[qi] !== null
-                      // Handle ties — we need to track by index, not score
-                      // Let's track by label instead
-                      const isSelectedByLabel = (() => {
-                        if (answers[qi] === null) return false
-                        // Find which option is selected for this question
-                        // We store score, but multiple options can share a score.
-                        // We need to compare differently — let's use a separate answers-by-label approach.
-                        // For now, use score match — if tied scores, both highlight. That's acceptable UX.
-                        return answers[qi] === opt.score
-                      })()
+                    {q.options.map((opt, optIdx) => {
+                      const isSelectedByLabel = answers[qi] === optIdx
 
                       return (
                         <button
                           key={opt.label}
-                          onClick={e => { e.stopPropagation(); selectOption(qi, opt.score) }}
+                          onClick={e => { e.stopPropagation(); selectOption(qi, optIdx) }}
                           style={{
                             background: isSelectedByLabel ? 'rgba(0,181,165,0.15)' : 'rgba(255,255,255,0.04)',
                             border: `1px solid ${isSelectedByLabel ? '#00B5A5' : 'rgba(255,255,255,0.1)'}`,
@@ -605,8 +600,9 @@ export default function RelocateQuizPage() {
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
                   {QUESTIONS.map((q, qi) => {
-                    const selectedScore = answers[qi]
-                    const selectedOpt = q.options.find(o => o.score === selectedScore)
+                    const selectedIdx = answers[qi]
+                    const selectedOpt = selectedIdx !== null ? q.options[selectedIdx] : null
+                    const selectedScore = selectedOpt?.score ?? null
                     return (
                       <div key={q.id} style={{
                         display: 'flex', justifyContent: 'space-between', alignItems: 'center',

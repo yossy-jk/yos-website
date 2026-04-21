@@ -256,14 +256,14 @@ export default function LeaseComparisonPage() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="text-left pb-7 pr-8 w-52">
+                  <th className="text-left pr-8 w-56" style={{ paddingBottom: '2rem' }}>
                     <span className="text-mid-grey font-semibold text-xs tracking-widest uppercase">Field</span>
                   </th>
                   {[0, 1, 2].map(i => (
-                    <th key={i} className="text-left pb-7 px-4">
+                    <th key={i} className="text-left px-5" style={{ paddingBottom: '2rem' }}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-2 h-2 rounded-full ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
-                        <span className="text-near-black font-bold text-sm">Option {i + 1}</span>
+                        <div className={`w-2.5 h-2.5 rounded-full ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
+                        <span className="text-near-black font-bold" style={{ fontSize: '0.95rem' }}>Option {i + 1}</span>
                       </div>
                     </th>
                   ))}
@@ -272,12 +272,12 @@ export default function LeaseComparisonPage() {
               <tbody>
                 {fields.map(f => (
                   <tr key={f.key} className="border-t border-gray-100 hover:bg-gray-50/50 transition-colors">
-                    <td className="py-5 pr-8">
-                      <p className="text-near-black font-semibold text-sm leading-snug">{f.label}</p>
-                      {f.hint && <p className="text-mid-grey font-light text-xs mt-1.5 leading-relaxed">{f.hint}</p>}
+                    <td className="pr-8" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}>
+                      <p className="text-near-black font-bold text-sm leading-snug" style={{ marginBottom: f.hint ? '0.4rem' : 0 }}>{f.label}</p>
+                      {f.hint && <p className="text-mid-grey font-light leading-relaxed" style={{ fontSize: '0.72rem', marginTop: '0.25rem' }}>{f.hint}</p>}
                     </td>
                     {[0, 1, 2].map(i => (
-                      <td key={i} className="py-5 px-4">
+                      <td key={i} className="px-5" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}>
                         <div className="relative">
                           {f.prefix && (
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mid-grey text-sm font-light">{f.prefix}</span>
@@ -287,8 +287,9 @@ export default function LeaseComparisonPage() {
                             inputMode={f.key === 'name' ? 'text' : 'decimal'}
                             value={leases[i][f.key]}
                             onChange={e => update(i, f.key, e.target.value)}
-                            placeholder={f.key === 'rentReview' ? '3.5' : ''}
-                            className={`w-full border border-gray-200 rounded-lg px-4 py-3.5 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-7' : ''} ${f.suffix ? 'pr-10' : ''}`}
+                            placeholder={f.key === 'rentReview' ? '3.5' : f.key === 'name' ? 'e.g. 12 Smith St' : ''}
+                            className={`w-full border border-gray-200 rounded-lg px-4 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-7' : ''} ${f.suffix ? 'pr-10' : ''}`}
+                            style={{ paddingTop: '0.9rem', paddingBottom: '0.9rem' }}
                           />
                           {f.suffix && (
                             <span className="absolute right-3 top-1/2 -translate-y-1/2 text-mid-grey text-xs font-light">{f.suffix}</span>
@@ -302,7 +303,7 @@ export default function LeaseComparisonPage() {
             </table>
           </div>
 
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 items-start">
+          <div className="flex flex-col sm:flex-row gap-4 items-start" style={{ marginTop: '3rem' }}>
             <button
               onClick={compare}
               disabled={filledCount === 0}
