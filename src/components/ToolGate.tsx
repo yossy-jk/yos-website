@@ -31,6 +31,7 @@ export default function ToolGate({
   context,
   heading = 'Where should we send your results?',
   subheading = 'Enter your name and email — your full breakdown unlocks instantly.',
+  onUnlock,
 }: ToolGateProps) {
   const [unlocked, setUnlocked] = useState(false)
   const [name, setName] = useState('')
