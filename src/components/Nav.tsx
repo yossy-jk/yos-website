@@ -71,23 +71,30 @@ export default function Nav() {
                   style={{ top: `${NAV_H}px` }}
                 >
                   <div className="max-w-screen-xl mx-auto"
-                    style={{ padding: `2.5rem clamp(1.5rem,5vw,4rem)` }}>
-                    <div className="grid grid-cols-5 gap-px" style={{ background: 'rgba(255,255,255,0.07)' }}>
-                      {SERVICE_LINKS.map(link => (
+                    style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
+                    <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+                      {SERVICE_LINKS.map((link, i) => (
                         <Link
                           key={link.href}
                           href={link.href}
                           onClick={() => setServicesOpen(false)}
-                          className="no-underline flex flex-col justify-between bg-near-black hover:bg-white/5 transition-colors"
-                          style={{ padding: '1.75rem 1.5rem', minHeight: '6.5rem' }}
+                          className="no-underline group flex flex-col bg-near-black hover:bg-white/[0.04] transition-colors"
+                          style={{
+                            padding: '2rem 2rem',
+                            flex: '1 1 0',
+                            borderRight: i < SERVICE_LINKS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                            minWidth: 0,
+                          }}
                         >
-                          <span className="text-white font-black uppercase leading-snug block"
-                            style={{ fontSize: '0.82rem', letterSpacing: '0.03em' }}>
+                          <span
+                            className="text-white font-black uppercase block whitespace-nowrap group-hover:text-teal transition-colors"
+                            style={{ fontSize: '0.72rem', letterSpacing: '0.12em', marginBottom: '0.625rem' }}>
                             {link.label}
                           </span>
-                          <span className="text-white/40 font-light block mt-3" style={{ fontSize: '0.75rem' }}>
+                          <span className="text-white/35 font-light block" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
                             {link.tagline}
                           </span>
+                          <span className="text-teal/0 group-hover:text-teal/70 transition-colors block mt-auto pt-3" style={{ fontSize: '0.65rem', fontWeight: 600 }}>→</span>
                         </Link>
                       ))}
                     </div>
