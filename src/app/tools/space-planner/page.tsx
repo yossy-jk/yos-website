@@ -7,6 +7,8 @@ import { MOCK_PRODUCTS } from '@/components/space-planner/ProductSidebar'
 import ProductSidebar from '@/components/space-planner/ProductSidebar'
 import QuotePanel from '@/components/space-planner/QuotePanel'
 import QuoteModal from '@/components/space-planner/QuoteModal'
+import ConsultantPopup from '@/components/space-planner/ConsultantPopup'
+import SaveProgressPrompt from '@/components/space-planner/SaveProgressPrompt'
 import {
   Upload,
   Grid,
@@ -46,6 +48,8 @@ const WALL_TYPE_LABELS: { value: WallType; label: string }[] = [
 
 export default function SpacePlannerPage() {
   const [showModal, setShowModal] = useState(false)
+  const [showSavePrompt, setShowSavePrompt] = useState(false)
+  const [progressEmailCaptured, setProgressEmailCaptured] = useState(false)
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 })
   const [isMobile, setIsMobile] = useState(false)
   const canvasContainerRef = useRef<HTMLDivElement>(null)
@@ -61,7 +65,20 @@ export default function SpacePlannerPage() {
     activeWallType,
     setActiveTool,
     setActiveWallType,
+    items,
+    walls,
   } = usePlannerStore()
+
+  // Trigger save prompt on first item or wall placed
+  useEffect(() => {
+    if (
+      (items.length === 1 || walls.length === 1) &&
+      !progressEmailCaptured &&
+      !sessionStorage.getItem('sp_email_captured')
+    ) {
+      setShowSavePrompt(true)
+    }
+  }, [items.length, walls.length, progressEmailCaptured])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -93,6 +110,32 @@ export default function SpacePlannerPage() {
     reader.readAsDataURL(file)
   }
 
+  const handleSaveProgress = useCallback(async (email: string) => {
+    // Persist plan to localStorage
+    const state = { items, walls, doors: [], windows: [], columns: [] }
+    localStorage.setItem(`sp_plan_${email}`, JSON.stringify(state))
+    localStorage.setItem('sp_last_email', email)
+    // Fire partial lead to HubSpot (non-fatal)
+    try {
+      await fetch('/api/space-planner-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: '',
+          email,
+          items: [],
+          subtotal: 0,
+          total: 0,
+          recommendations: [],
+          notes: 'Partial lead — plan started, not yet submitted',
+        }),
+      })
+    } catch { /* non-fatal */ }
+    sessionStorage.setItem('sp_email_captured', '1')
+    setProgressEmailCaptured(true)
+    setShowSavePrompt(false)
+  }, [items, walls])
+
   const handleDrop = useCallback(
     (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault()
@@ -115,11 +158,14 @@ export default function SpacePlannerPage() {
           rotation: 0,
           color: data.color ?? getCategoryColor(data.category),
         })
+        if (!progressEmailCaptured && !sessionStorage.getItem('sp_email_captured')) {
+          setShowSavePrompt(true)
+        }
       } catch {
         // ignore malformed drag data
       }
     },
-    [addItem]
+    [addItem, progressEmailCaptured]
   )
 
   const toolButtons: { tool: DrawingToolType; icon: React.ReactNode; label: string }[] = [
@@ -416,6 +462,19 @@ export default function SpacePlannerPage() {
       )}
 
       {showModal && <QuoteModal isOpen={showModal} onClose={() => setShowModal(false)} />}
+
+      <ConsultantPopup quoteModalOpen={showModal} />
+
+      {showSavePrompt && (
+        <SaveProgressPrompt
+          onSave={handleSaveProgress}
+          onDismiss={() => {
+            setShowSavePrompt(false)
+            sessionStorage.setItem('sp_email_captured', '1')
+            setProgressEmailCaptured(true)
+          }}
+        />
+      )}
     </div>
   )
 }

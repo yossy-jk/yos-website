@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { getCategoryColor } from "@/lib/space-planner/store";
 
@@ -35,9 +35,33 @@ interface ProductSidebarProps {
   products?: Product[];
 }
 
-export default function ProductSidebar({ products = MOCK_PRODUCTS }: ProductSidebarProps) {
+export default function ProductSidebar({ products: propProducts = MOCK_PRODUCTS }: ProductSidebarProps) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [products, setProducts] = useState<Product[]>(propProducts);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/space-planner-products")
+      .then((r) => r.json())
+      .then((data: { products: Product[] }) => {
+        if (cancelled) return;
+        if (data?.products?.length > 0) {
+          setProducts(data.products);
+        } else {
+          setProducts(propProducts);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setProducts(propProducts);
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const filtered = products.filter((p) => {
     const matchesCategory = activeCategory === "All" || p.category === activeCategory;
@@ -112,12 +136,17 @@ export default function ProductSidebar({ products = MOCK_PRODUCTS }: ProductSide
 
       {/* Product list */}
       <div className="flex-1 overflow-y-auto px-3 py-2 space-y-2">
-        {filtered.length === 0 && (
+        {loading && (
+          <p className="text-xs text-center py-8" style={{ color: "#6B6B6B", fontFamily: "Montserrat, sans-serif" }}>
+            Loading catalogue...
+          </p>
+        )}
+        {!loading && filtered.length === 0 && (
           <p className="text-xs text-center py-8" style={{ color: "#6B6B6B", fontFamily: "Montserrat, sans-serif" }}>
             No products found
           </p>
         )}
-        {filtered.map((product) => (
+        {!loading && filtered.map((product) => (
           <div
             key={product.id}
             draggable
@@ -129,10 +158,27 @@ export default function ProductSidebar({ products = MOCK_PRODUCTS }: ProductSide
               fontFamily: "Montserrat, sans-serif",
             }}
           >
-            {/* Color dot */}
+            {/* Thumbnail: real image if available, else colour block */}
+            {product.image && !product.image.startsWith('/products/') ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={product.image}
+                alt={product.name}
+                className="flex-shrink-0 w-10 h-10 rounded-lg object-cover"
+                onError={(e) => {
+                  const target = e.currentTarget as HTMLImageElement;
+                  target.style.display = 'none';
+                  const sibling = target.nextElementSibling as HTMLElement | null;
+                  if (sibling) sibling.style.display = 'flex';
+                }}
+              />
+            ) : null}
             <div
-              className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center text-white text-xs font-bold"
-              style={{ background: getCategoryColor(product.category) }}
+              className="flex-shrink-0 w-10 h-10 rounded-lg items-center justify-center text-white text-xs font-bold"
+              style={{
+                background: getCategoryColor(product.category),
+                display: product.image && !product.image.startsWith('/products/') ? 'none' : 'flex',
+              }}
             >
               {product.name.substring(0, 2).toUpperCase()}
             </div>
@@ -147,15 +193,24 @@ export default function ProductSidebar({ products = MOCK_PRODUCTS }: ProductSide
               </p>
             </div>
 
-            {/* Price */}
-            <div className="flex-shrink-0 text-right">
-              <p className="text-xs font-bold" style={{ color: "#00B5A5" }}>
-                ${product.price.toLocaleString("en-AU")}
-              </p>
-              <p className="text-xs" style={{ color: "#9B9B9B" }}>
-                {product.width}x{product.depth}cm
-              </p>
-            </div>
+            {/* Price — only show if non-zero */}
+            {product.price > 0 && (
+              <div className="flex-shrink-0 text-right">
+                <p className="text-xs font-bold" style={{ color: "#00B5A5" }}>
+                  ${product.price.toLocaleString("en-AU")}
+                </p>
+                <p className="text-xs" style={{ color: "#9B9B9B" }}>
+                  {product.width}x{product.depth}cm
+                </p>
+              </div>
+            )}
+            {product.price === 0 && (
+              <div className="flex-shrink-0 text-right">
+                <p className="text-xs" style={{ color: "#9B9B9B" }}>
+                  {product.width}x{product.depth}cm
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>
