@@ -45,7 +45,7 @@ export default function FurniturePopup() {
     try {
       // Determine if contact is email or phone
       const isEmail = contact.includes('@')
-      await Promise.allSettled([
+      const promises: Promise<unknown>[] = [
         submitLead({
           firstname: name || 'Furniture Enquiry',
           email: isEmail ? contact : `furniture.enquiry.${Date.now()}@yos.placeholder`,
@@ -59,11 +59,22 @@ export default function FurniturePopup() {
             name: name || undefined,
             email: isEmail ? contact : undefined,
             phone: !isEmail ? contact : undefined,
-            source: 'Furniture Page Popup — Project Pricing',
+            source: 'Furniture Page Popup — $100 Voucher',
             context: `Contact provided: ${contact}${isEmail ? '' : ' (mobile)'}`,
           }),
         }),
-      ])
+      ]
+      // Send voucher email if they gave us an email address
+      if (isEmail) {
+        promises.push(
+          fetch('/api/send-voucher', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: contact, name: name || undefined }),
+          })
+        )
+      }
+      await Promise.allSettled(promises)
     } catch {
       // Fail silently — don't block the user
     }
