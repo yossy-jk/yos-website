@@ -52,7 +52,7 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
                 </tr>
                 <tr>
                   <td style="padding:20px 28px 28px 28px;">
-                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:9px; font-weight:700; color:#00B5A5; letter-spacing:2px; text-transform:uppercase;">Newcastle, NSW</p>
+                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:9px; font-weight:700; color:#00B5A5; letter-spacing:2px; text-transform:uppercase;">Australia-Wide</p>
                   </td>
                 </tr>
               </table>
@@ -66,7 +66,7 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
                 </tr>
                 <tr>
                   <td style="padding-bottom:16px;">
-                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:400; color:#555555; line-height:1.6;">Claim $100 off your first commercial furniture order with YOS. Book a discovery session and we'll do the rest.</p>
+                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:400; color:#555555; line-height:1.6;">Claim $100 off your first commercial furniture order with YOS. We deliver commercial furniture nationwide. Book a discovery session and we'll do the rest.</p>
                   </td>
                 </tr>
                 <tr>
