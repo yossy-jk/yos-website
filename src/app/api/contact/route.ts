@@ -7,26 +7,30 @@ const esc = (s: string) =>
   s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
 
 export async function POST(req: Request) {
-  const apiKey = process.env.RESEND_API_KEY
-  if (!apiKey) {
-    console.error('RESEND_API_KEY not configured')
-    return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
-  }
-  const resend = new Resend(apiKey)
-
-  // Rate limit check
-  const limiter = contactLimiter()
-  if (limiter) {
-    const { success } = await limiter.limit(getIp(req))
-    if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
-  }
-
   try {
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return NextResponse.json({ error: 'RESEND_API_KEY missing' }, { status: 503 })
+    }
+    const resend = new Resend(apiKey)
+
+    // Rate limit check
+    try {
+      const limiter = contactLimiter()
+      if (limiter) {
+        const { success } = await limiter.limit(getIp(req))
+        if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+      }
+    } catch (rl) {
+      // Rate limiter failure is non-fatal — continue
+      console.warn('Rate limiter error:', rl)
+    }
+
     const body = await req.json()
 
-    // Honeypot check — bots fill hidden fields, humans don't
+    // Honeypot check
     if (body._honey) {
-      return NextResponse.json({ ok: true }) // silently discard
+      return NextResponse.json({ ok: true })
     }
 
     const { name, company, email, phone, message, source = 'Contact Form' } = body
@@ -41,7 +45,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Message too long' }, { status: 400 })
     }
 
-    // Sanitise all user input before HTML interpolation
     const safeName    = esc(String(name).slice(0, 200))
     const safeCompany = company ? esc(String(company).slice(0, 200)) : ''
     const safeEmail   = esc(String(email).slice(0, 200))
@@ -49,7 +52,7 @@ export async function POST(req: Request) {
     const safeMessage = message ? esc(String(message).slice(0, 3000)) : ''
     const safeSource  = esc(String(source).slice(0, 200))
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'YOS Website <notifications@yourofficespace.au>',
       to: TO,
       replyTo: safeEmail,
@@ -73,9 +76,15 @@ export async function POST(req: Request) {
       `,
     })
 
+    if (result.error) {
+      console.error('Resend error:', result.error)
+      return NextResponse.json({ error: 'Email send failed', detail: result.error }, { status: 500 })
+    }
+
     return NextResponse.json({ ok: true })
-  } catch (err) {
-    console.error('Email send failed:', err)
-    return NextResponse.json({ error: 'Failed to send' }, { status: 500 })
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err)
+    console.error('Contact route crash:', msg)
+    return NextResponse.json({ error: 'Internal error', detail: msg }, { status: 500 })
   }
 }
