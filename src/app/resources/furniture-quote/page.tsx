@@ -94,6 +94,19 @@ export default function FurnitureQuotePage() {
         context: contextParts,
       })
 
+      // Always notify Joe — even when no file attached
+      fetch('/api/notify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          phone: form.phone || undefined,
+          source: 'Furniture Quote Request',
+          context: contextParts,
+        }),
+      }).catch(() => {})
+
       setSubmitted(true)
     } catch (err) {
       console.error(err)

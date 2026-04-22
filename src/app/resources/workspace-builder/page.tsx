@@ -728,6 +728,7 @@ export default function WorkspaceBuilderPage() {
                 onUnlock={(name, email) => {
                   setUnlockedName(name)
                   setUnlockedEmail(email)
+                  const ctx = `Building: ${spaceData.buildingType} | Headcount: ${teamData.headcount} | Budget: ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}–${fmt(spec.totalHigh)} | Priority: ${prioritiesData.topPriority} | Roles: ${prioritiesData.roles.join(', ')}`
                   fetch('/api/hubspot', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -735,7 +736,18 @@ export default function WorkspaceBuilderPage() {
                       firstname: name,
                       email,
                       source: 'Workspace Builder',
-                      context: `Workspace Builder — ${spaceData.buildingType} | ${teamData.headcount} staff | ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}–${fmt(spec.totalHigh)} | Priority: ${prioritiesData.topPriority} | Roles: ${prioritiesData.roles.join(', ')}`,
+                      context: `Workspace Builder — ${ctx}`,
+                    }),
+                  }).catch(() => {})
+                  // Notify Joe via email
+                  fetch('/api/notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      name,
+                      email,
+                      source: 'Workspace Builder',
+                      context: ctx,
                     }),
                   }).catch(() => {})
                 }}
