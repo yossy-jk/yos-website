@@ -467,10 +467,14 @@ ${section(GREY, `
 }
 
 export async function POST(req: NextRequest) {
-  const limiter = fitoutLimiter()
-  if (limiter) {
-    const { success } = await limiter.limit(getIp(req))
-    if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  try {
+    const limiter = fitoutLimiter()
+    if (limiter) {
+      const { success } = await limiter.limit(getIp(req))
+      if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    }
+  } catch (rlErr) {
+    console.warn('Rate limiter skipped:', rlErr)
   }
 
   try {

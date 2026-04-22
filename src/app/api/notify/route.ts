@@ -14,11 +14,15 @@ export async function POST(req: Request) {
   }
   const resend = new Resend(apiKey)
 
-  // Rate limit check
-  const limiter = notifyLimiter()
-  if (limiter) {
-    const { success } = await limiter.limit(getIp(req))
-    if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+  // Rate limit check (non-fatal — if Redis not configured, skip silently)
+  try {
+    const limiter = notifyLimiter()
+    if (limiter) {
+      const { success } = await limiter.limit(getIp(req))
+      if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
+    }
+  } catch (rlErr) {
+    console.warn('Rate limiter skipped:', rlErr)
   }
 
   try {
