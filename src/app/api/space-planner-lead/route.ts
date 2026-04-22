@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
   const isPartial = !name.trim() && notes?.includes('Partial lead')
   const stage = isPartial ? 'started' : 'submitted'
 
-  const HUBSPOT_TOKEN = process.env.HUBSPOT_TOKEN
+  const HUBSPOT_TOKEN = process.env.HUBSPOT_API_KEY || process.env.HUBSPOT_TOKEN
   const RESEND_API_KEY = process.env.RESEND_API_KEY
 
   if (!HUBSPOT_TOKEN) return NextResponse.json({ success: false, error: 'No token' }, { status: 500 })
