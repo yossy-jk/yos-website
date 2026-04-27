@@ -345,33 +345,38 @@ export default function LeaseReviewPage() {
                 </div>
               </FadeIn>
               <FadeIn delay={80}>
-                <h1 className="text-white font-black leading-[0.95] tracking-tight mb-6"
+                <h1 className="text-white font-black leading-[0.95] tracking-tight mb-4"
                   style={{ fontSize: 'clamp(2.25rem,6vw,5.5rem)' }}>
-                  What&apos;s hiding<br />
-                  <span className="text-teal">in your lease?</span>
+                  Full LeaseIntel™ Report<br />
+                  <span className="text-teal">$97 + GST</span>
                 </h1>
               </FadeIn>
-              <FadeIn delay={160}>
-                <p className="text-white/60 leading-relaxed mb-10 font-light"
-                  style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)', maxWidth: '44rem' }}>
-                  Most business owners sign commercial leases they don&apos;t fully understand.
-                  LeaseIntel™ delivers complete, plain-English risk analysis — every clause rated,
-                  every risk quantified, every negotiation opportunity identified.
+              <FadeIn delay={140}>
+                <p className="text-white/70 font-semibold mb-3" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)' }}>
+                  Already done the free risk check? Good. Now let&apos;s go deeper.
                 </p>
               </FadeIn>
-              <FadeIn delay={240}>
+              <FadeIn delay={200}>
+                <p className="text-white/50 leading-relaxed mb-10 font-light"
+                  style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', maxWidth: '44rem' }}>
+                  Submit your lease document and receive a complete clause-by-clause analysis within 24 hours.
+                  Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included.
+                  <a href="/leaseintel" className="text-teal ml-2 hover:underline" style={{ fontSize: 'inherit' }}>See what&apos;s included →</a>
+                </p>
+              </FadeIn>
+              <FadeIn delay={260}>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button
                     onClick={() => setStep('form-details')}
                     className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 hover:bg-dark-teal transition-colors duration-200 min-h-[52px]"
                   >
-                    Get Free Summary →
+                    Submit your lease →
                   </button>
                   <a
-                    href="#full-report"
-                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-14 py-[1.25rem] hover:border-white/60 transition-colors duration-200 min-h-[52px]"
+                    href="/resources/lease-review"
+                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 py-[1.25rem] hover:border-white/60 transition-colors duration-200 min-h-[52px]"
                   >
-                    View Full Report — $97
+                    Do the free risk check first
                   </a>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-2 mt-6">
@@ -408,40 +413,21 @@ export default function LeaseReviewPage() {
           </FadeIn>
         </section>
 
-        {/* FREE SUMMARY */}
-        <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-          <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <FadeIn direction="left">
+        {/* NOT READY YET? */}
+        <section className="bg-white" style={{ paddingTop: 'clamp(3rem,6vw,6rem)', paddingBottom: 'clamp(3rem,6vw,6rem)' }}>
+          <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+            <FadeIn>
               <div>
-                <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Start free</p>
-                <h2 className="text-near-black font-black leading-tight tracking-tight mb-5"
-                  style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
-                  Upload your lease.<br />Get your risk score. Free.
-                </h2>
-                <p className="text-charcoal text-sm md:text-base leading-relaxed mb-8 font-light">
-                  Upload your lease document and receive a free summary — your overall risk rating
-                  and the three highest-risk clauses identified. No payment, no obligation.
-                </p>
-                <button
-                  onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-near-black text-white font-black text-xs tracking-widest uppercase px-8 py-4 rounded-xl hover:bg-black transition-all duration-200 min-h-[48px]"
-                >
-                  Start Free Review →
-                </button>
+                <p className="text-near-black font-bold text-sm mb-1">Not ready to submit yet?</p>
+                <p className="text-charcoal text-sm font-light">Try the free Lease Risk Review first. 10 questions, 3 minutes, instant Red/Amber/Green rating. No document required.</p>
               </div>
             </FadeIn>
-            <FadeIn direction="right">
-              <div className="bg-warm-grey p-8 rounded-xl border-l-4 border-teal">
-                <p className="text-near-black font-bold text-xs tracking-widest uppercase mb-5">Free summary includes:</p>
-                <div className="flex flex-col gap-4">
-                  {FREE_CHECKS.map(check => (
-                    <div key={check} className="flex items-start gap-3">
-                      <span className="text-teal font-black text-base leading-none mt-0.5 flex-shrink-0">✓</span>
-                      <p className="text-charcoal text-sm leading-relaxed">{check}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            <FadeIn delay={80}>
+              <a href="/resources/lease-review"
+                className="inline-flex items-center justify-center no-underline border border-near-black text-near-black font-bold text-xs tracking-widest uppercase px-6 py-3 hover:bg-near-black hover:text-white transition-all duration-200 whitespace-nowrap"
+                style={{ borderRadius: '0.375rem' }}>
+                Free risk check →
+              </a>
             </FadeIn>
           </div>
         </section>
@@ -629,7 +615,7 @@ export default function LeaseReviewPage() {
 
             <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ — Free Summary</span>
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $97 + GST</span>
             </div>
 
             <StepBar current={1} />
@@ -639,7 +625,7 @@ export default function LeaseReviewPage() {
               Tell us about yourself
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-8 font-light">
-              We&apos;ll send your free risk summary to this email within minutes.
+              We&apos;ll confirm your submission and issue a $97 + GST invoice to this email.
             </p>
 
             <div className="flex flex-col gap-5">
@@ -713,7 +699,7 @@ export default function LeaseReviewPage() {
 
             <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ — Free Summary</span>
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $97 + GST</span>
             </div>
 
             <StepBar current={2} />
@@ -723,7 +709,7 @@ export default function LeaseReviewPage() {
               Upload your lease
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-8 font-light">
-              PDF or Word document. We&apos;ll send your free risk summary within minutes.
+              PDF or Word document. Full report delivered within 24 hours of payment confirmation.
             </p>
 
             <div className="flex flex-col gap-5">
@@ -798,7 +784,7 @@ export default function LeaseReviewPage() {
                     {securityStep === 'idle' && 'Submitting…'}
                   </>
                 ) : (
-                  'Get My Free Summary →'
+                  'Submit my lease →'
                 )}
               </button>
             </div>
@@ -819,21 +805,20 @@ export default function LeaseReviewPage() {
           </div>
           <h2 className="text-white font-black leading-tight tracking-tight mb-5"
             style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}>
-            Got it. We&apos;re on it.
+            Lease received. Report incoming.
           </h2>
           <p className="text-white/55 text-base leading-relaxed mb-10 font-light">
-            Your free risk summary will be in your inbox shortly. Joe personally reviews every
-            submission — if anything urgent shows up, expect to hear from him directly.
+            Joe will review your submission and send a $97 + GST invoice to your email. Full report delivered within 24 hours of payment confirmation.
           </p>
           <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 mb-10 text-left">
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">What happens next</p>
             <div className="flex flex-col gap-4">
               {[
-                'Free summary arrives in your inbox',
-                'Your top 3 risks and overall rating explained',
-                'Want the full report? Reply to the email — $97 Xero invoice sent',
-                'Full 10-section report delivered within 24 hours of payment',
-                'Request a free Clarity Call with Joe any time',
+                '$97 + GST invoice sent to your email',
+                'Pay the invoice to confirm your review',
+                'Full LeaseIntel™ report delivered within 24 hours',
+                'Every clause rated, financial exposure summarised, negotiation roadmap included',
+                'Book a free Clarity Call with Joe to walk through the findings',
               ].map((s, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="text-teal font-black text-sm mt-0.5 flex-shrink-0">{i + 1}.</span>

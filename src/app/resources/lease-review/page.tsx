@@ -160,28 +160,31 @@ export default function LeaseRiskCheckerPage() {
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-8"
                 style={{ padding: '0.4rem 1rem' }}>
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
-                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free — No document required</span>
               </div>
               <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
-                Lease Risk Checker
+                Free Lease Risk Review
               </h1>
+              <p className="text-white/80 font-semibold mb-4" style={{ fontSize: '1.05rem' }}>
+                No document required. Takes 3 minutes.
+              </p>
               <p className="text-white/60 font-light leading-relaxed mb-14"
                 style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '36rem' }}>
-                10 questions about your lease. Answer honestly and we&apos;ll give you an instant risk rating — plus the top issues to watch out for before you sign.
+                Answer 10 questions about your lease. Get an instant Red / Amber / Green risk rating and the top 3 issues to watch out for before you sign.
               </p>
               <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
                   <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Takes 2 minutes</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Free — always</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up required</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Instant results</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Instant result</span>
                 </div>
               </div>
               <button
@@ -301,17 +304,16 @@ export default function LeaseRiskCheckerPage() {
                 </div>
               </div>
 
-              {/* CTAs */}
-              <div className="flex flex-col gap-3 mb-8">
+              {/* Post-result CTA — paid tier */}
+              <div className="mb-8 rounded-xl p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Want the full picture?</p>
+                <p className="text-white/70 font-light mb-4" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
+                  The full LeaseIntel™ report gives you every clause rated, your complete financial exposure in one table, and a negotiation roadmap. $97 + GST. Delivered within 24 hours.
+                </p>
                 <Link href="/lease-review"
-                  className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors"
-                  style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-                  Get Full LeaseIntel™ Report — $97 →
-                </Link>
-                <Link href="/lease-review"
-                  className="text-white font-medium no-underline text-center hover:bg-white/10 transition-colors"
-                  style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  Get Free Summary First
+                  className="inline-flex items-center justify-center bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
+                  style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.375rem' }}>
+                  Submit your lease — $97 →
                 </Link>
               </div>
 

@@ -7,7 +7,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'LeaseIntel™ — Professional Lease Review | Your Office Space',
-  description: 'Professional commercial lease review in 24 hours. Every clause rated Red / Amber / Green. Financial exposure summary + negotiation roadmap. $97 + GST.',
+  description: 'Two ways to know your lease risk. Free Lease Risk Review — 10 questions, instant Red/Amber/Green rating, no document required. Or the full LeaseIntel™ report — every clause analysed, $97 + GST, 24-hour turnaround.',
   alternates: { canonical: 'https://yourofficespace.au/leaseintel' },
   openGraph: {
     title: 'LeaseIntel™ — Commercial Lease Review | Your Office Space',
@@ -31,7 +31,7 @@ const FAQS = [
   { q: 'What types of leases do you review?', a: 'All Australian commercial leases — office, retail (excluding small business retail under the Retail Leases Act), industrial, warehouse, and mixed-use. We specialise in NSW but review leases in all states and territories.' },
   { q: 'Can I negotiate after receiving the report?', a: 'Yes — the negotiation roadmap identifies exactly which clauses to push back on, in priority order, with guidance on what landlords will accept in the current market. If you want us to negotiate on your behalf, that is covered under our tenant representation service.' },
   { q: 'What if I want to engage you for tenant representation after?', a: 'The LeaseIntel™ fee is credited against our tenant representation engagement fee if you proceed. You never pay twice for the same work.' },
-  { q: 'Can I get a free version first?', a: 'Yes. The free Lease Risk Checker at yourofficespace.au/resources/lease-review asks 10 questions and gives you an instant headline risk rating — Green, Amber, or Red — plus the top issues to watch out for. Takes 3 minutes, no document required.' },
+  { q: 'Can I get a free version first?', a: 'Yes. The free Lease Risk Review at yourofficespace.au/resources/lease-review takes 3 minutes. Answer 10 questions about your lease — no document required — and get an instant Red/Amber/Green risk rating plus the top 3 issues to watch. If you want the full picture after that, the complete LeaseIntel™ report is $97 at yourofficespace.au/lease-review. Submit your actual lease document and get a full clause-by-clause analysis within 24 hours.' },
   { q: 'How do I get started?', a: 'Upload your lease at yourofficespace.au/lease-review. Complete the short intake form, upload your document, and pay the $97 review fee. Full report delivered within 24 hours.' },
 ]
 
@@ -99,6 +99,59 @@ export default function LeaseIntelPage() {
               <Button href={HUBSPOT.bookingUrl} variant="outline" size="lg" external>Talk to us first</Button>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* Two-tier product */}
+      <section style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <FadeIn>
+            <p className="text-mid-grey font-light mb-10" style={{ fontSize: '1rem', maxWidth: '560px', lineHeight: 1.8 }}>
+              Two ways to know where you stand. Start free or go straight to the full report.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Free tier */}
+            <FadeIn delay={0}>
+              <div className="rounded-2xl p-8 h-full flex flex-col" style={{ background: '#F7F8F8', border: '1px solid rgba(0,0,0,0.07)' }}>
+                <div className="inline-flex items-center gap-2 mb-6">
+                  <span className="text-xs font-black tracking-widest uppercase" style={{ color: '#10b981' }}>FREE</span>
+                  <span className="text-mid-grey font-light text-xs">|</span>
+                  <span className="text-near-black font-semibold text-sm">Lease Risk Review</span>
+                </div>
+                <h3 className="text-near-black font-bold mb-3" style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>Instant risk rating. No document required.</h3>
+                <p className="text-mid-grey font-light mb-2" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Answer 10 questions about your lease. Takes 3 minutes.</p>
+                <p className="text-mid-grey font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Get your Red / Amber / Green risk rating and the top 3 issues to watch — instantly. No upload, no payment, no waiting.</p>
+                <div className="mt-auto">
+                  <a href="/resources/lease-review"
+                    className="inline-flex items-center justify-center font-bold text-white no-underline transition-colors"
+                    style={{ background: '#10b981', padding: '0.85rem 2rem', fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
+                    Start free review →
+                  </a>
+                </div>
+              </div>
+            </FadeIn>
+            {/* Paid tier */}
+            <FadeIn delay={80}>
+              <div className="rounded-2xl p-8 h-full flex flex-col bg-near-black">
+                <div className="inline-flex items-center gap-2 mb-6">
+                  <span className="text-teal text-xs font-black tracking-widest uppercase">$97 + GST</span>
+                  <span className="text-white/30 font-light text-xs">|</span>
+                  <span className="text-white font-semibold text-sm">Full LeaseIntel™ Report</span>
+                </div>
+                <h3 className="text-white font-bold mb-3" style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>Complete clause-by-clause analysis. 24-hour turnaround.</h3>
+                <p className="text-white/60 font-light mb-2" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Submit your actual lease document.</p>
+                <p className="text-white/60 font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included. Delivered within 24 hours.</p>
+                <div className="mt-auto">
+                  <a href="/lease-review"
+                    className="inline-flex items-center justify-center font-bold text-white no-underline hover:bg-dark-teal transition-colors bg-teal"
+                    style={{ padding: '0.85rem 2rem', fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
+                    Submit your lease →
+                  </a>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </section>
 
