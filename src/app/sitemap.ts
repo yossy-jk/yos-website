@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/about`,                              lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/contact`,                            lastModified: now, changeFrequency: 'yearly',  priority: 0.7 },
     { url: `${BASE}/leaseintel`,                         lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${BASE}/market-snapshot`,                       lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/resources`,                          lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/resources/lease-review`,             lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/resources/fitout-estimator`,         lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
