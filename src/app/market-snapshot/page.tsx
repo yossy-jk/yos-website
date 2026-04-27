@@ -28,7 +28,8 @@ export default function MarketSnapshotPage() {
   try {
     const mdPath = path.join(
       process.cwd(),
-      '..',
+      'src',
+      'content',
       'market-snapshot',
       'newcastle-office-snapshot-may-2026.md'
     )
