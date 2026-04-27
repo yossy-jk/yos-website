@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -78,6 +78,7 @@ const QUESTIONS = [
 ]
 
 type RiskLevel = 'high' | 'medium' | 'low'
+type Step = 'intro' | number | 'capture' | 'result'
 
 function getRisk(answers: Record<string, string>): { level: RiskLevel; high: number; medium: number } {
   let high = 0, medium = 0
@@ -98,13 +99,34 @@ const RISK_CONFIG = {
   low: { label: 'LOWER RISK', colour: '#10b981', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', message: 'Your lease looks relatively standard. A full review will confirm there are no hidden issues.' },
 }
 
+const LS_KEY = 'yos_lease_checker_captured'
+
 export default function LeaseRiskCheckerPage() {
-  const [step, setStep] = useState<'intro' | number | 'result'>('intro')
+  const [step, setStep] = useState<Step>('intro')
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [selected, setSelected] = useState<string | null>(null)
 
+  // Capture form state
+  const [firstName, setFirstName] = useState('')
+  const [captureEmail, setCaptureEmail] = useState('')
+  const [captureError, setCaptureError] = useState<string | null>(null)
+  const [captureLoading, setCaptureLoading] = useState(false)
+  const [alreadyCaptured, setAlreadyCaptured] = useState(false)
+
+  // Check localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(LS_KEY)
+      if (stored) setAlreadyCaptured(true)
+    } catch {
+      // localStorage unavailable — continue without it
+    }
+  }, [])
+
   const currentQ = typeof step === 'number' ? QUESTIONS[step] : null
-  const progress = typeof step === 'number' ? ((step) / QUESTIONS.length) * 100 : step === 'result' ? 100 : 0
+  const progress = typeof step === 'number'
+    ? ((step) / QUESTIONS.length) * 100
+    : step === 'capture' || step === 'result' ? 100 : 0
 
   function handleSelect(option: string) {
     setSelected(option)
@@ -118,7 +140,12 @@ export default function LeaseRiskCheckerPage() {
     if (typeof step === 'number' && step < QUESTIONS.length - 1) {
       setStep(step + 1)
     } else {
-      setStep('result')
+      // Last question answered — go to capture unless already done
+      if (alreadyCaptured) {
+        setStep('result')
+      } else {
+        setStep('capture')
+      }
     }
   }
 
@@ -126,13 +153,59 @@ export default function LeaseRiskCheckerPage() {
     if (typeof step === 'number' && step > 0) {
       setStep(step - 1)
       setSelected(answers[QUESTIONS[step - 1].id] || null)
+    } else if (step === 'capture') {
+      setStep(QUESTIONS.length - 1)
+      setSelected(answers[QUESTIONS[QUESTIONS.length - 1].id] || null)
     } else if (step === 'result') {
       setStep(QUESTIONS.length - 1)
       setSelected(answers[QUESTIONS[QUESTIONS.length - 1].id] || null)
     }
   }
 
-  const risk = step === 'result' ? getRisk(answers) : null
+  async function handleCapture(e: React.FormEvent) {
+    e.preventDefault()
+    setCaptureError(null)
+
+    if (!firstName.trim()) {
+      setCaptureError('Please enter your first name.')
+      return
+    }
+    if (!captureEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(captureEmail)) {
+      setCaptureError('Please enter a valid email address.')
+      return
+    }
+
+    setCaptureLoading(true)
+    try {
+      const res = await fetch('/api/lease-risk-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ firstname: firstName.trim(), email: captureEmail.trim(), answers }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Something went wrong. Please try again.')
+      }
+
+      // Mark captured in localStorage
+      try {
+        localStorage.setItem(LS_KEY, JSON.stringify({ email: captureEmail.trim(), ts: Date.now() }))
+        setAlreadyCaptured(true)
+      } catch {
+        // Ignore localStorage errors
+      }
+
+      setStep('result')
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Something went wrong. Please try again.'
+      setCaptureError(msg)
+    } finally {
+      setCaptureLoading(false)
+    }
+  }
+
+  const risk = (step === 'result' || step === 'capture') ? getRisk(answers) : null
   const riskConfig = risk ? RISK_CONFIG[risk.level] : null
 
   return (
@@ -258,6 +331,87 @@ export default function LeaseRiskCheckerPage() {
                   </button>
                 )}
               </div>
+            </div>
+          )}
+
+          {/* ── CAPTURE ── */}
+          {step === 'capture' && (
+            <div className="max-w-lg">
+              <p className="text-white/30 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.15em', marginBottom: '2.5rem' }}>
+                Almost there
+              </p>
+
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+                style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
+                Where should we send your risk rating?
+              </h2>
+
+              <p className="text-white/50 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '3rem' }}>
+                Get your result now plus a plain-English summary of the top issues.
+              </p>
+
+              <form onSubmit={handleCapture} noValidate>
+                <div style={{ marginBottom: '1.25rem' }}>
+                  <label className="block text-white/40 font-light uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', marginBottom: '0.6rem' }}>
+                    First name
+                  </label>
+                  <input
+                    type="text"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                    placeholder="Joe"
+                    required
+                    className="w-full bg-white/[0.04] border border-white/15 text-white placeholder-white/20 font-light focus:outline-none focus:border-teal transition-colors"
+                    style={{ padding: '1rem 1.25rem', fontSize: '0.95rem', borderRadius: '0.75rem' }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '2.5rem' }}>
+                  <label className="block text-white/40 font-light uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', marginBottom: '0.6rem' }}>
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    value={captureEmail}
+                    onChange={e => setCaptureEmail(e.target.value)}
+                    placeholder="joe@business.com.au"
+                    required
+                    className="w-full bg-white/[0.04] border border-white/15 text-white placeholder-white/20 font-light focus:outline-none focus:border-teal transition-colors"
+                    style={{ padding: '1rem 1.25rem', fontSize: '0.95rem', borderRadius: '0.75rem' }}
+                  />
+                </div>
+
+                {captureError && (
+                  <p className="text-red-400 font-light" style={{ fontSize: '0.85rem', marginBottom: '1.5rem' }}>
+                    {captureError}
+                  </p>
+                )}
+
+                <div className="flex items-center" style={{ gap: '1.5rem' }}>
+                  <button
+                    type="submit"
+                    disabled={captureLoading}
+                    className={`font-bold transition-all min-h-[52px] ${
+                      captureLoading
+                        ? 'bg-teal/50 text-white/50 cursor-not-allowed'
+                        : 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
+                    }`}
+                    style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem', minWidth: '14rem' }}>
+                    {captureLoading ? 'One moment...' : 'Get my result →'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="text-white/30 font-light hover:text-white/60 transition-colors"
+                    style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>
+                    ← Back
+                  </button>
+                </div>
+
+                <p className="text-white/20 font-light" style={{ fontSize: '0.75rem', marginTop: '1.5rem', lineHeight: 1.6 }}>
+                  No spam. We send your result once. You can opt out any time.
+                </p>
+              </form>
             </div>
           )}
 
