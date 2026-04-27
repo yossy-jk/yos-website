@@ -458,16 +458,38 @@ export default function LeaseRiskCheckerPage() {
                 </div>
               </div>
 
-              {/* Post-result CTA — paid tier */}
+              {/* Recommendations */}
+              <div className="mb-10" style={{ borderLeft: '2px solid rgba(20,184,166,0.4)', paddingLeft: '1.5rem' }}>
+                <p className="text-white/40 font-light uppercase mb-5" style={{ fontSize: '0.7rem', letterSpacing: '0.15em' }}>Three things to act on</p>
+                <ul className="flex flex-col" style={{ gap: '1.25rem', listStyle: 'none', padding: 0, margin: 0 }}>
+                  <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
+                    Get the full clause-by-clause breakdown before you sign or renew anything. Most lease risk is invisible until it isn't.
+                  </li>
+                  <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
+                    Make-good and outgoings clauses are the two most expensive surprises in commercial leases. Know what yours say.
+                  </li>
+                  <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
+                    If your lease is coming up in the next 12 months, start now. Leverage disappears the closer you get to the deadline.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Legal disclaimer */}
+              <p className="text-white/30 font-light mb-8" style={{ fontSize: '0.78rem', lineHeight: 1.8, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem' }}>
+                This is a commercial risk assessment, not legal advice. Always engage a qualified commercial solicitor before signing, varying, or exiting any commercial lease.
+              </p>
+
+              {/* CTA — $297 LeaseIntel report */}
               <div className="mb-8 rounded-xl p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
-                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Want the full picture?</p>
-                <p className="text-white/70 font-light mb-4" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
-                  The full LeaseIntel™ report gives you every clause rated, your complete financial exposure in one table, and a negotiation roadmap. $97 + GST. Delivered within 24 hours.
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report — $297.</p>
+                <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Newcastle business owners: free until 21 July 2026.</p>
+                <p className="text-white/70 font-light mb-5" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
+                  A complete clause-by-clause analysis of your actual lease. Every risk rated. Your financial exposure calculated. A specific roadmap for what to negotiate. 24-hour turnaround.
                 </p>
                 <Link href="/lease-review"
                   className="inline-flex items-center justify-center bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
                   style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.375rem' }}>
-                  Submit your lease — $97 →
+                  Get the full report →
                 </Link>
               </div>
 
