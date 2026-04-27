@@ -233,8 +233,11 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         href={leaseIntelHref}
         className="inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-[0.14em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[52px] px-10 py-4 text-[0.72rem] no-underline"
       >
-        Lease review — $97 ex GST, 24-hour turnaround
+        Lease review — $297 ex GST, 24-hour turnaround
       </Link>
+      <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
+        Newcastle business? The full LeaseIntel report is free until 21 July 2026.
+      </p>
     </div>
   )
 }
@@ -418,7 +421,7 @@ export default function MarketSnapshotPageContent({
                   href={leaseIntelHref}
                   className="inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-[0.14em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[52px] px-10 py-4 text-[0.72rem] no-underline"
                 >
-                  Lease review — $97 ex GST
+                  Lease review — $297 ex GST
                 </Link>
               </div>
             </div>

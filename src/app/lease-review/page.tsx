@@ -36,6 +36,7 @@ interface FormState {
   phone: string
   leaseType: string
   state: string
+  isNewcastle: boolean
   file: File | null
 }
 
@@ -175,7 +176,7 @@ export default function LeaseReviewPage() {
   const [step, setStep] = useState<FlowStep>('landing')
   const [form, setForm] = useState<FormState>({
     name: '', email: '', company: '', phone: '',
-    leaseType: '', state: '', file: null,
+    leaseType: '', state: '', isNewcastle: false, file: null,
   })
   const [errors, setErrors] = useState<FieldErrors>({})
   const [submitting, setSubmitting] = useState(false)
@@ -348,7 +349,7 @@ export default function LeaseReviewPage() {
                 <h1 className="text-white font-black leading-[0.95] tracking-tight mb-4"
                   style={{ fontSize: 'clamp(2.25rem,6vw,5.5rem)' }}>
                   Full LeaseIntel™ Report<br />
-                  <span className="text-teal">$97 + GST</span>
+                  <span className="text-teal">$297 ex GST</span>
                 </h1>
               </FadeIn>
               <FadeIn delay={140}>
@@ -357,12 +358,16 @@ export default function LeaseReviewPage() {
                 </p>
               </FadeIn>
               <FadeIn delay={200}>
-                <p className="text-white/50 leading-relaxed mb-10 font-light"
+                <p className="text-white/50 leading-relaxed mb-6 font-light"
                   style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', maxWidth: '44rem' }}>
                   Submit your lease document and receive a complete clause-by-clause analysis within 24 hours.
                   Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included.
                   <a href="/leaseintel" className="text-teal ml-2 hover:underline" style={{ fontSize: 'inherit' }}>See what&apos;s included →</a>
                 </p>
+                <div className="mb-10 rounded-xl border border-teal/40 bg-teal/10 px-6 py-4" style={{ maxWidth: '44rem' }}>
+                  <p className="text-teal font-bold mb-1" style={{ fontSize: '0.92rem' }}>Newcastle business? This report is free until 21 July 2026.</p>
+                  <p className="text-white/70 font-light" style={{ fontSize: '0.88rem', lineHeight: 1.75 }}>No payment required — just declare your location on the form below.</p>
+                </div>
               </FadeIn>
               <FadeIn delay={260}>
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -400,7 +405,7 @@ export default function LeaseReviewPage() {
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {[
-                { stat: '$97', label: 'Full report ex GST' },
+                { stat: '$297', label: 'Full report ex GST' },
                 { stat: '24hr', label: 'Turnaround time' },
                 { stat: '12', label: 'Risk categories reviewed' },
               ].map(item => (
@@ -437,14 +442,14 @@ export default function LeaseReviewPage() {
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <FadeIn>
               <div className="max-w-2xl mb-7 md:mb-14">
-                <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full paid report — $97 ex GST</p>
+                <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full paid report — $297 ex GST</p>
                 <h2 className="text-white font-black leading-tight tracking-tight mb-5"
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
                   Everything you need to know<br />before you sign.
                 </h2>
                 <p className="text-white/55 text-sm md:text-base leading-relaxed font-light">
                   Law firms charge $1,500–$4,000 and take 3–10 days.
-                  LeaseIntel™ delivers a complete 10-section report in 24 hours for $97.
+                  LeaseIntel™ delivers a complete 10-section report in 24 hours for $297 ex GST.
                 </p>
               </div>
             </FadeIn>
@@ -463,7 +468,7 @@ export default function LeaseReviewPage() {
             <FadeIn>
               <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                 <div>
-                  <p className="text-white font-black text-3xl mb-1">$97 <span className="text-white/35 font-light text-base">ex GST</span></p>
+                  <p className="text-white font-black text-3xl mb-1">$297 <span className="text-white/35 font-light text-base">ex GST</span></p>
                   <p className="text-white/35 text-sm">24-hour turnaround · Invoiced via email · Pay before delivery</p>
                 </div>
                 <button
@@ -489,7 +494,7 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {[
                 { name: 'Law Firm Review', price: '$1,500–$4,000', time: '3–10 days', plain: false, roadmap: false, highlight: false },
-                { name: 'LeaseIntel™', price: '$97 ex GST', time: '24 hours', plain: true, roadmap: true, highlight: true },
+                { name: 'LeaseIntel™', price: '$297 ex GST', time: '24 hours', plain: true, roadmap: true, highlight: true },
                 { name: 'Sign without review', price: 'Free', time: 'Instant', plain: false, roadmap: false, highlight: false },
               ].map((opt, i) => (
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
@@ -583,7 +588,7 @@ export default function LeaseReviewPage() {
               <p className="text-white font-light leading-relaxed mb-12"
                 style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
                 &ldquo;Most business owners sign commercial leases they don&apos;t fully understand.
-                LeaseIntel™ changes that. For $97, you get complete plain-English analysis —
+                LeaseIntel™ changes that. For $297 ex GST, you get complete plain-English analysis —
                 every risk identified, every opportunity flagged, every number quantified.
                 Before you sign.&rdquo;
               </p>
@@ -615,7 +620,7 @@ export default function LeaseReviewPage() {
 
             <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $97 + GST</span>
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $297 ex GST</span>
             </div>
 
             <StepBar current={1} />
@@ -624,9 +629,13 @@ export default function LeaseReviewPage() {
               style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}>
               Tell us about yourself
             </h2>
-            <p className="text-white/45 text-sm leading-relaxed mb-8 font-light">
-              We&apos;ll confirm your submission and issue a $97 + GST invoice to this email.
+            <p className="text-white/45 text-sm leading-relaxed mb-6 font-light">
+              We&apos;ll confirm your submission and send a $297 ex GST invoice to this email. Newcastle businesses: no payment required — declare your location below.
             </p>
+            <div className="rounded-xl border border-teal/30 bg-teal/10 px-5 py-4 mb-8">
+              <p className="text-teal font-bold text-xs mb-1">Newcastle business? Free until 21 July 2026.</p>
+              <p className="text-white/60 font-light text-xs" style={{ lineHeight: 1.75 }}>No payment required — declare your location below.</p>
+            </div>
 
             <div className="flex flex-col gap-5">
               <Field
@@ -665,6 +674,25 @@ export default function LeaseReviewPage() {
                 />
               </div>
 
+              {/* Newcastle declaration */}
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.isNewcastle}
+                  onChange={e => setForm(prev => ({ ...prev, isNewcastle: e.target.checked }))}
+                  className="mt-0.5 w-4 h-4 accent-teal flex-shrink-0"
+                />
+                <span className="text-white/70 text-sm font-light" style={{ lineHeight: 1.7 }}>
+                  I am a Newcastle-based business
+                  <span className="text-teal font-semibold ml-1">(free until 21 July 2026)</span>
+                </span>
+              </label>
+              {form.isNewcastle && (
+                <div className="rounded-lg bg-teal/10 border border-teal/30 px-4 py-3 -mt-1">
+                  <p className="text-teal text-xs font-semibold">No payment required. We will confirm your submission and deliver your report within 24 hours.</p>
+                </div>
+              )}
+
               <button
                 onClick={handleDetailsNext}
                 className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2 w-full sm:w-auto"
@@ -699,7 +727,7 @@ export default function LeaseReviewPage() {
 
             <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $97 + GST</span>
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $297 ex GST</span>
             </div>
 
             <StepBar current={2} />
@@ -709,7 +737,7 @@ export default function LeaseReviewPage() {
               Upload your lease
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-8 font-light">
-              PDF or Word document. Full report delivered within 24 hours of payment confirmation.
+              PDF or Word document.{form.isNewcastle ? ' Newcastle business confirmed — no payment required. Report delivered within 24 hours.' : ' Full report delivered within 24 hours of payment confirmation.'}
             </p>
 
             <div className="flex flex-col gap-5">
@@ -808,14 +836,16 @@ export default function LeaseReviewPage() {
             Lease received. Report incoming.
           </h2>
           <p className="text-white/55 text-base leading-relaxed mb-10 font-light">
-            Joe will review your submission and send a $97 + GST invoice to your email. Full report delivered within 24 hours of payment confirmation.
+            {form.isNewcastle
+              ? 'Newcastle business confirmed. No payment required. Joe will review your submission and deliver your full report within 24 hours.'
+              : 'Joe will review your submission and send a $297 ex GST invoice to your email. Full report delivered within 24 hours of payment confirmation.'}
           </p>
           <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 mb-10 text-left">
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">What happens next</p>
             <div className="flex flex-col gap-4">
               {[
-                '$97 + GST invoice sent to your email',
-                'Pay the invoice to confirm your review',
+                form.isNewcastle ? 'Newcastle business confirmed — no invoice, no payment' : '$297 ex GST invoice sent to your email',
+                ...(!form.isNewcastle ? ['Pay the invoice to confirm your review'] : []),
                 'Full LeaseIntel™ report delivered within 24 hours',
                 'Every clause rated, financial exposure summarised, negotiation roadmap included',
                 'Book a free Clarity Call with Joe to walk through the findings',
