@@ -226,11 +226,11 @@ export default function LeaseRiskCheckerPage() {
                         ? 'border-teal bg-teal/10 text-white'
                         : 'border-white/10 bg-white/[0.03] text-white/65 hover:border-white/25 hover:text-white hover:bg-white/[0.06]'
                     }`}
-                    style={{ padding: '1.25rem 1.75rem', fontSize: '0.95rem', lineHeight: 1.6, borderRadius: '0.75rem' }}
+                    style={{ padding: '1.1rem 1.5rem', fontSize: '0.95rem', lineHeight: 1.6, borderRadius: '0.75rem', display: 'flex', alignItems: 'center' }}
                   >
-                    <span className={`inline-block w-4 h-4 rounded-full border mr-4 flex-shrink-0 align-middle transition-all ${
-                      selected === option ? 'border-teal bg-teal' : 'border-white/25'
-                    }`} style={{ display: 'inline-block', verticalAlign: 'middle', marginTop: '-2px' }} />
+                    <span className={`inline-block w-5 h-5 rounded-full border-2 flex-shrink-0 transition-all ${
+                      selected === option ? 'border-teal bg-teal' : 'border-white/30'
+                    }`} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '1rem', marginTop: '-1px' }} />
                     {option}
                   </button>
                 ))}
