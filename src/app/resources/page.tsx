@@ -23,17 +23,24 @@ export const metadata = {
   },
 }
 
-const tools = [
+const LEASING_TOOLS = [
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention — and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
   { title: 'Fitout Cost Estimator', description: 'Estimate your fitout cost using real market rates. Full breakdown across Basic, Mid-Range and Premium tiers.', href: '/resources/fitout-estimator', features: ['2026 market rates', 'Three quality tiers', 'Contingency included'] },
-  { title: 'Cap Rate Calculator', description: 'Calculate the cap rate on any commercial property. Understand yield, net income and implied value at multiple scenarios.', href: '/resources/cap-rate-calculator', features: ['Net income calculation', 'Multiple cap rate scenarios', 'Vacancy + outgoings'] },
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost — not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
-  { title: 'Purchase Checklist', description: 'A 25-point due diligence checklist for commercial property buyers in NSW. Tick off as you go.', href: '/resources/purchase-checklist', features: ['25 due diligence checks', 'Zoning, title, building', 'NSW-specific'] },
-  { title: 'Rental Yield Calculator', description: 'Gross and net yield on commercial property. Factor in outgoings, vacancy, and management fees.', href: '/resources/rental-yield-calculator', features: ['Gross + net yield', 'Vacancy & outgoings', 'Break-even rent'] },
-  { title: 'Stamp Duty Calculator', description: 'Transfer duty on commercial property across all Australian states. 2025-26 verified rates.', href: '/resources/stamp-duty-calculator', features: ['All states covered', '2025-26 verified rates', 'Bracket breakdown'] },
-  { title: 'Land Tax Calculator', description: 'Annual land tax liability across all states. Know your holding costs before you buy.', href: '/resources/land-tax-calculator', features: ['All states covered', '2025-26 thresholds', 'Trusts vs individuals'] },
+  { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs. Based on headcount, work style, and growth plans.', href: '/resources/office-size-calculator', features: ['Headcount-based', 'Growth buffer included', 'Instant result'] },
   { title: 'Should I Relocate?', description: 'Answer 6 questions about your lease, space, and team. Get an instant Red, Amber, or Green verdict on whether your business should move offices.', href: '/resources/relocate-quiz', features: ['6-question assessment', 'RAG verdict', 'Specific next steps'] },
+  { title: 'Lease vs Buy Calculator', description: 'Model the true cost of leasing versus buying your commercial premises over 5, 10 and 15 years.', href: '/resources/lease-vs-buy', features: ['5, 10 & 15 year view', 'Equity build included', 'Side-by-side comparison'] },
 ]
+
+const INVESTMENT_TOOLS = [
+  { title: 'Stamp Duty Calculator', description: 'Transfer duty on commercial property across all Australian states. 2025-26 verified rates.', href: '/resources/stamp-duty-calculator', features: ['All states covered', '2025-26 verified rates', 'Bracket breakdown'] },
+  { title: 'Rental Yield Calculator', description: 'Gross and net yield on commercial property. Factor in outgoings, vacancy, and management fees.', href: '/resources/rental-yield-calculator', features: ['Gross + net yield', 'Vacancy & outgoings', 'Break-even rent'] },
+  { title: 'Cap Rate Calculator', description: 'Calculate the cap rate on any commercial property. Understand yield, net income and implied value at multiple scenarios.', href: '/resources/cap-rate-calculator', features: ['Net income calculation', 'Multiple cap rate scenarios', 'Vacancy + outgoings'] },
+  { title: 'Land Tax Calculator', description: 'Annual land tax liability across all states. Know your holding costs before you buy.', href: '/resources/land-tax-calculator', features: ['All states covered', '2025-26 thresholds', 'Trusts vs individuals'] },
+  { title: 'Purchase Checklist', description: 'A 25-point due diligence checklist for commercial property buyers in NSW. Tick off as you go.', href: '/resources/purchase-checklist', features: ['25 due diligence checks', 'Zoning, title, building', 'NSW-specific'] },
+]
+
+const tools = [...LEASING_TOOLS, ...INVESTMENT_TOOLS]
 
 const FILTERS = [
   { id: 'all', label: 'All' },
@@ -72,16 +79,18 @@ export default function ResourcesPage() {
       {/* ─── FREE TOOLS ───────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+
+          {/* Leasing Tools */}
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Free tools</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-8 md:mb-16"
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Leasing tools</p>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Built for decisions.<br />Free to use.
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {tools.map((tool, i) => (
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" style={{ marginBottom: 'clamp(5rem,10vw,10rem)' }}>
+            {LEASING_TOOLS.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 60}>
                 <Link href={tool.href} className="group no-underline flex flex-col h-full bg-white border border-gray-100 hover:border-teal transition-colors duration-200"
                   style={{ padding: '2.5rem 2.25rem' }}>
@@ -110,6 +119,47 @@ export default function ResourcesPage() {
               </FadeIn>
             ))}
           </div>
+
+          {/* Investment Tools */}
+          <FadeIn>
+            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Investment tools</p>
+            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
+              Buying commercial?<br />Run the numbers first.
+            </h2>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+            {INVESTMENT_TOOLS.map((tool, i) => (
+              <FadeIn key={tool.title} delay={i * 60}>
+                <Link href={tool.href} className="group no-underline flex flex-col h-full bg-white border border-gray-100 hover:border-teal transition-colors duration-200"
+                  style={{ padding: '2.5rem 2.25rem' }}>
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-near-black font-black uppercase tracking-tight group-hover:text-teal transition-colors"
+                      style={{ fontSize: '1.05rem', maxWidth: '16ch' }}>{tool.title}</h3>
+                    <span className="bg-teal text-white font-bold flex-shrink-0 ml-3"
+                      style={{ fontSize: '0.58rem', letterSpacing: '0.15em', padding: '0.3rem 0.65rem', textTransform: 'uppercase' }}>Free</span>
+                  </div>
+                  <p className="text-charcoal font-light leading-relaxed flex-1"
+                    style={{ fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1.75rem' }}>{tool.description}</p>
+                  <div className="flex flex-wrap gap-2" style={{ marginBottom: '2rem' }}>
+                    {tool.features.map((f) => (
+                      <span key={f}
+                        className="text-charcoal font-medium border border-gray-200 bg-gray-50"
+                        style={{ fontSize: '0.72rem', letterSpacing: '0.02em', padding: '0.25rem 0.65rem' }}>
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                  <div style={{ paddingTop: '1.5rem', borderTop: '1px solid #F3F4F6', marginTop: 'auto' }}>
+                    <span className="text-teal font-bold uppercase tracking-widest group-hover:text-dark-teal transition-colors"
+                      style={{ fontSize: '0.65rem', letterSpacing: '0.18em' }}>Open tool →</span>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+
         </div>
       </section>
 
