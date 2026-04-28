@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react'
 import { SERVICE_LINKS, HUBSPOT, CONTACT } from '@/lib/constants'
+import Search from '@/components/Search'
 
 const TOOLS_LEASING = [
   { label: 'Lease Risk Checker', href: '/resources/lease-review', tagline: 'Spot hidden obligations before you sign.' },
@@ -236,6 +237,8 @@ export default function Nav() {
               </Link>
             ))}
 
+            <Search />
+
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
               className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors no-underline"
               style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', padding: '0.75rem 1.5rem' }}>
@@ -243,8 +246,10 @@ export default function Nav() {
             </a>
           </div>
 
+          <div className="md:hidden flex items-center gap-2">
+            <Search />
           <button onClick={() => setOpen(!open)}
-            className="md:hidden relative z-50 flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-none cursor-pointer"
+            className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-none cursor-pointer"
             aria-label={open ? 'Close menu' : 'Open menu'}>
             <span className="block w-6 h-[2px] bg-white transition-all duration-300 origin-center"
               style={{ transform: open ? 'rotate(45deg) translateY(7px)' : 'none' }} />
@@ -253,6 +258,7 @@ export default function Nav() {
             <span className="block w-6 h-[2px] bg-white transition-all duration-300 origin-center"
               style={{ transform: open ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
           </button>
+          </div>
         </div>
       </nav>
 
