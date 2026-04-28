@@ -24,8 +24,9 @@ export const SERVICE_LINKS = [
   { label: 'Tenant Representation', href: '/tenant-rep', tagline: 'Your lease. Your terms.' },
   { label: 'Buyers Agency', href: '/buyers-agency', tagline: 'Buy without getting burned.' },
   { label: 'Furniture & Fitout', href: '/furniture', tagline: 'Brief to delivered workspace.' },
+  { label: 'Space Planner', href: '/tools/space-planner', tagline: 'Design your office layout.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
-  { label: 'LeaseIntel™', href: '/leaseintel', tagline: '$97 professional review.' },
+  { label: 'Lease Review', href: '/lease-review', tagline: '$97 professional review.' },
 ]
 
 
