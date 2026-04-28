@@ -47,16 +47,20 @@ function getRisk(answers: Record<string, string>): { level: string; high: number
   return { level, high, medium, issues }
 }
 
-async function upsertHubSpotContact(firstname: string, email: string) {
+async function upsertHubSpotContact(firstname: string, email: string, riskLevel?: string) {
   const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN
   if (!HUBSPOT_KEY) throw new Error('HUBSPOT_TOKEN missing')
 
-  const properties = {
+  const today = new Date()
+  today.setUTCHours(0, 0, 0, 0)
+  const properties: Record<string, string> = {
     firstname,
     email,
     leaseintel_free_check: 'true',
     snapshot_region: 'Newcastle',
+    leaseintel_check_date: today.getTime().toString(),
   }
+  if (riskLevel) properties.leaseintel_risk_level = riskLevel
 
   // Try to create first
   const createRes = await fetch(HUBSPOT_BASE, {
@@ -111,7 +115,7 @@ export async function POST(req: Request) {
 
     // 1. Upsert HubSpot contact
     try {
-      await upsertHubSpotContact(String(firstname).slice(0, 200), String(email).slice(0, 200))
+      await upsertHubSpotContact(String(firstname).slice(0, 200), String(email).slice(0, 200), risk?.level)
     } catch (err) {
       console.error('HubSpot upsert error:', err)
       // Non-fatal — still send email and return ok
