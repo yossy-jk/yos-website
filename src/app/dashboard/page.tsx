@@ -139,6 +139,22 @@ function QueueCard({ item, onAction, refreshing }: {
 
       {expanded && (
         <div style={{ padding: '0 1.25rem 1.25rem' }}>
+          {/* Image preview for LinkedIn posts */}
+          {!editing && item.metadata?.imageUrl && (
+            <div style={{ marginBottom: '1rem' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={item.metadata.imageUrl}
+                alt="Post image"
+                style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', display: 'block' }}
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+              />
+              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.6rem', margin: '0.3rem 0 0' }}>
+                Image via Unsplash — swap before posting if needed
+              </p>
+            </div>
+          )}
+
           {/* Content */}
           {editing ? (
             <textarea
@@ -166,10 +182,10 @@ function QueueCard({ item, onAction, refreshing }: {
             </div>
           )}
 
-          {/* Metadata */}
-          {Object.keys(item.metadata).length > 0 && (
+          {/* Metadata — hide imageUrl since it's shown as image above */}
+          {Object.keys(item.metadata).filter(k => k !== 'imageUrl').length > 0 && (
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-              {Object.entries(item.metadata).map(([k, v]) => (
+              {Object.entries(item.metadata).filter(([k]) => k !== 'imageUrl').map(([k, v]) => (
                 <span key={k} style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.65rem' }}>
                   <span style={{ color: 'rgba(255,255,255,0.2)' }}>{k}:</span> {v}
                 </span>
