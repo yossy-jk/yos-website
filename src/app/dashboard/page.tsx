@@ -12,6 +12,21 @@ type Deal = {
 }
 type CalEvent = { subject: string; start: string; end: string; location: string }
 type XeroData = { outstanding: number; overdue: number; overdueCount: number; outstandingCount: number }
+type HealthData = {
+  receivedAt: string
+  latestGlucose: string | null
+  latestGlucoseDate: string | null
+  restingHR: string | null
+  hrv: string | null
+  latestWeight: string | null
+  latestWeightDate: string | null
+  stepsToday: string | null
+  sleepTrend: { date: string; value: number }[]
+  stepsTrend: { date: string; value: number }[]
+  weightTrend: { date: string; value: number }[]
+  glucoseTrend: { date: string; value: number }[]
+}
+
 type DashboardData = {
   generatedAt: string; priorities: Priority[]
   pipeline: { totalDeals: number; totalValue: number; staleDeals: number; deals: Deal[] }
@@ -251,6 +266,7 @@ function QueueCard({ item, onAction, refreshing }: {
 // ── Main Dashboard ────────────────────────────────────────────────────────────
 export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null)
+  const [health, setHealth] = useState<HealthData | null>(null)
   const [queue, setQueue] = useState<QueueItem[]>([])
   const [archive, setArchive] = useState<QueueItem[]>([])
   const [loading, setLoading] = useState(true)
@@ -267,6 +283,16 @@ export default function Dashboard() {
       if (res.ok) setData(await res.json())
     } catch { /* silent */ }
     finally { setLoading(false) }
+  }, [])
+
+  const loadHealth = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/health-intake?token=${TOKEN}`)
+      if (res.ok) {
+        const d = await res.json()
+        if (d.data) setHealth(d.data)
+      }
+    } catch { /* silent */ }
   }, [])
 
   const loadQueue = useCallback(async () => {
@@ -294,11 +320,12 @@ export default function Dashboard() {
   useEffect(() => {
     loadDashboard()
     loadQueue()
+    loadHealth()
     const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
     return () => clearInterval(t)
-  }, [loadDashboard, loadQueue])
+  }, [loadDashboard, loadQueue, loadHealth])
 
   // Auto-refresh queue every 2 min
   useEffect(() => {
@@ -458,6 +485,74 @@ export default function Dashboard() {
                 <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero.overdueCount || 0} overdue</p>
               </div>
             </div>
+          </div>
+
+          {/* Health */}
+          <div style={{ gridColumn: '1 / -1', ...SECTION_STYLE }}>
+            <p style={SECTION_LABEL}>Health</p>
+            {!health ? (
+              <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.8rem' }}>No health data yet. Open Health Auto Export and tap Export Now.</p>
+            ) : (
+              <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))' }}>
+                {/* Glucose */}
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.3rem' }}>Blood Glucose</p>
+                  {health.latestGlucose ? (
+                    <>
+                      <p style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0, color: parseFloat(health.latestGlucose) > 10 ? '#ef4444' : parseFloat(health.latestGlucose) < 4 ? '#f59e0b' : '#22c55e' }}>
+                        {parseFloat(health.latestGlucose).toFixed(1)}
+                        <span style={{ fontSize: '0.65rem', fontWeight: 400, color: 'rgba(255,255,255,0.3)', marginLeft: '0.3rem' }}>mmol/L</span>
+                      </p>
+                      <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{health.latestGlucoseDate}</p>
+                    </>
+                  ) : <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No CGM data</p>}
+                </div>
+                {/* Resting HR */}
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.3rem' }}>Resting HR</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0, color: health.restingHR && parseFloat(health.restingHR) > 90 ? '#f59e0b' : '#22c55e' }}>
+                    {health.restingHR || '—'}
+                    <span style={{ fontSize: '0.65rem', fontWeight: 400, color: 'rgba(255,255,255,0.3)', marginLeft: '0.3rem' }}>bpm</span>
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>Target: under 70</p>
+                </div>
+                {/* HRV */}
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.3rem' }}>HRV</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0 }}>
+                    {health.hrv ? parseFloat(health.hrv).toFixed(0) : '—'}
+                    <span style={{ fontSize: '0.65rem', fontWeight: 400, color: 'rgba(255,255,255,0.3)', marginLeft: '0.3rem' }}>ms</span>
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>Higher = better recovery</p>
+                </div>
+                {/* Weight */}
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.3rem' }}>Weight</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0, color: health.latestWeight && parseFloat(health.latestWeight) > 93 ? '#ef4444' : health.latestWeight && parseFloat(health.latestWeight) < 85 ? '#22c55e' : 'white' }}>
+                    {health.latestWeight ? parseFloat(health.latestWeight).toFixed(1) : '—'}
+                    <span style={{ fontSize: '0.65rem', fontWeight: 400, color: 'rgba(255,255,255,0.3)', marginLeft: '0.3rem' }}>kg</span>
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>Target: sub-85kg</p>
+                </div>
+                {/* Steps */}
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.3rem' }}>Steps Today</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0, color: health.stepsToday && parseFloat(health.stepsToday) >= 8000 ? '#22c55e' : '#f59e0b' }}>
+                    {health.stepsToday ? parseInt(health.stepsToday).toLocaleString() : '—'}
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>Goal: 8,000/day</p>
+                </div>
+                {/* Sleep */}
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.3rem' }}>Sleep Last Night</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 900, margin: 0, color: health.sleepTrend?.length && health.sleepTrend[health.sleepTrend.length-1]?.value >= 7 ? '#22c55e' : '#f59e0b' }}>
+                    {health.sleepTrend?.length ? health.sleepTrend[health.sleepTrend.length-1]?.value?.toFixed(1) : '—'}
+                    <span style={{ fontSize: '0.65rem', fontWeight: 400, color: 'rgba(255,255,255,0.3)', marginLeft: '0.3rem' }}>hrs</span>
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>Target: 7-9hrs</p>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Pipeline */}
