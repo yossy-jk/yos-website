@@ -23,15 +23,23 @@ export async function POST(req: Request) {
   }
 
   let body: Record<string, unknown>
+  let rawText = ''
   try {
-    body = await req.json()
+    rawText = await req.text()
+    body = rawText ? JSON.parse(rawText) : {}
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+    // Store raw even if unparseable
+    body = { _raw: rawText }
   }
 
-  // Parse Health Auto Export payload
-  // Format: { data: [ { name: "Heart Rate", units: "count/min", data: [{qty, date}] }, ... ] }
-  const metrics = body.data || body.metrics || body
+  // Health Auto Export v2 format:
+  // { data: [ { name, units, data: [{qty, date}] } ] }
+  // or wrapped differently — handle all variants
+  const metrics = Array.isArray(body.data) ? body.data
+    : Array.isArray(body.metrics) ? body.metrics
+    : Array.isArray(body) ? body
+    : []
+
   const parsed: Record<string, unknown> = {
     receivedAt: new Date().toISOString(),
     raw: body,
@@ -39,16 +47,17 @@ export async function POST(req: Request) {
 
   // Extract key metrics we care about
   if (Array.isArray(metrics)) {
-    for (const metric of metrics) {
-      const name = (metric.name || metric.metric || '').toLowerCase().replace(/\s+/g, '_')
-      const dataPoints = metric.data || []
+    for (const metric of (metrics as Record<string, unknown>[])) {
+      const rawName = String(metric.name || metric.metric || metric.metricName || '')
+      if (!rawName) continue
+      const name = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')
+      const dataPoints = (metric.data as Record<string, unknown>[]) || []
       if (dataPoints.length > 0) {
-        // Take most recent value
         const latest = dataPoints[dataPoints.length - 1]
         parsed[name] = {
-          value: latest.qty ?? latest.value ?? latest.Qty,
+          value: latest.qty ?? latest.value ?? latest.Qty ?? latest.quantity,
           unit: metric.units || metric.unit || '',
-          date: latest.date || latest.startDate || latest.Date,
+          date: latest.date || latest.startDate || latest.Date || latest.timestamp,
           samples: dataPoints.length,
         }
       }
