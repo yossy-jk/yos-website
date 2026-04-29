@@ -45,8 +45,9 @@ export default function FurniturePage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Your office is a business decision.{' '}
-              <span className="text-teal">Treat it like one.</span>
+              The space you work in
+              <br />changes how you work.
+              <br /><span className="text-teal">Build it right.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
@@ -85,17 +86,17 @@ export default function FurniturePage() {
         </FadeIn>
       </section>
 
-      {/* WHAT WE SUPPLY */}
-      {/* ─── IMAGE BREAK ─────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(20rem,38vw,32rem)' }}>
-        <Image src="/images/furniture/burgtec-open-plan.jpg" alt="Modern commercial office fitout" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
-        <div className="absolute inset-0">
-          <div className="h-full max-w-screen-xl mx-auto flex items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
-              From brief to delivered workspace.
+      {/* ─── IMAGE BREAK 1 ─────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
+        <Image src="/images/furniture/space-cogc-wide.jpg" alt="YOS project — contemporary commercial office fitout" fill className="object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.45)' }} />
+        <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
+          <FadeIn>
+            <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch', marginBottom: '0.75rem' }}>
+              Your workspace should feel like<br /><span style={{ color: '#00B5A5' }}>it was built for you.</span>
             </p>
-          </div>
+            <p className="text-white/50 font-light" style={{ fontSize: '0.8rem', letterSpacing: '0.15em' }}>COMMERCIAL OFFICES — COGC — INSTALLED BY YOS</p>
+          </FadeIn>
         </div>
       </section>
 
@@ -216,6 +217,20 @@ export default function FurniturePage() {
           <p className="text-mid-grey font-light text-sm mt-6 leading-relaxed">
             Project photography supplied by our manufacturing and fitout partners. Every space is different — we work to yours.
           </p>
+        </div>
+      </section>
+
+      {/* ─── IMAGE BREAK 2 ─────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
+        <Image src="/images/furniture/space-pillowtalk-a.jpg" alt="YOS project — vibrant contemporary commercial office" fill className="object-cover object-center" />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.4)' }} />
+        <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
+          <FadeIn>
+            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+              &ldquo;Joe was instrumental in building out our boardroom — high quality table, chairs, acoustic panelling. Practical advice, excellent detail.&rdquo;
+              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
+            </p>
+          </FadeIn>
         </div>
       </section>
 

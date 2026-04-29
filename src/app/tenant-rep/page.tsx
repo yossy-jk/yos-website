@@ -55,16 +55,16 @@ export default function TenantRepPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mt-3 mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Your lease is a business decision.{' '}
-              <span className="text-teal">Treat it like one.</span>
+              The landlord has a professional.<br />
+              <span className="text-teal">Now you do too.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
-              Most businesses sign what the landlord puts in front of them. We represent the ones
-              who don&apos;t. Independent tenant representation across Australia — with a
-              strong NSW focus — negotiating rent, terms, and incentives that protect your bottom line.
+              Every lease negotiation has two sides. The landlord's agent is an expert at protecting their client.
+              We exist to make sure you have the same. Independent representation across Australia —
+              negotiating rent, terms, incentives, and every clause that matters.
             </p>
             <p className="text-white/30 font-light mb-10" style={{ fontSize: '0.8rem' }}>
               NSW Real Estate Licence 20565455
@@ -135,19 +135,22 @@ export default function TenantRepPage() {
         </div>
       </section>
 
-      {/* ─── IMAGE BREAK ──────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
+      {/* ─── IMAGE BREAK 1 ──────────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image
-              priority
+          priority
           src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80"
-          alt="Professional lease negotiation"
+          alt="Business owner reviewing commercial lease with advisor"
           fill className="object-cover object-center"
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.45)' }} />
-        <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
-          <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
-            Stronger terms. Smarter deals. Better outcomes.
-          </p>
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.55)' }} />
+        <div className={`absolute inset-0 flex items-end ${WRAP}`} style={{ ...PAD, paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
+          <FadeIn>
+            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+              &ldquo;Most tenants don&apos;t know what they&apos;ve missed until the lease is already signed. By then, the leverage is gone.&rdquo;
+              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Joe Kelley, Your Office Space</span>
+            </p>
+          </FadeIn>
         </div>
       </section>
 
@@ -213,6 +216,23 @@ export default function TenantRepPage() {
         </div>
       </section>
 
+      {/* ─── IMAGE BREAK 2 ──────────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
+        <Image
+          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1920&q=80"
+          alt="Team negotiating commercial lease terms"
+          fill className="object-cover object-center"
+        />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.6)' }} />
+        <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
+          <FadeIn>
+            <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch' }}>
+              We negotiate harder<br />because we only answer<br /><span style={{ color: '#00B5A5' }}>to you.</span>
+            </p>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ─── LEASE NEGOTIATION REPRESENTATION ────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
@@ -262,6 +282,23 @@ export default function TenantRepPage() {
                 This isn&apos;t about paperwork. It&apos;s about protection. Every dollar, every clause, every timeline negotiated with one goal — your best possible outcome.
               </p>
             </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── IMAGE BREAK 3 ──────────────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
+        <Image
+          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80"
+          alt="Modern commercial office space Newcastle"
+          fill className="object-cover object-center"
+        />
+        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
+        <div className={`absolute inset-0 flex items-center justify-end ${WRAP}`} style={PAD}>
+          <FadeIn>
+            <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '22ch' }}>
+              The right space changes<br />how your business feels<br /><span style={{ color: '#00B5A5' }}>every single day.</span>
+            </p>
           </FadeIn>
         </div>
       </section>
