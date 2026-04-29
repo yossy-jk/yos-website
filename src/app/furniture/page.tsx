@@ -222,7 +222,7 @@ export default function FurniturePage() {
 
       {/* ─── IMAGE BREAK 2 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
-        <Image src="/images/furniture/space-pillowtalk-a.jpg" alt="YOS project — vibrant contemporary commercial office" fill className="object-cover object-center" />
+        <Image src="/images/furniture/dbt-boardroom.jpg" alt="DBT boardroom — oval table, dark feature wall, installed by YOS" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.4)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
