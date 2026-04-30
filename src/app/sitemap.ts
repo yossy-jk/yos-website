@@ -33,6 +33,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/resources/furniture-quote`,          lastModified: now, changeFrequency: 'yearly',  priority: 0.5 },
     { url: `${BASE}/blog`,                               lastModified: now, changeFrequency: 'weekly',  priority: 0.75 },
     { url: `${BASE}/case-studies`,                       lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/tools/space-planner`,                lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
+    { url: `${BASE}/resources/workspace-builder`,        lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE}/resources/office-size-calculator`,   lastModified: now, changeFrequency: 'yearly',  priority: 0.6 },
+    { url: `${BASE}/resources/relocate-quiz`,            lastModified: now, changeFrequency: 'yearly',  priority: 0.5 },
+    { url: `${BASE}/resources/health-check`,             lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     // Dynamic blog posts
     ...posts.map(p => ({
       url: `${BASE}/blog/${p.slug}`,
