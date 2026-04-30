@@ -273,7 +273,7 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'archive'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'seo' | 'archive'>('dashboard')
   const [showPipeline, setShowPipeline] = useState(false)
   const refreshTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
@@ -371,6 +371,7 @@ export default function Dashboard() {
         {([
           { key: 'dashboard' as const, label: 'Dashboard', badge: false },
           { key: 'queue' as const, label: `Approvals${pendingCount > 0 ? ` (${pendingCount})` : ''}`, badge: urgentCount > 0 },
+          { key: 'seo' as const, label: 'SEO & AEO', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
@@ -627,6 +628,176 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      {/* ── SEO & AEO TAB ── */}
+      {activeTab === 'seo' && (() => {
+        const KEYWORDS = [
+          // TENANT REP
+          { id: 'tr-01', keyword: 'tenant representation Newcastle', division: 'Tenant Rep', vol: 90, diff: 22, priority: 'NOW', intent: 'Commercial', rank: null, page: '/tenant-rep', aeo: true, gap: null },
+          { id: 'tr-02', keyword: 'commercial tenant representative NSW', division: 'Tenant Rep', vol: 140, diff: 28, priority: 'NOW', intent: 'Commercial', rank: null, page: '/tenant-rep', aeo: true, gap: null },
+          { id: 'tr-03', keyword: 'commercial lease negotiation Newcastle', division: 'Tenant Rep', vol: 110, diff: 25, priority: 'NOW', intent: 'Commercial', rank: null, page: '/tenant-rep', aeo: true, gap: null },
+          { id: 'tr-04', keyword: 'what is make good in a commercial lease', division: 'Tenant Rep', vol: 320, diff: 35, priority: 'NOW', intent: 'Info', rank: null, page: '/blog/what-is-make-good', aeo: true, gap: null },
+          { id: 'tr-05', keyword: 'commercial lease review Newcastle', division: 'Tenant Rep', vol: 80, diff: 20, priority: 'NOW', intent: 'Transactional', rank: null, page: '/leaseintel', aeo: true, gap: null },
+          { id: 'tr-06', keyword: 'how to negotiate a commercial lease Australia', division: 'Tenant Rep', vol: 480, diff: 42, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/commercial-lease-negotiation-tips-australia', aeo: true, gap: null },
+          { id: 'tr-07', keyword: 'tenant rights commercial lease NSW', division: 'Tenant Rep', vol: 390, diff: 38, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/commercial-tenant-rights-nsw', aeo: true, gap: null },
+          { id: 'tr-08', keyword: 'commercial lease expiry 12 months what to do', division: 'Tenant Rep', vol: 110, diff: 18, priority: 'NOW', intent: 'Info', rank: null, page: '/blog/12-months-lease-strategy', aeo: true, gap: null },
+          // CLEANING
+          { id: 'cl-01', keyword: 'commercial cleaning Newcastle', division: 'Cleaning', vol: 590, diff: 45, priority: 'NOW', intent: 'Commercial', rank: null, page: '/cleaning', aeo: false, gap: null },
+          { id: 'cl-02', keyword: 'office cleaning Newcastle', division: 'Cleaning', vol: 320, diff: 38, priority: 'NOW', intent: 'Commercial', rank: null, page: '/cleaning', aeo: false, gap: null },
+          { id: 'cl-03', keyword: 'medical cleaning Newcastle', division: 'Cleaning', vol: 90, diff: 22, priority: 'NOW', intent: 'Commercial', rank: null, page: '/cleaning', aeo: true, gap: 'medical-practice-cleaning-standards-newcastle' },
+          { id: 'cl-04', keyword: 'commercial cleaning contract Hunter Valley', division: 'Cleaning', vol: 70, diff: 18, priority: 'NOW', intent: 'Transactional', rank: null, page: '/cleaning', aeo: false, gap: null },
+          { id: 'cl-05', keyword: 'what does a good commercial cleaning contract include', division: 'Cleaning', vol: 210, diff: 28, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/what-good-commercial-cleaning-looks-like', aeo: true, gap: null },
+          // FURNITURE
+          { id: 'fu-01', keyword: 'office fitout Newcastle', division: 'Furniture', vol: 260, diff: 35, priority: 'NOW', intent: 'Commercial', rank: null, page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-02', keyword: 'office furniture Newcastle', division: 'Furniture', vol: 480, diff: 42, priority: 'NOW', intent: 'Commercial', rank: null, page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-03', keyword: 'how much does an office fitout cost Australia', division: 'Furniture', vol: 720, diff: 48, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/office-fitout-cost-guide-australia-2026', aeo: true, gap: null },
+          { id: 'fu-04', keyword: 'sit stand desk Newcastle', division: 'Furniture', vol: 140, diff: 28, priority: '3-6mo', intent: 'Transactional', rank: null, page: '/furniture', aeo: false, gap: 'ergonomic-office-setup-newcastle-guide' },
+          // BUYERS AGENCY
+          { id: 'ba-01', keyword: 'commercial buyers agent Newcastle', division: 'Buyers Agency', vol: 110, diff: 22, priority: 'NOW', intent: 'Commercial', rank: null, page: '/buyers-agency', aeo: true, gap: null },
+          { id: 'ba-02', keyword: 'how to buy commercial property Australia', division: 'Buyers Agency', vol: 880, diff: 52, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/how-to-buy-commercial-property-australia', aeo: true, gap: null },
+          { id: 'ba-03', keyword: 'buying vs leasing commercial property Newcastle', division: 'Buyers Agency', vol: 90, diff: 20, priority: 'NOW', intent: 'Info', rank: null, page: '/blog/buying-vs-leasing-commercial-newcastle', aeo: true, gap: null },
+          // LEASEINTEL
+          { id: 'li-01', keyword: 'commercial lease risk checker', division: 'LeaseIntel', vol: 70, diff: 15, priority: 'NOW', intent: 'Transactional', rank: null, page: '/leaseintel', aeo: true, gap: null },
+          { id: 'li-02', keyword: 'lease review service Australia', division: 'LeaseIntel', vol: 210, diff: 30, priority: '3-6mo', intent: 'Transactional', rank: null, page: '/leaseintel', aeo: true, gap: null },
+        ]
+
+        const DIVISION_COLOURS: Record<string, string> = {
+          'Tenant Rep': '#00B5A5',
+          'Cleaning': '#6366f1',
+          'Furniture': '#f59e0b',
+          'Buyers Agency': '#ec4899',
+          'LeaseIntel': '#22c55e',
+        }
+
+        const totalVol = KEYWORDS.reduce((s, k) => s + k.vol, 0)
+        const nowCount = KEYWORDS.filter(k => k.priority === 'NOW').length
+        const aeoCount = KEYWORDS.filter(k => k.aeo).length
+        const gapCount = KEYWORDS.filter(k => k.gap).length
+
+        const CONTENT_SUGGESTIONS = [
+          { title: 'Medical practice cleaning standards Newcastle', slug: 'medical-practice-cleaning-standards-newcastle', division: 'Cleaning', why: 'Targets high-value healthcare contracts. Very low competition. Should rank in 4-6 weeks.', keywords: ['medical cleaning Newcastle', 'clinical cleaning standards NSW'], effort: 'Low' },
+          { title: 'Ergonomic office setup guide Newcastle 2026', slug: 'ergonomic-office-setup-newcastle-guide', division: 'Furniture', why: 'Targets sit-stand desk searches and employer OH&S obligations. AEO candidate.', keywords: ['sit stand desk Newcastle', 'ergonomic office furniture'], effort: 'Low' },
+          { title: 'Commercial rent review guide — what Newcastle businesses need to know', slug: 'commercial-rent-review-newcastle-guide', division: 'Tenant Rep', why: 'High search intent from businesses approaching renewal. Strong AEO match — AI frequently answers rent review questions.', keywords: ['commercial rent review NSW', 'market rent review commercial lease'], effort: 'Medium' },
+          { title: 'Office space per person — how much do you actually need?', slug: 'office-space-per-person-guide', division: 'Tenant Rep', why: 'One of the most-asked questions during office search. Already have a blog stub — expand it.', keywords: ['office space per person Australia', 'how much office space do I need'], effort: 'Low' },
+          { title: 'Commercial property due diligence checklist Australia', slug: 'commercial-property-due-diligence-newcastle', division: 'Buyers Agency', why: 'High AEO score — AI assistants regularly serve this. Strong top-of-funnel for buyers agency.', keywords: ['commercial property due diligence', 'buying commercial property checklist'], effort: 'Medium' },
+        ]
+
+        return (
+          <div>
+            {/* Stats bar */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              {[
+                { label: 'Target keywords', val: KEYWORDS.length, sub: 'tracked' },
+                { label: 'Monthly search vol', val: totalVol.toLocaleString(), sub: 'AU combined est.' },
+                { label: 'Priority NOW', val: nowCount, sub: 'low difficulty wins' },
+                { label: 'AEO targets', val: aeoCount, sub: 'AI answer engine fit' },
+              ].map(s => (
+                <div key={s.label} style={{ ...SECTION_STYLE, textAlign: 'center', padding: '1rem' }}>
+                  <p style={{ color: '#00B5A5', fontSize: '1.5rem', fontWeight: 900, margin: '0 0 0.2rem', lineHeight: 1 }}>{s.val}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.15rem' }}>{s.label}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', margin: 0 }}>{s.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* AEO callout */}
+            <div style={{ background: 'rgba(0,181,165,0.06)', border: '1px solid rgba(0,181,165,0.25)', borderLeft: '3px solid #00B5A5', padding: '1rem 1.25rem', marginBottom: '1.5rem', borderRadius: '4px' }}>
+              <p style={{ color: '#00B5A5', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.5rem' }}>AEO — Answer Engine Optimisation</p>
+              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.8rem', lineHeight: 1.7, margin: 0 }}>
+                {aeoCount} of our {KEYWORDS.length} keywords are AEO targets — meaning ChatGPT, Perplexity, and Google AI Overviews actively answer these questions. To win AEO: write clear, factual answers in the first paragraph of every blog post. Use FAQ schema (already deployed on Homepage, Tenant Rep, Cleaning, Furniture). Answer the exact question in the H1 or H2. Length 800–1,500 words per post is ideal for AI citation.
+              </p>
+            </div>
+
+            {/* Keyword table */}
+            <div style={SECTION_STYLE}>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 1rem' }}>Top 22 Target Keywords</p>
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.72rem' }}>
+                  <thead>
+                    <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                      {['Keyword', 'Division', 'Vol/mo', 'Difficulty', 'Intent', 'Priority', 'AEO', 'Content Gap'].map(h => (
+                        <th key={h} style={{ textAlign: 'left', padding: '0.4rem 0.6rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.58rem', whiteSpace: 'nowrap' }}>{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {KEYWORDS.map((kw, i) => (
+                      <tr key={kw.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
+                        <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.85)', fontWeight: 500, minWidth: '220px' }}>{kw.keyword}</td>
+                        <td style={{ padding: '0.5rem 0.6rem', whiteSpace: 'nowrap' }}>
+                          <span style={{ background: DIVISION_COLOURS[kw.division] + '22', color: DIVISION_COLOURS[kw.division], fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '3px', letterSpacing: '0.08em' }}>{kw.division}</span>
+                        </td>
+                        <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.6)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{kw.vol.toLocaleString()}</td>
+                        <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center' }}>
+                          <span style={{ color: kw.diff < 30 ? '#22c55e' : kw.diff < 45 ? '#f59e0b' : '#ef4444', fontWeight: 700, fontSize: '0.7rem' }}>{kw.diff}</span>
+                        </td>
+                        <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.45)', fontSize: '0.65rem' }}>{kw.intent}</td>
+                        <td style={{ padding: '0.5rem 0.6rem' }}>
+                          <span style={{ background: kw.priority === 'NOW' ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.1)', color: kw.priority === 'NOW' ? '#22c55e' : '#f59e0b', fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '3px' }}>{kw.priority}</span>
+                        </td>
+                        <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', color: kw.aeo ? '#00B5A5' : 'rgba(255,255,255,0.15)', fontSize: '0.8rem' }}>{kw.aeo ? '✓' : '—'}</td>
+                        <td style={{ padding: '0.5rem 0.6rem', color: kw.gap ? '#f59e0b' : 'rgba(255,255,255,0.15)', fontSize: '0.65rem' }}>{kw.gap ? '⚠ Create post' : '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.6rem', margin: '0.75rem 0 0', lineHeight: 1.5 }}>
+                Difficulty: green &lt;30 (easy win), amber 30–45 (achievable 3-6mo), red &gt;45 (long-term). Volume = estimated AU monthly searches. Rank data: connect Google Search Console API to populate live positions.
+              </p>
+            </div>
+
+            {/* Content suggestions */}
+            <div style={{ ...SECTION_STYLE, marginTop: '1.25rem' }}>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 1rem' }}>Content Gap — Suggested Posts to Create ({gapCount} keyword gaps + 5 high-value additions)</p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                {CONTENT_SUGGESTIONS.map(s => (
+                  <div key={s.slug} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderLeft: `3px solid ${DIVISION_COLOURS[s.division] || '#00B5A5'}`, padding: '0.9rem 1rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', flexWrap: 'wrap' }}>
+                      <div style={{ flex: 1 }}>
+                        <p style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, fontSize: '0.8rem', margin: '0 0 0.3rem' }}>{s.title}</p>
+                        <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.7rem', margin: '0 0 0.4rem', lineHeight: 1.5 }}>{s.why}</p>
+                        <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                          {s.keywords.map(kw => (
+                            <span key={kw} style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.4)', fontSize: '0.58rem', padding: '0.15rem 0.4rem', borderRadius: '3px' }}>{kw}</span>
+                          ))}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.35rem', flexShrink: 0 }}>
+                        <span style={{ background: DIVISION_COLOURS[s.division] + '22', color: DIVISION_COLOURS[s.division], fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '3px' }}>{s.division}</span>
+                        <span style={{ background: s.effort === 'Low' ? 'rgba(34,197,94,0.1)' : 'rgba(245,158,11,0.1)', color: s.effort === 'Low' ? '#22c55e' : '#f59e0b', fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '3px' }}>{s.effort} effort</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* White hat strategy notes */}
+            <div style={{ ...SECTION_STYLE, marginTop: '1.25rem' }}>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 1rem' }}>White Hat Strategy — What to Execute</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
+                {[
+                  { title: 'Google Business Profile', status: 'ACTION REQUIRED', detail: 'Create and verify GBP for yourofficespace.au. Add Newcastle address, all 4 services, photos. This is the single highest-ROI SEO task not yet done.', colour: '#ef4444' },
+                  { title: 'Blog publishing cadence', status: 'IN PROGRESS', detail: 'Daily 6am cron generates 1 blog + 2 LinkedIn. Approve in queue. Target: 2 posts per week published minimum. Each post targets one keyword.', colour: '#22c55e' },
+                  { title: 'Internal linking', status: 'MONITORING', detail: 'Blog posts auto-link to service pages via keyword map. Review each approved post to confirm key anchor links are present.', colour: '#f59e0b' },
+                  { title: 'Backlink building', status: 'NOT STARTED', detail: 'Target: Hunter Business Chamber, Lake Mac Business, Newcastle Weekly, local industry associations. Each backlink from a .au domain is high value.', colour: '#ef4444' },
+                  { title: 'Schema / structured data', status: 'LIVE', detail: 'FAQ schema deployed on Homepage, Tenant Rep, Cleaning, Furniture, LeaseIntel. Service schema on Cleaning + Furniture. Eligible for rich results.', colour: '#22c55e' },
+                  { title: 'GSC & sitemap', status: 'LIVE', detail: 'Sitemap submitted. 48 pages discovered. Remove /sitemap_index.xml error. Monitor indexing in GSC Pages report weekly.', colour: '#22c55e' },
+                ].map(item => (
+                  <div key={item.title} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderLeft: `3px solid ${item.colour}`, padding: '0.85rem 1rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 700, fontSize: '0.75rem', margin: 0 }}>{item.title}</p>
+                      <span style={{ color: item.colour, fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.1em' }}>{item.status}</span>
+                    </div>
+                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem', margin: 0, lineHeight: 1.6 }}>{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {/* ── ARCHIVE TAB ── */}
       {activeTab === 'archive' && (
