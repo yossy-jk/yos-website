@@ -16,6 +16,7 @@ export const metadata = {
     title: 'Office Furniture & Fitout | Your Office Space',
     description: 'Brief to delivered. Office furniture and fitout project management — end to end. One team, no gaps.',
     url: 'https://yourofficespace.au/furniture',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Furniture & Fitout — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -26,6 +27,29 @@ export default function FurniturePage() {
   return (
     <>
       <Nav />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Service",
+            "@id": "https://yourofficespace.au/furniture#service",
+            "name": "Office Furniture & Fitout Newcastle",
+            "provider": { "@id": "https://yourofficespace.au/#business" },
+            "description": "Office furniture supply and fitout project management across Australia. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
+            "areaServed": ["Newcastle", "Hunter Valley", "New South Wales", "Australia"],
+            "serviceType": "Office Furniture and Fitout",
+            "url": "https://yourofficespace.au/furniture"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "How much does an office fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Office fitout costs in Newcastle typically range from $500–$3,500 per workstation depending on finish level, with full fitouts (including partition walls, flooring, joinery and AV) ranging from $800–$2,500+ per square metre. Your Office Space provides a detailed estimate based on your brief, scope and timeline." } },
+              { "@type": "Question", "name": "How long does a commercial office fitout take?", "acceptedAnswer": { "@type": "Answer", "text": "A basic furniture-only fitout can be delivered in 2–4 weeks. A full commercial fitout including construction, joinery, electrical and AV typically takes 6–16 weeks depending on scope. Your Office Space manages the entire process end-to-end." } },
+              { "@type": "Question", "name": "Do you supply Rapidline and Burgtec furniture?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies the full Rapidline commercial furniture range and Burgtec seating, along with other commercial brands. We also have an online shop at yos-furniture.myshopify.com for express orders." } }
+            ]
+          }
+        ]
+      })}} />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black"

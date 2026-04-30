@@ -9,16 +9,18 @@ import BookingCTA from '@/components/BookingCTA'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
-  title: 'Your Office Space | Tenant-Side Commercial Property Advisory',
-  description: 'One team working only for you. Tenant representation, buyers agency, furniture & fitout, and commercial cleaning. Honest advice. Real outcomes.',
-  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory', description: 'One team working only for you. Tenant rep, buyers agency, furniture, fitout and cleaning.' },
+  title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
+  description: 'One team working only for you. Tenant representation, buyers agency, furniture & fitout, and commercial cleaning across Newcastle and NSW. Honest advice. Real outcomes.',
+  alternates: { canonical: 'https://yourofficespace.au' },
+  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle', description: 'One team working only for you. Tenant rep, buyers agency, furniture, fitout and cleaning — Newcastle NSW.' },
   openGraph: {
-    title: 'Your Office Space | Tenant-Side Commercial Property Advisory',
-    description: 'One team working only for you — from the first conversation to the day your space is running.',
+    title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
+    description: 'One team working only for you — from the first conversation to the day your space is running. Based in Newcastle, working across NSW.',
     url: 'https://yourofficespace.au',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space — Tenant-Side Commercial Property Advisory Newcastle' }],
   },
 }
 

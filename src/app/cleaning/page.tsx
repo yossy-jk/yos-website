@@ -15,6 +15,7 @@ export const metadata = {
     title: 'Commercial Cleaning Newcastle | Your Office Space',
     description: 'Consistent. Accountable. Same team every visit. Commercial cleaning for offices, medical and childcare across Newcastle.',
     url: 'https://yourofficespace.au/cleaning',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Cleaning Newcastle — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -25,6 +26,29 @@ export default function CleaningPage() {
   return (
     <>
       <Nav />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Service",
+            "@id": "https://yourofficespace.au/cleaning#service",
+            "name": "Commercial Cleaning Newcastle",
+            "provider": { "@id": "https://yourofficespace.au/#business" },
+            "description": "Consistent, accountable commercial cleaning for offices, medical practices and childcare centres across Newcastle and the Hunter Valley.",
+            "areaServed": ["Newcastle", "Hunter Valley", "New South Wales"],
+            "serviceType": "Commercial Cleaning",
+            "url": "https://yourofficespace.au/cleaning"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "How much does commercial cleaning cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial cleaning costs in Newcastle typically range from $30–$55 per hour depending on the type of facility, frequency and scope. Medical and childcare facilities requiring infection control protocols are priced higher. Your Office Space provides tailored quotes after a free site visit." } },
+              { "@type": "Question", "name": "Do you use the same cleaning team every visit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Your Office Space cleaning contract is serviced by the same team on every visit. We do not rotate staff. You know who is coming and so do we." } },
+              { "@type": "Question", "name": "Do you clean medical practices and healthcare facilities?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We clean medical practices, allied health clinics and childcare centres across Newcastle using infection control protocols and appropriate products. We understand the compliance obligations specific to healthcare environments." } }
+            ]
+          }
+        ]
+      })}} />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden"
