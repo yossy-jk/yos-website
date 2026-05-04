@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, useCallback, useRef } from 'react'
+import type { EOSData, VTO } from '@/app/api/eos/data/route'
 
 const TOKEN = 'yos-joe-2026'
 
@@ -273,8 +274,18 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'seo' | 'archive'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'archive'>('dashboard')
   const [showPipeline, setShowPipeline] = useState(false)
+
+  // ── EOS State ──────────────────────────────────────────────────────────────
+  const [eos, setEos] = useState<EOSData | null>(null)
+  const [eosSection, setEosSection] = useState<'vto' | 'rocks' | 'todos' | 'issues'>('rocks')
+  const [eosLoading, setEosLoading] = useState(false)
+  const [newRock, setNewRock] = useState({ title: '', owner: 'Joe', dueDate: '' })
+  const [newTodo, setNewTodo] = useState({ title: '', owner: 'Joe', dueDate: '' })
+  const [newIssue, setNewIssue] = useState({ title: '', priority: 'medium' as 'high'|'medium'|'low', notes: '' })
+  const [editingVTO, setEditingVTO] = useState(false)
+  const [vtoForm, setVtoForm] = useState<Partial<VTO>>({})
   const refreshTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const loadDashboard = useCallback(async () => {
@@ -294,6 +305,24 @@ export default function Dashboard() {
       }
     } catch { /* silent */ }
   }, [])
+
+  const loadEOS = useCallback(async () => {
+    try {
+      setEosLoading(true)
+      const res = await fetch(`/api/eos/data?token=${TOKEN}`)
+      if (res.ok) setEos(await res.json())
+    } catch { /* silent */ }
+    finally { setEosLoading(false) }
+  }, [])
+
+  const eosAction = useCallback(async (action: string, payload: Record<string, unknown>) => {
+    await fetch('/api/eos/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN, action, payload }),
+    })
+    await loadEOS()
+  }, [loadEOS])
 
   const loadQueue = useCallback(async () => {
     try {
@@ -321,11 +350,12 @@ export default function Dashboard() {
     loadDashboard()
     loadQueue()
     loadHealth()
+    loadEOS()
     const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
     return () => clearInterval(t)
-  }, [loadDashboard, loadQueue, loadHealth])
+  }, [loadDashboard, loadQueue, loadHealth, loadEOS])
 
   // Auto-refresh queue every 2 min
   useEffect(() => {
@@ -340,6 +370,19 @@ export default function Dashboard() {
   const setEnergyLevel = (n: number) => {
     setEnergy(n)
     localStorage.setItem('yos-energy-' + new Date().toDateString(), String(n))
+  }
+
+  function currentQuarterLabel() {
+    const q = Math.ceil((new Date().getMonth() + 1) / 3)
+    return `Q${q} ${new Date().getFullYear()}`
+  }
+  function quarterProgressLabel() {
+    const now = new Date()
+    const q = Math.ceil((now.getMonth() + 1) / 3)
+    const qStart = new Date(now.getFullYear(), (q - 1) * 3, 1)
+    const qEnd = new Date(now.getFullYear(), q * 3, 0)
+    const pct = Math.round(((now.getTime() - qStart.getTime()) / (qEnd.getTime() - qStart.getTime())) * 100)
+    return `${pct}% through quarter`
   }
 
   const ENERGY_LABELS = ['', 'Running on fumes', 'Below average', 'Solid', 'High energy', 'At my best']
@@ -371,6 +414,7 @@ export default function Dashboard() {
         {([
           { key: 'dashboard' as const, label: 'Dashboard', badge: false },
           { key: 'queue' as const, label: `Approvals${pendingCount > 0 ? ` (${pendingCount})` : ''}`, badge: urgentCount > 0 },
+          { key: 'eos' as const, label: 'Traction', badge: false },
           { key: 'seo' as const, label: 'SEO & AEO', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
         ] as const).map(tab => (
@@ -628,6 +672,397 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      {/* ── EOS / TRACTION TAB ── */}
+      {activeTab === 'eos' && (() => {
+        const ROCK_STATUS: Record<string, { label: string; colour: string }> = {
+          'not-started': { label: 'Not started', colour: '#6b7280' },
+          'on-track':    { label: 'On track',    colour: '#22c55e' },
+          'off-track':   { label: 'Off track',   colour: '#ef4444' },
+          'done':        { label: 'Done',         colour: '#00B5A5' },
+        }
+        const ISSUE_PRIORITY: Record<string, { label: string; colour: string }> = {
+          high:   { label: 'High',   colour: '#ef4444' },
+          medium: { label: 'Medium', colour: '#f59e0b' },
+          low:    { label: 'Low',    colour: '#6b7280' },
+        }
+        const ISSUE_STATUS: Record<string, { label: string; colour: string }> = {
+          open:       { label: 'Open',       colour: '#f59e0b' },
+          discussing: { label: 'Discussing', colour: '#6366f1' },
+          solved:     { label: 'Solved',     colour: '#22c55e' },
+          dropped:    { label: 'Dropped',    colour: '#6b7280' },
+        }
+
+        const totalRocks    = eos?.rocks.length || 0
+        const doneRocks     = eos?.rocks.filter(r => r.status === 'done').length || 0
+        const onTrackRocks  = eos?.rocks.filter(r => r.status === 'on-track').length || 0
+        const openTodos     = eos?.todos.filter(t => !t.done).length || 0
+        const overdueTodos  = eos?.todos.filter(t => !t.done && t.dueDate < new Date().toISOString().split('T')[0]).length || 0
+        const openIssues    = eos?.issues.filter(i => i.status === 'open' || i.status === 'discussing').length || 0
+        const highIssues    = eos?.issues.filter(i => i.priority === 'high' && i.status !== 'solved' && i.status !== 'dropped').length || 0
+
+        return (
+          <div>
+            {/* Stats row */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              {[
+                { label: 'Rocks complete', val: `${doneRocks}/${totalRocks}`, sub: `${onTrackRocks} on track`, colour: doneRocks === totalRocks && totalRocks > 0 ? '#00B5A5' : '#f59e0b' },
+                { label: 'Open to-dos', val: openTodos, sub: overdueTodos > 0 ? `${overdueTodos} overdue` : 'all on time', colour: overdueTodos > 0 ? '#ef4444' : '#22c55e' },
+                { label: 'Open issues', val: openIssues, sub: highIssues > 0 ? `${highIssues} high priority` : 'no high priority', colour: highIssues > 0 ? '#ef4444' : '#f59e0b' },
+                { label: 'Quarter', val: eos?.rocks[0]?.quarter || currentQuarterLabel(), sub: quarterProgressLabel(), colour: '#00B5A5' },
+              ].map(s => (
+                <div key={s.label} style={{ ...SECTION_STYLE, textAlign: 'center', padding: '1rem' }}>
+                  <p style={{ color: s.colour, fontSize: '1.5rem', fontWeight: 900, margin: '0 0 0.2rem', lineHeight: 1 }}>{s.val}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.15rem' }}>{s.label}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', margin: 0 }}>{s.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Sub-nav */}
+            <div style={{ display: 'flex', gap: 0, marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              {(['rocks', 'todos', 'issues', 'vto'] as const).map(s => (
+                <button key={s} onClick={() => setEosSection(s)}
+                  style={{
+                    background: 'transparent', border: 'none', padding: '0.6rem 1rem', cursor: 'pointer', fontFamily: 'inherit',
+                    fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase',
+                    color: eosSection === s ? 'white' : 'rgba(255,255,255,0.3)',
+                    borderBottom: eosSection === s ? '2px solid #00B5A5' : '2px solid transparent',
+                    marginBottom: '-1px',
+                  }}>
+                  {s === 'vto' ? 'V/TO' : s === 'todos' ? 'To-Dos' : s.charAt(0).toUpperCase() + s.slice(1)}
+                </button>
+              ))}
+            </div>
+
+            {/* ── ROCKS ────────────────────────────────────── */}
+            {eosSection === 'rocks' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div>
+                    <p style={{ color: 'white', fontSize: '1rem', fontWeight: 700, margin: 0 }}>Quarterly Rocks</p>
+                    <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: '0.2rem 0 0' }}>Big things that must get done this quarter. 3–7 rocks. Each one specific and achievable in 90 days.</p>
+                  </div>
+                </div>
+
+                {/* Add rock form */}
+                <div style={{ ...SECTION_STYLE, marginBottom: '1.25rem', padding: '1.25rem' }}>
+                  <p style={{ ...SECTION_LABEL, marginBottom: '0.75rem' }}>Add Rock</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto', gap: '0.5rem', alignItems: 'end' }}>
+                    <input
+                      value={newRock.title}
+                      onChange={e => setNewRock(r => ({ ...r, title: e.target.value }))}
+                      placeholder="What needs to be done this quarter?"
+                      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.82rem', padding: '0.65rem 0.875rem', fontFamily: 'inherit', width: '100%', boxSizing: 'border-box' as const }}
+                      onKeyDown={e => { if (e.key === 'Enter' && newRock.title.trim()) { eosAction('add-rock', { ...newRock }); setNewRock({ title: '', owner: 'Joe', dueDate: '' }) } }}
+                    />
+                    <input
+                      value={newRock.owner}
+                      onChange={e => setNewRock(r => ({ ...r, owner: e.target.value }))}
+                      placeholder="Owner"
+                      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.82rem', padding: '0.65rem 0.875rem', fontFamily: 'inherit', width: '100px' }}
+                    />
+                    <button
+                      onClick={() => { if (newRock.title.trim()) { eosAction('add-rock', { ...newRock }); setNewRock({ title: '', owner: 'Joe', dueDate: '' }) } }}
+                      style={{ background: '#00B5A5', color: 'white', border: 'none', padding: '0.65rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>
+                      + Add
+                    </button>
+                  </div>
+                </div>
+
+                {/* Rocks list */}
+                {(!eos?.rocks || eos.rocks.length === 0) ? (
+                  <div style={{ ...SECTION_STYLE, textAlign: 'center', padding: '2.5rem' }}>
+                    <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.9rem', margin: 0 }}>No rocks set for this quarter yet.</p>
+                    <p style={{ color: 'rgba(255,255,255,0.12)', fontSize: '0.72rem', margin: '0.5rem 0 0' }}>Add 3–7 things that absolutely must get done this quarter.</p>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    {eos.rocks.map(rock => {
+                      const s = ROCK_STATUS[rock.status] || ROCK_STATUS['not-started']
+                      const isOverdue = rock.dueDate && rock.dueDate < new Date().toISOString().split('T')[0] && rock.status !== 'done'
+                      return (
+                        <div key={rock.id} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', padding: '0.875rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderLeft: `3px solid ${s.colour}`, flexWrap: 'wrap' }}>
+                          <div style={{ flex: '1 1 200px', minWidth: 0 }}>
+                            <p style={{ color: rock.status === 'done' ? 'rgba(255,255,255,0.35)' : 'white', fontWeight: 700, fontSize: '0.82rem', margin: 0, textDecoration: rock.status === 'done' ? 'line-through' : 'none' }}>{rock.title}</p>
+                            {rock.notes && <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: '0.2rem 0 0' }}>{rock.notes}</p>}
+                          </div>
+                          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexShrink: 0, flexWrap: 'wrap' }}>
+                            <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem' }}>{rock.owner}</span>
+                            {rock.dueDate && <span style={{ color: isOverdue ? '#ef4444' : 'rgba(255,255,255,0.25)', fontSize: '0.62rem' }}>{isOverdue ? 'OVERDUE ' : ''}{rock.dueDate}</span>}
+                            <select
+                              value={rock.status}
+                              onChange={e => eosAction('update-rock', { id: rock.id, status: e.target.value })}
+                              style={{ background: s.colour + '22', color: s.colour, border: `1px solid ${s.colour}44`, fontSize: '0.62rem', fontWeight: 700, padding: '0.25rem 0.5rem', fontFamily: 'inherit', cursor: 'pointer' }}>
+                              {Object.entries(ROCK_STATUS).map(([v, l]) => <option key={v} value={v}>{l.label}</option>)}
+                            </select>
+                            <button onClick={() => eosAction('delete-rock', { id: rock.id })} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', cursor: 'pointer', padding: '0.2rem 0.4rem', fontFamily: 'inherit' }}>×</button>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── TO-DOS ────────────────────────────────────── */}
+            {eosSection === 'todos' && (
+              <div>
+                <div style={{ marginBottom: '1rem' }}>
+                  <p style={{ color: 'white', fontSize: '1rem', fontWeight: 700, margin: 0 }}>To-Dos</p>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: '0.2rem 0 0' }}>7-day action items. Anything that needs to happen in the next week. Carried over until done or dropped.</p>
+                </div>
+
+                {/* Add to-do */}
+                <div style={{ ...SECTION_STYLE, marginBottom: '1.25rem', padding: '1.25rem' }}>
+                  <p style={{ ...SECTION_LABEL, marginBottom: '0.75rem' }}>Add To-Do</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: '0.5rem', alignItems: 'end' }}>
+                    <input
+                      value={newTodo.title}
+                      onChange={e => setNewTodo(t => ({ ...t, title: e.target.value }))}
+                      placeholder="What needs to happen?"
+                      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.82rem', padding: '0.65rem 0.875rem', fontFamily: 'inherit', width: '100%', boxSizing: 'border-box' as const }}
+                      onKeyDown={e => { if (e.key === 'Enter' && newTodo.title.trim()) { eosAction('add-todo', { ...newTodo }); setNewTodo({ title: '', owner: 'Joe', dueDate: '' }) } }}
+                    />
+                    <input value={newTodo.owner} onChange={e => setNewTodo(t => ({ ...t, owner: e.target.value }))} placeholder="Owner" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.82rem', padding: '0.65rem 0.875rem', fontFamily: 'inherit', width: '90px' }} />
+                    <input value={newTodo.dueDate} onChange={e => setNewTodo(t => ({ ...t, dueDate: e.target.value }))} type="date" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.75rem', padding: '0.65rem 0.5rem', fontFamily: 'inherit', colorScheme: 'dark' }} />
+                    <button onClick={() => { if (newTodo.title.trim()) { eosAction('add-todo', { ...newTodo }); setNewTodo({ title: '', owner: 'Joe', dueDate: '' }) } }} style={{ background: '#00B5A5', color: 'white', border: 'none', padding: '0.65rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>+ Add</button>
+                  </div>
+                </div>
+
+                {/* To-do list */}
+                {(!eos?.todos || eos.todos.length === 0) ? (
+                  <div style={{ ...SECTION_STYLE, textAlign: 'center', padding: '2.5rem' }}>
+                    <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.9rem', margin: 0 }}>No to-dos yet.</p>
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    {[...eos.todos].sort((a, b) => {
+                      if (a.done !== b.done) return a.done ? 1 : -1
+                      return (a.dueDate || '').localeCompare(b.dueDate || '')
+                    }).map(todo => {
+                      const isOverdue = !todo.done && todo.dueDate && todo.dueDate < new Date().toISOString().split('T')[0]
+                      return (
+                        <div key={todo.id} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', opacity: todo.done ? 0.45 : 1 }}>
+                          <button onClick={() => eosAction('toggle-todo', { id: todo.id })} style={{ width: '18px', height: '18px', borderRadius: '3px', border: todo.done ? '2px solid #00B5A5' : '2px solid rgba(255,255,255,0.25)', background: todo.done ? '#00B5A5' : 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.7rem', color: 'white', fontFamily: 'inherit' }}>
+                            {todo.done ? '✓' : ''}
+                          </button>
+                          <p style={{ flex: 1, color: 'white', fontSize: '0.82rem', fontWeight: 600, margin: 0, textDecoration: todo.done ? 'line-through' : 'none' }}>{todo.title}</p>
+                          <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.65rem', flexShrink: 0 }}>{todo.owner}</span>
+                          {todo.dueDate && <span style={{ color: isOverdue ? '#ef4444' : 'rgba(255,255,255,0.25)', fontSize: '0.62rem', flexShrink: 0 }}>{isOverdue ? '⚠ ' : ''}{todo.dueDate}</span>}
+                          <button onClick={() => eosAction('delete-todo', { id: todo.id })} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.15)', fontSize: '0.8rem', cursor: 'pointer', padding: '0.2rem', fontFamily: 'inherit' }}>×</button>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── ISSUES ────────────────────────────────────── */}
+            {eosSection === 'issues' && (
+              <div>
+                <div style={{ marginBottom: '1rem' }}>
+                  <p style={{ color: 'white', fontSize: '1rem', fontWeight: 700, margin: 0 }}>Issues List (IDS)</p>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: '0.2rem 0 0' }}>Identify, Discuss, Solve. Anything blocking progress goes here. Open issues are worked through in your L10 meeting.</p>
+                </div>
+
+                {/* Add issue */}
+                <div style={{ ...SECTION_STYLE, marginBottom: '1.25rem', padding: '1.25rem' }}>
+                  <p style={{ ...SECTION_LABEL, marginBottom: '0.75rem' }}>Add Issue</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr auto auto auto', gap: '0.5rem', alignItems: 'end' }}>
+                    <input
+                      value={newIssue.title}
+                      onChange={e => setNewIssue(i => ({ ...i, title: e.target.value }))}
+                      placeholder="What is the issue?"
+                      style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.82rem', padding: '0.65rem 0.875rem', fontFamily: 'inherit', width: '100%', boxSizing: 'border-box' as const }}
+                      onKeyDown={e => { if (e.key === 'Enter' && newIssue.title.trim()) { eosAction('add-issue', { ...newIssue }); setNewIssue({ title: '', priority: 'medium', notes: '' }) } }}
+                    />
+                    <select value={newIssue.priority} onChange={e => setNewIssue(i => ({ ...i, priority: e.target.value as 'high'|'medium'|'low' }))} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.78rem', padding: '0.65rem 0.5rem', fontFamily: 'inherit' }}>
+                      <option value="high">High</option>
+                      <option value="medium">Medium</option>
+                      <option value="low">Low</option>
+                    </select>
+                    <button onClick={() => { if (newIssue.title.trim()) { eosAction('add-issue', { ...newIssue }); setNewIssue({ title: '', priority: 'medium', notes: '' }) } }} style={{ background: '#00B5A5', color: 'white', border: 'none', padding: '0.65rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit', whiteSpace: 'nowrap' }}>+ Add</button>
+                  </div>
+                </div>
+
+                {/* Issues list */}
+                {(!eos?.issues || eos.issues.length === 0) ? (
+                  <div style={{ ...SECTION_STYLE, textAlign: 'center', padding: '2.5rem' }}>
+                    <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.9rem', margin: 0 }}>No issues logged.</p>
+                    <p style={{ color: 'rgba(255,255,255,0.12)', fontSize: '0.72rem', margin: '0.5rem 0 0' }}>Add anything that’s blocking the business or needs a decision.</p>
+                  </div>
+                ) : (
+                  <div>
+                    {/* Open + discussing */}
+                    {eos.issues.filter(i => i.status === 'open' || i.status === 'discussing').length > 0 && (
+                      <div style={{ marginBottom: '1.5rem' }}>
+                        <p style={{ ...SECTION_LABEL, marginBottom: '0.75rem' }}>Open Issues</p>
+                        {eos.issues
+                          .filter(i => i.status === 'open' || i.status === 'discussing')
+                          .sort((a, b) => { const order = { high: 0, medium: 1, low: 2 }; return order[a.priority] - order[b.priority] })
+                          .map(issue => {
+                            const p = ISSUE_PRIORITY[issue.priority]
+                            const s = ISSUE_STATUS[issue.status]
+                            return (
+                              <div key={issue.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem', padding: '0.875rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderLeft: `3px solid ${p.colour}`, marginBottom: '0.4rem', flexWrap: 'wrap' }}>
+                                <div style={{ flex: '1 1 200px', minWidth: 0 }}>
+                                  <p style={{ color: 'white', fontWeight: 700, fontSize: '0.82rem', margin: '0 0 0.2rem' }}>{issue.title}</p>
+                                  {issue.notes && <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.68rem', margin: 0, lineHeight: 1.5 }}>{issue.notes}</p>}
+                                </div>
+                                <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexShrink: 0, flexWrap: 'wrap' }}>
+                                  <span style={{ background: p.colour + '22', color: p.colour, fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem' }}>{p.label}</span>
+                                  <select value={issue.status} onChange={e => eosAction('update-issue', { id: issue.id, status: e.target.value })} style={{ background: s.colour + '22', color: s.colour, border: `1px solid ${s.colour}44`, fontSize: '0.62rem', fontWeight: 700, padding: '0.25rem 0.5rem', fontFamily: 'inherit', cursor: 'pointer' }}>
+                                    {Object.entries(ISSUE_STATUS).map(([v, l]) => <option key={v} value={v}>{l.label}</option>)}
+                                  </select>
+                                  <button onClick={() => eosAction('delete-issue', { id: issue.id })} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.15)', fontSize: '0.8rem', cursor: 'pointer', padding: '0.2rem', fontFamily: 'inherit' }}>×</button>
+                                </div>
+                              </div>
+                            )
+                          })}
+                      </div>
+                    )}
+                    {/* Solved */}
+                    {eos.issues.filter(i => i.status === 'solved' || i.status === 'dropped').length > 0 && (
+                      <div style={{ opacity: 0.5 }}>
+                        <p style={{ ...SECTION_LABEL, marginBottom: '0.75rem' }}>Solved / Dropped</p>
+                        {eos.issues.filter(i => i.status === 'solved' || i.status === 'dropped').map(issue => (
+                          <div key={issue.id} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', padding: '0.65rem 1rem', background: 'rgba(255,255,255,0.01)', border: '1px solid rgba(255,255,255,0.04)', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
+                            <p style={{ flex: 1, color: 'rgba(255,255,255,0.5)', fontSize: '0.78rem', margin: 0, textDecoration: 'line-through' }}>{issue.title}</p>
+                            <span style={{ color: ISSUE_STATUS[issue.status].colour, fontSize: '0.62rem', fontWeight: 700 }}>{ISSUE_STATUS[issue.status].label}</span>
+                            <button onClick={() => eosAction('delete-issue', { id: issue.id })} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.1)', fontSize: '0.8rem', cursor: 'pointer', padding: '0.2rem', fontFamily: 'inherit' }}>×</button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* ── V/TO ────────────────────────────────────────── */}
+            {eosSection === 'vto' && (
+              <div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                  <div>
+                    <p style={{ color: 'white', fontSize: '1rem', fontWeight: 700, margin: 0 }}>Vision/Traction Organiser</p>
+                    <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: '0.2rem 0 0' }}>Where you’re going and how you’re getting there. Review every quarter.</p>
+                  </div>
+                  <button onClick={() => {
+                    if (editingVTO) {
+                      eosAction('update-vto', vtoForm)
+                      setEditingVTO(false)
+                    } else {
+                      setVtoForm(eos?.vto || {})
+                      setEditingVTO(true)
+                    }
+                  }} style={{ background: editingVTO ? '#00B5A5' : 'rgba(255,255,255,0.08)', color: 'white', border: editingVTO ? 'none' : '1px solid rgba(255,255,255,0.15)', padding: '0.6rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit' }}>
+                    {editingVTO ? 'Save V/TO' : 'Edit'}
+                  </button>
+                </div>
+
+                <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))' }}>
+                  {/* Core values */}
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>Core Values</p>
+                    {editingVTO ? (
+                      <textarea value={(vtoForm.coreValues || []).join('\n')} onChange={e => setVtoForm(f => ({ ...f, coreValues: e.target.value.split('\n') }))} placeholder="One per line" style={{ width: '100%', minHeight: '100px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                    ) : (
+                      <ul style={{ margin: 0, padding: '0 0 0 1rem', listStyle: 'none' }}>
+                        {(eos?.vto.coreValues || []).map((v, i) => <li key={i} style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8rem', padding: '0.25rem 0', lineHeight: 1.5, paddingLeft: '0', listStyleType: 'none' }}>• {v}</li>)}
+                      </ul>
+                    )}
+                  </div>
+
+                  {/* Mission */}
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>Mission / Purpose</p>
+                    {editingVTO ? (
+                      <textarea value={vtoForm.mission || ''} onChange={e => setVtoForm(f => ({ ...f, mission: e.target.value }))} style={{ width: '100%', minHeight: '80px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                    ) : (
+                      <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', lineHeight: 1.7, margin: 0 }}>{eos?.vto.mission || '—'}</p>
+                    )}
+                  </div>
+
+                  {/* 10-Year Target */}
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>10-Year Target</p>
+                    {editingVTO ? (
+                      <textarea value={vtoForm.tenYearTarget || ''} onChange={e => setVtoForm(f => ({ ...f, tenYearTarget: e.target.value }))} style={{ width: '100%', minHeight: '80px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                    ) : (
+                      <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', lineHeight: 1.7, margin: 0 }}>{eos?.vto.tenYearTarget || '—'}</p>
+                    )}
+                  </div>
+
+                  {/* 3-Year Picture */}
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>3-Year Picture <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: 400 }}>Target: {eos?.vto.threeYearRevenue}</span></p>
+                    {editingVTO ? (
+                      <>
+                        <input value={vtoForm.threeYearRevenue || ''} onChange={e => setVtoForm(f => ({ ...f, threeYearRevenue: e.target.value }))} placeholder="Revenue target" style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.8rem', padding: '0.5rem 0.75rem', fontFamily: 'inherit', marginBottom: '0.5rem', boxSizing: 'border-box' as const }} />
+                        <textarea value={vtoForm.threeYearPicture || ''} onChange={e => setVtoForm(f => ({ ...f, threeYearPicture: e.target.value }))} placeholder="What does the business look like?" style={{ width: '100%', minHeight: '80px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                      </>
+                    ) : (
+                      <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', lineHeight: 1.7, margin: 0 }}>{eos?.vto.threeYearPicture || '—'}</p>
+                    )}
+                  </div>
+
+                  {/* 1-Year Plan */}
+                  <div style={{ ...SECTION_STYLE, gridColumn: '1 / -1' }}>
+                    <p style={SECTION_LABEL}>1-Year Plan <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: 400 }}>Target: {eos?.vto.oneYearRevenue}</span></p>
+                    {editingVTO ? (
+                      <>
+                        <input value={vtoForm.oneYearRevenue || ''} onChange={e => setVtoForm(f => ({ ...f, oneYearRevenue: e.target.value }))} placeholder="Revenue target" style={{ width: '260px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: 'white', fontSize: '0.8rem', padding: '0.5rem 0.75rem', fontFamily: 'inherit', marginBottom: '0.5rem' }} />
+                        <textarea value={(vtoForm.oneYearGoals || []).join('\n')} onChange={e => setVtoForm(f => ({ ...f, oneYearGoals: e.target.value.split('\n') }))} placeholder="Goals for the year (one per line)" style={{ width: '100%', minHeight: '100px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                      </>
+                    ) : (
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '0.5rem' }}>
+                        {(eos?.vto.oneYearGoals || []).map((g, i) => (
+                          <div key={i} style={{ background: 'rgba(0,181,165,0.06)', border: '1px solid rgba(0,181,165,0.15)', padding: '0.65rem 0.875rem' }}>
+                            <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8rem', margin: 0, lineHeight: 1.5 }}>{g}</p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Niche + Differentiators */}
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>Niche / Target Market</p>
+                    {editingVTO ? (
+                      <textarea value={vtoForm.niche || ''} onChange={e => setVtoForm(f => ({ ...f, niche: e.target.value }))} style={{ width: '100%', minHeight: '70px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                    ) : (
+                      <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', lineHeight: 1.7, margin: 0 }}>{eos?.vto.niche || '—'}</p>
+                    )}
+                  </div>
+
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>Differentiators</p>
+                    {editingVTO ? (
+                      <textarea value={(vtoForm.differentiators || []).join('\n')} onChange={e => setVtoForm(f => ({ ...f, differentiators: e.target.value.split('\n') }))} placeholder="One per line" style={{ width: '100%', minHeight: '100px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                    ) : (
+                      <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+                        {(eos?.vto.differentiators || []).map((d, i) => <li key={i} style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.8rem', padding: '0.25rem 0', lineHeight: 1.5 }}>• {d}</li>)}
+                      </ul>
+                    )}
+                  </div>
+
+                  <div style={SECTION_STYLE}>
+                    <p style={SECTION_LABEL}>Guarantee</p>
+                    {editingVTO ? (
+                      <textarea value={vtoForm.guarantee || ''} onChange={e => setVtoForm(f => ({ ...f, guarantee: e.target.value }))} style={{ width: '100%', minHeight: '70px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: 'white', fontSize: '0.8rem', lineHeight: 1.7, padding: '0.75rem', fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box' as const }} />
+                    ) : (
+                      <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.82rem', lineHeight: 1.7, margin: 0 }}>{eos?.vto.guarantee || '—'}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )
+      })()}
 
       {/* ── SEO & AEO TAB ── */}
       {activeTab === 'seo' && (() => {
