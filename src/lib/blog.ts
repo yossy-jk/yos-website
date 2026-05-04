@@ -66,3 +66,65 @@ export function getPostBySlug(slug: string): BlogPost | null {
 export function getPostsByDivision(division: Division): BlogPost[] {
   return getAllPosts().filter(p => p.division === division)
 }
+
+// ─── Async versions that merge filesystem + Redis-published posts ────────────
+
+async function fetchRedisPosts(): Promise<BlogPost[]> {
+  try {
+    const url   = process.env.UPSTASH_REDIS_REST_URL
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN
+    if (!url || !token) return []
+    const res = await fetch(`${url}/hgetall/yos:blog:live`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store',
+    })
+    const d = await res.json() as { result: unknown }
+    const raw = d.result
+    if (!raw) return []
+    let entries: [string, string][] = []
+    if (Array.isArray(raw)) {
+      for (let i = 0; i < (raw as string[]).length; i += 2) {
+        entries.push([(raw as string[])[i], (raw as string[])[i + 1]])
+      }
+    } else {
+      entries = Object.entries(raw as Record<string, string>)
+    }
+    return entries
+      .map(([, val]) => { try { return JSON.parse(val) as BlogPost } catch { return null } })
+      .filter((p): p is BlogPost => p !== null)
+  } catch {
+    return []
+  }
+}
+
+export async function getAllPostsAsync(): Promise<BlogPost[]> {
+  const [fsPosts, redisPosts] = await Promise.all([
+    Promise.resolve(getAllPosts()),
+    fetchRedisPosts(),
+  ])
+  // Merge: filesystem takes precedence if same slug exists in both
+  const slugSet = new Set(fsPosts.map(p => p.slug))
+  const merged = [...fsPosts, ...redisPosts.filter(p => !slugSet.has(p.slug))]
+  return merged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null> {
+  // Check filesystem first
+  const fsPost = getPostBySlug(slug)
+  if (fsPost) return fsPost
+  // Fall back to Redis
+  try {
+    const url   = process.env.UPSTASH_REDIS_REST_URL
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN
+    if (!url || !token) return null
+    const res = await fetch(`${url}/hget/yos:blog:live/${slug}`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: 'no-store',
+    })
+    const d = await res.json() as { result: string | null }
+    if (!d.result) return null
+    return JSON.parse(d.result) as BlogPost
+  } catch {
+    return null
+  }
+}

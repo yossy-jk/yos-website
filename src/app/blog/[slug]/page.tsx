@@ -14,7 +14,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const post = await getPostBySlugAsync(slug)
   if (!post) return {}
   return {
     title: post.metaTitle || `${post.title} | Your Office Space`,
@@ -276,11 +276,11 @@ function renderBody(body: string, slug: string) {
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = getPostBySlug(slug)
+  const post = await getPostBySlugAsync(slug)
   if (!post) notFound()
 
   // Related posts — same division, exclude current
-  const allPosts = getAllPosts()
+  const allPosts = await getAllPostsAsync()
   const related = allPosts
     .filter(p => p.slug !== slug && p.division === post.division)
     .slice(0, 3)
