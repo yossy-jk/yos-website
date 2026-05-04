@@ -56,11 +56,28 @@ export interface VTO {
   differentiators: string[]
 }
 
+export interface ScorecardWeek {
+  weekEnding: string    // ISO date — Friday of that week
+  actual: number | null
+}
+
+export interface KPIMetric {
+  id: string
+  name: string
+  owner: string
+  target: number
+  unit: string          // 'calls', 'quotes', 'visits', '%', 'posts', 'deals'
+  higherIsBetter: boolean
+  weeks: ScorecardWeek[] // rolling 13 weeks, newest last
+  notes?: string
+}
+
 export interface EOSData {
   vto: VTO
   rocks: Rock[]
   todos: Todo[]
   issues: Issue[]
+  scorecard: KPIMetric[]
   updatedAt: string
 }
 
@@ -95,11 +112,140 @@ const DEFAULT_VTO: VTO = {
   ],
 }
 
+function lastNFridays(n: number): string[] {
+  const fridays: string[] = []
+  const d = new Date()
+  // rewind to last Friday
+  const day = d.getDay()
+  const diff = day <= 5 ? day - 5 : day - 12
+  d.setDate(d.getDate() - (diff < 0 ? diff + 7 : diff) - (day === 5 ? 0 : 0))
+  // simpler: get most recent Friday
+  const today = new Date()
+  const dow = today.getDay() // 0=Sun
+  const toFriday = (dow <= 5) ? (5 - dow) : (12 - dow)
+  const nextFri = new Date(today)
+  nextFri.setDate(today.getDate() + toFriday)
+  for (let i = n - 1; i >= 0; i--) {
+    const fri = new Date(nextFri)
+    fri.setDate(nextFri.getDate() - i * 7)
+    fridays.push(fri.toISOString().split('T')[0])
+  }
+  return fridays
+}
+
+function defaultWeeks(): ScorecardWeek[] {
+  return lastNFridays(13).map(w => ({ weekEnding: w, actual: null }))
+}
+
+const DEFAULT_SCORECARD: KPIMetric[] = [
+  {
+    id: 'kpi-1',
+    name: 'Outbound prospecting contacts',
+    owner: 'Joe',
+    target: 15,
+    unit: 'contacts',
+    higherIsBetter: true,
+    notes: 'Calls, emails or LinkedIn DMs to potential clients across all service lines',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-2',
+    name: 'Cleaning quotes submitted',
+    owner: 'Sarah',
+    target: 3,
+    unit: 'quotes',
+    higherIsBetter: true,
+    notes: 'New commercial cleaning proposals sent to prospects',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-3',
+    name: 'Cleaning site visits completed',
+    owner: 'Sarah',
+    target: 2,
+    unit: 'visits',
+    higherIsBetter: true,
+    notes: 'In-person site inspections or client meetings for cleaning',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-4',
+    name: 'Tenant rep discovery conversations',
+    owner: 'Joe',
+    target: 2,
+    unit: 'conversations',
+    higherIsBetter: true,
+    notes: 'New conversations with businesses about their lease situation or upcoming renewal',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-5',
+    name: 'Proposals / quotes sent (all divisions)',
+    owner: 'Joe',
+    target: 2,
+    unit: 'proposals',
+    higherIsBetter: true,
+    notes: 'Formal proposals or quotes sent across tenant rep, furniture, fitout',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-6',
+    name: 'E1 tenders reviewed + decision made',
+    owner: 'Joe',
+    target: 3,
+    unit: 'tenders',
+    higherIsBetter: true,
+    notes: 'EstimateOne tenders reviewed and a bid or pass decision made each week',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-7',
+    name: 'LinkedIn posts published',
+    owner: 'Joe',
+    target: 5,
+    unit: 'posts',
+    higherIsBetter: true,
+    notes: 'Approved LinkedIn posts published to the YOS page — target 5 days per week',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-8',
+    name: 'HubSpot deals advanced',
+    owner: 'Joe',
+    target: 3,
+    unit: 'deals',
+    higherIsBetter: true,
+    notes: 'Active pipeline deals that moved to the next stage this week',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-9',
+    name: 'Referral partner touchpoints',
+    owner: 'Joe',
+    target: 2,
+    unit: 'touchpoints',
+    higherIsBetter: true,
+    notes: 'Accountants, solicitors or business advisors contacted — referral network building',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-10',
+    name: 'New blog posts live on site',
+    owner: 'Agent',
+    target: 10,
+    unit: 'posts',
+    higherIsBetter: true,
+    notes: 'Blog posts published to yourofficespace.au/blog this week — SEO lead gen engine',
+    weeks: defaultWeeks(),
+  },
+]
+
 const DEFAULT_EOS: EOSData = {
   vto: DEFAULT_VTO,
   rocks: [],
   todos: [],
   issues: [],
+  scorecard: DEFAULT_SCORECARD,
   updatedAt: new Date().toISOString(),
 }
 
@@ -260,6 +406,47 @@ export async function POST(req: Request) {
 
   if (action === 'delete-issue') {
     data.issues = data.issues.filter(i => i.id !== payload.id)
+    data.updatedAt = new Date().toISOString()
+    await writeEOS(redis.url, redis.token, data)
+    return NextResponse.json({ ok: true })
+  }
+
+  // ── Scorecard ───────────────────────────────────
+  // Ensure scorecard exists on older data
+  if (!data.scorecard) data.scorecard = DEFAULT_SCORECARD
+
+  if (action === 'scorecard-log') {
+    // Log an actual value for a specific metric + week
+    // payload: { id, weekEnding, actual }
+    const idx = data.scorecard.findIndex(m => m.id === payload.id)
+    if (idx === -1) return NextResponse.json({ error: 'Metric not found' }, { status: 404 })
+    const wIdx = data.scorecard[idx].weeks.findIndex(w => w.weekEnding === payload.weekEnding)
+    if (wIdx === -1) {
+      data.scorecard[idx].weeks.push({ weekEnding: payload.weekEnding as string, actual: payload.actual as number | null })
+      data.scorecard[idx].weeks.sort((a, b) => a.weekEnding.localeCompare(b.weekEnding))
+      // Keep max 13 weeks
+      if (data.scorecard[idx].weeks.length > 13) data.scorecard[idx].weeks = data.scorecard[idx].weeks.slice(-13)
+    } else {
+      data.scorecard[idx].weeks[wIdx].actual = payload.actual as number | null
+    }
+    data.updatedAt = new Date().toISOString()
+    await writeEOS(redis.url, redis.token, data)
+    return NextResponse.json({ ok: true })
+  }
+
+  if (action === 'scorecard-update-metric') {
+    // Update name/target/owner/notes for a metric
+    const idx = data.scorecard.findIndex(m => m.id === payload.id)
+    if (idx === -1) return NextResponse.json({ error: 'Metric not found' }, { status: 404 })
+    data.scorecard[idx] = { ...data.scorecard[idx], ...payload }
+    data.updatedAt = new Date().toISOString()
+    await writeEOS(redis.url, redis.token, data)
+    return NextResponse.json({ ok: true })
+  }
+
+  if (action === 'scorecard-reset') {
+    // Reset all scorecard metrics to defaults (keeps week history)
+    data.scorecard = DEFAULT_SCORECARD
     data.updatedAt = new Date().toISOString()
     await writeEOS(redis.url, redis.token, data)
     return NextResponse.json({ ok: true })

@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState, useCallback, useRef } from 'react'
-import type { EOSData, VTO } from '@/app/api/eos/data/route'
+import type { EOSData, VTO, KPIMetric } from '@/app/api/eos/data/route'
 
 const TOKEN = 'yos-joe-2026'
 
@@ -279,7 +279,8 @@ export default function Dashboard() {
 
   // ── EOS State ──────────────────────────────────────────────────────────────
   const [eos, setEos] = useState<EOSData | null>(null)
-  const [eosSection, setEosSection] = useState<'vto' | 'rocks' | 'todos' | 'issues'>('rocks')
+  const [eosSection, setEosSection] = useState<'scorecard' | 'rocks' | 'todos' | 'issues' | 'vto'>('scorecard')
+  const [editingMetric, setEditingMetric] = useState<string | null>(null)
   const [eosLoading, setEosLoading] = useState(false)
   const [newRock, setNewRock] = useState({ title: '', owner: 'Joe', dueDate: '' })
   const [newTodo, setNewTodo] = useState({ title: '', owner: 'Joe', dueDate: '' })
@@ -720,8 +721,8 @@ export default function Dashboard() {
             </div>
 
             {/* Sub-nav */}
-            <div style={{ display: 'flex', gap: 0, marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-              {(['rocks', 'todos', 'issues', 'vto'] as const).map(s => (
+            <div style={{ display: 'flex', gap: 0, marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.08)', overflowX: 'auto' }}>
+              {(['scorecard', 'rocks', 'todos', 'issues', 'vto'] as const).map(s => (
                 <button key={s} onClick={() => setEosSection(s)}
                   style={{
                     background: 'transparent', border: 'none', padding: '0.6rem 1rem', cursor: 'pointer', fontFamily: 'inherit',
@@ -730,10 +731,172 @@ export default function Dashboard() {
                     borderBottom: eosSection === s ? '2px solid #00B5A5' : '2px solid transparent',
                     marginBottom: '-1px',
                   }}>
-                  {s === 'vto' ? 'V/TO' : s === 'todos' ? 'To-Dos' : s.charAt(0).toUpperCase() + s.slice(1)}
+                  {s === 'vto' ? 'V/TO' : s === 'todos' ? 'To-Dos' : s === 'scorecard' ? 'Scorecard' : s.charAt(0).toUpperCase() + s.slice(1)}
                 </button>
               ))}
             </div>
+
+            {/* ── SCORECARD ────────────────────────────────── */}
+            {eosSection === 'scorecard' && (() => {
+              const scorecard = eos?.scorecard || []
+              // Get the last 5 weeks to show as columns
+              const allWeeks = scorecard[0]?.weeks || []
+              const displayWeeks = allWeeks.slice(-5).map(w => w.weekEnding)
+              const currentWeek = displayWeeks[displayWeeks.length - 1] || new Date().toISOString().split('T')[0]
+
+              function weekLabel(iso: string) {
+                const d = new Date(iso)
+                return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short', timeZone: 'Australia/Sydney' })
+              }
+              function metricStatus(metric: KPIMetric, actual: number | null): 'green' | 'red' | 'empty' {
+                if (actual === null || actual === undefined) return 'empty'
+                return metric.higherIsBetter ? (actual >= metric.target ? 'green' : 'red') : (actual <= metric.target ? 'green' : 'red')
+              }
+
+              const greenCount = scorecard.filter(m => {
+                const thisWeek = m.weeks.find(w => w.weekEnding === currentWeek)
+                return metricStatus(m, thisWeek?.actual ?? null) === 'green'
+              }).length
+              const redCount = scorecard.filter(m => {
+                const thisWeek = m.weeks.find(w => w.weekEnding === currentWeek)
+                return metricStatus(m, thisWeek?.actual ?? null) === 'red'
+              }).length
+
+              return (
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+                    <div>
+                      <p style={{ color: 'white', fontSize: '1rem', fontWeight: 700, margin: '0 0 0.25rem' }}>Weekly Scorecard</p>
+                      <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: 0 }}>Lead measures reviewed every L10. Green = on target. Red = below target. Enter actuals each week.</p>
+                    </div>
+                    <div style={{ display: 'flex', gap: '0.75rem' }}>
+                      <div style={{ background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.2)', padding: '0.4rem 0.875rem', textAlign: 'center' }}>
+                        <p style={{ color: '#22c55e', fontSize: '1.1rem', fontWeight: 900, margin: 0 }}>{greenCount}</p>
+                        <p style={{ color: '#22c55e', fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.1em', margin: 0 }}>GREEN</p>
+                      </div>
+                      <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)', padding: '0.4rem 0.875rem', textAlign: 'center' }}>
+                        <p style={{ color: '#ef4444', fontSize: '1.1rem', fontWeight: 900, margin: 0 }}>{redCount}</p>
+                        <p style={{ color: '#ef4444', fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.1em', margin: 0 }}>RED</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Table */}
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.78rem' }}>
+                      <thead>
+                        <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                          <th style={{ textAlign: 'left', padding: '0.5rem 0.75rem', color: 'rgba(255,255,255,0.35)', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', minWidth: '220px' }}>KPI / Owner</th>
+                          <th style={{ textAlign: 'center', padding: '0.5rem 0.5rem', color: 'rgba(255,255,255,0.35)', fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', minWidth: '60px' }}>Goal</th>
+                          {displayWeeks.map((w, i) => (
+                            <th key={w} style={{ textAlign: 'center', padding: '0.5rem 0.5rem', color: i === displayWeeks.length - 1 ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.25)', fontSize: '0.6rem', fontWeight: i === displayWeeks.length - 1 ? 700 : 400, letterSpacing: '0.05em', minWidth: '70px' }}>
+                              {weekLabel(w)}{i === displayWeeks.length - 1 ? ' ◄' : ''}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {scorecard.map((metric, mIdx) => {
+                          const isEditing = editingMetric === metric.id
+                          return (
+                            <tr key={metric.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', background: mIdx % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
+                              {/* Metric name + owner */}
+                              <td style={{ padding: '0.6rem 0.75rem' }}>
+                                {isEditing ? (
+                                  <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                                    <input
+                                      defaultValue={metric.name}
+                                      onBlur={e => eosAction('scorecard-update-metric', { id: metric.id, name: e.target.value })}
+                                      style={{ flex: 1, background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', fontSize: '0.75rem', padding: '0.3rem 0.5rem', fontFamily: 'inherit' }}
+                                    />
+                                    <input
+                                      defaultValue={metric.owner}
+                                      onBlur={e => eosAction('scorecard-update-metric', { id: metric.id, owner: e.target.value })}
+                                      placeholder="Owner"
+                                      style={{ width: '70px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', fontSize: '0.72rem', padding: '0.3rem 0.4rem', fontFamily: 'inherit' }}
+                                    />
+                                    <button onClick={() => setEditingMetric(null)} style={{ background: '#00B5A5', border: 'none', color: 'white', fontSize: '0.6rem', padding: '0.3rem 0.5rem', cursor: 'pointer', fontFamily: 'inherit', fontWeight: 700 }}>Done</button>
+                                  </div>
+                                ) : (
+                                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <div style={{ flex: 1 }}>
+                                      <p style={{ color: 'rgba(255,255,255,0.85)', fontWeight: 600, margin: 0, lineHeight: 1.3 }}>{metric.name}</p>
+                                      {metric.notes && <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.15rem 0 0', lineHeight: 1.4 }}>{metric.notes}</p>}
+                                    </div>
+                                    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center', flexShrink: 0 }}>
+                                      <span style={{ background: metric.owner === 'Sarah' ? 'rgba(139,92,246,0.15)' : 'rgba(0,181,165,0.1)', color: metric.owner === 'Sarah' ? '#a78bfa' : '#00B5A5', fontSize: '0.58rem', fontWeight: 700, padding: '0.15rem 0.5rem', letterSpacing: '0.05em' }}>{metric.owner}</span>
+                                      <button onClick={() => setEditingMetric(metric.id)} style={{ background: 'transparent', border: 'none', color: 'rgba(255,255,255,0.15)', fontSize: '0.65rem', cursor: 'pointer', padding: '0.15rem 0.3rem', fontFamily: 'inherit' }}>✎</button>
+                                    </div>
+                                  </div>
+                                )}
+                              </td>
+
+                              {/* Target */}
+                              <td style={{ textAlign: 'center', padding: '0.6rem 0.5rem' }}>
+                                {isEditing ? (
+                                  <input
+                                    type="number"
+                                    defaultValue={metric.target}
+                                    onBlur={e => eosAction('scorecard-update-metric', { id: metric.id, target: Number(e.target.value) })}
+                                    style={{ width: '50px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', fontSize: '0.75rem', padding: '0.3rem 0.4rem', fontFamily: 'inherit', textAlign: 'center' }}
+                                  />
+                                ) : (
+                                  <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.78rem' }}>{metric.target}</span>
+                                )}
+                              </td>
+
+                              {/* Week columns */}
+                              {displayWeeks.map((weekEnding, wIdx) => {
+                                const weekData = metric.weeks.find(w => w.weekEnding === weekEnding)
+                                const actual = weekData?.actual ?? null
+                                const status = metricStatus(metric, actual)
+                                const isCurrentWeek = wIdx === displayWeeks.length - 1
+                                return (
+                                  <td key={weekEnding} style={{ textAlign: 'center', padding: '0.4rem 0.3rem' }}>
+                                    {isCurrentWeek ? (
+                                      <input
+                                        type="number"
+                                        value={actual === null ? '' : actual}
+                                        onChange={e => {
+                                          const val = e.target.value === '' ? null : Number(e.target.value)
+                                          eosAction('scorecard-log', { id: metric.id, weekEnding, actual: val })
+                                        }}
+                                        placeholder="—"
+                                        style={{
+                                          width: '52px', textAlign: 'center', background: status === 'green' ? 'rgba(34,197,94,0.12)' : status === 'red' ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.05)',
+                                          border: `1px solid ${status === 'green' ? 'rgba(34,197,94,0.3)' : status === 'red' ? 'rgba(239,68,68,0.3)' : 'rgba(255,255,255,0.12)'}`,
+                                          color: status === 'green' ? '#22c55e' : status === 'red' ? '#ef4444' : 'rgba(255,255,255,0.6)',
+                                          fontSize: '0.8rem', fontWeight: 700, padding: '0.35rem 0.25rem', fontFamily: 'inherit',
+                                        }}
+                                      />
+                                    ) : (
+                                      <div style={{
+                                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                                        width: '52px', height: '28px',
+                                        background: status === 'green' ? 'rgba(34,197,94,0.1)' : status === 'red' ? 'rgba(239,68,68,0.1)' : 'transparent',
+                                        border: `1px solid ${status === 'green' ? 'rgba(34,197,94,0.2)' : status === 'red' ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)'}`,
+                                        color: status === 'green' ? '#22c55e' : status === 'red' ? '#ef4444' : 'rgba(255,255,255,0.2)',
+                                        fontSize: '0.78rem', fontWeight: status !== 'empty' ? 700 : 400,
+                                      }}>
+                                        {actual !== null ? actual : '—'}
+                                      </div>
+                                    )}
+                                  </td>
+                                )
+                              })}
+                            </tr>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.62rem', marginTop: '1rem' }}>
+                    Enter this week’s actuals in the highlighted column (◄). Click ✑ on any metric name to edit it. Targets and owners are editable.
+                  </p>
+                </div>
+              )
+            })()}
 
             {/* ── ROCKS ────────────────────────────────────── */}
             {eosSection === 'rocks' && (
