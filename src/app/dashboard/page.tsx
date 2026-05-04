@@ -752,6 +752,23 @@ export default function Dashboard() {
                 if (actual === null || actual === undefined) return 'empty'
                 return metric.higherIsBetter ? (actual >= metric.target ? 'green' : 'red') : (actual <= metric.target ? 'green' : 'red')
               }
+              function fmtMetric(metric: KPIMetric, val: number | null): string {
+                if (val === null) return '—'
+                if (metric.format === 'currency') {
+                  if (Math.abs(val) >= 1000) return `$${(val / 1000).toFixed(1)}k`
+                  return `$${val.toLocaleString()}`
+                }
+                return String(val)
+              }
+              // Auto-calculate EBITDA for current week when revenue + expenses are entered
+              function getEffectiveActual(metric: KPIMetric, weekEnding: string, allMetrics: KPIMetric[]): number | null {
+                if (metric.id === 'kpi-13') {
+                  const rev = allMetrics.find(m => m.id === 'kpi-11')?.weeks.find(w => w.weekEnding === weekEnding)?.actual ?? null
+                  const exp = allMetrics.find(m => m.id === 'kpi-12')?.weeks.find(w => w.weekEnding === weekEnding)?.actual ?? null
+                  if (rev !== null && exp !== null) return rev - exp
+                }
+                return metric.weeks.find(w => w.weekEnding === weekEnding)?.actual ?? null
+              }
 
               const greenCount = scorecard.filter(m => {
                 const thisWeek = m.weeks.find(w => w.weekEnding === currentWeek)
@@ -841,44 +858,49 @@ export default function Dashboard() {
                                     style={{ width: '50px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', fontSize: '0.75rem', padding: '0.3rem 0.4rem', fontFamily: 'inherit', textAlign: 'center' }}
                                   />
                                 ) : (
-                                  <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.78rem' }}>{metric.target}</span>
+                                  <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.75rem' }}>{fmtMetric(metric, metric.target)}</span>
                                 )}
                               </td>
 
                               {/* Week columns */}
                               {displayWeeks.map((weekEnding, wIdx) => {
-                                const weekData = metric.weeks.find(w => w.weekEnding === weekEnding)
-                                const actual = weekData?.actual ?? null
+                                const actual = getEffectiveActual(metric, weekEnding, scorecard)
                                 const status = metricStatus(metric, actual)
                                 const isCurrentWeek = wIdx === displayWeeks.length - 1
+                                const isAutoCalc = metric.id === 'kpi-13'
+                                const inputActual = metric.weeks.find(w => w.weekEnding === weekEnding)?.actual ?? null
                                 return (
                                   <td key={weekEnding} style={{ textAlign: 'center', padding: '0.4rem 0.3rem' }}>
-                                    {isCurrentWeek ? (
+                                    {isCurrentWeek && !isAutoCalc ? (
                                       <input
                                         type="number"
-                                        value={actual === null ? '' : actual}
+                                        value={inputActual === null ? '' : inputActual}
                                         onChange={e => {
                                           const val = e.target.value === '' ? null : Number(e.target.value)
                                           eosAction('scorecard-log', { id: metric.id, weekEnding, actual: val })
                                         }}
                                         placeholder="—"
                                         style={{
-                                          width: '52px', textAlign: 'center', background: status === 'green' ? 'rgba(34,197,94,0.12)' : status === 'red' ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.05)',
+                                          width: '62px', textAlign: 'center',
+                                          background: status === 'green' ? 'rgba(34,197,94,0.12)' : status === 'red' ? 'rgba(239,68,68,0.12)' : 'rgba(255,255,255,0.05)',
                                           border: `1px solid ${status === 'green' ? 'rgba(34,197,94,0.3)' : status === 'red' ? 'rgba(239,68,68,0.3)' : 'rgba(255,255,255,0.12)'}`,
                                           color: status === 'green' ? '#22c55e' : status === 'red' ? '#ef4444' : 'rgba(255,255,255,0.6)',
-                                          fontSize: '0.8rem', fontWeight: 700, padding: '0.35rem 0.25rem', fontFamily: 'inherit',
+                                          fontSize: metric.format === 'currency' ? '0.72rem' : '0.8rem', fontWeight: 700, padding: '0.35rem 0.25rem', fontFamily: 'inherit',
                                         }}
                                       />
                                     ) : (
                                       <div style={{
                                         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-                                        width: '52px', height: '28px',
-                                        background: status === 'green' ? 'rgba(34,197,94,0.1)' : status === 'red' ? 'rgba(239,68,68,0.1)' : 'transparent',
-                                        border: `1px solid ${status === 'green' ? 'rgba(34,197,94,0.2)' : status === 'red' ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)'}`,
-                                        color: status === 'green' ? '#22c55e' : status === 'red' ? '#ef4444' : 'rgba(255,255,255,0.2)',
-                                        fontSize: '0.78rem', fontWeight: status !== 'empty' ? 700 : 400,
+                                        width: '62px', height: '28px',
+                                        background: isAutoCalc && isCurrentWeek
+                                          ? (status === 'green' ? 'rgba(34,197,94,0.15)' : status === 'red' ? 'rgba(239,68,68,0.15)' : 'rgba(255,255,255,0.04)')
+                                          : (status === 'green' ? 'rgba(34,197,94,0.1)' : status === 'red' ? 'rgba(239,68,68,0.1)' : 'transparent'),
+                                        border: `1px solid ${isAutoCalc && isCurrentWeek ? 'rgba(255,255,255,0.15)' : status === 'green' ? 'rgba(34,197,94,0.2)' : status === 'red' ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.05)'}`,
+                                        color: status === 'green' ? '#22c55e' : status === 'red' ? '#ef4444' : actual !== null ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.15)',
+                                        fontSize: metric.format === 'currency' ? '0.7rem' : '0.78rem',
+                                        fontWeight: status !== 'empty' ? 700 : 400,
                                       }}>
-                                        {actual !== null ? actual : '—'}
+                                        {fmtMetric(metric, actual)}
                                       </div>
                                     )}
                                   </td>
@@ -892,7 +914,7 @@ export default function Dashboard() {
                   </div>
 
                   <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.62rem', marginTop: '1rem' }}>
-                    Enter this week’s actuals in the highlighted column (◄). Click ✑ on any metric name to edit it. Targets and owners are editable.
+                    Enter actuals in the highlighted column (◄). EBITDA calculates automatically from Revenue − Expenses. Click ✎ on any row to edit name, owner or target.
                   </p>
                 </div>
               )
