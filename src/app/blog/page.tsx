@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BlogEmailCapture from '@/components/BlogEmailCapture'
-import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
+import { getAllPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
 export const metadata = {
@@ -21,8 +21,10 @@ export const metadata = {
   },
 }
 
-export default function BlogPage() {
-  const posts = getAllPosts()
+export const revalidate = 3600 // re-check Redis every hour
+
+export default async function BlogPage() {
+  const posts = await getAllPostsAsync()
   const featured = posts[0]
   const rest = posts.slice(1)
 
