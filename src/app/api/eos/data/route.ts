@@ -67,6 +67,7 @@ export interface KPIMetric {
   owner: string
   target: number
   unit: string          // 'calls', 'quotes', 'visits', '%', 'posts', 'deals'
+  format?: 'number' | 'currency' // default 'number'
   higherIsBetter: boolean
   weeks: ScorecardWeek[] // rolling 13 weeks, newest last
   notes?: string
@@ -238,6 +239,39 @@ const DEFAULT_SCORECARD: KPIMetric[] = [
     notes: 'Blog posts published to yourofficespace.au/blog this week — SEO lead gen engine',
     weeks: defaultWeeks(),
   },
+  {
+    id: 'kpi-11',
+    name: 'Revenue received',
+    owner: 'Joe',
+    target: 5000,
+    unit: '$',
+    format: 'currency',
+    higherIsBetter: true,
+    notes: 'Total cash received into the business this week (Xero — enter from weekly P&L)',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-12',
+    name: 'Expenses',
+    owner: 'Joe',
+    target: 3000,
+    unit: '$',
+    format: 'currency',
+    higherIsBetter: false,
+    notes: 'Total outgoings this week. Target = stay under. Includes wages, software, suppliers.',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-13',
+    name: 'EBITDA',
+    owner: 'Joe',
+    target: 2000,
+    unit: '$',
+    format: 'currency',
+    higherIsBetter: true,
+    notes: 'Revenue minus Expenses this week. Earnings before interest, tax, depreciation, amortisation.',
+    weeks: defaultWeeks(),
+  },
 ]
 
 const DEFAULT_EOS: EOSData = {
@@ -264,7 +298,18 @@ async function readEOS(url: string, token: string): Promise<EOSData> {
   const d = await res.json() as { result: string | null }
   if (!d.result) return DEFAULT_EOS
   try {
-    return JSON.parse(d.result) as EOSData
+    const data = JSON.parse(d.result) as EOSData
+    // Migration: add any new default metrics not yet in stored scorecard
+    if (!data.scorecard) data.scorecard = DEFAULT_SCORECARD
+    else {
+      const existingIds = new Set(data.scorecard.map((m: KPIMetric) => m.id))
+      for (const defaultMetric of DEFAULT_SCORECARD) {
+        if (!existingIds.has(defaultMetric.id)) {
+          data.scorecard.push(defaultMetric)
+        }
+      }
+    }
+    return data
   } catch {
     return DEFAULT_EOS
   }
