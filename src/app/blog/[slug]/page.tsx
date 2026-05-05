@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BookingCTA from '@/components/BookingCTA'
-import { getAllPosts, getPostBySlug, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
+import { getAllPosts, getAllPostsAsync, getPostBySlug, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import { HUBSPOT } from '@/lib/constants'
 import type { Division } from '@/lib/blog'
 
