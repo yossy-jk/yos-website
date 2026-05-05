@@ -130,6 +130,20 @@ export async function GET(req: Request) {
 
     const totalObservations = obs.length
 
+    // Check supporting services
+    let redisOk = false
+    try {
+      const rUrl = process.env.UPSTASH_REDIS_REST_URL || ''
+      const rTok = process.env.UPSTASH_REDIS_REST_TOKEN || ''
+      if (rUrl && rTok) {
+        const r = await fetch(`${rUrl}/ping`, { headers: { Authorization: `Bearer ${rTok}` }, cache: 'no-store' })
+        redisOk = r.ok
+      }
+    } catch { /* silent */ }
+
+    const resendOk = !!(process.env.RESEND_API_KEY)
+    const langfuseAgentsOk = totalObservations > 0
+
     return NextResponse.json({
       connected: true,
       totalCost30d: totalCost,
@@ -142,6 +156,7 @@ export async function GET(req: Request) {
       models,
       recentTraces,
       langfuseUrl: LANGFUSE_HOST,
+      setupStatus: { redis: redisOk, resend: resendOk, langfuseAgents: langfuseAgentsOk },
     })
   } catch (err) {
     // Langfuse unreachable — return disconnected state
