@@ -120,7 +120,7 @@ export default function CareersForm() {
         <div style={{ width: '48px', height: '48px', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem', fontSize: '1.25rem' }}>✓</div>
         <h3 style={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.75rem' }}>We&apos;ve got your application.</h3>
         <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.9rem', lineHeight: 1.7, margin: 0 }}>
-          Sarah will be in touch within 2 business days. If you have any questions in the meantime, call or text <a href="tel:0411311745" style={{ color: '#00B5A5' }}>0411 311 745</a>.
+          Sarah will be in touch within 2 business days.
         </p>
       </div>
     )
