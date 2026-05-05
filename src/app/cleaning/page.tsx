@@ -297,6 +297,19 @@ export default function CleaningPage() {
         </FadeIn>
       </section>
 
+      {/* Join the team */}
+      <section style={{ background: '#111', padding: 'clamp(3rem,6vw,4.5rem) 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+          <div>
+            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
+            <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or the Hunter Valley?</p>
+          </div>
+          <Button href="/cleaning/work-with-us" variant="primary" size="lg">
+            Express interest →
+          </Button>
+        </div>
+      </section>
+
       <Footer />
     </>
   )
