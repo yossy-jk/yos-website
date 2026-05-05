@@ -289,6 +289,7 @@ export default function Dashboard() {
     models: Array<{ model: string; cost: number; tokens: number; calls: number }>
     recentTraces: Array<{ id: string; name: string; cost: number; latency: number; timestamp?: string; model: string }>
     langfuseUrl: string
+    setupStatus?: { redis: boolean; resend: boolean; langfuseAgents: boolean }
   } | null>(null)
   const [showPipeline, setShowPipeline] = useState(false)
 
@@ -1705,10 +1706,10 @@ export default function Dashboard() {
               <div style={{ display: 'grid', gap: '0.6rem' }}>
                 {[
                   { label: 'Langfuse installed on Mac Mini', done: true, detail: 'Running at 100.80.229.101:3000 via Tailscale' },
-                  { label: 'Langfuse API keys configured', done: true, detail: 'pk-lf-9a11... / sk-lf-3c0f... in dashboard env' },
-                  { label: 'Agents logging to Langfuse', done: u?.totalObservations ? u.totalObservations > 0 : false, detail: 'Add LANGFUSE_HOST + keys to each agent. Currently 0 observations.' },
-                  { label: 'Upstash Redis configured', done: false, detail: 'Required for EOS data, content queue, and blog posts. Go to console.upstash.com to get credentials.' },
-                  { label: 'Resend API key set', done: false, detail: 'Required for careers form emails. Get from resend.com → API Keys.' },
+                  { label: 'Langfuse API keys configured', done: true, detail: 'Keys in LiteLLM LaunchDaemon — auto-configured for all agents' },
+                  { label: 'Agents logging to Langfuse', done: !!(u?.setupStatus?.langfuseAgents ?? (u?.totalObservations ?? 0) > 0), detail: (u?.setupStatus?.langfuseAgents) ? `${u!.totalObservations} observations recorded` : 'Config updated. Run in Terminal: sudo launchctl kickstart -k system/au.yourofficespace.litellm' },
+                  { label: 'Upstash Redis configured', done: !!(u?.setupStatus?.redis), detail: u?.setupStatus?.redis ? 'Connected — vocal-crane-103750.upstash.io' : 'Set UPSTASH_REDIS_REST_URL + TOKEN in Vercel env vars' },
+                  { label: 'Resend API key set', done: !!(u?.setupStatus?.resend), detail: u?.setupStatus?.resend ? 'API key present — careers form emails active' : 'Set RESEND_API_KEY in Vercel env vars' },
                 ].map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
                     <div style={{ width: '18px', height: '18px', background: item.done ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.1)', border: `1px solid ${item.done ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.25)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem', fontSize: '0.65rem', color: item.done ? '#22c55e' : '#ef4444', fontWeight: 700 }}>{item.done ? '✓' : '✗'}</div>
