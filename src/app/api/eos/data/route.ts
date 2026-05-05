@@ -138,138 +138,138 @@ function defaultWeeks(): ScorecardWeek[] {
   return lastNFridays(13).map(w => ({ weekEnding: w, actual: null }))
 }
 
+// KPI version — bump when replacing all defaults to force Redis migration
+const SCORECARD_VERSION = 'v2-2026-05'
+
 const DEFAULT_SCORECARD: KPIMetric[] = [
+  // ── CLEANING ─────────────────────────────────────────────────────────────
   {
-    id: 'kpi-1',
-    name: 'Outbound prospecting contacts',
-    owner: 'Joe',
-    target: 15,
+    id: 'kpi-clean-prospect',
+    name: 'Cleaning outbound contacts',
+    owner: 'Joe + Yossy',
+    target: 20,
     unit: 'contacts',
     higherIsBetter: true,
-    notes: 'Calls, emails or LinkedIn DMs to potential clients across all service lines',
+    notes: 'Cold calls, emails or LinkedIn DMs to cleaning prospects. Joe + Yossy combined.',
     weeks: defaultWeeks(),
   },
   {
-    id: 'kpi-2',
+    id: 'kpi-clean-quotes',
     name: 'Cleaning quotes submitted',
-    owner: 'Sarah',
-    target: 3,
+    owner: 'Joe + Yossy',
+    target: 5,
     unit: 'quotes',
     higherIsBetter: true,
-    notes: 'New commercial cleaning proposals sent to prospects',
+    notes: 'Formal cleaning proposals sent to prospects this week.',
     weeks: defaultWeeks(),
   },
+  // ── FURNITURE & FITOUT ───────────────────────────────────────────────────
   {
-    id: 'kpi-3',
-    name: 'Cleaning site visits completed',
-    owner: 'Sarah',
-    target: 2,
-    unit: 'visits',
+    id: 'kpi-furn-prospect',
+    name: 'Furniture outbound contacts',
+    owner: 'Joe + Yossy',
+    target: 200,
+    unit: 'contacts',
     higherIsBetter: true,
-    notes: 'In-person site inspections or client meetings for cleaning',
+    notes: 'Cold outreach to furniture/fitout prospects. Joe + Yossy combined — high volume.',
     weeks: defaultWeeks(),
   },
   {
-    id: 'kpi-4',
-    name: 'Tenant rep discovery conversations',
+    id: 'kpi-furn-quotes',
+    name: 'Furniture quotes submitted ($)',
     owner: 'Joe',
-    target: 2,
-    unit: 'conversations',
+    target: 500000,
+    unit: '$',
+    format: 'currency',
     higherIsBetter: true,
-    notes: 'New conversations with businesses about their lease situation or upcoming renewal',
+    notes: 'Total dollar value of furniture/fitout quotes submitted this week. Target: $500k.',
     weeks: defaultWeeks(),
   },
+  // ── TENANT REP ───────────────────────────────────────────────────────────
   {
-    id: 'kpi-5',
-    name: 'Proposals / quotes sent (all divisions)',
+    id: 'kpi-tenant-meetings',
+    name: 'Tenant Rep discovery meetings',
     owner: 'Joe',
-    target: 2,
-    unit: 'proposals',
+    target: 1,
+    unit: 'meetings',
     higherIsBetter: true,
-    notes: 'Formal proposals or quotes sent across tenant rep, furniture, fitout',
+    notes: 'In-person or Zoom discovery meetings with businesses about their lease. Target: 1/week.',
     weeks: defaultWeeks(),
   },
+  // ── CONTENT ──────────────────────────────────────────────────────────────
   {
-    id: 'kpi-6',
-    name: 'E1 tenders reviewed + decision made',
-    owner: 'Joe',
-    target: 3,
-    unit: 'tenders',
-    higherIsBetter: true,
-    notes: 'EstimateOne tenders reviewed and a bid or pass decision made each week',
-    weeks: defaultWeeks(),
-  },
-  {
-    id: 'kpi-7',
-    name: 'LinkedIn posts published',
-    owner: 'Joe',
-    target: 5,
-    unit: 'posts',
-    higherIsBetter: true,
-    notes: 'Approved LinkedIn posts published to the YOS page — target 5 days per week',
-    weeks: defaultWeeks(),
-  },
-  {
-    id: 'kpi-8',
-    name: 'HubSpot deals advanced',
-    owner: 'Joe',
-    target: 3,
-    unit: 'deals',
-    higherIsBetter: true,
-    notes: 'Active pipeline deals that moved to the next stage this week',
-    weeks: defaultWeeks(),
-  },
-  {
-    id: 'kpi-9',
-    name: 'Referral partner touchpoints',
-    owner: 'Joe',
-    target: 2,
-    unit: 'touchpoints',
-    higherIsBetter: true,
-    notes: 'Accountants, solicitors or business advisors contacted — referral network building',
-    weeks: defaultWeeks(),
-  },
-  {
-    id: 'kpi-10',
-    name: 'New blog posts live on site',
-    owner: 'Agent',
+    id: 'kpi-blog',
+    name: 'Blog posts live on site',
+    owner: 'Yossy',
     target: 10,
     unit: 'posts',
     higherIsBetter: true,
-    notes: 'Blog posts published to yourofficespace.au/blog this week — SEO lead gen engine',
+    notes: 'New posts published to yourofficespace.au/blog this week. SEO lead gen engine.',
     weeks: defaultWeeks(),
   },
   {
-    id: 'kpi-11',
-    name: 'Revenue received',
+    id: 'kpi-linkedin',
+    name: 'LinkedIn posts published',
+    owner: 'Yossy',
+    target: 5,
+    unit: 'posts',
+    higherIsBetter: true,
+    notes: 'Approved posts published to the YOS LinkedIn page. Target: 5 days per week.',
+    weeks: defaultWeeks(),
+  },
+  // ── FINANCIAL ────────────────────────────────────────────────────────────
+  {
+    id: 'kpi-revenue',
+    name: 'Revenue',
     owner: 'Joe',
-    target: 5000,
+    target: 20000,
     unit: '$',
     format: 'currency',
     higherIsBetter: true,
-    notes: 'Total cash received into the business this week (Xero — enter from weekly P&L)',
+    notes: 'Total revenue received this week. Enter from Xero weekly P&L. Target ≈ $1M/yr run rate.',
     weeks: defaultWeeks(),
   },
   {
-    id: 'kpi-12',
+    id: 'kpi-expenses',
     name: 'Expenses',
     owner: 'Joe',
-    target: 3000,
+    target: 12000,
     unit: '$',
     format: 'currency',
     higherIsBetter: false,
-    notes: 'Total outgoings this week. Target = stay under. Includes wages, software, suppliers.',
+    notes: 'Total outgoings this week. Target = stay under. Wages, software, suppliers.',
     weeks: defaultWeeks(),
   },
   {
-    id: 'kpi-13',
+    id: 'kpi-ebitda',
     name: 'EBITDA',
     owner: 'Joe',
-    target: 2000,
+    target: 8000,
     unit: '$',
     format: 'currency',
     higherIsBetter: true,
-    notes: 'Revenue minus Expenses this week. Earnings before interest, tax, depreciation, amortisation.',
+    notes: 'Revenue minus Expenses. Auto-calculated when both are entered. Target: $8k/week (≈ $416k/yr).',
+    weeks: defaultWeeks(),
+  },
+  // ── HEALTH ───────────────────────────────────────────────────────────────
+  {
+    id: 'kpi-gym-joe',
+    name: 'Exercise sessions — Joe',
+    owner: 'Joe',
+    target: 3,
+    unit: 'sessions',
+    higherIsBetter: true,
+    notes: 'Gym or exercise sessions completed this week. Target: 3/week.',
+    weeks: defaultWeeks(),
+  },
+  {
+    id: 'kpi-gym-sarah',
+    name: 'Exercise sessions — Sarah',
+    owner: 'Sarah',
+    target: 3,
+    unit: 'sessions',
+    higherIsBetter: true,
+    notes: 'Gym or exercise sessions completed this week. Target: 3/week.',
     weeks: defaultWeeks(),
   },
 ]
@@ -299,14 +299,23 @@ async function readEOS(url: string, token: string): Promise<EOSData> {
   if (!d.result) return DEFAULT_EOS
   try {
     const data = JSON.parse(d.result) as EOSData
-    // Migration: add any new default metrics not yet in stored scorecard
-    if (!data.scorecard) data.scorecard = DEFAULT_SCORECARD
-    else {
+    // Migration: if scorecard version is stale, replace entirely with new defaults
+    // Preserve any historical week data from metrics that share an ID
+    const dataAny = data as unknown as Record<string, unknown>
+    const storedVersion = dataAny.scorecardVersion as string | undefined
+    if (!data.scorecard || storedVersion !== SCORECARD_VERSION) {
+      const oldWeeks: Record<string, ScorecardWeek[]> = {}
+      if (data.scorecard) {
+        for (const m of data.scorecard as KPIMetric[]) oldWeeks[m.id] = m.weeks
+      }
+      data.scorecard = DEFAULT_SCORECARD.map(m => ({
+        ...m,
+        weeks: oldWeeks[m.id] || m.weeks,
+      })); dataAny.scorecardVersion = SCORECARD_VERSION
+    } else {
       const existingIds = new Set(data.scorecard.map((m: KPIMetric) => m.id))
       for (const defaultMetric of DEFAULT_SCORECARD) {
-        if (!existingIds.has(defaultMetric.id)) {
-          data.scorecard.push(defaultMetric)
-        }
+        if (!existingIds.has(defaultMetric.id)) data.scorecard.push(defaultMetric)
       }
     }
     return data
