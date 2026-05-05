@@ -274,7 +274,15 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'archive'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'archive'>('dashboard')
+  const [usageData, setUsageData] = useState<{
+    connected: boolean; error?: string; totalCost30d: number; totalTokens30d: number
+    todayCost: number; last7dayCost: number; prev7dayCost: number; totalObservations: number
+    dailyTrend: Array<{ date: string; cost: number; tokens: number; calls: number }>
+    models: Array<{ model: string; cost: number; tokens: number; calls: number }>
+    recentTraces: Array<{ id: string; name: string; cost: number; latency: number; timestamp?: string; model: string }>
+    langfuseUrl: string
+  } | null>(null)
   const [showPipeline, setShowPipeline] = useState(false)
 
   // ── EOS State ──────────────────────────────────────────────────────────────
@@ -304,6 +312,13 @@ export default function Dashboard() {
         const d = await res.json()
         if (d.data) setHealth(d.data)
       }
+    } catch { /* silent */ }
+  }, [])
+
+  const loadUsage = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/usage?token=${TOKEN}`)
+      if (res.ok) setUsageData(await res.json())
     } catch { /* silent */ }
   }, [])
 
@@ -352,6 +367,7 @@ export default function Dashboard() {
     loadQueue()
     loadHealth()
     loadEOS()
+    loadUsage()
     const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
@@ -417,6 +433,7 @@ export default function Dashboard() {
           { key: 'queue' as const, label: `Approvals${pendingCount > 0 ? ` (${pendingCount})` : ''}`, badge: urgentCount > 0 },
           { key: 'eos' as const, label: 'Traction', badge: false },
           { key: 'seo' as const, label: 'SEO & AEO', badge: false },
+          { key: 'usage' as const, label: 'Usage & Cost', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
@@ -1411,6 +1428,192 @@ export default function Dashboard() {
                       <span style={{ color: item.colour, fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.1em' }}>{item.status}</span>
                     </div>
                     <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem', margin: 0, lineHeight: 1.6 }}>{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+      })()}
+
+      {/* ── USAGE TAB ── */}
+      {activeTab === 'usage' && (() => {
+        const u = usageData
+        const maxCost = u?.dailyTrend?.length ? Math.max(...u.dailyTrend.map(d => d.cost), 0.01) : 1
+        const trend7pct = u && u.prev7dayCost > 0 ? ((u.last7dayCost - u.prev7dayCost) / u.prev7dayCost) * 100 : null
+        const MODEL_COLOURS: Record<string, string> = {
+          'haiku': '#22c55e', 'sonnet': '#00B5A5', 'opus': '#ef4444',
+          'kimi': '#6366f1', 'local': '#6b7280', 'unknown': '#6b7280',
+        }
+        function modelColour(m: string) {
+          const k = Object.keys(MODEL_COLOURS).find(k => m.toLowerCase().includes(k))
+          return MODEL_COLOURS[k || 'unknown']
+        }
+        function fmtCost(n: number) {
+          if (n === 0) return '$0.00'
+          if (n < 0.01) return `$${(n * 100).toFixed(3)}¢`
+          return `$${n.toFixed(2)}`
+        }
+        function fmtDate(iso: string) {
+          return new Date(iso).toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Australia/Sydney' })
+        }
+        function fmtTokens(n: number) {
+          if (n >= 1_000_000) return `${(n/1_000_000).toFixed(1)}M`
+          if (n >= 1_000) return `${(n/1_000).toFixed(0)}k`
+          return String(n)
+        }
+
+        return (
+          <div>
+            {/* Connection status */}
+            {u && !u.connected && (
+              <div style={{ background: 'rgba(245,158,11,0.08)', border: '1px solid rgba(245,158,11,0.25)', borderLeft: '3px solid #f59e0b', padding: '1rem 1.25rem', marginBottom: '1.5rem' }}>
+                <p style={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.78rem', margin: '0 0 0.3rem' }}>Langfuse not reachable</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.72rem', margin: 0, lineHeight: 1.6 }}>
+                  Cost tracking runs via Langfuse on the Mac Mini (Tailscale: 100.80.229.101:3000). Make sure the Mac Mini is on and Langfuse is running. Once agents start logging to Langfuse, spend data will appear here automatically.
+                </p>
+              </div>
+            )}
+
+            {/* Stats row */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              {[
+                { label: "Today's cost", val: fmtCost(u?.todayCost || 0), sub: `Target: under $50/day`, colour: (u?.todayCost || 0) > 40 ? '#ef4444' : (u?.todayCost || 0) > 25 ? '#f59e0b' : '#22c55e' },
+                { label: 'Last 7 days', val: fmtCost(u?.last7dayCost || 0), sub: trend7pct !== null ? `${trend7pct > 0 ? '▲' : '▼'} ${Math.abs(trend7pct).toFixed(0)}% vs prev 7d` : 'vs prev 7 days', colour: (u?.last7dayCost || 0) > 350 ? '#ef4444' : '#00B5A5' },
+                { label: '30-day total', val: fmtCost(u?.totalCost30d || 0), sub: `${fmtTokens(u?.totalTokens30d || 0)} tokens`, colour: '#00B5A5' },
+                { label: 'Agent calls', val: (u?.totalObservations || 0).toLocaleString(), sub: 'last 30 days', colour: 'rgba(255,255,255,0.6)' },
+              ].map(s => (
+                <div key={s.label} style={{ ...SECTION_STYLE, padding: '1rem', textAlign: 'center' }}>
+                  <p style={{ color: s.colour, fontSize: 'clamp(1.2rem,2.5vw,1.6rem)', fontWeight: 900, margin: '0 0 0.2rem', lineHeight: 1 }}>{s.val}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.2rem' }}>{s.label}</p>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', margin: 0 }}>{s.sub}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Daily cost chart (bar chart via divs) */}
+            <div style={{ ...SECTION_STYLE, marginBottom: '1.25rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <p style={SECTION_LABEL}>Daily Spend — Last 14 Days</p>
+                <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem' }}>Target: &lt;$50/day</span>
+              </div>
+              {(!u?.dailyTrend?.length || u.dailyTrend.every(d => d.cost === 0)) ? (
+                <div style={{ textAlign: 'center', padding: '2rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.82rem', margin: '0 0 0.5rem' }}>No spend data yet</p>
+                  <p style={{ color: 'rgba(255,255,255,0.12)', fontSize: '0.7rem', margin: 0 }}>Agents need to be connected to Langfuse to track cost. See setup guide below.</p>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', gap: '4px', alignItems: 'flex-end', height: '100px' }}>
+                  {(u?.dailyTrend || []).map(d => {
+                    const h = Math.max(2, (d.cost / maxCost) * 92)
+                    const isToday = d.date === new Date().toISOString().split('T')[0]
+                    const overBudget = d.cost > 50
+                    return (
+                      <div key={d.date} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
+                        <div
+                          title={`${fmtDate(d.date)}: ${fmtCost(d.cost)} (${fmtTokens(d.tokens)} tokens, ${d.calls} calls)`}
+                          style={{
+                            width: '100%', height: `${h}px`,
+                            background: overBudget ? '#ef4444' : isToday ? '#00B5A5' : 'rgba(0,181,165,0.45)',
+                            transition: 'height 0.3s',
+                          }}
+                        />
+                        <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.48rem', textAlign: 'center', lineHeight: 1 }}>
+                          {new Date(d.date).getDate()}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+                {[['#00B5A5','Today / normal'],['#ef4444','Over $50 budget']].map(([c,l]) => (
+                  <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <div style={{ width: '10px', height: '10px', background: c }} />
+                    <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.62rem' }}>{l}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Model breakdown */}
+            <div style={{ ...SECTION_STYLE, marginBottom: '1.25rem' }}>
+              <p style={SECTION_LABEL}>Cost by Model</p>
+              {(!u?.models?.length) ? (
+                <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem' }}>No model data yet.</p>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {u.models.map(m => {
+                    const pct = u.totalCost30d > 0 ? (m.cost / u.totalCost30d) * 100 : 0
+                    const col = modelColour(m.model)
+                    return (
+                      <div key={m.model}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem', flexWrap: 'wrap', gap: '0.25rem' }}>
+                          <span style={{ color: col, fontSize: '0.72rem', fontWeight: 700 }}>{m.model}</span>
+                          <div style={{ display: 'flex', gap: '1rem' }}>
+                            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.68rem' }}>{m.calls.toLocaleString()} calls</span>
+                            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.68rem' }}>{fmtTokens(m.tokens)} tokens</span>
+                            <span style={{ color: 'white', fontSize: '0.72rem', fontWeight: 700 }}>{fmtCost(m.cost)}</span>
+                          </div>
+                        </div>
+                        <div style={{ height: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '2px' }}>
+                          <div style={{ height: '100%', width: `${pct}%`, background: col, borderRadius: '2px', transition: 'width 0.4s' }} />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Recent traces */}
+            <div style={{ ...SECTION_STYLE, marginBottom: '1.25rem' }}>
+              <p style={SECTION_LABEL}>Recent Agent Calls</p>
+              {(!u?.recentTraces?.length) ? (
+                <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem' }}>No traces yet. Agents log here once connected to Langfuse.</p>
+              ) : (
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.72rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        {['Agent / Task', 'Model', 'Cost', 'Latency', 'Time'].map(h => (
+                          <th key={h} style={{ textAlign: 'left', padding: '0.4rem 0.6rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, fontSize: '0.58rem', letterSpacing: '0.1em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {u.recentTraces.map((t, i) => (
+                        <tr key={t.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
+                          <td style={{ padding: '0.45rem 0.6rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500, maxWidth: '240px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{t.name}</td>
+                          <td style={{ padding: '0.45rem 0.6rem' }}><span style={{ color: modelColour(t.model), fontSize: '0.65rem', fontWeight: 700 }}>{t.model || '—'}</span></td>
+                          <td style={{ padding: '0.45rem 0.6rem', color: t.cost > 0.05 ? '#f59e0b' : 'rgba(255,255,255,0.5)', fontWeight: t.cost > 0 ? 600 : 400, fontVariantNumeric: 'tabular-nums' }}>{fmtCost(t.cost)}</td>
+                          <td style={{ padding: '0.45rem 0.6rem', color: 'rgba(255,255,255,0.4)', fontVariantNumeric: 'tabular-nums' }}>{t.latency > 0 ? `${(t.latency/1000).toFixed(1)}s` : '—'}</td>
+                          <td style={{ padding: '0.45rem 0.6rem', color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap' }}>{t.timestamp ? timeAgo(t.timestamp) : '—'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Setup guide */}
+            <div style={{ ...SECTION_STYLE, borderLeft: '3px solid rgba(0,181,165,0.4)' }}>
+              <p style={SECTION_LABEL}>Setup Status</p>
+              <div style={{ display: 'grid', gap: '0.6rem' }}>
+                {[
+                  { label: 'Langfuse installed on Mac Mini', done: true, detail: 'Running at 100.80.229.101:3000 via Tailscale' },
+                  { label: 'Langfuse API keys configured', done: true, detail: 'pk-lf-9a11... / sk-lf-3c0f... in dashboard env' },
+                  { label: 'Agents logging to Langfuse', done: u?.totalObservations ? u.totalObservations > 0 : false, detail: 'Add LANGFUSE_HOST + keys to each agent. Currently 0 observations.' },
+                  { label: 'Upstash Redis configured', done: false, detail: 'Required for EOS data, content queue, and blog posts. Go to console.upstash.com to get credentials.' },
+                  { label: 'Resend API key set', done: false, detail: 'Required for careers form emails. Get from resend.com → API Keys.' },
+                ].map((item, i) => (
+                  <div key={i} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
+                    <div style={{ width: '18px', height: '18px', background: item.done ? 'rgba(34,197,94,0.15)' : 'rgba(239,68,68,0.1)', border: `1px solid ${item.done ? 'rgba(34,197,94,0.3)' : 'rgba(239,68,68,0.25)'}`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem', fontSize: '0.65rem', color: item.done ? '#22c55e' : '#ef4444', fontWeight: 700 }}>{item.done ? '✓' : '✗'}</div>
+                    <div>
+                      <p style={{ color: item.done ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.9)', fontWeight: 600, fontSize: '0.78rem', margin: '0 0 0.15rem' }}>{item.label}</p>
+                      <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: 0, lineHeight: 1.5 }}>{item.detail}</p>
+                    </div>
                   </div>
                 ))}
               </div>
