@@ -275,6 +275,13 @@ export default function Dashboard() {
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
   const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'archive'>('dashboard')
+  const [rankings, setRankings] = useState<{
+    connected: boolean; error?: string; authUrl?: string
+    updatedAt?: string; periodCurrent?: string; periodPrev?: string
+    rankings: Array<{ keyword: string; position: number | null; prevPosition: number | null; movement: number | null; clicks: number; impressions: number }>
+    topQueries: Array<{ keyword: string; position: number; clicks: number; impressions: number; movement: number | null }>
+  } | null>(null)
+
   const [usageData, setUsageData] = useState<{
     connected: boolean; error?: string; totalCost30d: number; totalTokens30d: number
     todayCost: number; last7dayCost: number; prev7dayCost: number; totalObservations: number
@@ -312,6 +319,13 @@ export default function Dashboard() {
         const d = await res.json()
         if (d.data) setHealth(d.data)
       }
+    } catch { /* silent */ }
+  }, [])
+
+  const loadRankings = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/seo/rankings?token=${TOKEN}`)
+      if (res.ok) setRankings(await res.json())
     } catch { /* silent */ }
   }, [])
 
@@ -368,6 +382,7 @@ export default function Dashboard() {
     loadHealth()
     loadEOS()
     loadUsage()
+    loadRankings()
     const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
@@ -1345,44 +1360,131 @@ export default function Dashboard() {
               </p>
             </div>
 
+            {/* GSC connection status */}
+            {rankings && !rankings.connected && (
+              <div style={{ background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.25)', borderLeft: '3px solid #f59e0b', padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
+                <p style={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.78rem', margin: '0 0 0.4rem' }}>Google Search Console not connected</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.72rem', margin: '0 0 0.75rem', lineHeight: 1.6 }}>Authorise once to see live rankings and 7-day movement for all tracked keywords.</p>
+                <a href={`/api/auth/gsc?token=${TOKEN}`} target="_blank" rel="noreferrer"
+                  style={{ background: '#f59e0b', color: '#000', padding: '0.5rem 1rem', fontSize: '0.7rem', fontWeight: 700, textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  Connect Google Search Console →
+                </a>
+              </div>
+            )}
+
             {/* Keyword table */}
             <div style={SECTION_STYLE}>
-              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 1rem' }}>Top 22 Target Keywords</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: 0 }}>Target Keywords — Live Rankings</p>
+                {rankings?.connected && rankings.updatedAt && (
+                  <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.6rem' }}>GSC data: {rankings.periodCurrent} · updated {timeAgo(rankings.updatedAt)}</span>
+                )}
+              </div>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.72rem' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                      {['Keyword', 'Division', 'Vol/mo', 'Difficulty', 'Intent', 'Priority', 'AEO', 'Content Gap'].map(h => (
-                        <th key={h} style={{ textAlign: 'left', padding: '0.4rem 0.6rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.58rem', whiteSpace: 'nowrap' }}>{h}</th>
+                      {['Keyword', 'Division', 'Rank', '7d move', 'Clicks', 'Impressions', 'Vol/mo', 'Diff', 'Priority', 'AEO'].map(h => (
+                        <th key={h} style={{ textAlign: h === 'Rank' || h === '7d move' || h === 'Clicks' || h === 'Impressions' ? 'center' : 'left', padding: '0.4rem 0.6rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.58rem', whiteSpace: 'nowrap' }}>{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {KEYWORDS.map((kw, i) => (
-                      <tr key={kw.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
-                        <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.85)', fontWeight: 500, minWidth: '220px' }}>{kw.keyword}</td>
-                        <td style={{ padding: '0.5rem 0.6rem', whiteSpace: 'nowrap' }}>
-                          <span style={{ background: DIVISION_COLOURS[kw.division] + '22', color: DIVISION_COLOURS[kw.division], fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '3px', letterSpacing: '0.08em' }}>{kw.division}</span>
-                        </td>
-                        <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.6)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{kw.vol.toLocaleString()}</td>
-                        <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center' }}>
-                          <span style={{ color: kw.diff < 30 ? '#22c55e' : kw.diff < 45 ? '#f59e0b' : '#ef4444', fontWeight: 700, fontSize: '0.7rem' }}>{kw.diff}</span>
-                        </td>
-                        <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.45)', fontSize: '0.65rem' }}>{kw.intent}</td>
-                        <td style={{ padding: '0.5rem 0.6rem' }}>
-                          <span style={{ background: kw.priority === 'NOW' ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.1)', color: kw.priority === 'NOW' ? '#22c55e' : '#f59e0b', fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', borderRadius: '3px' }}>{kw.priority}</span>
-                        </td>
-                        <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', color: kw.aeo ? '#00B5A5' : 'rgba(255,255,255,0.15)', fontSize: '0.8rem' }}>{kw.aeo ? '✓' : '—'}</td>
-                        <td style={{ padding: '0.5rem 0.6rem', color: kw.gap ? '#f59e0b' : 'rgba(255,255,255,0.15)', fontSize: '0.65rem' }}>{kw.gap ? '⚠ Create post' : '—'}</td>
-                      </tr>
-                    ))}
+                    {KEYWORDS.map((kw, i) => {
+                      const r = rankings?.rankings?.find(r => r.keyword.toLowerCase() === kw.keyword.toLowerCase())
+                      const pos = r?.position ?? null
+                      const mov = r?.movement ?? null
+                      return (
+                        <tr key={kw.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
+                          <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.85)', fontWeight: 500, minWidth: '200px' }}>{kw.keyword}</td>
+                          <td style={{ padding: '0.5rem 0.6rem', whiteSpace: 'nowrap' }}>
+                            <span style={{ background: DIVISION_COLOURS[kw.division] + '22', color: DIVISION_COLOURS[kw.division], fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem', letterSpacing: '0.08em' }}>{kw.division}</span>
+                          </td>
+                          {/* Rank */}
+                          <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', fontVariantNumeric: 'tabular-nums' }}>
+                            {!rankings?.connected ? (
+                              <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.65rem' }}>—</span>
+                            ) : pos === null ? (
+                              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem' }}>100+</span>
+                            ) : (
+                              <span style={{ color: pos <= 3 ? '#22c55e' : pos <= 10 ? '#00B5A5' : pos <= 30 ? '#f59e0b' : 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.78rem' }}>{pos}</span>
+                            )}
+                          </td>
+                          {/* 7-day movement */}
+                          <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', fontVariantNumeric: 'tabular-nums' }}>
+                            {!rankings?.connected || mov === null ? (
+                              <span style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.65rem' }}>—</span>
+                            ) : mov === 0 ? (
+                              <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem' }}>±0</span>
+                            ) : mov > 0 ? (
+                              <span style={{ color: '#22c55e', fontWeight: 700, fontSize: '0.72rem' }}>▲ {mov}</span>
+                            ) : (
+                              <span style={{ color: '#ef4444', fontWeight: 700, fontSize: '0.72rem' }}>▼ {Math.abs(mov)}</span>
+                            )}
+                          </td>
+                          {/* Clicks / Impressions */}
+                          <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', color: 'rgba(255,255,255,0.5)', fontVariantNumeric: 'tabular-nums' }}>{rankings?.connected ? (r?.clicks ?? 0) : '—'}</td>
+                          <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', color: 'rgba(255,255,255,0.4)', fontVariantNumeric: 'tabular-nums' }}>{rankings?.connected ? (r?.impressions ?? 0) : '—'}</td>
+                          <td style={{ padding: '0.5rem 0.6rem', color: 'rgba(255,255,255,0.5)', textAlign: 'right', fontVariantNumeric: 'tabular-nums' }}>{kw.vol.toLocaleString()}</td>
+                          <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center' }}>
+                            <span style={{ color: kw.diff < 30 ? '#22c55e' : kw.diff < 45 ? '#f59e0b' : '#ef4444', fontWeight: 700, fontSize: '0.7rem' }}>{kw.diff}</span>
+                          </td>
+                          <td style={{ padding: '0.5rem 0.6rem' }}>
+                            <span style={{ background: kw.priority === 'NOW' ? 'rgba(34,197,94,0.15)' : 'rgba(245,158,11,0.1)', color: kw.priority === 'NOW' ? '#22c55e' : '#f59e0b', fontSize: '0.58rem', fontWeight: 700, padding: '0.2rem 0.5rem' }}>{kw.priority}</span>
+                          </td>
+                          <td style={{ padding: '0.5rem 0.6rem', textAlign: 'center', color: kw.aeo ? '#00B5A5' : 'rgba(255,255,255,0.15)', fontSize: '0.8rem' }}>{kw.aeo ? '✓' : '—'}</td>
+                        </tr>
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>
-              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.6rem', margin: '0.75rem 0 0', lineHeight: 1.5 }}>
-                Difficulty: green &lt;30 (easy win), amber 30–45 (achievable 3-6mo), red &gt;45 (long-term). Volume = estimated AU monthly searches. Rank data: connect Google Search Console API to populate live positions.
-              </p>
+              <div style={{ display: 'flex', gap: '1.5rem', marginTop: '0.75rem', flexWrap: 'wrap' }}>
+                {[['#22c55e','Top 3'],['#00B5A5','Top 10'],['#f59e0b','11–30'],['rgba(255,255,255,0.5)','31–100']].map(([c,l]) => (
+                  <div key={l} style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <div style={{ width: '8px', height: '8px', background: c, borderRadius: '50%' }} />
+                    <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem' }}>{l}</span>
+                  </div>
+                ))}
+                <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.6rem', marginLeft: 'auto' }}>Difficulty: green &lt;30 · amber 30–45 · red &gt;45 · 7d movement vs prior week</span>
+              </div>
             </div>
+
+            {/* Top performing queries from GSC */}
+            {rankings?.connected && rankings.topQueries?.length > 0 && (
+              <div style={{ ...SECTION_STYLE, marginTop: '1.25rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', margin: '0 0 1rem' }}>Top Queries from GSC (last 7 days)</p>
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.72rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                        {['Query', 'Rank', '7d move', 'Clicks', 'Impressions'].map(h => (
+                          <th key={h} style={{ textAlign: 'left', padding: '0.4rem 0.6rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.58rem', whiteSpace: 'nowrap' }}>{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rankings.topQueries.map((q, i) => (
+                        <tr key={q.keyword} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)', background: i % 2 === 0 ? 'rgba(255,255,255,0.01)' : 'transparent' }}>
+                          <td style={{ padding: '0.45rem 0.6rem', color: 'rgba(255,255,255,0.8)', maxWidth: '280px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{q.keyword}</td>
+                          <td style={{ padding: '0.45rem 0.6rem' }}>
+                            <span style={{ color: q.position <= 3 ? '#22c55e' : q.position <= 10 ? '#00B5A5' : q.position <= 30 ? '#f59e0b' : 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.75rem' }}>{q.position}</span>
+                          </td>
+                          <td style={{ padding: '0.45rem 0.6rem' }}>
+                            {q.movement === null ? <span style={{ color: 'rgba(255,255,255,0.2)' }}>—</span>
+                              : q.movement === 0 ? <span style={{ color: 'rgba(255,255,255,0.3)' }}>±0</span>
+                              : q.movement > 0 ? <span style={{ color: '#22c55e', fontWeight: 700 }}>▲ {q.movement}</span>
+                              : <span style={{ color: '#ef4444', fontWeight: 700 }}>▼ {Math.abs(q.movement)}</span>}
+                          </td>
+                          <td style={{ padding: '0.45rem 0.6rem', color: 'rgba(255,255,255,0.6)', fontVariantNumeric: 'tabular-nums' }}>{q.clicks}</td>
+                          <td style={{ padding: '0.45rem 0.6rem', color: 'rgba(255,255,255,0.4)', fontVariantNumeric: 'tabular-nums' }}>{q.impressions}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
 
             {/* Content suggestions */}
             <div style={{ ...SECTION_STYLE, marginTop: '1.25rem' }}>
