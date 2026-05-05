@@ -274,7 +274,14 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'archive'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive'>('dashboard')
+  type MemClient = { id:string; name:string; division:string; industry?:string; contactName?:string; contactEmail?:string; contactPhone?:string; requirements:string[]; constraints:string[]; notes?:string; createdAt:string; updatedAt:string }
+  type MemProject = { id:string; clientId:string; clientName?:string; name:string; division:string; scope:string; budget?:number; stage:string; startDate?:string; targetDate?:string; odooRef?:string; notes?:string; createdAt:string; updatedAt:string }
+  const [memData, setMemData] = useState<{ clients: MemClient[]; projects: MemProject[] } | null>(null)
+  const [memSearch, setMemSearch] = useState('')
+  const [memView, setMemView] = useState<'clients' | 'projects'>('clients')
+  const [memForm, setMemForm] = useState<{ open: boolean; kind: 'client' | 'project'; data: Record<string,unknown> }>({ open: false, kind: 'client', data: {} })
+
   const [rankings, setRankings] = useState<{
     connected: boolean; error?: string; authUrl?: string
     updatedAt?: string; periodCurrent?: string; periodPrev?: string
@@ -322,6 +329,23 @@ export default function Dashboard() {
       }
     } catch { /* silent */ }
   }, [])
+
+  const loadMemory = useCallback(async (search = '') => {
+    try {
+      const url = `/api/memory?token=${TOKEN}&type=all${search ? `&search=${encodeURIComponent(search)}` : ''}`
+      const res = await fetch(url)
+      if (res.ok) setMemData(await res.json())
+    } catch { /* silent */ }
+  }, [])
+
+  const memAction = useCallback(async (action: string, payload: Record<string,unknown>) => {
+    const res = await fetch('/api/memory', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: TOKEN, action, payload }),
+    })
+    if (res.ok) await loadMemory(memSearch)
+  }, [loadMemory, memSearch])
 
   const loadRankings = useCallback(async () => {
     try {
@@ -384,6 +408,7 @@ export default function Dashboard() {
     loadEOS()
     loadUsage()
     loadRankings()
+    loadMemory()
     const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
@@ -450,6 +475,7 @@ export default function Dashboard() {
           { key: 'eos' as const, label: 'Traction', badge: false },
           { key: 'seo' as const, label: 'SEO & AEO', badge: false },
           { key: 'usage' as const, label: 'Usage & Cost', badge: false },
+          { key: 'memory' as const, label: 'Memory', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
@@ -1721,6 +1747,252 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
+          </div>
+        )
+      })()}
+
+      {/* ── MEMORY TAB ── */}
+      {activeTab === 'memory' && (() => {
+        const DIVISION_COLOURS: Record<string,string> = {
+          'Cleaning':'#6366f1','Furniture':'#f59e0b','Tenant Rep':'#00B5A5',
+          'LeaseIntel':'#22c55e','Multi':'#ec4899','Other':'#6b7280',
+        }
+        const STAGE_COLOURS: Record<string,string> = {
+          lead:'rgba(255,255,255,0.3)',scoping:'#6366f1',quoting:'#f59e0b',proposal:'#00B5A5',
+          negotiating:'#ec4899',active:'#22c55e','on-hold':'rgba(255,255,255,0.3)',
+          complete:'rgba(34,197,94,0.4)',lost:'rgba(239,68,68,0.5)',
+        }
+        const clients = memData?.clients || []
+        const projects = memData?.projects || []
+        const INPUT = { background:'rgba(255,255,255,0.06)', border:'1px solid rgba(255,255,255,0.12)', color:'white', padding:'0.55rem 0.75rem', fontSize:'0.78rem', fontFamily:'inherit', width:'100%', boxSizing:'border-box' as const }
+        const BTN = (extra={}) => ({ background:'rgba(255,255,255,0.08)', border:'1px solid rgba(255,255,255,0.15)', color:'white', padding:'0.5rem 1rem', fontSize:'0.68rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase' as const, cursor:'pointer', fontFamily:'inherit', ...extra })
+
+        const emptyClient = { name:'', division:'Cleaning', industry:'', contactName:'', contactEmail:'', contactPhone:'', requirements:'', constraints:'', notes:'', source:'' }
+        const emptyProject = { clientId:'', name:'', division:'Furniture', scope:'', budget:'', stage:'lead', targetDate:'', odooRef:'', notes:'' }
+
+        return (
+          <div>
+            {/* Header + search + new buttons */}
+            <div style={{ display:'flex', gap:'0.75rem', alignItems:'center', marginBottom:'1.25rem', flexWrap:'wrap' }}>
+              <input
+                type="text" placeholder="Search clients, projects, scope..."
+                value={memSearch}
+                onChange={e => { setMemSearch(e.target.value); loadMemory(e.target.value) }}
+                style={{ ...INPUT, flex:1, minWidth:'180px' }}
+              />
+              <button style={BTN()} onClick={() => setMemForm({ open:true, kind:'client', data:{...emptyClient} })}>+ Client</button>
+              <button style={BTN()} onClick={() => setMemForm({ open:true, kind:'project', data:{...emptyProject} })}>+ Project</button>
+            </div>
+
+            {/* Sub-tabs */}
+            <div style={{ display:'flex', gap:'0.25rem', marginBottom:'1.25rem' }}>
+              {(['clients','projects'] as const).map(v => (
+                <button key={v} onClick={() => setMemView(v)} style={{ background: memView===v ? '#00B5A5' : 'rgba(255,255,255,0.06)', border:'none', color: memView===v ? 'white' : 'rgba(255,255,255,0.4)', padding:'0.45rem 1rem', fontSize:'0.68rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.1em', cursor:'pointer', fontFamily:'inherit' }}>
+                  {v} ({v==='clients' ? clients.length : projects.length})
+                </button>
+              ))}
+            </div>
+
+            {/* ── CLIENTS ── */}
+            {memView === 'clients' && (
+              <div style={{ display:'grid', gap:'0.75rem' }}>
+                {clients.length === 0 && (
+                  <div style={{ ...SECTION_STYLE, textAlign:'center', padding:'3rem' }}>
+                    <p style={{ color:'rgba(255,255,255,0.2)', margin:0 }}>No clients yet. Add your first client to start building the memory layer.</p>
+                  </div>
+                )}
+                {clients.map(c => (
+                  <div key={c.id} style={{ ...SECTION_STYLE, padding:'1.25rem' }}>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:'1rem', flexWrap:'wrap', marginBottom:'0.75rem' }}>
+                      <div style={{ display:'flex', alignItems:'center', gap:'0.75rem', flexWrap:'wrap' }}>
+                        <span style={{ color:'white', fontWeight:700, fontSize:'0.92rem' }}>{c.name}</span>
+                        <span style={{ background:(DIVISION_COLOURS[c.division]||'#6b7280')+'22', color:DIVISION_COLOURS[c.division]||'#6b7280', fontSize:'0.58rem', fontWeight:700, padding:'0.2rem 0.5rem', letterSpacing:'0.1em', textTransform:'uppercase' }}>{c.division}</span>
+                        {c.industry && <span style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.68rem' }}>{c.industry}</span>}
+                      </div>
+                      <div style={{ display:'flex', gap:'0.4rem' }}>
+                        <button onClick={() => setMemForm({ open:true, kind:'client', data:{...c} })} style={{ ...BTN(), padding:'0.3rem 0.75rem', fontSize:'0.62rem' }}>Edit</button>
+                        <button onClick={() => confirm(`Delete ${c.name}?`) && memAction('delete-client',{id:c.id})} style={{ ...BTN({background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',color:'#ef4444'}), padding:'0.3rem 0.75rem', fontSize:'0.62rem' }}>Delete</button>
+                      </div>
+                    </div>
+                    {/* Contact */}
+                    {(c.contactName || c.contactEmail || c.contactPhone) && (
+                      <div style={{ display:'flex', gap:'1.25rem', marginBottom:'0.75rem', flexWrap:'wrap' }}>
+                        {c.contactName && <span style={{ color:'rgba(255,255,255,0.6)', fontSize:'0.72rem' }}>{c.contactName}</span>}
+                        {c.contactPhone && <span style={{ color:'rgba(255,255,255,0.45)', fontSize:'0.72rem' }}>{c.contactPhone}</span>}
+                        {c.contactEmail && <span style={{ color:'rgba(255,255,255,0.45)', fontSize:'0.72rem' }}>{c.contactEmail}</span>}
+                      </div>
+                    )}
+                    <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0.75rem' }}>
+                      {c.requirements.length > 0 && (
+                        <div>
+                          <p style={{ color:'#00B5A5', fontSize:'0.58rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.15em', margin:'0 0 0.4rem' }}>Requirements</p>
+                          <ul style={{ margin:0, paddingLeft:'1rem', listStyleType:'disc' }}>
+                            {c.requirements.map((r,i) => <li key={i} style={{ color:'rgba(255,255,255,0.7)', fontSize:'0.72rem', lineHeight:1.6 }}>{r}</li>)}
+                          </ul>
+                        </div>
+                      )}
+                      {c.constraints.length > 0 && (
+                        <div>
+                          <p style={{ color:'#f59e0b', fontSize:'0.58rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.15em', margin:'0 0 0.4rem' }}>Constraints</p>
+                          <ul style={{ margin:0, paddingLeft:'1rem', listStyleType:'disc' }}>
+                            {c.constraints.map((r,i) => <li key={i} style={{ color:'rgba(255,255,255,0.7)', fontSize:'0.72rem', lineHeight:1.6 }}>{r}</li>)}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                    {c.notes && <p style={{ color:'rgba(255,255,255,0.4)', fontSize:'0.72rem', margin:'0.6rem 0 0', borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:'0.6rem', lineHeight:1.6 }}>{c.notes}</p>}
+                    {/* Linked projects */}
+                    {(() => { const linked = projects.filter(p => p.clientId === c.id); return linked.length > 0 ? (
+                      <div style={{ marginTop:'0.75rem', borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:'0.6rem' }}>
+                        <p style={{ color:'rgba(255,255,255,0.3)', fontSize:'0.6rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.1em', margin:'0 0 0.4rem' }}>Projects ({linked.length})</p>
+                        <div style={{ display:'flex', gap:'0.4rem', flexWrap:'wrap' }}>
+                          {linked.map(p => <span key={p.id} style={{ background:(STAGE_COLOURS[p.stage]||'#6b7280')+'22', color:STAGE_COLOURS[p.stage]||'rgba(255,255,255,0.5)', border:`1px solid ${STAGE_COLOURS[p.stage]||'rgba(255,255,255,0.1)'}44`, fontSize:'0.62rem', padding:'0.2rem 0.6rem', fontWeight:600 }}>{p.name}</span>)}
+                        </div>
+                      </div>
+                    ) : null })()}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* ── PROJECTS ── */}
+            {memView === 'projects' && (
+              <div style={{ display:'grid', gap:'0.75rem' }}>
+                {projects.length === 0 && (
+                  <div style={{ ...SECTION_STYLE, textAlign:'center', padding:'3rem' }}>
+                    <p style={{ color:'rgba(255,255,255,0.2)', margin:0 }}>No projects yet.</p>
+                  </div>
+                )}
+                {projects.map(p => (
+                  <div key={p.id} style={{ ...SECTION_STYLE, padding:'1.25rem', borderLeft:`3px solid ${STAGE_COLOURS[p.stage]||'rgba(255,255,255,0.1)'}` }}>
+                    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:'1rem', flexWrap:'wrap', marginBottom:'0.6rem' }}>
+                      <div style={{ display:'flex', alignItems:'center', gap:'0.75rem', flexWrap:'wrap' }}>
+                        <span style={{ color:'white', fontWeight:700, fontSize:'0.9rem' }}>{p.name}</span>
+                        <span style={{ background:(DIVISION_COLOURS[p.division]||'#6b7280')+'22', color:DIVISION_COLOURS[p.division]||'#6b7280', fontSize:'0.58rem', fontWeight:700, padding:'0.2rem 0.5rem', textTransform:'uppercase', letterSpacing:'0.1em' }}>{p.division}</span>
+                        <span style={{ color:STAGE_COLOURS[p.stage]||'rgba(255,255,255,0.4)', fontSize:'0.62rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.1em' }}>{p.stage}</span>
+                      </div>
+                      <div style={{ display:'flex', gap:'0.4rem', alignItems:'center' }}>
+                        {p.budget != null && <span style={{ color:'#22c55e', fontWeight:700, fontSize:'0.78rem' }}>${p.budget.toLocaleString()}</span>}
+                        <button onClick={() => setMemForm({ open:true, kind:'project', data:{...p} })} style={{ ...BTN(), padding:'0.3rem 0.75rem', fontSize:'0.62rem' }}>Edit</button>
+                        <button onClick={() => confirm(`Delete ${p.name}?`) && memAction('delete-project',{id:p.id})} style={{ ...BTN({background:'rgba(239,68,68,0.1)',border:'1px solid rgba(239,68,68,0.25)',color:'#ef4444'}), padding:'0.3rem 0.75rem', fontSize:'0.62rem' }}>Delete</button>
+                      </div>
+                    </div>
+                    {p.clientName && <p style={{ color:'rgba(255,255,255,0.4)', fontSize:'0.68rem', margin:'0 0 0.5rem' }}>Client: {p.clientName}</p>}
+                    <p style={{ color:'rgba(255,255,255,0.75)', fontSize:'0.78rem', margin:'0 0 0.5rem', lineHeight:1.6 }}>{p.scope}</p>
+                    <div style={{ display:'flex', gap:'1.25rem', flexWrap:'wrap' }}>
+                      {p.odooRef && <span style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.68rem' }}>Odoo: {p.odooRef}</span>}
+                      {p.targetDate && <span style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.68rem' }}>Due: {fmtDate(p.targetDate)}</span>}
+                    </div>
+                    {p.notes && <p style={{ color:'rgba(255,255,255,0.4)', fontSize:'0.72rem', margin:'0.5rem 0 0', borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:'0.5rem', lineHeight:1.6 }}>{p.notes}</p>}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* ── ADD/EDIT FORM MODAL ── */}
+            {memForm.open && (
+              <div style={{ position:'fixed', inset:0, background:'rgba(0,0,0,0.7)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:1000, padding:'1rem' }} onClick={e => e.target === e.currentTarget && setMemForm(f => ({...f,open:false}))}>
+                <div style={{ background:'#111', border:'1px solid rgba(255,255,255,0.15)', padding:'1.75rem', width:'100%', maxWidth:'560px', maxHeight:'90vh', overflowY:'auto' }}>
+                  <p style={{ color:'#00B5A5', fontSize:'0.62rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.2em', margin:'0 0 1.25rem' }}>
+                    {(memForm.data as Record<string,unknown>).id ? 'Edit' : 'New'} {memForm.kind}
+                  </p>
+
+                  {memForm.kind === 'client' && (
+                    <div style={{ display:'grid', gap:'0.75rem' }}>
+                      {[['name','Client name *'],['industry','Industry'],['contactName','Contact name'],['contactPhone','Phone'],['contactEmail','Email'],['source','How they found us']].map(([k,l]) => (
+                        <div key={k}>
+                          <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>{l}</p>
+                          <input value={String(memForm.data[k]||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,[k]:e.target.value}}))} style={INPUT} />
+                        </div>
+                      ))}
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Division</p>
+                        <select value={String(memForm.data.division||'Cleaning')} onChange={e => setMemForm(f => ({...f,data:{...f.data,division:e.target.value}}))} style={{ ...INPUT }}>
+                          {['Cleaning','Furniture','Tenant Rep','LeaseIntel','Multi','Other'].map(d => <option key={d} value={d}>{d}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Key requirements (one per line)</p>
+                        <textarea rows={3} value={Array.isArray(memForm.data.requirements) ? (memForm.data.requirements as string[]).join('\n') : String(memForm.data.requirements||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,requirements:e.target.value}}))} style={{ ...INPUT, resize:'vertical' }} />
+                      </div>
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Constraints (one per line)</p>
+                        <textarea rows={3} value={Array.isArray(memForm.data.constraints) ? (memForm.data.constraints as string[]).join('\n') : String(memForm.data.constraints||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,constraints:e.target.value}}))} style={{ ...INPUT, resize:'vertical' }} />
+                      </div>
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Notes</p>
+                        <textarea rows={3} value={String(memForm.data.notes||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,notes:e.target.value}}))} style={{ ...INPUT, resize:'vertical' }} />
+                      </div>
+                    </div>
+                  )}
+
+                  {memForm.kind === 'project' && (
+                    <div style={{ display:'grid', gap:'0.75rem' }}>
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Client *</p>
+                        <select value={String(memForm.data.clientId||'')} onChange={e => { const c = clients.find(c=>c.id===e.target.value); setMemForm(f => ({...f,data:{...f.data,clientId:e.target.value,clientName:c?.name||''}})) }} style={{ ...INPUT }}>
+                          <option value="">— select client —</option>
+                          {clients.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
+                          <option value="__none__">No client (standalone)</option>
+                        </select>
+                      </div>
+                      {[['name','Project name *'],['odooRef','Odoo reference (S#####)']].map(([k,l]) => (
+                        <div key={k}>
+                          <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>{l}</p>
+                          <input value={String(memForm.data[k]||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,[k]:e.target.value}}))} style={INPUT} />
+                        </div>
+                      ))}
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Division</p>
+                        <select value={String(memForm.data.division||'Furniture')} onChange={e => setMemForm(f => ({...f,data:{...f.data,division:e.target.value}}))} style={{ ...INPUT }}>
+                          {['Cleaning','Furniture','Tenant Rep','LeaseIntel','Multi','Other'].map(d => <option key={d} value={d}>{d}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Stage</p>
+                        <select value={String(memForm.data.stage||'lead')} onChange={e => setMemForm(f => ({...f,data:{...f.data,stage:e.target.value}}))} style={{ ...INPUT }}>
+                          {['lead','scoping','quoting','proposal','negotiating','active','on-hold','complete','lost'].map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Scope *</p>
+                        <textarea rows={3} value={String(memForm.data.scope||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,scope:e.target.value}}))} style={{ ...INPUT, resize:'vertical' }} />
+                      </div>
+                      {[['budget','Budget ex GST ($)'],['targetDate','Target date (YYYY-MM-DD)']].map(([k,l]) => (
+                        <div key={k}>
+                          <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>{l}</p>
+                          <input value={String(memForm.data[k]||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,[k]:e.target.value}}))} style={INPUT} />
+                        </div>
+                      ))}
+                      <div>
+                        <p style={{ color:'rgba(255,255,255,0.35)', fontSize:'0.62rem', margin:'0 0 0.3rem' }}>Notes</p>
+                        <textarea rows={3} value={String(memForm.data.notes||'')} onChange={e => setMemForm(f => ({...f,data:{...f.data,notes:e.target.value}}))} style={{ ...INPUT, resize:'vertical' }} />
+                      </div>
+                    </div>
+                  )}
+
+                  <div style={{ display:'flex', gap:'0.5rem', marginTop:'1.25rem', justifyContent:'flex-end' }}>
+                    <button onClick={() => setMemForm(f => ({...f,open:false}))} style={BTN()}>Cancel</button>
+                    <button onClick={async () => {
+                      const d = { ...memForm.data }
+                      // Parse textarea arrays
+                      if (memForm.kind === 'client') {
+                        d.requirements = String(d.requirements||'').split('\n').map((s:string)=>s.trim()).filter(Boolean)
+                        d.constraints  = String(d.constraints||'').split('\n').map((s:string)=>s.trim()).filter(Boolean)
+                      }
+                      if (d.budget) d.budget = Number(d.budget)
+                      const action = d.id
+                        ? (memForm.kind === 'client' ? 'update-client' : 'update-project')
+                        : (memForm.kind === 'client' ? 'add-client'    : 'add-project')
+                      await memAction(action, d)
+                      setMemForm(f => ({...f,open:false}))
+                    }} style={BTN({background:'#00B5A5',border:'none'})}>
+                      {(memForm.data as Record<string,unknown>).id ? 'Save changes' : `Add ${memForm.kind}`}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )
       })()}
