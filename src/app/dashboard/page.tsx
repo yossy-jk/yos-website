@@ -13,6 +13,30 @@ type Deal = {
 }
 type CalEvent = { subject: string; start: string; end: string; location: string }
 type XeroData = { outstanding: number; overdue: number; overdueCount: number; outstandingCount: number }
+type ComplianceData = {
+  generatedAt: string
+  certification: {
+    targetDate: string
+    daysRemaining: number
+    standards: string[]
+    certificationBody: string
+    stage: string
+  }
+  documents: {
+    total: number
+    complete: number
+    overdue: number
+    newDocs: number
+    ok: number
+    percentComplete: number
+  }
+  ncrs: Array<{ id: string; date: string; source: string; description: string; severity: string; status: string; targetDate: string }>
+  milestones: Array<{ milestone: string; targetDate: string; status: string }>
+  aiCompliance: { tracesThisWeek: number; qualityPassRate: number | null; lastAudit: string | null }
+  continuousImprovement: Array<{ date: string; description: string; status: string; owner: string }>
+  isoClauseSummary: Record<string, string>
+}
+
 type HealthData = {
   receivedAt: string
   latestGlucose: string | null
@@ -274,7 +298,7 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance'>('dashboard')
   type MemClient = { id:string; name:string; division:string; industry?:string; contactName?:string; contactEmail?:string; contactPhone?:string; requirements:string[]; constraints:string[]; notes?:string; createdAt:string; updatedAt:string }
   type MemProject = { id:string; clientId:string; clientName?:string; name:string; division:string; scope:string; budget?:number; stage:string; startDate?:string; targetDate?:string; odooRef?:string; notes?:string; createdAt:string; updatedAt:string }
   const [memData, setMemData] = useState<{ clients: MemClient[]; projects: MemProject[] } | null>(null)
@@ -299,6 +323,7 @@ export default function Dashboard() {
     setupStatus?: { redis: boolean; resend: boolean; langfuseAgents: boolean }
   } | null>(null)
   const [showPipeline, setShowPipeline] = useState(false)
+  const [compliance, setCompliance] = useState<ComplianceData | null>(null)
 
   // ── EOS State ──────────────────────────────────────────────────────────────
   const [eos, setEos] = useState<EOSData | null>(null)
@@ -361,6 +386,11 @@ export default function Dashboard() {
     } catch { /* silent */ }
   }, [])
 
+  const loadCompliance = useCallback(async () => {
+    const r = await fetch('/api/compliance-data', { headers: { Authorization: `Bearer ${TOKEN}` } }).catch(() => null)
+    if (r?.ok) { const d = await r.json(); setCompliance(d) }
+  }, [])
+
   const loadEOS = useCallback(async () => {
     try {
       setEosLoading(true)
@@ -409,11 +439,12 @@ export default function Dashboard() {
     loadUsage()
     loadRankings()
     loadMemory()
+    loadCompliance()
     const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
     return () => clearInterval(t)
-  }, [loadDashboard, loadQueue, loadHealth, loadEOS])
+  }, [loadDashboard, loadQueue, loadHealth, loadEOS, loadCompliance])
 
   // Auto-refresh queue every 2 min
   useEffect(() => {
@@ -477,6 +508,7 @@ export default function Dashboard() {
           { key: 'usage' as const, label: 'Usage & Cost', badge: false },
           { key: 'memory' as const, label: 'Memory', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
+          { key: 'compliance' as const, label: 'ISO/QMS', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             style={{
@@ -2040,6 +2072,179 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+      {activeTab === 'compliance' && (() => {
+        const C = compliance
+        const clauseColour = (s: string) => s === 'DONE' ? '#00B5A5' : s === 'PARTIAL' ? '#f59e0b' : '#ef4444'
+        const statusColour = (s: string) => s === 'COMPLETE' ? '#00B5A5' : s === 'ACTION REQUIRED' ? '#ef4444' : 'rgba(255,255,255,0.4)'
+        const ncrColour = (s: string) => s === 'CLOSED' ? '#00B5A5' : '#ef4444'
+
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+
+            {/* Certification Status */}
+            <div style={{ ...SECTION_STYLE, borderColor: 'rgba(0,181,165,0.3)' }}>
+              <p style={SECTION_LABEL}>Certification Status</p>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+                <div style={{ background: 'rgba(0,181,165,0.08)', border: '1px solid rgba(0,181,165,0.2)', borderRadius: 8, padding: '1.25rem', textAlign: 'center' }}>
+                  <p style={{ fontSize: '2.5rem', fontWeight: 700, color: '#00B5A5', margin: 0, lineHeight: 1 }}>
+                    {C ? C.certification.daysRemaining : '—'}
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', margin: '0.4rem 0 0' }}>days to target</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', justifyContent: 'center' }}>
+                  {C?.certification.standards.map(s => (
+                    <div key={s} style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 6, padding: '0.5rem 0.75rem', fontSize: '0.8rem', color: 'white' }}>
+                      ✓ {s}
+                    </div>
+                  ))}
+                  <div style={{ background: 'rgba(255,255,255,0.04)', borderRadius: 6, padding: '0.5rem 0.75rem', fontSize: '0.8rem', color: C?.certification.certificationBody === 'TBC' ? '#f59e0b' : 'white' }}>
+                    Body: {C?.certification.certificationBody ?? 'TBC'} {C?.certification.certificationBody === 'TBC' ? '⚠ Call today' : ''}
+                  </div>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', justifyContent: 'center' }}>
+                  <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', margin: '0 0 0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Target</p>
+                  <p style={{ fontSize: '0.9rem', color: 'white', margin: 0 }}>3 June 2026</p>
+                  <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', margin: '0.5rem 0 0.25rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Stage</p>
+                  <p style={{ fontSize: '0.85rem', color: '#00B5A5', margin: 0, textTransform: 'capitalize' }}>{C?.certification.stage.replace(/-/g, ' ') ?? 'Document prep'}</p>
+                </div>
+              </div>
+              {/* Progress bar */}
+              <div style={{ marginTop: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)' }}>Document completion</span>
+                  <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.6)' }}>{C?.documents.percentComplete ?? 0}%</span>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.08)', borderRadius: 4, height: 6 }}>
+                  <div style={{ background: '#00B5A5', borderRadius: 4, height: 6, width: `${C?.documents.percentComplete ?? 0}%`, transition: 'width 0.5s' }} />
+                </div>
+              </div>
+            </div>
+
+            {/* Document Health + ISO Clauses */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+
+              {/* Document Health */}
+              <div style={SECTION_STYLE}>
+                <p style={SECTION_LABEL}>Document Health</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                  {[
+                    { label: 'Complete', value: C?.documents.complete ?? 0, colour: '#00B5A5' },
+                    { label: 'Overdue', value: C?.documents.overdue ?? 0, colour: '#ef4444' },
+                    { label: 'New', value: C?.documents.newDocs ?? 0, colour: '#f59e0b' },
+                  ].map(item => (
+                    <div key={item.label} style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(255,255,255,0.03)', borderRadius: 6 }}>
+                      <p style={{ fontSize: '1.75rem', fontWeight: 700, color: item.colour, margin: 0, lineHeight: 1 }}>{item.value}</p>
+                      <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', margin: '0.3rem 0 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.label}</p>
+                    </div>
+                  ))}
+                </div>
+                <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.75rem' }}>{C?.documents.total ?? 0} total documents</p>
+              </div>
+
+              {/* ISO Clause Status */}
+              <div style={SECTION_STYLE}>
+                <p style={SECTION_LABEL}>ISO 9001:2015 Clauses</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  {C && Object.entries(C.isoClauseSummary).map(([clause, status]) => {
+                    const num = clause.replace('clause', '')
+                    const labels: Record<string, string> = { '4': 'Context', '5': 'Leadership', '6': 'Planning', '7': 'Support', '8': 'Operation', '9': 'Performance', '10': 'Improvement' }
+                    return (
+                      <div key={clause} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.3rem 0.5rem', background: 'rgba(255,255,255,0.02)', borderRadius: 4 }}>
+                        <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)' }}>Cl.{num} — {labels[num] ?? clause}</span>
+                        <span style={{ fontSize: '0.68rem', fontWeight: 600, color: clauseColour(status), background: `${clauseColour(status)}22`, padding: '0.15rem 0.5rem', borderRadius: 4 }}>{status}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* NCR Register */}
+            <div style={SECTION_STYLE}>
+              <p style={SECTION_LABEL}>Nonconformance Register (NCRs)</p>
+              {C?.ncrs.length ? (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                  {C.ncrs.map(ncr => (
+                    <div key={ncr.id} style={{ display: 'grid', gridTemplateColumns: '80px 1fr 90px 80px', gap: '0.75rem', alignItems: 'start', padding: '0.75rem', background: 'rgba(255,255,255,0.02)', borderRadius: 6, borderLeft: `3px solid ${ncrColour(ncr.status)}` }}>
+                      <div>
+                        <p style={{ fontSize: '0.72rem', fontWeight: 600, color: 'white', margin: 0 }}>{ncr.id}</p>
+                        <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', margin: '0.2rem 0 0' }}>{ncr.severity}</p>
+                      </div>
+                      <div>
+                        <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.75)', margin: 0, lineHeight: 1.4 }}>{ncr.description}</p>
+                        <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', margin: '0.2rem 0 0' }}>Source: {ncr.source}</p>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', margin: 0 }}>Due</p>
+                        <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.6)', margin: '0.2rem 0 0' }}>{ncr.targetDate}</p>
+                      </div>
+                      <div style={{ textAlign: 'right' }}>
+                        <span style={{ fontSize: '0.68rem', fontWeight: 600, color: ncrColour(ncr.status), background: `${ncrColour(ncr.status)}22`, padding: '0.2rem 0.5rem', borderRadius: 4 }}>{ncr.status}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem' }}>No open NCRs — system conforming.</p>}
+            </div>
+
+            {/* Certification Timeline + AI Compliance */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+
+              {/* Timeline */}
+              <div style={SECTION_STYLE}>
+                <p style={SECTION_LABEL}>4-Week Certification Timeline</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  {C?.milestones.map((m, i) => (
+                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', padding: '0.5rem 0', borderBottom: i < (C?.milestones.length ?? 0) - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
+                      <div style={{ width: 8, height: 8, borderRadius: '50%', background: statusColour(m.status), flexShrink: 0, marginTop: 5 }} />
+                      <div style={{ flex: 1 }}>
+                        <p style={{ fontSize: '0.78rem', color: m.status === 'ACTION REQUIRED' ? 'white' : 'rgba(255,255,255,0.6)', margin: 0, fontWeight: m.status === 'ACTION REQUIRED' ? 600 : 400 }}>{m.milestone}</p>
+                        <p style={{ fontSize: '0.65rem', color: statusColour(m.status), margin: '0.15rem 0 0' }}>{m.targetDate}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* AI Compliance */}
+              <div style={SECTION_STYLE}>
+                <p style={SECTION_LABEL}>AI Compliance</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                    <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(255,255,255,0.03)', borderRadius: 6 }}>
+                      <p style={{ fontSize: '1.75rem', fontWeight: 700, color: '#00B5A5', margin: 0 }}>{C?.aiCompliance.tracesThisWeek ?? 0}</p>
+                      <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', margin: '0.3rem 0 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Traces this week</p>
+                    </div>
+                    <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(255,255,255,0.03)', borderRadius: 6 }}>
+                      <p style={{ fontSize: '1.75rem', fontWeight: 700, color: C?.aiCompliance.qualityPassRate != null ? (C.aiCompliance.qualityPassRate >= 80 ? '#00B5A5' : '#f59e0b') : 'rgba(255,255,255,0.3)', margin: 0 }}>
+                        {C?.aiCompliance.qualityPassRate != null ? `${C.aiCompliance.qualityPassRate}%` : '—'}
+                      </p>
+                      <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)', margin: '0.3rem 0 0', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Quality pass rate</p>
+                    </div>
+                  </div>
+                  <div style={{ padding: '0.75rem', background: 'rgba(255,255,255,0.03)', borderRadius: 6 }}>
+                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.5)', margin: 0 }}>Audit trail: Langfuse at 100.80.229.101:3000</p>
+                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.5)', margin: '0.3rem 0 0' }}>17 agents monitored | 48hr review cycle</p>
+                    <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.5)', margin: '0.3rem 0 0' }}>Standards: AI-001 through AI-005 complete</p>
+                  </div>
+                </div>
+
+                {/* Continuous Improvement */}
+                <p style={{ ...SECTION_LABEL, marginTop: '1.25rem' }}>Recent Improvements</p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  {C?.continuousImprovement.slice(0, 4).map((ci, i) => (
+                    <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.4rem 0.6rem', background: 'rgba(255,255,255,0.02)', borderRadius: 4 }}>
+                      <span style={{ fontSize: '0.73rem', color: 'rgba(255,255,255,0.6)', flex: 1, paddingRight: '0.5rem' }}>{ci.description}</span>
+                      <span style={{ fontSize: '0.65rem', color: ci.status === 'COMPLETE' ? '#00B5A5' : '#f59e0b', flexShrink: 0 }}>{ci.status}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Footer */}
       <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
