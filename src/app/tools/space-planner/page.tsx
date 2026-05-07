@@ -545,7 +545,7 @@ function ToolBtn({
 
 function Step3Quote({ onBack }: { onBack: () => void }) {
   const { items, roomConfig } = usePlannerStore()
-  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', company: '', notes: '' })
+  const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', company: '', location: '', deliveryType: 'full-service' as 'delivery' | 'full-service', notes: '' })
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [reference, setReference] = useState('')
@@ -674,6 +674,32 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
           <FormField label="Email *" value={form.email} onChange={(v) => setForm({ ...form, email: v })} type="email" />
           <FormField label="Phone" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} type="tel" />
           <FormField label="Company" value={form.company} onChange={(v) => setForm({ ...form, company: v })} />
+          <FormField label="Suburb / City *" value={form.location} onChange={(v) => setForm({ ...form, location: v })} placeholder="e.g. Newcastle, Maitland, Lake Macquarie" />
+          <div>
+            <label style={{ display: 'block', fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 6 }}>Service Required</label>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 4 }}>
+              {(['delivery', 'full-service'] as const).map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setForm({ ...form, deliveryType: type })}
+                  style={{
+                    background: form.deliveryType === type ? 'rgba(0,181,165,0.12)' : '#1E1E1E',
+                    border: `2px solid ${form.deliveryType === type ? '#00B5A5' : '#2A2A2A'}`,
+                    borderRadius: 8, padding: '0.75rem', cursor: 'pointer',
+                    textAlign: 'left', transition: 'all 0.15s',
+                  }}
+                >
+                  <p style={{ color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.82rem', fontWeight: 600, margin: '0 0 2px' }}>
+                    {type === 'delivery' ? 'Delivery Only' : 'Full Service Installation'}
+                  </p>
+                  <p style={{ color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.72rem', margin: 0, lineHeight: 1.4 }}>
+                    {type === 'delivery' ? 'Flat-packed, delivered to door' : 'Delivered, assembled & placed'}
+                  </p>
+                </button>
+              ))}
+            </div>
+          </div>
           <div>
             <label style={{ display: 'block', fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 4 }}>Notes</label>
             <textarea
@@ -707,7 +733,135 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
   )
 }
 
-function FormField({ label, value, onChange, type = 'text' }: { label: string; value: string; onChange: (v: string) => void; type?: string }) {
+// ─── Soft Email Capture Toast ────────────────────────────────────────────────
+
+function SoftEmailCapture({ onCapture, onDismiss }: { onCapture: () => void; onDismiss: () => void }) {
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [saved, setSaved] = useState(false)
+
+  const handleSave = async () => {
+    if (!email.includes('@')) return
+    setLoading(true)
+    sessionStorage.setItem('yos_planner_user', JSON.stringify({ email }))
+    sessionStorage.setItem('yos_soft_email_shown', '1')
+    try {
+      await fetch('/api/space-planner-gate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'space-planner-soft-capture' }),
+      })
+    } catch { /* non-fatal */ }
+    setLoading(false)
+    setSaved(true)
+    setTimeout(onCapture, 1200)
+  }
+
+  return (
+    <div style={{
+      position: 'fixed', bottom: 24, right: 24, zIndex: 200,
+      background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 12,
+      padding: '1.25rem 1.5rem', maxWidth: 340, width: '100%',
+      boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+      animation: 'slideUp 0.3s ease',
+    }}>
+      {saved ? (
+        <p style={{ color: '#00B5A5', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', fontWeight: 600 }}>
+          Saved. Your plan is safe.
+        </p>
+      ) : (
+        <>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
+            <p style={{ color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>
+              Don&apos;t lose your work
+            </p>
+            <button onClick={onDismiss} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4B4B4B', fontFamily: 'Montserrat, sans-serif', fontSize: '1rem', padding: '0 0 0 8px', lineHeight: 1 }}>×</button>
+          </div>
+          <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.78rem', marginBottom: '0.75rem', lineHeight: 1.5 }}>
+            Add your email so you don&apos;t lose this plan.
+          </p>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+              autoFocus
+              style={{
+                flex: 1, background: '#2A2A2A', border: '1px solid #444', borderRadius: 6,
+                padding: '0.6rem 0.75rem', color: '#F7F6F4', fontSize: '0.82rem',
+                fontFamily: 'Montserrat, sans-serif', outline: 'none',
+              }}
+            />
+            <button
+              onClick={handleSave}
+              disabled={loading || !email.includes('@')}
+              style={{
+                background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 6,
+                padding: '0.6rem 0.9rem', fontSize: '0.82rem', fontWeight: 700,
+                fontFamily: 'Montserrat, sans-serif', cursor: 'pointer', whiteSpace: 'nowrap',
+                opacity: loading || !email.includes('@') ? 0.6 : 1,
+              }}
+            >
+              {loading ? '...' : 'Save'}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// ─── Exit Intent Modal ────────────────────────────────────────────────────────
+
+function ExitIntentModal({ onQuote, onDismiss, itemCount }: { onQuote: () => void; onDismiss: () => void; itemCount: number }) {
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 300,
+      background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '1.5rem',
+    }}>
+      <div style={{
+        background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 16,
+        padding: '2rem', maxWidth: 400, width: '100%', textAlign: 'center',
+        boxShadow: '0 16px 64px rgba(0,0,0,0.6)',
+      }}>
+        <div style={{ width: 40, height: 4, background: '#00B5A5', borderRadius: 2, margin: '0 auto 1.5rem' }} />
+        <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>
+          Before you go
+        </h2>
+        <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+          You&apos;ve got {itemCount} item{itemCount !== 1 ? 's' : ''} in your plan. Want us to put a quote together?
+        </p>
+        <button
+          onClick={onQuote}
+          style={{
+            display: 'block', width: '100%', background: '#00B5A5', color: '#FFF',
+            border: 'none', borderRadius: 8, padding: '0.9rem', fontSize: '0.95rem',
+            fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: 'pointer',
+            marginBottom: '0.75rem',
+          }}
+        >
+          Yes, get my quote →
+        </button>
+        <button
+          onClick={onDismiss}
+          style={{
+            display: 'block', width: '100%', background: 'none', color: '#6B6B6B',
+            border: '1px solid #2A2A2A', borderRadius: 8, padding: '0.75rem', fontSize: '0.88rem',
+            fontFamily: 'Montserrat, sans-serif', cursor: 'pointer',
+          }}
+        >
+          No thanks, leave the plan
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function FormField({ label, value, onChange, type = 'text', placeholder }: { label: string; value: string; onChange: (v: string) => void; type?: string; placeholder?: string }) {
   return (
     <div>
       <label style={{ display: 'block', fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 4 }}>{label}</label>
@@ -718,6 +872,7 @@ function FormField({ label, value, onChange, type = 'text' }: { label: string; v
           padding: '0.75rem', color: '#F7F6F4', fontSize: '0.88rem',
           fontFamily: 'Montserrat, sans-serif', outline: 'none', boxSizing: 'border-box',
         }}
+        placeholder={placeholder}
       />
     </div>
   )
@@ -726,42 +881,57 @@ function FormField({ label, value, onChange, type = 'text' }: { label: string; v
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function SpacePlannerPage() {
-  const [gateCleared, setGateCleared] = useState(false)
-  const { step, setStep, setRoomConfig, applyPreset } = usePlannerStore()
+  const { step, setStep, items } = usePlannerStore()
   const [isMobile, setIsMobile] = useState(false)
+  const [showSoftCapture, setShowSoftCapture] = useState(false)
+  const [softCaptured, setSoftCaptured] = useState(false)
+  const [showExitIntent, setShowExitIntent] = useState(false)
+  const exitIntentFired = useRef(false)
 
+  // Mobile detection
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const stored = sessionStorage.getItem('yos_planner_user')
-      if (stored) setGateCleared(true)
-
-      const checkMobile = () => setIsMobile(window.innerWidth < 768)
-      checkMobile()
-      window.addEventListener('resize', checkMobile)
-      return () => window.removeEventListener('resize', checkMobile)
-    }
+    if (typeof window === 'undefined') return
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  const handleGateComplete = () => {
-    setGateCleared(true)
-    setStep(1)
-  }
+  // Soft email capture: show after first item is placed, 1.5s delay
+  useEffect(() => {
+    if (step !== 2 || items.length < 1 || softCaptured || showSoftCapture) return
+    if (typeof window === 'undefined') return
+    const alreadyShown = sessionStorage.getItem('yos_soft_email_shown')
+    const alreadyCaptured = sessionStorage.getItem('yos_planner_user')
+    if (alreadyShown || alreadyCaptured) return
+    const timer = setTimeout(() => setShowSoftCapture(true), 1500)
+    return () => clearTimeout(timer)
+  }, [step, items.length, softCaptured, showSoftCapture])
 
-  const handleStep1Next = () => {
-    setStep(2)
-  }
+  // Exit intent: mouse leaves top of viewport while furnishing with items placed
+  useEffect(() => {
+    if (step !== 2 || items.length === 0) return
+    const handleMouseLeave = (e: MouseEvent) => {
+      if (e.clientY <= 0 && !exitIntentFired.current) {
+        exitIntentFired.current = true
+        setShowSoftCapture(false)
+        setShowExitIntent(true)
+      }
+    }
+    document.addEventListener('mouseleave', handleMouseLeave)
+    return () => document.removeEventListener('mouseleave', handleMouseLeave)
+  }, [step, items.length])
 
-  const handleStep2Back = () => {
-    setStep(1)
-  }
+  // beforeunload warning when plan has items
+  useEffect(() => {
+    if (step !== 2 || items.length === 0) return
+    const handler = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = '' }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [step, items.length])
 
-  const handleStep3Back = () => {
-    setStep(2)
-  }
-
-  if (!gateCleared) {
-    return <GateScreen onComplete={handleGateComplete} />
-  }
+  const handleStep2Back = () => setStep(1)
+  const handleStep3Back = () => setStep(2)
 
   // Mobile guard
   if (isMobile) {
@@ -785,9 +955,26 @@ export default function SpacePlannerPage() {
     )
   }
 
-  if (step === 1) return <Step1Room onNext={handleStep1Next} />
-  if (step === 2) return <Step2Furnish onBack={handleStep2Back} onNext={() => setStep(3)} />
-  if (step === 3) return <Step3Quote onBack={handleStep3Back} />
+  return (
+    <>
+      {step === 1 && <Step1Room onNext={() => setStep(2)} />}
+      {step === 2 && <Step2Furnish onBack={handleStep2Back} onNext={() => setStep(3)} />}
+      {step === 3 && <Step3Quote onBack={handleStep3Back} />}
 
-  return null
+      {showSoftCapture && !softCaptured && step === 2 && (
+        <SoftEmailCapture
+          onCapture={() => { setSoftCaptured(true); setShowSoftCapture(false) }}
+          onDismiss={() => { setShowSoftCapture(false); sessionStorage.setItem('yos_soft_email_shown', '1') }}
+        />
+      )}
+
+      {showExitIntent && step === 2 && items.length > 0 && (
+        <ExitIntentModal
+          onQuote={() => { setShowExitIntent(false); setStep(3) }}
+          onDismiss={() => { setShowExitIntent(false) }}
+          itemCount={items.length}
+        />
+      )}
+    </>
+  )
 }

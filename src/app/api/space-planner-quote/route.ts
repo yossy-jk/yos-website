@@ -26,6 +26,8 @@ interface QuoteContact {
   email: string
   phone: string
   company: string
+  location: string
+  deliveryType: 'delivery' | 'full-service'
   notes: string
 }
 
@@ -134,7 +136,8 @@ async function createOdooDraft(items: QuoteItem[], room: QuoteRoom, contact: Quo
 
   // Build order lines
   const itemSummary = items.map((i) => `${i.qty}x ${i.name}`).join(', ')
-  const orderNote = `Space Planner — ${room.type} ${room.width}×${room.depth}m\n${itemSummary}\n\nClient notes: ${contact.notes || 'None'}\n\nPRICING TO BE ADDED BEFORE SENDING`
+  const deliveryLabel = contact.deliveryType === 'full-service' ? 'Full Service Installation (delivered, assembled & placed)' : 'Delivery Only (flat-packed to door)'
+  const orderNote = `Space Planner — ${room.type} ${room.width}×${room.depth}m\n${itemSummary}\n\nLocation: ${contact.location || 'Not specified'}\nService: ${deliveryLabel}\nClient notes: ${contact.notes || 'None'}\n\nPRICING TO BE ADDED BEFORE SENDING`
 
   type OrderLine = [number, number, Record<string, unknown>]
   const orderLines: OrderLine[] = items.map((item): OrderLine => [0, 0, {
@@ -202,7 +205,8 @@ async function createOdooDraft(items: QuoteItem[], room: QuoteRoom, contact: Quo
 
 async function createHubSpotContact(contact: QuoteContact, room: QuoteRoom, items: QuoteItem[]): Promise<void> {
   const itemList = items.map((i) => `${i.qty}× ${i.name}`).join('\n')
-  const noteBody = `Space Planner submission\nRoom: ${room.type} — ${room.width}×${room.depth}m\n\nItems:\n${itemList}\n\nNotes: ${contact.notes || 'None'}`
+  const deliveryLabel = contact.deliveryType === 'full-service' ? 'Full Service Installation' : 'Delivery Only'
+  const noteBody = `Space Planner submission\nRoom: ${room.type} — ${room.width}×${room.depth}m\nLocation: ${contact.location || 'Not specified'}\nService: ${deliveryLabel}\n\nItems:\n${itemList}\n\nNotes: ${contact.notes || 'None'}`
 
   // Upsert contact
   try {
