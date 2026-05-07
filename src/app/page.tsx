@@ -330,7 +330,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
             {[
               { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation — we are answering to you. Not the building owner, not a referral fee.' },
-              { title: 'We have seen what goes wrong', body: 'Hundreds of projects. We know the traps in commercial leases, the gaps in fitout contracts, and what to push back on.' },
+              { title: 'We have seen what goes wrong', body: '100+ projects. We know the traps in commercial leases, the gaps in fitout contracts, and what to push back on.' },
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>

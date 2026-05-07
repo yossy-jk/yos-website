@@ -264,6 +264,23 @@ export default function AboutPage() {
                   <p className="text-white/45 font-light text-sm leading-relaxed">Professional services, healthcare, government, education, technology, trades, financial services, not-for-profit.</p>
                 </div>
               </div>
+              <div className="mt-8 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">Contact &amp; Location</p>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <p className="text-white/30 font-medium uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Based in</p>
+                    <p className="text-white/70 font-light text-sm leading-relaxed">Newcastle, NSW<br />Hunter Valley &amp; surrounds</p>
+                  </div>
+                  <div>
+                    <p className="text-white/30 font-medium uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Email Joe directly</p>
+                    <a href="mailto:jk@yourofficespace.au" className="text-teal font-light text-sm" style={{ textDecoration: 'none' }}>jk@yourofficespace.au</a>
+                  </div>
+                  <div>
+                    <p className="text-white/30 font-medium uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Phone</p>
+                    <a href="tel:+61434655511" className="text-teal font-light text-sm" style={{ textDecoration: 'none' }}>0434 655 511</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </FadeIn>
         </div>
