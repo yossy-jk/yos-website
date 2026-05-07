@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
   title: 'Commercial Cleaning Newcastle | Your Office Space',
@@ -270,6 +271,34 @@ export default function CleaningPage() {
                 <Button href="/furniture" variant="primary" size="lg">
                   View Furniture &amp; Fitout →
                 </Button>
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+      </section>
+
+      {/* INLINE QUOTE FORM */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <FadeIn>
+          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+              <div>
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Get a Quote</p>
+                <h2 className="text-white font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}>
+                  Tell us about your space.
+                </h2>
+                <p className="text-white/60 font-light leading-relaxed mb-8" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
+                  We cover Newcastle, Maitland, Lake Macquarie, Cessnock, Singleton, Murrurundi and the broader Hunter Valley.
+                  We&apos;ll visit your site, understand your requirements and give you a clear proposal — no pressure, no surprises.
+                </p>
+                <div className="flex flex-col gap-2 text-white/40 text-sm">
+                  {["Newcastle CBD & surrounds","Maitland & Hunter Valley","Lake Macquarie","Cessnock & Singleton","Port Stephens"].map(s => (
+                    <span key={s} className="flex items-center gap-2"><span className="text-teal">✓</span>{s}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-warm-grey rounded-xl p-7 sm:p-10">
+                <HubSpotForm formId="b1a300a1-c032-486e-a04d-308d140da948" targetId="cleaning-quote-form" />
               </div>
             </div>
           </div>

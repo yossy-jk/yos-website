@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import FurniturePopup from '@/components/FurniturePopup'
+import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
@@ -350,22 +351,35 @@ export default function FurniturePage() {
         </FadeIn>
       </section>
 
-      {/* CTA */}
-      <section className="bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      {/* INLINE QUOTE FORM */}
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <h2 className="text-white font-bold leading-tight mb-5 w-full"
-                style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
-                Ready to kit out your space?
-              </h2>
-              <p className="text-white/55 font-light text-lg leading-relaxed mb-10 w-full">
-                Send us your floor plan, tell us your headcount, and we&apos;ll put together a specification and quote.
-              </p>
-              <Button href="/resources/furniture-quote" variant="primary" size="lg">
-                Get a Furniture Quote
-              </Button>
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+              <div>
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Get a Quote</p>
+                <h2 className="text-white font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}>
+                  Tell us about your project.
+                </h2>
+                <p className="text-white/60 font-light leading-relaxed mb-8" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
+                  Send us your floor plan and headcount and we’ll put together a full specification and quote.
+                  We deliver across Newcastle, the Hunter Valley and regional NSW.
+                </p>
+                <div className="flex flex-col gap-3 text-white/60 text-sm">
+                  {[
+                    "Floor plan or rough dimensions",
+                    "Headcount and workstation requirements",
+                    "Meeting rooms, breakout, storage needs",
+                    "Timeline and budget guidance",
+                    "In-stock to made-to-order options"
+                  ].map(s => (
+                    <span key={s} className="flex items-center gap-2"><span className="text-teal font-bold">✓</span>{s}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-warm-grey rounded-xl p-7 sm:p-10">
+                <HubSpotForm formId="188fd0e9-44a0-4ed1-ab94-da26126fcc9e" targetId="furniture-quote-form" />
+              </div>
             </div>
           </div>
         </FadeIn>

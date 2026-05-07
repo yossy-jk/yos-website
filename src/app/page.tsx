@@ -94,7 +94,19 @@ export default function Home() {
               "contactType": "Customer Service",
               "areaServed": "AU",
               "availableLanguage": "English"
-            }
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5",
+              "reviewCount": "3",
+              "bestRating": "5",
+              "worstRating": "1"
+            },
+            "review": [
+              { "@type": "Review", "author": { "@type": "Person", "name": "Liz Murray" }, "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
+              { "@type": "Review", "author": { "@type": "Person", "name": "Nathan Franks" }, "reviewBody": "Joe was instrumental in building out our boardroom — high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
+              { "@type": "Review", "author": { "@type": "Person", "name": "Sophie" }, "reviewBody": "We are very happy with the service provided by Sarah and Joe. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } }
+            ]
           },
           {
             "@type": "FAQPage",
@@ -106,6 +118,16 @@ export default function Home() {
           }
         ]
       })}} />
+
+      {/* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */}
+      <div className="bg-teal" style={{ padding: '0.65rem 1.5rem' }}>
+        <div className="max-w-screen-xl mx-auto flex items-center justify-center gap-3 text-center flex-wrap">
+          <span className="text-near-black font-bold text-xs tracking-widest uppercase">Free for Newcastle businesses</span>
+          <span className="text-near-black/60 text-xs hidden sm:inline">—</span>
+          <span className="text-near-black font-light text-xs">Get a professional lease review in 24 hours. Spots limited.</span>
+          <Link href="/lease-review" className="text-near-black font-bold text-xs underline underline-offset-2 hover:opacity-70 transition-opacity no-underline" style={{ textDecoration: 'underline' }}>Claim yours →</Link>
+        </div>
+      </div>
 
       {/* ─── HERO ──────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-near-black">
