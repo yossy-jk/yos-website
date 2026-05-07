@@ -3,7 +3,14 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { usePlannerStore, getCategoryColor, ROOM_PRESETS, type RoomType } from '@/lib/space-planner/store'
+import {
+  usePlannerStore,
+  getCategoryColor,
+  ROOM_TYPE_DEFAULTS,
+  ROOM_TYPE_COLORS,
+  EOF_PRODUCTS,
+  type RoomType,
+} from '@/lib/space-planner/store'
 import ProductSidebar from '@/components/space-planner/ProductSidebar'
 import {
   Undo2,
@@ -15,6 +22,9 @@ import {
   Grid,
   ArrowLeft,
   ChevronRight,
+  Plus,
+  Sparkles,
+  X,
 } from 'lucide-react'
 import Link from 'next/link'
 import Konva from 'konva'
@@ -34,9 +44,7 @@ function GateScreen({ onComplete }: { onComplete: (firstName: string, email: str
     if (!firstName.trim() || !email.trim()) { setError('Both fields are required.'); return }
     if (!email.includes('@')) { setError('Enter a valid email.'); return }
     setLoading(true)
-    // Store in sessionStorage
     sessionStorage.setItem('yos_planner_user', JSON.stringify({ firstName, email }))
-    // Fire HubSpot lead (non-blocking)
     try {
       await fetch('/api/space-planner-gate', {
         method: 'POST',
@@ -51,12 +59,9 @@ function GateScreen({ onComplete }: { onComplete: (firstName: string, email: str
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 100,
-      background: '#111',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '1.5rem',
+      background: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem',
     }}>
       <div style={{ maxWidth: 420, width: '100%' }}>
-        {/* Logo mark */}
         <div style={{ marginBottom: '2rem' }}>
           <div style={{ width: 40, height: 4, background: '#00B5A5', borderRadius: 2, marginBottom: '1.5rem' }} />
           <h1 style={{ fontSize: '1.75rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.03em', marginBottom: '0.75rem', lineHeight: 1.2 }}>
@@ -66,47 +71,16 @@ function GateScreen({ onComplete }: { onComplete: (firstName: string, email: str
             Drop your name and email — just in case we lose connection while you&apos;re building.
           </p>
         </div>
-
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-          <input
-            type="text"
-            placeholder="First name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            style={{
-              background: '#1E1E1E', border: '1px solid #333', borderRadius: 8,
-              padding: '0.85rem 1rem', color: '#F7F6F4', fontSize: '0.95rem',
-              fontFamily: 'Montserrat, sans-serif', outline: 'none',
-            }}
-            autoFocus
-          />
-          <input
-            type="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{
-              background: '#1E1E1E', border: '1px solid #333', borderRadius: 8,
-              padding: '0.85rem 1rem', color: '#F7F6F4', fontSize: '0.95rem',
-              fontFamily: 'Montserrat, sans-serif', outline: 'none',
-            }}
-          />
+          <input type="text" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)}
+            style={{ background: '#1E1E1E', border: '1px solid #333', borderRadius: 8, padding: '0.85rem 1rem', color: '#F7F6F4', fontSize: '0.95rem', fontFamily: 'Montserrat, sans-serif', outline: 'none' }} autoFocus />
+          <input type="email" placeholder="Email address" value={email} onChange={(e) => setEmail(e.target.value)}
+            style={{ background: '#1E1E1E', border: '1px solid #333', borderRadius: 8, padding: '0.85rem 1rem', color: '#F7F6F4', fontSize: '0.95rem', fontFamily: 'Montserrat, sans-serif', outline: 'none' }} />
           {error && <p style={{ color: '#ef4444', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif' }}>{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              background: '#00B5A5', color: '#FFFFFF', border: 'none', borderRadius: 8,
-              padding: '0.9rem 1.5rem', fontSize: '0.95rem', fontWeight: 700,
-              fontFamily: 'Montserrat, sans-serif', cursor: loading ? 'not-allowed' : 'pointer',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-              opacity: loading ? 0.7 : 1, marginTop: 4,
-            }}
-          >
+          <button type="submit" disabled={loading} style={{ background: '#00B5A5', color: '#FFFFFF', border: 'none', borderRadius: 8, padding: '0.9rem 1.5rem', fontSize: '0.95rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: loading ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: loading ? 0.7 : 1, marginTop: 4 }}>
             {loading ? 'Starting...' : <>Start Planning <ChevronRight size={16} /></>}
           </button>
         </form>
-
         <p style={{ marginTop: '1rem', fontSize: '0.75rem', color: '#4B4B4B', fontFamily: 'Montserrat, sans-serif', textAlign: 'center' }}>
           No spam. We&apos;ll only contact you if you ask us to.
         </p>
@@ -115,216 +89,508 @@ function GateScreen({ onComplete }: { onComplete: (firstName: string, email: str
   )
 }
 
-// ─── Step 1: Room Setup ───────────────────────────────────────────────────────
+// ─── Room type definitions ────────────────────────────────────────────────────
 
-const ROOM_TYPES: Array<{ id: RoomType; label: string; desc: string; icon: string }> = [
-  { id: 'open-plan', label: 'Open Plan Office', desc: '10×8m default', icon: '⬛' },
-  { id: 'private-office', label: 'Private Office', desc: '5×4m default', icon: '🚪' },
-  { id: 'meeting-room', label: 'Meeting Room', desc: '7×5m default', icon: '🪑' },
-  { id: 'reception', label: 'Reception', desc: '8×6m default', icon: '🏢' },
-  { id: 'custom', label: 'Custom', desc: 'Set your own size', icon: '✏️' },
+interface RoomTypeCard {
+  id: RoomType
+  label: string
+  desc: string
+  capacity?: string
+}
+
+const ROOM_TYPE_CARDS: RoomTypeCard[] = [
+  { id: 'open-plan', label: 'Open Plan Office', desc: '10×8m default' },
+  { id: 'private-office', label: 'Private Office', desc: '3×3m · 1 person' },
+  { id: 'small-meeting', label: 'Small Meeting', desc: '3×3m · 3-4 people' },
+  { id: 'large-meeting', label: 'Large Meeting', desc: '6×3m · 8-10 people' },
+  { id: 'boardroom', label: 'Boardroom', desc: '8×4m · sizes vary' },
+  { id: 'reception', label: 'Reception', desc: '5×4m default' },
+  { id: 'breakout', label: 'Breakout Area', desc: '4×3m default' },
+  { id: 'custom', label: 'Custom Room', desc: 'Set your own size' },
 ]
 
-const PRESET_SIZES = [
-  { label: '4×3m', w: 4, d: 3 },
-  { label: '6×5m', w: 6, d: 5 },
-  { label: '8×6m', w: 8, d: 6 },
-  { label: '10×8m', w: 10, d: 8 },
-  { label: '12×10m', w: 12, d: 10 },
-]
-
-function Step1Room({ onNext }: { onNext: () => void }) {
-  const { roomConfig, setRoomConfig, setStep } = usePlannerStore()
-  const [selectedType, setSelectedType] = useState<RoomType>(roomConfig.type)
-  const [width, setWidth] = useState(roomConfig.width)
-  const [depth, setDepth] = useState(roomConfig.depth)
-
-  const handleTypeSelect = (type: RoomType) => {
-    setSelectedType(type)
-    const preset = ROOM_PRESETS[type]
-    if (preset) {
-      setWidth(preset.defaultSize.width)
-      setDepth(preset.defaultSize.depth)
-    }
-  }
-
-  const handleNext = () => {
-    setRoomConfig({ type: selectedType, width, depth })
-    onNext()
-  }
+// Mini canvas preview for Step 1
+function RoomPreviewCanvas({ rooms }: { rooms: Array<{ id: string; type: RoomType; label: string; xM: number; yM: number; widthM: number; depthM: number }> }) {
+  const canvasWidthM = 20
+  const canvasDepthM = 15
+  const scale = 18 // px per metre (small preview)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#1A1A1A', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-      {/* Header */}
-      <div style={{ maxWidth: 680, width: '100%', marginBottom: '2.5rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-          <Link href="/furniture" style={{ color: '#6B6B6B', display: 'flex', alignItems: 'center', gap: 6, textDecoration: 'none', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif' }}>
-            <ArrowLeft size={14} /> Back
-          </Link>
-          <span style={{ color: '#00B5A5', fontWeight: 700, fontSize: '1.1rem', fontFamily: 'Montserrat, sans-serif' }}>Space Planner</span>
+    <div style={{
+      width: canvasWidthM * scale,
+      height: canvasDepthM * scale,
+      background: '#F5F4F2',
+      border: '2px solid #2A2A2A',
+      position: 'relative',
+      flexShrink: 0,
+      overflow: 'hidden',
+    }}>
+      {/* Grid */}
+      {Array.from({ length: canvasWidthM + 1 }, (_, i) => (
+        <div key={`vg${i}`} style={{ position: 'absolute', left: i * scale, top: 0, bottom: 0, width: 1, background: '#E0DDD8' }} />
+      ))}
+      {Array.from({ length: canvasDepthM + 1 }, (_, i) => (
+        <div key={`hg${i}`} style={{ position: 'absolute', top: i * scale, left: 0, right: 0, height: 1, background: '#E0DDD8' }} />
+      ))}
+      {/* Rooms */}
+      {rooms.map((room) => (
+        <div key={room.id} style={{
+          position: 'absolute',
+          left: room.xM * scale,
+          top: room.yM * scale,
+          width: room.widthM * scale,
+          height: room.depthM * scale,
+          background: ROOM_TYPE_COLORS[room.type] ?? '#F5F4F2',
+          border: '1.5px solid #2A2A2A',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          justifyContent: 'flex-start',
+          padding: '2px 3px',
+          overflow: 'hidden',
+          boxSizing: 'border-box',
+        }}>
+          <span style={{ fontSize: 7, fontWeight: 700, color: '#4B4B4B', fontFamily: 'Montserrat, sans-serif', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>
+            {room.label}
+          </span>
+          <span style={{ fontSize: 6, color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', lineHeight: 1.2 }}>
+            {room.widthM}×{room.depthM}m
+          </span>
         </div>
+      ))}
+      {rooms.length === 0 && (
+        <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <span style={{ fontSize: 10, color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>Floor plate</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── Step 1: Room Builder ─────────────────────────────────────────────────────
+
+function Step1Room({ onNext }: { onNext: () => void }) {
+  const { rooms, addRoom, removeRoom, clearRooms, setStep } = usePlannerStore()
+  const [showCustomModal, setShowCustomModal] = useState<RoomType | null>(null)
+  const [customWidth, setCustomWidth] = useState(5)
+  const [customDepth, setCustomDepth] = useState(5)
+
+  const handleRoomTypeClick = (type: RoomType) => {
+    if (type === 'boardroom' || type === 'custom') {
+      const def = ROOM_TYPE_DEFAULTS[type]
+      setCustomWidth(def.widthM)
+      setCustomDepth(def.depthM)
+      setShowCustomModal(type)
+      return
+    }
+    const def = ROOM_TYPE_DEFAULTS[type]
+    addRoom(type, def.widthM, def.depthM, def.label)
+  }
+
+  const handleCustomAdd = () => {
+    if (!showCustomModal) return
+    const def = ROOM_TYPE_DEFAULTS[showCustomModal]
+    addRoom(showCustomModal, customWidth, customDepth, def.label)
+    setShowCustomModal(null)
+  }
+
+  const totalArea = rooms.reduce((sum, r) => sum + r.widthM * r.depthM, 0)
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#1A1A1A', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <header style={{ borderBottom: '1px solid #2A2A2A', padding: '1rem 2rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <Link href="/furniture" style={{ color: '#6B6B6B', display: 'flex', alignItems: 'center', gap: 6, textDecoration: 'none', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif' }}>
+          <ArrowLeft size={14} /> Back
+        </Link>
+        <span style={{ color: '#00B5A5', fontWeight: 700, fontSize: '1rem', fontFamily: 'Montserrat, sans-serif' }}>Space Planner</span>
 
         {/* Progress */}
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', alignItems: 'center' }}>
-          {['Your Space', 'Add Furniture', 'Get Quote'].map((label, i) => (
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', marginLeft: 'auto' }}>
+          {['Build Rooms', 'Add Furniture', 'Get Quote'].map((label, i) => (
             <React.Fragment key={label}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                <div style={{
-                  width: 24, height: 24, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  background: i === 0 ? '#00B5A5' : '#2A2A2A',
-                  color: i === 0 ? '#FFF' : '#6B6B6B',
-                  fontSize: '0.7rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif',
-                }}>
+                <div style={{ width: 22, height: 22, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: i === 0 ? '#00B5A5' : '#2A2A2A', color: i === 0 ? '#FFF' : '#6B6B6B', fontSize: '0.7rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif' }}>
                   {i + 1}
                 </div>
-                <span style={{ fontSize: '0.8rem', color: i === 0 ? '#F7F6F4' : '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontWeight: i === 0 ? 700 : 400 }}>
-                  {label}
-                </span>
+                <span style={{ fontSize: '0.78rem', color: i === 0 ? '#F7F6F4' : '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontWeight: i === 0 ? 700 : 400 }}>{label}</span>
               </div>
-              {i < 2 && <div style={{ flex: 1, height: 1, background: '#2A2A2A' }} />}
+              {i < 2 && <div style={{ width: 24, height: 1, background: '#2A2A2A' }} />}
             </React.Fragment>
           ))}
         </div>
+      </header>
 
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem' }}>
-          What type of space are you planning?
-        </h2>
-        <p style={{ color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.9rem' }}>
-          Pick a room type and set your dimensions.
-        </p>
-      </div>
+      {/* Body */}
+      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
 
-      {/* Room type cards */}
-      <div style={{ maxWidth: 680, width: '100%', display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem', marginBottom: '2rem' }}>
-        {ROOM_TYPES.map((rt) => (
-          <button
-            key={rt.id}
-            onClick={() => handleTypeSelect(rt.id)}
-            style={{
-              padding: '1rem 0.5rem',
-              borderRadius: 10,
-              border: `2px solid ${selectedType === rt.id ? '#00B5A5' : '#2A2A2A'}`,
-              background: selectedType === rt.id ? 'rgba(0,181,165,0.08)' : '#1E1E1E',
-              cursor: 'pointer',
-              textAlign: 'center',
-              transition: 'all 0.15s',
-            }}
-          >
-            <div style={{ fontSize: '1.5rem', marginBottom: 6 }}>{rt.icon}</div>
-            <p style={{ fontSize: '0.72rem', fontWeight: 700, color: selectedType === rt.id ? '#00B5A5' : '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: 3 }}>
-              {rt.label}
+        {/* Left panel */}
+        <div style={{ width: 300, borderRight: '1px solid #2A2A2A', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <div style={{ padding: '1.25rem', borderBottom: '1px solid #2A2A2A' }}>
+            <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.25rem' }}>
+              Add a room
+            </h2>
+            <p style={{ fontSize: '0.8rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>
+              Click to add rooms to your floor plate.
             </p>
-            <p style={{ fontSize: '0.65rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>
-              {rt.desc}
-            </p>
-          </button>
-        ))}
-      </div>
+          </div>
 
-      {/* Size controls */}
-      <div style={{ maxWidth: 680, width: '100%', background: '#1E1E1E', borderRadius: 12, padding: '1.5rem', marginBottom: '1.5rem' }}>
-        <h3 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '1rem' }}>
-          Room dimensions
-        </h3>
+          {/* Room type cards */}
+          <div style={{ padding: '0.75rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', overflowY: 'auto', flex: 1 }}>
+            {ROOM_TYPE_CARDS.map((card) => {
+              const count = rooms.filter((r) => r.type === card.id).length
+              return (
+                <button
+                  key={card.id}
+                  onClick={() => handleRoomTypeClick(card.id)}
+                  style={{
+                    padding: '0.75rem 0.5rem',
+                    borderRadius: 10,
+                    border: `1.5px solid #2A2A2A`,
+                    background: '#1E1E1E',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    transition: 'all 0.12s',
+                    position: 'relative',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#00B5A5'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(0,181,165,0.06)'; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.borderColor = '#2A2A2A'; (e.currentTarget as HTMLButtonElement).style.background = '#1E1E1E'; }}
+                >
+                  {/* Color swatch */}
+                  <div style={{ width: 20, height: 14, borderRadius: 3, background: ROOM_TYPE_COLORS[card.id], border: '1px solid rgba(0,0,0,0.15)', marginBottom: 6 }} />
+                  <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: 2, lineHeight: 1.3 }}>{card.label}</p>
+                  <p style={{ fontSize: '0.63rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', lineHeight: 1.3 }}>{card.desc}</p>
+                  {count > 0 && (
+                    <div style={{ position: 'absolute', top: 6, right: 6, width: 18, height: 18, borderRadius: '50%', background: '#00B5A5', color: '#FFF', fontSize: '0.65rem', fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Montserrat, sans-serif' }}>
+                      {count}
+                    </div>
+                  )}
+                </button>
+              )
+            })}
+          </div>
 
-        {/* Presets */}
-        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
-          {PRESET_SIZES.map((ps) => (
+          {/* Rooms added list */}
+          {rooms.length > 0 && (
+            <div style={{ borderTop: '1px solid #2A2A2A', padding: '0.75rem', maxHeight: 200, overflowY: 'auto' }}>
+              <p style={{ fontSize: '0.72rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem' }}>
+                Rooms added ({rooms.length})
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                {rooms.map((room) => (
+                  <div key={room.id} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '0.3rem 0.4rem', background: '#1E1E1E', borderRadius: 6 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: 2, background: ROOM_TYPE_COLORS[room.type], flexShrink: 0 }} />
+                    <span style={{ flex: 1, fontSize: '0.72rem', color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{room.label}</span>
+                    <span style={{ fontSize: '0.62rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', flexShrink: 0 }}>{room.widthM}×{room.depthM}m</span>
+                    <button onClick={() => removeRoom(room.id)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B6B6B', padding: 0, display: 'flex', alignItems: 'center' }}>
+                      <X size={12} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              {totalArea > 0 && (
+                <p style={{ fontSize: '0.68rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', marginTop: '0.5rem' }}>
+                  Total: {totalArea.toFixed(0)}m²
+                </p>
+              )}
+              <button onClick={clearRooms} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.68rem', padding: '0.25rem 0', marginTop: '0.25rem', textDecoration: 'underline' }}>
+                Clear all rooms
+              </button>
+            </div>
+          )}
+
+          {/* Next button */}
+          <div style={{ padding: '0.75rem', borderTop: '1px solid #2A2A2A' }}>
             <button
-              key={ps.label}
-              onClick={() => { setWidth(ps.w); setDepth(ps.d); }}
+              onClick={onNext}
+              disabled={rooms.length === 0}
               style={{
-                padding: '0.3rem 0.75rem',
-                borderRadius: 6,
-                border: `1px solid ${width === ps.w && depth === ps.d ? '#00B5A5' : '#333'}`,
-                background: width === ps.w && depth === ps.d ? 'rgba(0,181,165,0.1)' : 'transparent',
-                color: width === ps.w && depth === ps.d ? '#00B5A5' : '#9B9B9B',
-                fontSize: '0.78rem',
-                fontFamily: 'Montserrat, sans-serif',
-                cursor: 'pointer',
+                width: '100%', background: rooms.length === 0 ? '#2A2A2A' : '#00B5A5',
+                color: rooms.length === 0 ? '#4B4B4B' : '#FFF',
+                border: 'none', borderRadius: 8, padding: '0.9rem',
+                fontSize: '0.88rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif',
+                cursor: rooms.length === 0 ? 'not-allowed' : 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
               }}
             >
-              {ps.label}
+              Next: Add Furniture <ChevronRight size={15} />
             </button>
-          ))}
+            {rooms.length === 0 && (
+              <p style={{ fontSize: '0.68rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', textAlign: 'center', marginTop: '0.5rem' }}>
+                Add at least one room to continue
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* Sliders */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem' }}>
-          {[
-            { label: 'Width', value: width, onChange: setWidth },
-            { label: 'Depth', value: depth, onChange: setDepth },
-          ].map(({ label, value, onChange }) => (
-            <div key={label}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                <span style={{ fontSize: '0.78rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>{label}</span>
-                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif' }}>{value}m</span>
-              </div>
-              <input
-                type="range" min={2} max={20} step={0.5} value={value}
-                onChange={(e) => onChange(parseFloat(e.target.value))}
-                style={{ width: '100%', accentColor: '#00B5A5' }}
-              />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: '0.65rem', color: '#4B4B4B', fontFamily: 'Montserrat, sans-serif' }}>2m</span>
-                <span style={{ fontSize: '0.65rem', color: '#4B4B4B', fontFamily: 'Montserrat, sans-serif' }}>20m</span>
-              </div>
-            </div>
-          ))}
+        {/* Right: preview canvas */}
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem', gap: '1rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '0.5rem' }}>
+            <p style={{ fontSize: '0.8rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>
+              Floor plate preview — 20×15m canvas
+            </p>
+          </div>
+          <RoomPreviewCanvas rooms={rooms} />
         </div>
-
-        <p style={{ marginTop: '0.75rem', fontSize: '0.78rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>
-          Floor area: <strong style={{ color: '#F7F6F4' }}>{(width * depth).toFixed(0)}m²</strong>
-        </p>
       </div>
 
-      <div style={{ maxWidth: 680, width: '100%' }}>
+      {/* Boardroom / Custom modal */}
+      {showCustomModal && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 200, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+          <div style={{ background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 12, padding: '1.5rem', maxWidth: 340, width: '100%' }}>
+            <h3 style={{ fontSize: '1rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem' }}>
+              {ROOM_TYPE_DEFAULTS[showCustomModal].label} — Set dimensions
+            </h3>
+            {showCustomModal === 'boardroom' && (
+              <p style={{ fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: '1rem', lineHeight: 1.5 }}>
+                8×4m fits 10-12 people · 10×4m fits 14 people · 12×5m fits 20 people
+              </p>
+            )}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1rem' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.72rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 4 }}>Width (m)</label>
+                <input type="number" min={2} max={30} step={0.5} value={customWidth} onChange={(e) => setCustomWidth(parseFloat(e.target.value) || 2)}
+                  style={{ width: '100%', background: '#2A2A2A', border: '1px solid #444', borderRadius: 6, padding: '0.5rem', color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', boxSizing: 'border-box' }} />
+              </div>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.72rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 4 }}>Depth (m)</label>
+                <input type="number" min={2} max={20} step={0.5} value={customDepth} onChange={(e) => setCustomDepth(parseFloat(e.target.value) || 2)}
+                  style={{ width: '100%', background: '#2A2A2A', border: '1px solid #444', borderRadius: 6, padding: '0.5rem', color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', boxSizing: 'border-box' }} />
+              </div>
+            </div>
+            <div style={{ display: 'flex', gap: '0.75rem' }}>
+              <button onClick={() => setShowCustomModal(null)} style={{ flex: 1, background: 'transparent', border: '1px solid #2A2A2A', borderRadius: 8, padding: '0.65rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.82rem', cursor: 'pointer' }}>Cancel</button>
+              <button onClick={handleCustomAdd} style={{ flex: 1, background: '#00B5A5', border: 'none', borderRadius: 8, padding: '0.65rem', color: '#FFF', fontFamily: 'Montserrat, sans-serif', fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer' }}>
+                <Plus size={13} style={{ display: 'inline', marginRight: 4 }} />Add Room
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ─── AI Layout Panel ──────────────────────────────────────────────────────────
+
+interface AILayoutPanelProps {
+  onClose: () => void
+  canvasWidthM: number
+  canvasDepthM: number
+}
+
+function AILayoutPanel({ onClose, canvasWidthM, canvasDepthM }: AILayoutPanelProps) {
+  const { addRoom, clearRooms, addItem, clearAll, rooms, items } = usePlannerStore()
+  const [prompt, setPrompt] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const handleGenerate = async () => {
+    if (!prompt.trim() || prompt.trim().length < 5) { setError('Describe your space first.'); return }
+    if ((rooms.length > 0 || items.length > 0) && !confirm('This will replace your current layout. Continue?')) return
+
+    setLoading(true)
+    setError('')
+
+    try {
+      const res = await fetch('/api/space-planner-ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt, canvasWidthM, canvasDepthM }),
+      })
+      const data = await res.json() as {
+        success?: boolean
+        rooms?: Array<{ type: string; label: string; xM: number; yM: number; widthM: number; depthM: number }>
+        items?: Array<{ productId: string; xM: number; yM: number; rotation?: number }>
+        description?: string
+        error?: string
+      }
+
+      if (!res.ok || !data.success) {
+        setError(data.error ?? 'Generation failed. Try again.')
+        return
+      }
+
+      // Clear existing and apply
+      clearAll()
+      clearRooms()
+
+      // Add rooms
+      for (const room of (data.rooms ?? [])) {
+        const roomType = room.type as import('@/lib/space-planner/store').RoomType
+        const { usePlannerStore: useStore } = await import('@/lib/space-planner/store')
+        const state = useStore.getState()
+        state.addRoom(roomType, room.widthM, room.depthM, room.label)
+        // Override position after add
+        const newRooms = useStore.getState().rooms
+        const newRoom = newRooms[newRooms.length - 1]
+        if (newRoom) {
+          state.updateRoom(newRoom.id, { xM: room.xM, yM: room.yM })
+        }
+      }
+
+      // Add items
+      const PIXELS_PER_METRE = 60
+      for (const item of (data.items ?? [])) {
+        const product = EOF_PRODUCTS.find((p) => p.id === item.productId)
+        if (!product) continue
+        const PIXELS_PER_CM = 0.5
+        addItem({
+          productId: product.id,
+          name: product.name,
+          category: product.category,
+          price: 0,
+          x: item.xM * PIXELS_PER_METRE,
+          y: item.yM * PIXELS_PER_METRE,
+          width: product.width * PIXELS_PER_CM,
+          height: product.depth * PIXELS_PER_CM,
+          rotation: item.rotation ?? 0,
+          color: getCategoryColor(product.category),
+        })
+      }
+
+      onClose()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Network error. Try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <div style={{
+      position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 50,
+      background: '#1A1A1A', borderTop: '1px solid #2A2A2A',
+      padding: '1rem 1.25rem', display: 'flex', flexDirection: 'column', gap: '0.75rem',
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Sparkles size={15} color="#00B5A5" />
+          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif' }}>AI Layout Generator</span>
+        </div>
+        <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B6B6B', display: 'flex', alignItems: 'center' }}>
+          <X size={16} />
+        </button>
+      </div>
+      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-end' }}>
+        <div style={{ flex: 1 }}>
+          <textarea
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
+            placeholder="Describe your space... e.g. Private office for the MD, small meeting room for 4, open plan for 6 workstations"
+            rows={2}
+            style={{
+              width: '100%', background: '#2A2A2A', border: '1px solid #333', borderRadius: 8,
+              padding: '0.65rem 0.75rem', color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif',
+              fontSize: '0.82rem', resize: 'none', outline: 'none', boxSizing: 'border-box',
+            }}
+          />
+          {error && <p style={{ fontSize: '0.72rem', color: '#ef4444', fontFamily: 'Montserrat, sans-serif', marginTop: 4 }}>{error}</p>}
+        </div>
         <button
-          onClick={handleNext}
+          onClick={handleGenerate}
+          disabled={loading}
           style={{
-            width: '100%', background: '#00B5A5', color: '#FFFFFF', border: 'none', borderRadius: 8,
-            padding: '1rem', fontSize: '0.95rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif',
-            cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            background: loading ? '#2A2A2A' : '#00B5A5', color: '#FFF', border: 'none', borderRadius: 8,
+            padding: '0.65rem 1.1rem', fontSize: '0.82rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif',
+            cursor: loading ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap', flexShrink: 0,
+            opacity: loading ? 0.7 : 1,
           }}
         >
-          Next: Add Furniture <ChevronRight size={16} />
+          {loading ? 'Generating...' : 'Generate Layout'}
         </button>
       </div>
     </div>
   )
 }
 
-// ─── Step 2: Furnish ──────────────────────────────────────────────────────────
+// ─── Add Room Popover (in Step 2 toolbar) ─────────────────────────────────────
 
-function AreaStatsBar() {
-  const { items, roomConfig } = usePlannerStore()
+function AddRoomPopover({ onClose }: { onClose: () => void }) {
+  const { addRoom } = usePlannerStore()
+  const [showBoardroomForm, setShowBoardroomForm] = useState(false)
+  const [bWidth, setBWidth] = useState(8)
+  const [bDepth, setBDepth] = useState(4)
 
-  const workstations = items.filter((i) => i.category === 'Desks').length
-  const meetingSeats = items.filter((i) => {
-    const id = i.productId.toLowerCase()
-    return i.category === 'Seating' && (id.includes('meeting') || id.includes('visitor'))
-  }).length
-  const loungeSeats = items.filter((i) => {
-    const id = i.productId.toLowerCase()
-    return i.category === 'Breakout' || id.includes('lounge') || id.includes('sofa')
-  }).length
+  const handleAdd = (type: RoomType) => {
+    if (type === 'boardroom') {
+      setShowBoardroomForm(true)
+      return
+    }
+    if (type === 'custom') {
+      setShowBoardroomForm(true)
+      return
+    }
+    const def = ROOM_TYPE_DEFAULTS[type]
+    addRoom(type, def.widthM, def.depthM, def.label)
+    onClose()
+  }
 
-  const roomAreaPx = roomConfig.width * 80 * roomConfig.depth * 80
-  const usedAreaPx = items.reduce((sum, i) => sum + i.width * i.height, 0)
-  const floorUsed = roomAreaPx > 0 ? Math.round((usedAreaPx / roomAreaPx) * 100) : 0
+  const handleCustomAdd = () => {
+    addRoom('boardroom', bWidth, bDepth, 'Boardroom')
+    onClose()
+  }
+
+  if (showBoardroomForm) {
+    return (
+      <div style={{ padding: '0.75rem', minWidth: 220 }}>
+        <p style={{ fontSize: '0.75rem', fontWeight: 700, color: '#1A1A1A', fontFamily: 'Montserrat, sans-serif', marginBottom: 8 }}>Set boardroom size</p>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 8 }}>
+          <div>
+            <label style={{ fontSize: '0.68rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', display: 'block', marginBottom: 3 }}>Width (m)</label>
+            <input type="number" min={4} max={20} step={0.5} value={bWidth} onChange={(e) => setBWidth(parseFloat(e.target.value) || 4)}
+              style={{ width: '100%', padding: '0.4rem', border: '1px solid #E5E5E5', borderRadius: 5, fontFamily: 'Montserrat, sans-serif', fontSize: '0.8rem', boxSizing: 'border-box' }} />
+          </div>
+          <div>
+            <label style={{ fontSize: '0.68rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', display: 'block', marginBottom: 3 }}>Depth (m)</label>
+            <input type="number" min={3} max={12} step={0.5} value={bDepth} onChange={(e) => setBDepth(parseFloat(e.target.value) || 3)}
+              style={{ width: '100%', padding: '0.4rem', border: '1px solid #E5E5E5', borderRadius: 5, fontFamily: 'Montserrat, sans-serif', fontSize: '0.8rem', boxSizing: 'border-box' }} />
+          </div>
+        </div>
+        <button onClick={handleCustomAdd} style={{ width: '100%', background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 6, padding: '0.5rem', fontSize: '0.78rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: 'pointer' }}>Add Boardroom</button>
+      </div>
+    )
+  }
 
   return (
-    <div style={{
-      display: 'flex', alignItems: 'center', gap: '1.5rem',
-      padding: '0.5rem 1rem', background: '#1A1A1A', borderTop: '1px solid #2A2A2A',
-      flexShrink: 0, flexWrap: 'wrap',
-    }}>
-      <StatPill label="Room" value={`${roomConfig.width}×${roomConfig.depth}m · ${(roomConfig.width * roomConfig.depth).toFixed(0)}m²`} />
-      <StatPill label="Workstations" value={String(workstations)} />
-      <StatPill label="Meeting seats" value={String(meetingSeats)} />
-      <StatPill label="Lounge seats" value={String(loungeSeats)} />
-      <StatPill label="Floor used" value={`${Math.min(floorUsed, 100)}%`} warn={floorUsed > 80} />
-      <StatPill label="Items placed" value={String(items.length)} />
+    <div style={{ padding: '0.5rem', minWidth: 180 }}>
+      {ROOM_TYPE_CARDS.slice(0, 6).map((card) => (
+        <button
+          key={card.id}
+          onClick={() => handleAdd(card.id)}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 8, width: '100%',
+            padding: '0.4rem 0.5rem', borderRadius: 6, border: 'none',
+            background: 'transparent', cursor: 'pointer', textAlign: 'left',
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = '#F5F4F2'; }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
+        >
+          <div style={{ width: 12, height: 12, borderRadius: 2, background: ROOM_TYPE_COLORS[card.id], flexShrink: 0 }} />
+          <span style={{ fontSize: '0.78rem', color: '#1A1A1A', fontFamily: 'Montserrat, sans-serif' }}>{card.label}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// ─── Stats Bar ────────────────────────────────────────────────────────────────
+
+function AreaStatsBar() {
+  const { items, rooms, canvasWidthM, canvasDepthM } = usePlannerStore()
+
+  const workstations = items.filter((i) => i.category === 'Desks').length
+  const seats = items.filter((i) => i.category === 'Seating').length
+  const totalRoomArea = rooms.reduce((s, r) => s + r.widthM * r.depthM, 0)
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', padding: '0.5rem 1rem', background: '#1A1A1A', borderTop: '1px solid #2A2A2A', flexShrink: 0, flexWrap: 'wrap' }}>
+      <StatPill label="Canvas" value={`${canvasWidthM}×${canvasDepthM}m`} />
+      <StatPill label="Rooms" value={String(rooms.length)} />
+      <StatPill label="Room area" value={`${totalRoomArea.toFixed(0)}m²`} />
+      <StatPill label="Desks" value={String(workstations)} />
+      <StatPill label="Seats" value={String(seats)} />
+      <StatPill label="Items" value={String(items.length)} />
     </div>
   )
 }
@@ -338,32 +604,22 @@ function StatPill({ label, value, warn = false }: { label: string; value: string
   )
 }
 
-function Step2Furnish({
-  onBack,
-  onNext,
-}: {
-  onBack: () => void
-  onNext: () => void
-}) {
+// ─── Step 2: Furnish ──────────────────────────────────────────────────────────
+
+function Step2Furnish({ onBack, onNext }: { onBack: () => void; onNext: () => void }) {
   const {
     selectedId, snapToGrid, toggleSnap,
     undo, redo, history, historyIndex,
     duplicateItem, rotateItem, removeItem,
-    addItem, items, roomConfig, applyPreset,
+    addItem, items, canvasWidthM, canvasDepthM,
   } = usePlannerStore()
 
   const [canvasSize, setCanvasSize] = useState({ width: 800, height: 600 })
   const canvasContainerRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<Konva.Stage | null>(null)
-  const [presetApplied, setPresetApplied] = useState(false)
-
-  // Apply preset furniture on mount (once)
-  useEffect(() => {
-    if (!presetApplied && roomConfig.type !== 'custom') {
-      applyPreset(roomConfig.type)
-      setPresetApplied(true)
-    }
-  }, [presetApplied, roomConfig.type, applyPreset])
+  const [showAIPanel, setShowAIPanel] = useState(false)
+  const [showAddRoomPopover, setShowAddRoomPopover] = useState(false)
+  const addRoomBtnRef = useRef<HTMLButtonElement>(null)
 
   // Canvas resize observer
   useEffect(() => {
@@ -386,12 +642,9 @@ function Step2Furnish({
     const handleKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement
       if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return
-
       const isCtrl = e.ctrlKey || e.metaKey
-
       if (isCtrl && e.key === 'z') { e.preventDefault(); undo(); return }
       if (isCtrl && (e.key === 'y' || (e.shiftKey && e.key === 'Z'))) { e.preventDefault(); redo(); return }
-
       if (!selectedId) return
       if (e.key === 'Delete' || e.key === 'Backspace') removeItem(selectedId)
       if (e.key === 'r' || e.key === 'R') rotateItem(selectedId)
@@ -441,15 +694,8 @@ function Step2Furnish({
 
   return (
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#1A1A1A', overflow: 'hidden' }}>
-
       {/* Top bar */}
-      <header style={{
-        background: '#1A1A1A', borderBottom: '1px solid #2A2A2A',
-        height: 52, padding: '0 1.25rem',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        flexShrink: 0, gap: '1rem',
-      }}>
-        {/* Left: back + title */}
+      <header style={{ background: '#1A1A1A', borderBottom: '1px solid #2A2A2A', height: 52, padding: '0 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, gap: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           <button onClick={onBack} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B6B6B', display: 'flex', alignItems: 'center', gap: 5, fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif' }}>
             <ArrowLeft size={14} /> Back
@@ -459,7 +705,6 @@ function Step2Furnish({
           <span style={{ color: '#6B6B6B', fontSize: '0.7rem', fontFamily: 'Montserrat, sans-serif' }}>Step 2 of 3</span>
         </div>
 
-        {/* Centre: toolbar */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <ToolBtn icon={<Undo2 size={14} />} label="Undo" onClick={undo} disabled={!canUndo} title="Ctrl+Z" />
           <ToolBtn icon={<Redo2 size={14} />} label="Redo" onClick={redo} disabled={!canRedo} title="Ctrl+Y" />
@@ -470,17 +715,52 @@ function Step2Furnish({
           <div style={{ width: 1, height: 28, background: '#333', margin: '0 4px' }} />
           <ToolBtn icon={<Grid size={14} />} label="Snap" onClick={toggleSnap} active={snapToGrid} />
           <ToolBtn icon={<Download size={14} />} label="Export" onClick={handleExport} />
+          <div style={{ width: 1, height: 28, background: '#333', margin: '0 4px' }} />
+          {/* Add Room button */}
+          <div style={{ position: 'relative' }}>
+            <button
+              ref={addRoomBtnRef}
+              onClick={() => setShowAddRoomPopover((v) => !v)}
+              style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                width: 52, height: 40, borderRadius: 7, border: showAddRoomPopover ? '1px solid #00B5A5' : 'none',
+                background: showAddRoomPopover ? 'rgba(0,181,165,0.1)' : 'transparent',
+                color: showAddRoomPopover ? '#00B5A5' : '#9B9B9B',
+                fontFamily: 'Montserrat, sans-serif', fontSize: '0.6rem', fontWeight: 600, gap: 2, cursor: 'pointer',
+              }}
+            >
+              <Plus size={14} />
+              <span>Room</span>
+            </button>
+            {showAddRoomPopover && (
+              <div style={{
+                position: 'absolute', top: '100%', left: '50%', transform: 'translateX(-50%)',
+                background: '#FFFFFF', border: '1px solid #E5E5E5', borderRadius: 8,
+                boxShadow: '0 8px 24px rgba(0,0,0,0.15)', zIndex: 100, marginTop: 4,
+              }}>
+                <AddRoomPopover onClose={() => setShowAddRoomPopover(false)} />
+              </div>
+            )}
+          </div>
+          {/* AI Layout button */}
+          <button
+            onClick={() => setShowAIPanel((v) => !v)}
+            style={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+              width: 52, height: 40, borderRadius: 7, border: showAIPanel ? '1px solid #00B5A5' : 'none',
+              background: showAIPanel ? 'rgba(0,181,165,0.1)' : 'transparent',
+              color: showAIPanel ? '#00B5A5' : '#9B9B9B',
+              fontFamily: 'Montserrat, sans-serif', fontSize: '0.6rem', fontWeight: 600, gap: 2, cursor: 'pointer',
+            }}
+          >
+            <Sparkles size={14} />
+            <span>AI</span>
+          </button>
         </div>
 
-        {/* Right: submit */}
         <button
           onClick={onNext}
-          style={{
-            background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 8,
-            padding: '0.55rem 1.1rem', fontSize: '0.82rem', fontWeight: 700,
-            fontFamily: 'Montserrat, sans-serif', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0,
-          }}
+          style={{ background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 8, padding: '0.55rem 1.1rem', fontSize: '0.82rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}
         >
           Submit for Quote <ChevronRight size={14} />
         </button>
@@ -489,7 +769,7 @@ function Step2Furnish({
       {/* Main area */}
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
         {/* Left sidebar */}
-        <div style={{ width: 240, flexShrink: 0, overflow: 'hidden' }}>
+        <div style={{ width: 260, flexShrink: 0, overflow: 'hidden' }}>
           <ProductSidebar />
         </div>
 
@@ -501,11 +781,26 @@ function Step2Furnish({
             onDrop={handleDrop}
             stageRef={stageRef}
           />
+          {showAIPanel && (
+            <AILayoutPanel
+              onClose={() => setShowAIPanel(false)}
+              canvasWidthM={canvasWidthM}
+              canvasDepthM={canvasDepthM}
+            />
+          )}
         </main>
       </div>
 
       {/* Bottom stats bar */}
       <AreaStatsBar />
+
+      {/* Close popover on outside click */}
+      {showAddRoomPopover && (
+        <div
+          style={{ position: 'fixed', inset: 0, zIndex: 99 }}
+          onClick={() => setShowAddRoomPopover(false)}
+        />
+      )}
     </div>
   )
 }
@@ -544,7 +839,7 @@ function ToolBtn({
 // ─── Step 3: Quote form ───────────────────────────────────────────────────────
 
 function Step3Quote({ onBack }: { onBack: () => void }) {
-  const { items, roomConfig } = usePlannerStore()
+  const { items, rooms } = usePlannerStore()
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', company: '', location: '', deliveryType: 'full-service' as 'delivery' | 'full-service', notes: '' })
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
@@ -571,6 +866,9 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
   }, {})
   const itemList = Object.values(aggregated)
 
+  // Room summary
+  const roomSummary = rooms.map((r) => `${r.label} (${r.widthM}×${r.depthM}m)`).join(', ')
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.firstName || !form.email) { setError('First name and email are required.'); return }
@@ -578,17 +876,18 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
     setLoading(true)
     setError('')
     try {
+      // Use rooms summary if available, otherwise fallback
+      const roomForQuote = rooms.length > 0
+        ? { type: roomSummary, width: rooms.reduce((s, r) => s + r.widthM * r.depthM, 0), depth: 1 }
+        : { type: 'multi-room', width: 0, depth: 0 }
+
       const res = await fetch('/api/space-planner-quote', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ items: itemList, room: roomConfig, contact: form }),
+        body: JSON.stringify({ items: itemList, room: roomForQuote, contact: form }),
       })
       const data = await res.json() as { success?: boolean; reference?: string; error?: string }
-      if (!res.ok || !data.success) {
-        setError(data.error ?? 'Something went wrong. Try again.')
-        setLoading(false)
-        return
-      }
+      if (!res.ok || !data.success) { setError(data.error ?? 'Something went wrong. Try again.'); setLoading(false); return }
       setReference(data.reference ?? '')
       setSubmitted(true)
     } catch {
@@ -601,23 +900,11 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
     return (
       <div style={{ minHeight: '100vh', background: '#1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
         <div style={{ maxWidth: 480, width: '100%', textAlign: 'center' }}>
-          <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '1.4rem' }}>
-            ✓
-          </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>
-            Quote submitted
-          </h2>
-          <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', lineHeight: 1.7, marginBottom: '0.5rem' }}>
-            Joe&apos;s team will prepare your quote within 24 hours.
-          </p>
-          {reference && (
-            <p style={{ color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', marginBottom: '2rem' }}>
-              Reference: <strong style={{ color: '#00B5A5' }}>{reference}</strong>
-            </p>
-          )}
-          <Link href="/furniture" style={{ display: 'inline-block', background: '#00B5A5', color: '#FFF', borderRadius: 8, padding: '0.75rem 1.5rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' }}>
-            Back to Furniture
-          </Link>
+          <div style={{ width: 48, height: 48, borderRadius: '50%', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '1.4rem' }}>✓</div>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>Quote submitted</h2>
+          <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', lineHeight: 1.7, marginBottom: '0.5rem' }}>Joe&apos;s team will prepare your quote within 24 hours.</p>
+          {reference && <p style={{ color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.85rem', marginBottom: '2rem' }}>Reference: <strong style={{ color: '#00B5A5' }}>{reference}</strong></p>}
+          <Link href="/furniture" style={{ display: 'inline-block', background: '#00B5A5', color: '#FFF', borderRadius: 8, padding: '0.75rem 1.5rem', fontFamily: 'Montserrat, sans-serif', fontWeight: 700, textDecoration: 'none', fontSize: '0.9rem' }}>Back to Furniture</Link>
         </div>
       </div>
     )
@@ -628,27 +915,29 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
       {/* Summary column */}
       <div style={{ width: 320, flexShrink: 0 }}>
         <div style={{ background: '#1E1E1E', borderRadius: 12, padding: '1.25rem', position: 'sticky', top: '2rem' }}>
-          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>
-            Your plan summary
-          </h3>
-          <p style={{ fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: '1rem' }}>
-            {roomConfig.type.replace('-', ' ')} · {roomConfig.width}×{roomConfig.depth}m · {(roomConfig.width * roomConfig.depth).toFixed(0)}m²
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {itemList.length === 0 && (
-              <p style={{ fontSize: '0.78rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>No items placed.</p>
-            )}
+          <h3 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>Your plan summary</h3>
+          {rooms.length > 0 && (
+            <div style={{ marginBottom: '0.75rem' }}>
+              <p style={{ fontSize: '0.72rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.4rem' }}>Rooms</p>
+              {rooms.map((r) => (
+                <div key={r.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
+                  <span style={{ fontSize: '0.75rem', color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif' }}>{r.label}</span>
+                  <span style={{ fontSize: '0.72rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>{r.widthM}×{r.depthM}m</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div style={{ borderTop: rooms.length > 0 ? '1px solid #2A2A2A' : 'none', paddingTop: rooms.length > 0 ? '0.75rem' : 0 }}>
+            {itemList.length === 0 && <p style={{ fontSize: '0.78rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>No items placed.</p>}
             {itemList.map((item) => (
-              <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div key={item.name} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
                 <span style={{ fontSize: '0.78rem', color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif' }}>{item.name}</span>
                 <span style={{ fontSize: '0.78rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>×{item.qty}</span>
               </div>
             ))}
           </div>
           <div style={{ borderTop: '1px solid #2A2A2A', marginTop: '1rem', paddingTop: '1rem' }}>
-            <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>
-              Pricing will be prepared and sent to you.
-            </p>
+            <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>Pricing will be prepared and sent to you.</p>
           </div>
         </div>
       </div>
@@ -658,13 +947,8 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
         <button onClick={onBack} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B6B6B', display: 'flex', alignItems: 'center', gap: 5, fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif', marginBottom: '1.5rem', padding: 0 }}>
           <ArrowLeft size={14} /> Back to planner
         </button>
-
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem' }}>
-          Get your quote
-        </h2>
-        <p style={{ color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', marginBottom: '1.5rem', fontSize: '0.88rem' }}>
-          Fill in your details and we&apos;ll prepare a quote based on your plan.
-        </p>
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem' }}>Get your quote</h2>
+        <p style={{ color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', marginBottom: '1.5rem', fontSize: '0.88rem' }}>Fill in your details and we&apos;ll prepare a quote based on your plan.</p>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
@@ -677,19 +961,10 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
           <FormField label="Suburb / City *" value={form.location} onChange={(v) => setForm({ ...form, location: v })} placeholder="e.g. Newcastle, Maitland, Lake Macquarie" />
           <div>
             <label style={{ display: 'block', fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 6 }}>Service Required</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 4 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               {(['delivery', 'full-service'] as const).map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => setForm({ ...form, deliveryType: type })}
-                  style={{
-                    background: form.deliveryType === type ? 'rgba(0,181,165,0.12)' : '#1E1E1E',
-                    border: `2px solid ${form.deliveryType === type ? '#00B5A5' : '#2A2A2A'}`,
-                    borderRadius: 8, padding: '0.75rem', cursor: 'pointer',
-                    textAlign: 'left', transition: 'all 0.15s',
-                  }}
-                >
+                <button key={type} type="button" onClick={() => setForm({ ...form, deliveryType: type })}
+                  style={{ background: form.deliveryType === type ? 'rgba(0,181,165,0.12)' : '#1E1E1E', border: `2px solid ${form.deliveryType === type ? '#00B5A5' : '#2A2A2A'}`, borderRadius: 8, padding: '0.75rem', cursor: 'pointer', textAlign: 'left' }}>
                   <p style={{ color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.82rem', fontWeight: 600, margin: '0 0 2px' }}>
                     {type === 'delivery' ? 'Delivery Only' : 'Full Service Installation'}
                   </p>
@@ -702,29 +977,11 @@ function Step3Quote({ onBack }: { onBack: () => void }) {
           </div>
           <div>
             <label style={{ display: 'block', fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 4 }}>Notes</label>
-            <textarea
-              value={form.notes}
-              onChange={(e) => setForm({ ...form, notes: e.target.value })}
-              placeholder="Anything else we should know..."
-              rows={3}
-              style={{
-                width: '100%', background: '#1E1E1E', border: '1px solid #333', borderRadius: 8,
-                padding: '0.75rem', color: '#F7F6F4', fontSize: '0.88rem',
-                fontFamily: 'Montserrat, sans-serif', outline: 'none', resize: 'vertical', boxSizing: 'border-box',
-              }}
-            />
+            <textarea value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Anything else we should know..." rows={3}
+              style={{ width: '100%', background: '#1E1E1E', border: '1px solid #333', borderRadius: 8, padding: '0.75rem', color: '#F7F6F4', fontSize: '0.88rem', fontFamily: 'Montserrat, sans-serif', outline: 'none', resize: 'vertical', boxSizing: 'border-box' }} />
           </div>
           {error && <p style={{ color: '#ef4444', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif' }}>{error}</p>}
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 8,
-              padding: '1rem', fontSize: '0.95rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif',
-              cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1,
-              marginTop: 4,
-            }}
-          >
+          <button type="submit" disabled={loading} style={{ background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 8, padding: '1rem', fontSize: '0.95rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, marginTop: 4 }}>
             {loading ? 'Submitting...' : 'Submit for Quote'}
           </button>
         </form>
@@ -758,52 +1015,21 @@ function SoftEmailCapture({ onCapture, onDismiss }: { onCapture: () => void; onD
   }
 
   return (
-    <div style={{
-      position: 'fixed', bottom: 24, right: 24, zIndex: 200,
-      background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 12,
-      padding: '1.25rem 1.5rem', maxWidth: 340, width: '100%',
-      boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
-      animation: 'slideUp 0.3s ease',
-    }}>
+    <div style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 200, background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 12, padding: '1.25rem 1.5rem', maxWidth: 340, width: '100%', boxShadow: '0 8px 40px rgba(0,0,0,0.6)' }}>
       {saved ? (
-        <p style={{ color: '#00B5A5', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', fontWeight: 600 }}>
-          Saved. Your plan is safe.
-        </p>
+        <p style={{ color: '#00B5A5', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', fontWeight: 600 }}>Saved. Your plan is safe.</p>
       ) : (
         <>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 6 }}>
-            <p style={{ color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>
-              Don&apos;t lose your work
-            </p>
+            <p style={{ color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', fontWeight: 600, margin: 0 }}>Don&apos;t lose your work</p>
             <button onClick={onDismiss} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#4B4B4B', fontFamily: 'Montserrat, sans-serif', fontSize: '1rem', padding: '0 0 0 8px', lineHeight: 1 }}>×</button>
           </div>
-          <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.78rem', marginBottom: '0.75rem', lineHeight: 1.5 }}>
-            Add your email so you don&apos;t lose this plan.
-          </p>
+          <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.78rem', marginBottom: '0.75rem', lineHeight: 1.5 }}>Add your email so you don&apos;t lose this plan.</p>
           <div style={{ display: 'flex', gap: 8 }}>
-            <input
-              type="email"
-              placeholder="your@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSave()}
-              autoFocus
-              style={{
-                flex: 1, background: '#2A2A2A', border: '1px solid #444', borderRadius: 6,
-                padding: '0.6rem 0.75rem', color: '#F7F6F4', fontSize: '0.82rem',
-                fontFamily: 'Montserrat, sans-serif', outline: 'none',
-              }}
-            />
-            <button
-              onClick={handleSave}
-              disabled={loading || !email.includes('@')}
-              style={{
-                background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 6,
-                padding: '0.6rem 0.9rem', fontSize: '0.82rem', fontWeight: 700,
-                fontFamily: 'Montserrat, sans-serif', cursor: 'pointer', whiteSpace: 'nowrap',
-                opacity: loading || !email.includes('@') ? 0.6 : 1,
-              }}
-            >
+            <input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleSave()} autoFocus
+              style={{ flex: 1, background: '#2A2A2A', border: '1px solid #444', borderRadius: 6, padding: '0.6rem 0.75rem', color: '#F7F6F4', fontSize: '0.82rem', fontFamily: 'Montserrat, sans-serif', outline: 'none' }} />
+            <button onClick={handleSave} disabled={loading || !email.includes('@')}
+              style={{ background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 6, padding: '0.6rem 0.9rem', fontSize: '0.82rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: 'pointer', whiteSpace: 'nowrap', opacity: loading || !email.includes('@') ? 0.6 : 1 }}>
               {loading ? '...' : 'Save'}
             </button>
           </div>
@@ -817,43 +1043,17 @@ function SoftEmailCapture({ onCapture, onDismiss }: { onCapture: () => void; onD
 
 function ExitIntentModal({ onQuote, onDismiss, itemCount }: { onQuote: () => void; onDismiss: () => void; itemCount: number }) {
   return (
-    <div style={{
-      position: 'fixed', inset: 0, zIndex: 300,
-      background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '1.5rem',
-    }}>
-      <div style={{
-        background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 16,
-        padding: '2rem', maxWidth: 400, width: '100%', textAlign: 'center',
-        boxShadow: '0 16px 64px rgba(0,0,0,0.6)',
-      }}>
+    <div style={{ position: 'fixed', inset: 0, zIndex: 300, background: 'rgba(0,0,0,0.78)', backdropFilter: 'blur(4px)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem' }}>
+      <div style={{ background: '#1E1E1E', border: '1px solid #2A2A2A', borderRadius: 16, padding: '2rem', maxWidth: 400, width: '100%', textAlign: 'center', boxShadow: '0 16px 64px rgba(0,0,0,0.6)' }}>
         <div style={{ width: 40, height: 4, background: '#00B5A5', borderRadius: 2, margin: '0 auto 1.5rem' }} />
-        <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>
-          Before you go
-        </h2>
+        <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#F7F6F4', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.75rem' }}>Before you go</h2>
         <p style={{ color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
           You&apos;ve got {itemCount} item{itemCount !== 1 ? 's' : ''} in your plan. Want us to put a quote together?
         </p>
-        <button
-          onClick={onQuote}
-          style={{
-            display: 'block', width: '100%', background: '#00B5A5', color: '#FFF',
-            border: 'none', borderRadius: 8, padding: '0.9rem', fontSize: '0.95rem',
-            fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: 'pointer',
-            marginBottom: '0.75rem',
-          }}
-        >
+        <button onClick={onQuote} style={{ display: 'block', width: '100%', background: '#00B5A5', color: '#FFF', border: 'none', borderRadius: 8, padding: '0.9rem', fontSize: '0.95rem', fontWeight: 700, fontFamily: 'Montserrat, sans-serif', cursor: 'pointer', marginBottom: '0.75rem' }}>
           Yes, get my quote →
         </button>
-        <button
-          onClick={onDismiss}
-          style={{
-            display: 'block', width: '100%', background: 'none', color: '#6B6B6B',
-            border: '1px solid #2A2A2A', borderRadius: 8, padding: '0.75rem', fontSize: '0.88rem',
-            fontFamily: 'Montserrat, sans-serif', cursor: 'pointer',
-          }}
-        >
+        <button onClick={onDismiss} style={{ display: 'block', width: '100%', background: 'none', color: '#6B6B6B', border: '1px solid #2A2A2A', borderRadius: 8, padding: '0.75rem', fontSize: '0.88rem', fontFamily: 'Montserrat, sans-serif', cursor: 'pointer' }}>
           No thanks, leave the plan
         </button>
       </div>
@@ -865,15 +1065,9 @@ function FormField({ label, value, onChange, type = 'text', placeholder }: { lab
   return (
     <div>
       <label style={{ display: 'block', fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', marginBottom: 4 }}>{label}</label>
-      <input
-        type={type} value={value} onChange={(e) => onChange(e.target.value)}
-        style={{
-          width: '100%', background: '#1E1E1E', border: '1px solid #333', borderRadius: 8,
-          padding: '0.75rem', color: '#F7F6F4', fontSize: '0.88rem',
-          fontFamily: 'Montserrat, sans-serif', outline: 'none', boxSizing: 'border-box',
-        }}
-        placeholder={placeholder}
-      />
+      <input type={type} value={value} onChange={(e) => onChange(e.target.value)}
+        style={{ width: '100%', background: '#1E1E1E', border: '1px solid #333', borderRadius: 8, padding: '0.75rem', color: '#F7F6F4', fontSize: '0.88rem', fontFamily: 'Montserrat, sans-serif', outline: 'none', boxSizing: 'border-box' }}
+        placeholder={placeholder} />
     </div>
   )
 }
@@ -888,7 +1082,6 @@ export default function SpacePlannerPage() {
   const [showExitIntent, setShowExitIntent] = useState(false)
   const exitIntentFired = useRef(false)
 
-  // Mobile detection
   useEffect(() => {
     if (typeof window === 'undefined') return
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -897,7 +1090,7 @@ export default function SpacePlannerPage() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Soft email capture: show after first item is placed, 1.5s delay
+  // Soft email capture
   useEffect(() => {
     if (step !== 2 || items.length < 1 || softCaptured || showSoftCapture) return
     if (typeof window === 'undefined') return
@@ -908,7 +1101,7 @@ export default function SpacePlannerPage() {
     return () => clearTimeout(timer)
   }, [step, items.length, softCaptured, showSoftCapture])
 
-  // Exit intent: mouse leaves top of viewport while furnishing with items placed
+  // Exit intent
   useEffect(() => {
     if (step !== 2 || items.length === 0) return
     const handleMouseLeave = (e: MouseEvent) => {
@@ -922,7 +1115,7 @@ export default function SpacePlannerPage() {
     return () => document.removeEventListener('mouseleave', handleMouseLeave)
   }, [step, items.length])
 
-  // beforeunload warning when plan has items
+  // beforeunload warning
   useEffect(() => {
     if (step !== 2 || items.length === 0) return
     const handler = (e: BeforeUnloadEvent) => { e.preventDefault(); e.returnValue = '' }
@@ -930,10 +1123,6 @@ export default function SpacePlannerPage() {
     return () => window.removeEventListener('beforeunload', handler)
   }, [step, items.length])
 
-  const handleStep2Back = () => setStep(1)
-  const handleStep3Back = () => setStep(2)
-
-  // Mobile guard
   if (isMobile) {
     return (
       <div style={{ minHeight: '100vh', background: '#1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', textAlign: 'center' }}>
@@ -947,9 +1136,7 @@ export default function SpacePlannerPage() {
             <p style={{ color: '#6B6B6B', fontSize: '0.7rem', marginBottom: '0.25rem', fontFamily: 'Montserrat, sans-serif' }}>Copy this link</p>
             <p style={{ color: '#00B5A5', fontSize: '0.8rem', wordBreak: 'break-all', fontFamily: 'Montserrat, sans-serif' }}>yourofficespace.au/tools/space-planner</p>
           </div>
-          <Link href="/furniture" style={{ color: '#6B6B6B', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif', textDecoration: 'none' }}>
-            Back to furniture
-          </Link>
+          <Link href="/furniture" style={{ color: '#6B6B6B', fontSize: '0.8rem', fontFamily: 'Montserrat, sans-serif', textDecoration: 'none' }}>Back to furniture</Link>
         </div>
       </div>
     )
@@ -958,8 +1145,8 @@ export default function SpacePlannerPage() {
   return (
     <>
       {step === 1 && <Step1Room onNext={() => setStep(2)} />}
-      {step === 2 && <Step2Furnish onBack={handleStep2Back} onNext={() => setStep(3)} />}
-      {step === 3 && <Step3Quote onBack={handleStep3Back} />}
+      {step === 2 && <Step2Furnish onBack={() => setStep(1)} onNext={() => setStep(3)} />}
+      {step === 3 && <Step3Quote onBack={() => setStep(2)} />}
 
       {showSoftCapture && !softCaptured && step === 2 && (
         <SoftEmailCapture
@@ -971,7 +1158,7 @@ export default function SpacePlannerPage() {
       {showExitIntent && step === 2 && items.length > 0 && (
         <ExitIntentModal
           onQuote={() => { setShowExitIntent(false); setStep(3) }}
-          onDismiss={() => { setShowExitIntent(false) }}
+          onDismiss={() => setShowExitIntent(false)}
           itemCount={items.length}
         />
       )}

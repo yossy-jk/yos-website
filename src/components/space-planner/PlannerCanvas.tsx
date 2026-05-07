@@ -6,7 +6,6 @@ import {
   Layer,
   Rect,
   Line,
-  Arc,
   Circle,
   Text,
   Group,
@@ -18,10 +17,12 @@ import {
   snapToGridValue,
   type PlannerItem,
   type EOFProduct,
+  type Room,
+  ROOM_TYPE_COLORS,
 } from "@/lib/space-planner/store";
 
-const GRID_SIZE = 40; // pixels per grid cell
-const PIXELS_PER_METRE = 80; // 1m = 80px
+const GRID_SIZE = 60; // pixels — 1 grid cell = 1 metre at 1:1
+const PIXELS_PER_METRE = 60; // 1m = 60px
 const RULER_SIZE = 24; // ruler width/height in px
 
 // ─── Silhouette Renderers ────────────────────────────────────────────────────
@@ -40,16 +41,10 @@ function ChairSilhouette({ item, isSelected }: SilhouetteProps) {
   const darkFill = "#007A70";
   return (
     <Group>
-      {/* Seat */}
       <Rect width={w} height={seatH} y={backH} fill={fill} cornerRadius={4} />
-      {/* Backrest */}
       <Rect width={w} height={backH} y={0} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
-      {/* Seat highlight */}
       <Rect x={4} y={backH + 4} width={w - 8} height={seatH - 8} fill={fill} opacity={0.4} cornerRadius={3} />
-      {/* Selected indicator */}
-      {isSelected && (
-        <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />
-      )}
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />}
     </Group>
   );
 }
@@ -65,7 +60,6 @@ function ExecutiveChairSilhouette({ item, isSelected }: SilhouetteProps) {
     <Group>
       <Rect width={w} height={seatH} y={backH} fill={fill} cornerRadius={6} />
       <Rect width={w} height={backH} y={0} fill={darkFill} cornerRadius={[6, 6, 0, 0] as unknown as number} />
-      {/* Armrests */}
       <Rect x={-4} y={backH + 4} width={6} height={seatH - 12} fill={darkFill} cornerRadius={2} />
       <Rect x={w - 2} y={backH + 4} width={6} height={seatH - 12} fill={darkFill} cornerRadius={2} />
       {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={6} />}
@@ -82,13 +76,9 @@ function LoungeChairSilhouette({ item, isSelected }: SilhouetteProps) {
   const backH = Math.max(8, h * 0.2);
   return (
     <Group>
-      {/* Seat */}
       <Rect x={armW} y={backH} width={w - armW * 2} height={h - backH} fill={fill} cornerRadius={4} />
-      {/* Left arm */}
       <Rect x={0} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 0, 4] as unknown as number} />
-      {/* Right arm */}
       <Rect x={w - armW} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 4, 0] as unknown as number} />
-      {/* Backrest */}
       <Rect x={0} y={0} width={w} height={backH} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
       {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />}
     </Group>
@@ -105,14 +95,10 @@ function Sofa2Silhouette({ item, isSelected }: SilhouetteProps) {
   const mid = w / 2;
   return (
     <Group>
-      {/* Seat */}
       <Rect x={armW} y={backH} width={w - armW * 2} height={h - backH} fill={fill} cornerRadius={2} />
-      {/* Cushion divider */}
       <Line points={[mid, backH, mid, h]} stroke={darkFill} strokeWidth={2} />
-      {/* Arms */}
       <Rect x={0} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 0, 3] as unknown as number} />
       <Rect x={w - armW} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 3, 0] as unknown as number} />
-      {/* Backrest */}
       <Rect x={0} y={0} width={w} height={backH} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
       {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />}
     </Group>
@@ -129,7 +115,6 @@ function Sofa3Silhouette({ item, isSelected }: SilhouetteProps) {
   return (
     <Group>
       <Rect x={armW} y={backH} width={w - armW * 2} height={h - backH} fill={fill} cornerRadius={2} />
-      {/* Two dividers at 33% and 66% */}
       <Line points={[w / 3, backH, w / 3, h]} stroke={darkFill} strokeWidth={2} />
       <Line points={[(w * 2) / 3, backH, (w * 2) / 3, h]} stroke={darkFill} strokeWidth={2} />
       <Rect x={0} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 0, 3] as unknown as number} />
@@ -147,14 +132,11 @@ function DeskSilhouette({ item, isSelected }: SilhouetteProps) {
   const legSize = 5;
   return (
     <Group>
-      {/* Surface */}
       <Rect width={w} height={h} fill={fill} cornerRadius={2} stroke="#A89060" strokeWidth={1} />
-      {/* Legs */}
       <Rect x={4} y={4} width={legSize} height={legSize} fill="#8A7040" />
       <Rect x={w - 4 - legSize} y={4} width={legSize} height={legSize} fill="#8A7040" />
       <Rect x={4} y={h - 4 - legSize} width={legSize} height={legSize} fill="#8A7040" />
       <Rect x={w - 4 - legSize} y={h - 4 - legSize} width={legSize} height={legSize} fill="#8A7040" />
-      {/* Front edge highlight */}
       <Rect x={0} y={h - 4} width={w} height={4} fill="#A89060" cornerRadius={[0, 0, 2, 2] as unknown as number} />
       {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={2} />}
     </Group>
@@ -168,7 +150,6 @@ function MeetingTableSilhouette({ item, isSelected }: SilhouetteProps) {
   return (
     <Group>
       <Rect width={w} height={h} fill={fill} cornerRadius={3} stroke="#C0A870" strokeWidth={1.5} />
-      {/* Inner border */}
       <Rect x={4} y={4} width={w - 8} height={h - 8} fill="transparent" stroke="#C0A870" strokeWidth={0.5} cornerRadius={2} />
       {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={3} />}
     </Group>
@@ -195,10 +176,8 @@ function StorageSilhouette({ item, isSelected }: SilhouetteProps) {
   return (
     <Group>
       <Rect width={w} height={h} fill={fill} cornerRadius={2} stroke={lineColor} strokeWidth={1} />
-      {/* Drawer lines */}
       <Line points={[0, drawerH, w, drawerH]} stroke={lineColor} strokeWidth={1} />
       <Line points={[0, drawerH * 2, w, drawerH * 2]} stroke={lineColor} strokeWidth={1} />
-      {/* Handles */}
       <Rect x={w / 2 - 8} y={drawerH / 2 - 2} width={16} height={4} fill={lineColor} cornerRadius={2} />
       <Rect x={w / 2 - 8} y={drawerH + drawerH / 2 - 2} width={16} height={4} fill={lineColor} cornerRadius={2} />
       <Rect x={w / 2 - 8} y={drawerH * 2 + drawerH / 2 - 2} width={16} height={4} fill={lineColor} cornerRadius={2} />
@@ -248,11 +227,8 @@ function ReceptionDeskSilhouette({ item, isSelected }: SilhouetteProps) {
   const counterH = Math.max(12, h * 0.3);
   return (
     <Group>
-      {/* Main desk */}
       <Rect width={w} height={h - counterH} fill={fill} cornerRadius={2} stroke="#A89060" strokeWidth={1} />
-      {/* Front counter (reception-facing) */}
       <Rect y={h - counterH} width={w} height={counterH} fill="#A89060" cornerRadius={[0, 0, 3, 3] as unknown as number} />
-      {/* Leg markers */}
       <Rect x={4} y={4} width={5} height={5} fill="#8A7040" />
       <Rect x={w - 9} y={4} width={5} height={5} fill="#8A7040" />
       {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={2} />}
@@ -260,7 +236,6 @@ function ReceptionDeskSilhouette({ item, isSelected }: SilhouetteProps) {
   );
 }
 
-// Label overlay (drawn separately, not inside transform group)
 function ItemLabel({ item }: { item: PlannerItem }) {
   const fontSize = Math.min(10, item.width * 0.12, item.height * 0.28);
   if (fontSize < 6) return null;
@@ -283,7 +258,6 @@ function ItemLabel({ item }: { item: PlannerItem }) {
 }
 
 function getSilhouetteType(item: PlannerItem): EOFProduct["silhouetteType"] {
-  // Map by productId or name patterns
   const id = item.productId.toLowerCase();
   if (id.includes("executive")) return "chair-executive";
   if (id.includes("lounge-2") || id.includes("sofa-2")) return "sofa-2";
@@ -298,7 +272,6 @@ function getSilhouetteType(item: PlannerItem): EOFProduct["silhouetteType"] {
   if (id.includes("desk") || id.includes("ws") || id.includes("workstation")) return "desk";
   if (id.includes("meeting") || id.includes("visitor")) return "chair-meeting";
   if (id.includes("task") || id.includes("chair-task")) return "chair-task";
-  // Fallback by category
   const cat = item.category;
   if (cat === "Desks") return "desk";
   if (cat === "Meeting") return "meeting-table";
@@ -372,10 +345,9 @@ export function getAlignmentGuides(draggingItem: PlannerItem, allItems: PlannerI
   allItems.filter((i) => i.id !== draggingItem.id).forEach((other) => {
     const o = getEdges(other);
 
-    // Vertical alignment (left/right/center of dragging vs other)
     const vPairs: Array<[number, number, number]> = [
-      [edges.left, o.left, 0],         [edges.left, o.right, o.right - edges.left],
-      [edges.right, o.right, o.right - edges.right],  [edges.right, o.left, o.left - edges.right],
+      [edges.left, o.left, 0], [edges.left, o.right, o.right - edges.left],
+      [edges.right, o.right, o.right - edges.right], [edges.right, o.left, o.left - edges.right],
       [edges.centerX, o.centerX, o.centerX - edges.centerX],
     ];
     vPairs.forEach(([a, b, diff]) => {
@@ -383,15 +355,15 @@ export function getAlignmentGuides(draggingItem: PlannerItem, allItems: PlannerI
       if (d < closestV) {
         closestV = d;
         snappedX = draggingItem.x + diff;
-        guides.splice(guides.findIndex((g) => g.type === "vertical"), 1);
+        const idx = guides.findIndex((g) => g.type === "vertical");
+        if (idx >= 0) guides.splice(idx, 1);
         guides.push({ type: "vertical", pos: b });
       }
     });
 
-    // Horizontal alignment
     const hPairs: Array<[number, number, number]> = [
-      [edges.top, o.top, 0],           [edges.top, o.bottom, o.bottom - edges.top],
-      [edges.bottom, o.bottom, o.bottom - edges.bottom],  [edges.bottom, o.top, o.top - edges.bottom],
+      [edges.top, o.top, 0], [edges.top, o.bottom, o.bottom - edges.top],
+      [edges.bottom, o.bottom, o.bottom - edges.bottom], [edges.bottom, o.top, o.top - edges.bottom],
       [edges.centerY, o.centerY, o.centerY - edges.centerY],
     ];
     hPairs.forEach(([a, b, diff]) => {
@@ -399,7 +371,8 @@ export function getAlignmentGuides(draggingItem: PlannerItem, allItems: PlannerI
       if (d < closestH) {
         closestH = d;
         snappedY = draggingItem.y + diff;
-        guides.splice(guides.findIndex((g) => g.type === "horizontal"), 1);
+        const idx = guides.findIndex((g) => g.type === "horizontal");
+        if (idx >= 0) guides.splice(idx, 1);
         guides.push({ type: "horizontal", pos: b });
       }
     });
@@ -448,8 +421,6 @@ function CanvasItem({
         x={item.x}
         y={item.y}
         rotation={item.rotation}
-        offsetX={0}
-        offsetY={0}
         draggable
         onClick={onSelect}
         onTap={onSelect}
@@ -531,12 +502,9 @@ function RulerH({ width, height, stageScale, stageX }: { width: number; height: 
       <Line key={`hm${m}`} points={[px, height - 8, px, height]} stroke="#9B9B9B" strokeWidth={1} listening={false} />,
       <Text key={`hmt${m}`} x={px + 2} y={height - 14} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} />
     );
-    // Half-metre tick
     const hpx = ((m + 0.5) * PIXELS_PER_METRE * stageScale) + stageX;
     if (hpx > RULER_SIZE && hpx < width) {
-      ticks.push(
-        <Line key={`hh${m}`} points={[hpx, height - 5, hpx, height]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />
-      );
+      ticks.push(<Line key={`hh${m}`} points={[hpx, height - 5, hpx, height]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />);
     }
   }
   return (
@@ -556,13 +524,11 @@ function RulerV({ width, height, stageScale, stageY }: { width: number; height: 
     if (py < RULER_SIZE || py > height) continue;
     ticks.push(
       <Line key={`vm${m}`} points={[width - 8, py, width, py]} stroke="#9B9B9B" strokeWidth={1} listening={false} />,
-      <Text key={`vmt${m}`} x={0} y={py + 2} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} rotation={0} />
+      <Text key={`vmt${m}`} x={0} y={py + 2} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} />
     );
     const hpy = ((m + 0.5) * PIXELS_PER_METRE * stageScale) + stageY;
     if (hpy > RULER_SIZE && hpy < height) {
-      ticks.push(
-        <Line key={`vh${m}`} points={[width - 5, hpy, width, hpy]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />
-      );
+      ticks.push(<Line key={`vh${m}`} points={[width - 5, hpy, width, hpy]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />);
     }
   }
   return (
@@ -573,20 +539,90 @@ function RulerV({ width, height, stageScale, stageY }: { width: number; height: 
   );
 }
 
-// ─── Room outline ─────────────────────────────────────────────────────────────
+// ─── Floor plate with rooms ───────────────────────────────────────────────────
 
-function RoomOutline({ widthM, depthM, offsetX, offsetY }: { widthM: number; depthM: number; offsetX: number; offsetY: number }) {
-  const w = widthM * PIXELS_PER_METRE;
-  const h = depthM * PIXELS_PER_METRE;
+function FloorPlate({ canvasWidthM, canvasDepthM, rooms, selectedRoomId, onSelectRoom, onRoomDragEnd }: {
+  canvasWidthM: number;
+  canvasDepthM: number;
+  rooms: Room[];
+  selectedRoomId: string | null;
+  onSelectRoom: (id: string | null) => void;
+  onRoomDragEnd: (id: string, xM: number, yM: number) => void;
+}) {
+  const w = canvasWidthM * PIXELS_PER_METRE;
+  const h = canvasDepthM * PIXELS_PER_METRE;
+
   return (
-    <Group x={offsetX} y={offsetY}>
+    <Group x={RULER_SIZE} y={RULER_SIZE}>
       {/* Floor fill */}
-      <Rect width={w} height={h} fill="#F5F0E8" />
-      {/* Walls */}
-      <Rect width={w} height={h} fill="transparent" stroke="#1A1A1A" strokeWidth={10} />
-      {/* Dimension labels */}
-      <Text text={`${widthM}m`} x={w / 2 - 20} y={-18} fontSize={11} fill="#6B6B6B" fontFamily="Montserrat, sans-serif" fontStyle="bold" listening={false} />
-      <Text text={`${depthM}m`} x={-24} y={h / 2 - 6} fontSize={11} fill="#6B6B6B" fontFamily="Montserrat, sans-serif" fontStyle="bold" listening={false} rotation={-90} />
+      <Rect width={w} height={h} fill="#F5F4F2" />
+      {/* 1m grid overlay */}
+      {Array.from({ length: canvasWidthM + 1 }, (_, i) => (
+        <Line key={`vg${i}`} points={[i * PIXELS_PER_METRE, 0, i * PIXELS_PER_METRE, h]} stroke="#E0DDD8" strokeWidth={1} listening={false} />
+      ))}
+      {Array.from({ length: canvasDepthM + 1 }, (_, i) => (
+        <Line key={`hg${i}`} points={[0, i * PIXELS_PER_METRE, w, i * PIXELS_PER_METRE]} stroke="#E0DDD8" strokeWidth={1} listening={false} />
+      ))}
+      {/* Floor plate border */}
+      <Rect width={w} height={h} fill="transparent" stroke="#2A2A2A" strokeWidth={3} />
+
+      {/* Rooms */}
+      {rooms.map((room) => {
+        const rx = room.xM * PIXELS_PER_METRE;
+        const ry = room.yM * PIXELS_PER_METRE;
+        const rw = room.widthM * PIXELS_PER_METRE;
+        const rh = room.depthM * PIXELS_PER_METRE;
+        const fillColor = ROOM_TYPE_COLORS[room.type] ?? "#F5F4F2";
+        const isSelected = selectedRoomId === room.id;
+
+        return (
+          <Group
+            key={room.id}
+            x={rx}
+            y={ry}
+            draggable
+            onClick={() => onSelectRoom(room.id)}
+            onTap={() => onSelectRoom(room.id)}
+            onDragEnd={(e) => {
+              const nx = Math.max(0, Math.round(e.target.x() / PIXELS_PER_METRE * 10) / 10);
+              const ny = Math.max(0, Math.round(e.target.y() / PIXELS_PER_METRE * 10) / 10);
+              onRoomDragEnd(room.id, nx, ny);
+            }}
+          >
+            {/* Room fill */}
+            <Rect width={rw} height={rh} fill={fillColor} />
+            {/* Room border */}
+            <Rect
+              width={rw}
+              height={rh}
+              fill="transparent"
+              stroke={isSelected ? "#00B5A5" : "#2A2A2A"}
+              strokeWidth={isSelected ? 2.5 : 2}
+            />
+            {/* Room label */}
+            <Text
+              text={room.label}
+              x={6}
+              y={6}
+              fontSize={11}
+              fill="#4B4B4B"
+              fontFamily="Montserrat, sans-serif"
+              fontStyle="bold"
+              listening={false}
+            />
+            {/* Room dimension label */}
+            <Text
+              text={`${room.widthM}×${room.depthM}m`}
+              x={6}
+              y={20}
+              fontSize={9}
+              fill="#9B9B9B"
+              fontFamily="Montserrat, sans-serif"
+              listening={false}
+            />
+          </Group>
+        );
+      })}
     </Group>
   );
 }
@@ -605,9 +641,13 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
     items,
     selectedId,
     snapToGrid,
-    roomConfig,
+    canvasWidthM,
+    canvasDepthM,
+    rooms,
+    selectedRoomId,
+    setSelectedRoom,
+    updateRoom,
     updateItem,
-    removeItem,
     setSelected,
     activeTool,
   } = usePlannerStore();
@@ -618,25 +658,6 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
   const internalStageRef = useRef<Konva.Stage>(null);
   const stageRef = externalStageRef ?? internalStageRef;
 
-  // Grid lines
-  const gridLines = useCallback(() => {
-    const lines: React.ReactNode[] = [];
-    const offsetX = stagePos.x % (GRID_SIZE * stageScale);
-    const offsetY = stagePos.y % (GRID_SIZE * stageScale);
-    const cols = Math.ceil(width / (GRID_SIZE * stageScale)) + 1;
-    const rows = Math.ceil(height / (GRID_SIZE * stageScale)) + 1;
-    for (let i = 0; i <= cols; i++) {
-      const x = offsetX + i * GRID_SIZE * stageScale;
-      lines.push(<Line key={`vg${i}`} points={[x, 0, x, height]} stroke="#E8E8E8" strokeWidth={0.5} listening={false} />);
-    }
-    for (let i = 0; i <= rows; i++) {
-      const y = offsetY + i * GRID_SIZE * stageScale;
-      lines.push(<Line key={`hg${i}`} points={[0, y, width, y]} stroke="#E8E8E8" strokeWidth={0.5} listening={false} />);
-    }
-    return lines;
-  }, [width, height, stageScale, stagePos]);
-
-  // Keyboard: zoom
   const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
     const scaleBy = 1.06;
@@ -661,12 +682,13 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
   const handleStageClick = useCallback((e: Konva.KonvaEventObject<MouseEvent>) => {
     if (e.target === stageRef.current) {
       setSelected(null);
+      setSelectedRoom(null);
     }
-  }, [setSelected, stageRef]);
+  }, [setSelected, setSelectedRoom, stageRef]);
 
-  // Room offset on canvas
-  const roomOffsetX = stagePos.x / stageScale + 1;
-  const roomOffsetY = stagePos.y / stageScale + 1;
+  const handleRoomDragEnd = useCallback((id: string, xM: number, yM: number) => {
+    updateRoom(id, { xM, yM });
+  }, [updateRoom]);
 
   return (
     <div
@@ -684,9 +706,7 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
         x={stagePos.x}
         y={stagePos.y}
         draggable={activeTool === "select"}
-        onDragEnd={(e) => {
-          setStagePos({ x: e.target.x(), y: e.target.y() });
-        }}
+        onDragEnd={(e) => { setStagePos({ x: e.target.x(), y: e.target.y() }); }}
         onWheel={handleWheel}
         onClick={handleStageClick}
       >
@@ -701,34 +721,19 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
           />
         </Layer>
 
-        {/* 2. Grid */}
-        <Layer listening={false}>
-          <Rect
-            x={-stagePos.x / stageScale}
-            y={-stagePos.y / stageScale}
-            width={width / stageScale + 400}
-            height={height / stageScale + 400}
-            fill="#F8F8F5"
-          />
-          {Array.from({ length: Math.ceil((width / stageScale + 400) / GRID_SIZE) + 1 }, (_, i) => (
-            <Line key={`vg${i}`} points={[-stagePos.x / stageScale + i * GRID_SIZE, -stagePos.y / stageScale, -stagePos.x / stageScale + i * GRID_SIZE, -stagePos.y / stageScale + height / stageScale + 400]} stroke="#E0E0E0" strokeWidth={0.5} listening={false} />
-          ))}
-          {Array.from({ length: Math.ceil((height / stageScale + 400) / GRID_SIZE) + 1 }, (_, i) => (
-            <Line key={`hg${i}`} points={[-stagePos.x / stageScale, -stagePos.y / stageScale + i * GRID_SIZE, -stagePos.x / stageScale + width / stageScale + 400, -stagePos.y / stageScale + i * GRID_SIZE]} stroke="#E0E0E0" strokeWidth={0.5} listening={false} />
-          ))}
-        </Layer>
-
-        {/* 3. Room outline */}
-        <Layer listening={false}>
-          <RoomOutline
-            widthM={roomConfig.width}
-            depthM={roomConfig.depth}
-            offsetX={RULER_SIZE / stageScale}
-            offsetY={RULER_SIZE / stageScale}
+        {/* 2. Floor plate + rooms */}
+        <Layer>
+          <FloorPlate
+            canvasWidthM={canvasWidthM}
+            canvasDepthM={canvasDepthM}
+            rooms={rooms}
+            selectedRoomId={selectedRoomId}
+            onSelectRoom={setSelectedRoom}
+            onRoomDragEnd={handleRoomDragEnd}
           />
         </Layer>
 
-        {/* 4. Furniture */}
+        {/* 3. Furniture */}
         <Layer>
           {items.map((item) => (
             <CanvasItem
@@ -744,7 +749,7 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
           ))}
         </Layer>
 
-        {/* 5. Alignment guides */}
+        {/* 4. Alignment guides */}
         <Layer listening={false}>
           {guides.map((guide, i) =>
             guide.type === "vertical" ? (
@@ -756,7 +761,7 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
         </Layer>
       </Stage>
 
-      {/* Rulers — rendered as a separate overlay stage */}
+      {/* Rulers */}
       <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
         <Stage width={width} height={RULER_SIZE} style={{ position: "absolute", top: 0, left: 0 }}>
           <Layer>
@@ -768,7 +773,6 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
             <RulerV width={RULER_SIZE} height={height} stageScale={stageScale} stageY={stagePos.y} />
           </Layer>
         </Stage>
-        {/* Corner block */}
         <Stage width={RULER_SIZE} height={RULER_SIZE} style={{ position: "absolute", top: 0, left: 0 }}>
           <Layer>
             <Rect width={RULER_SIZE} height={RULER_SIZE} fill="#1E1E1E" />
@@ -776,26 +780,26 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
         </Stage>
       </div>
 
+      {/* Canvas size label */}
+      <div style={{
+        position: "absolute", top: "2rem", right: "1rem",
+        background: "rgba(26,26,26,0.85)", padding: "4px 10px", borderRadius: 6,
+        fontSize: 11, color: "#9B9B9B", fontFamily: "Montserrat, sans-serif",
+        border: "1px solid #2A2A2A", pointerEvents: "none",
+      }}>
+        {canvasWidthM}×{canvasDepthM}m canvas
+      </div>
+
       {/* Zoom controls */}
       <div style={{ position: "absolute", bottom: "1rem", right: "1rem", display: "flex", flexDirection: "column", gap: "4px", zIndex: 10 }}>
-        <button
-          onClick={() => setStageScale((s) => Math.min(4, s * 1.2))}
-          style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}
-        >+</button>
-        <button
-          onClick={() => setStageScale((s) => Math.max(0.2, s / 1.2))}
-          style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}
-        >−</button>
-        <button
-          onClick={() => { setStageScale(1); setStagePos({ x: RULER_SIZE, y: RULER_SIZE }); }}
-          style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 10, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Montserrat, sans-serif" }}
-          title="Reset zoom"
-        >1:1</button>
+        <button onClick={() => setStageScale((s) => Math.min(4, s * 1.2))} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
+        <button onClick={() => setStageScale((s) => Math.max(0.2, s / 1.2))} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
+        <button onClick={() => { setStageScale(1); setStagePos({ x: RULER_SIZE, y: RULER_SIZE }); }} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 10, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Montserrat, sans-serif" }} title="Reset zoom">1:1</button>
       </div>
 
       {/* Scale hint */}
       <div style={{ position: "absolute", bottom: "1rem", left: "2rem", background: "rgba(255,255,255,0.85)", padding: "4px 8px", borderRadius: 6, fontSize: 11, color: "#6B6B6B", fontFamily: "Montserrat, sans-serif", border: "1px solid #E5E5E5" }}>
-        {GRID_SIZE}px = {(GRID_SIZE / PIXELS_PER_METRE * 100).toFixed(0)}cm
+        {PIXELS_PER_METRE}px = 1m
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ export interface PlannerItem {
   height: number;
   rotation: number;
   color: string;
+  roomId?: string; // optional room association
 }
 
 export interface RoomZone {
@@ -59,17 +60,31 @@ export interface ColumnElement {
   size: number;
 }
 
-export type RoomType = "open-plan" | "private-office" | "meeting-room" | "reception" | "custom";
+// Legacy single-room type
+export type LegacyRoomType = "open-plan" | "private-office" | "meeting-room" | "reception" | "custom";
+
+// New multi-room types
+export type RoomType = "open-plan" | "private-office" | "small-meeting" | "large-meeting" | "boardroom" | "reception" | "breakout" | "custom";
+
+export interface Room {
+  id: string;
+  type: RoomType;
+  label: string;
+  xM: number;   // metres from canvas origin
+  yM: number;   // metres from canvas origin
+  widthM: number;
+  depthM: number;
+}
 
 export interface RoomConfig {
-  type: RoomType;
+  type: LegacyRoomType;
   width: number;  // metres
   depth: number;  // metres
 }
 
 // Room presets with suggested furniture pre-placed
-// Pixel coords based on PIXELS_PER_METRE = 80
-const PPM = 80; // pixels per metre
+// Pixel coords based on PIXELS_PER_METRE = 60
+const PPM = 60; // pixels per metre
 
 export interface PresetItem {
   productId: string;
@@ -84,7 +99,31 @@ export interface RoomPreset {
   suggestedItems: PresetItem[];
 }
 
-export const ROOM_PRESETS: Record<RoomType, RoomPreset> = {
+// Room default dimensions
+export const ROOM_TYPE_DEFAULTS: Record<RoomType, { widthM: number; depthM: number; label: string }> = {
+  "open-plan":      { widthM: 10, depthM: 8,  label: "Open Plan" },
+  "private-office": { widthM: 3,  depthM: 3,  label: "Private Office" },
+  "small-meeting":  { widthM: 3,  depthM: 3,  label: "Small Meeting Room" },
+  "large-meeting":  { widthM: 6,  depthM: 3,  label: "Large Meeting Room" },
+  "boardroom":      { widthM: 8,  depthM: 4,  label: "Boardroom" },
+  "reception":      { widthM: 5,  depthM: 4,  label: "Reception" },
+  "breakout":       { widthM: 4,  depthM: 3,  label: "Breakout Area" },
+  "custom":         { widthM: 5,  depthM: 5,  label: "Room" },
+};
+
+// Room type background colours (subtle tints)
+export const ROOM_TYPE_COLORS: Record<RoomType, string> = {
+  "open-plan":      "#EFF5F0",
+  "private-office": "#F0EDE8",
+  "small-meeting":  "#E8F4F3",
+  "large-meeting":  "#E8F1F8",
+  "boardroom":      "#F0EBF4",
+  "reception":      "#F5EDE8",
+  "breakout":       "#F5F3E8",
+  "custom":         "#F5F4F2",
+};
+
+export const ROOM_PRESETS: Record<LegacyRoomType, RoomPreset> = {
   "open-plan": {
     name: "Open Plan Office",
     defaultSize: { width: 10, depth: 8 },
@@ -113,13 +152,13 @@ export const ROOM_PRESETS: Record<RoomType, RoomPreset> = {
   },
   "private-office": {
     name: "Private Office",
-    defaultSize: { width: 5, depth: 4 },
+    defaultSize: { width: 3, depth: 3 },
     suggestedItems: [
-      { productId: "desk1600", x: PPM * 0.5, y: PPM * 0.5 },
-      { productId: "chair-executive", x: PPM * 0.5 + 55, y: PPM * 0.5 + 80 },
-      { productId: "chair-visitor", x: PPM * 0.5 + 20, y: PPM * 2.2 },
-      { productId: "chair-visitor", x: PPM * 0.5 + 90, y: PPM * 2.2 },
-      { productId: "storage2d", x: PPM * 3.0, y: PPM * 0.3 },
+      { productId: "desk1600", x: PPM * 0.3, y: PPM * 0.3 },
+      { productId: "chair-executive", x: PPM * 0.3 + 45, y: PPM * 0.3 + 70 },
+      { productId: "chair-visitor", x: PPM * 0.3 + 10, y: PPM * 1.8 },
+      { productId: "chair-visitor", x: PPM * 0.3 + 80, y: PPM * 1.8 },
+      { productId: "storage2d", x: PPM * 1.8, y: PPM * 0.2 },
     ],
   },
   "meeting-room": {
@@ -209,6 +248,18 @@ interface PlannerStore {
   setStep: (step: 1 | 2 | 3) => void;
   setRoomConfig: (config: RoomConfig) => void;
 
+  // Multi-room system
+  rooms: Room[];
+  canvasWidthM: number;   // floor plate width, default 20
+  canvasDepthM: number;   // floor plate depth, default 15
+  selectedRoomId: string | null;
+  addRoom: (type: RoomType, widthM: number, depthM: number, label: string) => void;
+  updateRoom: (id: string, updates: Partial<Room>) => void;
+  removeRoom: (id: string) => void;
+  setSelectedRoom: (id: string | null) => void;
+  clearRooms: () => void;
+  setCanvasSize: (widthM: number, depthM: number) => void;
+
   // Items
   items: PlannerItem[];
   zones: RoomZone[];
@@ -237,7 +288,7 @@ interface PlannerStore {
   toggleSnap: () => void;
   addZone: (zone: Omit<RoomZone, "id">) => void;
   removeZone: (id: string) => void;
-  applyPreset: (roomType: RoomType) => void;
+  applyPreset: (roomType: LegacyRoomType) => void;
 
   // Drawing tools (kept for compatibility)
   activeTool: DrawingToolType;
@@ -263,12 +314,87 @@ interface PlannerStore {
 
 const MAX_HISTORY = 50;
 
+// Helper: auto-place rooms without overlap
+function findNextRoomPosition(
+  rooms: Room[],
+  newRoom: { widthM: number; depthM: number },
+  canvasWidthM: number
+): { xM: number; yM: number } {
+  if (rooms.length === 0) return { xM: 0, yM: 0 };
+
+  // Try packing rooms left-to-right, wrapping when needed
+  // Sort rooms by row then column
+  let curX = 0;
+  let curY = 0;
+  let rowMaxDepth = 0;
+
+  // Find the right-most extent of rooms on the last row
+  // Simple approach: try to place after last room in a row
+  for (const room of rooms) {
+    const roomRight = room.xM + room.widthM;
+    const roomBottom = room.yM + room.depthM;
+    if (room.yM >= curY) {
+      if (roomRight > curX) curX = roomRight;
+      if (roomBottom - curY > rowMaxDepth) rowMaxDepth = roomBottom - curY;
+    }
+  }
+
+  // Check if it fits on current row
+  if (curX + newRoom.widthM <= canvasWidthM) {
+    return { xM: curX, yM: curY };
+  }
+
+  // Wrap to next row
+  const nextY = curY + rowMaxDepth;
+  return { xM: 0, yM: nextY };
+}
+
 export const usePlannerStore = create<PlannerStore>((set, get) => ({
   // Step/flow defaults
   step: 1,
   roomConfig: { type: "open-plan", width: 10, depth: 8 },
   setStep: (step) => set({ step }),
   setRoomConfig: (roomConfig) => set({ roomConfig }),
+
+  // Multi-room system
+  rooms: [],
+  canvasWidthM: 20,
+  canvasDepthM: 15,
+  selectedRoomId: null,
+
+  addRoom: (type, widthM, depthM, label) => {
+    const { rooms, canvasWidthM } = get();
+    const pos = findNextRoomPosition(rooms, { widthM, depthM }, canvasWidthM);
+    const newRoom: Room = {
+      id: nanoid(),
+      type,
+      label,
+      xM: pos.xM,
+      yM: pos.yM,
+      widthM,
+      depthM,
+    };
+    set((state) => ({ rooms: [...state.rooms, newRoom] }));
+  },
+
+  updateRoom: (id, updates) => {
+    set((state) => ({
+      rooms: state.rooms.map((r) => r.id === id ? { ...r, ...updates } : r),
+    }));
+  },
+
+  removeRoom: (id) => {
+    set((state) => ({
+      rooms: state.rooms.filter((r) => r.id !== id),
+      selectedRoomId: state.selectedRoomId === id ? null : state.selectedRoomId,
+    }));
+  },
+
+  setSelectedRoom: (id) => set({ selectedRoomId: id }),
+
+  clearRooms: () => set({ rooms: [], selectedRoomId: null }),
+
+  setCanvasSize: (widthM, depthM) => set({ canvasWidthM: widthM, canvasDepthM: depthM }),
 
   // Existing defaults
   items: [],
