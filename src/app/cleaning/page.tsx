@@ -10,7 +10,7 @@ export const metadata = {
   title: 'Commercial Cleaning Newcastle | Your Office Space',
   description: 'Consistent, accountable commercial cleaning for offices, medical and childcare across Newcastle and the Hunter Valley. Same team every visit.',
   twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Consistent. Accountable. Same team every visit. Monthly site audits on every contract.' },
-  alternates: { canonical: 'https://yourofficespace.au/cleaning' },
+  alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
     title: 'Commercial Cleaning Newcastle | Your Office Space',
     description: 'Consistent. Accountable. Same team every visit. Commercial cleaning for offices, medical and childcare across Newcastle.',
@@ -64,8 +64,8 @@ export default function CleaningPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Your space reflects<br />
-              <span className="text-teal">your business.</span>
+              Commercial Cleaning Newcastle —<br />
+              <span className="text-teal">consistent, accountable, local.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>

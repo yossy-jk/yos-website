@@ -10,7 +10,7 @@ export const metadata = {
   title: 'Commercial Buyers Agency | Your Office Space',
   description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
   twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
-  alternates: { canonical: 'https://yourofficespace.au/buyers-agency' },
+  alternates: { canonical: 'https://www.yourofficespace.au/buyers-agency' },
   openGraph: {
     title: 'Commercial Buyers Agency | Your Office Space',
     description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',

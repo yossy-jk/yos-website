@@ -6,7 +6,7 @@ import CareersForm from './CareersForm'
 export const metadata: Metadata = {
   title: 'Work With Us | YOS Cleaning Newcastle',
   description: 'Join the Your Office Space cleaning team in Newcastle and the Hunter Valley. Positions available for employees and contractors. Apply now.',
-  alternates: { canonical: 'https://yourofficespace.au/cleaning/work-with-us' },
+  alternates: { canonical: 'https://www.yourofficespace.au/cleaning/work-with-us' },
   robots: { index: true, follow: true },
   openGraph: {
     title: 'Work With Us — YOS Cleaning Newcastle',

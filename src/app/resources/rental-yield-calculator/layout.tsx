@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Commercial Rental Yield Calculator | Your Office Space',
   description: 'Calculate gross and net rental yield on commercial property investments. Free calculator for Australian investors.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/rental-yield-calculator' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/rental-yield-calculator' },
   openGraph: {
     title: 'Commercial Rental Yield Calculator | Your Office Space',
     description: 'Calculate gross and net rental yield on commercial property investments. Free calculator for Australian investors.',

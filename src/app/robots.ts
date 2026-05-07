@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/tools/'],
       },
     ],
-    sitemap: 'https://yourofficespace.au/sitemap.xml',
+    sitemap: 'https://www.yourofficespace.au/sitemap.xml',
   }
 }

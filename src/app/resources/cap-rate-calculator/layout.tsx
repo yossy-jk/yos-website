@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Cap Rate Calculator for Commercial Property | Your Office Space',
   description: 'Calculate capitalisation rate (cap rate) for commercial property valuation. Free tool for Australian commercial property investors.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/cap-rate-calculator' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/cap-rate-calculator' },
   openGraph: {
     title: 'Cap Rate Calculator for Commercial Property | Your Office Space',
     description: 'Calculate capitalisation rate (cap rate) for commercial property valuation. Free tool for Australian commercial property investors.',

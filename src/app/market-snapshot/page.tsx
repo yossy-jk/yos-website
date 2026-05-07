@@ -6,7 +6,7 @@ import MarketSnapshotPageContent from './MarketSnapshotPageContent'
 export const metadata: Metadata = {
   title: 'Newcastle Office Market Snapshot | Your Office Space',
   description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
-  alternates: { canonical: 'https://yourofficespace.au/market-snapshot' },
+  alternates: { canonical: 'https://www.yourofficespace.au/market-snapshot' },
   openGraph: {
     title: 'Newcastle Office Market Snapshot | Your Office Space',
     description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline — what landlords already know but tenants don\'t.',

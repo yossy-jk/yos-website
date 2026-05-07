@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Land Tax Calculator Australia 2025-26 | Your Office Space',
   description: 'Estimate your land tax liability across NSW, VIC, QLD, WA and SA for 2025-26. Includes individual, company and trust rates.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/land-tax-calculator' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/land-tax-calculator' },
   openGraph: {
     title: 'Land Tax Calculator Australia 2025-26 | Your Office Space',
     description: 'Estimate your land tax liability across NSW, VIC, QLD, WA and SA for 2025-26. Includes individual, company and trust rates.',

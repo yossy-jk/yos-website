@@ -6,7 +6,7 @@ import FadeIn from '@/components/FadeIn'
 export const metadata = {
   title: 'Privacy Policy | Your Office Space',
   description: 'How Your Office Space collects, uses, and protects your personal information. Governed by the Privacy Act 1988 (Cth).',
-  alternates: { canonical: 'https://yourofficespace.au/privacy' },
+  alternates: { canonical: 'https://www.yourofficespace.au/privacy' },
   openGraph: {
     title: 'Privacy Policy | Your Office Space',
     description: 'How Your Office Space collects, uses, and protects your personal information.',

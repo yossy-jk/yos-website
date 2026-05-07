@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Office Fitout Cost Estimator | Your Office Space',
   description: 'Estimate your commercial office fitout cost in seconds. Based on current 2025-26 NSW market rates. Free, no email required to see results.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/fitout-estimator' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/fitout-estimator' },
   openGraph: {
     title: 'Office Fitout Cost Estimator | Your Office Space',
     description: 'Estimate your commercial office fitout cost in seconds. Based on current 2025-26 NSW market rates. Free, no email required to see results.',

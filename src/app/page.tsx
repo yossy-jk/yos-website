@@ -11,12 +11,12 @@ import { IMAGES } from '@/lib/images'
 export const metadata: Metadata = {
   title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
   description: 'One team working only for you. Tenant representation, buyers agency, furniture & fitout, and commercial cleaning across Newcastle and NSW. Honest advice. Real outcomes.',
-  alternates: { canonical: 'https://yourofficespace.au' },
+  alternates: { canonical: 'https://www.yourofficespace.au' },
   twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle', description: 'One team working only for you. Tenant rep, buyers agency, furniture, fitout and cleaning — Newcastle NSW.' },
   openGraph: {
     title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
     description: 'One team working only for you — from the first conversation to the day your space is running. Based in Newcastle, working across NSW.',
-    url: 'https://yourofficespace.au',
+    url: 'https://www.yourofficespace.au',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -60,13 +60,32 @@ export default function Home() {
         "@context": "https://schema.org",
         "@graph": [
           {
-            "@type": "ProfessionalService",
-            "@id": "https://yourofficespace.au/#business",
+            "@type": ["LocalBusiness", "ProfessionalService"],
+            "@id": "https://www.yourofficespace.au/#business",
             "name": "Your Office Space",
-            "url": "https://yourofficespace.au",
-            "logo": "https://yourofficespace.au/logo.png",
-            "description": "Tenant-side commercial property advisory across Australia. Tenant representation, buyers agency, office furniture, fitout and commercial cleaning.",
-            "areaServed": ["New South Wales", "Australia"],
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "description": "Tenant-side commercial property advisory in Newcastle, NSW. Tenant representation, buyers agency, office furniture, fitout and commercial cleaning.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": -32.9283,
+              "longitude": 151.7817
+            },
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "State", "name": "New South Wales" }
+            ],
             "serviceType": ["Tenant Representation", "Commercial Buyers Agency", "Office Furniture", "Office Fitout", "Commercial Cleaning"],
             "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property Investment", "Office Fitout", "Workplace Design"],
             "contactPoint": {

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Commercial Property Health Check | Free Diagnostic | Your Office Space',
   description: '12 questions. 4 domains. A clear picture of where your business is exposed — and what it\'s costing you. Free commercial property diagnostic from Your Office Space.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/health-check' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/health-check' },
   openGraph: {
     title: 'Commercial Property Health Check | Free Diagnostic | Your Office Space',
     description: '12 questions. 4 domains. A clear picture of where your business is exposed — and what it\'s costing you. Free commercial property diagnostic from Your Office Space.',

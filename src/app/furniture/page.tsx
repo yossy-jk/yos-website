@@ -11,7 +11,7 @@ export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
   description: 'Office furniture and fitout project management across Australia. Express in-stock range to made-to-order — tailored to your timeline, budget and design intent.',
   twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'Brief to delivered. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
-  alternates: { canonical: 'https://yourofficespace.au/furniture' },
+  alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
     title: 'Office Furniture & Fitout | Your Office Space',
     description: 'Brief to delivered. Office furniture and fitout project management — end to end. One team, no gaps.',
@@ -69,9 +69,8 @@ export default function FurniturePage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              The space you work in
-              <br />changes how you work.
-              <br /><span className="text-teal">Build it right.</span>
+              Office Furniture &amp; Fitout Newcastle —
+              <br /><span className="text-teal">brief to delivered.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>

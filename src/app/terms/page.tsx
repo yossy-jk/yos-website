@@ -6,7 +6,7 @@ import SectionLabel from '@/components/SectionLabel'
 export const metadata = {
   title: 'Terms & Conditions | Your Office Space',
   description: 'Terms and conditions governing use of the Your Office Space website and engagement of its services, including LeaseIntel™.',
-  alternates: { canonical: 'https://yourofficespace.au/terms' },
+  alternates: { canonical: 'https://www.yourofficespace.au/terms' },
   openGraph: {
     title: 'Terms & Conditions | Your Office Space',
     description: 'Terms and conditions governing use of the Your Office Space website and engagement of its services.',

@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/blog'
 import { getAllCaseStudies } from '@/lib/case-studies'
 
-const BASE = 'https://yourofficespace.au'
+const BASE = 'https://www.yourofficespace.au'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString()

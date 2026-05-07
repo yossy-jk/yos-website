@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Commercial Property Purchase Checklist | Your Office Space',
   description: 'Interactive due diligence checklist for buying commercial property in Australia. 40+ items covering legal, financial, physical and compliance checks.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/purchase-checklist' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/purchase-checklist' },
   openGraph: {
     title: 'Commercial Property Purchase Checklist | Your Office Space',
     description: 'Interactive due diligence checklist for buying commercial property in Australia. 40+ items covering legal, financial, physical and compliance checks.',

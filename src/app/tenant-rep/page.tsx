@@ -10,7 +10,7 @@ export const metadata = {
   title: 'Tenant Representation | Your Office Space',
   description: 'Expert commercial tenant representation across Australia, NSW focus. We negotiate leases, secure better terms, and only ever work for tenants — never landlords.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'We negotiate commercial leases for tenants. Never landlords. Better terms, stronger outcomes.' },
-  alternates: { canonical: 'https://yourofficespace.au/tenant-rep' },
+  alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
   openGraph: {
     title: 'Tenant Representation | Your Office Space',
     description: 'We negotiate leases for tenants. Never landlords. Stronger terms, smarter deals, better outcomes.',

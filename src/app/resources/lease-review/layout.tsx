@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Commercial Lease Risk Checker | Your Office Space',
   description: 'Identify hidden risks in your commercial lease before you sign. Free clause-by-clause risk assessment tool for Australian tenants.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/lease-review' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/lease-review' },
   openGraph: {
     title: 'Commercial Lease Risk Checker | Your Office Space',
     description: 'Identify hidden risks in your commercial lease before you sign. Free clause-by-clause risk assessment tool for Australian tenants.',

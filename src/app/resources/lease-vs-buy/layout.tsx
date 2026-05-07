@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Lease vs Buy Calculator — Commercial Property Cost Comparison | Your Office Space',
   description: 'Compare the true cost of leasing vs buying commercial property over your chosen term. Includes mortgage, capital growth, and equity modelling. Free tool.',
-  alternates: { canonical: 'https://yourofficespace.au/resources/lease-vs-buy' },
+  alternates: { canonical: 'https://www.yourofficespace.au/resources/lease-vs-buy' },
   openGraph: {
     title: 'Lease vs Buy Calculator — Commercial Property Cost Comparison | Your Office Space',
     description: 'Compare the true cost of leasing vs buying commercial property over your chosen term. Includes mortgage, capital growth, and equity modelling. Free tool.',
