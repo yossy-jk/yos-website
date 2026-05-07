@@ -7,133 +7,498 @@ import {
   Rect,
   Line,
   Arc,
+  Circle,
   Text,
-  Image as KonvaImage,
   Group,
   Transformer,
 } from "react-konva";
 import Konva from "konva";
 import {
   usePlannerStore,
-  getCategoryColor,
   snapToGridValue,
   type PlannerItem,
-  type WallSegment,
-  type DoorElement,
-  type WindowElement,
-  type ColumnElement,
+  type EOFProduct,
 } from "@/lib/space-planner/store";
-import { RoomTemplateShape, ROOM_TEMPLATES } from "@/components/space-planner/RoomTemplates";
 
-const GRID_SIZE = 50;
+const GRID_SIZE = 40; // pixels per grid cell
+const PIXELS_PER_METRE = 80; // 1m = 80px
+const RULER_SIZE = 24; // ruler width/height in px
 
-// --- Wall style helpers ---
+// ─── Silhouette Renderers ────────────────────────────────────────────────────
 
-interface WallStyle {
-  stroke: string;
-  strokeWidth: number;
-  dash?: number[];
+interface SilhouetteProps {
+  item: PlannerItem;
+  isSelected: boolean;
 }
 
-function getWallStyle(wallType: WallSegment["wallType"]): WallStyle {
-  switch (wallType) {
-    case "gyprock":
-      return { stroke: "#1A1A1A", strokeWidth: 8 };
-    case "glazing":
-      return { stroke: "#00B5A5", strokeWidth: 4 };
-    case "external":
-      return { stroke: "#1A1A1A", strokeWidth: 14 };
-    case "partition":
-      return { stroke: "#3D3D3D", strokeWidth: 4, dash: [8, 4] };
-    case "existing":
-      return { stroke: "#9B9B9B", strokeWidth: 8 };
+function ChairSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const backH = Math.max(6, h * 0.25);
+  const seatH = h - backH;
+  const fill = "#00B5A5";
+  const darkFill = "#007A70";
+  return (
+    <Group>
+      {/* Seat */}
+      <Rect width={w} height={seatH} y={backH} fill={fill} cornerRadius={4} />
+      {/* Backrest */}
+      <Rect width={w} height={backH} y={0} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
+      {/* Seat highlight */}
+      <Rect x={4} y={backH + 4} width={w - 8} height={seatH - 8} fill={fill} opacity={0.4} cornerRadius={3} />
+      {/* Selected indicator */}
+      {isSelected && (
+        <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />
+      )}
+    </Group>
+  );
+}
+
+function ExecutiveChairSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const backH = Math.max(8, h * 0.28);
+  const seatH = h - backH;
+  const fill = "#2A4A6B";
+  const darkFill = "#1A2E45";
+  return (
+    <Group>
+      <Rect width={w} height={seatH} y={backH} fill={fill} cornerRadius={6} />
+      <Rect width={w} height={backH} y={0} fill={darkFill} cornerRadius={[6, 6, 0, 0] as unknown as number} />
+      {/* Armrests */}
+      <Rect x={-4} y={backH + 4} width={6} height={seatH - 12} fill={darkFill} cornerRadius={2} />
+      <Rect x={w - 2} y={backH + 4} width={6} height={seatH - 12} fill={darkFill} cornerRadius={2} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={6} />}
+    </Group>
+  );
+}
+
+function LoungeChairSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#B5740A";
+  const darkFill = "#8A5500";
+  const armW = Math.max(6, w * 0.1);
+  const backH = Math.max(8, h * 0.2);
+  return (
+    <Group>
+      {/* Seat */}
+      <Rect x={armW} y={backH} width={w - armW * 2} height={h - backH} fill={fill} cornerRadius={4} />
+      {/* Left arm */}
+      <Rect x={0} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 0, 4] as unknown as number} />
+      {/* Right arm */}
+      <Rect x={w - armW} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 4, 0] as unknown as number} />
+      {/* Backrest */}
+      <Rect x={0} y={0} width={w} height={backH} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />}
+    </Group>
+  );
+}
+
+function Sofa2Silhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#B5740A";
+  const darkFill = "#8A5500";
+  const armW = Math.max(6, w * 0.06);
+  const backH = Math.max(8, h * 0.22);
+  const mid = w / 2;
+  return (
+    <Group>
+      {/* Seat */}
+      <Rect x={armW} y={backH} width={w - armW * 2} height={h - backH} fill={fill} cornerRadius={2} />
+      {/* Cushion divider */}
+      <Line points={[mid, backH, mid, h]} stroke={darkFill} strokeWidth={2} />
+      {/* Arms */}
+      <Rect x={0} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 0, 3] as unknown as number} />
+      <Rect x={w - armW} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 3, 0] as unknown as number} />
+      {/* Backrest */}
+      <Rect x={0} y={0} width={w} height={backH} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />}
+    </Group>
+  );
+}
+
+function Sofa3Silhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#B5740A";
+  const darkFill = "#8A5500";
+  const armW = Math.max(6, w * 0.05);
+  const backH = Math.max(8, h * 0.22);
+  return (
+    <Group>
+      <Rect x={armW} y={backH} width={w - armW * 2} height={h - backH} fill={fill} cornerRadius={2} />
+      {/* Two dividers at 33% and 66% */}
+      <Line points={[w / 3, backH, w / 3, h]} stroke={darkFill} strokeWidth={2} />
+      <Line points={[(w * 2) / 3, backH, (w * 2) / 3, h]} stroke={darkFill} strokeWidth={2} />
+      <Rect x={0} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 0, 3] as unknown as number} />
+      <Rect x={w - armW} y={backH} width={armW} height={h - backH} fill={darkFill} cornerRadius={[0, 0, 3, 0] as unknown as number} />
+      <Rect x={0} y={0} width={w} height={backH} fill={darkFill} cornerRadius={[4, 4, 0, 0] as unknown as number} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={4} />}
+    </Group>
+  );
+}
+
+function DeskSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#D4C5A0";
+  const legSize = 5;
+  return (
+    <Group>
+      {/* Surface */}
+      <Rect width={w} height={h} fill={fill} cornerRadius={2} stroke="#A89060" strokeWidth={1} />
+      {/* Legs */}
+      <Rect x={4} y={4} width={legSize} height={legSize} fill="#8A7040" />
+      <Rect x={w - 4 - legSize} y={4} width={legSize} height={legSize} fill="#8A7040" />
+      <Rect x={4} y={h - 4 - legSize} width={legSize} height={legSize} fill="#8A7040" />
+      <Rect x={w - 4 - legSize} y={h - 4 - legSize} width={legSize} height={legSize} fill="#8A7040" />
+      {/* Front edge highlight */}
+      <Rect x={0} y={h - 4} width={w} height={4} fill="#A89060" cornerRadius={[0, 0, 2, 2] as unknown as number} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={2} />}
+    </Group>
+  );
+}
+
+function MeetingTableSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#E8DCC0";
+  return (
+    <Group>
+      <Rect width={w} height={h} fill={fill} cornerRadius={3} stroke="#C0A870" strokeWidth={1.5} />
+      {/* Inner border */}
+      <Rect x={4} y={4} width={w - 8} height={h - 8} fill="transparent" stroke="#C0A870" strokeWidth={0.5} cornerRadius={2} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={3} />}
+    </Group>
+  );
+}
+
+function RoundTableSilhouette({ item, isSelected }: SilhouetteProps) {
+  const r = Math.min(item.width, item.height) / 2;
+  return (
+    <Group x={r} y={r}>
+      <Circle radius={r} fill="#E8DCC0" stroke="#C0A870" strokeWidth={1.5} />
+      <Circle radius={r - 4} fill="transparent" stroke="#C0A870" strokeWidth={0.5} />
+      {isSelected && <Circle radius={r} stroke="#FFFFFF" strokeWidth={2} fill="transparent" />}
+    </Group>
+  );
+}
+
+function StorageSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#9B9B9B";
+  const lineColor = "#6B6B6B";
+  const drawerH = h / 3;
+  return (
+    <Group>
+      <Rect width={w} height={h} fill={fill} cornerRadius={2} stroke={lineColor} strokeWidth={1} />
+      {/* Drawer lines */}
+      <Line points={[0, drawerH, w, drawerH]} stroke={lineColor} strokeWidth={1} />
+      <Line points={[0, drawerH * 2, w, drawerH * 2]} stroke={lineColor} strokeWidth={1} />
+      {/* Handles */}
+      <Rect x={w / 2 - 8} y={drawerH / 2 - 2} width={16} height={4} fill={lineColor} cornerRadius={2} />
+      <Rect x={w / 2 - 8} y={drawerH + drawerH / 2 - 2} width={16} height={4} fill={lineColor} cornerRadius={2} />
+      <Rect x={w / 2 - 8} y={drawerH * 2 + drawerH / 2 - 2} width={16} height={4} fill={lineColor} cornerRadius={2} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={2} />}
+    </Group>
+  );
+}
+
+function ScreenSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = Math.max(item.height, 16);
+  const fill = "#6B3D8B";
+  const lineColor = "#4A2A6A";
+  const step = Math.max(8, w / 8);
+  const diagonals: React.ReactNode[] = [];
+  for (let x = -h; x < w + h; x += step) {
+    diagonals.push(
+      <Line key={x} points={[x, 0, x + h, h]} stroke={lineColor} strokeWidth={1} listening={false} />
+    );
+  }
+  return (
+    <Group>
+      <Rect width={w} height={h} fill={fill} cornerRadius={2} />
+      {diagonals}
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={2} />}
+    </Group>
+  );
+}
+
+function CoffeeTableSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#C8B890";
+  return (
+    <Group>
+      <Rect width={w} height={h} fill={fill} cornerRadius={6} stroke="#A89060" strokeWidth={1} />
+      <Rect x={8} y={8} width={w - 16} height={h - 16} fill="transparent" stroke="#A89060" strokeWidth={0.5} cornerRadius={4} />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={6} />}
+    </Group>
+  );
+}
+
+function ReceptionDeskSilhouette({ item, isSelected }: SilhouetteProps) {
+  const w = item.width;
+  const h = item.height;
+  const fill = "#D4C5A0";
+  const counterH = Math.max(12, h * 0.3);
+  return (
+    <Group>
+      {/* Main desk */}
+      <Rect width={w} height={h - counterH} fill={fill} cornerRadius={2} stroke="#A89060" strokeWidth={1} />
+      {/* Front counter (reception-facing) */}
+      <Rect y={h - counterH} width={w} height={counterH} fill="#A89060" cornerRadius={[0, 0, 3, 3] as unknown as number} />
+      {/* Leg markers */}
+      <Rect x={4} y={4} width={5} height={5} fill="#8A7040" />
+      <Rect x={w - 9} y={4} width={5} height={5} fill="#8A7040" />
+      {isSelected && <Rect width={w} height={h} stroke="#FFFFFF" strokeWidth={2} fill="transparent" cornerRadius={2} />}
+    </Group>
+  );
+}
+
+// Label overlay (drawn separately, not inside transform group)
+function ItemLabel({ item }: { item: PlannerItem }) {
+  const fontSize = Math.min(10, item.width * 0.12, item.height * 0.28);
+  if (fontSize < 6) return null;
+  return (
+    <Text
+      text={item.name}
+      width={item.width}
+      height={item.height}
+      align="center"
+      verticalAlign="middle"
+      fontSize={Math.max(6, fontSize)}
+      fill="#FFFFFF"
+      fontFamily="Montserrat, sans-serif"
+      fontStyle="bold"
+      padding={3}
+      listening={false}
+      wrap="word"
+    />
+  );
+}
+
+function getSilhouetteType(item: PlannerItem): EOFProduct["silhouetteType"] {
+  // Map by productId or name patterns
+  const id = item.productId.toLowerCase();
+  if (id.includes("executive")) return "chair-executive";
+  if (id.includes("lounge-2") || id.includes("sofa-2")) return "sofa-2";
+  if (id.includes("lounge-3") || id.includes("sofa-3")) return "sofa-3";
+  if (id.includes("lounge") || id.includes("chair-lounge")) return "chair-lounge";
+  if (id.includes("coffee")) return "coffee-table";
+  if (id.includes("reception")) return "reception-desk";
+  if (id.includes("round")) return "round-table";
+  if (id.includes("screen")) return "screen";
+  if (id.includes("storage") || id.includes("filing") || id.includes("pedestal") || id.includes("cabinet")) return "storage";
+  if (id.includes("mtable") || id.includes("meeting-table") || id.includes("table")) return "meeting-table";
+  if (id.includes("desk") || id.includes("ws") || id.includes("workstation")) return "desk";
+  if (id.includes("meeting") || id.includes("visitor")) return "chair-meeting";
+  if (id.includes("task") || id.includes("chair-task")) return "chair-task";
+  // Fallback by category
+  const cat = item.category;
+  if (cat === "Desks") return "desk";
+  if (cat === "Meeting") return "meeting-table";
+  if (cat === "Storage") return "storage";
+  if (cat === "Screens") return "screen";
+  if (cat === "Breakout") return "chair-lounge";
+  return "chair-task";
+}
+
+function FurnitureSilhouette({ item, isSelected }: SilhouetteProps) {
+  const type = getSilhouetteType(item);
+  switch (type) {
+    case "chair-task":
+    case "chair-meeting":
+    case "chair-visitor":
+      return <ChairSilhouette item={item} isSelected={isSelected} />;
+    case "chair-executive":
+      return <ExecutiveChairSilhouette item={item} isSelected={isSelected} />;
+    case "chair-lounge":
+      return <LoungeChairSilhouette item={item} isSelected={isSelected} />;
+    case "sofa-2":
+      return <Sofa2Silhouette item={item} isSelected={isSelected} />;
+    case "sofa-3":
+      return <Sofa3Silhouette item={item} isSelected={isSelected} />;
+    case "desk":
+      return <DeskSilhouette item={item} isSelected={isSelected} />;
+    case "meeting-table":
+      return <MeetingTableSilhouette item={item} isSelected={isSelected} />;
+    case "round-table":
+      return <RoundTableSilhouette item={item} isSelected={isSelected} />;
+    case "storage":
+      return <StorageSilhouette item={item} isSelected={isSelected} />;
+    case "screen":
+      return <ScreenSilhouette item={item} isSelected={isSelected} />;
+    case "coffee-table":
+      return <CoffeeTableSilhouette item={item} isSelected={isSelected} />;
+    case "reception-desk":
+      return <ReceptionDeskSilhouette item={item} isSelected={isSelected} />;
+    default:
+      return <DeskSilhouette item={item} isSelected={isSelected} />;
   }
 }
 
-// --- CanvasItem (existing furniture) ---
+// ─── Alignment guides ─────────────────────────────────────────────────────────
+
+interface Guide {
+  type: "vertical" | "horizontal";
+  pos: number;
+}
+
+function getEdges(item: PlannerItem) {
+  return {
+    left: item.x,
+    right: item.x + item.width,
+    centerX: item.x + item.width / 2,
+    top: item.y,
+    bottom: item.y + item.height,
+    centerY: item.y + item.height / 2,
+  };
+}
+
+export function getAlignmentGuides(draggingItem: PlannerItem, allItems: PlannerItem[]): { guides: Guide[]; snappedX: number; snappedY: number } {
+  const SNAP_THRESHOLD = 6;
+  const edges = getEdges(draggingItem);
+  const guides: Guide[] = [];
+  let snappedX = draggingItem.x;
+  let snappedY = draggingItem.y;
+  let closestH = SNAP_THRESHOLD + 1;
+  let closestV = SNAP_THRESHOLD + 1;
+
+  allItems.filter((i) => i.id !== draggingItem.id).forEach((other) => {
+    const o = getEdges(other);
+
+    // Vertical alignment (left/right/center of dragging vs other)
+    const vPairs: Array<[number, number, number]> = [
+      [edges.left, o.left, 0],         [edges.left, o.right, o.right - edges.left],
+      [edges.right, o.right, o.right - edges.right],  [edges.right, o.left, o.left - edges.right],
+      [edges.centerX, o.centerX, o.centerX - edges.centerX],
+    ];
+    vPairs.forEach(([a, b, diff]) => {
+      const d = Math.abs(a - b);
+      if (d < closestV) {
+        closestV = d;
+        snappedX = draggingItem.x + diff;
+        guides.splice(guides.findIndex((g) => g.type === "vertical"), 1);
+        guides.push({ type: "vertical", pos: b });
+      }
+    });
+
+    // Horizontal alignment
+    const hPairs: Array<[number, number, number]> = [
+      [edges.top, o.top, 0],           [edges.top, o.bottom, o.bottom - edges.top],
+      [edges.bottom, o.bottom, o.bottom - edges.bottom],  [edges.bottom, o.top, o.top - edges.bottom],
+      [edges.centerY, o.centerY, o.centerY - edges.centerY],
+    ];
+    hPairs.forEach(([a, b, diff]) => {
+      const d = Math.abs(a - b);
+      if (d < closestH) {
+        closestH = d;
+        snappedY = draggingItem.y + diff;
+        guides.splice(guides.findIndex((g) => g.type === "horizontal"), 1);
+        guides.push({ type: "horizontal", pos: b });
+      }
+    });
+  });
+
+  return {
+    guides: closestV <= SNAP_THRESHOLD || closestH <= SNAP_THRESHOLD ? guides : [],
+    snappedX: closestV <= SNAP_THRESHOLD ? snappedX : draggingItem.x,
+    snappedY: closestH <= SNAP_THRESHOLD ? snappedY : draggingItem.y,
+  };
+}
+
+// ─── CanvasItem with Transformer ──────────────────────────────────────────────
 
 function CanvasItem({
   item,
   isSelected,
-  snapToGrid,
+  snapToGrid: snapEnabled,
+  allItems,
   onSelect,
   onChange,
+  onGuides,
 }: {
   item: PlannerItem;
   isSelected: boolean;
   snapToGrid: boolean;
+  allItems: PlannerItem[];
   onSelect: () => void;
   onChange: (updates: Partial<PlannerItem>) => void;
+  onGuides: (guides: Guide[]) => void;
 }) {
-  const shapeRef = useRef<Konva.Rect>(null);
+  const groupRef = useRef<Konva.Group>(null);
   const trRef = useRef<Konva.Transformer>(null);
 
   useEffect(() => {
-    if (isSelected && trRef.current && shapeRef.current) {
-      trRef.current.nodes([shapeRef.current]);
+    if (isSelected && trRef.current && groupRef.current) {
+      trRef.current.nodes([groupRef.current]);
       trRef.current.getLayer()?.batchDraw();
     }
   }, [isSelected]);
 
-  const textFill = "#FFFFFF";
-  const fontSize = Math.min(12, item.width * 0.14, item.height * 0.3);
-
   return (
     <>
       <Group
+        ref={groupRef}
         x={item.x}
         y={item.y}
         rotation={item.rotation}
+        offsetX={0}
+        offsetY={0}
         draggable
         onClick={onSelect}
         onTap={onSelect}
+        onDragMove={(e) => {
+          let nx = e.target.x();
+          let ny = e.target.y();
+          const draggingCopy = { ...item, x: nx, y: ny };
+          const { guides, snappedX, snappedY } = getAlignmentGuides(draggingCopy, allItems);
+          if (snapEnabled) {
+            nx = snapToGridValue(snappedX, GRID_SIZE);
+            ny = snapToGridValue(snappedY, GRID_SIZE);
+          } else {
+            nx = snappedX;
+            ny = snappedY;
+          }
+          e.target.position({ x: nx, y: ny });
+          onGuides(guides);
+        }}
         onDragEnd={(e) => {
           let nx = e.target.x();
           let ny = e.target.y();
-          if (snapToGrid) {
+          if (snapEnabled) {
             nx = snapToGridValue(nx, GRID_SIZE);
             ny = snapToGridValue(ny, GRID_SIZE);
+            e.target.position({ x: nx, y: ny });
           }
           onChange({ x: nx, y: ny });
-          e.target.position({ x: nx, y: ny });
+          onGuides([]);
         }}
       >
-        <Rect
-          ref={shapeRef}
-          width={item.width}
-          height={item.height}
-          fill={item.color}
-          opacity={0.9}
-          cornerRadius={3}
-          shadowEnabled={isSelected}
-          shadowBlur={8}
-          shadowOpacity={0.3}
-        />
-        <Text
-          text={item.name}
-          width={item.width}
-          height={item.height}
-          align="center"
-          verticalAlign="middle"
-          fontSize={Math.max(7, fontSize)}
-          fill={textFill}
-          fontFamily="Montserrat, sans-serif"
-          fontStyle="bold"
-          padding={4}
-          listening={false}
-          wrap="word"
-        />
+        <FurnitureSilhouette item={item} isSelected={isSelected} />
+        <ItemLabel item={item} />
       </Group>
+
       {isSelected && (
         <Transformer
           ref={trRef}
-          enabledAnchors={["top-left", "top-right", "bottom-left", "bottom-right"]}
+          enabledAnchors={["top-left", "top-right", "bottom-left", "bottom-right", "middle-right", "middle-left"]}
+          rotateEnabled={true}
+          borderStroke="#00B5A5"
+          anchorStroke="#00B5A5"
+          anchorFill="#FFFFFF"
+          anchorSize={8}
           boundBoxFunc={(oldBox, newBox) => {
             if (newBox.width < 20 || newBox.height < 20) return oldBox;
             return newBox;
           }}
           onTransformEnd={() => {
-            const node = shapeRef.current;
+            const node = groupRef.current;
             if (!node) return;
             const scaleX = node.scaleX();
             const scaleY = node.scaleY();
@@ -142,8 +507,8 @@ function CanvasItem({
             onChange({
               x: node.x(),
               y: node.y(),
-              width: Math.max(20, node.width() * scaleX),
-              height: Math.max(20, node.height() * scaleY),
+              width: Math.max(20, item.width * scaleX),
+              height: Math.max(20, item.height * scaleY),
               rotation: node.rotation(),
             });
           }}
@@ -153,618 +518,284 @@ function CanvasItem({
   );
 }
 
-// --- Drawing element renderers ---
+// ─── Ruler ────────────────────────────────────────────────────────────────────
 
-function WallRenderer({ wall }: { wall: WallSegment }) {
-  const style = getWallStyle(wall.wallType);
-  const [x1, y1, x2, y2] = wall.points;
-  const pixelLength = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-  const lengthM = (pixelLength / 50).toFixed(1);
-  const midX = (x1 + x2) / 2;
-  const midY = (y1 + y2) / 2;
-  const labelW = 38;
-  const labelH = 16;
+function RulerH({ width, height, stageScale, stageX }: { width: number; height: number; stageScale: number; stageX: number }) {
+  const ticks: React.ReactNode[] = [];
+  const startM = Math.floor(-stageX / stageScale / PIXELS_PER_METRE);
+  const endM = Math.ceil((width - stageX) / stageScale / PIXELS_PER_METRE);
+  for (let m = startM; m <= endM; m++) {
+    const px = (m * PIXELS_PER_METRE * stageScale) + stageX;
+    if (px < RULER_SIZE || px > width) continue;
+    ticks.push(
+      <Line key={`hm${m}`} points={[px, height - 8, px, height]} stroke="#9B9B9B" strokeWidth={1} listening={false} />,
+      <Text key={`hmt${m}`} x={px + 2} y={height - 14} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} />
+    );
+    // Half-metre tick
+    const hpx = ((m + 0.5) * PIXELS_PER_METRE * stageScale) + stageX;
+    if (hpx > RULER_SIZE && hpx < width) {
+      ticks.push(
+        <Line key={`hh${m}`} points={[hpx, height - 5, hpx, height]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />
+      );
+    }
+  }
   return (
-    <>
-      <Line
-        points={wall.points}
-        stroke={style.stroke}
-        strokeWidth={style.strokeWidth}
-        dash={style.dash}
-        lineCap="round"
-        lineJoin="round"
-        listening={false}
-      />
-      <Rect
-        x={midX - labelW / 2}
-        y={midY - labelH / 2}
-        width={labelW}
-        height={labelH}
-        fill="white"
-        opacity={0.85}
-        listening={false}
-      />
-      <Text
-        text={`${lengthM}m`}
-        x={midX - labelW / 2}
-        y={midY - labelH / 2 + 2}
-        width={labelW}
-        fontSize={10}
-        fill="#00B5A5"
-        fontStyle="bold"
-        fontFamily="Montserrat, sans-serif"
-        align="center"
-        listening={false}
-      />
-    </>
-  );
-}
-
-function DoorRenderer({ door }: { door: DoorElement }) {
-  return (
-    <Group x={door.x} y={door.y} rotation={door.rotation} listening={false}>
-      {/* Door panel */}
-      <Rect
-        x={0}
-        y={-3}
-        width={door.width}
-        height={6}
-        fill="#9B9B9B"
-        listening={false}
-      />
-      {/* Swing arc */}
-      <Arc
-        x={0}
-        y={0}
-        innerRadius={0}
-        outerRadius={door.width}
-        angle={90}
-        rotation={door.swingDirection === "left" ? -90 : 0}
-        stroke="#00B5A5"
-        strokeWidth={1.5}
-        dash={[6, 3]}
-        fill="transparent"
-        listening={false}
-      />
+    <Group>
+      <Rect x={RULER_SIZE} y={0} width={width - RULER_SIZE} height={height} fill="#1E1E1E" />
+      {ticks}
     </Group>
   );
 }
 
-function WindowRenderer({ win }: { win: WindowElement }) {
-  const tickLen = 8;
+function RulerV({ width, height, stageScale, stageY }: { width: number; height: number; stageScale: number; stageY: number }) {
+  const ticks: React.ReactNode[] = [];
+  const startM = Math.floor(-stageY / stageScale / PIXELS_PER_METRE);
+  const endM = Math.ceil((height - stageY) / stageScale / PIXELS_PER_METRE);
+  for (let m = startM; m <= endM; m++) {
+    const py = (m * PIXELS_PER_METRE * stageScale) + stageY;
+    if (py < RULER_SIZE || py > height) continue;
+    ticks.push(
+      <Line key={`vm${m}`} points={[width - 8, py, width, py]} stroke="#9B9B9B" strokeWidth={1} listening={false} />,
+      <Text key={`vmt${m}`} x={0} y={py + 2} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} rotation={0} />
+    );
+    const hpy = ((m + 0.5) * PIXELS_PER_METRE * stageScale) + stageY;
+    if (hpy > RULER_SIZE && hpy < height) {
+      ticks.push(
+        <Line key={`vh${m}`} points={[width - 5, hpy, width, hpy]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />
+      );
+    }
+  }
   return (
-    <Group x={win.x} y={win.y} rotation={win.rotation} listening={false}>
-      {/* Main line */}
-      <Line
-        points={[0, 0, win.width, 0]}
-        stroke="#00B5A5"
-        strokeWidth={6}
-        lineCap="square"
-        listening={false}
-      />
-      {/* Left tick */}
-      <Line
-        points={[0, -tickLen, 0, tickLen]}
-        stroke="#00B5A5"
-        strokeWidth={2}
-        listening={false}
-      />
-      {/* Right tick */}
-      <Line
-        points={[win.width, -tickLen, win.width, tickLen]}
-        stroke="#00B5A5"
-        strokeWidth={2}
-        listening={false}
-      />
+    <Group>
+      <Rect x={0} y={RULER_SIZE} width={width} height={height - RULER_SIZE} fill="#1E1E1E" />
+      {ticks}
     </Group>
   );
 }
 
-function ColumnRenderer({ col }: { col: ColumnElement }) {
+// ─── Room outline ─────────────────────────────────────────────────────────────
+
+function RoomOutline({ widthM, depthM, offsetX, offsetY }: { widthM: number; depthM: number; offsetX: number; offsetY: number }) {
+  const w = widthM * PIXELS_PER_METRE;
+  const h = depthM * PIXELS_PER_METRE;
   return (
-    <Rect
-      x={col.x - col.size / 2}
-      y={col.y - col.size / 2}
-      width={col.size}
-      height={col.size}
-      fill="#9B9B9B"
-      stroke="#3D3D3D"
-      strokeWidth={2}
-      listening={false}
-    />
+    <Group x={offsetX} y={offsetY}>
+      {/* Floor fill */}
+      <Rect width={w} height={h} fill="#F5F0E8" />
+      {/* Walls */}
+      <Rect width={w} height={h} fill="transparent" stroke="#1A1A1A" strokeWidth={10} />
+      {/* Dimension labels */}
+      <Text text={`${widthM}m`} x={w / 2 - 20} y={-18} fontSize={11} fill="#6B6B6B" fontFamily="Montserrat, sans-serif" fontStyle="bold" listening={false} />
+      <Text text={`${depthM}m`} x={-24} y={h / 2 - 6} fontSize={11} fill="#6B6B6B" fontFamily="Montserrat, sans-serif" fontStyle="bold" listening={false} rotation={-90} />
+    </Group>
   );
 }
 
-// --- Main PlannerCanvas component ---
+// ─── Main PlannerCanvas ────────────────────────────────────────────────────────
 
 interface PlannerCanvasProps {
   width: number;
   height: number;
   onDrop?: (e: React.DragEvent<HTMLDivElement>) => void;
+  stageRef?: React.RefObject<Konva.Stage | null>;
 }
 
-export default function PlannerCanvas({ width, height, onDrop }: PlannerCanvasProps) {
+export default function PlannerCanvas({ width, height, onDrop, stageRef: externalStageRef }: PlannerCanvasProps) {
   const {
     items,
-    zones,
     selectedId,
-    floorPlanImage,
-    roomTemplate,
     snapToGrid,
-    scale,
+    roomConfig,
     updateItem,
     removeItem,
     setSelected,
-    // Drawing
     activeTool,
-    activeWallType,
-    walls,
-    doors,
-    windows,
-    columns,
-    drawingPoints,
-    addWall,
-    removeWall,
-    addDoor,
-    removeDoor,
-    addWindow,
-    removeWindow,
-    addColumn,
-    removeColumn,
-    setDrawingPoints,
   } = usePlannerStore();
 
   const [stageScale, setStageScale] = useState(1);
-  const [stagePos, setStagePos] = useState({ x: 0, y: 0 });
-  const [bgImage, setBgImage] = useState<HTMLImageElement | null>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const stageRef = useRef<Konva.Stage>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Load floor plan image
-  useEffect(() => {
-    if (!floorPlanImage) {
-      setBgImage(null);
-      return;
-    }
-    const img = new window.Image();
-    img.src = floorPlanImage;
-    img.onload = () => setBgImage(img);
-  }, [floorPlanImage]);
-
-  // Keyboard handling
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA") return;
-
-      if (e.key === "Escape") {
-        setDrawingPoints([]);
-        return;
-      }
-
-      if ((e.key === "Delete" || e.key === "Backspace") && activeTool === "select" && selectedId) {
-        removeItem(selectedId);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedId, activeTool, removeItem, setDrawingPoints]);
+  const [stagePos, setStagePos] = useState({ x: RULER_SIZE, y: RULER_SIZE });
+  const [guides, setGuides] = useState<Guide[]>([]);
+  const internalStageRef = useRef<Konva.Stage>(null);
+  const stageRef = externalStageRef ?? internalStageRef;
 
   // Grid lines
   const gridLines = useCallback(() => {
     const lines: React.ReactNode[] = [];
-    const w = width / stageScale;
-    const h = height / stageScale;
-    for (let x = 0; x < w + GRID_SIZE; x += GRID_SIZE) {
-      lines.push(
-        <Line
-          key={`v${x}`}
-          points={[x, 0, x, h + GRID_SIZE]}
-          stroke="#E0E0E0"
-          strokeWidth={0.5}
-          listening={false}
-        />
-      );
+    const offsetX = stagePos.x % (GRID_SIZE * stageScale);
+    const offsetY = stagePos.y % (GRID_SIZE * stageScale);
+    const cols = Math.ceil(width / (GRID_SIZE * stageScale)) + 1;
+    const rows = Math.ceil(height / (GRID_SIZE * stageScale)) + 1;
+    for (let i = 0; i <= cols; i++) {
+      const x = offsetX + i * GRID_SIZE * stageScale;
+      lines.push(<Line key={`vg${i}`} points={[x, 0, x, height]} stroke="#E8E8E8" strokeWidth={0.5} listening={false} />);
     }
-    for (let y = 0; y < h + GRID_SIZE; y += GRID_SIZE) {
-      lines.push(
-        <Line
-          key={`h${y}`}
-          points={[0, y, w + GRID_SIZE, y]}
-          stroke="#E0E0E0"
-          strokeWidth={0.5}
-          listening={false}
-        />
-      );
+    for (let i = 0; i <= rows; i++) {
+      const y = offsetY + i * GRID_SIZE * stageScale;
+      lines.push(<Line key={`hg${i}`} points={[0, y, width, y]} stroke="#E8E8E8" strokeWidth={0.5} listening={false} />);
     }
     return lines;
-  }, [width, height, stageScale]);
+  }, [width, height, stageScale, stagePos]);
 
-  const handleZoom = (direction: "in" | "out") => {
-    const factor = direction === "in" ? 1.2 : 1 / 1.2;
-    setStageScale((prev) => Math.min(3, Math.max(0.3, prev * factor)));
-  };
-
-  // Snap helper
-  const snap = useCallback(
-    (val: number) => (snapToGrid ? snapToGridValue(val, GRID_SIZE) : val),
-    [snapToGrid]
-  );
-
-  // Get pointer position relative to stage (accounting for scale/offset)
-  const getPointerPos = useCallback(() => {
+  // Keyboard: zoom
+  const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
+    e.evt.preventDefault();
+    const scaleBy = 1.06;
     const stage = stageRef.current;
-    if (!stage) return { x: 0, y: 0 };
-    const pos = stage.getPointerPosition();
-    if (!pos) return { x: 0, y: 0 };
-    return {
-      x: snap((pos.x - stagePos.x) / stageScale),
-      y: snap((pos.y - stagePos.y) / stageScale),
+    if (!stage) return;
+    const oldScale = stageScale;
+    const pointer = stage.getPointerPosition();
+    if (!pointer) return;
+    const mousePointTo = {
+      x: (pointer.x - stagePos.x) / oldScale,
+      y: (pointer.y - stagePos.y) / oldScale,
     };
-  }, [snap, stagePos, stageScale]);
+    const newScale = e.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+    const clampedScale = Math.min(4, Math.max(0.2, newScale));
+    setStageScale(clampedScale);
+    setStagePos({
+      x: pointer.x - mousePointTo.x * clampedScale,
+      y: pointer.y - mousePointTo.y * clampedScale,
+    });
+  }, [stageScale, stagePos, stageRef]);
 
-  // Distance helper for eraser
-  const dist = (x1: number, y1: number, x2: number, y2: number) =>
-    Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-
-  // Wall tool type for glazing/partition shortcuts
-  const effectiveWallType =
-    activeTool === "glazing"
-      ? "glazing"
-      : activeTool === "partition"
-      ? "partition"
-      : activeWallType;
-
-  const isWallTool =
-    activeTool === "wall" || activeTool === "glazing" || activeTool === "partition";
-
-  // Stage event handlers
-  const handleMouseMove = useCallback(() => {
-    if (!isWallTool) return;
-    const pos = getPointerPos();
-    setMousePos(pos);
-  }, [isWallTool, getPointerPos]);
-
-  const handleClick = useCallback(
-    (e: Konva.KonvaEventObject<MouseEvent>) => {
-      // Ignore right-click
-      if (e.evt.button !== 0) return;
-
-      const pos = getPointerPos();
-
-      if (isWallTool) {
-        if (drawingPoints.length === 0) {
-          setDrawingPoints([pos.x, pos.y]);
-        } else {
-          // Add wall segment from last point to current
-          const lastX = drawingPoints[drawingPoints.length - 2];
-          const lastY = drawingPoints[drawingPoints.length - 1];
-          addWall({
-            points: [lastX, lastY, pos.x, pos.y],
-            wallType: effectiveWallType,
-            thickness: getWallStyle(effectiveWallType).strokeWidth,
-          });
-          // Continue chaining from current point
-          setDrawingPoints([pos.x, pos.y]);
-        }
-        return;
-      }
-
-      if (activeTool === "door") {
-        addDoor({ x: pos.x, y: pos.y, width: 80, rotation: 0, swingDirection: "left" });
-        return;
-      }
-
-      if (activeTool === "window") {
-        addWindow({ x: pos.x, y: pos.y, width: 100, rotation: 0 });
-        return;
-      }
-
-      if (activeTool === "column") {
-        addColumn({ x: pos.x, y: pos.y, size: 40 });
-        return;
-      }
-
-      if (activeTool === "eraser") {
-        const THRESHOLD = 20;
-        // Check walls
-        for (const wall of walls) {
-          const [x1, y1, x2, y2] = wall.points;
-          const mx = (x1 + x2) / 2;
-          const my = (y1 + y2) / 2;
-          if (
-            dist(pos.x, pos.y, x1, y1) < THRESHOLD ||
-            dist(pos.x, pos.y, x2, y2) < THRESHOLD ||
-            dist(pos.x, pos.y, mx, my) < THRESHOLD
-          ) {
-            removeWall(wall.id);
-            return;
-          }
-        }
-        // Check doors
-        for (const door of doors) {
-          if (dist(pos.x, pos.y, door.x, door.y) < THRESHOLD) {
-            removeDoor(door.id);
-            return;
-          }
-        }
-        // Check windows
-        for (const win of windows) {
-          if (dist(pos.x, pos.y, win.x, win.y) < THRESHOLD) {
-            removeWindow(win.id);
-            return;
-          }
-        }
-        // Check columns
-        for (const col of columns) {
-          if (dist(pos.x, pos.y, col.x, col.y) < THRESHOLD) {
-            removeColumn(col.id);
-            return;
-          }
-        }
-        return;
-      }
-
-      // Select tool — deselect if clicking stage background
-      if (e.target === e.target.getStage()) {
-        setSelected(null);
-      }
-    },
-    [
-      activeTool,
-      isWallTool,
-      drawingPoints,
-      effectiveWallType,
-      walls,
-      doors,
-      windows,
-      columns,
-      getPointerPos,
-      addWall,
-      addDoor,
-      addWindow,
-      addColumn,
-      removeWall,
-      removeDoor,
-      removeWindow,
-      removeColumn,
-      setDrawingPoints,
-      setSelected,
-    ]
-  );
-
-  const handleDblClick = useCallback(() => {
-    if (isWallTool) {
-      setDrawingPoints([]);
+  const handleStageClick = useCallback((e: Konva.KonvaEventObject<MouseEvent>) => {
+    if (e.target === stageRef.current) {
+      setSelected(null);
     }
-  }, [isWallTool, setDrawingPoints]);
+  }, [setSelected, stageRef]);
 
-  // Cursor style
-  const cursorStyle =
-    activeTool === "eraser"
-      ? "cell"
-      : activeTool !== "select"
-      ? "crosshair"
-      : "default";
-
-  const selectedTemplate = ROOM_TEMPLATES.find((t) => t.id === roomTemplate);
-
-  // Preview line while drawing walls
-  const previewPoints =
-    isWallTool && drawingPoints.length >= 2
-      ? [
-          drawingPoints[drawingPoints.length - 2],
-          drawingPoints[drawingPoints.length - 1],
-          mousePos.x,
-          mousePos.y,
-        ]
-      : null;
+  // Room offset on canvas
+  const roomOffsetX = stagePos.x / stageScale + 1;
+  const roomOffsetY = stagePos.y / stageScale + 1;
 
   return (
     <div
       className="relative w-full h-full"
-      ref={containerRef}
-      style={{ cursor: cursorStyle }}
+      style={{ background: "#CCCCCC", cursor: activeTool === "select" ? "default" : "crosshair" }}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={onDrop}
     >
-      {/* Zoom controls */}
-      <div className="absolute bottom-4 right-4 z-10 flex flex-col gap-1">
-        <button
-          onClick={() => handleZoom("in")}
-          className="w-8 h-8 bg-white border border-gray-300 text-near-black font-bold text-lg hover:bg-gray-50 flex items-center justify-center rounded-lg shadow"
-          title="Zoom in"
-        >
-          +
-        </button>
-        <button
-          onClick={() => handleZoom("out")}
-          className="w-8 h-8 bg-white border border-gray-300 text-near-black font-bold text-lg hover:bg-gray-50 flex items-center justify-center rounded-lg shadow"
-          title="Zoom out"
-        >
-          -
-        </button>
-      </div>
-
-      {/* Scale indicator */}
-      <div className="absolute bottom-4 left-4 z-10 bg-white/90 text-xs text-mid-grey px-2 py-1 rounded-lg border border-gray-200 shadow">
-        1 square = 1m x 1m
-      </div>
-
-      {/* Canvas drop zone */}
-      <div
-        className="w-full h-full"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={onDrop}
+      <Stage
+        ref={stageRef}
+        width={width}
+        height={height}
+        scaleX={stageScale}
+        scaleY={stageScale}
+        x={stagePos.x}
+        y={stagePos.y}
+        draggable={activeTool === "select"}
+        onDragEnd={(e) => {
+          setStagePos({ x: e.target.x(), y: e.target.y() });
+        }}
+        onWheel={handleWheel}
+        onClick={handleStageClick}
       >
-        <Stage
-          ref={stageRef}
-          width={width}
-          height={height}
-          scaleX={stageScale}
-          scaleY={stageScale}
-          x={stagePos.x}
-          y={stagePos.y}
-          draggable={activeTool === "select"}
-          onDragEnd={(e) => {
-            if (activeTool === "select") {
-              setStagePos({ x: e.target.x(), y: e.target.y() });
-            }
-          }}
-          onMouseMove={handleMouseMove}
-          onClick={handleClick}
-          onDblClick={handleDblClick}
-        >
-          {/* 1. Background layer */}
-          <Layer>
-            <Rect
-              x={-stagePos.x / stageScale}
-              y={-stagePos.y / stageScale}
-              width={width / stageScale + 200}
-              height={height / stageScale + 200}
-              fill="#FAFAFA"
-              listening={false}
+        {/* 1. Background */}
+        <Layer listening={false}>
+          <Rect
+            x={-stagePos.x / stageScale}
+            y={-stagePos.y / stageScale}
+            width={width / stageScale + 400}
+            height={height / stageScale + 400}
+            fill="#CCCCCC"
+          />
+        </Layer>
+
+        {/* 2. Grid */}
+        <Layer listening={false}>
+          <Rect
+            x={-stagePos.x / stageScale}
+            y={-stagePos.y / stageScale}
+            width={width / stageScale + 400}
+            height={height / stageScale + 400}
+            fill="#F8F8F5"
+          />
+          {Array.from({ length: Math.ceil((width / stageScale + 400) / GRID_SIZE) + 1 }, (_, i) => (
+            <Line key={`vg${i}`} points={[-stagePos.x / stageScale + i * GRID_SIZE, -stagePos.y / stageScale, -stagePos.x / stageScale + i * GRID_SIZE, -stagePos.y / stageScale + height / stageScale + 400]} stroke="#E0E0E0" strokeWidth={0.5} listening={false} />
+          ))}
+          {Array.from({ length: Math.ceil((height / stageScale + 400) / GRID_SIZE) + 1 }, (_, i) => (
+            <Line key={`hg${i}`} points={[-stagePos.x / stageScale, -stagePos.y / stageScale + i * GRID_SIZE, -stagePos.x / stageScale + width / stageScale + 400, -stagePos.y / stageScale + i * GRID_SIZE]} stroke="#E0E0E0" strokeWidth={0.5} listening={false} />
+          ))}
+        </Layer>
+
+        {/* 3. Room outline */}
+        <Layer listening={false}>
+          <RoomOutline
+            widthM={roomConfig.width}
+            depthM={roomConfig.depth}
+            offsetX={RULER_SIZE / stageScale}
+            offsetY={RULER_SIZE / stageScale}
+          />
+        </Layer>
+
+        {/* 4. Furniture */}
+        <Layer>
+          {items.map((item) => (
+            <CanvasItem
+              key={item.id}
+              item={item}
+              isSelected={selectedId === item.id}
+              snapToGrid={snapToGrid}
+              allItems={items}
+              onSelect={() => setSelected(item.id)}
+              onChange={(updates) => updateItem(item.id, updates)}
+              onGuides={setGuides}
             />
-          </Layer>
+          ))}
+        </Layer>
 
-          {/* Grid layer */}
-          <Layer listening={false}>{gridLines()}</Layer>
+        {/* 5. Alignment guides */}
+        <Layer listening={false}>
+          {guides.map((guide, i) =>
+            guide.type === "vertical" ? (
+              <Line key={i} points={[guide.pos, -stagePos.y / stageScale, guide.pos, (-stagePos.y + height) / stageScale]} stroke="#00B5A5" strokeWidth={1} dash={[4, 4]} opacity={0.8} />
+            ) : (
+              <Line key={i} points={[-stagePos.x / stageScale, guide.pos, (-stagePos.x + width) / stageScale, guide.pos]} stroke="#00B5A5" strokeWidth={1} dash={[4, 4]} opacity={0.8} />
+            )
+          )}
+        </Layer>
+      </Stage>
 
-          {/* 2. Floor plan image layer */}
+      {/* Rulers — rendered as a separate overlay stage */}
+      <div style={{ position: "absolute", inset: 0, pointerEvents: "none" }}>
+        <Stage width={width} height={RULER_SIZE} style={{ position: "absolute", top: 0, left: 0 }}>
           <Layer>
-            {bgImage && (
-              <KonvaImage
-                image={bgImage}
-                x={20}
-                y={20}
-                width={Math.min(bgImage.width, width - 40)}
-                height={Math.min(bgImage.height, height - 40)}
-                opacity={0.5}
-                listening={false}
-              />
-            )}
-            {selectedTemplate && (
-              <RoomTemplateShape
-                template={selectedTemplate}
-                scale={scale}
-                offsetX={40}
-                offsetY={40}
-              />
-            )}
-          </Layer>
-
-          {/* Zones layer */}
-          <Layer listening={false}>
-            {zones.map((zone) => {
-              const dimText = `${(zone.width / 50).toFixed(1)}m × ${(zone.height / 50).toFixed(1)}m`;
-              const dimW = 80;
-              const dimH = 16;
-              return (
-                <Group key={zone.id} x={zone.x} y={zone.y}>
-                  <Rect
-                    width={zone.width}
-                    height={zone.height}
-                    stroke="#00B5A5"
-                    strokeWidth={1.5}
-                    fill="rgba(0, 181, 165, 0.05)"
-                    dash={[6, 3]}
-                    listening={false}
-                  />
-                  <Text
-                    text={zone.label}
-                    x={6}
-                    y={6}
-                    fontSize={11}
-                    fill="#00B5A5"
-                    fontFamily="Montserrat, sans-serif"
-                    fontStyle="bold"
-                    listening={false}
-                  />
-                  {/* Dimension label centred in zone */}
-                  <Rect
-                    x={zone.width / 2 - dimW / 2}
-                    y={zone.height / 2 - dimH / 2}
-                    width={dimW}
-                    height={dimH}
-                    fill="white"
-                    opacity={0.85}
-                    listening={false}
-                  />
-                  <Text
-                    text={dimText}
-                    x={zone.width / 2 - dimW / 2}
-                    y={zone.height / 2 - dimH / 2 + 2}
-                    width={dimW}
-                    fontSize={10}
-                    fill="#00B5A5"
-                    fontStyle="bold"
-                    fontFamily="Montserrat, sans-serif"
-                    align="center"
-                    listening={false}
-                  />
-                </Group>
-              );
-            })}
-          </Layer>
-
-          {/* 3. Drawing layer (walls, doors, windows, columns) */}
-          <Layer listening={false}>
-            {walls.map((wall) => (
-              <WallRenderer key={wall.id} wall={wall} />
-            ))}
-            {doors.map((door) => (
-              <DoorRenderer key={door.id} door={door} />
-            ))}
-            {windows.map((win) => (
-              <WindowRenderer key={win.id} win={win} />
-            ))}
-            {columns.map((col) => (
-              <ColumnRenderer key={col.id} col={col} />
-            ))}
-          </Layer>
-
-          {/* 4. Furniture items layer */}
-          <Layer>
-            {items.map((item) => (
-              <CanvasItem
-                key={item.id}
-                item={item}
-                isSelected={selectedId === item.id}
-                snapToGrid={snapToGrid}
-                onSelect={() => {
-                  if (activeTool === "select") setSelected(item.id);
-                }}
-                onChange={(updates) => updateItem(item.id, updates)}
-              />
-            ))}
-          </Layer>
-
-          {/* 5. Preview layer (in-progress wall line) */}
-          <Layer listening={false}>
-            {previewPoints && (
-              <Line
-                points={previewPoints}
-                stroke={getWallStyle(effectiveWallType).stroke}
-                strokeWidth={getWallStyle(effectiveWallType).strokeWidth}
-                dash={[8, 4]}
-                opacity={0.5}
-                lineCap="round"
-                listening={false}
-              />
-            )}
-            {/* Start point dot */}
-            {isWallTool && drawingPoints.length >= 2 && (
-              <Rect
-                x={drawingPoints[0] - 4}
-                y={drawingPoints[1] - 4}
-                width={8}
-                height={8}
-                fill="#00B5A5"
-                cornerRadius={4}
-                listening={false}
-              />
-            )}
+            <RulerH width={width} height={RULER_SIZE} stageScale={stageScale} stageX={stagePos.x} />
           </Layer>
         </Stage>
+        <Stage width={RULER_SIZE} height={height} style={{ position: "absolute", top: 0, left: 0 }}>
+          <Layer>
+            <RulerV width={RULER_SIZE} height={height} stageScale={stageScale} stageY={stagePos.y} />
+          </Layer>
+        </Stage>
+        {/* Corner block */}
+        <Stage width={RULER_SIZE} height={RULER_SIZE} style={{ position: "absolute", top: 0, left: 0 }}>
+          <Layer>
+            <Rect width={RULER_SIZE} height={RULER_SIZE} fill="#1E1E1E" />
+          </Layer>
+        </Stage>
+      </div>
+
+      {/* Zoom controls */}
+      <div style={{ position: "absolute", bottom: "1rem", right: "1rem", display: "flex", flexDirection: "column", gap: "4px", zIndex: 10 }}>
+        <button
+          onClick={() => setStageScale((s) => Math.min(4, s * 1.2))}
+          style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}
+        >+</button>
+        <button
+          onClick={() => setStageScale((s) => Math.max(0.2, s / 1.2))}
+          style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}
+        >−</button>
+        <button
+          onClick={() => { setStageScale(1); setStagePos({ x: RULER_SIZE, y: RULER_SIZE }); }}
+          style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 10, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Montserrat, sans-serif" }}
+          title="Reset zoom"
+        >1:1</button>
+      </div>
+
+      {/* Scale hint */}
+      <div style={{ position: "absolute", bottom: "1rem", left: "2rem", background: "rgba(255,255,255,0.85)", padding: "4px 8px", borderRadius: 6, fontSize: 11, color: "#6B6B6B", fontFamily: "Montserrat, sans-serif", border: "1px solid #E5E5E5" }}>
+        {GRID_SIZE}px = {(GRID_SIZE / PIXELS_PER_METRE * 100).toFixed(0)}cm
       </div>
     </div>
   );

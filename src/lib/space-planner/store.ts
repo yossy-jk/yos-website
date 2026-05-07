@@ -24,30 +24,15 @@ export interface RoomZone {
   height: number;
 }
 
-// --- Drawing types ---
+export type DrawingToolType = "select" | "wall" | "door" | "window" | "glazing" | "partition" | "column" | "eraser";
 
-export type DrawingToolType =
-  | "select"
-  | "wall"
-  | "door"
-  | "window"
-  | "glazing"
-  | "partition"
-  | "column"
-  | "eraser";
-
-export type WallType =
-  | "gyprock"
-  | "glazing"
-  | "external"
-  | "partition"
-  | "existing";
+export type WallType = "gyprock" | "glazing" | "external" | "partition" | "existing";
 
 export interface WallSegment {
   id: string;
-  points: number[]; // flat array [x1, y1, x2, y2]
+  points: number[];
   wallType: WallType;
-  thickness: number; // pixels
+  thickness: number;
 }
 
 export interface DoorElement {
@@ -74,10 +59,157 @@ export interface ColumnElement {
   size: number;
 }
 
-// --- Store interface ---
+export type RoomType = "open-plan" | "private-office" | "meeting-room" | "reception" | "custom";
 
+export interface RoomConfig {
+  type: RoomType;
+  width: number;  // metres
+  depth: number;  // metres
+}
+
+// Room presets with suggested furniture pre-placed
+// Pixel coords based on PIXELS_PER_METRE = 80
+const PPM = 80; // pixels per metre
+
+export interface PresetItem {
+  productId: string;
+  x: number;
+  y: number;
+  rotation?: number;
+}
+
+export interface RoomPreset {
+  name: string;
+  defaultSize: { width: number; depth: number };
+  suggestedItems: PresetItem[];
+}
+
+export const ROOM_PRESETS: Record<RoomType, RoomPreset> = {
+  "open-plan": {
+    name: "Open Plan Office",
+    defaultSize: { width: 10, depth: 8 },
+    suggestedItems: [
+      // Row 1 of workstations
+      { productId: "ws1800", x: PPM * 0.5, y: PPM * 0.5 },
+      { productId: "chair-task", x: PPM * 0.5 + 60, y: PPM * 0.5 + 75 },
+      { productId: "ws1800", x: PPM * 0.5 + 190, y: PPM * 0.5 },
+      { productId: "chair-task", x: PPM * 0.5 + 250, y: PPM * 0.5 + 75 },
+      { productId: "ws1800", x: PPM * 0.5 + 380, y: PPM * 0.5 },
+      { productId: "chair-task", x: PPM * 0.5 + 440, y: PPM * 0.5 + 75 },
+      // Row 2
+      { productId: "ws1800", x: PPM * 0.5, y: PPM * 0.5 + 200, rotation: 180 },
+      { productId: "chair-task", x: PPM * 0.5 + 60, y: PPM * 0.5 + 130 },
+      { productId: "ws1800", x: PPM * 0.5 + 190, y: PPM * 0.5 + 200, rotation: 180 },
+      { productId: "chair-task", x: PPM * 0.5 + 250, y: PPM * 0.5 + 130 },
+      // Meeting table
+      { productId: "mtable2400", x: PPM * 5.5, y: PPM * 1.5 },
+      { productId: "chair-meeting", x: PPM * 5.5 + 30, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 5.5 + 110, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 5.5 + 190, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 5.5 + 30, y: PPM * 1.5 + 105, rotation: 180 },
+      { productId: "chair-meeting", x: PPM * 5.5 + 110, y: PPM * 1.5 + 105, rotation: 180 },
+      { productId: "chair-meeting", x: PPM * 5.5 + 190, y: PPM * 1.5 + 105, rotation: 180 },
+    ],
+  },
+  "private-office": {
+    name: "Private Office",
+    defaultSize: { width: 5, depth: 4 },
+    suggestedItems: [
+      { productId: "desk1600", x: PPM * 0.5, y: PPM * 0.5 },
+      { productId: "chair-executive", x: PPM * 0.5 + 55, y: PPM * 0.5 + 80 },
+      { productId: "chair-visitor", x: PPM * 0.5 + 20, y: PPM * 2.2 },
+      { productId: "chair-visitor", x: PPM * 0.5 + 90, y: PPM * 2.2 },
+      { productId: "storage2d", x: PPM * 3.0, y: PPM * 0.3 },
+    ],
+  },
+  "meeting-room": {
+    name: "Meeting Room",
+    defaultSize: { width: 7, depth: 5 },
+    suggestedItems: [
+      { productId: "mtable3600", x: PPM * 0.5, y: PPM * 1.5 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 30, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 110, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 190, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 270, y: PPM * 1.5 - 65 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 30, y: PPM * 1.5 + 125, rotation: 180 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 110, y: PPM * 1.5 + 125, rotation: 180 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 190, y: PPM * 1.5 + 125, rotation: 180 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 270, y: PPM * 1.5 + 125, rotation: 180 },
+      { productId: "chair-meeting", x: PPM * 0.5 - 65, y: PPM * 1.5 + 40, rotation: 90 },
+      { productId: "chair-meeting", x: PPM * 0.5 + 370, y: PPM * 1.5 + 40, rotation: 270 },
+    ],
+  },
+  "reception": {
+    name: "Reception",
+    defaultSize: { width: 8, depth: 6 },
+    suggestedItems: [
+      { productId: "reception-desk", x: PPM * 0.5, y: PPM * 0.5 },
+      { productId: "chair-task", x: PPM * 0.5 + 60, y: PPM * 0.5 + 80 },
+      { productId: "lounge-2seat", x: PPM * 4.0, y: PPM * 0.8 },
+      { productId: "lounge-2seat", x: PPM * 4.0, y: PPM * 2.5 },
+      { productId: "coffee-table", x: PPM * 4.5, y: PPM * 1.8 },
+      { productId: "chair-lounge", x: PPM * 6.0, y: PPM * 0.8 },
+      { productId: "chair-lounge", x: PPM * 6.0, y: PPM * 2.5 },
+    ],
+  },
+  "custom": {
+    name: "Custom",
+    defaultSize: { width: 8, depth: 6 },
+    suggestedItems: [],
+  },
+};
+
+// --- EOF Product Catalogue ---
+export interface EOFProduct {
+  id: string;
+  name: string;
+  category: string;
+  width: number;  // cm
+  depth: number;  // cm
+  silhouetteType: "chair-task" | "chair-executive" | "chair-meeting" | "chair-visitor" | "chair-lounge" | "desk" | "meeting-table" | "round-table" | "storage" | "screen" | "sofa-2" | "sofa-3" | "coffee-table" | "reception-desk" | "lounge-chair";
+}
+
+export const EOF_PRODUCTS: EOFProduct[] = [
+  // Seating
+  { id: "chair-task", name: "Task Chair", category: "Seating", width: 60, depth: 60, silhouetteType: "chair-task" },
+  { id: "chair-executive", name: "Executive Chair", category: "Seating", width: 70, depth: 70, silhouetteType: "chair-executive" },
+  { id: "chair-meeting", name: "Meeting Chair", category: "Seating", width: 55, depth: 55, silhouetteType: "chair-meeting" },
+  { id: "chair-visitor", name: "Visitor Chair", category: "Seating", width: 55, depth: 55, silhouetteType: "chair-visitor" },
+  // Desks
+  { id: "ws1800", name: "Workstation 1800", category: "Desks", width: 180, depth: 75, silhouetteType: "desk" },
+  { id: "ws1500", name: "Workstation 1500", category: "Desks", width: 150, depth: 75, silhouetteType: "desk" },
+  { id: "desk1800", name: "Height Adjust Desk 1800", category: "Desks", width: 180, depth: 80, silhouetteType: "desk" },
+  { id: "desk1600", name: "Height Adjust Desk 1600", category: "Desks", width: 160, depth: 80, silhouetteType: "desk" },
+  // Meeting
+  { id: "mtable3600", name: "Meeting Table 3600 (12 person)", category: "Meeting", width: 360, depth: 120, silhouetteType: "meeting-table" },
+  { id: "mtable2400", name: "Meeting Table 2400 (8 person)", category: "Meeting", width: 240, depth: 100, silhouetteType: "meeting-table" },
+  { id: "mtable1800", name: "Meeting Table 1800 (6 person)", category: "Meeting", width: 180, depth: 90, silhouetteType: "meeting-table" },
+  { id: "round-table", name: "Round Table 1200", category: "Meeting", width: 120, depth: 120, silhouetteType: "round-table" },
+  // Storage
+  { id: "storage3d", name: "Mobile Pedestal 3-Drawer", category: "Storage", width: 40, depth: 50, silhouetteType: "storage" },
+  { id: "storage2d", name: "Lateral Filing 2-Drawer", category: "Storage", width: 90, depth: 50, silhouetteType: "storage" },
+  { id: "storage-tall", name: "Tall Storage Cabinet", category: "Storage", width: 90, depth: 45, silhouetteType: "storage" },
+  // Breakout
+  { id: "chair-lounge", name: "Lounge Chair", category: "Breakout", width: 75, depth: 75, silhouetteType: "chair-lounge" },
+  { id: "lounge-2seat", name: "Lounge Sofa 2-Seat", category: "Breakout", width: 150, depth: 80, silhouetteType: "sofa-2" },
+  { id: "lounge-3seat", name: "Lounge Sofa 3-Seat", category: "Breakout", width: 210, depth: 80, silhouetteType: "sofa-3" },
+  { id: "coffee-table", name: "Coffee Table", category: "Breakout", width: 100, depth: 60, silhouetteType: "coffee-table" },
+  // Reception
+  { id: "reception-desk", name: "Reception Desk", category: "Seating", width: 180, depth: 75, silhouetteType: "reception-desk" },
+  // Screens
+  { id: "screen1200", name: "Acoustic Screen 1200", category: "Screens", width: 120, depth: 5, silhouetteType: "screen" },
+  { id: "screen1800", name: "Acoustic Screen 1800", category: "Screens", width: 180, depth: 5, silhouetteType: "screen" },
+];
+
+// --- Store interface ---
 interface PlannerStore {
-  // Existing
+  // Step/flow
+  step: 1 | 2 | 3;
+  roomConfig: RoomConfig;
+  setStep: (step: 1 | 2 | 3) => void;
+  setRoomConfig: (config: RoomConfig) => void;
+
+  // Items
   items: PlannerItem[];
   zones: RoomZone[];
   selectedId: string | null;
@@ -85,9 +217,19 @@ interface PlannerStore {
   roomTemplate: string | null;
   snapToGrid: boolean;
   scale: number;
+
+  // Undo/redo
+  history: PlannerItem[][];
+  historyIndex: number;
+  undo: () => void;
+  redo: () => void;
+  pushHistory: () => void;
+
   addItem: (item: Omit<PlannerItem, "id">) => void;
   updateItem: (id: string, updates: Partial<PlannerItem>) => void;
   removeItem: (id: string) => void;
+  duplicateItem: (id: string) => void;
+  rotateItem: (id: string) => void;
   clearAll: () => void;
   setSelected: (id: string | null) => void;
   setFloorPlan: (src: string | null) => void;
@@ -95,8 +237,9 @@ interface PlannerStore {
   toggleSnap: () => void;
   addZone: (zone: Omit<RoomZone, "id">) => void;
   removeZone: (id: string) => void;
+  applyPreset: (roomType: RoomType) => void;
 
-  // Drawing tools
+  // Drawing tools (kept for compatibility)
   activeTool: DrawingToolType;
   activeWallType: WallType;
   walls: WallSegment[];
@@ -118,8 +261,16 @@ interface PlannerStore {
   setDrawingPoints: (points: number[]) => void;
 }
 
-export const usePlannerStore = create<PlannerStore>((set) => ({
-  // --- Existing defaults ---
+const MAX_HISTORY = 50;
+
+export const usePlannerStore = create<PlannerStore>((set, get) => ({
+  // Step/flow defaults
+  step: 1,
+  roomConfig: { type: "open-plan", width: 10, depth: 8 },
+  setStep: (step) => set({ step }),
+  setRoomConfig: (roomConfig) => set({ roomConfig }),
+
+  // Existing defaults
   items: [],
   zones: [],
   selectedId: null,
@@ -128,25 +279,78 @@ export const usePlannerStore = create<PlannerStore>((set) => ({
   snapToGrid: true,
   scale: 50,
 
-  addItem: (item) =>
+  // Undo/redo
+  history: [[]],
+  historyIndex: 0,
+
+  pushHistory: () => {
+    const { items, history, historyIndex } = get();
+    const newHistory = history.slice(0, historyIndex + 1);
+    newHistory.push(JSON.parse(JSON.stringify(items)));
+    if (newHistory.length > MAX_HISTORY) newHistory.shift();
+    set({ history: newHistory, historyIndex: Math.min(newHistory.length - 1, MAX_HISTORY - 1) });
+  },
+
+  undo: () => {
+    const { history, historyIndex } = get();
+    if (historyIndex <= 0) return;
+    const newIndex = historyIndex - 1;
+    set({ items: JSON.parse(JSON.stringify(history[newIndex])), historyIndex: newIndex, selectedId: null });
+  },
+
+  redo: () => {
+    const { history, historyIndex } = get();
+    if (historyIndex >= history.length - 1) return;
+    const newIndex = historyIndex + 1;
+    set({ items: JSON.parse(JSON.stringify(history[newIndex])), historyIndex: newIndex, selectedId: null });
+  },
+
+  addItem: (item) => {
+    get().pushHistory();
     set((state) => ({
       items: [...state.items, { ...item, id: nanoid() }],
-    })),
+    }));
+  },
 
-  updateItem: (id, updates) =>
+  updateItem: (id, updates) => {
     set((state) => ({
       items: state.items.map((item) =>
         item.id === id ? { ...item, ...updates } : item
       ),
-    })),
+    }));
+  },
 
-  removeItem: (id) =>
+  removeItem: (id) => {
+    get().pushHistory();
     set((state) => ({
       items: state.items.filter((item) => item.id !== id),
       selectedId: state.selectedId === id ? null : state.selectedId,
-    })),
+    }));
+  },
 
-  clearAll: () =>
+  duplicateItem: (id) => {
+    const { items } = get();
+    const item = items.find((i) => i.id === id);
+    if (!item) return;
+    get().pushHistory();
+    const newItem: PlannerItem = { ...item, id: nanoid(), x: item.x + 20, y: item.y + 20 };
+    set((state) => ({ items: [...state.items, newItem], selectedId: newItem.id }));
+  },
+
+  rotateItem: (id) => {
+    const { items } = get();
+    const item = items.find((i) => i.id === id);
+    if (!item) return;
+    get().pushHistory();
+    set((state) => ({
+      items: state.items.map((i) =>
+        i.id === id ? { ...i, rotation: (i.rotation + 90) % 360 } : i
+      ),
+    }));
+  },
+
+  clearAll: () => {
+    get().pushHistory();
     set({
       items: [],
       zones: [],
@@ -158,28 +362,45 @@ export const usePlannerStore = create<PlannerStore>((set) => ({
       windows: [],
       columns: [],
       drawingPoints: [],
-    }),
+    });
+  },
 
   setSelected: (id) => set({ selectedId: id }),
-
   setFloorPlan: (src) => set({ floorPlanImage: src, roomTemplate: null }),
-
-  setRoomTemplate: (template) =>
-    set({ roomTemplate: template, floorPlanImage: null }),
-
+  setRoomTemplate: (template) => set({ roomTemplate: template, floorPlanImage: null }),
   toggleSnap: () => set((state) => ({ snapToGrid: !state.snapToGrid })),
 
   addZone: (zone) =>
-    set((state) => ({
-      zones: [...state.zones, { ...zone, id: nanoid() }],
-    })),
-
+    set((state) => ({ zones: [...state.zones, { ...zone, id: nanoid() }] })),
   removeZone: (id) =>
-    set((state) => ({
-      zones: state.zones.filter((z) => z.id !== id),
-    })),
+    set((state) => ({ zones: state.zones.filter((z) => z.id !== id) })),
 
-  // --- Drawing defaults ---
+  applyPreset: (roomType) => {
+    const preset = ROOM_PRESETS[roomType];
+    if (!preset) return;
+    get().pushHistory();
+    const PIXELS_PER_CM = 0.5;
+    const newItems: PlannerItem[] = preset.suggestedItems.map((si) => {
+      const product = EOF_PRODUCTS.find((p) => p.id === si.productId);
+      if (!product) return null;
+      return {
+        id: nanoid(),
+        productId: product.id,
+        name: product.name,
+        category: product.category,
+        price: 0,
+        x: si.x,
+        y: si.y,
+        width: product.width * PIXELS_PER_CM,
+        height: product.depth * PIXELS_PER_CM,
+        rotation: si.rotation ?? 0,
+        color: getCategoryColor(product.category),
+      };
+    }).filter(Boolean) as PlannerItem[];
+    set({ items: newItems, selectedId: null });
+  },
+
+  // Drawing defaults
   activeTool: "select",
   activeWallType: "gyprock",
   walls: [],
@@ -192,56 +413,32 @@ export const usePlannerStore = create<PlannerStore>((set) => ({
   setActiveWallType: (type) => set({ activeWallType: type }),
 
   addWall: (wall) =>
-    set((state) => ({
-      walls: [...state.walls, { ...wall, id: nanoid() }],
-    })),
-
+    set((state) => ({ walls: [...state.walls, { ...wall, id: nanoid() }] })),
   removeWall: (id) =>
-    set((state) => ({
-      walls: state.walls.filter((w) => w.id !== id),
-    })),
-
+    set((state) => ({ walls: state.walls.filter((w) => w.id !== id) })),
   addDoor: (door) =>
-    set((state) => ({
-      doors: [...state.doors, { ...door, id: nanoid() }],
-    })),
-
+    set((state) => ({ doors: [...state.doors, { ...door, id: nanoid() }] })),
   removeDoor: (id) =>
-    set((state) => ({
-      doors: state.doors.filter((d) => d.id !== id),
-    })),
-
+    set((state) => ({ doors: state.doors.filter((d) => d.id !== id) })),
   addWindow: (win) =>
-    set((state) => ({
-      windows: [...state.windows, { ...win, id: nanoid() }],
-    })),
-
+    set((state) => ({ windows: [...state.windows, { ...win, id: nanoid() }] })),
   removeWindow: (id) =>
-    set((state) => ({
-      windows: state.windows.filter((w) => w.id !== id),
-    })),
-
+    set((state) => ({ windows: state.windows.filter((w) => w.id !== id) })),
   addColumn: (col) =>
-    set((state) => ({
-      columns: [...state.columns, { ...col, id: nanoid() }],
-    })),
-
+    set((state) => ({ columns: [...state.columns, { ...col, id: nanoid() }] })),
   removeColumn: (id) =>
-    set((state) => ({
-      columns: state.columns.filter((c) => c.id !== id),
-    })),
-
+    set((state) => ({ columns: state.columns.filter((c) => c.id !== id) })),
   setDrawingPoints: (points) => set({ drawingPoints: points }),
 }));
 
 export function getCategoryColor(category: string): string {
   const colors: Record<string, string> = {
     Seating: "#00B5A5",
-    Desks: "#1A1A1A",
-    Storage: "#9B9B9B",
-    Meeting: "#2A4A6B",
+    Desks: "#2A4A6B",
+    Storage: "#6B6B6B",
+    Meeting: "#1A6B4A",
     Breakout: "#B5740A",
-    Screens: "#6B6B6B",
+    Screens: "#9B4A9B",
   };
   return colors[category] ?? "#3D3D3D";
 }

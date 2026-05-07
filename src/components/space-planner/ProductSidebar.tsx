@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Search } from "lucide-react";
-import { getCategoryColor } from "@/lib/space-planner/store";
+import { EOF_PRODUCTS, getCategoryColor, type EOFProduct } from "@/lib/space-planner/store";
 
+// Keep Product interface for backward compat
 export interface Product {
   id: string;
   name: string;
@@ -14,77 +15,76 @@ export interface Product {
   depth: number;
 }
 
-export const MOCK_PRODUCTS: Product[] = [
-  { id: '1', name: 'Task Chair', category: 'Seating', price: 0, image: '', width: 60, depth: 60 },
-  { id: '2', name: 'Executive Chair', category: 'Seating', price: 0, image: '', width: 70, depth: 70 },
-  { id: '3', name: 'Height Adjust Desk 1800', category: 'Desks', price: 0, image: '', width: 180, depth: 80 },
-  { id: '4', name: 'Height Adjust Desk 1600', category: 'Desks', price: 0, image: '', width: 160, depth: 80 },
-  { id: '5', name: 'Workstation 1800', category: 'Desks', price: 0, image: '', width: 180, depth: 75 },
-  { id: '6', name: 'Workstation 1500', category: 'Desks', price: 0, image: '', width: 150, depth: 75 },
-  { id: '7', name: 'Meeting Table 3600 (12 person)', category: 'Meeting', price: 0, image: '', width: 360, depth: 120 },
-  { id: '8', name: 'Meeting Table 2400 (8 person)', category: 'Meeting', price: 0, image: '', width: 240, depth: 100 },
-  { id: '9', name: 'Meeting Table 1800 (6 person)', category: 'Meeting', price: 0, image: '', width: 180, depth: 90 },
-  { id: '10', name: 'Meeting Chair', category: 'Seating', price: 0, image: '', width: 55, depth: 55 },
-  { id: '11', name: 'Mobile Pedestal 3-Drawer', category: 'Storage', price: 0, image: '', width: 40, depth: 50 },
-  { id: '12', name: 'Lateral Filing 2-Drawer', category: 'Storage', price: 0, image: '', width: 90, depth: 50 },
-  { id: '13', name: 'Lounge Chair', category: 'Breakout', price: 0, image: '', width: 75, depth: 75 },
-  { id: '14', name: 'Lounge Sofa 2-Seat', category: 'Breakout', price: 0, image: '', width: 150, depth: 80 },
-  { id: '15', name: 'Lounge Sofa 3-Seat', category: 'Breakout', price: 0, image: '', width: 210, depth: 80 },
-  { id: '16', name: 'Coffee Table', category: 'Breakout', price: 0, image: '', width: 100, depth: 60 },
-  { id: '17', name: 'Acoustic Screen 1200', category: 'Screens', price: 0, image: '', width: 120, depth: 5 },
-  { id: '18', name: 'Acoustic Screen 1800', category: 'Screens', price: 0, image: '', width: 180, depth: 5 },
-  { id: '19', name: 'Reception Desk', category: 'Seating', price: 0, image: '', width: 180, depth: 75 },
-  { id: '20', name: 'Visitor Chair', category: 'Seating', price: 0, image: '', width: 55, depth: 55 },
-];
+// Convert EOF_PRODUCTS → Product format for consumers that still use MOCK_PRODUCTS
+export const MOCK_PRODUCTS: Product[] = EOF_PRODUCTS.map((p) => ({
+  id: p.id,
+  name: p.name,
+  category: p.category,
+  price: 0,
+  image: "",
+  width: p.width,
+  depth: p.depth,
+}));
 
 const CATEGORIES = ["All", "Seating", "Desks", "Storage", "Meeting", "Breakout", "Screens"];
 
+// pixels per cm — matches the store/canvas convention
 const PIXELS_PER_CM = 0.5;
+
+// Category icons (text-based, no emoji)
+const CATEGORY_ICON: Record<string, string> = {
+  Seating: "CH",
+  Desks: "DK",
+  Storage: "ST",
+  Meeting: "MT",
+  Breakout: "BR",
+  Screens: "SC",
+};
+
+function ProductThumbnail({ product }: { product: EOFProduct }) {
+  const bg = getCategoryColor(product.category);
+  return (
+    <div
+      style={{
+        width: 40,
+        height: 40,
+        borderRadius: 6,
+        background: bg,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0,
+        color: "#FFFFFF",
+        fontSize: "0.65rem",
+        fontWeight: 700,
+        fontFamily: "Montserrat, sans-serif",
+      }}
+    >
+      {CATEGORY_ICON[product.category] ?? product.name.substring(0, 2).toUpperCase()}
+    </div>
+  );
+}
 
 interface ProductSidebarProps {
   products?: Product[];
 }
 
-export default function ProductSidebar({ products: propProducts = MOCK_PRODUCTS }: ProductSidebarProps) {
+export default function ProductSidebar({ products: _propProducts }: ProductSidebarProps) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [products, setProducts] = useState<Product[]>(propProducts);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    let cancelled = false;
-    fetch("/api/space-planner-products")
-      .then((r) => r.json())
-      .then((data: { products: Product[] }) => {
-        if (cancelled) return;
-        if (data?.products?.length > 0) {
-          setProducts(data.products);
-        } else {
-          setProducts(propProducts);
-        }
-      })
-      .catch(() => {
-        if (!cancelled) setProducts(propProducts);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => { cancelled = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filtered = products.filter((p) => {
+  const filtered = EOF_PRODUCTS.filter((p) => {
     const matchesCategory = activeCategory === "All" || p.category === activeCategory;
     const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, product: Product) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>, product: EOFProduct) => {
     const data = {
       productId: product.id,
       name: product.name,
       category: product.category,
-      price: product.price,
+      price: 0,
       width: product.width * PIXELS_PER_CM,
       depth: product.depth * PIXELS_PER_CM,
       color: getCategoryColor(product.category),
@@ -94,43 +94,73 @@ export default function ProductSidebar({ products: propProducts = MOCK_PRODUCTS 
   };
 
   return (
-    <div className="flex flex-col h-full overflow-hidden" style={{ background: "#FAFAFA", borderRight: "1px solid #E5E5E5" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        overflow: "hidden",
+        background: "#FAFAFA",
+        borderRight: "1px solid #E5E5E5",
+      }}
+    >
       {/* Header */}
-      <div className="px-4 pt-4 pb-3" style={{ borderBottom: "1px solid #E5E5E5" }}>
-        <h2 className="text-sm font-bold mb-3" style={{ color: "#1A1A1A", fontFamily: "Montserrat, sans-serif" }}>
+      <div style={{ padding: "1rem 1rem 0.75rem", borderBottom: "1px solid #E5E5E5" }}>
+        <h2
+          style={{
+            fontSize: "0.8rem",
+            fontWeight: 700,
+            color: "#1A1A1A",
+            fontFamily: "Montserrat, sans-serif",
+            marginBottom: "0.75rem",
+          }}
+        >
           Furniture Catalogue
         </h2>
+
         {/* Search */}
-        <div className="relative mb-3">
-          <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: "#6B6B6B" }} />
+        <div style={{ position: "relative", marginBottom: "0.65rem" }}>
+          <Search
+            size={13}
+            style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#9B9B9B" }}
+          />
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full text-xs py-2 pl-8 pr-3 rounded-lg border outline-none focus:border-teal"
             style={{
-              borderColor: "#E5E5E5",
+              width: "100%",
+              fontSize: "0.78rem",
+              padding: "0.45rem 0.5rem 0.45rem 2rem",
+              borderRadius: 8,
+              border: "1px solid #E5E5E5",
+              outline: "none",
               fontFamily: "Montserrat, sans-serif",
               color: "#1A1A1A",
               background: "#FFFFFF",
+              boxSizing: "border-box",
             }}
           />
         </div>
 
-        {/* Category filters - scrollable */}
-        <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide">
+        {/* Category pills — two rows of 4 */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className="flex-shrink-0 text-xs px-2 py-1 rounded-lg transition-colors"
               style={{
-                fontFamily: "Montserrat, sans-serif",
+                fontSize: "0.68rem",
+                padding: "0.22rem 0.55rem",
+                borderRadius: 6,
+                border: `1px solid ${activeCategory === cat ? "#00B5A5" : "#E5E5E5"}`,
                 background: activeCategory === cat ? "#00B5A5" : "#FFFFFF",
                 color: activeCategory === cat ? "#FFFFFF" : "#3D3D3D",
-                border: `1px solid ${activeCategory === cat ? "#00B5A5" : "#E5E5E5"}`,
-                fontWeight: activeCategory === cat ? "600" : "400",
+                fontFamily: "Montserrat, sans-serif",
+                fontWeight: activeCategory === cat ? 700 : 400,
+                cursor: "pointer",
+                flexShrink: 0,
               }}
             >
               {cat}
@@ -139,78 +169,66 @@ export default function ProductSidebar({ products: propProducts = MOCK_PRODUCTS 
         </div>
       </div>
 
-      {/* Instructions */}
-      <div className="px-4 py-2 text-xs" style={{ color: "#6B6B6B", fontFamily: "Montserrat, sans-serif", borderBottom: "1px solid #E5E5E5" }}>
-        Drag items onto the canvas to place them
+      {/* Drag hint */}
+      <div
+        style={{
+          padding: "0.4rem 1rem",
+          fontSize: "0.68rem",
+          color: "#9B9B9B",
+          fontFamily: "Montserrat, sans-serif",
+          borderBottom: "1px solid #E5E5E5",
+          background: "#F2F2F2",
+        }}
+      >
+        Drag items onto the canvas
       </div>
 
       {/* Product list */}
-      <div className="flex-1 overflow-y-auto px-3 py-2 space-y-2">
-        {loading && (
-          <p className="text-xs text-center py-8" style={{ color: "#6B6B6B", fontFamily: "Montserrat, sans-serif" }}>
-            Loading catalogue...
-          </p>
-        )}
-        {!loading && filtered.length === 0 && (
-          <p className="text-xs text-center py-8" style={{ color: "#6B6B6B", fontFamily: "Montserrat, sans-serif" }}>
+      <div style={{ flex: 1, overflowY: "auto", padding: "0.5rem 0.75rem", display: "flex", flexDirection: "column", gap: 6 }}>
+        {filtered.length === 0 && (
+          <p style={{ fontSize: "0.78rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", textAlign: "center", paddingTop: "2rem" }}>
             No products found
           </p>
         )}
-        {!loading && filtered.map((product) => (
+        {filtered.map((product) => (
           <div
             key={product.id}
             draggable
             onDragStart={(e) => handleDragStart(e, product)}
-            className="flex items-center gap-3 p-2 rounded-lg cursor-grab active:cursor-grabbing select-none transition-all hover:shadow-sm"
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "0.5rem 0.6rem",
+              borderRadius: 8,
               background: "#FFFFFF",
               border: "1px solid #E5E5E5",
-              fontFamily: "Montserrat, sans-serif",
+              cursor: "grab",
+              userSelect: "none",
+              transition: "box-shadow 0.1s",
             }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.boxShadow = "0 2px 6px rgba(0,0,0,0.08)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.boxShadow = "none"; }}
           >
-            {/* Thumbnail: real image if available, else colour block */}
-            {product.image && !product.image.startsWith('/products/') ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={product.image}
-                alt={product.name}
-                className="flex-shrink-0 w-10 h-10 rounded-lg object-cover"
-                onError={(e) => {
-                  const target = e.currentTarget as HTMLImageElement;
-                  target.style.display = 'none';
-                  const sibling = target.nextElementSibling as HTMLElement | null;
-                  if (sibling) sibling.style.display = 'flex';
-                }}
-              />
-            ) : null}
-            <div
-              className="flex-shrink-0 w-10 h-10 rounded-lg items-center justify-center text-white text-xs font-bold"
-              style={{
-                background: getCategoryColor(product.category),
-                display: product.image && !product.image.startsWith('/products/') ? 'none' : 'flex',
-              }}
-            >
-              {product.name.substring(0, 2).toUpperCase()}
-            </div>
-
-            {/* Info */}
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold truncate" style={{ color: "#1A1A1A" }}>
+            <ProductThumbnail product={product} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#1A1A1A", fontFamily: "Montserrat, sans-serif", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {product.name}
               </p>
-              <p className="text-xs" style={{ color: "#6B6B6B" }}>
-                {product.category}
-              </p>
-            </div>
-
-            {/* Dimensions */}
-            <div style={{ flexShrink: 0, textAlign: 'right' }}>
-              <p style={{ fontSize: '0.7rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>
+              <p style={{ fontSize: "0.65rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", margin: 0 }}>
                 {product.width} × {product.depth}cm
               </p>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Keyboard shortcuts hint */}
+      <div style={{ padding: "0.5rem 0.75rem", borderTop: "1px solid #E5E5E5", background: "#F8F8F8" }}>
+        <p style={{ fontSize: "0.65rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", margin: 0, lineHeight: 1.7 }}>
+          <strong style={{ color: "#6B6B6B" }}>R</strong> rotate · <strong style={{ color: "#6B6B6B" }}>D</strong> duplicate<br />
+          <strong style={{ color: "#6B6B6B" }}>Del</strong> delete · <strong style={{ color: "#6B6B6B" }}>Ctrl+Z</strong> undo
+        </p>
       </div>
     </div>
   );
