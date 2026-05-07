@@ -229,6 +229,46 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* ─── STATS & CREDENTIALS ─────────────────────────── */}
+      <section className="bg-near-black" style={SEC}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+              {[
+                { stat: '100+', label: 'Projects delivered' },
+                { stat: '12+ years', label: 'Commercial property experience' },
+                { stat: 'Newcastle born', label: 'Hunter Valley locals' },
+                { stat: 'Tenant-side only', label: 'We never represent landlords' },
+              ].map(item => (
+                <div key={item.stat} className="border-t border-white/10 pt-6">
+                  <p className="text-teal font-black mb-2" style={{ fontSize: 'clamp(1.2rem,2.5vw,1.75rem)' }}>{item.stat}</p>
+                  <p className="text-white/40 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.05em', lineHeight: 1.5 }}>{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <div className="border border-white/10 rounded-xl p-8 md:p-10">
+              <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">Credentials &amp; Licence</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                  <p className="text-white font-bold mb-1">NSW Real Estate Licence</p>
+                  <p className="text-white/45 font-light text-sm leading-relaxed">Class 2 NSW real estate licence. All property advisory and tenant representation work is conducted under full licence compliance.</p>
+                </div>
+                <div>
+                  <p className="text-white font-bold mb-1">Service Area</p>
+                  <p className="text-white/45 font-light text-sm leading-relaxed">Newcastle CBD, Maitland, Lake Macquarie, Cessnock, Singleton, Port Stephens and the Hunter Valley. National capability for multi-site clients.</p>
+                </div>
+                <div>
+                  <p className="text-white font-bold mb-1">Industries Served</p>
+                  <p className="text-white/45 font-light text-sm leading-relaxed">Professional services, healthcare, government, education, technology, trades, financial services, not-for-profit.</p>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ─── WHY TENANT-SIDE ONLY ─────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>

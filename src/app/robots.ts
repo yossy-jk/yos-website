@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/tools/'],
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://www.yourofficespace.au/sitemap.xml',
