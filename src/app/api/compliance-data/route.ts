@@ -156,7 +156,7 @@ export async function GET(req: NextRequest) {
     try {
       const res = await fetch(
         `${REDIS_URL}/get/${encodeURIComponent('yos:compliance:latest')}`,
-        { headers: { Authorization: `Bearer ${REDIS_TOKEN}` }, next: { revalidate: 3600 } }
+        { headers: { Authorization: `Bearer ${REDIS_TOKEN}` }, cache: 'no-store' }
       )
       if (res.ok) {
         const d = await res.json() as { result?: string | null }
