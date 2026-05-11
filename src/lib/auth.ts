@@ -34,23 +34,44 @@ function getCookieSecret(): string {
   return secret
 }
 
-function getDashboardPassword(): string {
-  const pw = process.env.DASHBOARD_PASSWORD
-  if (!pw) {
-    throw new Error('DASHBOARD_PASSWORD env var not set')
+/**
+ * Get all valid users: { username: password }
+ * Supports three env var formats (checked in order):
+ *   1. DASHBOARD_USERS = JSON string e.g. '{"joe":"pass1","sarah":"pass2"}'
+ *   2. DASHBOARD_PASSWORD (Joe's password, username defaults to "joe")
+ *   3. DASHBOARD_PASSWORD + DASHBOARD_PASSWORD2 (Joe + Sarah legacy format)
+ */
+function getUsers(): Record<string, string> {
+  const fromJson = process.env.DASHBOARD_USERS
+  if (fromJson) {
+    try { return JSON.parse(fromJson) } catch { /* fall through */ }
   }
-  return pw
+  const users: Record<string, string> = {}
+  const joeUser = process.env.DASHBOARD_USER || 'joe'
+  const joePass = process.env.DASHBOARD_PASSWORD || ''
+  if (joePass) users[joeUser] = joePass
+  const sarahUser = process.env.DASHBOARD_USER2 || 'sarah'
+  const sarahPass = process.env.DASHBOARD_PASSWORD2 || ''
+  if (sarahPass) users[sarahUser] = sarahPass
+  return users
 }
 
-/** Verify a candidate password against the configured one. Constant-time. */
-export function verifyPassword(candidate: string): boolean {
-  const expected = getDashboardPassword()
-  if (candidate.length !== expected.length) return false
-  try {
-    return timingSafeEqual(Buffer.from(candidate), Buffer.from(expected))
-  } catch {
-    return false
+/**
+ * Verify a password against all configured users.
+ * Returns the matched username, or null if no match.
+ * Constant-time comparison to prevent timing attacks.
+ */
+export function verifyPassword(candidate: string): string | null {
+  const users = getUsers()
+  for (const [username, password] of Object.entries(users)) {
+    if (!password || candidate.length !== password.length) continue
+    try {
+      if (timingSafeEqual(Buffer.from(candidate), Buffer.from(password))) {
+        return username
+      }
+    } catch { continue }
   }
+  return null
 }
 
 /** Build a signed token: `${expiresAt}.${hmac}`. */

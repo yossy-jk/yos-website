@@ -57,7 +57,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Password required' }, { status: 400 })
   }
 
-  if (!verifyPassword(password)) {
+  const username = verifyPassword(password)
+  if (!username) {
     return NextResponse.json(
       { error: 'Incorrect password', remaining: rate.remaining },
       { status: 401 }
@@ -66,6 +67,6 @@ export async function POST(req: NextRequest) {
 
   // Success — reset the rate limit for this IP and set cookie
   attempts.delete(ip)
-  const response = NextResponse.json({ ok: true })
+  const response = NextResponse.json({ ok: true, username })
   return setSessionCookie(response)
 }
