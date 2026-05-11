@@ -36,6 +36,22 @@ type ComplianceData = {
   isoClauseSummary: Record<string, string>
 }
 
+type JobState = {
+  last_run_date: string | null
+  last_run_status: string | null
+  last_run_started: string | null
+  last_run_ended: string | null
+  consecutive_failures: number
+}
+type OpsJob = {
+  name: string
+  schedule: string
+  state: JobState | null
+  output: string | null
+  health: Record<string, unknown> | null
+}
+type OpsData = { jobs: OpsJob[]; generatedAt: string; error?: string }
+
 type HealthData = {
   receivedAt: string
   latestGlucose: string | null
@@ -297,7 +313,9 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations'>('dashboard')
+  const [opsData, setOpsData] = useState<OpsData | null>(null)
+  const [opsLoading, setOpsLoading] = useState(false)
   type MemClient = { id:string; name:string; division:string; industry?:string; contactName?:string; contactEmail?:string; contactPhone?:string; requirements:string[]; constraints:string[]; notes?:string; createdAt:string; updatedAt:string }
   type MemProject = { id:string; clientId:string; clientName?:string; name:string; division:string; scope:string; budget?:number; stage:string; startDate?:string; targetDate?:string; odooRef?:string; notes?:string; createdAt:string; updatedAt:string }
   const [memData, setMemData] = useState<{ clients: MemClient[]; projects: MemProject[] } | null>(null)
@@ -479,6 +497,15 @@ export default function Dashboard() {
   const pendingCount = queue.length
   const urgentCount = queue.filter(q => q.priority === 'urgent').length
 
+  useEffect(() => {
+    if (activeTab !== 'operations') return
+    setOpsLoading(true)
+    fetch('/api/operations-data')
+      .then(r => r.json())
+      .then((d: OpsData) => { setOpsData(d); setOpsLoading(false) })
+      .catch(() => setOpsLoading(false))
+  }, [activeTab])
+
   return (
     <div style={{ minHeight: '100vh', background: '#0A0A0A', color: 'white', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', padding: 'clamp(1.25rem, 4vw, 2.5rem)' }}>
 
@@ -508,6 +535,7 @@ export default function Dashboard() {
           { key: 'memory' as const, label: 'Memory', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
           { key: 'compliance' as const, label: 'ISO/QMS', badge: false },
+          { key: 'operations' as const, label: 'Operations', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             style={{
@@ -2054,6 +2082,92 @@ export default function Dashboard() {
       })()}
 
       {/* ── ARCHIVE TAB ── */}
+      {activeTab === 'operations' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h2 style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+              Operations — Automation System
+            </h2>
+            <button
+              onClick={() => {
+                setOpsLoading(true)
+                fetch('/api/operations-data').then(r => r.json()).then((d: OpsData) => { setOpsData(d); setOpsLoading(false) })
+              }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', padding: '0.3rem 0.75rem', borderRadius: 4, color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer' }}
+            >
+              Refresh
+            </button>
+          </div>
+
+          {opsLoading && <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>Loading…</div>}
+
+          {!opsLoading && opsData?.error && (
+            <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', padding: '1rem', borderRadius: 6, color: '#ef4444', fontSize: '0.85rem' }}>
+              {opsData.error === 'Redis not configured'
+                ? 'Redis not configured — set UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN in Vercel env vars'
+                : opsData.error}
+            </div>
+          )}
+
+          {!opsLoading && opsData && !opsData.error && (
+            <>
+              {/* Job Status Grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
+                {opsData.jobs.map(job => {
+                  const st = job.state
+                  const status = st?.last_run_status ?? 'never'
+                  const color = status === 'ok' ? '#00B5A5' : status === 'failed' || status === 'crashed' ? '#ef4444' : 'rgba(255,255,255,0.3)'
+                  const lastRun = st?.last_run_ended ? new Date(st.last_run_ended).toLocaleString('en-AU', { timeZone: 'Australia/Sydney', weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit', hour12: true }) : 'Never'
+                  return (
+                    <div key={job.name} style={{ background: 'rgba(0,181,165,0.04)', border: `1px solid ${color}30`, padding: '1rem', borderRadius: 6 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                        <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.5)' }}>
+                          {job.name.replace(/-/g, ' ')}
+                        </span>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                          {status}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', marginBottom: '0.25rem' }}>{job.schedule}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)' }}>Last: {lastRun}</div>
+                      {(st?.consecutive_failures ?? 0) > 0 && (
+                        <div style={{ marginTop: '0.5rem', fontSize: '0.7rem', color: '#ef4444' }}>
+                          {st?.consecutive_failures} consecutive failure{(st?.consecutive_failures ?? 0) > 1 ? 's' : ''}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+
+              {/* Job Outputs */}
+              {opsData.jobs.filter(j => j.output).map(job => (
+                <div key={job.name} style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.15)', padding: '1.25rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
+                    {job.name.replace(/-/g, ' ')} — latest output
+                  </div>
+                  <pre style={{ fontSize: '0.78rem', lineHeight: 1.6, color: 'rgba(255,255,255,0.75)', whiteSpace: 'pre-wrap', wordBreak: 'break-word', margin: 0, fontFamily: 'inherit', maxHeight: '400px', overflowY: 'auto' }}>
+                    {job.output}
+                  </pre>
+                </div>
+              ))}
+
+              {opsData.jobs.every(j => !j.output) && (
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', padding: '2rem', textAlign: 'center' }}>
+                  No output yet. Jobs push data here after each run.
+                  <br />
+                  <span style={{ fontSize: '0.75rem' }}>Run a job manually: yos run compliance-sweep</span>
+                </div>
+              )}
+
+              <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textAlign: 'right' }}>
+                Generated {new Date(opsData.generatedAt).toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
+              </div>
+            </>
+          )}
+        </div>
+      )}
+
       {activeTab === 'archive' && (
         <div>
           <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.7rem', marginBottom: '1.25rem' }}>
