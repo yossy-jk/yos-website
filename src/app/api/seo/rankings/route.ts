@@ -9,7 +9,7 @@ import { requireAuth } from '@/lib/auth'
 const CLIENT_ID       = process.env.GSC_CLIENT_ID || ''
 const CLIENT_SECRET   = process.env.GSC_CLIENT_SECRET || ''
 const REFRESH_TOKEN   = process.env.GSC_REFRESH_TOKEN || ''
-const SITE_URL        = 'https://www.yourofficespace.au/'
+const SITE_URL        = 'https://yourofficespace.au/'
 
 // All keywords we track (must match the SEO tab's list)
 const TRACKED_KEYWORDS = [
@@ -38,6 +38,9 @@ const TRACKED_KEYWORDS = [
 ]
 
 async function getAccessToken(): Promise<string> {
+  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
+    throw new Error(`GSC config missing: CLIENT_ID=${!!CLIENT_ID} CLIENT_SECRET=${!!CLIENT_SECRET} REFRESH_TOKEN=${!!REFRESH_TOKEN}`)
+  }
   const res = await fetch('https://oauth2.googleapis.com/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
