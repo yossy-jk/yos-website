@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 const QUEUE_KEY = 'yos:queue:pending'
 const ARCHIVE_KEY = 'yos:queue:archive'
@@ -15,10 +16,8 @@ async function redis(url: string, token: string, path: string) {
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const token = url.searchParams.get('token')
-  const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
-  if (token !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL
   const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN

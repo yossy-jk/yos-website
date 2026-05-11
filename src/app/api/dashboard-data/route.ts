@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN!
 const MATON_KEY = process.env.MATON_API_KEY || 'GT9qpes_m-iYf4YpPdPBjBIkFyMO9HtAHM9mGAqyBb53wIvAhJ836ehgHmtJz71WTprCYyBjJo1fWbBIMJBh17wv_SQ2ddeRl4I'
@@ -159,10 +160,8 @@ export async function GET(req: Request) {
   // Simple token check
   const url = new URL(req.url)
   const token = url.searchParams.get('token')
-  const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
-  if (token !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const [dealsRaw, events, xero] = await Promise.all([
     getDeals(),

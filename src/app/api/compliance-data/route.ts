@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 import { promises as fs } from 'fs'
 import path from 'path'
 
-const TOKEN = 'yos-joe-2026'
 const WORKSPACE = '/Users/yourofficespace-main/.openclaw/workspace/yos/compliance'
 const MASTER_REGISTER = '/Users/yourofficespace-main/.openclaw/workspace/yos/compliance/MASTER_REGISTER.md'
 const CI_REGISTER = '/Users/yourofficespace-main/.openclaw/workspace/yos/compliance/qms/YOS-QMS-012-Continuous-Improvement-Register-v1.0.md'
@@ -146,10 +146,8 @@ function calcDaysRemaining(targetDate: string): number {
 }
 
 export async function GET(req: NextRequest) {
-  const auth = req.headers.get('authorization')
-  if (auth !== `Bearer ${TOKEN}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   try {
     // Read master register

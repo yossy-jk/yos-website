@@ -4,11 +4,11 @@
  * Returns current 7-day position + movement vs previous 7 days.
  */
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 const CLIENT_ID       = process.env.GSC_CLIENT_ID || ''
 const CLIENT_SECRET   = process.env.GSC_CLIENT_SECRET || ''
 const REFRESH_TOKEN   = process.env.GSC_REFRESH_TOKEN || ''
-const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
 const SITE_URL        = 'https://www.yourofficespace.au/'
 
 // All keywords we track (must match the SEO tab's list)
@@ -95,15 +95,14 @@ async function fetchGSC(token: string, startDate: string, endDate: string): Prom
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('token') !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   if (!REFRESH_TOKEN) {
     return NextResponse.json({
       connected: false,
       error: 'GSC_REFRESH_TOKEN not set',
-      authUrl: `/api/auth/gsc?token=${DASHBOARD_TOKEN}`,
+      authUrl: '/api/auth/gsc',
       rankings: [],
     })
   }
@@ -179,7 +178,7 @@ export async function GET(req: Request) {
     return NextResponse.json({
       connected: false,
       error: err instanceof Error ? err.message : 'Unknown error',
-      authUrl: `/api/auth/gsc?token=${DASHBOARD_TOKEN}`,
+      authUrl: '/api/auth/gsc',
       rankings: [],
       topQueries: [],
     })

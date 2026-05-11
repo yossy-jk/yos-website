@@ -3,18 +3,17 @@
  * One-time setup to get a refresh token for Search Console API
  */
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 const CLIENT_ID     = process.env.GSC_CLIENT_ID || ''
-const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
 const REDIRECT_URI  = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}/api/auth/gsc/callback`
   : 'https://www.yourofficespace.au/api/auth/gsc/callback'
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('token') !== DASHBOARD_TOKEN) {
-    return new Response('Unauthorized', { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const params = new URLSearchParams({
     client_id:     CLIENT_ID,

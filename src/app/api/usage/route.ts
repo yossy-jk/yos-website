@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
-const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
 const LANGFUSE_PUBLIC = process.env.LANGFUSE_PUBLIC_KEY || 'pk-lf-9a11f899-5a57-4d4b-97f2-99cbb0da48d2'
 const LANGFUSE_SECRET = process.env.LANGFUSE_SECRET_KEY || 'sk-lf-3c0f27e9-17ee-49a8-b35c-53fdfe2ebd9e'
 const LANGFUSE_HOST   = process.env.LANGFUSE_HOST || 'http://100.80.229.101:3000'
@@ -38,9 +38,8 @@ function modelCost(model: string, inputTokens: number, outputTokens: number): nu
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('token') !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   try {
     // Get recent traces with cost data

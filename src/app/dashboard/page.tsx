@@ -2,7 +2,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import type { EOSData, VTO, KPIMetric } from '@/app/api/eos/data/route'
 
-const TOKEN = 'yos-joe-2026'
 
 // ── Types ───────────────────────────────────────────────────────────────────
 type Priority = { label: string; detail: string; type: 'critical' | 'action' | 'info' }
@@ -339,7 +338,7 @@ export default function Dashboard() {
 
   const loadDashboard = useCallback(async () => {
     try {
-      const res = await fetch(`/api/dashboard-data?token=${TOKEN}`)
+      const res = await fetch(`/api/dashboard-data`)
       if (res.ok) setData(await res.json())
     } catch { /* silent */ }
     finally { setLoading(false) }
@@ -347,7 +346,7 @@ export default function Dashboard() {
 
   const loadHealth = useCallback(async () => {
     try {
-      const res = await fetch(`/api/health-intake?token=${TOKEN}`)
+      const res = await fetch(`/api/health-intake`)
       if (res.ok) {
         const d = await res.json()
         if (d.data) setHealth(d.data)
@@ -357,7 +356,7 @@ export default function Dashboard() {
 
   const loadMemory = useCallback(async (search = '') => {
     try {
-      const url = `/api/memory?token=${TOKEN}&type=all${search ? `&search=${encodeURIComponent(search)}` : ''}`
+      const url = `/api/memory?type=all${search ? `&search=${encodeURIComponent(search)}` : ''}`
       const res = await fetch(url)
       if (res.ok) setMemData(await res.json())
     } catch { /* silent */ }
@@ -367,34 +366,34 @@ export default function Dashboard() {
     const res = await fetch('/api/memory', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: TOKEN, action, payload }),
+      body: JSON.stringify({ action, payload }),
     })
     if (res.ok) await loadMemory(memSearch)
   }, [loadMemory, memSearch])
 
   const loadRankings = useCallback(async () => {
     try {
-      const res = await fetch(`/api/seo/rankings?token=${TOKEN}`)
+      const res = await fetch(`/api/seo/rankings`)
       if (res.ok) setRankings(await res.json())
     } catch { /* silent */ }
   }, [])
 
   const loadUsage = useCallback(async () => {
     try {
-      const res = await fetch(`/api/usage?token=${TOKEN}`)
+      const res = await fetch(`/api/usage`)
       if (res.ok) setUsageData(await res.json())
     } catch { /* silent */ }
   }, [])
 
   const loadCompliance = useCallback(async () => {
-    const r = await fetch('/api/compliance-data', { headers: { Authorization: `Bearer ${TOKEN}` } }).catch(() => null)
+    const r = await fetch('/api/compliance-data').catch(() => null)
     if (r?.ok) { const d = await r.json(); setCompliance(d) }
   }, [])
 
   const loadEOS = useCallback(async () => {
     try {
       setEosLoading(true)
-      const res = await fetch(`/api/eos/data?token=${TOKEN}`)
+      const res = await fetch(`/api/eos/data`)
       if (res.ok) setEos(await res.json())
     } catch { /* silent */ }
     finally { setEosLoading(false) }
@@ -404,7 +403,7 @@ export default function Dashboard() {
     await fetch('/api/eos/data', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: TOKEN, action, payload }),
+      body: JSON.stringify({ action, payload }),
     })
     await loadEOS()
   }, [loadEOS])
@@ -412,7 +411,7 @@ export default function Dashboard() {
   const loadQueue = useCallback(async () => {
     try {
       setQueueLoading(true)
-      const res = await fetch(`/api/queue/list?token=${TOKEN}`)
+      const res = await fetch(`/api/queue/list`)
       if (res.ok) {
         const d = await res.json()
         setQueue(d.pending || [])
@@ -426,7 +425,7 @@ export default function Dashboard() {
     await fetch('/api/queue/action', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, action, editedContent, feedback, token: TOKEN }),
+      body: JSON.stringify({ id, action, editedContent, feedback }),
     })
     await loadQueue()
   }, [loadQueue])
@@ -1424,7 +1423,7 @@ export default function Dashboard() {
               <div style={{ background: 'rgba(245,158,11,0.07)', border: '1px solid rgba(245,158,11,0.25)', borderLeft: '3px solid #f59e0b', padding: '1rem 1.25rem', marginBottom: '1.25rem' }}>
                 <p style={{ color: '#f59e0b', fontWeight: 700, fontSize: '0.78rem', margin: '0 0 0.4rem' }}>Google Search Console not connected</p>
                 <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.72rem', margin: '0 0 0.75rem', lineHeight: 1.6 }}>Authorise once to see live rankings and 7-day movement for all tracked keywords.</p>
-                <a href={`/api/auth/gsc?token=${TOKEN}`} target="_blank" rel="noreferrer"
+                <a href={`/api/auth/gsc`} target="_blank" rel="noreferrer"
                   style={{ background: '#f59e0b', color: '#000', padding: '0.5rem 1rem', fontSize: '0.7rem', fontWeight: 700, textDecoration: 'none', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                   Connect Google Search Console →
                 </a>

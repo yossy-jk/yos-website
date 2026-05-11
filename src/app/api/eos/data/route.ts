@@ -1,5 +1,5 @@
 /**
- * GET  /api/eos/data?token=yos-joe-2026  — returns full EOS data
+ * GET  /api/eos/data — returns full EOS data (auth via cookie)
  * POST /api/eos/data                      — update EOS data (token in body)
  * DELETE /api/eos/data                   — delete a single item by type + id
  *
@@ -7,9 +7,9 @@
  */
 
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 const EOS_KEY = 'yos:eos:data'
-const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
 
 export interface Rock {
   id: string
@@ -334,9 +334,8 @@ async function writeEOS(url: string, token: string, data: EOSData): Promise<void
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  if (searchParams.get('token') !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   const redis = await getRedis()
   if (!redis) return NextResponse.json({ error: 'Redis not configured' }, { status: 500 })
   const data = await readEOS(redis.url, redis.token)
@@ -347,9 +346,8 @@ export async function POST(req: Request) {
   const body = await req.json()
   const { token, action, payload } = body
 
-  if (token !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const redis = await getRedis()
   if (!redis) return NextResponse.json({ error: 'Redis not configured' }, { status: 500 })

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { requireAuth } from '@/lib/auth'
 
 const QUEUE_KEY = 'yos:queue:pending'
 const ARCHIVE_KEY = 'yos:queue:archive'
@@ -27,10 +28,8 @@ export async function POST(req: Request) {
   const body = await req.json()
   const { id, action, feedback, token, editedContent } = body
 
-  const DASHBOARD_TOKEN = process.env.DASHBOARD_TOKEN || 'yos-joe-2026'
-  if (token !== DASHBOARD_TOKEN) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   if (!id || !action) {
     return NextResponse.json({ error: 'Missing id or action' }, { status: 400 })
