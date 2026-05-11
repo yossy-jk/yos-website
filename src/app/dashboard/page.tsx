@@ -152,6 +152,8 @@ function QueueCard({ item, onAction, refreshing }: {
   const [expanded, setExpanded] = useState(true)
   const [editing, setEditing] = useState(false)
   const [editContent, setEditContent] = useState(item.content)
+  const [requestingRevision, setRequestingRevision] = useState(false)
+  const [revisionFeedback, setRevisionFeedback] = useState('')
   const [feedback, setFeedback] = useState('')
   const [acting, setActing] = useState(false)
   const tc = TYPE_CONFIG[item.type] || TYPE_CONFIG['other']
@@ -275,6 +277,12 @@ function QueueCard({ item, onAction, refreshing }: {
                   style={{ background: 'rgba(255,255,255,0.08)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', padding: '0.6rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit' }}>
                   ✎ Edit
                 </button>
+                {item.type === 'blog-post' && (
+                  <button onClick={() => setRequestingRevision(r => !r)} disabled={acting}
+                    style={{ background: requestingRevision ? 'rgba(251,191,36,0.2)' : 'rgba(251,191,36,0.08)', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.3)', padding: '0.6rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit' }}>
+                    ↺ Request Revision
+                  </button>
+                )}
                 <button onClick={() => act('skip')} disabled={acting}
                   style={{ background: 'transparent', color: 'rgba(255,255,255,0.3)', border: '1px solid rgba(255,255,255,0.08)', padding: '0.6rem 1.25rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit' }}>
                   Skip
@@ -297,6 +305,48 @@ function QueueCard({ item, onAction, refreshing }: {
               </>
             )}
           </div>
+
+          {/* Inline revision request form — blog posts only */}
+          {requestingRevision && !editing && (
+            <div style={{ marginTop: '0.75rem', padding: '1rem', background: 'rgba(251,191,36,0.06)', border: '1px solid rgba(251,191,36,0.2)', borderRadius: 4 }}>
+              <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#fbbf24', marginBottom: '0.5rem' }}>
+                Revision instructions for the agent
+              </div>
+              <textarea
+                value={revisionFeedback}
+                onChange={e => setRevisionFeedback(e.target.value)}
+                placeholder="e.g. Make it more Newcastle-specific. Cut the intro to 2 sentences. Add real fitout cost examples..."
+                rows={3}
+                style={{
+                  width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)',
+                  borderRadius: 4, color: 'white', fontSize: '0.82rem', padding: '0.6rem 0.75rem',
+                  fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', marginBottom: '0.5rem',
+                }}
+              />
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <button
+                  onClick={async () => {
+                    if (!revisionFeedback.trim()) return
+                    setActing(true)
+                    await onAction(item.id, 'edit', item.content, revisionFeedback)
+                    setRevisionFeedback('')
+                    setRequestingRevision(false)
+                    setActing(false)
+                  }}
+                  disabled={acting || !revisionFeedback.trim()}
+                  style={{ background: '#fbbf24', color: '#000', border: 'none', padding: '0.5rem 1rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: acting || !revisionFeedback.trim() ? 'not-allowed' : 'pointer', fontFamily: 'inherit', borderRadius: 3 }}
+                >
+                  Send for Revision
+                </button>
+                <button
+                  onClick={() => { setRequestingRevision(false); setRevisionFeedback('') }}
+                  style={{ background: 'transparent', color: 'rgba(255,255,255,0.3)', border: '1px solid rgba(255,255,255,0.08)', padding: '0.5rem 1rem', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit', borderRadius: 3 }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
