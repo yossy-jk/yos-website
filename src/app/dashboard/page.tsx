@@ -315,6 +315,8 @@ export default function Dashboard() {
   const [now, setNow] = useState(aestNow())
   const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
+  const [rewriting, setRewriting] = useState(false)
+  const [rewriteMsg, setRewriteMsg] = useState<string | null>(null)
   const [opsLoading, setOpsLoading] = useState(false)
   type MemClient = { id:string; name:string; division:string; industry?:string; contactName?:string; contactEmail?:string; contactPhone?:string; requirements:string[]; constraints:string[]; notes?:string; createdAt:string; updatedAt:string }
   type MemProject = { id:string; clientId:string; clientName?:string; name:string; division:string; scope:string; budget?:number; stage:string; startDate?:string; targetDate?:string; odooRef?:string; notes?:string; createdAt:string; updatedAt:string }
