@@ -46,7 +46,7 @@ export async function GET() {
       if (res.ok) {
         const d = await res.json() as { result?: string | null }
         if (d.result) {
-          return NextResponse.json(JSON.parse(d.result))
+          const parsed = JSON.parse(d.result); return NextResponse.json({ ...parsed, connected: true })
         }
       }
     } catch { /* fall through */ }
