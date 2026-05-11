@@ -149,8 +149,27 @@ export async function GET(req: NextRequest) {
   const auth = await requireAuth()
   if (!auth.ok) return auth.response
 
+  // Try Redis first (pushed by compliance-sync automation job)
+  const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
+  const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
+  if (REDIS_URL && REDIS_TOKEN) {
+    try {
+      const res = await fetch(
+        `${REDIS_URL}/get/${encodeURIComponent('yos:compliance:latest')}`,
+        { headers: { Authorization: `Bearer ${REDIS_TOKEN}` }, next: { revalidate: 3600 } }
+      )
+      if (res.ok) {
+        const d = await res.json() as { result?: string | null }
+        if (d.result) {
+          const data = JSON.parse(d.result)
+          return NextResponse.json({ ...data, source: 'redis' })
+        }
+      }
+    } catch { /* fall through to local files */ }
+  }
+
   try {
-    // Read master register
+    // Read master register (local fallback)
     const masterContent = await fs.readFile(MASTER_REGISTER, 'utf8')
     const { documents, ncrs, milestones } = parseMasterRegister(masterContent)
 
