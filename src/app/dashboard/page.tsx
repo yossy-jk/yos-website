@@ -498,7 +498,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Tabs ── */}
-      <div style={{ display: 'flex', gap: 0, marginBottom: '1.75rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+      <div style={{ display: 'flex', gap: 0, marginBottom: '1.75rem', borderBottom: '1px solid rgba(255,255,255,0.08)', alignItems: 'center', justifyContent: 'space-between' }}>
         {([
           { key: 'dashboard' as const, label: 'Dashboard', badge: false },
           { key: 'queue' as const, label: `Approvals${pendingCount > 0 ? ` (${pendingCount})` : ''}`, badge: urgentCount > 0 },
@@ -521,6 +521,31 @@ export default function Dashboard() {
             {tab.badge === true && <span style={{ background: '#ef4444', color: 'white', fontSize: '0.5rem', padding: '0.1rem 0.35rem', borderRadius: '999px', marginLeft: '0.4rem', verticalAlign: 'middle' }}>{urgentCount}</span>}
           </button>
         ))}
+        <button
+          onClick={async () => {
+            await fetch('/api/auth/logout', { method: 'POST' })
+            window.location.href = '/dashboard/login'
+          }}
+          style={{
+            background: 'transparent',
+            border: '1px solid rgba(255,255,255,0.15)',
+            padding: '0.35rem 0.85rem',
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            fontSize: '0.65rem',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.4)',
+            borderRadius: '4px',
+            marginLeft: 'auto',
+            flexShrink: 0,
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = 'white')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+        >
+          Sign out
+        </button>
       </div>
 
       {/* ── DASHBOARD TAB ── */}
