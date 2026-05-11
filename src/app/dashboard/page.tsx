@@ -36,6 +36,19 @@ type ComplianceData = {
   isoClauseSummary: Record<string, string>
 }
 
+type OutreachDraft = {
+  name: string; organisation: string; title: string
+  email: string; source: string; contacted: string; step: number
+}
+type OutreachData = {
+  generatedAt: string; total: number; new: number; drafted: number
+  sent: number; replied: number; bounced: number; unsubscribed: number
+  remaining: number; pipelineHealth: number
+  recentDrafts: OutreachDraft[]
+  dailyActivity: Array<{date: string; count: number}>
+  error?: string
+}
+
 type JobState = {
   last_run_date: string | null
   last_run_status: string | null
@@ -363,8 +376,10 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'outreach'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
+  const [outreachData, setOutreachData] = useState<OutreachData | null>(null)
+  const [outreachLoading, setOutreachLoading] = useState(false)
   const [rewriting, setRewriting] = useState(false)
   const [rewriteMsg, setRewriteMsg] = useState<string | null>(null)
   const [opsLoading, setOpsLoading] = useState(false)
@@ -550,6 +565,15 @@ export default function Dashboard() {
   const urgentCount = queue.filter(q => q.priority === 'urgent').length
 
   useEffect(() => {
+    if (activeTab !== 'outreach') return
+    setOutreachLoading(true)
+    fetch('/api/outreach-data')
+      .then(r => r.json())
+      .then((d: OutreachData) => { setOutreachData(d); setOutreachLoading(false) })
+      .catch(() => setOutreachLoading(false))
+  }, [activeTab])
+
+  useEffect(() => {
     if (activeTab !== 'operations') return
     setOpsLoading(true)
     fetch('/api/operations-data')
@@ -588,6 +612,7 @@ export default function Dashboard() {
           { key: 'archive' as const, label: 'History', badge: false },
           { key: 'compliance' as const, label: 'ISO/QMS', badge: false },
           { key: 'operations' as const, label: 'Operations', badge: false },
+          { key: 'outreach' as const, label: 'Outreach', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             style={{
@@ -2134,6 +2159,110 @@ export default function Dashboard() {
       })()}
 
       {/* ── ARCHIVE TAB ── */}
+      {activeTab === 'outreach' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h2 style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+              EOF Outreach Pipeline
+            </h2>
+            <button
+              onClick={() => {
+                setOutreachLoading(true)
+                fetch('/api/outreach-data').then(r => r.json()).then((d: OutreachData) => { setOutreachData(d); setOutreachLoading(false) })
+              }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', padding: '0.3rem 0.75rem', borderRadius: 4, color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer' }}
+            >
+              Refresh
+            </button>
+          </div>
+
+          {outreachLoading && <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>Loading...</div>}
+
+          {outreachData && !outreachData.error && !outreachLoading && (
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem' }}>
+                {([
+                  { label: 'Total Prospects', val: outreachData.total.toLocaleString(), color: 'rgba(255,255,255,0.7)' },
+                  { label: 'Remaining', val: outreachData.remaining.toLocaleString(), color: 'rgba(255,255,255,0.5)' },
+                  { label: 'Drafted', val: outreachData.drafted.toLocaleString(), color: '#00B5A5' },
+                  { label: 'Sent', val: outreachData.sent.toLocaleString(), color: '#00B5A5' },
+                  { label: 'Replied', val: outreachData.replied.toLocaleString(), color: '#22c55e' },
+                  { label: 'Bounced', val: outreachData.bounced.toLocaleString(), color: '#ef4444' },
+                ] as const).map(s => (
+                  <div key={s.label} style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1rem', borderRadius: 6, textAlign: 'center' }}>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.val}</div>
+                    <div style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginTop: '0.35rem' }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1rem', borderRadius: 6 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>Pipeline Progress</span>
+                  <span style={{ fontSize: '0.7rem', color: '#00B5A5', fontWeight: 700 }}>{outreachData.pipelineHealth}% contacted</span>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 4, height: 8 }}>
+                  <div style={{ background: '#00B5A5', borderRadius: 4, height: 8, width: `${outreachData.pipelineHealth}%`, transition: 'width 0.5s' }} />
+                </div>
+                <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.4rem' }}>
+                  {outreachData.drafted + outreachData.sent} of {outreachData.total} prospects contacted
+                </div>
+              </div>
+
+              {outreachData.dailyActivity.length > 0 && (
+                <div style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>Daily Draft Activity</div>
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                    {outreachData.dailyActivity.map(d => (
+                      <div key={d.date} style={{ background: 'rgba(0,181,165,0.1)', border: '1px solid rgba(0,181,165,0.2)', borderRadius: 4, padding: '0.4rem 0.75rem', fontSize: '0.72rem' }}>
+                        <span style={{ color: 'rgba(255,255,255,0.5)' }}>{d.date}: </span>
+                        <span style={{ color: '#00B5A5', fontWeight: 700 }}>{d.count} drafted</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {outreachData.recentDrafts.length > 0 && (
+                <div style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1.25rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
+                    Recent Drafts ({outreachData.recentDrafts.length})
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    {outreachData.recentDrafts.map((d, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.62rem', color: '#00B5A5', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', minWidth: 60 }}>
+                          {d.source === 'hunter-schools' ? 'School' : 'Govt'}
+                        </span>
+                        <span style={{ fontSize: '0.78rem', color: 'white', fontWeight: 600, flex: 1 }}>{d.name}</span>
+                        <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)' }}>{d.organisation}</span>
+                        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>Step {d.step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {outreachData.recentDrafts.length === 0 && (
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', padding: '2rem', textAlign: 'center' }}>
+                  No drafts yet — outreach-drafter runs at 07:00 weekdays
+                </div>
+              )}
+
+              <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textAlign: 'right' }}>
+                Updated {new Date(outreachData.generatedAt).toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })}
+              </div>
+            </>
+          )}
+
+          {outreachData?.error && !outreachLoading && (
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', padding: '2rem', textAlign: 'center' }}>
+              {outreachData.error}
+            </div>
+          )}
+        </div>
+      )}
+
       {activeTab === 'operations' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
