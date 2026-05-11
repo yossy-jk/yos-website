@@ -36,6 +36,22 @@ type ComplianceData = {
   isoClauseSummary: Record<string, string>
 }
 
+type TaskItem = {
+  id: string; source: string; title: string; description: string
+  committed_by: string; committed_to: string; due_date: string | null
+  priority: number; status: string; assigned_to: string
+  can_delegate: number; delegated_to: string | null
+  meeting_title: string | null; raw_commitment: string | null
+  created_at: string; completed_at: string | null
+}
+type TasksData = {
+  generatedAt: string
+  todayTasks: TaskItem[]; overdue: TaskItem[]; delegated: TaskItem[]; completed: TaskItem[]
+  completionRate7d: number; totalOpen: number; totalCompleted: number
+  joeCapacityToday: number; maxJoeCapacity: number
+  sources: Record<string, number>; error?: string
+}
+
 type OutreachDraft = {
   name: string; organisation: string; title: string
   email: string; source: string; contacted: string; step: number
@@ -376,9 +392,11 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'outreach'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'outreach' | 'tasks'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
   const [outreachData, setOutreachData] = useState<OutreachData | null>(null)
+  const [tasksData, setTasksData] = useState<TasksData | null>(null)
+  const [tasksLoading, setTasksLoading] = useState(false)
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [rewriting, setRewriting] = useState(false)
   const [rewriteMsg, setRewriteMsg] = useState<string | null>(null)
@@ -565,6 +583,15 @@ export default function Dashboard() {
   const urgentCount = queue.filter(q => q.priority === 'urgent').length
 
   useEffect(() => {
+    if (activeTab !== 'tasks') return
+    setTasksLoading(true)
+    fetch('/api/tasks-data')
+      .then(r => r.json())
+      .then((d: TasksData) => { setTasksData(d); setTasksLoading(false) })
+      .catch(() => setTasksLoading(false))
+  }, [activeTab])
+
+  useEffect(() => {
     if (activeTab !== 'outreach') return
     setOutreachLoading(true)
     fetch('/api/outreach-data')
@@ -613,6 +640,7 @@ export default function Dashboard() {
           { key: 'compliance' as const, label: 'ISO/QMS', badge: false },
           { key: 'operations' as const, label: 'Operations', badge: false },
           { key: 'outreach' as const, label: 'Outreach', badge: false },
+          { key: 'tasks' as const, label: 'Tasks', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             style={{
@@ -2159,6 +2187,148 @@ export default function Dashboard() {
       })()}
 
       {/* ── ARCHIVE TAB ── */}
+      {activeTab === 'tasks' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h2 style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+              Accountability — Task Manager
+            </h2>
+            <button
+              onClick={() => { setTasksLoading(true); fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)}) }}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', padding: '0.3rem 0.75rem', borderRadius: 4, color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer' }}
+            >Refresh</button>
+          </div>
+
+          {tasksLoading && <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem' }}>Loading...</div>}
+
+          {tasksData && !tasksLoading && (
+            <>
+              {/* Stats row */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem' }}>
+                {([
+                  { label: 'Open Tasks', val: String(tasksData.totalOpen), color: 'rgba(255,255,255,0.7)' },
+                  { label: "Today's Tasks", val: `${tasksData.joeCapacityToday}/${tasksData.maxJoeCapacity}`, color: tasksData.joeCapacityToday >= tasksData.maxJoeCapacity ? '#ef4444' : '#00B5A5' },
+                  { label: 'Overdue', val: String(tasksData.overdue.length), color: tasksData.overdue.length > 0 ? '#ef4444' : '#22c55e' },
+                  { label: 'Delegated', val: String(tasksData.delegated.length), color: '#00B5A5' },
+                  { label: '7d Completion', val: `${tasksData.completionRate7d}%`, color: tasksData.completionRate7d >= 80 ? '#22c55e' : tasksData.completionRate7d >= 50 ? '#f59e0b' : '#ef4444' },
+                  { label: 'Completed', val: String(tasksData.totalCompleted), color: '#22c55e' },
+                ] as const).map(s => (
+                  <div key={s.label} style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1rem', borderRadius: 6, textAlign: 'center' }}>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.val}</div>
+                    <div style={{ fontSize: '0.62rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginTop: '0.35rem' }}>{s.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Capacity bar */}
+              <div style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1rem', borderRadius: 6 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)' }}>Today's Capacity</span>
+                  <span style={{ fontSize: '0.7rem', color: '#00B5A5', fontWeight: 700 }}>{tasksData.joeCapacityToday} of {tasksData.maxJoeCapacity} tasks</span>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 4, height: 8 }}>
+                  <div style={{ background: tasksData.joeCapacityToday >= tasksData.maxJoeCapacity ? '#ef4444' : '#00B5A5', borderRadius: 4, height: 8, width: `${Math.min(100, (tasksData.joeCapacityToday/tasksData.maxJoeCapacity)*100)}%`, transition: 'width 0.5s' }} />
+                </div>
+              </div>
+
+              {/* Overdue */}
+              {tasksData.overdue.length > 0 && (
+                <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', padding: '1.25rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#ef4444', marginBottom: '0.75rem' }}>
+                    Overdue ({tasksData.overdue.length})
+                  </div>
+                  {tasksData.overdue.map(t => (
+                    <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(239,68,68,0.1)' }}>
+                      <button
+                        onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) }); setTasksLoading(true); fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)}) }}
+                        style={{ background: '#22c55e', border: 'none', borderRadius: 3, width: 20, height: 20, cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '0.7rem', fontWeight: 700 }}
+                      >✓</button>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: '0.82rem', color: 'white', fontWeight: 600 }}>{t.title}</div>
+                        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>Due: {t.due_date} · {t.source} · P{t.priority}</div>
+                      </div>
+                      {t.can_delegate === 1 && (
+                        <button
+                          onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'delegate' }) }) }}
+                          style={{ background: 'rgba(0,181,165,0.2)', border: '1px solid rgba(0,181,165,0.3)', borderRadius: 3, padding: '0.2rem 0.5rem', color: '#00B5A5', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer' }}
+                        >Delegate</button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Today's tasks */}
+              {tasksData.todayTasks.length > 0 && (
+                <div style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1.25rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
+                    Today ({tasksData.todayTasks.length})
+                  </div>
+                  {tasksData.todayTasks.map(t => (
+                    <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                      <button
+                        onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) }); setTasksLoading(true); fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)}) }}
+                        style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 3, width: 20, height: 20, cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#22c55e', fontSize: '0.7rem', fontWeight: 700 }}
+                      >✓</button>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: '0.82rem', color: 'white', fontWeight: 600 }}>{t.title}</div>
+                        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>
+                          {t.committed_to && `→ ${t.committed_to} · `}{t.source} · P{t.priority}
+                          {t.due_date && ` · due ${t.due_date}`}
+                        </div>
+                        {t.meeting_title && <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>From: {t.meeting_title}</div>}
+                      </div>
+                      {t.can_delegate === 1 && (
+                        <button
+                          onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'delegate' }) }) }}
+                          style={{ background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.25)', borderRadius: 3, padding: '0.2rem 0.5rem', color: '#00B5A5', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer' }}
+                        >Delegate</button>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Delegated to agents */}
+              {tasksData.delegated.length > 0 && (
+                <div style={{ background: 'rgba(0,181,165,0.04)', border: '1px solid rgba(0,181,165,0.12)', padding: '1.25rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
+                    Delegated to Agents ({tasksData.delegated.length})
+                  </div>
+                  {tasksData.delegated.map(t => (
+                    <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                      <div style={{ width: 20, height: 20, borderRadius: 3, background: 'rgba(0,181,165,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.6rem', color: '#00B5A5', fontWeight: 700, flexShrink: 0 }}>AI</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: '0.82rem', color: 'white', fontWeight: 600 }}>{t.title}</div>
+                        <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>Agent: {t.delegated_to || t.assigned_to} · {t.source}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {tasksData.todayTasks.length === 0 && tasksData.overdue.length === 0 && (
+                <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', padding: '3rem', textAlign: 'center' }}>
+                  <div style={{ marginBottom: '0.5rem' }}>No tasks yet</div>
+                  <div style={{ fontSize: '0.72rem' }}>Add the webhook URL in Fireflies: app.fireflies.ai/settings → Developer → Webhooks</div>
+                  <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.2)', marginTop: '0.25rem' }}>https://www.yourofficespace.au/api/fireflies-webhook</div>
+                </div>
+              )}
+
+              <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', textAlign: 'right' }}>
+                Updated {tasksData.generatedAt ? new Date(tasksData.generatedAt).toLocaleString('en-AU', { timeZone: 'Australia/Sydney' }) : '—'}
+              </div>
+            </>
+          )}
+
+          {tasksData?.error && !tasksLoading && tasksData.todayTasks.length === 0 && (
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', padding: '2rem', textAlign: 'center' }}>
+              {tasksData.error}
+            </div>
+          )}
+        </div>
+      )}
+
       {activeTab === 'outreach' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
