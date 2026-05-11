@@ -168,6 +168,24 @@ export async function GET(req: NextRequest) {
     } catch { /* fall through to local files */ }
   }
 
+  // Local file fallback (only works on Mac Mini, not Vercel)
+  try {
+    await fs.access(MASTER_REGISTER)
+  } catch {
+    // Local compliance files not available (running on Vercel)
+    return NextResponse.json({
+      generatedAt: new Date().toISOString(),
+      certification: { targetDate: '2026-10-31', daysRemaining: 0, standards: ['ISO 9001:2015'], certificationBody: 'SAI Global', stage: 'documentation' },
+      documents: { total: 0, complete: 0, overdue: 0, newDocs: 0, ok: 0, percentComplete: 0 },
+      ncrs: [],
+      milestones: [],
+      aiCompliance: { tracesThisWeek: 0, qualityPassRate: null, lastAudit: null },
+      continuousImprovement: [],
+      isoClauseSummary: {},
+      error: 'Compliance data not synced yet — run compliance-sync job',
+    })
+  }
+
   try {
     // Read master register (local fallback)
     const masterContent = await fs.readFile(MASTER_REGISTER, 'utf8')
