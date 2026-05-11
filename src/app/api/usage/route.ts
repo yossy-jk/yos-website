@@ -46,7 +46,26 @@ export async function GET() {
       if (res.ok) {
         const d = await res.json() as { result?: string | null }
         if (d.result) {
-          const parsed = JSON.parse(d.result); return NextResponse.json({ ...parsed, connected: true })
+          const parsed = JSON.parse(d.result)
+          // Map field names to match dashboard UI expectations
+          const daily = parsed.daily || []
+          const today = new Date().toISOString().split("T")[0]
+          const last7 = daily.filter((d: {date:string}) => d.date >= new Date(Date.now()-7*86400000).toISOString().split("T")[0])
+          const prev7 = daily.filter((d: {date:string}) => d.date < new Date(Date.now()-7*86400000).toISOString().split("T")[0] && d.date >= new Date(Date.now()-14*86400000).toISOString().split("T")[0])
+          const todayCost = daily.find((d: {date:string,cost:number}) => d.date === today)?.cost || 0
+          const last7dayCost = last7.reduce((s: number, d: {cost:number}) => s + d.cost, 0)
+          const prev7dayCost = prev7.reduce((s: number, d: {cost:number}) => s + d.cost, 0)
+          return NextResponse.json({
+            ...parsed,
+            connected: true,
+            todayCost,
+            last7dayCost,
+            prev7dayCost,
+            totalCost30d: parsed.totalCost || 0,
+            totalTokens30d: parsed.totalTokens || 0,
+            totalObservations: parsed.totalCalls || 0,
+            dailyTrend: daily,
+          })
         }
       }
     } catch { /* fall through */ }
