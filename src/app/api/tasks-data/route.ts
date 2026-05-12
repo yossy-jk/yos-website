@@ -48,8 +48,8 @@ export async function POST(req: Request) {
   const auth = await requireAuth()
   if (!auth.ok) return auth.response
 
-  const body = await req.json() as { taskId: string; action: string; note?: string }
-  const { taskId, action, note } = body
+  const body = await req.json() as { taskId: string; action: string; note?: string; agent?: string }
+  const { taskId, action, note, agent } = body
 
   if (!taskId || !action) {
     return NextResponse.json({ error: 'Missing taskId or action' }, { status: 400 })

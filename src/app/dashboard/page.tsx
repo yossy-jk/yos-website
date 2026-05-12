@@ -397,6 +397,7 @@ export default function Dashboard() {
   const [outreachData, setOutreachData] = useState<OutreachData | null>(null)
   const [tasksData, setTasksData] = useState<TasksData | null>(null)
   const [tasksLoading, setTasksLoading] = useState(false)
+  const [delegateModal, setDelegateModal] = useState<{taskId: string; title: string} | null>(null)
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [rewriting, setRewriting] = useState(false)
   const [rewriteMsg, setRewriteMsg] = useState<string | null>(null)
@@ -2249,7 +2250,7 @@ export default function Dashboard() {
                       </div>
                       {t.can_delegate === 1 && (
                         <button
-                          onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'delegate' }) }) }}
+                          onClick={() => setDelegateModal({taskId: t.id, title: t.title})}
                           style={{ background: 'rgba(0,181,165,0.2)', border: '1px solid rgba(0,181,165,0.3)', borderRadius: 3, padding: '0.2rem 0.5rem', color: '#00B5A5', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer' }}
                         >Delegate</button>
                       )}
@@ -2280,12 +2281,54 @@ export default function Dashboard() {
                       </div>
                       {t.can_delegate === 1 && (
                         <button
-                          onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'delegate' }) }) }}
+                          onClick={() => setDelegateModal({taskId: t.id, title: t.title})}
                           style={{ background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.25)', borderRadius: 3, padding: '0.2rem 0.5rem', color: '#00B5A5', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer' }}
                         >Delegate</button>
                       )}
                     </div>
                   ))}
+                </div>
+              )}
+
+              {/* Delegate modal */}
+              {delegateModal && (
+                <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+                  <div style={{ background: '#1a1a2e', border: '1px solid rgba(0,181,165,0.3)', borderRadius: 8, padding: '1.5rem', width: 340, maxWidth: '90vw' }}>
+                    <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.5rem' }}>Delegate Task</p>
+                    <p style={{ color: 'white', fontSize: '0.85rem', fontWeight: 600, margin: '0 0 1.25rem', lineHeight: 1.4 }}>{delegateModal.title}</p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1rem' }}>
+                      {[
+                        { id: 'inbox-ea', label: 'Inbox EA', desc: 'Email drafts, replies' },
+                        { id: 'hubspot-revops', label: 'HubSpot RevOps', desc: 'Quotes, proposals, CRM' },
+                        { id: 'brand-marketing', label: 'Brand Marketing', desc: 'Content, posts, outreach' },
+                        { id: 'finance', label: 'Finance', desc: 'Invoices, payments' },
+                        { id: 'chief-of-staff', label: 'Chief of Staff', desc: 'General coordination' },
+                        { id: 'innovation', label: 'Innovation', desc: 'Research, new ideas' },
+                      ].map(agent => (
+                        <button
+                          key={agent.id}
+                          onClick={async () => {
+                            await fetch('/api/tasks-data', {
+                              method: 'POST',
+                              headers: {'Content-Type': 'application/json'},
+                              body: JSON.stringify({ taskId: delegateModal.taskId, action: 'delegate', agent: agent.id })
+                            })
+                            setDelegateModal(null)
+                            setTasksLoading(true)
+                            fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)})
+                          }}
+                          style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'rgba(0,181,165,0.08)', border: '1px solid rgba(0,181,165,0.2)', borderRadius: 6, padding: '0.6rem 0.75rem', cursor: 'pointer', textAlign: 'left' }}
+                        >
+                          <span style={{ color: 'white', fontSize: '0.82rem', fontWeight: 600 }}>{agent.label}</span>
+                          <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem' }}>{agent.desc}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => setDelegateModal(null)}
+                      style={{ width: '100%', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 4, padding: '0.5rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem', cursor: 'pointer' }}
+                    >Cancel</button>
+                  </div>
                 </div>
               )}
 
