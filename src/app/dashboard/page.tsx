@@ -55,6 +55,8 @@ type TasksData = {
 type OutreachDraft = {
   name: string; organisation: string; title: string
   email: string; source: string; contacted: string; step: number
+  phone: string | null; linkedin_url: string | null
+  website: string | null; notes: string | null
 }
 type OutreachData = {
   generatedAt: string; total: number; new: number; drafted: number
@@ -2443,13 +2445,23 @@ export default function Dashboard() {
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                     {outreachData.recentDrafts.map((d, i) => (
-                      <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '0.62rem', color: '#00B5A5', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', minWidth: 60 }}>
-                          {d.source === 'hunter-schools' ? 'School' : 'Govt'}
-                        </span>
-                        <span style={{ fontSize: '0.78rem', color: 'white', fontWeight: 600, flex: 1 }}>{d.name}</span>
-                        <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)' }}>{d.organisation}</span>
-                        <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>Step {d.step}</span>
+                      <div key={i} style={{ padding: '0.6rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: '0.62rem', color: '#00B5A5', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', minWidth: 60 }}>
+                            {d.source === 'hunter-schools' ? 'School' : 'Govt'}
+                          </span>
+                          <span style={{ fontSize: '0.78rem', color: 'white', fontWeight: 600, flex: 1 }}>{d.name}</span>
+                          <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.5)' }}>{d.title}</span>
+                          <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>Step {d.step}</span>
+                        </div>
+                        <div style={{ display: 'flex', gap: '1rem', marginTop: '0.3rem', flexWrap: 'wrap', paddingLeft: '0.5rem' }}>
+                          <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>{d.organisation}</span>
+                          {d.email && <a href={`mailto:${d.email}`} style={{ fontSize: '0.68rem', color: '#00B5A5', textDecoration: 'none' }}>{d.email}</a>}
+                          {d.phone && <a href={`tel:${d.phone}`} style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>{d.phone}</a>}
+                          {d.linkedin_url && <a href={d.linkedin_url} target="_blank" rel="noreferrer" style={{ fontSize: '0.68rem', color: '#0a66c2', fontWeight: 700, textDecoration: 'none' }}>LinkedIn →</a>}
+                          {d.website && <a href={d.website.startsWith('http') ? d.website : `https://${d.website}`} target="_blank" rel="noreferrer" style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.3)', textDecoration: 'none' }}>Web →</a>}
+                        </div>
+                        {d.notes && <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', marginTop: '0.2rem', paddingLeft: '0.5rem', fontStyle: 'italic' }}>{d.notes}</div>}
                       </div>
                     ))}
                   </div>
