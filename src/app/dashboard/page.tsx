@@ -400,6 +400,8 @@ export default function Dashboard() {
   const [tasksData, setTasksData] = useState<TasksData | null>(null)
   const [tasksLoading, setTasksLoading] = useState(false)
   const [delegateModal, setDelegateModal] = useState<{taskId: string; title: string} | null>(null)
+  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
+  const [delegatedIds, setDelegatedIds] = useState<Record<string, string>>({})
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [rewriting, setRewriting] = useState(false)
   const [rewriteMsg, setRewriteMsg] = useState<string | null>(null)
@@ -2270,18 +2272,20 @@ export default function Dashboard() {
                   {tasksData.todayTasks.map(t => (
                     <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                       <button
-                        onClick={async () => { await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) }); setTasksLoading(true); fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)}) }}
-                        style={{ background: 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 3, width: 20, height: 20, cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#22c55e', fontSize: '0.7rem', fontWeight: 700 }}
+                        onClick={async () => {
+                            setCompletedIds(prev => new Set([...prev, t.id]))
+                            await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) })
+                          }}
+                        style={{ background: completedIds.has(t.id) ? '#22c55e' : 'rgba(34,197,94,0.15)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: 3, width: 20, height: 20, cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: completedIds.has(t.id) ? 'white' : '#22c55e', fontSize: '0.7rem', fontWeight: 700, transition: 'all 0.2s' }}
                       >✓</button>
-                      <div style={{ flex: 1 }}>
-                        <div style={{ fontSize: '0.82rem', color: 'white', fontWeight: 600 }}>{t.title}</div>
+                      <div style={{ flex: 1, opacity: completedIds.has(t.id) ? 0.4 : 1, transition: 'opacity 0.2s' }}>
+                        <div style={{ fontSize: '0.82rem', color: completedIds.has(t.id) ? '#22c55e' : 'white', fontWeight: 600, textDecoration: completedIds.has(t.id) ? 'line-through' : 'none' }}>{t.title}</div>
                         <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>
-                          {t.committed_to && `→ ${t.committed_to} · `}{t.source} · P{t.priority}
-                          {t.due_date && ` · due ${t.due_date}`}
+                          {completedIds.has(t.id) ? '✓ Completed' : `${t.committed_to ? `→ ${t.committed_to} · ` : ''}${t.source} · P${t.priority}${t.due_date ? ` · due ${t.due_date}` : ''}`}
                         </div>
-                        {t.meeting_title && <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>From: {t.meeting_title}</div>}
+                        {t.meeting_title && !completedIds.has(t.id) && <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>From: {t.meeting_title}</div>}
                       </div>
-                      {t.can_delegate === 1 && (
+                      {t.can_delegate === 1 && !completedIds.has(t.id) && (
                         <button
                           onClick={() => setDelegateModal({taskId: t.id, title: t.title})}
                           style={{ background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.25)', borderRadius: 3, padding: '0.2rem 0.5rem', color: '#00B5A5', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer' }}
@@ -2347,6 +2351,27 @@ export default function Dashboard() {
                         <div style={{ fontSize: '0.82rem', color: 'white', fontWeight: 600 }}>{t.title}</div>
                         <div style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.4)' }}>Agent: {t.delegated_to || t.assigned_to} · {t.source}</div>
                       </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Completed this session */}
+              {completedIds.size > 0 && (
+                <div style={{ background: 'rgba(34,197,94,0.04)', border: '1px solid rgba(34,197,94,0.15)', padding: '1rem 1.25rem', borderRadius: 6 }}>
+                  <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#22c55e', marginBottom: '0.5rem' }}>
+                    Completed This Session ({completedIds.size})
+                  </div>
+                  {tasksData.todayTasks.filter(t => completedIds.has(t.id)).map(t => (
+                    <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.35rem 0' }}>
+                      <span style={{ color: '#22c55e', fontSize: '0.9rem' }}>✓</span>
+                      <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', textDecoration: 'line-through' }}>{t.title}</span>
+                    </div>
+                  ))}
+                  {tasksData.overdue.filter(t => completedIds.has(t.id)).map(t => (
+                    <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.35rem 0' }}>
+                      <span style={{ color: '#22c55e', fontSize: '0.9rem' }}>✓</span>
+                      <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', textDecoration: 'line-through' }}>{t.title}</span>
                     </div>
                   ))}
                 </div>
