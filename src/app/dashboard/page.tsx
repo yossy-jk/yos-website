@@ -46,9 +46,10 @@ type TaskItem = {
 }
 type TasksData = {
   generatedAt: string
-  todayTasks: TaskItem[]; overdue: TaskItem[]; delegated: TaskItem[]; completed: TaskItem[]
+  todayTasks: TaskItem[]; backlog: TaskItem[]; overdue: TaskItem[]
+  delegated: TaskItem[]; completed: TaskItem[]
   completionRate7d: number; totalOpen: number; totalCompleted: number
-  joeCapacityToday: number; maxJoeCapacity: number
+  totalBacklog: number; joeCapacityToday: number; maxJoeCapacity: number
   sources: Record<string, number>; error?: string
 }
 
@@ -401,6 +402,7 @@ export default function Dashboard() {
   const [tasksLoading, setTasksLoading] = useState(false)
   const [delegateModal, setDelegateModal] = useState<{taskId: string; title: string} | null>(null)
   const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
+  const [showBacklog, setShowBacklog] = useState(false)
   const [delegatedIds, setDelegatedIds] = useState<Record<string, string>>({})
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [rewriting, setRewriting] = useState(false)
@@ -2374,6 +2376,53 @@ export default function Dashboard() {
                       <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', textDecoration: 'line-through' }}>{t.title}</span>
                     </div>
                   ))}
+                </div>
+              )}
+
+              {/* Backlog */}
+              {tasksData.backlog && tasksData.backlog.length > 0 && (
+                <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', padding: '1.25rem', borderRadius: 6 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)' }}>
+                      Backlog ({tasksData.totalBacklog || tasksData.backlog.length})
+                    </div>
+                    <button
+                      onClick={() => setShowBacklog(s => !s)}
+                      style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 3, padding: '0.2rem 0.6rem', color: 'rgba(255,255,255,0.35)', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer' }}
+                    >{showBacklog ? 'Hide' : 'Show'}</button>
+                  </div>
+                  {showBacklog && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                      {tasksData.backlog.map(t => (
+                        <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.45rem 0', borderBottom: '1px solid rgba(255,255,255,0.03)' }}>
+                          <button
+                            onClick={async () => {
+                              setCompletedIds(prev => new Set([...prev, t.id]))
+                              await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) })
+                            }}
+                            style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 3, width: 18, height: 18, cursor: 'pointer', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem', fontWeight: 700 }}
+                          >✓</button>
+                          <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.55)', fontWeight: 500, textDecoration: completedIds.has(t.id) ? 'line-through' : 'none' }}>{t.title}</div>
+                            <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)' }}>
+                              {t.source} · P{t.priority}{t.due_date ? ` · due ${t.due_date}` : ''}
+                            </div>
+                          </div>
+                          {t.can_delegate === 1 && (
+                            <button
+                              onClick={() => setDelegateModal({taskId: t.id, title: t.title})}
+                              style={{ background: 'transparent', border: '1px solid rgba(0,181,165,0.2)', borderRadius: 3, padding: '0.15rem 0.4rem', color: 'rgba(0,181,165,0.6)', fontSize: '0.6rem', fontWeight: 700, cursor: 'pointer' }}
+                            >Delegate</button>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {!showBacklog && (
+                    <div style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.25)' }}>
+                      {tasksData.backlog.slice(0,3).map(t => t.title).join(' · ')}...
+                    </div>
+                  )}
                 </div>
               )}
 
