@@ -6,9 +6,11 @@ import type { EOSData, VTO, KPIMetric } from '@/app/api/eos/data/route'
 // ── Types ───────────────────────────────────────────────────────────────────
 type Priority = { label: string; detail: string; type: 'critical' | 'action' | 'info' }
 type Deal = {
-  id: string; name: string; stage: string; amount: number
+  id: string; name: string; stage: string; stageId: string; amount: number
   closeDate: string | null; daysToClose: number | null
-  daysSinceMod: number; isStale: boolean; isOverdue: boolean; isUrgent: boolean
+  daysSinceMod: number; daysSinceTouch: number; lastTouchDate: string | null
+  isStale: boolean; isQuoteQuiet: boolean; isOverdue: boolean; isUrgent: boolean
+  isOverBenchmark: boolean; benchmarkDays: number
 }
 type CalEvent = { subject: string; start: string; end: string; location: string }
 type XeroData = { outstanding: number; overdue: number; overdueCount: number; outstandingCount: number }
@@ -99,16 +101,44 @@ type HealthData = {
   glucoseTrend: { date: string; value: number }[]
 }
 
+type CashflowData = {
+  arTotal: number; incoming30Days: number; outgoing30Days: number
+  incoming60Days: number; outgoing60Days: number
+  projectedLow: number; projectedLowDate: string; days30: number
+}
 type DashboardData = {
   generatedAt: string; priorities: Priority[]
-  pipeline: { totalDeals: number; totalValue: number; staleDeals: number; deals: Deal[] }
+  pipeline: { totalDeals: number; totalValue: number; staleDeals: number; quietQuotes: number; deals: Deal[] }
   proposalDeals: Deal[]; events: CalEvent[]; xero: XeroData
+  cashflow: CashflowData
 }
 type QueueItem = {
   id: string; type: string; title: string; content: string; agentId: string
   metadata: Record<string, string>; priority: string; status: string
   createdAt: string; updatedAt: string; editFeedback?: string; editCount?: number
   approvedAt?: string; skippedAt?: string; approvedContent?: string
+}
+type OpsAllJob = {
+  id: string; name: string; schedule: string; owner: string
+  state: JobState | null; output: string | null
+  status: 'ok' | 'stale' | 'failed' | 'unknown'
+}
+type OpsAllData = {
+  generatedAt: string
+  summary: { total: number; ok: number; stale: number; failed: number }
+  jobs: OpsAllJob[]
+}
+type ProposalFollowupItem = {
+  dealId: string; dealName: string; amount: number
+  proposalSentDate: string | null; lastTouchDate: string | null
+  daysSinceProposalSent: number | null; daysSinceLastTouch: number
+  followupStage: 0 | 1 | 2 | 3
+  action: string; priority: 'normal' | 'high' | 'urgent'; note: string
+}
+type ProposalFollowupData = {
+  generatedAt: string
+  summary: { total: number; urgent: ProposalFollowupItem[]; high: number; normal: number; needsTouch48h: number; stale14plus: number; totalValue: number }
+  items: ProposalFollowupItem[]; needsTouch48h: ProposalFollowupItem[]
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
@@ -395,8 +425,10 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'outreach' | 'tasks'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
+  const [opsAllData, setOpsAllData] = useState<OpsAllData | null>(null)
+  const [proposalData, setProposalData] = useState<ProposalFollowupData | null>(null)
   const [outreachData, setOutreachData] = useState<OutreachData | null>(null)
   const [tasksData, setTasksData] = useState<TasksData | null>(null)
   const [tasksLoading, setTasksLoading] = useState(false)
@@ -616,6 +648,22 @@ export default function Dashboard() {
       .catch(() => setOpsLoading(false))
   }, [activeTab])
 
+  useEffect(() => {
+    if (activeTab !== 'ops-all') return
+    fetch('/api/operations-all')
+      .then(r => r.json())
+      .then((d: OpsAllData) => setOpsAllData(d))
+      .catch(() => {})
+  }, [activeTab])
+
+  useEffect(() => {
+    if (activeTab !== 'proposals') return
+    fetch('/api/proposal-followup')
+      .then(r => r.json())
+      .then((d: ProposalFollowupData) => setProposalData(d))
+      .catch(() => {})
+  }, [activeTab])
+
   return (
     <div style={{ minHeight: '100vh', background: '#0A0A0A', color: 'white', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', padding: 'clamp(1.25rem, 4vw, 2.5rem)' }}>
 
@@ -645,7 +693,9 @@ export default function Dashboard() {
           { key: 'memory' as const, label: 'Memory', badge: false },
           { key: 'archive' as const, label: 'History', badge: false },
           { key: 'compliance' as const, label: 'ISO/QMS', badge: false },
-          { key: 'operations' as const, label: 'Operations', badge: false },
+          { key: 'operations' as const, label: 'Ops', badge: false },
+          { key: 'ops-all' as const, label: 'All Jobs', badge: false },
+          { key: 'proposals' as const, label: 'Proposals', badge: false },
           { key: 'outreach' as const, label: 'Outreach', badge: false },
           { key: 'tasks' as const, label: 'Tasks', badge: false },
         ] as const).map(tab => (
@@ -769,23 +819,44 @@ export default function Dashboard() {
               )))}
           </div>
 
-          {/* Money */}
-          <div style={SECTION_STYLE}>
+          {/* Money + Cashflow */}
+          <div style={{ gridColumn: '1 / -1', ...SECTION_STYLE }}>
             <p style={SECTION_LABEL}>Money</p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.25rem' }}>
               <div>
                 <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.25rem' }}>AR Outstanding</p>
-                <p style={{ fontSize: 'clamp(1.3rem,2.5vw,1.7rem)', fontWeight: 900, margin: 0 }}>{fmt(data?.xero.outstanding || 0)}</p>
+                <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0 }}>{fmt(data?.xero.outstanding || 0)}</p>
                 <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero.outstandingCount || 0} invoice{data?.xero.outstandingCount !== 1 ? 's' : ''}</p>
               </div>
               <div>
                 <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.25rem' }}>Overdue Now</p>
-                <p style={{ fontSize: 'clamp(1.3rem,2.5vw,1.7rem)', fontWeight: 900, margin: 0, color: (data?.xero.overdue || 0) > 0 ? '#ef4444' : '#22c55e' }}>
+                <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0, color: (data?.xero.overdue || 0) > 0 ? '#ef4444' : '#22c55e' }}>
                   {fmt(data?.xero.overdue || 0)}
                 </p>
                 <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero.overdueCount || 0} overdue</p>
               </div>
+              {data?.cashflow?.projectedLow != null && (
+                <div style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)', padding: '0.75rem 1rem', borderRadius: 4 }}>
+                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.25rem' }}>Projected Low</p>
+                  <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0, color: data.cashflow.projectedLow < 0 ? '#ef4444' : data.cashflow.projectedLow < 5000 ? '#f59e0b' : '#22c55e' }}>
+                    {fmt(Math.max(0, data.cashflow.projectedLow))}
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>by {data.cashflow.projectedLowDate}</p>
+                </div>
+              )}
             </div>
+            {data?.cashflow && (
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: 'rgba(34,197,94,0.05)', borderLeft: '2px solid #22c55e', borderRadius: 3 }}>
+                  <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem' }}>30d expected in</span>
+                  <span style={{ color: '#22c55e', fontSize: '0.7rem', fontWeight: 700 }}>{fmt(data.cashflow.incoming30Days)}</span>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: 'rgba(239,68,68,0.05)', borderLeft: '2px solid #ef4444', borderRadius: 3 }}>
+                  <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem' }}>30d going out</span>
+                  <span style={{ color: '#ef4444', fontSize: '0.7rem', fontWeight: 700 }}>{fmt(data.cashflow.outgoing30Days)}</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Health */}
@@ -864,6 +935,11 @@ export default function Dashboard() {
                 <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem' }}><strong style={{ color: 'white' }}>{data?.pipeline.totalDeals || 0}</strong> open</span>
                 <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem' }}><strong style={{ color: '#00B5A5' }}>{fmt(data?.pipeline.totalValue || 0)}</strong> value</span>
                 {(data?.pipeline.staleDeals || 0) > 0 && <span style={{ color: '#f59e0b', fontSize: '0.68rem' }}><strong>{data?.pipeline.staleDeals}</strong> stale</span>}
+                {(data?.pipeline.quietQuotes || 0) > 0 && <span style={{ color: '#ef4444', fontSize: '0.68rem' }}><strong>{data?.pipeline.quietQuotes}</strong> need touch</span>}
+                <button onClick={() => setActiveTab('proposals')}
+                  style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', color: '#ef4444', fontSize: '0.6rem', padding: '0.3rem 0.7rem', cursor: 'pointer', fontFamily: 'inherit', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  Follow-up →
+                </button>
                 <button onClick={() => setShowPipeline(s => !s)}
                   style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.35)', fontSize: '0.6rem', padding: '0.3rem 0.7rem', cursor: 'pointer', fontFamily: 'inherit', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                   {showPipeline ? 'Hide' : 'Show all'}
@@ -873,8 +949,8 @@ export default function Dashboard() {
             {showPipeline && data?.pipeline.deals.map(deal => (
               <div key={deal.id} style={{
                 display: 'flex', alignItems: 'center', gap: '0.875rem', padding: '0.65rem 0.875rem', marginBottom: '0.3rem', flexWrap: 'wrap',
-                background: deal.isOverdue ? 'rgba(239,68,68,0.05)' : deal.isUrgent ? 'rgba(245,158,11,0.05)' : 'rgba(255,255,255,0.02)',
-                borderLeft: `2px solid ${deal.isOverdue ? '#ef4444' : deal.isUrgent ? '#f59e0b' : deal.isStale ? 'rgba(255,255,255,0.1)' : 'transparent'}`,
+                background: deal.isQuoteQuiet ? 'rgba(239,68,68,0.08)' : deal.isOverdue ? 'rgba(239,68,68,0.05)' : deal.isUrgent ? 'rgba(245,158,11,0.05)' : 'rgba(255,255,255,0.02)',
+                borderLeft: `2px solid ${deal.isQuoteQuiet ? '#ef4444' : deal.isOverdue ? '#ef4444' : deal.isUrgent ? '#f59e0b' : deal.isStale ? 'rgba(255,255,255,0.1)' : 'transparent'}`,
               }}>
                 <div style={{ flex: '1 1 180px', minWidth: 0 }}>
                   <p style={{ color: 'white', fontSize: '0.78rem', fontWeight: 600, margin: 0 }}>{deal.name}</p>
@@ -885,7 +961,8 @@ export default function Dashboard() {
                   {deal.closeDate && <span style={{ color: deal.isOverdue ? '#ef4444' : deal.isUrgent ? '#f59e0b' : 'rgba(255,255,255,0.3)', fontSize: '0.62rem' }}>
                     {deal.isOverdue ? `${Math.abs(deal.daysToClose!)}d overdue` : deal.daysToClose === 0 ? 'Due today' : fmtDate(deal.closeDate)}
                   </span>}
-                  {deal.isStale && !deal.isOverdue && !deal.isUrgent && <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.6rem' }}>{deal.daysSinceMod}d quiet</span>}
+                  {deal.isQuoteQuiet && <span style={{ color: '#ef4444', fontSize: '0.6rem', fontWeight: 700, background: 'rgba(239,68,68,0.15)', padding: '0.1rem 0.4rem', borderRadius: 3 }}>TOUCH {deal.daysSinceTouch * 24}h</span>}
+                  {deal.isStale && !deal.isOverdue && !deal.isUrgent && !deal.isQuoteQuiet && <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.6rem' }}>{deal.daysSinceMod}d quiet</span>}
                 </div>
               </div>
             ))}
@@ -2645,6 +2722,165 @@ export default function Dashboard() {
               </div>
             </>
           )}
+        </div>
+      )}
+
+      {/* ── OPS ALL ── */}
+      {activeTab === 'ops-all' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h2 style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+              All Jobs — Full Automation Fleet
+            </h2>
+            <button onClick={() => fetch('/api/operations-all').then(r=>r.json()).then((d:OpsAllData)=>setOpsAllData(d))}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', padding: '0.3rem 0.75rem', borderRadius: 4, color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer' }}>
+              Refresh
+            </button>
+          </div>
+          {opsAllData?.summary && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '0.75rem' }}>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(0,181,165,0.06)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00B5A5', margin: 0 }}>{opsAllData.summary.ok}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Healthy</p>
+              </div>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(245,158,11,0.06)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#f59e0b', margin: 0 }}>{opsAllData.summary.stale}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Stale</p>
+              </div>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(239,68,68,0.06)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ef4444', margin: 0 }}>{opsAllData.summary.failed}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Failed</p>
+              </div>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(255,255,255,0.03)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: 'rgba(255,255,255,0.5)', margin: 0 }}>{opsAllData.summary.total}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Total</p>
+              </div>
+            </div>
+          )}
+          {opsAllData?.jobs && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {opsAllData.jobs.map(job => (
+                <div key={job.id} style={{
+                  display: 'flex', alignItems: 'center', gap: '0.75rem',
+                  padding: '0.6rem 0.875rem',
+                  background: job.status === 'ok' ? 'rgba(0,181,165,0.04)' : job.status === 'failed' ? 'rgba(239,68,68,0.06)' : 'rgba(255,255,255,0.02)',
+                  border: `1px solid ${job.status === 'ok' ? 'rgba(0,181,165,0.12)' : job.status === 'failed' ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.06)'}`,
+                  borderRadius: 4,
+                }}>
+                  <span style={{
+                    width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+                    background: job.status === 'ok' ? '#00B5A5' : job.status === 'failed' ? '#ef4444' : job.status === 'stale' ? '#f59e0b' : 'rgba(255,255,255,0.2)'
+                  }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ color: 'white', fontSize: '0.78rem', fontWeight: 600, margin: 0 }}>{job.name}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', margin: '0.1rem 0 0' }}>{job.schedule} · {job.owner}</p>
+                  </div>
+                  {job.state?.last_run_status && (
+                    <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.62rem', flexShrink: 0 }}>
+                      {job.state.last_run_status === 'success' ? 'OK' : job.state.last_run_status}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          {!opsAllData && (
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', textAlign: 'center', padding: '2rem' }}>
+              Click Refresh to load all job statuses.
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── PROPOSALS ── */}
+      {activeTab === 'proposals' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+            <h2 style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+              Proposal Follow-up — 48hr Rule
+            </h2>
+            <button onClick={() => fetch('/api/proposal-followup').then(r=>r.json()).then((d:ProposalFollowupData)=>setProposalData(d))}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', padding: '0.3rem 0.75rem', borderRadius: 4, color: 'rgba(255,255,255,0.5)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', cursor: 'pointer' }}>
+              Refresh
+            </button>
+          </div>
+
+          {proposalData?.summary && (
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem' }}>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(239,68,68,0.06)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#ef4444', margin: 0 }}>{proposalData.summary.needsTouch48h}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Need touch (48hr)</p>
+              </div>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(245,158,11,0.06)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#f59e0b', margin: 0 }}>{proposalData.summary.stale14plus}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Stale 14d+</p>
+              </div>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(255,255,255,0.03)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: 'white', margin: 0 }}>{proposalData.summary.total}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Total open</p>
+              </div>
+              <div style={{ textAlign: 'center', padding: '0.75rem', background: 'rgba(0,181,165,0.06)', borderRadius: 6 }}>
+                <p style={{ fontSize: '1.5rem', fontWeight: 900, color: '#00B5A5', margin: 0 }}>{fmt(proposalData.summary.totalValue)}</p>
+                <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0.25rem 0 0' }}>Total value</p>
+              </div>
+            </div>
+          )}
+
+          {/* 48hr urgent section */}
+          {proposalData?.needsTouch48h && proposalData.needsTouch48h.length > 0 && (
+            <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', padding: '1.25rem', borderRadius: 6 }}>
+              <p style={{ color: '#ef4444', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', margin: '0 0 1rem' }}>
+                Needs Touch Now — 48+ Hours Silent
+              </p>
+              {proposalData.needsTouch48h.map(item => (
+                <div key={item.dealId} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem', padding: '0.75rem', background: 'rgba(0,0,0,0.2)', borderRadius: 4, marginBottom: '0.5rem' }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ color: 'white', fontSize: '0.82rem', fontWeight: 700, margin: '0 0 0.25rem' }}>{item.dealName}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', margin: 0 }}>{item.action}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.35rem 0 0' }}>{item.note}</p>
+                  </div>
+                  <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                    <p style={{ color: '#ef4444', fontSize: '0.85rem', fontWeight: 900, margin: 0 }}>{fmt(item.amount)}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.6rem', margin: '0.2rem 0 0' }}>{item.daysSinceLastTouch}d quiet</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* All proposal items */}
+          {proposalData?.items && proposalData.items.length > 0 && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+              {proposalData.items.map(item => (
+                <div key={item.dealId} style={{
+                  display: 'flex', alignItems: 'center', gap: '0.875rem',
+                  padding: '0.75rem 1rem',
+                  background: item.priority === 'urgent' ? 'rgba(239,68,68,0.06)' : item.priority === 'high' ? 'rgba(245,158,11,0.05)' : 'rgba(255,255,255,0.02)',
+                  border: `1px solid ${item.priority === 'urgent' ? 'rgba(239,68,68,0.15)' : item.priority === 'high' ? 'rgba(245,158,11,0.12)' : 'rgba(255,255,255,0.06)'}`,
+                  borderRadius: 4,
+                }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ color: 'white', fontSize: '0.82rem', fontWeight: 600, margin: 0 }}>{item.dealName}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem', margin: '0.15rem 0 0' }}>{item.action}</p>
+                  </div>
+                  <span style={{ color: item.priority === 'urgent' ? '#ef4444' : item.priority === 'high' ? '#f59e0b' : 'rgba(255,255,255,0.3)', fontSize: '0.62rem', fontWeight: 700, flexShrink: 0 }}>
+                    {item.priority.toUpperCase()}
+                  </span>
+                  <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.65rem', flexShrink: 0 }}>{fmt(item.amount)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {!proposalData && (
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', textAlign: 'center', padding: '2rem' }}>
+              Click Refresh to load proposal follow-up data.
+            </div>
+          )}
+
+          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: 0 }}>
+            {proposalData?.note || ''}
+          </p>
         </div>
       )}
 
