@@ -138,7 +138,7 @@ type ProposalFollowupItem = {
 type ProposalFollowupData = {
   generatedAt: string
   summary: { total: number; urgent: ProposalFollowupItem[]; high: number; normal: number; needsTouch48h: number; stale14plus: number; totalValue: number }
-  items: ProposalFollowupItem[]; needsTouch48h: ProposalFollowupItem[]
+  items: ProposalFollowupItem[]; needsTouch48h: ProposalFollowupItem[]; note?: string
 }
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

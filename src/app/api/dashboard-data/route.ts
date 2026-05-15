@@ -111,7 +111,7 @@ async function getCalendarEvents() {
   } catch { return [] }
 }
 
-async function getXeroInvoices() {
+async function getXeroInvoices(): Promise<XeroInvoice[]> {
   try {
     const res = await fetch(
       'https://gateway.maton.ai/xero/api.xro/2.0/Invoices?where=Status%3D%3D%22AUTHORISED%22&order=DueDate+ASC',
@@ -129,7 +129,9 @@ function parseXeroDate(raw: string): Date | null {
   return ms ? new Date(parseInt(ms)) : null
 }
 
-function buildCashFlow(invoices: ReturnType<typeof getXeroInvoices> extends Promise<infer T> ? T : never) {
+type XeroInvoice = Record<string, unknown>
+
+function buildCashFlow(invoices: XeroInvoice[]) {
   const now  = new Date()
   const in30 = new Date(now.getTime() + 30 * 86400000)
   const in60 = new Date(now.getTime() + 60 * 86400000)
@@ -138,16 +140,16 @@ function buildCashFlow(invoices: ReturnType<typeof getXeroInvoices> extends Prom
   let arTotal = 0
 
   for (const inv of invoices) {
-    const amt = parseFloat(inv.AmountDue) || 0
+    const amt = parseFloat(String(inv.AmountDue || '0')) || 0
     if (amt === 0) continue
-    const due = parseXeroDate(inv.DueDate)
+    const due = parseXeroDate(String(inv.DueDate || ''))
     if (due && due < in30) {
-      if (inv.Type === 'ACCREC') { in30In  += amt; arTotal += amt }
+      if (String(inv.Type || '') === 'ACCREC') { in30In  += amt; arTotal += amt }
       else                       { in30Out += amt }
     } else if (due && due < in60) {
-      if (inv.Type === 'ACCREC') { in60In  += amt }
+      if (String(inv.Type || '') === 'ACCREC') { in60In  += amt }
       else                       { in60Out += amt }
-    } else if (inv.Type === 'ACCREC') {
+    } else if (String(inv.Type || '') === 'ACCREC') {
       arTotal += amt
     }
   }
@@ -266,10 +268,10 @@ export async function GET(req: Request) {
   // Overdue invoices from Xero
   const now = new Date()
   const overdueInvoices = invoices.filter(inv => {
-    const due = parseXeroDate(inv.DueDate)
-    return due && due < now && parseFloat(inv.AmountDue) > 0 && inv.Type === 'ACCREC'
+    const due = parseXeroDate(String(inv.DueDate || ''))
+    return due && due < now && parseFloat(String(inv.AmountDue || '0')) > 0 && String(inv.Type || '') === 'ACCREC'
   })
-  const overdueTotal = overdueInvoices.reduce((s, inv) => s + parseFloat(inv.AmountDue) || 0, 0)
+  const overdueTotal = overdueInvoices.reduce((s, inv) => s + parseFloat(String(inv.AmountDue || '0')) || 0, 0)
 
   if (overdueTotal > 0) {
     priorities.unshift({
@@ -280,7 +282,7 @@ export async function GET(req: Request) {
   }
 
   return NextResponse.json({
-    generatedAt: new Date().ISOString(),
+    generatedAt: new Date().toISOString(),
     priorities,
     pipeline: { totalDeals: deals.length, totalValue: totalPipelineValue, staleDeals, quietQuotes, deals: deals.slice(0, 20) },
     proposalDeals: proposalDeals.slice(0, 8),
@@ -289,7 +291,7 @@ export async function GET(req: Request) {
       outstanding: Math.round(cashflow.arTotal),
       overdue: Math.round(overdueTotal),
       overdueCount: overdueInvoices.length,
-      outstandingCount: invoices.filter(i => i.Type === 'ACCREC').length,
+      outstandingCount: invoices.filter(i => String(i.Type || '') === 'ACCREC').length,
     },
     cashflow,  // <-- new
   })

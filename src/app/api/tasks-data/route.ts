@@ -24,7 +24,15 @@ export async function GET() {
     )
     if (res.ok) {
       const d = await res.json() as { result?: string | null }
-      if (d.result) return NextResponse.json(JSON.parse(d.result))
+      if (d.result) {
+        // Handle both raw JSON and wrapped {"value":"..."} format
+        let parsed: unknown = JSON.parse(d.result)
+        if (typeof parsed === 'object' && parsed !== null && 'value' in parsed) {
+          const wrapped = parsed as { value: string }
+          return NextResponse.json(JSON.parse(wrapped.value))
+        }
+        return NextResponse.json(parsed)
+      }
     }
   } catch { /* fall through */ }
 
