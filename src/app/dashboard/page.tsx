@@ -1585,32 +1585,32 @@ export default function Dashboard() {
       {activeTab === 'seo' && (() => {
         const KEYWORDS = [
           // TENANT REP
-          { id: 'tr-01', keyword: 'tenant representation Newcastle', division: 'Tenant Rep', vol: 90, diff: 22, priority: 'NOW', intent: 'Commercial', rank: null, page: '/tenant-rep', aeo: true, gap: null },
-          { id: 'tr-02', keyword: 'commercial tenant representative NSW', division: 'Tenant Rep', vol: 140, diff: 28, priority: 'NOW', intent: 'Commercial', rank: null, page: '/tenant-rep', aeo: true, gap: null },
-          { id: 'tr-03', keyword: 'commercial lease negotiation Newcastle', division: 'Tenant Rep', vol: 110, diff: 25, priority: 'NOW', intent: 'Commercial', rank: null, page: '/tenant-rep', aeo: true, gap: null },
-          { id: 'tr-04', keyword: 'what is make good in a commercial lease', division: 'Tenant Rep', vol: 320, diff: 35, priority: 'NOW', intent: 'Info', rank: null, page: '/blog/what-is-make-good', aeo: true, gap: null },
-          { id: 'tr-05', keyword: 'commercial lease review Newcastle', division: 'Tenant Rep', vol: 80, diff: 20, priority: 'NOW', intent: 'Transactional', rank: null, page: '/leaseintel', aeo: true, gap: null },
-          { id: 'tr-06', keyword: 'how to negotiate a commercial lease Australia', division: 'Tenant Rep', vol: 480, diff: 42, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/commercial-lease-negotiation-tips-australia', aeo: true, gap: null },
-          { id: 'tr-07', keyword: 'tenant rights commercial lease NSW', division: 'Tenant Rep', vol: 390, diff: 38, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/commercial-tenant-rights-nsw', aeo: true, gap: null },
-          { id: 'tr-08', keyword: 'commercial lease expiry 12 months what to do', division: 'Tenant Rep', vol: 110, diff: 18, priority: 'NOW', intent: 'Info', rank: null, page: '/blog/12-months-lease-strategy', aeo: true, gap: null },
+          { id: 'tr-01', keyword: 'tenant representation Newcastle', division: 'Tenant Rep', vol: 90, diff: 22, priority: 'NOW', intent: 'Commercial', page: '/tenant-rep', aeo: true, gap: null },
+          { id: 'tr-02', keyword: 'commercial tenant representative NSW', division: 'Tenant Rep', vol: 140, diff: 28, priority: 'NOW', intent: 'Commercial', page: '/tenant-rep', aeo: true, gap: null },
+          { id: 'tr-03', keyword: 'commercial lease negotiation Newcastle', division: 'Tenant Rep', vol: 110, diff: 25, priority: 'NOW', intent: 'Commercial', page: '/tenant-rep', aeo: true, gap: null },
+          { id: 'tr-04', keyword: 'what is make good in a commercial lease', division: 'Tenant Rep', vol: 320, diff: 35, priority: 'NOW', intent: 'Info', page: '/blog/what-is-make-good', aeo: true, gap: null },
+          { id: 'tr-05', keyword: 'commercial lease review Newcastle', division: 'Tenant Rep', vol: 80, diff: 20, priority: 'NOW', intent: 'Transactional', page: '/leaseintel', aeo: true, gap: null },
+          { id: 'tr-06', keyword: 'how to negotiate a commercial lease Australia', division: 'Tenant Rep', vol: 480, diff: 42, priority: '3-6mo', intent: 'Info', page: '/blog/commercial-lease-negotiation-tips-australia', aeo: true, gap: null },
+          { id: 'tr-07', keyword: 'tenant rights commercial lease NSW', division: 'Tenant Rep', vol: 390, diff: 38, priority: '3-6mo', intent: 'Info', page: '/blog/commercial-tenant-rights-nsw', aeo: true, gap: null },
+          { id: 'tr-08', keyword: 'commercial lease expiry 12 months what to do', division: 'Tenant Rep', vol: 110, diff: 18, priority: 'NOW', intent: 'Info', page: '/blog/12-months-lease-strategy', aeo: true, gap: null },
           // CLEANING
-          { id: 'cl-01', keyword: 'commercial cleaning Newcastle', division: 'Cleaning', vol: 590, diff: 45, priority: 'NOW', intent: 'Commercial', rank: null, page: '/cleaning', aeo: false, gap: null },
-          { id: 'cl-02', keyword: 'office cleaning Newcastle', division: 'Cleaning', vol: 320, diff: 38, priority: 'NOW', intent: 'Commercial', rank: null, page: '/cleaning', aeo: false, gap: null },
-          { id: 'cl-03', keyword: 'medical cleaning Newcastle', division: 'Cleaning', vol: 90, diff: 22, priority: 'NOW', intent: 'Commercial', rank: null, page: '/cleaning', aeo: true, gap: 'medical-practice-cleaning-standards-newcastle' },
-          { id: 'cl-04', keyword: 'commercial cleaning contract Hunter Valley', division: 'Cleaning', vol: 70, diff: 18, priority: 'NOW', intent: 'Transactional', rank: null, page: '/cleaning', aeo: false, gap: null },
-          { id: 'cl-05', keyword: 'what does a good commercial cleaning contract include', division: 'Cleaning', vol: 210, diff: 28, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/what-good-commercial-cleaning-looks-like', aeo: true, gap: null },
+          { id: 'cl-01', keyword: 'commercial cleaning Newcastle', division: 'Cleaning', vol: 590, diff: 45, priority: 'NOW', intent: 'Commercial', page: '/cleaning', aeo: false, gap: null },
+          { id: 'cl-02', keyword: 'office cleaning Newcastle', division: 'Cleaning', vol: 320, diff: 38, priority: 'NOW', intent: 'Commercial', page: '/cleaning', aeo: false, gap: null },
+          { id: 'cl-03', keyword: 'medical cleaning Newcastle', division: 'Cleaning', vol: 90, diff: 22, priority: 'NOW', intent: 'Commercial', page: '/cleaning', aeo: true, gap: 'medical-practice-cleaning-standards-newcastle' },
+          { id: 'cl-04', keyword: 'commercial cleaning contract Hunter Valley', division: 'Cleaning', vol: 70, diff: 18, priority: 'NOW', intent: 'Transactional', page: '/cleaning', aeo: false, gap: null },
+          { id: 'cl-05', keyword: 'what does a good commercial cleaning contract include', division: 'Cleaning', vol: 210, diff: 28, priority: '3-6mo', intent: 'Info', page: '/blog/what-good-commercial-cleaning-looks-like', aeo: true, gap: null },
           // FURNITURE
-          { id: 'fu-01', keyword: 'office fitout Newcastle', division: 'Furniture', vol: 260, diff: 35, priority: 'NOW', intent: 'Commercial', rank: null, page: '/furniture', aeo: false, gap: null },
-          { id: 'fu-02', keyword: 'office furniture Newcastle', division: 'Furniture', vol: 480, diff: 42, priority: 'NOW', intent: 'Commercial', rank: null, page: '/furniture', aeo: false, gap: null },
-          { id: 'fu-03', keyword: 'how much does an office fitout cost Australia', division: 'Furniture', vol: 720, diff: 48, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/office-fitout-cost-guide-australia-2026', aeo: true, gap: null },
-          { id: 'fu-04', keyword: 'sit stand desk Newcastle', division: 'Furniture', vol: 140, diff: 28, priority: '3-6mo', intent: 'Transactional', rank: null, page: '/furniture', aeo: false, gap: 'ergonomic-office-setup-newcastle-guide' },
+          { id: 'fu-01', keyword: 'office fitout Newcastle', division: 'Furniture', vol: 260, diff: 35, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-02', keyword: 'office furniture Newcastle', division: 'Furniture', vol: 480, diff: 42, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-03', keyword: 'how much does an office fitout cost Australia', division: 'Furniture', vol: 720, diff: 48, priority: '3-6mo', intent: 'Info', page: '/blog/office-fitout-cost-guide-australia-2026', aeo: true, gap: null },
+          { id: 'fu-04', keyword: 'sit stand desk Newcastle', division: 'Furniture', vol: 140, diff: 28, priority: '3-6mo', intent: 'Transactional', page: '/furniture', aeo: false, gap: 'ergonomic-office-setup-newcastle-guide' },
           // BUYERS AGENCY
-          { id: 'ba-01', keyword: 'commercial buyers agent Newcastle', division: 'Buyers Agency', vol: 110, diff: 22, priority: 'NOW', intent: 'Commercial', rank: null, page: '/buyers-agency', aeo: true, gap: null },
-          { id: 'ba-02', keyword: 'how to buy commercial property Australia', division: 'Buyers Agency', vol: 880, diff: 52, priority: '3-6mo', intent: 'Info', rank: null, page: '/blog/how-to-buy-commercial-property-australia', aeo: true, gap: null },
-          { id: 'ba-03', keyword: 'buying vs leasing commercial property Newcastle', division: 'Buyers Agency', vol: 90, diff: 20, priority: 'NOW', intent: 'Info', rank: null, page: '/blog/buying-vs-leasing-commercial-newcastle', aeo: true, gap: null },
+          { id: 'ba-01', keyword: 'commercial buyers agent Newcastle', division: 'Buyers Agency', vol: 110, diff: 22, priority: 'NOW', intent: 'Commercial', page: '/buyers-agency', aeo: true, gap: null },
+          { id: 'ba-02', keyword: 'how to buy commercial property Australia', division: 'Buyers Agency', vol: 880, diff: 52, priority: '3-6mo', intent: 'Info', page: '/blog/how-to-buy-commercial-property-australia', aeo: true, gap: null },
+          { id: 'ba-03', keyword: 'buying vs leasing commercial property Newcastle', division: 'Buyers Agency', vol: 90, diff: 20, priority: 'NOW', intent: 'Info', page: '/blog/buying-vs-leasing-commercial-newcastle', aeo: true, gap: null },
           // LEASEINTEL
-          { id: 'li-01', keyword: 'commercial lease risk checker', division: 'LeaseIntel', vol: 70, diff: 15, priority: 'NOW', intent: 'Transactional', rank: null, page: '/leaseintel', aeo: true, gap: null },
-          { id: 'li-02', keyword: 'lease review service Australia', division: 'LeaseIntel', vol: 210, diff: 30, priority: '3-6mo', intent: 'Transactional', rank: null, page: '/leaseintel', aeo: true, gap: null },
+          { id: 'li-01', keyword: 'commercial lease risk checker', division: 'LeaseIntel', vol: 70, diff: 15, priority: 'NOW', intent: 'Transactional', page: '/leaseintel', aeo: true, gap: null },
+          { id: 'li-02', keyword: 'lease review service Australia', division: 'LeaseIntel', vol: 210, diff: 30, priority: '3-6mo', intent: 'Transactional', page: '/leaseintel', aeo: true, gap: null },
         ]
 
         const DIVISION_COLOURS: Record<string, string> = {
@@ -1640,7 +1640,7 @@ export default function Dashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1.5rem' }}>
               {[
                 { label: 'Target keywords', val: KEYWORDS.length, sub: 'tracked' },
-                { label: 'Monthly search vol', val: totalVol.toLocaleString(), sub: 'AU combined est.' },
+                { label: 'Est. monthly vol', val: totalVol.toLocaleString(), sub: 'AU est.' },
                 { label: 'Priority NOW', val: nowCount, sub: 'low difficulty wins' },
                 { label: 'AEO targets', val: aeoCount, sub: 'AI answer engine fit' },
               ].map(s => (
