@@ -62,10 +62,11 @@ export async function GET() {
       const state = parseState(stateRaw)
       let status: 'ok' | 'stale' | 'failed' | 'unknown' = 'unknown'
       if (state) {
-        if (state.consecutive_failures >= 3) status = 'failed'
-        else if (state.last_run_status === 'success') status = 'ok'
+        if (state.consecutive_failures >= 1) status = 'failed'
+        else if (state.last_run_status === 'ok' || state.last_run_status === 'success') status = 'ok'
         else status = 'stale'
       }
+      // Jobs never written to Redis (e.g. OpenClaw cron jobs) = unknown, not stale
       return { id: job.id, name: job.name, schedule: job.schedule, owner: job.owner, state, output: outputRaw, status }
     })
   )
