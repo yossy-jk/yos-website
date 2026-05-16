@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 
-const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN!
+const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN || ''
 const MATON_KEY   = process.env.MATON_API_KEY || 'GT9qpes_m-iYf4YpPdPBjBIkFyMO9HtAHM9mGAqyBb53wIvAhJ836ehgHmtJz71WTprCYyBjJo1fWbBIMJBh17wv_SQ2ddeRl4I'
-const XERO_CONN   = 'c71b4964-1b2a-46bc-b26b-5f1e367ba4ea'
+const XERO_CONN   = 'c347d27e-0149-44ac-962c-babbd63b9f00'
 const OUTLOOK_CONN = '6521bbc6-e73e-4e30-b648-f240b62a8d2a'
 
 const STAGE_LABELS: Record<string, string> = {
