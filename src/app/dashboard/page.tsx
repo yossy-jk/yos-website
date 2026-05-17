@@ -425,7 +425,7 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
   const [opsAllData, setOpsAllData] = useState<OpsAllData | null>(null)
   const [proposalData, setProposalData] = useState<ProposalFollowupData | null>(null)
@@ -629,6 +629,35 @@ export default function Dashboard() {
       .then((d: TasksData) => { setTasksData(d); setTasksLoading(false) })
       .catch(() => setTasksLoading(false))
   }, [activeTab])
+
+  const [financeData, setFinanceData] = useState<{
+    cash: number; cashNegative: boolean; owedToYOS: number; burnRate: string;
+    xero: unknown; amex: { transactions: { description: string; date: string; amount: number }[] };
+    expectedIncome: number; generatedAt: string;
+    emergencyFund: number; emergencyFundTarget: number;
+    healthScore: number;
+    homeLoanBalance: number; homeLoanRate: number; homeLoanMonthlyInterest: number; homeLoanAnnualInterest: number;
+    monthlyIncome: number; monthlySurplus: number; savingsRate: number;
+    priorityActions: { id: number; label: string; detail: string; priority: string }[];
+    monthlyBreakdown: Record<string, number>;
+    ytdIncome: number; ytdSpending: number;
+  } | null>(null)
+
+  const loadFinance = useCallback(async () => {
+    try {
+      const [bizRes, personalRes] = await Promise.all([
+        fetch('/api/finance-dashboard'),
+        fetch('/api/personal-finance'),
+      ])
+      const biz = bizRes.ok ? await bizRes.json() : {}
+      const personal = personalRes.ok ? await personalRes.json() : {}
+      setFinanceData({ ...biz, ...personal })
+    } catch { /* silent */ }
+  }, [])
+
+  useEffect(() => {
+    if (activeTab === 'finance') loadFinance()
+  }, [activeTab, loadFinance])
 
   useEffect(() => {
     if (activeTab !== 'outreach') return
@@ -2881,6 +2910,86 @@ export default function Dashboard() {
           <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.62rem', margin: 0 }}>
             {proposalData?.note || ''}
           </p>
+        </div>
+      )}
+
+
+      {/* ── PERSONAL FINANCE TAB ── */}
+      {activeTab === 'finance' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#00B5A5', fontSize: '0.58rem', letterSpacing: '0.25em', textTransform: 'uppercase', margin: '0 0 0.3rem' }}>Personal Finance</p>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>Joe & Sarah — Money Review</h2>
+            </div>
+            <button onClick={loadFinance} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.5rem 1rem', cursor: 'pointer' }}>Refresh</button>
+          </div>
+          {!financeData ? (
+            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem' }}>Loading...</p>
+          ) : (
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
+                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '1rem', borderRadius: 8 }}>
+                  <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.3rem' }}>Health Score</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: 800, color: (financeData.healthScore || 0) >= 6 ? '#22c55e' : (financeData.healthScore || 0) >= 4 ? '#f59e0b' : '#ef4444', margin: 0 }}>{financeData.healthScore || 0}/10</p>
+                  <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', margin: '0.3rem 0 0' }}>financial health</p>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '1rem', borderRadius: 8 }}>
+                  <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.3rem' }}>Living Balance</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: 800, color: financeData.cashNegative ? '#ef4444' : '#00B5A5', margin: 0 }}>${(financeData.cash || 0).toLocaleString('en-AU')}</p>
+                  <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', margin: '0.3rem 0 0' }}>personal account</p>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '1rem', borderRadius: 8 }}>
+                  <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.3rem' }}>Home Loan</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#ef4444', margin: 0 }}>${((financeData.homeLoanBalance || 815766) / 1000).toFixed(0)}K</p>
+                  <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', margin: '0.3rem 0 0' }}>at {(financeData.homeLoanRate || 6.15).toFixed(2)}% p.a.</p>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '1rem', borderRadius: 8 }}>
+                  <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.3rem' }}>Emergency Fund</p>
+                  <p style={{ fontSize: '1.75rem', fontWeight: 800, color: '#f59e0b', margin: 0 }}>${(financeData.emergencyFund || 0).toLocaleString('en-AU')}</p>
+                  <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)', margin: '0.3rem 0 0' }}>of ${((financeData.emergencyFundTarget || 20000) / 1000).toFixed(0)}K target</p>
+                </div>
+              </div>
+              <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', padding: '1rem 1.25rem', borderRadius: 8 }}>
+                <p style={{ fontSize: '0.65rem', color: '#ef4444', fontWeight: 700, margin: '0 0 0.4rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Alert — Interest-Only Trap</p>
+                <p style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.7)', margin: '0 0 0.3rem' }}>
+                  Paying <strong style={{ color: 'white' }}>${((financeData.homeLoanMonthlyInterest || 4180)).toLocaleString('en-AU')}/month</strong> in interest on ${((financeData.homeLoanBalance || 815766) / 1000).toFixed(0)}K. Balance barely moved in 12 months despite $46,900 in principal payments.
+                </p>
+                <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.45)', margin: 0 }}>Call NAB today. Target sub-6%. Every 0.75% saved = ~$6,100/year.</p>
+              </div>
+              {financeData.priorityActions && financeData.priorityActions.length > 0 && (
+                <div>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Priority Actions</p>
+                  {financeData.priorityActions.map((action: { id: number; label: string; detail: string; priority: string }) => (
+                    <div key={action.id} style={{
+                      display: 'flex', alignItems: 'flex-start', gap: '0.75rem', padding: '0.75rem 1rem',
+                      background: 'rgba(255,255,255,0.02)', marginBottom: '0.5rem', borderRadius: 6,
+                      borderLeft: `3px solid ${action.priority === 'critical' ? '#ef4444' : action.priority === 'high' ? '#f59e0b' : 'rgba(255,255,255,0.2)'}`,
+                    }}>
+                      <span style={{ fontSize: '0.65rem', fontWeight: 700, color: action.priority === 'critical' ? '#ef4444' : action.priority === 'high' ? '#f59e0b' : 'rgba(255,255,255,0.4)', textTransform: 'uppercase', marginTop: '0.05rem', flexShrink: 0, minWidth: '55px' }}>{action.priority}</span>
+                      <div>
+                        <p style={{ fontSize: '0.82rem', fontWeight: 600, color: 'white', margin: '0 0 0.2rem' }}>{action.label}</p>
+                        <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.45)', margin: 0 }}>{action.detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {financeData.monthlyBreakdown && (
+                <div>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Monthly Spending — 4-Month Avg</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
+                    {Object.entries(financeData.monthlyBreakdown).map(([cat, amt]) => (
+                      <div key={cat} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0.75rem', background: 'rgba(255,255,255,0.02)', borderRadius: 4 }}>
+                        <span style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.6)', textTransform: 'capitalize' }}>{cat}</span>
+                        <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'white' }}>${amt?.toLocaleString('en-AU') || 0}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
       )}
 
