@@ -425,7 +425,7 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState(aestNow())
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance' | 'health'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
   const [opsAllData, setOpsAllData] = useState<OpsAllData | null>(null)
   const [proposalData, setProposalData] = useState<ProposalFollowupData | null>(null)
@@ -486,7 +486,7 @@ export default function Dashboard() {
     finally { setLoading(false) }
   }, [])
 
-  const loadHealth = useCallback(async () => {
+  const loadEosHealth = useCallback(async () => {
     try {
       const res = await fetch(`/api/health-intake`)
       if (res.ok) {
@@ -575,7 +575,7 @@ export default function Dashboard() {
   useEffect(() => {
     loadDashboard()
     loadQueue()
-    loadHealth()
+    loadEosHealth()
     loadEOS()
     loadUsage()
     loadRankings()
@@ -585,7 +585,7 @@ export default function Dashboard() {
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
     return () => clearInterval(t)
-  }, [loadDashboard, loadQueue, loadHealth, loadEOS, loadCompliance])
+  }, [loadDashboard, loadQueue, loadEosHealth, loadEOS, loadCompliance])
 
   // Auto-refresh queue every 2 min
   useEffect(() => {
@@ -643,6 +643,26 @@ export default function Dashboard() {
     ytdIncome: number; ytdSpending: number;
   } | null>(null)
 
+  const [healthData, setHealthData] = useState<{
+    lastUpdated: string; dateRange: { start: string; end: string }; daysStored: number;
+    allDays: Record<string, Record<string, number>>;
+    metrics: Record<string, number>;
+  } | null>(null)
+  const [healthLoading, setHealthLoading] = useState(false)
+
+  const loadHealth = useCallback(async () => {
+    setHealthLoading(true)
+    try {
+      const res = await fetch('/api/health-auto-export')
+      if (res.ok) {
+        const d = await res.json()
+        setHealthData(d)
+      }
+    } catch { /* silent */ } finally {
+      setHealthLoading(false)
+    }
+  }, [])
+
   const loadFinance = useCallback(async () => {
     try {
       const [bizRes, personalRes] = await Promise.all([
@@ -658,6 +678,10 @@ export default function Dashboard() {
   useEffect(() => {
     if (activeTab === 'finance') loadFinance()
   }, [activeTab, loadFinance])
+
+  useEffect(() => {
+    if (activeTab === 'health') loadHealth()
+  }, [activeTab, loadHealth])
 
   useEffect(() => {
     if (activeTab !== 'outreach') return
@@ -727,6 +751,8 @@ export default function Dashboard() {
           { key: 'proposals' as const, label: 'Proposals', badge: false },
           { key: 'outreach' as const, label: 'Outreach', badge: false },
           { key: 'tasks' as const, label: 'Tasks', badge: false },
+          { key: 'finance' as const, label: 'Finance', badge: false },
+          { key: 'health' as const, label: 'Health', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             style={{
@@ -3035,6 +3061,160 @@ export default function Dashboard() {
           )}
         </div>
       )}
+
+
+      {/* ── HEALTH TAB ── */}
+      {activeTab === 'health' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <p style={{ color: '#00B5A5', fontSize: '0.58rem', letterSpacing: '0.25em', textTransform: 'uppercase', margin: '0 0 0.3rem' }}>Health</p>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: 0 }}>Joe Kelley</h2>
+            </div>
+            <button onClick={loadHealth} style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', letterSpacing: '0.1em', textTransform: 'uppercase', padding: '0.5rem 1rem', cursor: 'pointer' }}>Refresh</button>
+          </div>
+
+          {!healthData || healthLoading ? (
+            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.8rem' }}>
+              {healthLoading ? 'Loading...' : 'No health data yet — set up Health Auto Export webhook to start receiving data'}
+            </p>
+          ) : (
+            <>
+              {/* Status bar */}
+              <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                <div style={{ background: 'rgba(0,181,165,0.08)', border: '1px solid rgba(0,181,165,0.2)', borderRadius: 6, padding: '0.5rem 0.875rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                  <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00B5A5', display: 'inline-block', flexShrink: 0 }} />
+                  <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.6)' }}>{healthData.daysStored || 0} days synced</span>
+                </div>
+                <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)' }}>
+                  Last export: {healthData.lastUpdated ? new Date(healthData.lastUpdated).toLocaleString('en-AU', {day:'numeric',month:'short',hour:'numeric',minute:'2-digit',timeZoneName:'short'}) : '—'}
+                </span>
+              </div>
+
+              {/* Weight / Body */}
+              {healthData.metrics?.['Weight (kg)'] && (
+                <div>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Body</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                    {[
+                      { label: 'Weight', val: `${healthData.metrics['Weight (kg)']}kg`, col: '#00B5A5' },
+                      healthData.metrics?.['Body Fat Percentage (%)'] ? { label: 'Body Fat', val: `${healthData.metrics['Body Fat Percentage (%)']}%`, col: 'white' } : null,
+                      healthData.metrics?.['Resting Heart Rate (bpm)'] ? { label: 'Resting HR', val: `${healthData.metrics['Resting Heart Rate (bpm)']} bpm`, col: 'white' } : null,
+                    ].filter(Boolean).map(item => item && (
+                      <div key={item.label} style={{ background: 'rgba(255,255,255,0.04)', padding: '0.875rem 1rem', borderRadius: 8 }}>
+                        <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.25rem' }}>{item.label}</p>
+                        <p style={{ fontSize: '1.5rem', fontWeight: 800, color: item.col, margin: 0 }}>{item.val}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Glucose — CGM data */}
+              {healthData.metrics?.['Blood Glucose (mmol/L)'] && (
+                <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', padding: '1rem 1.25rem', borderRadius: 8 }}>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: '#ef4444', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>CGM — Blood Glucose</p>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+                    <p style={{ fontSize: '2.5rem', fontWeight: 900, color: '#ef4444', margin: 0 }}>
+                      {healthData.metrics['Blood Glucose (mmol/L)']}
+                    </p>
+                    <span style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.4)' }}>mmol/L</span>
+                    <span style={{ fontSize: '0.75rem', color: healthData.metrics['Blood Glucose (mmol/L)'] <= 10 ? '#22c55e' : '#ef4444', fontWeight: 700, marginLeft: 'auto' }}>
+                      {healthData.metrics['Blood Glucose (mmol/L)'] <= 10 ? 'In range' : 'Above range (>10)'}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)', margin: '0.5rem 0 0' }}>
+                    Guardian 4 sensor via Sweet Dreams → Apple Health
+                  </p>
+                </div>
+              )}
+
+              {/* Sleep */}
+              {Object.entries(healthData.metrics || {}).some(([k]) => k.includes('Sleep')) && (
+                <div>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Sleep</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
+                    {[
+                      { label: 'Total', key: 'Sleep Analysis [Total] (hr)', unit: 'hrs' },
+                      { label: 'Asleep', key: 'Sleep Analysis [Asleep] (hr)', unit: 'hrs' },
+                      { label: 'Deep', key: 'Sleep Analysis [Deep] (hr)', unit: 'hrs' },
+                      { label: 'REM', key: 'Sleep Analysis [REM] (hr)', unit: 'hrs' },
+                    ].map(({ label, key, unit }) => {
+                      const val = healthData.metrics?.[key]
+                      if (!val) return null
+                      return (
+                        <div key={key} style={{ background: 'rgba(255,255,255,0.04)', padding: '0.875rem 1rem', borderRadius: 8, textAlign: 'center' }}>
+                          <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.25rem' }}>{label}</p>
+                          <p style={{ fontSize: '1.4rem', fontWeight: 800, color: 'white', margin: 0 }}>{val}</p>
+                          <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)' }}>{unit}</p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Activity */}
+              {(healthData.metrics?.['Step Count (steps)'] || healthData.metrics?.['Apple Exercise Time (min)']) && (
+                <div>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Activity</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem' }}>
+                    {[
+                      { label: 'Steps', val: healthData.metrics?.['Step Count (steps)'] ? Number(healthData.metrics['Step Count (steps)']).toLocaleString('en-AU') : null, unit: 'steps' },
+                      { label: 'Distance', val: healthData.metrics?.['Walking + Running Distance (km)'] ? (Number(healthData.metrics['Walking + Running Distance (km)']).toFixed(1)) : null, unit: 'km' },
+                      { label: 'Exercise', val: healthData.metrics?.['Apple Exercise Time (min)'] ? String(Math.round(Number(healthData.metrics['Apple Exercise Time (min)']))) : null, unit: 'min' },
+                      { label: 'VO2 Max', val: healthData.metrics?.['VO2 Max (ml/(kg·min))'] ? (Number(healthData.metrics['VO2 Max (ml/(kg·min))']).toFixed(1)) : null, unit: 'ml/kg/min' },
+                    ].filter(r => r.val !== null).map(item => (
+                      <div key={item.label} style={{ background: 'rgba(255,255,255,0.04)', padding: '0.875rem 1rem', borderRadius: 8, textAlign: 'center' }}>
+                        <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.25rem' }}>{item.label}</p>
+                        <p style={{ fontSize: '1.4rem', fontWeight: 800, color: 'white', margin: 0 }}>{item.val}</p>
+                        <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)' }}>{item.unit}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Glucose trend — last 7 days */}
+              {healthData.allDays && Object.keys(healthData.allDays).length > 0 && (() => {
+                const sortedDays = Object.keys(healthData.allDays).sort().slice(-7)
+                const glucoseDays = sortedDays.filter(d => healthData.allDays[d]['Blood Glucose (mmol/L)'])
+                if (glucoseDays.length === 0) return null
+                return (
+                  <div>
+                    <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Glucose — Last {glucoseDays.length} Days</p>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(100px, 1fr))', gap: '0.5rem' }}>
+                      {glucoseDays.map(dt => {
+                        const g = healthData.allDays[dt]['Blood Glucose (mmol/L)']
+                        const inRange = g <= 10
+                        return (
+                          <div key={dt} style={{ background: 'rgba(255,255,255,0.03)', padding: '0.6rem 0.75rem', borderRadius: 6, borderLeft: `3px solid ${inRange ? '#22c55e' : '#ef4444'}` }}>
+                            <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', margin: '0 0 0.2rem' }}>{new Date(dt).toLocaleDateString('en-AU', {day:'numeric',month:'short'})}</p>
+                            <p style={{ fontSize: '1rem', fontWeight: 800, color: inRange ? '#22c55e' : '#ef4444', margin: 0 }}>{g}</p>
+                            <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)' }}>mmol/L</p>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              })()}
+
+              {/* BP if available */}
+              {(healthData.metrics?.['Blood Pressure [Systolic] (mmHg)'] || healthData.metrics?.['Blood Pressure [Diastolic] (mmHg)']) && (
+                <div style={{ background: 'rgba(255,255,255,0.04)', padding: '1rem 1.25rem', borderRadius: 8 }}>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 0.75rem' }}>Blood Pressure</p>
+                  <p style={{ fontSize: '1.5rem', fontWeight: 900, color: 'white', margin: 0 }}>
+                    {Math.round(healthData.metrics['Blood Pressure [Systolic] (mmHg)'] || 0)}/{Math.round(healthData.metrics['Blood Pressure [Diastolic] (mmHg)'] || 0)}
+                    <span style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginLeft: '0.5rem' }}>mmHg</span>
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
 
       {activeTab === 'compliance' && (() => {
         const C = compliance
