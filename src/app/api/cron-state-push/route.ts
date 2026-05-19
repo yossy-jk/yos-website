@@ -1,24 +1,21 @@
 /**
  * POST /api/cron-state-push
  * Receives OpenClaw cron job state from the Mac Mini (via launchd).
- * No auth required — uses a shared secret token in the header.
- *
- * Header:  x-cron-state-token: yos-joe-2026
- * Body:    JSON payload from yos-cron-state-push.js
- *
- * Stores the payload in Upstash Redis at key yos:openclaw:cron:state.
- * The operations-all endpoint reads from this Redis key.
+ * Header: x-cron-state-token: yos-joe-2026
+ * Body: JSON payload from yos-cron-state-push.js
+ * Stores in Upstash Redis at yos:openclaw:cron:state.
  */
 
 import { NextRequest, NextResponse } from 'next/server'
 
-const CRON_TOKEN  = process.env.CRON_STATE_SECRET || process.env.DASHBOARD_TOKEN || ''
-const UPSTASH_URL    = process.env.UPSTASH_REDIS_REST_URL    || ''
-const UPSTASH_TOKEN  = process.env.UPSTASH_REDIS_REST_TOKEN  || ''
+const CRON_TOKEN    = process.env.CRON_STATE_SECRET || process.env.DASHBOARD_TOKEN || ''
+const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL    || ''
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN  || ''
 const KEY = 'yos:openclaw:cron:state'
 
 export async function POST(req: NextRequest) {
-  const token = req.headers.get('x-cron-state-token') || req.headers.get('authorization')?.replace('Bearer ', '')
+  const token = req.headers.get('x-cron-state-token')
+    || req.headers.get('authorization')?.replace('Bearer ', '')
   if (!token || token !== CRON_TOKEN) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
@@ -50,7 +47,7 @@ export async function POST(req: NextRequest) {
   }
 
   const jobs = (body.jobs as Array<{name?: string; lastRunStatus?: string; consecutiveFailures?: number}>) || []
-  const ok = jobs.filter(j => j.lastRunStatus === 'ok').length
-  const err = jobs.filter(j => (j.consecutiveFailures || 0) > 0).length
-  return NextResponse.json({ ok: true, jobs: jobs.length, ok: ok, errors: err })
+  const okCount   = jobs.filter(j => j.lastRunStatus === 'ok').length
+  const errorCount = jobs.filter(j => (j.consecutiveFailures || 0) > 0).length
+  return NextResponse.json({ success: true, jobCount: jobs.length, okCount, errorCount })
 }
