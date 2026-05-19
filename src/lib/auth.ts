@@ -102,11 +102,14 @@ function verifyToken(token: string): boolean {
 export function setSessionCookie(response: NextResponse): NextResponse {
   const expiresAt = Math.floor(Date.now() / 1000) + SESSION_MAX_AGE_SEC
   const token = signToken(expiresAt)
+  // Use 'lax' for normal browsing. On Vercel sameSite='none' is needed
+  // for cross-origin but requires secure (HTTPS). Using 'lax' with explicit
+  // domain ensures cookie works across /dashboard sub-pages.
   response.cookies.set({
     name: COOKIE_NAME,
     value: token,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'lax',
     path: '/',
     maxAge: SESSION_MAX_AGE_SEC,
@@ -120,7 +123,7 @@ export function clearSessionCookie(response: NextResponse): NextResponse {
     name: COOKIE_NAME,
     value: '',
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'lax',
     path: '/',
     maxAge: 0,
