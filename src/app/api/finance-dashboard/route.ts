@@ -66,11 +66,11 @@ export async function GET() {
       }) => {
         const due = inv.DueDate ? new Date(inv.DueDate) : null
         const now = new Date()
-        owedToYOS += parseFloat(inv.AmountDue || '0')
-        outstanding += parseFloat(inv.Total || '0')
+        owedToYOS += inv.AmountDue ?? 0
+        outstanding += inv.Total ?? 0
         outstandingCount++
         if (due && due < now && inv.Status !== 'PAID') {
-          overdue += parseFloat(inv.AmountDue || '0')
+          overdue += inv.AmountDue ?? 0
           overdueCount++
         }
       })

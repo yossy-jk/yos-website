@@ -27,6 +27,7 @@ export const SERVICE_LINKS = [
   { label: 'Space Planner', href: '/tools/space-planner', tagline: 'Design your office layout.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
   { label: 'Lease Review', href: '/lease-review', tagline: '$97 professional review.' },
+  { label: 'Not-for-Profit Support', href: '/not-for-profit-lease-support', tagline: 'Free lease support. Hunter region.' },
 ]
 
 
