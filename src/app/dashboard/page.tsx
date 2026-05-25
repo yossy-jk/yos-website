@@ -593,7 +593,7 @@ export default function Dashboard() {
     loadMemory()
     loadCompliance()
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
+      const saved = typeof window !== 'undefined' ? localStorage.getItem('yos-energy-' + new Date().toDateString()) : null
       if (saved) setEnergy(parseInt(saved))
     }
     const t = setInterval(() => setNow(aestNow()), 60000)
