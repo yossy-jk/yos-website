@@ -44,6 +44,11 @@ const TRACKED_KEYWORDS = [
   'newcastle commercial cleaning',
   'office fitout hunter valley',
   'commercial property newcastle',
+  'office furniture',
+  'commercial furniture',
+  'commercial furniture newcastle',
+  'office furniture newcastle',
+  'office chair newcastle',
 ]
 
 async function getAccessToken(): Promise<string> {
