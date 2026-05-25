@@ -130,8 +130,8 @@ export async function GET(req: Request) {
     // Fetch current 7 days and previous 7 days in parallel
     // GSC data lags ~2-3 days, so use 3–9 days ago as "current", 10–16 as "previous"
     const [currentRows, previousRows] = await Promise.all([
-      fetchGSC(accessToken, dateStr(9), dateStr(3)),
-      fetchGSC(accessToken, dateStr(16), dateStr(10)),
+      fetchGSC(accessToken, dateStr(16), dateStr(4)),
+      fetchGSC(accessToken, dateStr(30), dateStr(17)),
     ])
 
     // Build lookup maps: query → position
