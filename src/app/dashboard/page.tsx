@@ -1681,6 +1681,16 @@ export default function Dashboard() {
           { id: 'ba-01', keyword: 'commercial buyers agent Newcastle', division: 'Buyers Agency', vol: 110, diff: 22, priority: 'NOW', intent: 'Commercial', page: '/buyers-agency', aeo: true, gap: null },
           { id: 'ba-02', keyword: 'how to buy commercial property Australia', division: 'Buyers Agency', vol: 880, diff: 52, priority: '3-6mo', intent: 'Info', page: '/blog/how-to-buy-commercial-property-australia', aeo: true, gap: null },
           { id: 'ba-03', keyword: 'buying vs leasing commercial property Newcastle', division: 'Buyers Agency', vol: 90, diff: 20, priority: 'NOW', intent: 'Info', page: '/blog/buying-vs-leasing-commercial-newcastle', aeo: true, gap: null },
+          // FURNITURE ADDITIONAL
+          { id: 'fu-05', keyword: 'office furniture', division: 'Furniture', vol: 1200, diff: 55, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-06', keyword: 'commercial furniture', division: 'Furniture', vol: 880, diff: 50, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-07', keyword: 'commercial furniture newcastle', division: 'Furniture', vol: 210, diff: 32, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-08', keyword: 'office furniture newcastle', division: 'Furniture', vol: 210, diff: 32, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'fu-09', keyword: 'office chair newcastle', division: 'Furniture', vol: 170, diff: 30, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          // BRAND
+          { id: 'br-01', keyword: 'your office space', division: 'Brand', vol: 320, diff: 5, priority: 'NOW', intent: 'Brand', page: '/', aeo: false, gap: null },
+          { id: 'br-02', keyword: 'office design newcastle', division: 'Brand', vol: 180, diff: 38, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
+          { id: 'br-03', keyword: 'office fit out newcastle', division: 'Brand', vol: 260, diff: 35, priority: 'NOW', intent: 'Commercial', page: '/furniture', aeo: false, gap: null },
           // LEASEINTEL
           { id: 'li-01', keyword: 'commercial lease risk checker', division: 'LeaseIntel', vol: 70, diff: 15, priority: 'NOW', intent: 'Transactional', page: '/leaseintel', aeo: true, gap: null },
           { id: 'li-02', keyword: 'lease review service Australia', division: 'LeaseIntel', vol: 210, diff: 30, priority: '3-6mo', intent: 'Transactional', page: '/leaseintel', aeo: true, gap: null },
@@ -1692,6 +1702,7 @@ export default function Dashboard() {
           'Furniture': '#f59e0b',
           'Buyers Agency': '#ec4899',
           'LeaseIntel': '#22c55e',
+          'Brand': '#e879f9',
         }
 
         const totalVol = KEYWORDS.reduce((s, k) => s + k.vol, 0)
