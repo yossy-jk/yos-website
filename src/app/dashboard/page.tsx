@@ -610,7 +610,7 @@ export default function Dashboard() {
 
   const setEnergyLevel = (n: number) => {
     setEnergy(n)
-    localStorage.setItem('yos-energy-' + new Date().toDateString(), String(n))
+    if (typeof window !== 'undefined') localStorage.setItem('yos-energy-' + new Date().toDateString(), String(n))
   }
 
   function currentQuarterLabel() {
