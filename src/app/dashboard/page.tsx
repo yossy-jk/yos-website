@@ -589,7 +589,7 @@ export default function Dashboard() {
     if (saved) setEnergy(parseInt(saved))
     const t = setInterval(() => setNow(aestNow()), 60000)
     return () => clearInterval(t)
-  }, [loadDashboard, loadQueue, loadEosHealth, loadEOS, loadCompliance])
+  }, [loadDashboard, loadQueue, loadEosHealth, loadEOS, loadCompliance, loadUsage, loadRankings, loadMemory])
 
   // Load SEO data when tab becomes active
   useEffect(() => {
