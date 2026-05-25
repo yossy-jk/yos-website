@@ -8,6 +8,11 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import { virusTotalScan, encryptFile } from '@/lib/file-security'
 
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+
 /* ─── Data ───────────────────────────────────────────────── */
 const FREE_CHECKS = [
   'Overall lease risk rating — RED / AMBER / GREEN',
@@ -77,7 +82,7 @@ function Field({
         className={[
           'bg-white/[0.07] text-white text-sm px-4 py-3.5 rounded-sm',
           'border transition-all duration-200 outline-none',
-          'placeholder:text-white/35 font-light',
+          'placeholder:text-white/80 font-light',
           'focus:bg-white/[0.10] focus:border-teal',
           error
             ? 'border-red-400/70 focus:border-red-400'
@@ -337,7 +342,7 @@ export default function LeaseReviewPage() {
             backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
             backgroundSize: '60px 60px'
           }} />
-          <div className="relative max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="relative max-w-screen-xl mx-auto" style={PAD}>
             <div className="max-w-3xl">
               <FadeIn delay={0}>
                 <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-xl mb-8">
@@ -364,7 +369,7 @@ export default function LeaseReviewPage() {
                   Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included.
                   <a href="/leaseintel" className="text-teal ml-2 hover:underline" style={{ fontSize: 'inherit' }}>See what&apos;s included →</a>
                 </p>
-                <div className="mb-10 rounded-xl border border-teal/40 bg-teal/10 px-6 py-4" style={{ maxWidth: '44rem' }}>
+                <div className="mb-10 rounded-xl border border-teal bg-teal/10 px-6 py-4" style={{ maxWidth: '44rem' }}>
                   <p className="text-teal font-bold mb-1" style={{ fontSize: '0.92rem' }}>Newcastle business? This report is free until 21 July 2026.</p>
                   <p className="text-white/70 font-light" style={{ fontSize: '0.88rem', lineHeight: 1.75 }}>No payment required — just declare your location on the form below.</p>
                 </div>
@@ -390,7 +395,7 @@ export default function LeaseReviewPage() {
                     { icon: '🛡️', text: 'Virus scanned' },
                     { icon: '🇦🇺', text: 'Privacy Act compliant' },
                   ].map(s => (
-                    <span key={s.text} className="flex items-center gap-1.5 text-white/40 text-xs font-medium whitespace-nowrap">
+                    <span key={s.text} className="flex items-center gap-1.5 text-white/60 text-xs font-medium whitespace-nowrap">
                       <span>{s.icon}</span>{s.text}
                     </span>
                   ))}
@@ -403,7 +408,7 @@ export default function LeaseReviewPage() {
         {/* STATS */}
         <section className="bg-teal" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <FadeIn>
-            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+            <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={PAD}>
               {[
                 { stat: '$297', label: 'Full report ex GST' },
                 { stat: '24hr', label: 'Turnaround time' },
@@ -420,7 +425,7 @@ export default function LeaseReviewPage() {
 
         {/* NOT READY YET? */}
         <section className="bg-white" style={{ paddingTop: 'clamp(3rem,6vw,6rem)', paddingBottom: 'clamp(3rem,6vw,6rem)' }}>
-          <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" style={PAD}>
             <FadeIn>
               <div>
                 <p className="text-near-black font-bold text-sm mb-1">Not ready to submit yet?</p>
@@ -438,8 +443,8 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* FULL REPORT */}
-        <section id="full-report" className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <section id="full-report" className="bg-near-black" style={SEC}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <FadeIn>
               <div className="max-w-2xl mb-7 md:mb-14">
                 <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full paid report — $297 ex GST</p>
@@ -447,7 +452,7 @@ export default function LeaseReviewPage() {
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
                   Everything you need to know<br />before you sign.
                 </h2>
-                <p className="text-white/55 text-sm md:text-base leading-relaxed font-light">
+                <p className="text-white/75 text-sm md:text-base leading-relaxed font-light">
                   Law firms charge $1,500–$4,000 and take 3–10 days.
                   LeaseIntel™ delivers a complete 10-section report in 24 hours for $297 ex GST.
                 </p>
@@ -457,9 +462,9 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-7 md:mb-14">
               {PAID_INCLUDES.map((item, i) => (
                 <FadeIn key={item.title} delay={i * 60} direction="up">
-                  <div className="border border-white/10 p-6 rounded-xl hover:border-teal/40 hover:bg-white/[0.02] transition-all duration-200">
+                  <div className="border border-white/10 p-6 rounded-xl hover:border-teal hover:bg-white/[0.02] transition-all duration-200">
                     <h3 className="text-white font-black text-base mb-2">{item.title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed font-light">{item.desc}</p>
+                    <p className="text-white/75 text-sm leading-relaxed font-light">{item.desc}</p>
                   </div>
                 </FadeIn>
               ))}
@@ -468,8 +473,8 @@ export default function LeaseReviewPage() {
             <FadeIn>
               <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                 <div>
-                  <p className="text-white font-black text-3xl mb-1">$297 <span className="text-white/35 font-light text-base">ex GST</span></p>
-                  <p className="text-white/35 text-sm">24-hour turnaround · Invoiced via email · Pay before delivery</p>
+                  <p className="text-white font-black text-3xl mb-1">$297 <span className="text-white/60 font-light text-base">ex GST</span></p>
+                  <p className="text-white/75 text-sm">24-hour turnaround · Invoiced via email · Pay before delivery</p>
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
@@ -483,8 +488,8 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* COMPARISON */}
-        <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <section className="bg-warm-grey" style={SEC}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <FadeIn>
               <h2 className="text-near-black font-black leading-tight tracking-tight mb-12 text-center"
                 style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
@@ -530,8 +535,8 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* SECURITY */}
-        <section className="bg-white border-t border-gray-100" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <section className="bg-white border-t border-gray-100" style={SEC}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
 
             {/* Trust badge strip */}
             <FadeIn>
@@ -581,9 +586,9 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* JOE QUOTE */}
-        <section className="bg-near-black text-center" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <section className="bg-near-black text-center" style={SEC}>
           <FadeIn>
-            <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+            <div className="max-w-screen-xl mx-auto" style={PAD}>
               <div className="w-10 h-1 bg-teal mx-auto mb-8" />
               <p className="text-white font-light leading-relaxed mb-12"
                 style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
@@ -613,7 +618,7 @@ export default function LeaseReviewPage() {
           <div className="w-full max-w-md">
             <button
               onClick={() => setStep('landing')}
-              className="text-white/40 text-xs tracking-widest uppercase mb-10 hover:text-white/70 transition-colors flex items-center gap-2 no-min-height"
+              className="text-white/60 text-xs tracking-widest uppercase mb-10 hover:text-white/70 transition-colors flex items-center gap-2 no-min-height"
             >
               ← Back
             </button>
@@ -720,7 +725,7 @@ export default function LeaseReviewPage() {
             <button
               type="button"
               onClick={() => setStep('form-details')}
-              className="text-white/40 text-xs tracking-widest uppercase mb-10 hover:text-white/70 transition-colors flex items-center gap-2 no-min-height"
+              className="text-white/60 text-xs tracking-widest uppercase mb-10 hover:text-white/70 transition-colors flex items-center gap-2 no-min-height"
             >
               ← Back
             </button>

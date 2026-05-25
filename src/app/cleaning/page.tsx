@@ -3,8 +3,14 @@ import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
+import { HUBSPOT, CONTACT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
@@ -26,39 +32,81 @@ export const metadata = {
 export default function CleaningPage() {
   return (
     <>
-      <Nav />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "description": "Tenant-side commercial property advisory. Commercial cleaning, tenant rep, buyers agency, furniture and fitout across Newcastle and NSW.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ]
+          },
+          {
             "@type": "Service",
-            "@id": "https://yourofficespace.au/cleaning#service",
+            "@id": "https://www.yourofficespace.au/cleaning#service",
             "name": "Commercial Cleaning Newcastle",
-            "provider": { "@id": "https://yourofficespace.au/#business" },
+            "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Consistent, accountable commercial cleaning for offices, medical practices and childcare centres across Newcastle and the Hunter Valley.",
-            "areaServed": ["Newcastle", "Hunter Valley", "New South Wales"],
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "City", "name": "Charlestown" },
+              { "@type": "City", "name": "Merewether" },
+              { "@type": "City", "name": "Adamstown" },
+              { "@type": "City", "name": "Kotara" },
+              { "@type": "City", "name": "Wallsend" },
+              { "@type": "City", "name": "Cardiff" },
+              { "@type": "City", "name": "Cameron Park" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ],
             "serviceType": "Commercial Cleaning",
-            "url": "https://yourofficespace.au/cleaning"
+            "url": "https://www.yourofficespace.au/cleaning"
           },
           {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "How much does commercial cleaning cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial cleaning costs in Newcastle typically range from $30–$55 per hour depending on the type of facility, frequency and scope. Medical and childcare facilities requiring infection control protocols are priced higher. Your Office Space provides tailored quotes after a free site visit." } },
               { "@type": "Question", "name": "Do you use the same cleaning team every visit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Your Office Space cleaning contract is serviced by the same team on every visit. We do not rotate staff. You know who is coming and so do we." } },
-              { "@type": "Question", "name": "Do you clean medical practices and healthcare facilities?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We clean medical practices, allied health clinics and childcare centres across Newcastle using infection control protocols and appropriate products. We understand the compliance obligations specific to healthcare environments." } }
+              { "@type": "Question", "name": "Do you clean medical practices and healthcare facilities?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We clean medical practices, allied health clinics and childcare centres across Newcastle using infection control protocols and appropriate products. We understand the compliance obligations specific to healthcare environments." } },
+              { "@type": "Question", "name": "What areas of Newcastle do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We service Newcastle, Maitland, Lake Macquarie, Charlestown, Merewether, Adamstown, Kotara, Wallsend and surrounding Hunter Valley suburbs. We are based locally and do not use out-of-area contractors." } },
+              { "@type": "Question", "name": "How often should a commercial office be cleaned?", "acceptedAnswer": { "@type": "Answer", "text": "Most offices benefit from daily or every-second-day cleaning for high-traffic environments, and weekly for lower-use spaces. We work with each client to determine the right frequency for their space, team size and usage patterns." } },
+              { "@type": "Question", "name": "What is included in a standard commercial office clean?", "acceptedAnswer": { "@type": "Answer", "text": "Standard commercial office cleaning includes rubbish removal, kitchen and breakroom cleaning, bathroom sanitation, desk and surface wiping, floor care (vacuum/mop), and bin replacement. Deep cleans, infection control cleans and carpet extraction are charged separately." } },
+              { "@type": "Question", "name": "Are your cleaners insured and vetted?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All Your Office Space cleaning staff are employed directly — not subcontracted. Every team member is vetted, trained and covered under our business insurance and workers compensation policy." } },
+              { "@type": "Question", "name": "What happens if I am not happy with a clean?", "acceptedAnswer": { "@type": "Answer", "text": "We back our work completely. If you are not satisfied with any visit, contact us on the day and we will send the team back at no charge. Your satisfaction is how we measure success — not excuses." } },
+              { "@type": "Question", "name": "Do you offer a free trial or first week free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer the first week of commercial cleaning free for new client locations. We also provide a $200 Visa gift card per new location. See the current offer on this page." } },
+              { "@type": "Question", "name": "Can I change or cancel the cleaning schedule?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can adjust frequency, timing or pause the schedule at any time with reasonable notice. There are no lock-in contracts — our commitment to quality is how we retain clients, not fine print." } }
             ]
           }
         ]
-      })}} />
-
-      {/* HERO */}
+      }) }} />
+      <Nav />
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
         }} />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Cleaning</SectionLabel>
           </FadeIn>
@@ -70,24 +118,32 @@ export default function CleaningPage() {
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
+            <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
               Consistent. Accountable. Managed locally. We clean offices that can&apos;t afford a bad first impression — and neither can yours.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-              Book a Site Visit
-            </Button>
+            <div className="flex flex-row flex-wrap gap-4 items-center">
+              <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+                Book a Site Visit
+              </Button>
+              <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+                className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
+                style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
+                <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                {CONTACT.phone}
+              </a>
+            </div>
           </FadeIn>
         </div>
       </section>
 
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5"
-        style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+        style={SEC_SM}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
@@ -120,8 +176,8 @@ export default function CleaningPage() {
       </section>
 
       <section className="bg-white"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
@@ -201,8 +257,8 @@ export default function CleaningPage() {
 
       {/* THE YOS DIFFERENCE */}
       <section className="bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>The YOS difference</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
@@ -232,7 +288,7 @@ export default function CleaningPage() {
               <FadeIn key={item.title} delay={i * 80} direction="up">
                 <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
                   <h3 className="text-white font-bold text-lg mb-4">{item.title}</h3>
-                  <p className="text-white/65 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
+                  <p className="text-white/80 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                   <p className="text-white/35 font-light text-xs italic border-t border-white/10 pt-4">{item.aside}</p>
                 </div>
               </FadeIn>
@@ -253,9 +309,9 @@ export default function CleaningPage() {
 
       {/* BUNDLE — cross-sell to fitout */}
       <section className="bg-warm-grey"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
@@ -278,9 +334,9 @@ export default function CleaningPage() {
       </section>
 
       {/* INLINE QUOTE FORM */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-near-black" style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
               <div>
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Get a Quote</p>
@@ -307,9 +363,9 @@ export default function CleaningPage() {
 
       {/* CTA */}
       <section className="bg-teal"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
               <h2 className="text-white font-bold leading-tight mb-5 w-full"
                 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
@@ -318,13 +374,23 @@ export default function CleaningPage() {
               <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
                 We&apos;ll visit your site, understand your needs, and give you a clear proposal. No pressure. No surprises.
               </p>
-              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Site Visit
-              </Button>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center">
+                <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
+                  Book a Site Visit
+                </Button>
+                <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+                  className="inline-flex items-center gap-2 text-white font-bold border border-white/30 rounded-none px-6 py-3 no-underline hover:border-white transition-colors"
+                  style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
+                  <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                  Call us now
+                </a>
+              </div>
             </div>
           </div>
         </FadeIn>
       </section>
+
+      <BookingCTA label="Book a Free Site Visit" />
 
       {/* Join the team */}
       <section style={{ background: '#111', padding: 'clamp(3rem,6vw,4.5rem) 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>

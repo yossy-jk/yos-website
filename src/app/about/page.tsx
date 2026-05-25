@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 
 export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory',
@@ -21,7 +22,8 @@ export const metadata = {
   },
 }
 
-const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
@@ -31,7 +33,7 @@ export default function AboutPage() {
       <Nav />
 
       {/* ─── HERO ─────────────────────────────────────────── */}
-      <section className="bg-near-black relative overflow-hidden" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
+      <section className="bg-near-black relative overflow-hidden" style={SEC_SM}>
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
@@ -57,6 +59,82 @@ export default function AboutPage() {
           </FadeIn>
         </div>
       </section>
+
+      {/* ─── SCHEMA ────────────────────────────────────────── */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "description": "Tenant-side commercial property advisory in Newcastle, NSW. Tenant rep, buyers agency, furniture, fitout and commercial cleaning.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ],
+            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property", "Office Fitout", "Commercial Cleaning"]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://www.yourofficespace.au/#person-joe-kelley",
+            "name": "Joe Kelley",
+            "jobTitle": "Founder & Managing Director",
+            "worksFor": { "@id": "https://www.yourofficespace.au/#organization" },
+            "url": "https://www.yourofficespace.au/about",
+            "description": "Commercial property professional with over a decade of experience in office fitouts, tenant representation and workplace strategy.",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "knowsAbout": ["Commercial Leases", "Tenant Representation", "Office Fitout", "Commercial Property Negotiation"],
+            "areaServed": [{ "@type": "State", "name": "New South Wales" }, { "@type": "Country", "name": "Australia" }]
+          },
+          {
+            "@type": "Person",
+            "name": "Sarah Kelley",
+            "jobTitle": "Cleaning Division Director",
+            "worksFor": { "@id": "https://www.yourofficespace.au/#organization" },
+            "description": "Runs the commercial cleaning division with hands-on site auditing and quality control.",
+            "telephone": "+61434655511"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "How does Your Office Space make money?", "acceptedAnswer": { "@type": "Answer", "text": "For tenant representation, landlords typically pay our fees as part of the leasing deal — so tenants pay nothing. For buyers agency, fees are agreed upfront. We disclose everything before you commit to anything." } },
+              { "@type": "Question", "name": "Why do you only work for tenants and buyers?", "acceptedAnswer": { "@type": "Answer", "text": "Because representing both sides of a deal creates a conflict of interest. The moment you represent a landlord, your advice is compromised. We eliminated that conflict entirely by only working for one side." } },
+              { "@type": "Question", "name": "How long have you been operating in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space was founded by Joe Kelley after over a decade in commercial fitouts and property. We have been operating in the Newcastle and Hunter market for over 12 years." } },
+              { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } }
+            ]
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Liz Murray" },
+            "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.",
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "itemReviewed": { "@type": "Service", "name": "Tenant Representation", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
+          },
+          {
+            "@type": "Review",
+            "author": { "@type": "Person", "name": "Nathan Franks", "worksFor": { "@type": "Organization", "name": "Dynamic Business Technologies" } },
+            "reviewBody": "Joe was instrumental in building out our boardroom — high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
+            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
+            "itemReviewed": { "@type": "Service", "name": "Furniture & Fitout", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
+          }
+        ]
+      }) }} />
 
       {/* ─── THE STORY ────────────────────────────────────── */}
       <section className="bg-white" style={SEC}>
@@ -335,6 +413,7 @@ export default function AboutPage() {
       </section>
 
       <Footer />
+      <BookingCTA label="Book a Free Consultation" />
     </>
   )
 }

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
+import SectionLabel from '@/components/SectionLabel'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import { IMAGES } from '@/lib/images'
@@ -25,7 +26,9 @@ export const metadata: Metadata = {
 }
 
 const WRAP = 'max-w-screen-xl mx-auto'
-const PAD  = 'clamp(1.5rem,8vw,10rem)'
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'The landlord has an agent. You should too. We negotiate exclusively for tenants — rent, incentives, make-good, every clause — so you never sign a deal that costs you more than it should.', href: '/tenant-rep' },
@@ -120,7 +123,7 @@ export default function Home() {
       })}} />
 
       {/* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */}
-      <div className="bg-teal" style={{ padding: '0.65rem 1.5rem' }}>
+      <div className="bg-teal" style={{ padding: '0.65rem clamp(1.5rem,8vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto flex items-center justify-center gap-3 text-center flex-wrap">
           <span className="text-near-black font-bold text-xs tracking-widest uppercase">Free for Newcastle businesses</span>
           <span className="text-near-black/60 text-xs hidden sm:inline">—</span>
@@ -139,7 +142,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-near-black/65" />
         <div
           className={`relative z-10 w-full ${WRAP}`}
-          style={{ paddingLeft: PAD, paddingRight: PAD, paddingTop: 'clamp(5rem,12vw,13rem)', paddingBottom: 'clamp(4rem,10vw,9rem)' }}
+          style={{ ...PAD, paddingTop: 'clamp(5rem,12vw,13rem)', paddingBottom: 'clamp(4rem,10vw,9rem)' }}
         >
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">
@@ -188,8 +191,8 @@ export default function Home() {
       </section>
 
       {/* ─── EMOTIONAL HOOK ──────────────────────── near-black */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      <section className="bg-near-black" style={SEC_SM}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <div style={{ maxWidth: '54rem' }}>
               <p className="text-teal font-black uppercase leading-none" style={{ fontSize: 'clamp(2rem,5vw,4.5rem)', marginBottom: '2rem', lineHeight: 1.05 }}>
@@ -205,9 +208,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── TESTIMONIALS — moved up, above services ─────── warm grey */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      {/* ─── TESTIMONIALS ───────────────────────── warm grey */}
+      <section className="bg-warm-grey" style={SEC}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">What clients say</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-12"
@@ -255,8 +258,8 @@ export default function Home() {
       </section>
 
       {/* ─── SERVICES ──────────────────────────────── white */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      <section className="bg-white" style={SEC}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">What we do</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
@@ -317,10 +320,10 @@ export default function Home() {
       </section>
 
       {/* ─── WHY US ────────────────────────────────── near-black */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      <section className="bg-near-black" style={SEC}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">Why us</p>
+            <SectionLabel>Why us</SectionLabel>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mt-2 mb-10"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
               Someone who actually<br />gives a damn.
@@ -336,7 +339,7 @@ export default function Home() {
               <FadeIn key={p.title} delay={i * 80}>
                 <div style={{ padding: 'clamp(1.75rem,3.5vw,2.5rem) clamp(1.5rem,3vw,2rem)', background: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #00B5A5' }}>
                   <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
-                  <p className="text-white/65 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>{p.body}</p>
+                  <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>{p.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -359,8 +362,8 @@ export default function Home() {
       </section>
 
       {/* ─── LEASEINTEL ────────────────────────────── teal */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      <section className="bg-teal" style={SEC}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '46rem', margin: '0 auto' }}>
               <div className="inline-flex items-center gap-2 border border-white/30 mb-8" style={{ padding: '0.5rem 1.25rem' }}>
@@ -397,8 +400,8 @@ export default function Home() {
       </section>
 
       {/* ─── HOW WE WORK ───────────────────────── white */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      <section className="bg-white" style={SEC}>
+        <div className={WRAP} style={PAD}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
               <div>
@@ -442,8 +445,8 @@ export default function Home() {
       </section>
 
       {/* ─── CTA ───────────────────────────────────── near-black */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className={WRAP} style={{ paddingLeft: PAD, paddingRight: PAD }}>
+      <section className="bg-near-black" style={SEC}>
+        <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
               <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">Get started</p>

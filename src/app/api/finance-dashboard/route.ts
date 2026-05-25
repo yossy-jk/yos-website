@@ -66,11 +66,11 @@ export async function GET() {
       }) => {
         const due = inv.DueDate ? new Date(inv.DueDate) : null
         const now = new Date()
-        owedToYOS += parseFloat(inv.AmountDue || '0')
-        outstanding += parseFloat(inv.Total || '0')
+        owedToYOS += parseFloat(String(inv.AmountDue) || '0')
+        outstanding += parseFloat(String(inv.Total) || '0')
         outstandingCount++
         if (due && due < now && inv.Status !== 'PAID') {
-          overdue += parseFloat(inv.AmountDue || '0')
+          overdue += parseFloat(String(inv.AmountDue) || '0')
           overdueCount++
         }
       })
@@ -99,7 +99,7 @@ export async function GET() {
       incoming60Days: incoming30Days,
       outgoing60Days: outgoing30Days * 2,
       projectedLow: Math.max(0, projectedLow30),
-      projectedLowDate: projectedLowDate.toString(),
+      projectedLowDate,
       days30: 30,
     },
     xeroError: xeroError || undefined,

@@ -4,6 +4,11 @@ import Footer from '@/components/Footer'
 import Button from '@/components/Button'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 export const metadata: Metadata = {
   title: 'LeaseIntel™ — Professional Lease Review | Your Office Space',
@@ -20,6 +25,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'LeaseIntel™ Lease Review', description: 'Professional commercial lease review. 24-hour turnaround. Every risk explained.' },
 }
 
+/* ─── FAQ Data ────────────────────────────────────────────── */
 const FAQS = [
   { q: 'What is LeaseIntel™?', a: 'LeaseIntel™ is a professional commercial lease review service run by Your Office Space. You upload your lease document, we review every clause, and return a full risk report within 24 hours. Every clause is rated Red / Amber / Green with plain-English explanations, a financial exposure summary, and a negotiation roadmap.' },
   { q: 'How long does a LeaseIntel™ review take?', a: 'Standard turnaround is 24 hours from the time we receive your complete lease document. For complex leases — multiple tenancies, significant special conditions, or industrial leases — we may require up to 48 hours.' },
@@ -34,6 +40,51 @@ const FAQS = [
   { q: 'Can I get a free version first?', a: 'Yes. The free Lease Risk Review at yourofficespace.au/resources/lease-review takes 3 minutes. Answer 10 questions about your lease — no document required — and get an instant Red/Amber/Green risk rating plus the top 3 issues to watch. If you want the full picture after that, the complete LeaseIntel™ report is $297 ex GST at yourofficespace.au/lease-review. Newcastle businesses: free until 21 July 2026. Submit your actual lease document and get a full clause-by-clause analysis within 24 hours.' },
   { q: 'How do I get started?', a: 'Upload your lease at yourofficespace.au/lease-review. Complete the short intake form and upload your document. Newcastle businesses are free until 21 July 2026 — no payment required, just declare your location. All other businesses pay the $297 ex GST review fee. Full report delivered within 24 hours.' },
 ]
+
+/* ─── Schema ──────────────────────────────────────────────── */
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.yourofficespace.au/#organization",
+      "name": "Your Office Space",
+      "url": "https://www.yourofficespace.au",
+      "logo": "https://www.yourofficespace.au/logo.png",
+      "telephone": "+61434655511",
+      "email": "jk@yourofficespace.au",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Newcastle",
+        "addressRegion": "NSW",
+        "postalCode": "2300",
+        "addressCountry": "AU"
+      }
+    },
+    {
+      "@type": "Service",
+      "name": "LeaseIntel™ Commercial Lease Review",
+      "provider": { "@id": "https://www.yourofficespace.au/#organization" },
+      "description": "Professional commercial lease review. Every clause rated Red/Amber/Green. 24-hour turnaround, $297 ex GST. Newcastle businesses free until 21 July 2026.",
+      "areaServed": [{ "@type": "Country", "name": "Australia" }],
+      "serviceType": "Commercial Lease Review",
+      "url": "https://www.yourofficespace.au/leaseintel",
+      "offers": { "@type": "Offer", "price": "297", "priceCurrency": "AUD", "description": "Full clause-by-clause lease review", "url": "https://www.yourofficespace.au/lease-review" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": FAQS.map(f => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } }))
+    },
+    {
+      "@type": "WebApplication",
+      "name": "LeaseIntel™ Lease Review Tool",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "297", "priceCurrency": "AUD", "description": "Professional lease review — $297 ex GST or free for Newcastle businesses" },
+      "url": "https://www.yourofficespace.au/lease-review"
+    }
+  ]
+}
 
 const INCLUDED = [
   { title: 'All 12 risk categories', desc: 'Rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance, and special conditions — every clause rated.' },
@@ -55,31 +106,11 @@ export default function LeaseIntelPage() {
     <>
       <Nav />
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@graph': [
-          {
-            '@type': 'Service',
-            'name': 'LeaseIntel™ Commercial Lease Review',
-            'provider': { '@type': 'ProfessionalService', 'name': 'Your Office Space', 'url': 'https://yourofficespace.au' },
-            'description': 'Professional commercial lease review service. 24-hour turnaround. Every clause rated Red/Amber/Green with financial exposure summary and negotiation roadmap.',
-            'offers': { '@type': 'Offer', 'price': '297', 'priceCurrency': 'AUD', 'description': '$297 ex GST for a full lease review report. Newcastle businesses: free until 21 July 2026.' },
-            'areaServed': 'Australia',
-          },
-          {
-            '@type': 'FAQPage',
-            'mainEntity': FAQS.map(f => ({
-              '@type': 'Question',
-              'name': f.q,
-              'acceptedAnswer': { '@type': 'Answer', 'text': f.a },
-            })),
-          },
-        ],
-      })}} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
 
       {/* Hero */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,15vw,12rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC_SM}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full px-4 py-2 mb-8">
               <span className="w-2 h-2 rounded-full bg-teal" />
@@ -103,8 +134,8 @@ export default function LeaseIntelPage() {
       </section>
 
       {/* Two-tier product */}
-      <section style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section style={SEC_SM}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-mid-grey font-light mb-10" style={{ fontSize: '1rem', maxWidth: '560px', lineHeight: 1.8 }}>
               Two ways to know where you stand. Start free or go straight to the full report.
@@ -156,8 +187,8 @@ export default function LeaseIntelPage() {
       </section>
 
       {/* Newcastle promo banner */}
-      <section style={{ paddingTop: 'clamp(2rem,4vw,3rem)', paddingBottom: 'clamp(2rem,4vw,3rem)', background: '#f0fdf9', borderTop: '3px solid #10b981', borderBottom: '3px solid #10b981' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section style={{ ...SEC_SM, background: '#f0fdf9', borderTop: '3px solid #10b981', borderBottom: '3px solid #10b981' }}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div style={{ maxWidth: '760px' }}>
               <p className="font-black mb-2" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', color: '#0f766e' }}>Newcastle business owners — free for 12 weeks.</p>
@@ -274,6 +305,7 @@ export default function LeaseIntelPage() {
       </section>
 
       <Footer />
+      <BookingCTA label="Book a Free Consultation" />
     </>
   )
 }

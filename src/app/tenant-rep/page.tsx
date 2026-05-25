@@ -61,7 +61,7 @@ export default function TenantRepPage() {
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-6"
+            <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Every lease negotiation has two sides. The landlord's agent is an expert at protecting their client.
               We exist to make sure you have the same. Independent representation across Australia —
@@ -114,7 +114,7 @@ export default function TenantRepPage() {
                 We pay for ourselves.<br />
                 <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
               </h2>
-              <p className="text-white/65 font-light leading-relaxed mb-14"
+              <p className="text-white/80 font-light leading-relaxed mb-14"
                 style={{ fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.85 }}>
                 Our fee for tenant representation is $12,000 ex GST or 3 months rent equivalent — whichever is higher.
                 The savings we negotiate — rent-free periods, fitout contributions, reduced make-good liability,

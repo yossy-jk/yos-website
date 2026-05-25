@@ -3,8 +3,14 @@ import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
+import { HUBSPOT, CONTACT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 import FurniturePopup from '@/components/FurniturePopup'
 import HubSpotForm from '@/components/HubSpotForm'
 
@@ -27,34 +33,68 @@ export const metadata = {
 export default function FurniturePage() {
   return (
     <>
-      <Nav />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
           {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "description": "Office furniture supply and fitout project management. From brief to installed workspace across Australia.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Sydney" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ]
+          },
+          {
             "@type": "Service",
-            "@id": "https://yourofficespace.au/furniture#service",
+            "@id": "https://www.yourofficespace.au/furniture#service",
             "name": "Office Furniture & Fitout Newcastle",
-            "provider": { "@id": "https://yourofficespace.au/#business" },
-            "description": "Office furniture supply and fitout project management across Australia. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
-            "areaServed": ["Newcastle", "Hunter Valley", "New South Wales", "Australia"],
+            "provider": { "@id": "https://www.yourofficespace.au/#organization" },
+            "description": "Office furniture supply and fitout project management. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ],
             "serviceType": "Office Furniture and Fitout",
-            "url": "https://yourofficespace.au/furniture"
+            "url": "https://www.yourofficespace.au/furniture"
           },
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "How much does an office fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Office fitout costs in Newcastle typically range from $500–$3,500 per workstation depending on finish level, with full fitouts (including partition walls, flooring, joinery and AV) ranging from $800–$2,500+ per square metre. Your Office Space provides a detailed estimate based on your brief, scope and timeline." } },
-              { "@type": "Question", "name": "How long does a commercial office fitout take?", "acceptedAnswer": { "@type": "Answer", "text": "A basic furniture-only fitout can be delivered in 2–4 weeks. A full commercial fitout including construction, joinery, electrical and AV typically takes 6–16 weeks depending on scope. Your Office Space manages the entire process end-to-end." } },
-              { "@type": "Question", "name": "Do you supply Rapidline and Burgtec furniture?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies the full Rapidline commercial furniture range and Burgtec seating, along with other commercial brands. We also have an online shop at yos-furniture.myshopify.com for express orders." } }
+              { "@type": "Question", "name": "How much does an office fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Office fitout costs in Newcastle range from $600–$1,200/sqm for basic, $1,200–$2,000/sqm for mid-range, and $2,000+/sqm for premium. Per workstation, budget $500–$3,500 depending on finish level. Use the free Your Office Space fitout estimator for a detailed budget based on your brief." } },
+              { "@type": "Question", "name": "How long does a commercial office fitout take?", "acceptedAnswer": { "@type": "Answer", "text": "A basic furniture-only fitout delivers in 2–4 weeks. A full commercial fitout including construction, joinery, electrical and AV typically takes 6–16 weeks depending on scope. Your Office Space manages the entire process end-to-end." } },
+              { "@type": "Question", "name": "Do you supply Rapidline and Burgtec furniture?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies the full Rapidline commercial furniture range and Burgtec seating, along with other commercial brands. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
+              { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "We supply Rapidline, Burgtec, and a range of commercial brands covering workstations, seating, meeting tables, storage, and breakout furniture. We match the product to your spec, timeline and budget — not to a limited product list." } },
+              { "@type": "Question", "name": "Can you project manage a full fitout including construction and joinery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space project manages full commercial fitouts including partition walls, flooring, joinery, electrical, AV, and IT infrastructure. We are the single point of contact from brief to practical completion." } },
+              { "@type": "Question", "name": "Do you offer express or fast-track fitout options?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have an in-stock express range that ships in 1–2 weeks for standard workstations, seating and storage. Made-to-order items typically run 3–6 weeks. Lead times are confirmed before you commit to anything." } },
+              { "@type": "Question", "name": "Can you supply furniture for government and council organisations?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have worked with local government and public sector organisations across Australia. We understand procurement requirements, panel supplier arrangements, and compliance obligations specific to government fitout projects." } },
+              { "@type": "Question", "name": "What areas of NSW do you deliver fitouts to?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver across Newcastle, the Hunter Valley, Sydney, the Central Coast and regional NSW. We also work with commercial property clients across Australia for product supply regardless of location." } }
             ]
           }
         ]
-      })}} />
+      }) }} />
+      <Nav />
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <Image
           src="/images/furniture/burgtec-room4.jpg"
           alt="Modern office furniture Newcastle"
@@ -62,8 +102,8 @@ export default function FurniturePage() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="absolute inset-0 bg-near-black/70" />
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn delay={0}>
             <SectionLabel>Office Furniture &amp; Fitout</SectionLabel>
           </FadeIn>
@@ -75,24 +115,32 @@ export default function FurniturePage() {
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
+            <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
               We manage your furniture and fitout end to end — brief, specification, sourcing, delivery and install. Products are tailored to your timeline, budget and design intent. In-stock to made-to-order. One team, no gaps.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <Button href="/resources/furniture-quote" variant="primary" size="lg">
-              Get a Furniture Quote
-            </Button>
+            <div className="flex flex-row flex-wrap gap-4 items-center">
+              <Button href="/resources/furniture-quote" variant="primary" size="lg">
+                Get a Furniture Quote
+              </Button>
+              <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+                className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
+                style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
+                <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                {CONTACT.phone}
+              </a>
+            </div>
           </FadeIn>
         </div>
       </section>
 
       {/* STATS BAR */}
       <section className="bg-warm-grey border-b border-gray-200"
-        style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+        style={SEC_SM}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
                 { stat: '200+', label: 'Projects delivered' },
@@ -125,8 +173,8 @@ export default function FurniturePage() {
       </section>
 
       <section className="bg-white"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>What we supply</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
@@ -197,8 +245,8 @@ export default function FurniturePage() {
       </section>
 
       {/* ─── INSPIRATION GALLERY ──────────────────────────── */}
-      <section style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }} className="bg-warm-grey">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section style={SEC} className="bg-warm-grey">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Inspiration</SectionLabel>
             <h2 style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }} className="text-near-black font-bold leading-tight mt-3 mb-12 max-w-2xl">
@@ -260,8 +308,8 @@ export default function FurniturePage() {
 
       {/* WHO WE WORK WITH */}
       <section className="bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={PAD}>
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
@@ -297,8 +345,8 @@ export default function FurniturePage() {
 
       {/* HOW IT WORKS */}
       <section className="bg-warm-grey"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>How it works</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
@@ -328,9 +376,9 @@ export default function FurniturePage() {
 
       {/* BUNDLE CALLOUT — cross-sell to cleaning */}
       <section className="bg-white"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
@@ -352,9 +400,9 @@ export default function FurniturePage() {
       </section>
 
       {/* INLINE QUOTE FORM */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-near-black" style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
               <div>
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Get a Quote</p>
@@ -386,6 +434,7 @@ export default function FurniturePage() {
       </section>
 
       <FurniturePopup />
+      <BookingCTA label="Book a Free Consultation" />
       <Footer />
     </>
   )

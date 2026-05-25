@@ -1,7 +1,13 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 import ContactForm from '@/components/ContactForm'
 
 export const metadata = {
@@ -24,9 +30,52 @@ export default function ContactPage() {
     <>
       <Nav />
 
+      {/* ─── SCHEMA ────────────────────────────────────────── */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "description": "Tenant-side commercial property advisory. Tenant rep, buyers agency, furniture, fitout and commercial cleaning across Newcastle and NSW.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ]
+          },
+          {
+            "@type": "ContactPage",
+            "name": "Contact Your Office Space",
+            "description": "Get in touch with Your Office Space — tenant-side commercial property advisory. First conversation is free, no obligation.",
+            "url": "https://www.yourofficespace.au/contact"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "Is the first call really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The first conversation is genuinely free and has no obligation. We will tell you honestly whether we can help and what it would look like to work together." } },
+              { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "We aim to respond to all enquiries within one business day. For urgent lease matters, call us directly on 0434 655 511." } },
+              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } }
+            ]
+          }
+        ]
+      }) }} />
+
       {/* HERO — compact, no dead space */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC_SM}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>
               Commercial Property Advisory — Australia
@@ -44,8 +93,8 @@ export default function ContactPage() {
       </section>
 
       {/* CONTACT — form + direct details */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-white" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
 
             {/* Left — contact form */}
@@ -226,8 +275,8 @@ export default function ContactPage() {
       </section>
 
       {/* WHAT TO EXPECT */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-warm-grey" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>What to expect</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10"
@@ -254,6 +303,7 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <BookingCTA label="Book a Clarity Call" />
       <Footer />
     </>
   )

@@ -24,7 +24,7 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <p className="text-white/40 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Services</p>
+            <p className="text-white/60 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Services</p>
             <nav className="flex flex-col gap-3">
               {[
                 { label: 'Tenant Rep', href: '/tenant-rep' },
@@ -44,7 +44,7 @@ export default function Footer() {
 
           {/* Resources */}
           <div>
-            <p className="text-white/40 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Resources</p>
+            <p className="text-white/60 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Resources</p>
             <div className="flex flex-col gap-3">
               {[
                 { label: 'About', href: '/about' },
@@ -64,19 +64,19 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <p className="text-white/40 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Get in touch</p>
+            <p className="text-white/60 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Get in touch</p>
             <div className="flex flex-col gap-3">
               <a href={`mailto:${CONTACT.email}`}
-                className="text-white/35 font-light no-underline hover:text-white transition-colors py-1"
+                className="text-white/50 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.email}
               </a>
               <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                className="text-white/35 font-light no-underline hover:text-white transition-colors py-1"
+                className="text-white/50 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.phone}
               </a>
-              <p className="text-white/20 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
+              <p className="text-white/35 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
                 Newcastle · Sydney · Central Coast<br />Illawarra · Mid North Coast · Regional NSW
               </p>
             </div>
@@ -87,28 +87,28 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
           style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '2rem' }}>
           <div className="flex flex-col gap-1">
-            <p className="text-white/20 font-light" style={{ fontSize: '0.78rem' }}>
+            <p className="text-white/35 font-light" style={{ fontSize: '0.78rem' }}>
               © {new Date().getFullYear()} Your Office Space Pty Ltd. All rights reserved.
             </p>
-            <p className="text-white/15 font-light" style={{ fontSize: '0.72rem' }}>
+            <p className="text-white/30 font-light" style={{ fontSize: '0.72rem' }}>
               NSW Real Estate Licence 20565455
             </p>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/privacy"
-              className="text-white/30 font-light no-underline hover:text-teal transition-colors"
+              className="text-white/40 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Privacy Policy
             </Link>
             <Link href="/terms"
-              className="text-white/30 font-light no-underline hover:text-teal transition-colors"
+              className="text-white/40 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Terms
             </Link>
             <a
               href="https://www.linkedin.com/company/your-office-space-au"
               target="_blank" rel="noopener noreferrer"
-              className="text-white/30 font-light no-underline hover:text-teal transition-colors"
+              className="text-white/40 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               LinkedIn →
             </a>

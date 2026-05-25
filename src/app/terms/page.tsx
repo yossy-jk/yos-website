@@ -17,6 +17,41 @@ export const metadata = {
   },
 }
 
+const TERMS_SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.yourofficespace.au/#organization",
+      "name": "Your Office Space",
+      "url": "https://www.yourofficespace.au",
+      "telephone": "+61434655511",
+      "email": "jk@yourofficespace.au",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Newcastle",
+        "addressRegion": "NSW",
+        "postalCode": "2300",
+        "addressCountry": "AU"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "name": "Terms and Conditions | Your Office Space",
+      "description": "Terms and conditions governing use of the Your Office Space website and engagement of its commercial property advisory services, including LeaseIntel™.",
+      "url": "https://www.yourofficespace.au/terms",
+      "isPartOf": { "@type": "WebSite", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+      "about": {
+        "@type": "Service",
+        "name": "Your Office Space — Commercial Property Advisory",
+        "provider": { "@id": "https://www.yourofficespace.au/#organization" }
+      }
+    }
+  ]
+}
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
@@ -36,6 +71,7 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 export default function TermsPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(TERMS_SCHEMA) }} />
       <Nav />
 
       {/* ─── HERO ─────────────────────────────────────────── */}

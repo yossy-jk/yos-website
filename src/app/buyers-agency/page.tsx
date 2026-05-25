@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 
 export const metadata = {
   title: 'Commercial Buyers Agency | Your Office Space',
@@ -22,24 +23,66 @@ export const metadata = {
   },
 }
 
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 export default function BuyersAgencyPage() {
   return (
     <>
       <Nav />
+      {/* ─── SCHEMA ────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Commercial Property Buyers Agency",
-        "provider": { "@type": "ProfessionalService", "name": "Your Office Space", "url": "https://yourofficespace.au" },
-        "description": "Off-market commercial property sourcing, due diligence and purchase negotiation across Australia. We find, analyse and secure commercial property on behalf of buyers.",
-        "areaServed": ["New South Wales", "Australia"],
-        "serviceType": "Buyers Agency"
+        "@graph": [
+          {
+            "@type": "Service",
+            "name": "Commercial Property Buyers Agency",
+            "provider": { "@type": "ProfessionalService", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+            "description": "Off-market commercial property sourcing, due diligence and purchase negotiation across Australia. We find, analyse and secure commercial property on behalf of buyers.",
+            "areaServed": [{ "@type": "State", "name": "New South Wales" }, { "@type": "Country", "name": "Australia" }],
+            "serviceType": "Buyers Agency",
+            "offers": { "@type": "Offer", "description": "First consultation free. No obligation.", "url": "https://www.yourofficespace.au/contact" }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "What does a buyers agent do in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "A commercial buyers agent works exclusively for the buyer — not the vendor. They source off-market properties, conduct due diligence, negotiate the price and terms, and manage the transaction through to settlement. Their loyalty is 100% to you." } },
+              { "@type": "Question", "name": "How much does a commercial buyers agent cost in Australia?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial buyers agents in Australia typically charge 1–2% of the purchase price or a fixed fee. Some also receive a portion of the selling agent's commission. Your Office Space discloses all fee arrangements upfront before any engagement." } },
+              { "@type": "Question", "name": "What is off-market commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Off-market properties are not advertised publicly. They are sold quietly through agent networks, direct approaches, or off-market campaigns. Some of the best commercial deals in Newcastle never appear on realestate.com.au or Domain. A buyers agent with established relationships accesses these opportunities." } },
+              { "@type": "Question", "name": "What is due diligence in commercial property buying?", "acceptedAnswer": { "@type": "Answer", "text": "Due diligence is the investigation phase before settlement — covering title, zoning, building condition, environmental reports, lease agreements, and financial performance. Skipping this step is how buyers end up with a property that costs them significantly more than the purchase price." } }
+            ]
+          }
+        ]
       }) }} />
-
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center pt-0 bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <Image
           src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
           alt="Modern commercial building"
@@ -47,8 +90,8 @@ export default function BuyersAgencyPage() {
           className="object-cover object-center"
           priority
         />
-        <div className="absolute inset-0 bg-near-black/82" />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="absolute inset-0 bg-near-black/70" />
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Buyers Agency</SectionLabel>
           </FadeIn>
@@ -60,7 +103,7 @@ export default function BuyersAgencyPage() {
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
-            <p className="text-white/65 font-light leading-relaxed max-w-2xl mb-4"
+            <p className="text-white/80 font-light leading-relaxed max-w-2xl"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
               Off-market access, rigorous due diligence, and hard negotiations — handled by someone who does this every day.
             </p>
@@ -78,9 +121,9 @@ export default function BuyersAgencyPage() {
 
       {/* STATS BAR */}
       <section className="bg-teal"
-        style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
+        style={SEC_SM}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { stat: '$0', label: 'Vendor-side fees — ever' },
@@ -103,7 +146,7 @@ export default function BuyersAgencyPage() {
       <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
         <Image src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80" alt="Commercial property" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
-        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={PAD}>
           <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
             Buy with confidence. Buy without risk.
           </p>
@@ -111,8 +154,8 @@ export default function BuyersAgencyPage() {
       </section>
 
       <section className="bg-white"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Who we help</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
@@ -153,8 +196,8 @@ export default function BuyersAgencyPage() {
 
       {/* WHAT WE DO */}
       <section className="bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
@@ -185,8 +228,8 @@ export default function BuyersAgencyPage() {
 
       {/* MARKET SNAPSHOT */}
       <section className="bg-warm-grey"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Newcastle market right now</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight mt-3 mb-12 max-w-2xl"
@@ -232,8 +275,8 @@ export default function BuyersAgencyPage() {
 
       {/* WHY YOS */}
       <section className="bg-near-black"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Why YOS</SectionLabel>
             <h2 className="text-white font-bold leading-tight mt-3 mb-8"
@@ -258,9 +301,9 @@ export default function BuyersAgencyPage() {
 
       {/* CTA */}
       <section className="bg-teal"
-        style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
               <h2 className="text-white font-bold leading-tight mb-5 w-full"
                 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
@@ -278,6 +321,7 @@ export default function BuyersAgencyPage() {
       </section>
 
       <Footer />
+      <BookingCTA label="Book a Free Consultation" />
     </>
   )
 }

@@ -1,10 +1,16 @@
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import { HUBSPOT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -83,11 +89,56 @@ const SERVICES = [
 export default function NewcastleCommercialPropertyHub() {
   return (
     <>
+      {/* ─── SCHEMA ────────────────────────────────────────── */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "description": "Newcastle commercial property advisory. Tenant rep, buyers agency, furniture, fitout and commercial cleaning for Hunter Valley businesses.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Newcastle" },
+              { "@type": "City", "name": "Maitland" },
+              { "@type": "City", "name": "Lake Macquarie" },
+              { "@type": "State", "name": "New South Wales" },
+              { "@type": "Country", "name": "Australia" }
+            ]
+          },
+          {
+            "@type": "CollectionPage",
+            "name": "Newcastle Commercial Property Hub",
+            "description": "Local guides, market updates and practical advice for Newcastle businesses navigating commercial property.",
+            "url": "https://www.yourofficespace.au/newcastle-commercial-property"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "What is tenant representation in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is an agent working exclusively for the tenant in a commercial lease negotiation. In Newcastle, tenant reps negotiate rent, incentives, make-good terms and lease conditions on behalf of the tenant — never the landlord." } },
+              { "@type": "Question", "name": "How much does a commercial fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial office fitout costs in Newcastle in 2026 range from $600–$1,200/sqm for a basic fitout, $1,200–$2,000/sqm for mid-range, and $2,000+/sqm for premium. Use the free Your Office Space fitout estimator for a more precise budget." } },
+              { "@type": "Question", "name": "How do I find off-market commercial property in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Off-market commercial properties in Newcastle are not publicly listed. The best access is through a buyers agent with established local relationships — like Your Office Space. Off-market deals typically offer better pricing and fewer competing buyers." } }
+            ]
+          }
+        ]
+      }) }} />
+
       <Nav />
 
       {/* HERO */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC_SM}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Newcastle Commercial Property</SectionLabel>
           </FadeIn>
@@ -111,13 +162,13 @@ export default function NewcastleCommercialPropertyHub() {
 
       {/* SERVICES STRIP */}
       <section className="bg-teal/10 border-y border-teal/20">
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: '3rem', paddingBottom: '3rem' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
               {SERVICES.map(s => (
                 <Link key={s.href} href={s.href}
-                  className="no-underline group bg-near-black rounded-lg p-5 border border-white/10 hover:border-teal/40 transition-colors">
+                  className="no-underline group bg-near-black rounded-lg p-5 border border-white/10 hover:border-teal transition-colors">
                   <p className="text-white font-bold text-sm mb-2 group-hover:text-teal transition-colors">{s.label}</p>
                   <p className="text-white/40 font-light text-xs leading-relaxed">{s.desc}</p>
                 </Link>
@@ -128,8 +179,8 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       {/* ARTICLES */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-white" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Guides & Market Intelligence</SectionLabel>
             <h2 className="text-near-black font-black leading-tight tracking-tight mt-3 mb-12"
@@ -158,8 +209,8 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       {/* LOCAL INTEL */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Why local matters</SectionLabel>
             <h2 className="text-white font-black leading-tight tracking-tight mt-3 mb-10"
@@ -185,9 +236,9 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-teal" style={SEC}>
         <FadeIn>
-          <div className="max-w-screen-xl mx-auto text-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <div className="max-w-screen-xl mx-auto text-center" style={PAD}>
             <div style={{ maxWidth: '44rem', margin: '0 auto' }}>
               <h2 className="text-white font-black leading-tight mb-5"
                 style={{ fontSize: 'clamp(1.75rem,4.5vw,3.75rem)' }}>
@@ -204,6 +255,7 @@ export default function NewcastleCommercialPropertyHub() {
         </FadeIn>
       </section>
 
+      <BookingCTA label="Book a Free Call" />
       <Footer />
     </>
   )

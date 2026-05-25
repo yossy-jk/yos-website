@@ -2,9 +2,9 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-teal: #00B5A5;
-  --color-dark-teal: #008F82;
-  --color-light-teal: #E0F5F3;
+  --color-teal: rgb(0 181 165);
+  --color-dark-teal: rgb(0 143 130);
+  --color-light-teal: rgb(224 245 243);
   --color-near-black: #1A1A1A;
   --color-warm-grey: #F5F5F5;
   --color-mid-grey: #9B9B9B;
@@ -208,3 +208,8 @@ input[type='range']::-moz-range-thumb {
   border: 3px solid #ffffff;
   box-shadow: 0 2px 8px rgba(0, 181, 165, 0.4);
 }
+
+/* ─── Custom opacity utilities for teal (Tailwind v4 compatibility) ──── */
+.bg-teal-5  { background-color: rgba(0, 181, 165, 0.05); }
+.bg-teal-10 { background-color: rgba(0, 181, 165, 0.10); }
+.bg-teal-50 { background-color: rgba(0, 181, 165, 0.50); }

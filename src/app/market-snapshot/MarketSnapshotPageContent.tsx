@@ -3,7 +3,12 @@ import { useState, useEffect, useRef } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
+import BookingCTA from '@/components/BookingCTA'
 import Link from 'next/link'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 // ─── Simple markdown → HTML for controlled internal content ──────────────
 function processBoldAndItalic(text: string): string {
@@ -280,7 +285,7 @@ export default function MarketSnapshotPageContent({
       >
         <div
           className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
+          style={PAD}
         >
           <FadeIn>
             <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full px-4 py-2 mb-8">
@@ -307,14 +312,13 @@ export default function MarketSnapshotPageContent({
       {/* ── Intro paragraphs ─────────────────────────────── */}
       <section
         style={{
-          paddingTop: 'clamp(3.5rem,7vw,6rem)',
-          paddingBottom: 'clamp(3rem,5vw,5rem)',
+          ...SEC,
           background: '#FAFAFA',
         }}
       >
         <div
           className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
+          style={PAD}
         >
           <FadeIn>
             <div style={{ maxWidth: '680px' }}>
@@ -344,14 +348,13 @@ export default function MarketSnapshotPageContent({
       {/* ── Snapshot Report ──────────────────────────────── */}
       <section
         style={{
-          paddingTop: 'clamp(3rem,6vw,5rem)',
-          paddingBottom: 'clamp(3.5rem,7vw,6rem)',
+          ...SEC_SM,
           background: '#ffffff',
         }}
       >
         <div
           className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
+          style={PAD}
         >
           <FadeIn>
             {/* Report card */}
@@ -393,11 +396,11 @@ export default function MarketSnapshotPageContent({
       {/* ── Bottom CTA ───────────────────────────────────── */}
       <section
         className="bg-teal"
-        style={{ paddingTop: 'clamp(3.5rem,7vw,6rem)', paddingBottom: 'clamp(3.5rem,7vw,6rem)' }}
+        style={SEC_SM}
       >
         <div
           className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
+          style={PAD}
         >
           <FadeIn>
             <div style={{ maxWidth: '640px' }}>
@@ -432,15 +435,14 @@ export default function MarketSnapshotPageContent({
       {/* ── Footer note ──────────────────────────────────── */}
       <section
         style={{
-          paddingTop: 'clamp(2rem,4vw,3rem)',
-          paddingBottom: 'clamp(2rem,4vw,3rem)',
+          ...SEC_SM,
           background: '#F5F5F5',
           borderTop: '1px solid rgba(0,0,0,0.06)',
         }}
       >
         <div
           className="max-w-screen-xl mx-auto"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
+          style={PAD}
         >
           <p className="text-mid-grey font-light" style={{ fontSize: '0.82rem' }}>
             Published by Your Office Space | Newcastle |{' '}
@@ -453,6 +455,8 @@ export default function MarketSnapshotPageContent({
       </section>
 
       <Footer />
+
+      <BookingCTA label="Get Monthly Market Updates" />
 
       {/* ── Popup ────────────────────────────────────────── */}
       {popupOpen && <RegistrationPopup onClose={closePopup} />}

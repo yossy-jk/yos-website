@@ -17,16 +17,47 @@ export const metadata = {
   },
 }
 
+const PRIVACY_SCHEMA = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.yourofficespace.au/#organization",
+      "name": "Your Office Space",
+      "url": "https://www.yourofficespace.au",
+      "telephone": "+61434655511",
+      "email": "jk@yourofficespace.au",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Newcastle",
+        "addressRegion": "NSW",
+        "postalCode": "2300",
+        "addressCountry": "AU"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "name": "Privacy Policy | Your Office Space",
+      "description": "How Your Office Space collects, uses, and protects personal information. Governed by the Privacy Act 1988 (Cth) and Australian Privacy Principles.",
+      "url": "https://www.yourofficespace.au/privacy",
+      "isPartOf": { "@type": "WebSite", "name": "Your Office Space", "url": "https://www.yourofficespace.au" }
+    }
+  ]
+}
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 export default function PrivacyPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIVACY_SCHEMA) }} />
       <Nav />
 
       {/* ─── HERO ─────────────────────────────────────────── */}
-      <section className="bg-near-black relative overflow-hidden" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
+      <section className="bg-near-black relative overflow-hidden" style={SEC_SM}>
         <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
           backgroundSize: '80px 80px'
@@ -55,7 +86,7 @@ export default function PrivacyPage() {
       </section>
 
       {/* ─── CONTENT ──────────────────────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
+      <section className="bg-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           <div className="max-w-3xl prose-style">
 

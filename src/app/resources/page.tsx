@@ -2,8 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+
+const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
+const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const WRAP   = 'max-w-screen-xl mx-auto'
+const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
 import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 import { getAllCaseStudies } from '@/lib/case-studies'
@@ -59,9 +65,126 @@ export default function ResourcesPage() {
     <>
       <Nav />
 
+      {/* ─── SCHEMA ────────────────────────────────────────── */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "description": "Tenant-side commercial property advisory in Newcastle. Free tools, calculators and market insights for commercial property decisions.",
+            "telephone": "+61434655511",
+            "email": "jk@yourofficespace.au",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Newcastle",
+              "addressRegion": "NSW",
+              "postalCode": "2300",
+              "addressCountry": "AU"
+            }
+          },
+          {
+            "@type": "WebPage",
+            "name": "Resources & Tools — Your Office Space",
+            "description": "Free commercial property tools including lease risk checker, fitout estimator, stamp duty calculator, and yield calculators for Australian business owners.",
+            "url": "https://www.yourofficespace.au/resources"
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              { "@type": "Question", "name": "Are the tools on Your Office Space really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All tools on the Your Office Space website are completely free to use. No sign-up, no email capture, no catch. We built them to help business owners make better property decisions." } },
+              { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "Our calculators use 2025-26 verified market data and are built for indicative planning purposes. For exact figures on stamp duty, land tax, or yield, confirm with a qualified property accountant or the relevant state revenue office." } },
+              { "@type": "Question", "name": "What should I use the Lease Risk Checker for?", "acceptedAnswer": { "@type": "Answer", "text": "The LeaseIntel risk checker is designed for business owners who want a quick read on whether their current lease has clauses that need attention — particularly make-good obligations, rent review structures, and assignment restrictions." } }
+            ]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Lease Risk Checker",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free instant risk assessment" },
+            "url": "https://www.yourofficespace.au/resources/lease-review"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Fitout Cost Estimator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free fitout cost estimate" },
+            "url": "https://www.yourofficespace.au/resources/fitout-estimator"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Lease Comparison Tool",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free lease comparison" },
+            "url": "https://www.yourofficespace.au/resources/lease-comparison"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Office Size Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free office space calculator" },
+            "url": "https://www.yourofficespace.au/resources/office-size-calculator"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Should I Relocate Quiz",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free office relocation assessment" },
+            "url": "https://www.yourofficespace.au/resources/relocate-quiz"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Lease vs Buy Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free lease vs buy comparison" },
+            "url": "https://www.yourofficespace.au/resources/lease-vs-buy"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Stamp Duty Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free stamp duty calculation" },
+            "url": "https://www.yourofficespace.au/resources/stamp-duty-calculator"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Rental Yield Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free rental yield calculator" },
+            "url": "https://www.yourofficespace.au/resources/rental-yield-calculator"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Cap Rate Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free cap rate calculator" },
+            "url": "https://www.yourofficespace.au/resources/cap-rate-calculator"
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Land Tax Calculator",
+            "applicationCategory": "BusinessApplication",
+            "operatingSystem": "Web",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free land tax calculator" },
+            "url": "https://www.yourofficespace.au/resources/land-tax-calculator"
+          }
+        ]
+      }) }} />
+
       {/* ─── HERO ─────────────────────────────── */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Resources</p>
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-8"
@@ -77,8 +200,8 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── FREE TOOLS ───────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-white" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
 
           {/* Leasing Tools */}
           <FadeIn>
@@ -164,8 +287,8 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── INSIGHTS: ARTICLES ───────────────── */}
-      <section className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-warm-grey" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-16">
               <div>
@@ -252,8 +375,8 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── CASE STUDIES ────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-16">
               <div>
@@ -308,8 +431,8 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────── */}
-      <section className="bg-teal" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+      <section className="bg-teal" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6 w-full"
@@ -330,6 +453,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
+      <BookingCTA label="Book a Clarity Call" />
       <Footer />
     </>
   )
