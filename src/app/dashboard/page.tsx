@@ -585,8 +585,10 @@ export default function Dashboard() {
     loadRankings()
     loadMemory()
     loadCompliance()
-    const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
-    if (saved) setEnergy(parseInt(saved))
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
+      if (saved) setEnergy(parseInt(saved))
+    }
     const t = setInterval(() => setNow(aestNow()), 60000)
     return () => clearInterval(t)
   }, [loadDashboard, loadQueue, loadEosHealth, loadEOS, loadCompliance, loadUsage, loadRankings, loadMemory])
