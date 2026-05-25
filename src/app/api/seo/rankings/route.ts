@@ -35,6 +35,15 @@ const TRACKED_KEYWORDS = [
   'buying vs leasing commercial property Newcastle',
   'commercial lease risk checker',
   'lease review service Australia',
+  'your office space',
+  'office design newcastle',
+  'office fit out newcastle',
+  'yos newcastle',
+  'commercial office space newcastle',
+  'office space newcastle',
+  'newcastle commercial cleaning',
+  'office fitout hunter valley',
+  'commercial property newcastle',
 ]
 
 async function getAccessToken(): Promise<string> {
@@ -155,9 +164,9 @@ export async function GET(req: Request) {
 
     // Also pull top performing queries (not just our tracked ones)
     const topQueries = currentRows
-      .filter(r => r.impressions >= 5)
-      .sort((a, b) => b.clicks - a.clicks)
-      .slice(0, 20)
+      .filter(r => r.impressions >= 1)
+      .sort((a, b) => b.impressions - a.impressions)
+      .slice(0, 30)
       .map(r => ({
         keyword:    r.keys[0],
         position:   Math.round(r.position * 10) / 10,
