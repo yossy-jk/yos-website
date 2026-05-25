@@ -248,7 +248,7 @@ export default function NewcastleCommercialPropertyHub() {
                 20 minutes. No pitch. Just a straight conversation about what you&apos;re trying to do.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Free Call with Joe
+                Book a Free Call with The Team
               </Button>
             </div>
           </div>

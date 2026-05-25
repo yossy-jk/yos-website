@@ -1036,7 +1036,7 @@ export default function HealthCheckPage() {
                 })}
               </div>
 
-              {/* ── Speak to Joe CTA ── */}
+              {/* ── Speak to The Team CTA ── */}
               <div style={{
                 background: 'rgba(255,255,255,0.03)',
                 border: '1px solid rgba(255,255,255,0.1)',
@@ -1050,7 +1050,7 @@ export default function HealthCheckPage() {
                   color: 'white', fontWeight: 900, fontSize: 'clamp(1.1rem,2.5vw,1.75rem)',
                   textTransform: 'uppercase', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: '0.875rem',
                 }}>
-                  Speak to Joe about your results
+                  Speak to The Team about your results
                 </h3>
                 <p style={{
                   color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.95rem', lineHeight: 1.75,
@@ -1074,7 +1074,7 @@ export default function HealthCheckPage() {
                     onMouseEnter={e => (e.currentTarget.style.background = '#009e90')}
                     onMouseLeave={e => (e.currentTarget.style.background = '#00B5A5')}
                   >
-                    Book a Free Call with Joe →
+                    Book a Free Call with The Team →
                   </a>
                   <button
                     onClick={handleReset}
@@ -1151,7 +1151,7 @@ export default function HealthCheckPage() {
                 Not sure where to start?
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '1rem', lineHeight: 1.75, marginBottom: '2.5rem' }}>
-                Answer the questions above for a clear picture across all four areas. Or book a free call with Joe and skip straight to the answer.
+                Answer the questions above for a clear picture across all four areas. Or book a free call with The Team and skip straight to the answer.
               </p>
               <a
                 href="https://meetings-ap1.hubspot.com/jkelley"

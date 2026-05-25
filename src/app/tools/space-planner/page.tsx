@@ -92,7 +92,7 @@ export default function SpacePlannerPage() {
           marginBottom: '2rem',
           lineHeight: 1.6,
         }}>
-          Need a quote now? Browse our furniture range or talk to Joe directly.
+          Need a quote now? Browse our furniture range or talk to The Team directly.
         </p>
 
         <div style={{
@@ -134,7 +134,7 @@ export default function SpacePlannerPage() {
               border: '1px solid #2A2A2A',
             }}
           >
-            Talk to Joe
+            Talk to The Team
           </Link>
 
           <Link

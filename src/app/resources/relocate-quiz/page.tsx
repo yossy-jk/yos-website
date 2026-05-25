@@ -668,7 +668,7 @@ export default function RelocateQuizPage() {
                 Not sure where to start?
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '1rem', lineHeight: 1.75, marginBottom: '2.5rem' }}>
-                Answer the questions above and we&apos;ll give you a clear direction. Or book a free call with Joe and skip straight to the answer.
+                Answer the questions above and we&apos;ll give you a clear direction. Or book a free call with The Team and skip straight to the answer.
               </p>
               <a
                 href="https://meetings-ap1.hubspot.com/jkelley"
