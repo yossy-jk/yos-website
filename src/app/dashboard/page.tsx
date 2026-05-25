@@ -591,6 +591,11 @@ export default function Dashboard() {
     return () => clearInterval(t)
   }, [loadDashboard, loadQueue, loadEosHealth, loadEOS, loadCompliance])
 
+  // Load SEO data when tab becomes active
+  useEffect(() => {
+    if (activeTab === 'seo') loadRankings()
+  }, [activeTab, loadRankings])
+
   // Auto-refresh queue every 2 min
   useEffect(() => {
     refreshTimer.current = setInterval(loadQueue, 120000)
