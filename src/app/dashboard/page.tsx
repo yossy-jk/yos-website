@@ -515,13 +515,20 @@ export default function Dashboard() {
 
   const loadRankings = useCallback(async () => {
     try {
+      console.log('[SEO] fetching rankings...')
       const res = await fetch(`/api/seo/rankings`)
+      console.log('[SEO] response status:', res.status)
       if (res.ok) {
-        setRankings(await res.json())
+        const data = await res.json()
+        console.log('[SEO] connected:', data.connected, 'keywords:', data.rankings?.length)
+        setRankings(data)
       } else {
+        console.log('[SEO] non-ok response:', res.status)
         setRankings({ connected: false, error: `HTTP ${res.status}`, rankings: [], topQueries: [] })
       }
-    } catch { /* silent */ }
+    } catch (e) {
+      console.log('[SEO] fetch error:', e)
+    }
   }, [])
 
   const loadUsage = useCallback(async () => {
