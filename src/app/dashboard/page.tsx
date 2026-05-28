@@ -432,6 +432,9 @@ export default function Dashboard() {
   const [outreachData, setOutreachData] = useState<OutreachData | null>(null)
   const [tasksData, setTasksData] = useState<TasksData | null>(null)
   const [tasksLoading, setTasksLoading] = useState(false)
+  const [seoSortKey, setSeoSortKey] = useState<'vol' | 'diff' | 'priority' | 'aeo'>('vol')
+  const [seoSortDir, setSeoSortDir] = useState<'asc' | 'desc'>('desc')
+  const [seoSearch, setSeoSearch] = useState('')
   const [delegateModal, setDelegateModal] = useState<{taskId: string; title: string} | null>(null)
   const [completedIds, setCompletedIds] = useState<Set<string>>(new Set())
   const [showBacklog, setShowBacklog] = useState(false)
@@ -1764,17 +1767,74 @@ export default function Dashboard() {
                   <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.6rem' }}>GSC data: {rankings.periodCurrent} · updated {timeAgo(rankings.updatedAt)}</span>
                 )}
               </div>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.75rem' }}>
+                <input
+                  type="text"
+                  placeholder="Filter keywords..."
+                  value={seoSearch}
+                  onChange={e => setSeoSearch(e.target.value)}
+                  style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '4px', color: 'rgba(255,255,255,0.7)', fontSize: '0.72rem', padding: '0.4rem 0.75rem', width: '200px', outline: 'none' }}
+                />
+              </div>
               <div style={{ overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.72rem' }}>
                   <thead>
                     <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                      {['Keyword', 'Division', 'Rank', '7d move', 'Clicks', 'Impressions', 'Vol/mo', 'Diff', 'Priority', 'AEO'].map(h => (
-                        <th key={h} style={{ textAlign: h === 'Rank' || h === '7d move' || h === 'Clicks' || h === 'Impressions' ? 'center' : 'left', padding: '0.4rem 0.6rem', color: 'rgba(255,255,255,0.3)', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', fontSize: '0.58rem', whiteSpace: 'nowrap' }}>{h}</th>
-                      ))}
+                      {[
+                        { key: 'keyword' as const, label: 'Keyword' },
+                        { key: 'division' as const, label: 'Division' },
+                        { key: 'rank' as const, label: 'Rank' },
+                        { key: 'move' as const, label: '7d move' },
+                        { key: 'clicks' as const, label: 'Clicks' },
+                        { key: 'impressions' as const, label: 'Impressions' },
+                        { key: 'vol' as const, label: 'Vol/mo' },
+                        { key: 'diff' as const, label: 'Diff' },
+                        { key: 'priority' as const, label: 'Priority' },
+                        { key: 'aeo' as const, label: 'AEO' },
+                      ].map(col => {
+                        const isActive = seoSortKey === col.key
+                        return (
+                          <th key={col.key} onClick={() => {
+                            if (isActive) { setSeoSortDir(d => d === 'asc' ? 'desc' : 'asc') }
+                            else { setSeoSortKey(col.key); setSeoSortDir('desc') }
+                          }}
+                            style={{
+                              textAlign: col.key === 'rank' || col.key === 'move' || col.key === 'clicks' || col.key === 'impressions' ? 'center' : 'left',
+                              padding: '0.4rem 0.6rem',
+                              color: isActive ? '#00B5A5' : 'rgba(255,255,255,0.3)',
+                              fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
+                              fontSize: '0.58rem', whiteSpace: 'nowrap',
+                              cursor: 'pointer',
+                              userSelect: 'none',
+                            }}
+                          >
+                            {col.label}{isActive ? (seoSortDir === 'asc' ? ' ↑' : ' ↓') : ''}
+                          </th>
+                        )
+                      })}
                     </tr>
                   </thead>
                   <tbody>
-                    {KEYWORDS.map((kw, i) => {
+                    {([...KEYWORDS].sort((a, b) => {
+                      const rA = rankings?.rankings?.find(r => r.keyword.toLowerCase() === a.keyword.toLowerCase())
+                      const rB = rankings?.rankings?.find(r => r.keyword.toLowerCase() === b.keyword.toLowerCase())
+                      const posA = rA?.position ?? 999
+                      const posB = rB?.position ?? 999
+                      let av: number | string, bv: number | string
+                      switch (seoSortKey) {
+                        case 'vol': av = a.vol; bv = b.vol; break
+                        case 'diff': av = a.diff; bv = b.diff; break
+                        case 'priority': av = a.priority === 'NOW' ? 0 : 1; bv = b.priority === 'NOW' ? 0 : 1; break
+                        case 'aeo': av = a.aeo ? 1 : 0; bv = b.aeo ? 1 : 0; break
+                        case 'rank': av = posA; bv = posB; break
+                        case 'clicks': av = rA?.clicks ?? 0; bv = rB?.clicks ?? 0; break
+                        case 'impressions': av = rA?.impressions ?? 0; bv = rB?.impressions ?? 0; break
+                        case 'move': av = rA?.movement ?? 0; bv = rB?.movement ?? 0; break
+                        default: av = a.vol; bv = b.vol
+                      }
+                      if (typeof av === 'string') return seoSortDir === 'asc' ? av.localeCompare(bv as string) : (bv as string).localeCompare(av)
+                      return seoSortDir === 'asc' ? (av as number) - (bv as number) : (bv as number) - (av as number)
+                    }).filter(k => !seoSearch || k.keyword.toLowerCase().includes(seoSearch.toLowerCase()))).map((kw, i) => {
                       const r = rankings?.rankings?.find(r => r.keyword.toLowerCase() === kw.keyword.toLowerCase())
                       const pos = r?.position ?? null
                       const mov = r?.movement ?? null
