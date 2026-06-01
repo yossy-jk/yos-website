@@ -375,16 +375,16 @@ export default function LeaseReviewPage() {
                 </div>
               </FadeIn>
               <FadeIn delay={260}>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-5">
                   <button
                     onClick={() => setStep('form-details')}
-                    className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 hover:bg-dark-teal transition-colors duration-200 min-h-[52px]"
+                    className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-colors duration-200 min-h-[60px]"
                   >
                     Submit your lease →
                   </button>
                   <a
                     href="/resources/lease-review"
-                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 py-[1.25rem] hover:border-white/60 transition-colors duration-200 min-h-[52px]"
+                    className="inline-flex items-center justify-center border border-white/25 text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.1rem] hover:border-white/60 transition-colors duration-200 min-h-[60px]"
                   >
                     Do the free risk check first
                   </a>
@@ -410,7 +410,7 @@ export default function LeaseReviewPage() {
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={PAD}>
               {[
-                { stat: 'Free', label: 'No obligation \u2014 lead gen' },
+                { stat: 'Free', label: 'Free for Newcastle businesses' },
                 { stat: '24hr', label: 'Turnaround time' },
                 { stat: '12', label: 'Risk categories reviewed' },
               ].map(item => (
@@ -434,7 +434,7 @@ export default function LeaseReviewPage() {
             </FadeIn>
             <FadeIn delay={80}>
               <a href="/resources/lease-review"
-                className="inline-flex items-center justify-center no-underline border border-near-black text-near-black font-bold text-xs tracking-widest uppercase px-6 py-3 hover:bg-near-black hover:text-white transition-all duration-200 whitespace-nowrap"
+                className="inline-flex items-center justify-center no-underline border border-near-black text-near-black font-bold text-xs tracking-[0.12em] uppercase px-8 py-4 hover:bg-near-black hover:text-white transition-all duration-200 whitespace-nowrap"
                 style={{ borderRadius: '0.375rem' }}>
                 Free risk check →
               </a>
@@ -458,10 +458,10 @@ export default function LeaseReviewPage() {
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 md:mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-10 md:mb-16">
               {PAID_INCLUDES.map((item, i) => (
                 <FadeIn key={item.title} delay={i * 60} direction="up">
-                  <div className="border border-white/10 p-6 rounded-xl hover:border-teal hover:bg-white/[0.02] transition-all duration-200">
+                  <div className="border border-white/10 p-8 rounded-2xl hover:border-teal hover:bg-white/[0.02] transition-all duration-200">
                     <h3 className="text-white font-black text-base mb-2">{item.title}</h3>
                     <p className="text-white/75 text-sm leading-relaxed font-light">{item.desc}</p>
                   </div>
@@ -470,14 +470,14 @@ export default function LeaseReviewPage() {
             </div>
 
             <FadeIn>
-              <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+              <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                 <div>
                   <p className="text-white font-black text-3xl mb-1">Free <span className="text-white/60 font-light text-base">&nbsp;</span></p>
-                  <p className="text-white/75 text-sm">24-hour turnaround · Invoiced via email · Pay before delivery</p>
+                  <p className="text-white/75 text-sm">24-hour turnaround · No payment required for Newcastle businesses · Obligation-free</p>
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.3rem] hover:bg-dark-teal transition-all duration-200 min-h-[60px] w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-12 py-4 hover:bg-dark-teal transition-all duration-200 min-h-[60px] w-full sm:w-auto"
                 >
                   Upload Your Lease →
                 </button>
@@ -495,7 +495,7 @@ export default function LeaseReviewPage() {
                 vs. the alternatives
               </h2>
             </FadeIn>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { name: 'Law Firm Review', price: '$1,500–$4,000', time: '3–10 days', plain: false, roadmap: false, highlight: false },
                 { name: 'LeaseIntel™', price: 'Free', time: '24 hours', plain: true, roadmap: true, highlight: true },
@@ -503,7 +503,7 @@ export default function LeaseReviewPage() {
               ].map((opt, i) => (
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
                   <div className={[
-                    'p-9 rounded-xl border-2 h-full',
+                    'p-10 rounded-xl border-2 h-full',
                     opt.highlight ? 'border-teal bg-white' : 'border-gray-200 bg-white',
                   ].join(' ')}>
                     {opt.highlight && (
@@ -511,8 +511,8 @@ export default function LeaseReviewPage() {
                         Best value
                       </div>
                     )}
-                    <h3 className={`font-black text-lg mb-2 ${opt.highlight ? 'text-teal' : 'text-near-black'}`}>{opt.name}</h3>
-                    <p className="text-near-black font-black text-2xl mb-1">{opt.price}</p>
+                    <h3 className={`font-black text-xl mb-2 ${opt.highlight ? 'text-teal' : 'text-near-black'}`}>{opt.name}</h3>
+                    <p className="text-near-black font-black text-3xl mb-1">{opt.price}</p>
                     <p className="text-mid-grey text-sm mb-6">{opt.time}</p>
                     <div className="flex flex-col gap-3">
                       {[
@@ -539,7 +539,7 @@ export default function LeaseReviewPage() {
 
             {/* Trust badge strip */}
             <FadeIn>
-              <div className="flex flex-wrap gap-3 mb-12">
+              <div className="flex flex-wrap gap-4 mb-12">
                 {[
                   { icon: '🔐', label: 'AES-256-GCM Encrypted' },
                   { icon: '🛡️', label: 'Virus Scanned on Upload' },
@@ -547,7 +547,7 @@ export default function LeaseReviewPage() {
                   { icon: '🇦🇺', label: 'Privacy Act 1988 Compliant' },
                   { icon: '🚫', label: 'Never Shared or Sold' },
                 ].map(b => (
-                  <div key={b.label} className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-4 py-2 bg-gray-50">
+                  <div key={b.label} className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-5 py-3 bg-gray-50">
                     <span className="text-sm">{b.icon}</span>
                     <span className="text-near-black font-bold text-xs tracking-wide">{b.label}</span>
                   </div>
