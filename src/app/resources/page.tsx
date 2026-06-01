@@ -326,7 +326,7 @@ export default function ResourcesPage() {
               return (
                 <FadeIn key={post.slug} delay={i * 60}>
                   <Link href={`/blog/${post.slug}`}
-                    className="group no-underline flex flex-col h-full bg-white hover:border-teal border border-gray-100 transition-colors duration-200"
+                    className="group no-underline flex flex-col h-full bg-white hover:border-teal border border-white/10 transition-colors duration-200"
                     style={{ borderRadius: '0.875rem', overflow: 'hidden' }}>
 
                     {/* Hero image */}

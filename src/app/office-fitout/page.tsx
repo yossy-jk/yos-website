@@ -399,7 +399,8 @@ export default function OfficeFitoutPage() {
       {/* WHO WE WORK WITH */}
       <section className="bg-near-black"
         style={SEC}>
-        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" style={PAD}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <FadeIn direction="left">
             <div>
               <SectionLabel>Who we work with</SectionLabel>
