@@ -163,7 +163,9 @@ export default function Home() {
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col sm:flex-row gap-4">
-              <BookingCTA label="Fit Out Cost Calculator" variant="primary" size="lg" />
+              <a href="/resources/fitout-estimator" className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-colors duration-200 min-h-[60px] w-full sm:w-auto" style={{ borderRadius: "0.375rem", textDecoration: "none" }}>
+                  Fit Out Cost Calculator →
+                </a>
               <Button href="/lease-review" variant="secondary" size="lg">
                 Free Lease Review
               </Button>
