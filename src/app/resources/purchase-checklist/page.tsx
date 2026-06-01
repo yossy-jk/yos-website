@@ -53,10 +53,15 @@ const SECTIONS = [
       'Confirm connection to town water, sewer, electricity and gas (where applicable)',
       'Check for any flooding, bushfire or hazard overlays on the title',
       'Review stormwater connections and any drainage obligations',
-      'Confirm asbestos register exists and is current (required for commercial buildings)'
+      'Confirm asbestos register exists and is current (required for commercial buildings)',
+
     ]
   }
 ] as const
+
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
 
 export default function PurchaseChecklistPage() {
   const [checked, setChecked] = useState<Set<string>>(new Set())
@@ -77,17 +82,17 @@ export default function PurchaseChecklistPage() {
     <>
       <Nav />
 
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+      <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
-          <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Commercial Purchase Checklist</h1>
+          <h1 className="text-white font-bold leading-tight mb-4" style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>Commercial Purchase Checklist</h1>
           <p className="text-white/60 font-light text-lg leading-relaxed">
             25 due diligence checks for commercial property buyers in NSW. Tick each off as you complete it.
           </p>
         </div>
       </section>
 
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
           {/* Progress */}
@@ -125,7 +130,7 @@ export default function PurchaseChecklistPage() {
                         <button
                           key={key}
                           onClick={() => toggle(key)}
-                          className={`w-full text-left flex gap-4 items-start p-4 rounded-xl border transition-all duration-200 ${
+                          className={`w-full text-left flex gap-6 items-start p-4 rounded-xl border transition-all duration-200 ${
                             isChecked
                               ? 'bg-light-teal border-teal'
                               : 'bg-white border-gray-200 hover:border-gray-300'
