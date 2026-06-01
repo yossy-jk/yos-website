@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
   const router = useRouter()
+  const [username, setUsername] = useState('joe')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -16,7 +17,7 @@ export default function LoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       })
       if (res.ok) {
         router.push('/dashboard')
@@ -58,12 +59,18 @@ export default function LoginPage() {
         <h1 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: 600 }}>
           YOS Dashboard
         </h1>
-        <label htmlFor="password" style={{
-          display: 'block',
-          fontSize: '0.85rem',
-          color: 'rgba(255,255,255,0.6)',
-          marginBottom: '0.5rem',
-        }}>
+        <label htmlFor="username" style={{ display: 'block', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.5rem' }}>
+          Username
+        </label>
+        <input
+          id="username"
+          type="text"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
+          disabled={loading}
+          style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 4, color: 'white', fontSize: '1rem', marginBottom: '1rem', boxSizing: 'border-box' }}
+        />
+        <label htmlFor="password" style={{ display: 'block', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.5rem' }}>
           Password
         </label>
         <input
