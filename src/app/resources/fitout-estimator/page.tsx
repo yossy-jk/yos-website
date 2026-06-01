@@ -7,43 +7,41 @@ import { HUBSPOT } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
 /* ─── Rate data (YOS Fitout Cost Guide — April 2026, ex GST) ─── */
-const RATES = {
-  basic: {
-    label: 'Basic', color: '#9B9B9B',
-    sqm: { low: 490, high: 590 },
-    desk: { low: 550, high: 900 },
-    meetingRoom: { low: 8000, high: 14000 },
-    kitchen: { low: 5000, high: 10000 },
-    reception: { low: 6000, high: 12000 },
-    av: { low: 2500, high: 5000 },
-    contingency: 0.10,
+type Tier = 'basic' | 'mid' | 'premium'
+type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
+
+const RATES: Record<FitoutTypeKey, Record<Tier, {
+  label: string; color: string
+  sqm?: { low: number; high: number }
+  desk: { low: number; high: number }
+  meetingRoom: { low: number; high: number }
+  kitchen?: { low: number; high: number }
+  reception?: { low: number; high: number }
+  av?: { low: number; high: number }
+  contingency: number
+}>> = {
+  'furniture-only': {
+    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, contingency: 0.15 },
   },
-  mid: {
-    label: 'Mid-Range', color: '#00B5A5',
-    sqm: { low: 1040, high: 1290 },
-    desk: { low: 1050, high: 2000 },
-    meetingRoom: { low: 18000, high: 30000 },
-    kitchen: { low: 15000, high: 25000 },
-    reception: { low: 20000, high: 35000 },
-    av: { low: 8000, high: 18000 },
-    contingency: 0.10,
+  'turnkey-warm': {
+    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 490,  high: 590  }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500, high: 5000  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1040, high: 1290 }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1780, high: 2200 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
   },
-  premium: {
-    label: 'Premium', color: '#1A1A1A',
-    sqm: { low: 1780, high: 2200 },
-    desk: { low: 2500, high: 5000 },
-    meetingRoom: { low: 40000, high: 70000 },
-    kitchen: { low: 35000, high: 60000 },
-    reception: { low: 50000, high: 90000 },
-    av: { low: 25000, high: 60000 },
-    contingency: 0.15,
+  'turnkey-cold': {
+    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 320,  high: 385  }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500, high: 5000  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 680,  high: 840  }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1155, high: 1430 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
   },
 }
 
-type Tier = keyof typeof RATES
 
 interface Inputs {
+  fitoutType: 'furniture-only' | 'turnkey' | ''
   sqm: string
+  shellCondition: 'cold' | 'warm' | ''
   tier: Tier | ''
   desks: string
   meetingRooms: string
@@ -55,12 +53,14 @@ interface Inputs {
 }
 
 const STEPS = [
-  { id: 'intro',       title: 'Fitout Cost Estimator',                subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
-  { id: 'space',       title: 'Tell us about the space',              subtitle: 'Floor area and building type' },
-  { id: 'quality',     title: 'What quality level?',                  subtitle: 'This drives the biggest cost variable' },
-  { id: 'workstations',title: 'Workstations and meeting rooms',       subtitle: 'Your day-to-day workspace needs' },
-  { id: 'spaces',      title: 'Additional spaces',                    subtitle: 'Kitchen, reception, AV and tech' },
-  { id: 'result',      title: 'Your estimate',                        subtitle: 'Based on current market rates' },
+  { id: 'intro',       title: 'Fitout Cost Estimator',    subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
+  { id: 'service',     title: 'What are you after?',      subtitle: 'Furniture only or a full turnkey fitout?' },
+  { id: 'space',       title: 'Tell us about the space',  subtitle: 'Floor area and building type' },
+  { id: 'shell',       title: 'What is the space now?',   subtitle: 'Cold shell or warm shell — this makes a big difference to cost' },
+  { id: 'quality',     title: 'What quality level?',      subtitle: 'This drives the biggest cost variable' },
+  { id: 'workstations',title: 'Workstations and meeting rooms', subtitle: 'Your day-to-day workspace needs' },
+  { id: 'spaces',      title: 'Additional spaces',        subtitle: 'Kitchen, reception, AV and tech' },
+  { id: 'result',      title: 'Your estimate',            subtitle: 'Based on current market rates' },
 ]
 
 function fmt(n: number) {
@@ -68,18 +68,26 @@ function fmt(n: number) {
 }
 
 function calcEstimate(inputs: Inputs) {
-  if (!inputs.sqm || !inputs.tier) return null
-  const r = RATES[inputs.tier as Tier]
+  if (!inputs.sqm || !inputs.tier || !inputs.fitoutType) return null
+  const isFurniture = inputs.fitoutType === 'furniture-only'
+  const rateKey: FitoutTypeKey = isFurniture
+    ? 'furniture-only'
+    : inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm'
+  const tierKey: Tier = inputs.tier as Tier
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const r = (RATES as any)[rateKey][tierKey]
   const sqm = parseFloat(inputs.sqm) || 0
   const desks = parseInt(inputs.desks) || 0
   const meetings = parseInt(inputs.meetingRooms) || 0
 
-  const base = { low: sqm * r.sqm.low, high: sqm * r.sqm.high }
+  const base = isFurniture
+    ? { low: 0, high: 0 }
+    : { low: sqm * (r.sqm?.low ?? 0), high: sqm * (r.sqm?.high ?? 0) }
   const furniture = { low: desks * r.desk.low, high: desks * r.desk.high }
   const meetingCost = { low: meetings * r.meetingRoom.low, high: meetings * r.meetingRoom.high }
-  const kitchenCost = inputs.hasKitchen ? { low: r.kitchen.low, high: r.kitchen.high } : { low: 0, high: 0 }
-  const receptionCost = inputs.hasReception ? { low: r.reception.low, high: r.reception.high } : { low: 0, high: 0 }
-  const avCost = inputs.hasAV ? { low: r.av.low, high: r.av.high } : { low: 0, high: 0 }
+  const kitchenCost = (!isFurniture && r.kitchen) ? { low: r.kitchen.low, high: r.kitchen.high } : { low: 0, high: 0 }
+  const receptionCost = (!isFurniture && r.reception) ? { low: r.reception.low, high: r.reception.high } : { low: 0, high: 0 }
+  const avCost = (!isFurniture && r.av) ? { low: r.av.low, high: r.av.high } : { low: 0, high: 0 }
 
   const subLow = base.low + furniture.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
   const subHigh = base.high + furniture.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
@@ -87,42 +95,60 @@ function calcEstimate(inputs: Inputs) {
   const totalLow = Math.round(subLow * (1 + r.contingency))
   const totalHigh = Math.round(subHigh * (1 + r.contingency))
 
+  const constructionLabel = isFurniture
+    ? null
+    : rateKey === 'turnkey-cold'
+      ? 'Construction fitout (cold shell)'
+      : 'Construction fitout (warm shell)'
+
+  const breakdown = [
+    ...(constructionLabel ? [{ label: constructionLabel, low: base.low, high: base.high }] : []),
+    { label: isFurniture ? 'Furniture supply & installation' : 'Workstations & seating', low: furniture.low, high: furniture.high },
+    { label: 'Meeting rooms', low: meetingCost.low, high: meetingCost.high },
+    ...(kitchenCost.low > 0 ? [{ label: 'Kitchen / breakout', low: kitchenCost.low, high: kitchenCost.high }] : []),
+    ...(receptionCost.low > 0 ? [{ label: 'Reception area', low: receptionCost.low, high: receptionCost.high }] : []),
+    ...(avCost.low > 0 ? [{ label: 'AV & technology', low: avCost.low, high: avCost.high }] : []),
+    { label: `Contingency (${Math.round(r.contingency * 100)}%)`, low: Math.round(subLow * r.contingency), high: Math.round(subHigh * r.contingency) },
+  ].filter(b => b.low > 0 || b.high > 0)
+
   return {
-    breakdown: [
-      { label: 'Construction & fitout', low: base.low, high: base.high },
-      { label: 'Workstations & seating', low: furniture.low, high: furniture.high },
-      { label: 'Meeting rooms', low: meetingCost.low, high: meetingCost.high },
-      ...(inputs.hasKitchen ? [{ label: 'Kitchen / breakout', low: kitchenCost.low, high: kitchenCost.high }] : []),
-      ...(inputs.hasReception ? [{ label: 'Reception area', low: receptionCost.low, high: receptionCost.high }] : []),
-      ...(inputs.hasAV ? [{ label: 'AV & technology', low: avCost.low, high: avCost.high }] : []),
-      { label: `Contingency (${Math.round(r.contingency * 100)}%)`, low: Math.round(subLow * r.contingency), high: Math.round(subHigh * r.contingency) },
-    ].filter(b => b.low > 0 || b.high > 0),
+    breakdown,
     totalLow,
     totalHigh,
-    perSqm: { low: Math.round(totalLow / (parseFloat(inputs.sqm) || 1)), high: Math.round(totalHigh / (parseFloat(inputs.sqm) || 1)) }
+    perSqm: { low: Math.round(totalLow / (parseFloat(inputs.sqm) || 1)), high: Math.round(totalHigh / (parseFloat(inputs.sqm) || 1)) },
+    coverageNote: isFurniture
+      ? 'Price is for supply and installation of furniture items listed. Excludes construction, electrical, and joinery.'
+      : rateKey === 'turnkey-cold'
+      ? 'Cold shell condition assumed. Base build services and ceiling works are included in the estimate.'
+      : 'Warm shell condition assumed. Base build services already in place.',
   }
 }
 
 export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)
   const [inputs, setInputs] = useState<Inputs>({
-    sqm: '', tier: '', desks: '', meetingRooms: '1',
+    fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
     buildingType: '', timeframe: '',
   })
 
   const set = (k: keyof Inputs, v: string | boolean) => setInputs(prev => ({ ...prev, [k]: v }))
+  const isFurnitureOnly = inputs.fitoutType === 'furniture-only'
+  const maxStep = isFurnitureOnly ? 6 : 7  // 0=intro, 1=service, 2=space, 3=quality(furn)/shell(turnkey), 4=wks, 5=spaces, 6=result(furn) / 3=shell, 4=quality, 5=wks, 6=spaces, 7=result(turnkey)
 
   const canProceed = () => {
-    if (step === 0) return true  // intro screen, no validation needed
-    if (step === 1) return !!inputs.sqm && parseFloat(inputs.sqm) > 0
-    if (step === 2) return !!inputs.tier
-    if (step === 3) return !!inputs.desks && parseInt(inputs.desks) > 0
+    if (step === 0) return true
+    if (step === 1) return !!inputs.fitoutType
+    if (step === 2) return !!inputs.sqm && parseFloat(inputs.sqm) > 0
+    if (step === 3) return isFurnitureOnly ? !!inputs.tier : true  // furn: quality; turnkey: shell (always valid with default)
+    if (step === 4) return isFurnitureOnly ? !!inputs.desks && parseInt(inputs.desks) > 0 : !!inputs.tier
+    if (step === 5) return isFurnitureOnly ? true : !!inputs.desks && parseInt(inputs.desks) > 0
     return true
   }
 
-  const estimate = step >= 4 ? calcEstimate(inputs) : null
-  const progress = ((step) / (STEPS.length - 1)) * 100
+  const estimate = step >= maxStep ? calcEstimate(inputs) : null
+  const progress = step === 0 ? 0 : ((step - 1) / (maxStep - 1)) * 100
+  const stepCount = maxStep - 1
 
   return (
     <>
@@ -144,7 +170,7 @@ export default function FitoutEstimatorPage() {
           <div style={{ marginBottom: '3.5rem' }}>
             {step > 0 && step < STEPS.length && (
               <p className="text-white/30 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.15em', marginBottom: '2rem' }}>
-                Step <span className="text-teal font-semibold">{step}</span> <span className="text-white/20">/</span> {STEPS.length - 1}
+                Step <span className="text-teal font-semibold">{step}</span> <span className="text-white/20">/</span> {stepCount}
               </p>
             )}
             {step === 0 && (
@@ -166,7 +192,7 @@ export default function FitoutEstimatorPage() {
           {step === 0 && (
             <div className="max-w-2xl">
               <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '3rem' }}>
-                Get a realistic cost range for your commercial fitout. We&apos;ll walk you through construction, furniture, meeting rooms, kitchen, reception, AV and technology — with a contingency built in.
+                Get a realistic cost range for your commercial fitout or furniture order. We walk you through your space, quality standard, and service type — and give you a cost range in 5 questions.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
@@ -253,7 +279,7 @@ export default function FitoutEstimatorPage() {
           {step === 2 && (
             <div className="max-w-3xl">
               <div className="grid grid-cols-1 mb-10" style={{ gap: '1rem' }}>
-                {(Object.entries(RATES) as [Tier, typeof RATES[Tier]][]).map(([key, tier]) => (
+                {(Object.entries(RATES['turnkey-warm']) as [Tier, typeof RATES['turnkey-warm'][Tier]][]).map(([key, tier]) => (
                   <button key={key} onClick={() => set('tier', key)}
                     className={`text-left border transition-all duration-150 ${inputs.tier === key ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                     style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
@@ -377,11 +403,11 @@ export default function FitoutEstimatorPage() {
           )}
 
           {/* ── STEP 5: RESULT ── */}
-          {step === 5 && estimate && inputs.tier && (
+          {step === 5 && estimate && inputs.tier ? (
             <div className="max-w-2xl">
             <ToolGate
               tool="Fitout Estimator"
-              context={() => `Budget range: ${fmt(estimate!.totalLow)} – ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m² | Quality: ${RATES[inputs.tier as Tier].label}`}
+              context={() => `Budget range: ${fmt(estimate!.totalLow)} – ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m² | Quality: ${String((RATES as Record<string, Record<string, unknown>>)[inputs.tier as Tier]?.label ?? '')}`}
               heading="Where should we send your estimate?"
               subheading="Enter your details — we'll email you a branded 1-page report with your full cost breakdown."
               onUnlock={(name, email) => {
@@ -393,7 +419,7 @@ export default function FitoutEstimatorPage() {
                     name,
                     email,
                     sqm: inputs.sqm,
-                    tier: RATES[inputs.tier as Tier].label,
+                    tier: String((RATES as Record<string, Record<string, unknown>>)[inputs.tier as Tier]?.label ?? ''),
                     desks: inputs.desks,
                     meetingRooms: inputs.meetingRooms,
                     hasKitchen: inputs.hasKitchen,
@@ -411,7 +437,7 @@ export default function FitoutEstimatorPage() {
                 <div className="max-w-2xl">
                   <div className="mb-8">
                     <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.7rem' }}>
-                      {inputs.sqm}m² · {RATES[inputs.tier as Tier].label} quality
+                      {inputs.sqm}m² · {String((RATES as Record<string, Record<string, unknown>>)[inputs.tier as Tier]?.label ?? '')} quality
                     </p>
                     <h2 className="text-white font-black uppercase leading-none tracking-tight mb-2"
                       style={{ fontSize: 'clamp(2rem,5vw,4rem)' }}>
@@ -438,7 +464,7 @@ export default function FitoutEstimatorPage() {
               {/* Summary */}
               <div style={{ marginBottom: '3rem', paddingBottom: '3rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.7rem', marginBottom: '1rem' }}>
-                  {inputs.sqm}m² · {RATES[inputs.tier as Tier].label} quality
+                  {inputs.sqm}m² · {String((RATES as Record<string, Record<string, unknown>>)[inputs.tier as Tier]?.label ?? '')} quality
                 </p>
                 <h2 className="text-white font-black uppercase leading-none tracking-tight" style={{ fontSize: 'clamp(2.25rem,5vw,4.5rem)', marginBottom: '1rem' }}>
                   {fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}
@@ -487,13 +513,13 @@ export default function FitoutEstimatorPage() {
                 </Link>
               </div>
 
-              <button onClick={() => { setStep(0); setInputs({ sqm: '', tier: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
+              <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
                 className="block mt-6 text-white/25 hover:text-white/50 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
                 ← Start again
               </button>
             </ToolGate>
             </div>
-          )}
+          ) : null}
 
         </div>
       </div>
