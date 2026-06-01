@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ExitPopup from "@/components/ExitPopup";
-import WelcomeModal from "@/components/WelcomeModal";
 import FloatingCTA from "@/components/FloatingCTA";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
