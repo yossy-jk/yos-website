@@ -481,7 +481,7 @@ export default function LeaseRiskCheckerPage() {
 
               {/* CTA — $297 LeaseIntel report */}
               <div className="mb-8 rounded-xl p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
-                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report — $297.</p>
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report — Free. No obligation.</p>
                 <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Newcastle business owners: free until 21 July 2026.</p>
                 <p className="text-white/70 font-light mb-5" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
                   A complete clause-by-clause analysis of your actual lease. Every risk rated. Your financial exposure calculated. A specific roadmap for what to negotiate. 24-hour turnaround.
