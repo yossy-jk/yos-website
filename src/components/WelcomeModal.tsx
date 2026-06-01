@@ -1,5 +1,5 @@
 'use client'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 const SERVICES = [
@@ -10,18 +10,30 @@ const SERVICES = [
 ]
 
 export default function WelcomeModal() {
+  const [visible, setVisible] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
     if (sessionStorage.getItem('welcome-modal-dismissed')) return
-    const t = setTimeout(() => {
-      sessionStorage.setItem('welcome-modal-dismissed', '1')
-    }, 10000)
+    const t = setTimeout(() => setVisible(true), 500)
     return () => clearTimeout(t)
   }, [])
 
-  const dismiss = () => sessionStorage.setItem('welcome-modal-dismissed', '1')
-  const navigate = (href: string) => { dismiss(); router.push(href) }
+  useEffect(() => {
+    if (sessionStorage.getItem('welcome-modal-dismissed')) return
+    const t = setTimeout(() => setVisible(false), 10000)
+    return () => clearTimeout(t)
+  }, [])
+
+  const dismiss = () => {
+    sessionStorage.setItem('welcome-modal-dismissed', '1')
+    setVisible(false)
+  }
+  const navigate = (href: string) => {
+    setVisible(false)
+    sessionStorage.setItem('welcome-modal-dismissed', '1')
+    router.push(href)
+  }
 
   return (
     <>
