@@ -281,7 +281,7 @@ export default function MarketSnapshotPageContent({
       {/* ── Hero ─────────────────────────────────────────── */}
       <section
         className="bg-near-black"
-        style={{ paddingTop: 'clamp(7rem,15vw,12rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}
+        style={SEC}
       >
         <div
           className="max-w-screen-xl mx-auto"
@@ -359,7 +359,7 @@ export default function MarketSnapshotPageContent({
           <FadeIn>
             {/* Report card */}
             <div
-              className="bg-white rounded-2xl"
+              className="bg-white rounded-2xl hover:shadow-md transition-shadow duration-300"
               style={{
                 border: '1px solid rgba(0,0,0,0.08)',
                 boxShadow: '0 4px 40px rgba(0,0,0,0.06)',
