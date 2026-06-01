@@ -115,17 +115,36 @@ export default function FitoutEstimatorPage() {
     hasKitchen: false, hasReception: false, hasAV: false,
     buildingType: '', timeframe: '',
   })
+  const [lastShellStep, setLastShellStep] = useState(1)
 
   const set = (k: keyof Inputs, v: string | boolean) => setInputs(prev => ({ ...prev, [k]: v }))
   const isFurnitureOnly = inputs.fitoutType === 'furniture-only'
-  const maxStep = isFurnitureOnly ? 7 : 8  // 0=Intro, 1=Service, 2=Space, 3=Quality(furn)/Shell(turnkey), 4=Quality, 5=WksType, 6=WksQty, 7=Spaces, 8=Result
+  // Furniture path: 0→1→2→3(Quality)→4(Wkstype)→5(WksQty)→6(Spaces)→7(Result)
+  // Turnkey path:   0→1→2→3(Shell)→4(Quality)→5(Wkstype)→6(WksQty)→7(Spaces)→8(Result)
+  const maxStep = isFurnitureOnly ? 7 : 8
+
+  // Smart back navigation — step 4 jumps to space(2) for furn, shell(3) for turnkey
+  const getBack = (cur: number) => {
+    if (cur === 1) return 0
+    if (cur === 2) return 1
+    if (cur === 3) return 2
+    if (cur === 4) return isFurnitureOnly ? 2 : 3
+    if (cur === 5) return lastShellStep
+    if (cur === 6) return 5
+    if (cur === 7) return 6
+    return 0
+  }
+
+  // Track last shell step for back-button smart-jump
+  useEffect(() => {
+    if (step === 3) setLastShellStep(3)
+  }, [step])
 
   const canProceed = () => {
     if (step === 0) return true
     if (step === 1) return !!inputs.fitoutType
     if (step === 2) return !!inputs.sqm && parseFloat(inputs.sqm) > 0
-    // step 3: furn=quality; turnkey=shell (always valid — warm is default)
-    if (step === 3) return isFurnitureOnly ? !!inputs.tier : true
+    if (step === 3) return true  // Shell always valid — warm is default
     if (step === 4) return !!inputs.tier
     if (step === 5) return !!inputs.workstationType
     if (step === 6) return !!inputs.desks && parseInt(inputs.desks) > 0
@@ -392,12 +411,12 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(3)} disabled={!canProceed()}
+                <button onClick={() => setStep(isFurnitureOnly ? 4 : 3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -457,7 +476,7 @@ export default function FitoutEstimatorPage() {
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(0)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(0)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -491,12 +510,12 @@ export default function FitoutEstimatorPage() {
                 </button>
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(6)}
+                <button onClick={() => setStep(4)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -538,13 +557,13 @@ export default function FitoutEstimatorPage() {
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(1)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
 
-          {/* ── STEP 4: WORKSTATION TYPE ── */}
-          {step === 4 && (
+          {/* ── STEP 5: WORKSTATION TYPE ── */}
+          {step === 5 && (
             <div className="max-w-2xl">
               <div className="grid grid-cols-1 sm:grid-cols-2" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 <button onClick={() => set('workstationType', 'fixed')}
@@ -571,17 +590,17 @@ export default function FitoutEstimatorPage() {
                 </button>
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(5)}
+                <button onClick={() => setStep(6)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
 
-          {/* ── STEP 5: WORKSTATIONS & MEETINGS ── */}
+          {/* ── STEP 6: WORKSTATIONS & MEETINGS ── */}
           {step === 5 && (
             <div className="max-w-xl">
               <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
@@ -619,17 +638,17 @@ export default function FitoutEstimatorPage() {
               </div>
 
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(7)} disabled={!canProceed()}
+                <button onClick={() => setStep(isFurnitureOnly ? 7 : 7)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(2)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
 
-          {/* ── STEP 6: ADDITIONAL SPACES ── */}
+          {/* ── STEP 7: ADDITIONAL SPACES ── */}
           {step === 6 && (
             <div className="max-w-xl">
               <div className="flex flex-col" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
@@ -655,18 +674,18 @@ export default function FitoutEstimatorPage() {
               </div>
 
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(5)}
+                <button onClick={() => setStep(maxStep)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
                 </button>
-                <button onClick={() => setStep(3)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(3)} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
 
-          {/* ── STEP 7: RESULT ── */}
-          {step === 5 && estimate && inputs.tier && (
+          {/* ── STEP 8(Furn) / STEP 9(Turnkey): RESULT ── */}
+          {step >= maxStep && estimate && inputs.tier && (
             <div className="max-w-2xl">
             <ToolGate
               tool="Fitout Estimator"

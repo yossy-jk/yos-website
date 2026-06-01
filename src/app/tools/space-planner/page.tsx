@@ -31,7 +31,7 @@ export default function SpacePlannerPage() {
         <div style={{
           width: 40,
           height: 4,
-          background: '#00B5A5',
+          background: '#00B5A5', transition: 'background 0.15s',
           borderRadius: 2,
           margin: '0 auto 2rem',
         }} />
@@ -104,10 +104,10 @@ export default function SpacePlannerPage() {
             href="/furniture"
             style={{
               display: 'block',
-              background: '#00B5A5',
+              background: '#00B5A5', transition: 'background 0.15s',
               color: '#FFFFFF',
               borderRadius: 8,
-              padding: '0.9rem 1.5rem',
+              padding: '1.1rem 2rem', minHeight: '60px',
               fontFamily: 'Montserrat, sans-serif',
               fontWeight: 700,
               fontSize: '0.95rem',
@@ -125,13 +125,15 @@ export default function SpacePlannerPage() {
               background: 'transparent',
               color: '#9B9B9B',
               borderRadius: 8,
-              padding: '0.9rem 1.5rem',
+              padding: '1.1rem 2rem',
+              minHeight: '60px',
               fontFamily: 'Montserrat, sans-serif',
               fontWeight: 600,
               fontSize: '0.88rem',
               textDecoration: 'none',
               textAlign: 'center',
               border: '1px solid #2A2A2A',
+              cursor: 'pointer',
             }}
           >
             Talk to The Team
