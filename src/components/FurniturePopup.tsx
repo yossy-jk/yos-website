@@ -2,6 +2,12 @@
 import { useState, useEffect } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
 
+function isFurniturePage(): boolean {
+  if (typeof window === 'undefined') return false
+  const path = window.location.pathname
+  return path.startsWith('/furniture') || path.startsWith('/resources/fitout-estimator')
+}
+
 export default function FurniturePopup() {
   const [visible, setVisible] = useState(false)
   const [dismissed, setDismissed] = useState(false)
@@ -11,23 +17,18 @@ export default function FurniturePopup() {
   const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
+    // Only activate on furniture pages
+    if (!isFurniturePage()) return
     // Don't show if already dismissed this session
     if (sessionStorage.getItem('furniture-popup-dismissed')) return
 
-    // Show after 25 seconds on page, or when user scrolls 60%
+    // Show after 30 seconds on page — no scroll trigger (scroll was too sensitive)
     const timer = setTimeout(() => {
       if (!dismissed) setVisible(true)
-    }, 25000)
+    }, 30000)
 
-    const handleScroll = () => {
-      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)
-      if (scrollPct > 0.6 && !dismissed) setVisible(true)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       clearTimeout(timer)
-      window.removeEventListener('scroll', handleScroll)
     }
   }, [dismissed])
 

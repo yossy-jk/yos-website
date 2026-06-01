@@ -8,6 +8,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
+import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
@@ -471,6 +472,7 @@ export default function Home() {
       </section>
 
       <Footer />
+      <WelcomeModal />
     </>
   )
 }
