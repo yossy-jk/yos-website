@@ -30,7 +30,7 @@ const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5r
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   return (
     <Link href={`/case-studies/${cs.slug}`} className="no-underline group">
-      <div className="border border-gray-200 overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
+      <div className="border border-white/10 overflow-hidden hover:border-teal hover:shadow-md transition-all duration-200 h-full flex flex-col">
         {cs.heroImage && (
           <div className="h-52 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
