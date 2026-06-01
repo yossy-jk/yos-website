@@ -8,10 +8,13 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import { submitLead } from '@/lib/hubspot-lead'
 
-const WRAP = 'max-w-screen-xl mx-auto'
-const PAD = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
 
-const inputClass = 'w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-near-black text-sm font-light placeholder:text-mid-grey/60 focus:outline-none focus:border-teal transition-colors'
+const WRAP = 'max-w-screen-xl mx-auto'
+
+const inputClass = 'w-full bg-white border border-gray-200 rounded-xl px-4 py-4 text-near-black text-sm font-light placeholder:text-mid-grey/60 focus:outline-none focus:border-teal transition-colors'
 const labelClass = 'block text-near-black font-medium text-sm mb-1.5'
 
 export default function FurnitureQuotePage() {
@@ -123,7 +126,7 @@ export default function FurnitureQuotePage() {
       {/* HERO */}
       <section
         className="relative bg-near-black"
-        style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}
+        style={SEC_SM}
       >
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
@@ -155,7 +158,7 @@ export default function FurnitureQuotePage() {
       {/* FORM */}
       <section
         className="bg-white"
-        style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}
+        style={SEC}
       >
         <div className={WRAP} style={PAD}>
           <div className="max-w-2xl">
@@ -163,7 +166,7 @@ export default function FurnitureQuotePage() {
               <FadeIn>
                 <div className="bg-warm-grey rounded-xl p-10 sm:p-14">
                   <div className="w-10 h-1 bg-teal mb-8" />
-                  <h2 className="text-near-black font-bold text-2xl sm:text-3xl leading-tight mb-4">
+                  <h2 className="text-near-black font-bold leading-tight mb-4">
                     We have your brief.
                   </h2>
                   <p className="text-charcoal font-light text-lg leading-relaxed mb-8">
@@ -186,7 +189,7 @@ export default function FurnitureQuotePage() {
               <FadeIn>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name + Email */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className={labelClass}>
                         Name <span className="text-teal">*</span>
@@ -220,7 +223,7 @@ export default function FurnitureQuotePage() {
                   </div>
 
                   {/* Phone + Company */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="phone" className={labelClass}>Phone</label>
                       <input
@@ -248,7 +251,7 @@ export default function FurnitureQuotePage() {
                   </div>
 
                   {/* Workstations + Area */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="workstations" className={labelClass}>Number of workstations</label>
                       <input
@@ -296,7 +299,7 @@ export default function FurnitureQuotePage() {
                   </div>
 
                   {/* Project type + Timeline */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="projectType" className={labelClass}>Project type</label>
                       <select
@@ -374,11 +377,11 @@ export default function FurnitureQuotePage() {
                     <p className="text-red-600 text-sm font-light">{error}</p>
                   )}
 
-                  <div className="pt-2 flex flex-col sm:flex-row gap-5 items-start sm:items-center">
+                  <div className="pt-2 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex items-center gap-2 bg-teal text-white font-bold text-sm px-8 py-4 rounded-xl hover:bg-teal/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center gap-2 bg-teal text-white font-bold text-sm px-10 py-[1.1rem] rounded-xl min-h-[60px] hover:bg-teal/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       {submitting ? 'Sending...' : 'Submit brief'}
                     </button>
