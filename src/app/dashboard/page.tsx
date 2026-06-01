@@ -1120,7 +1120,7 @@ export default function Dashboard() {
           <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 1rem' }}>Stage Benchmark vs Actual</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {STAGE_BENCHMARK_LIST.map(([stageLabel, benchDays]) => {
-              const stageDeals = data.pipeline.deals.filter((d: Deal) => d.stage === stageLabel && d.amount > 0)
+              const stageDeals = data?.pipeline?.deals.filter((d: Deal) => d.stage === stageLabel && d.amount > 0)
               const avgActual  = stageDeals.length
                 ? Math.round(stageDeals.reduce((s: number, d: Deal) => s + d.daysSinceTouch, 0) / stageDeals.length)
                 : null
