@@ -162,6 +162,153 @@ export default function FitoutEstimatorPage() {
             </p>
           </div>
 
+          {/* ── SECTION 1: THE FITOUT PROCESS (dark) ── */}
+          <section style={{ background: '#0A0A0A', paddingTop: '5rem', paddingBottom: '5rem' }}>
+            <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+              {/* Section label */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>How it works</span>
+              </div>
+              <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '4rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
+                How a YOS fitout works
+              </h2>
+
+              {/* 4 process steps with connecting line */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', position: 'relative' }}>
+                {[
+                  { step: '01', title: 'Brief', body: "Tell us what you&apos;re trying to achieve. Floor plan, headcount, and how your team works. We start with your needs — not a product catalogue." },
+                  { step: '02', title: '3D Design', body: "We model your layout in 3D. You see exactly where workstations, meeting rooms, and breakout areas sit before anything is ordered. Adjustments are part of the process." },
+                  { step: '03', title: 'Fixed Quote', body: 'You get a fixed price based on the approved layout. Deposit structure to suit your cash flow. No surprises, no hidden line items.' },
+                  { step: '04', title: 'Install', body: "We manage delivery and installation. One team on site, one point of contact throughout. Your team walks in to a ready workspace." }
+                ].map((s, i) => (
+                  <div key={s.step} style={{ position: 'relative' }}>
+                    {i < 3 && (
+                      <div style={{ position: 'absolute', top: '1.8rem', right: '-1.5rem', width: '2.5rem', height: '1px', background: 'linear-gradient(to right, rgba(0,181,165,0.5), rgba(0,181,165,0.15))', zIndex: 1 }} aria-hidden="true" />
+                    )}
+                    <p style={{ color: '#00B5A5', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{s.step}</p>
+                    <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.875rem' }}>{s.title}</h3>
+                    <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.8 }}>{s.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── SECTION 2: RECENT PROJECTS (case study gallery) ── */}
+          <section style={{ background: '#0A0A0A', paddingTop: '0', paddingBottom: '5rem' }}>
+            <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+              {/* Section label */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', paddingTop: '5rem' }}>
+                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Case Studies</span>
+              </div>
+              <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '0.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
+                Recent projects
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 300, fontSize: '0.9rem', marginBottom: '3rem', lineHeight: 1.7 }}>
+                Selected fitouts delivered by YOS across NSW
+              </p>
+
+              {/* 2×3 project card grid */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '0' }}>
+                {[
+                  { src: '/images/furniture/space-wsi-openplan.jpg',  alt: 'Large open plan office with Burgtec workstations',    label: 'Open Plan',          mood: 'Bright & Airy' },
+                  { src: '/images/furniture/space-cogc-wide.jpg',     alt: 'Contemporary government office fitout',               label: 'Corporate',          mood: 'Clean & Modern' },
+                  { src: '/images/furniture/space-pillowtalk-a.jpg',  alt: 'Vibrant collaborative workspace with lounge',          label: 'Collaborative',      mood: 'Warm & Energetic' },
+                  { src: '/images/furniture/space-bendigo-wide.jpg',  alt: 'Premium large scale commercial fitout',               label: 'Premium Fitout',     mood: 'Bold & Executive' },
+                  { src: '/images/furniture/space-liverpool-b.jpg',   alt: 'Civic office with breakout zones',                   label: 'Breakout Zones',     mood: 'Open & Social' },
+                  { src: '/images/furniture/space-pillowtalk-b.jpg',  alt: 'Bright modern commercial interior with lounge',       label: 'Reception & Lounge', mood: 'Inviting & Relaxed' },
+                ].map((img, i) => (
+                  <div key={i}
+                    style={{
+                      background: '#131313', border: '1px solid #2A2A2A',
+                      borderRadius: '0.75rem', overflow: 'hidden',
+                      transition: 'border-color 0.3s ease',
+                      cursor: 'default',
+                    }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#00B5A5' }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#2A2A2A' }}
+                  >
+                    {/* Image */}
+                    <div style={{ position: 'relative', overflow: 'hidden', aspectRatio: '4/3', background: '#0e0e0e' }}>
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1.03)' }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'scale(1)' }}
+                      />
+                    </div>
+                    {/* Text */}
+                    <div style={{ padding: '1.25rem 1.5rem' }}>
+                      <p style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>
+                        {img.label}
+                      </p>
+                      <p style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 300, fontSize: '0.8rem' }}>
+                        {img.mood}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* What was involved strip */}
+              <div style={{ marginTop: '3rem', padding: '2rem 2.5rem', background: '#131313', border: '1px solid #2A2A2A', borderRadius: '0.75rem' }}>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>What was involved?</p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.875rem' }}>
+                  {[
+                    'Desk, chair and cable management for 5–50 people',
+                    'Meeting room design and configuration',
+                    'Joinery, shelving and storage solutions',
+                    'Delivery, install and on-site management',
+                  ].map(item => (
+                    <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <span style={{ color: '#00B5A5', fontSize: '1.1rem', lineHeight: 1, flexShrink: 0 }}>→</span>
+                      <span style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 300, fontSize: '0.875rem', lineHeight: 1.5 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ── SECTION 3: KNOWLEDGE / FAQ ── */}
+          <section style={{ background: '#0D1117', paddingTop: '5rem', paddingBottom: '5rem' }}>
+            <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+              {/* Section label */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
+                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Knowledge</span>
+              </div>
+              <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '3.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
+                What affects fitout cost?
+              </h2>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                {[
+                  {
+                    q: 'Why does building grade matter?',
+                    a: "A-Grade buildings have higher base costs — deeper cores, better services, stricter BCA requirements. C-Grade and industrial tenancies are cheaper to fit out but may need more work on base condition. We adjust specs to match the building reality."
+                  },
+                  {
+                    q: "What&apos;s the real timeline?",
+                    a: "Furniture-only fitout: 2–4 weeks. Full commercial fitout: 6–16 weeks depending on scope. The biggest time-suck is decisions — not construction. Our process is designed to compress that phase so you move faster than you think."
+                  },
+                  {
+                    q: "What&apos;s the payment structure?",
+                    a: "Orders under $4,000: full payment upfront. Orders over $4,000: 40% deposit, balance on completion. Account terms available for repeat clients. We don&apos;t hold jobs to ransom over 11th-hour variation requests — if it wasn&apos;t in the quote, we discuss it before we do it."
+                  },
+                ].map((item, i) => (
+                  <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #00B5A5' }}>
+                    <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.875rem', lineHeight: 1.4 }}>{item.q}</h3>
+                    <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.85 }}>{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* ── STEP 0: INTRO ── */}
           {step === 0 && (
             <div className="max-w-2xl">
