@@ -126,8 +126,8 @@ export default function FurniturePage() {
                 Get a Furniture Quote
               </Button>
               <a href="/resources/fitout-estimator"
-                className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
-                style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
+                className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none no-underline hover:border-white/60 transition-colors"
+                style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em', padding: '1.1rem 3rem' }}>
                 <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                 Fit Out Cost Estimator
               </a>
@@ -149,7 +149,7 @@ export default function FurniturePage() {
                 { stat: '$0', label: 'Hidden charges or surprises' }
               ].map((item) => (
                 <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
-                  <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
+                  <p className="text-near-black font-black text-3xl lg:text-4xl mb-2 leading-tight">{item.stat}</p>
                   <p className="text-mid-grey font-light text-sm leading-snug">{item.label}</p>
                 </div>
               ))}
@@ -215,19 +215,19 @@ export default function FurniturePage() {
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-xl overflow-hidden h-full flex flex-col">
+                <div className="bg-warm-grey rounded-xl overflow-hidden h-full flex flex-col shadow-sm hover:shadow-md transition-shadow duration-300">
                   {/* Product image */}
-                  <div className="relative overflow-hidden" style={{ height: '17rem' }}>
+                  <div className="relative overflow-hidden" style={{ height: 'clamp(14rem, 22vw, 20rem)' }}>
                     <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
                     <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.18)' }} />
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
                       <span className="text-white font-black text-lg tracking-tight" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{cat.category}</span>
                     </div>
-                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#00B5A5' }} />
+                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#00B5A5', width: '6px' }} />
                   </div>
                   {/* Content */}
-                  <div className="p-7 flex flex-col flex-1">
-                    <ul className="space-y-2 mb-5 flex-1">
+                  <div className="p-8 sm:p-10 flex flex-col flex-1">
+                    <ul className="space-y-3 mb-5 flex-1">
                       {cat.items.map((item, j) => (
                         <li key={j} className="text-charcoal font-light text-sm flex items-center gap-2">
                           <span className="text-teal font-bold" style={{ fontSize: '0.7rem' }}>—</span>
@@ -235,7 +235,7 @@ export default function FurniturePage() {
                         </li>
                       ))}
                     </ul>
-                    <p className="text-mid-grey font-light text-xs border-t border-gray-200 pt-4">{cat.note}</p>
+                    <p className="text-mid-grey font-light text-xs border-t border-white/10 pt-5 mt-4">{cat.note}</p>
                   </div>
                 </div>
               </FadeIn>
@@ -265,7 +265,7 @@ export default function FurniturePage() {
             </h2>
           </FadeIn>
           {/* 3×3 inspiration grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {[
               { src: '/images/furniture/space-wsi-openplan.jpg',       alt: 'Large open plan office with Burgtec workstations',    label: 'Open Plan',       mood: 'Bright & Airy' },
               { src: '/images/furniture/space-cogc-wide.jpg',          alt: 'Contemporary government office fitout',               label: 'Corporate',       mood: 'Clean & Modern' },
@@ -278,18 +278,18 @@ export default function FurniturePage() {
               { src: '/images/furniture/space-liverpool-a.jpg',        alt: 'Civic office with collaborative layout',              label: 'Civic & Formal',  mood: 'Structured & Professional' },
             ].map((img, i) => (
               <FadeIn key={i} delay={Math.floor(i / 3) * 80 + (i % 3) * 60} direction="up">
-                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group cursor-pointer">
+                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group cursor-pointer group-hover:scale-[1.02] transition-transform duration-500">
                   <Image
                     src={img.src}
                     alt={img.alt}
                     fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                    className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-500"
                   />
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 transition-opacity duration-300"
                     style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.72) 0%, rgba(10,10,10,0.1) 55%, transparent 100%)' }} />
                   {/* Labels */}
-                  <div className="absolute bottom-0 left-0 right-0 p-5">
+                  <div className="absolute bottom-0 left-0 right-0 p-6">
                     <p className="text-white/50 font-light text-xs tracking-widest uppercase mb-1">{img.mood}</p>
                     <p className="text-white font-bold text-sm tracking-wide uppercase">{img.label}</p>
                   </div>
@@ -347,7 +347,7 @@ export default function FurniturePage() {
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="flex gap-4">
+                <div className="flex gap-4 p-7 sm:p-8">
                   <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: '#00B5A5', color: '#0D1117' }}>
                     {item.icon}
                   </div>
