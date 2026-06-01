@@ -27,8 +27,8 @@ export const metadata: Metadata = {
 }
 
 const WRAP = 'max-w-screen-xl mx-auto'
-const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
-const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 const SERVICES = [
@@ -143,7 +143,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-near-black/65" />
         <div
           className={`relative z-10 w-full ${WRAP}`}
-          style={{ ...PAD, paddingTop: 'clamp(5rem,12vw,13rem)', paddingBottom: 'clamp(4rem,10vw,9rem)' }}
+          style={{ ...PAD, paddingTop: SEC_SM.paddingTop, paddingBottom: SEC_SM.paddingBottom }}
         >
           <FadeIn>
             <SectionLabel>Newcastle · NSW · Australia</SectionLabel>
@@ -217,10 +217,10 @@ export default function Home() {
               Real people.<br />Real outcomes.
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="bg-white flex flex-col h-full" style={{ padding: 'clamp(1.5rem,4vw,2.5rem) clamp(1.25rem,3vw,2rem)' }}>
+                <div className="bg-white flex flex-col h-full p-7 sm:p-8 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-300">
                   <Stars />
                   <p className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
                     style={{ fontSize: '1.05rem', lineHeight: 1.9 }}>
@@ -274,7 +274,7 @@ export default function Home() {
           <div>
             {SERVICES.map((s, i) => (
               <FadeIn key={s.href} delay={i * 60}>
-                <Link href={s.href} className="group no-underline block"
+                <Link href={s.href} className="group no-underline block hover:shadow-md transition-shadow duration-300"
                   style={{ borderTop: i === 0 ? '1px solid #e5e7eb' : undefined, borderBottom: '1px solid #e5e7eb', paddingTop: 'clamp(2rem,4vw,3rem)', paddingBottom: 'clamp(2rem,4vw,3rem)' }}>
                   <div className="flex items-start justify-between gap-8">
                     <div className="flex-1">
@@ -329,16 +329,16 @@ export default function Home() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation — we are answering to you. Not the building owner, not a referral fee.' },
               { title: 'We have seen what goes wrong', body: '100+ projects. We know the traps in commercial leases, the gaps in fitout contracts, and what to push back on.' },
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div style={{ padding: 'clamp(1.75rem,3.5vw,2.5rem) clamp(1.5rem,3vw,2rem)', background: 'rgba(255,255,255,0.06)', borderLeft: '3px solid #00B5A5' }}>
+                <div className="p-7 sm:p-8 bg-white/5 border-l-4 border-teal rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-300">
                   <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
-                  <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>{p.body}</p>
+                  <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: 'clamp(0.95rem,1.5vw,1rem)', lineHeight: 1.8 }}>{p.body}</p>
                 </div>
               </FadeIn>
             ))}
