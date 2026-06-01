@@ -163,7 +163,7 @@ export default function Home() {
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col sm:flex-row gap-4">
-              <BookingCTA label="Book a Free Call" variant="primary" size="lg" />
+              <BookingCTA label="Fit Out Cost Calculator" variant="primary" size="lg" />
               <Button href="/lease-review" variant="secondary" size="lg">
                 Free Lease Review
               </Button>
@@ -452,8 +452,8 @@ export default function Home() {
                 No obligation. No pitch. Tell us what you&apos;re working with and we&apos;ll give you a straight answer.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <Button href={HUBSPOT.bookingUrl} variant="primary" size="lg" external>
-                  Book a Free Call
+                <Button href="/resources/fitout-estimator" variant="primary" size="lg" external>
+                  Fit Out Cost Calculator
                 </Button>
                 <Button href="/contact" variant="outline" size="lg">
                   Get in Touch
