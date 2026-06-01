@@ -431,6 +431,7 @@ export default function OfficeFitoutPage() {
               ))}
             </div>
           </FadeIn>
+          </div>
         </div>
       </section>
 
