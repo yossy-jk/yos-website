@@ -161,14 +161,14 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       {/* SERVICES STRIP */}
-      <section className="bg-teal/10 border-y border-teal/20">
+      <section className="bg-teal/10 border-y border-teal/20 style={{}}">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
               {SERVICES.map(s => (
                 <Link key={s.href} href={s.href}
-                  className="no-underline group bg-near-black rounded-lg p-5 border border-white/10 hover:border-teal transition-colors">
+                  className="no-underline group bg-near-black rounded-xl p-8 border border-white/10 hover:border-teal hover:shadow-md transition-all duration-300">
                   <p className="text-white font-bold text-sm mb-2 group-hover:text-teal transition-colors">{s.label}</p>
                   <p className="text-white/40 font-light text-xs leading-relaxed">{s.desc}</p>
                 </Link>
@@ -193,7 +193,7 @@ export default function NewcastleCommercialPropertyHub() {
             {ARTICLES.map((article, i) => (
               <FadeIn key={article.slug} delay={i * 60} direction="up">
                 <Link href={`/blog/${article.slug}`}
-                  className="no-underline group flex flex-col h-full bg-warm-grey rounded-xl p-7 border border-transparent hover:border-teal/30 transition-all">
+                  className="no-underline group flex flex-col h-full bg-warm-grey rounded-xl p-8 border border-transparent hover:border-teal/30 hover:shadow-md transition-all duration-300">
                   <span className="text-teal font-bold text-xs tracking-widest uppercase mb-3">{article.category}</span>
                   <h3 className="text-near-black font-bold leading-snug mb-3 group-hover:text-teal transition-colors"
                     style={{ fontSize: 'clamp(0.95rem,1.5vw,1.1rem)' }}>
