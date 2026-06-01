@@ -35,6 +35,8 @@ export default function WelcomeModal() {
     router.push(href)
   }
 
+  if (!visible) return null
+
   return (
     <>
       {/* Dark overlay */}
