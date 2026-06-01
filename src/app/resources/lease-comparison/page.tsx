@@ -6,6 +6,10 @@ import Button from '@/components/Button'
 import { HUBSPOT } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
+
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
 }
@@ -226,10 +230,10 @@ export default function LeaseComparisonPage() {
       <Nav />
 
       {/* Hero */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+      <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
-          <h1 className="text-white font-bold text-5xl lg:text-6xl leading-tight mb-4">Lease Comparison Tool</h1>
+          <h1 className="text-white font-bold leading-tight mb-4" style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>Lease Comparison Tool</h1>
           <p className="text-white/60 font-light text-lg max-w-2xl">
             Enter up to three lease options. We calculate the true cost — factoring in rent-free periods, outgoings, make-good, and annual rent reviews — then tell you which deal is actually cheaper.
           </p>
@@ -249,7 +253,7 @@ export default function LeaseComparisonPage() {
       </section>
 
       {/* Input */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
           <div className="overflow-x-auto -mx-4 px-4">
@@ -303,7 +307,7 @@ export default function LeaseComparisonPage() {
             </table>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 items-start" style={{ marginTop: '3rem' }}>
+          <div className="flex flex-col sm:flex-row gap-6 items-start" style={{ marginTop: '3rem' }}>
             <button
               onClick={compare}
               disabled={filledCount === 0}
@@ -325,7 +329,7 @@ export default function LeaseComparisonPage() {
 
       {/* Results */}
       {validResults.length > 0 && (
-        <section id="results" className="bg-warm-grey" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <section id="results" className="bg-warm-grey" style={SEC}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <ToolGate
             tool="Lease Comparison Tool"
@@ -335,10 +339,10 @@ export default function LeaseComparisonPage() {
             teaser={
               <div className="bg-near-black rounded-xl p-8 mb-4">
                 <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
-                <h2 className="text-white font-bold text-3xl mb-3">
+                <h2 className="text-white font-bold mb-3" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
                   {validResults.length === 1 ? validResults[0].name : `${validResults[bestIdx]?.name} is the better deal`}
                 </h2>
-                <div className="flex flex-wrap gap-4 mt-4">
+                <div className="flex flex-wrap gap-6 mt-4">
                   {validResults.map((r, i) => (
                     <div key={i} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
                       <p className="text-white/60 text-xs mb-1">{r.name}</p>
@@ -359,7 +363,7 @@ export default function LeaseComparisonPage() {
               <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
               {validResults.length === 1 ? (
                 <>
-                  <h2 className="text-white font-bold text-3xl mb-3">{validResults[0].name}</h2>
+                  <h2 className="text-white font-bold mb-3" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>{validResults[0].name}</h2>
                   <p className="text-white/60 font-light text-lg">
                     One option entered. True occupancy cost is {fmt(validResults[0].trueCostPa)} per year — {fmt(validResults[0].effectiveRentSqm.toFixed(2) as unknown as number)}/m²/yr effective.
                     Add a second option to compare.
@@ -367,7 +371,7 @@ export default function LeaseComparisonPage() {
                 </>
               ) : (
                 <>
-                  <h2 className="text-white font-bold text-3xl mb-3">
+                  <h2 className="text-white font-bold mb-3" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
                     {validResults[bestIdx].name} is the cheaper deal
                   </h2>
                   <p className="text-white/60 font-light text-lg mb-4">
@@ -450,7 +454,7 @@ export default function LeaseComparisonPage() {
             </div>
 
             {/* Controls */}
-            <div className="flex flex-wrap gap-4 items-center">
+            <div className="flex flex-wrap gap-6 items-center">
               <button
                 onClick={() => setShowYearly(v => !v)}
                 className="border border-near-black text-near-black font-semibold text-sm px-6 py-3 rounded-lg hover:bg-near-black hover:text-white transition-colors"
@@ -475,10 +479,10 @@ export default function LeaseComparisonPage() {
       )}
 
       {/* CTA */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-near-black" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-            <h2 className="text-white font-bold text-4xl leading-tight mb-4 w-full">Want us to run the numbers for real?</h2>
+            <h2 className="text-white font-bold leading-tight mb-4 w-full" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>Want us to run the numbers for real?</h2>
             <p className="text-white/60 font-light text-lg mb-8 w-full">
               We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better — and what to negotiate.
             </p>
