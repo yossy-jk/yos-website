@@ -34,6 +34,11 @@ interface DomainConfig {
 
 // ─── Domain config ────────────────────────────────────────────────────────────
 
+
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
+
 const DOMAINS: DomainConfig[] = [
   {
     name: 'Lease Health',
@@ -555,12 +560,12 @@ export default function HealthCheckPage() {
       <Nav />
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
-      <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+      <section style={SEC_SM}>
         <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p style={{ color: '#00B5A5', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
             Free diagnostic tool
           </p>
-          <h1 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(2.25rem,5vw,5rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+          <h1 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(2rem,5vw,4.5rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
             Is Your Commercial<br />Space Working<br />For You?
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 300, fontSize: '1rem', lineHeight: 1.75, maxWidth: '42rem', marginBottom: '3rem' }}>
@@ -582,7 +587,7 @@ export default function HealthCheckPage() {
       </section>
 
       {/* ─── QUIZ ──────────────────────────────────────────────────────────── */}
-      <section style={{ background: '#0A0A0A', paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: submitted ? '0' : 'clamp(5rem,10vw,12rem)' }}>
+      <section style={SEC}>
         <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
           {/* Progress bar */}
@@ -833,9 +838,9 @@ export default function HealthCheckPage() {
                   background: allAnswered ? '#00B5A5' : 'rgba(0,181,165,0.3)',
                   color: 'white', fontWeight: 800, fontSize: '0.72rem',
                   letterSpacing: '0.18em', textTransform: 'uppercase',
-                  padding: '1.1rem 3rem', borderRadius: '0.5rem', border: 'none',
+                  padding: '1.1rem 3rem', borderRadius: '0.5rem', minHeight: '60px', border: 'none',
                   cursor: allAnswered ? 'pointer' : 'not-allowed',
-                  minHeight: '52px', transition: 'background 0.15s',
+                  transition: 'background 0.15s',
                 }}
               >
                 {allAnswered ? 'Get My Health Report →' : `Answer all ${QUESTIONS.length} questions to continue`}
@@ -852,7 +857,7 @@ export default function HealthCheckPage() {
 
       {/* ─── RESULTS ───────────────────────────────────────────────────────── */}
       {submitted && (
-        <section id="health-check-results" style={{ background: '#0A0A0A', paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+        <section id="health-check-results" style={SEC}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
             <ToolGate
@@ -1071,8 +1076,8 @@ export default function HealthCheckPage() {
                       padding: '1.1rem 2.75rem', borderRadius: '0.5rem',
                       minHeight: '52px', transition: 'background 0.15s',
                     }}
-                    onMouseEnter={e => (e.currentTarget.style.background = '#009e90')}
-                    onMouseLeave={e => (e.currentTarget.style.background = '#00B5A5')}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#009e90'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#00B5A5'; e.currentTarget.style.transform = 'translateY(0)' }}
                   >
                     Book a Free Call with The Team →
                   </a>
@@ -1144,10 +1149,10 @@ export default function HealthCheckPage() {
 
       {/* ─── BOTTOM CTA (pre-submit only) ──────────────────────────────────── */}
       {!submitted && (
-        <section style={{ background: '#111111', paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
+        <section style={SEC}>
           <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
             <div style={{ maxWidth: '44rem', margin: '0 auto', textAlign: 'center' }}>
-              <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.5rem,3vw,2.5rem)', textTransform: 'uppercase', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '1rem' }}>
+              <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.5rem,3.5vw,3rem)', textTransform: 'uppercase', lineHeight: 1.1, letterSpacing: '-0.02em', marginBottom: '1rem' }}>
                 Not sure where to start?
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '1rem', lineHeight: 1.75, marginBottom: '2.5rem' }}>
@@ -1165,8 +1170,8 @@ export default function HealthCheckPage() {
                   padding: '1.1rem 2.5rem', borderRadius: '0.5rem',
                   minHeight: '52px', transition: 'background 0.15s',
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = '#009e90')}
-                onMouseLeave={e => (e.currentTarget.style.background = '#00B5A5')}
+                onMouseEnter={e => { e.currentTarget.style.background = '#009e90'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#00B5A5'; e.currentTarget.style.transform = 'translateY(0)' }}
               >
                 Book a Free Call →
               </a>
