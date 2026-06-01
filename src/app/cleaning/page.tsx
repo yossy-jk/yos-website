@@ -144,7 +144,7 @@ export default function CleaningPage() {
         style={SEC_SM}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/5">
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
@@ -393,7 +393,7 @@ export default function CleaningPage() {
       <BookingCTA label="Book a Free Site Visit" />
 
       {/* Join the team */}
-      <section style={{ background: '#111', padding: 'clamp(3rem,6vw,4.5rem) 0', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ background: '#111', paddingTop: 'clamp(3rem,6vw,4.5rem)', paddingBottom: 'clamp(3rem,6vw,4.5rem)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
             <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
