@@ -22,6 +22,12 @@ const SERVICES = [
     desc: 'In-stock and made-to-order. Delivered and installed.',
   },
   {
+    label: 'LeaseIntel',
+    href: '/lease-review',
+    tagline: 'Know before you sign.',
+    desc: 'Full clause-by-clause lease analysis. Red/Amber/Green ratings. Free for Newcastle businesses.',
+  },
+  {
     label: 'Commercial Cleaning',
     href: '/cleaning',
     tagline: 'Shows up. Every time.',
@@ -30,6 +36,7 @@ const SERVICES = [
 ]
 
 const ALTERNATIVES = [
+  { label: 'Fit Out Cost Calculator', href: '/resources/fitout-estimator' },
   { label: 'Browse site', href: '/' },
   { label: 'Resources', href: '/resources' },
 ]
@@ -179,7 +186,8 @@ export default function WelcomeModal() {
                 textUnderlineOffset: '2px',
               }}
             >
-              {a.label}{i < ALTERNATIVES.length - 1 && ' · '}
+              {a.label}{i < ALTERNATIVES.length - 1 && (
+              i === 0 ? ' · ' : ' · ')}
             </button>
           ))}
         </div>
