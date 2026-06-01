@@ -68,7 +68,7 @@ export default function WelcomeModal() {
             <h2 style={{
               color: '#fff', fontWeight: 800, fontSize: '1.1rem', lineHeight: 1.25,
             }}>
-              What are you here for?
+              How can we partner together?
             </h2>
           </div>
           <button
