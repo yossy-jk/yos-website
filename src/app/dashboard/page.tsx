@@ -964,15 +964,15 @@ export default function Dashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginBottom: '1.25rem' }}>
               <div>
                 <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.25rem' }}>AR Outstanding</p>
-                <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0 }}>{fmt(data?.xero.outstanding || 0)}</p>
-                <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero.outstandingCount || 0} invoice{data?.xero.outstandingCount !== 1 ? 's' : ''}</p>
+                <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0 }}>{fmt(data?.xero?.outstanding || 0)}</p>
+                <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero?.outstandingCount || 0} invoice{data?.xero?.outstandingCount !== 1 ? 's' : ''}</p>
               </div>
               <div>
                 <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.58rem', textTransform: 'uppercase', letterSpacing: '0.15em', margin: '0 0 0.25rem' }}>Overdue Now</p>
-                <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0, color: (data?.xero.overdue || 0) > 0 ? '#ef4444' : '#22c55e' }}>
-                  {fmt(data?.xero.overdue || 0)}
+                <p style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, margin: 0, color: (data?.xero?.overdue || 0) > 0 ? '#ef4444' : '#22c55e' }}>
+                  {fmt(data?.xero?.overdue || 0)}
                 </p>
-                <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero.overdueCount || 0} overdue</p>
+                <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.62rem', margin: '0.2rem 0 0' }}>{data?.xero?.overdueCount || 0} overdue</p>
               </div>
               {data?.cashflow?.projectedLow != null && (
                 <div style={{ background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.15)', padding: '0.75rem 1rem', borderRadius: 4 }}>
