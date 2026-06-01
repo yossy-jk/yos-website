@@ -12,9 +12,9 @@ import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
   title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
-  description: 'One team working only for you. Tenant representation, buyers agency, furniture & fitout, and commercial cleaning across Newcastle and NSW. Honest advice. Real outcomes.',
+  description: 'One team working only for you. Tenant rep, furniture & fitout, and commercial cleaning across Newcastle and NSW. Honest advice. Real outcomes.',
   alternates: { canonical: 'https://www.yourofficespace.au' },
-  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle', description: 'One team working only for you. Tenant rep, buyers agency, furniture, fitout and cleaning — Newcastle NSW.' },
+  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle', description: 'One team working only for you. Tenant rep, furniture, fitout and cleaning — Newcastle NSW.' },
   openGraph: {
     title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
     description: 'One team working only for you — from the first conversation to the day your space is running. Based in Newcastle, working across NSW.',
@@ -33,9 +33,8 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 
 const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'The landlord has an agent. You should too. We negotiate exclusively for tenants — rent, incentives, make-good, every clause — so you never sign a deal that costs you more than it should.', href: '/tenant-rep' },
-  { num: '02', title: 'Buyers Agency',         tagline: 'Buy without getting burned.', body: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers who want someone fighting for them — not the vendor.', href: '/buyers-agency' },
-  { num: '03', title: 'Furniture & Fitout',    tagline: 'Brief to delivered.', body: 'From brief to fully fitted workspace. Specified, coordinated and installed end to end. One team, no gaps, no surprises on delivery day.', href: '/furniture' },
-  { num: '04', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: 'Healthcare-grade commercial cleaning for offices that can\'t afford inconsistency. Locally managed, accountable, and built around your standards.', href: '/cleaning' },
+  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered.', body: 'From brief to fully fitted workspace. Specified, coordinated and installed end to end. One team, no gaps, no surprises on delivery day.', href: '/furniture' },
+  { num: '03', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: "Healthcare-grade commercial cleaning for offices that can't afford inconsistency. Locally managed, accountable, and built around your standards.", href: '/cleaning' },
 ]
 
 const TESTIMONIALS = [
@@ -69,7 +68,7 @@ export default function Home() {
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
             "logo": "https://www.yourofficespace.au/logo.png",
-            "description": "Tenant-side commercial property advisory in Newcastle, NSW. Tenant representation, buyers agency, office furniture, fitout and commercial cleaning.",
+            "description": "Tenant-side commercial property advisory in Newcastle, NSW. Tenant representation, office furniture, fitout and commercial cleaning.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -90,7 +89,7 @@ export default function Home() {
               { "@type": "City", "name": "Lake Macquarie" },
               { "@type": "State", "name": "New South Wales" }
             ],
-            "serviceType": ["Tenant Representation", "Commercial Buyers Agency", "Office Furniture", "Office Fitout", "Commercial Cleaning"],
+            "serviceType": ["Tenant Representation", "Office Furniture", "Office Fitout", "Commercial Cleaning"],
             "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property Investment", "Office Fitout", "Workplace Design"],
             "contactPoint": {
               "@type": "ContactPoint",
@@ -263,7 +262,7 @@ export default function Home() {
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Four services.<br />One relationship.
+              Three services.<br />One relationship.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1.05rem', maxWidth: '40rem', lineHeight: 1.85 }}>
               Most businesses deal with five different advisors on a single office move. That&apos;s five invoices,

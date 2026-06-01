@@ -125,7 +125,7 @@ export default function LeaseIntelPage() {
             <p className="text-white/40 font-light mb-10" style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', maxWidth: '580px', lineHeight: 1.8 }}>
               Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included. $297 ex GST.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-6">
               <Button href="/lease-review" variant="primary" size="lg">
                 Submit Your Lease
               </Button>
@@ -146,13 +146,14 @@ export default function LeaseIntelPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Free tier */}
             <FadeIn delay={0}>
-              <div className="rounded-2xl p-8 h-full flex flex-col" style={{ background: '#F7F8F8', border: '1px solid rgba(0,0,0,0.07)' }}>
+              <div className="rounded-2xl p-8 h-full hover:shadow-md transition-shadow duration-300 flex flex-col" style={{ background: '#F7F8F8', border: '1px solid rgba(0,0,0,0.07)' }}>
                 <div className="inline-flex items-center gap-2 mb-6">
                   <span className="text-xs font-black tracking-widest uppercase" style={{ color: '#10b981' }}>FREE</span>
                   <span className="text-mid-grey font-light text-xs">|</span>
                   <span className="text-near-black font-semibold text-sm">Lease Risk Review</span>
                 </div>
-                <h3 className="text-near-black font-bold mb-3" style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>Instant risk rating. No document required.</h3>
+                <h3 className="text-near-black font-bold mb-3"
+                     style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', lineHeight: 1.3 }}>Instant risk rating. No document required.</h3>
                 <p className="text-mid-grey font-light mb-2" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Answer 10 questions about your lease. Takes 3 minutes.</p>
                 <p className="text-mid-grey font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Get your Red / Amber / Green risk rating and the top 3 issues to watch — instantly. No upload, no payment, no waiting.</p>
                 <div className="mt-auto">
@@ -166,7 +167,7 @@ export default function LeaseIntelPage() {
             </FadeIn>
             {/* Paid tier */}
             <FadeIn delay={80}>
-              <div className="rounded-2xl p-8 h-full flex flex-col bg-near-black">
+              <div className="rounded-2xl p-8 h-full hover:shadow-md transition-shadow duration-300 flex flex-col bg-near-black">
                 <div className="inline-flex items-center gap-2 mb-6">
                   <span className="text-teal text-xs font-black tracking-widest uppercase">$297 ex GST</span>
                   <span className="text-white/30 font-light text-xs">|</span>
@@ -206,8 +207,10 @@ export default function LeaseIntelPage() {
       <section style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)', background: '#FAFAFA' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>What you receive</p>
-            <h2 className="text-near-black font-bold leading-tight mb-4" style={{ fontSize: 'clamp(1.8rem,4vw,2.8rem)' }}>Everything you need to decide — and negotiate.</h2>
+            <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+                    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>What you receive</p>
+            <h2 className="text-near-black font-bold leading-tight mb-6"
+               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>Everything you need to decide — and negotiate.</h2>
             <p className="text-mid-grey font-light mb-14" style={{ fontSize: '1.05rem', lineHeight: 1.8, maxWidth: '600px' }}>
               This is not a checklist. It is a complete clause-by-clause analysis with a clear recommendation at the end.
             </p>
@@ -215,7 +218,7 @@ export default function LeaseIntelPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {INCLUDED.map((item, i) => (
               <FadeIn key={i} delay={i * 60}>
-                <div className="bg-white rounded-xl p-8 h-full" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
+                <div className="bg-white rounded-xl p-8 h-full hover:shadow-md transition-shadow duration-300" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
                   <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center mb-5">
                     <div className="w-3 h-3 rounded-full bg-teal" />
                   </div>
@@ -232,15 +235,17 @@ export default function LeaseIntelPage() {
       <section style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Document security</p>
-            <h2 className="text-near-black font-bold leading-tight mb-14" style={{ fontSize: 'clamp(1.8rem,4vw,2.8rem)', maxWidth: '600px' }}>
+            <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+                    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>Document security</p>
+            <h2 className="text-near-black font-bold leading-tight mb-10"
+               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', maxWidth: '600px' }}>
               Your lease is confidential. We treat it that way.
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {SECURITY_ITEMS.map((s, i) => (
               <FadeIn key={i} delay={i * 80}>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-6">
                   <div className="text-3xl">{s.emoji}</div>
                   <h3 className="text-near-black font-bold" style={{ fontSize: '1rem' }}>{s.title}</h3>
                   <p className="text-mid-grey font-light" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>{s.desc}</p>
@@ -255,7 +260,8 @@ export default function LeaseIntelPage() {
       <section className="bg-teal" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-            <h2 className="text-white font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.8rem,4vw,2.6rem)' }}>
+            <h2 className="text-white font-bold leading-tight mb-5"
+               style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
               $297 ex GST. 24-hour turnaround. No obligation.
             </h2>
             <p className="text-white/80 font-light mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
@@ -272,12 +278,14 @@ export default function LeaseIntelPage() {
       <section style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)', background: '#FAFAFA' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Common questions</p>
-            <h2 className="text-near-black font-bold leading-tight mb-14" style={{ fontSize: 'clamp(1.8rem,4vw,2.8rem)', maxWidth: '600px' }}>
+            <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+                    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>Common questions</p>
+            <h2 className="text-near-black font-bold leading-tight mb-10"
+               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', maxWidth: '600px' }}>
               Everything you need to know about LeaseIntel™.
             </h2>
           </FadeIn>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-8">
             {FAQS.map((faq, i) => (
               <FadeIn key={i} delay={i * 40}>
                 <div>
@@ -300,7 +308,7 @@ export default function LeaseIntelPage() {
             <p className="text-white/60 font-light mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
               Try the free Lease Risk Checker first. 10 questions, 3 minutes, instant risk rating.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-6">
               <Button href="/resources/lease-review" variant="primary" size="lg">Free Lease Risk Checker</Button>
               <Button href={HUBSPOT.bookingUrl} variant="outline" size="lg" external>Book a call</Button>
             </div>
