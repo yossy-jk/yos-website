@@ -22,8 +22,8 @@ export const metadata = {
   },
 }
 
-const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
-const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
@@ -211,14 +211,14 @@ export default function AboutPage() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2" style={{ gap: '2.5rem' }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
             {/* Joe */}
             <FadeIn direction="left">
-              <div className="bg-white rounded-2xl overflow-hidden flex flex-col" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
+              <div className="bg-white rounded-2xl overflow-hidden flex flex-col hover:shadow-md transition-shadow duration-300" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
 
                 {/* Photo strip */}
-                <div className="relative bg-near-black" style={{ height: '22rem' }}>
+                <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
                   <Image
                     src="/team/joe-kelley.jpg"
                     alt="Joe Kelley — Founder & Managing Director, Your Office Space"
@@ -233,14 +233,14 @@ export default function AboutPage() {
                 </div>
 
                 {/* Body */}
-                <div style={{ padding: '2.5rem' }}>
+                <div className="p-7 sm:p-8">
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
                     Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
                   </p>
                 </div>
 
                 {/* Quote */}
-                <div style={{ margin: '0 2.5rem', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
+                <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
                   <blockquote>
                     <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
                       &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing — straight advice, and someone who actually gives a damn about the outcome.&rdquo;
@@ -249,7 +249,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: '1.75rem 2.5rem', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                   {['Commercial Property', 'Tenant Representation', 'Fitout Strategy'].map(tag => (
                     <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
@@ -260,10 +260,10 @@ export default function AboutPage() {
 
             {/* Sarah */}
             <FadeIn direction="right" delay={100}>
-              <div className="bg-white rounded-2xl overflow-hidden flex flex-col" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
+              <div className="bg-white rounded-2xl overflow-hidden flex flex-col hover:shadow-md transition-shadow duration-300" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
 
                 {/* Photo strip */}
-                <div className="relative bg-near-black" style={{ height: '22rem' }}>
+                <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
                   <Image
                     src="/team/sarah-kelley.jpg"
                     alt="Sarah Kelley — Cleaning Division Director, Your Office Space"
@@ -278,14 +278,14 @@ export default function AboutPage() {
                 </div>
 
                 {/* Body */}
-                <div style={{ padding: '2.5rem' }}>
+                <div className="p-7 sm:p-8">
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
                     Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month — not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
                   </p>
                 </div>
 
                 {/* Quote */}
-                <div style={{ margin: '0 2.5rem', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
+                <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
                   <blockquote>
                     <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
                       &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple — if I wouldn&apos;t be happy with it, neither should you.&rdquo;
@@ -294,7 +294,7 @@ export default function AboutPage() {
                 </div>
 
                 {/* Tags */}
-                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: '1.75rem 2.5rem', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
+                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                   {['Commercial Offices', 'Medical & Childcare', 'Quality Assurance'].map(tag => (
                     <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}

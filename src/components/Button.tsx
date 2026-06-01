@@ -29,7 +29,7 @@ export default function Button({
     'rounded-[4px]',
     'font-semibold uppercase tracking-[0.1em] text-center no-underline',
     'transition-colors duration-200',
-    'min-h-[48px]',
+    'min-h-[60px]',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2',
     'disabled:opacity-40 disabled:cursor-not-allowed',
   ].join(' ')
