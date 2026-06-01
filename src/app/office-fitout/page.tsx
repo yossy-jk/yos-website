@@ -143,10 +143,10 @@ export default function OfficeFitoutPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
-                { stat: '200+', label: 'Projects delivered' },
-                { stat: 'In stock to 6 weeks', label: 'Express range or made to order' },
-                { stat: '$0', label: 'Hidden charges or surprises' },
-                { stat: '1', label: 'Point of contact, start to finish' }
+                { stat: '200+', label: 'Fitouts delivered across Australia' },
+                { stat: '1–2 weeks', label: 'Express delivery on in-stock items' },
+                { stat: 'Fixed quote', label: 'No surprises — you approve before we start' },
+                { stat: '1', label: 'Contact from brief to practical completion' }
               ].map((item) => (
                 <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
                   <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
@@ -156,6 +156,96 @@ export default function OfficeFitoutPage() {
             </div>
           </div>
         </FadeIn>
+      </section>
+
+      {/* ─── SOCIAL PROOF STRIP ─────────────────────── */}
+      <section style={SEC_SM} className="bg-[#0A0A0A] border-y border-white/5">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center justify-between">
+              <div>
+                <p className="text-white/30 font-light text-xs tracking-widest uppercase mb-2">Trusted by</p>
+                <p className="text-white font-bold" style={{ fontSize: 'clamp(1rem,2vw,1.3rem)' }}>Government departments · Architects · Interior designers · Property developers</p>
+              </div>
+              <div className="flex-shrink-0 flex gap-6">
+                {[
+                  { stat: '200+', label: 'Fitouts delivered' },
+                  { stat: '$0', label: 'Hidden charges' },
+                  { stat: '1', label: 'Contact throughout' }
+                ].map(item => (
+                  <div key={item.label} className="text-center">
+                    <p className="text-teal font-black text-xl">{item.stat}</p>
+                    <p className="text-white/40 font-light text-xs mt-0.5">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── FAST-TRACK CALLOUT ────────────────────────── */}
+      <section className="bg-[#0D1117]" style={SEC_SM}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start lg:items-center">
+              <div className="flex-1">
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">On a timeline?</p>
+                <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
+                  Fast-track your fitout.
+                </h3>
+                <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,1.8vw,1.1rem)', lineHeight: 1.8 }}>
+                  In-stock items dispatched within days. Made-to-order typically 3–6 weeks. If you're up against a lease end or a hard opening date, tell us — we'll map out what's possible and what it'll cost. No guesswork.
+                </p>
+              </div>
+              <div className="flex-shrink-0">
+                <Button href="/resources/furniture-quote" variant="primary" size="lg">
+                  Get a Fast-Track Quote →
+                </Button>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── 3D DESIGN INCLUDED ────────────────────────── */}
+      <section className="bg-warm-grey"
+        style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <SectionLabel>Before you commit</SectionLabel>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
+              3D layout planning included. No extra charge.
+            </h2>
+            <p className="text-charcoal font-light leading-relaxed mb-12 max-w-2xl"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.85 }}>
+              Send us your floor plan and headcount. We design the layout in 3D before you commit to anything — so you can see how the space works, test different workstation configurations, and know exactly what you're getting before installation day.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { step: '01', title: 'Share your brief', body: "Floor plan, headcount, and a description of how your team works — that's all we need to get started." },
+              { step: '02', title: 'We design your layout', body: 'We model your space in 3D and show you workstation positions, traffic flow, and common areas. You review and adjust before anything is ordered.' },
+              { step: '03', title: 'Fixed quote. No surprises.', body: "Once the layout is locked, you get a fixed price. What you see in the 3D render is what turns up on installation day." }
+            ].map((item) => (
+              <FadeIn key={item.step} direction="up">
+                <div className="bg-white rounded-xl p-7 border border-gray-100">
+                  <p className="text-teal font-black text-4xl mb-4 leading-none">{item.step}</p>
+                  <h3 className="text-near-black font-bold text-xl mb-3">{item.title}</h3>
+                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>{item.body}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn delay={100}>
+            <div className="mt-10">
+              <Button href="/resources/furniture-quote" variant="primary" size="lg">
+                Start with your floor plan →
+              </Button>
+            </div>
+          </FadeIn>
+        </div>
       </section>
 
       {/* ─── IMAGE BREAK 1 ─────────────────────────────── */}
@@ -343,34 +433,39 @@ export default function OfficeFitoutPage() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="bg-warm-grey"
-        style={SEC}>
+      {/* ─── FITOUT PROCESS ──────────────────────────── */}
+      <section className="bg-[#0D1117]" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
-            <SectionLabel>How it works</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
+            <SectionLabel>The fitout process</SectionLabel>
+            <h2 className="text-white font-bold leading-tight mt-3 mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              From brief to delivered. No hassle.
+              Brief → Design → Quote → Install. Transparent from start to finish.
             </h2>
           </FadeIn>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. New fitout, partial refresh, or just some new chairs — we start with your needs, not a catalogue." },
-              { step: '02', title: 'Spec & Quote', body: 'We prepare a specification and quote based on your space, your people, and your budget. No surprises.' },
-              { step: '03', title: 'Source & Deliver', body: 'We match products to your timeline. In-stock express range ships in 1–2 weeks. Made-to-order items typically run 3–6 weeks. Lead times are confirmed before you commit.' },
-              { step: '04', title: 'Deliver & Install', body: "We deliver and install. Your team walks in to a ready workspace. We don't leave until it's right." }
+              { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. Floor plan, headcount, and how your team works. We start with your needs — not a product catalogue." },
+              { step: '02', title: '3D Design', body: "We model your layout in 3D. You see exactly where workstations, meeting rooms, and breakout areas sit before anything is ordered. Adjustments are part of the process." },
+              { step: '03', title: 'Fixed Quote', body: 'You get a fixed price based on the approved layout. Deposit structure to suit your cash flow. No surprises, no hidden line items.' },
+              { step: '04', title: 'Install', body: "We manage delivery and installation. One team on site, one point of contact throughout. Your team walks in to a ready workspace." }
             ].map((step, i) => (
               <FadeIn key={step.step} delay={i * 80} direction="up">
-                <div>
-                  <p className="text-teal font-black text-4xl sm:text-5xl mb-4 leading-none">{step.step}</p>
-                  <h3 className="text-near-black font-bold text-xl mb-3">{step.title}</h3>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{step.body}</p>
+                <div className="flex flex-col gap-4">
+                  <p className="text-teal font-black text-4xl sm:text-5xl leading-none">{step.step}</p>
+                  <h3 className="text-white font-bold text-xl">{step.title}</h3>
+                  <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>{step.body}</p>
                 </div>
               </FadeIn>
             ))}
           </div>
+          <FadeIn delay={100}>
+            <div className="mt-10">
+              <Button href="/resources/furniture-quote" variant="primary" size="lg">
+                Request a Fitout Quote →
+              </Button>
+            </div>
+          </FadeIn>
         </div>
       </section>
 

@@ -143,10 +143,10 @@ export default function FurniturePage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
-                { stat: '200+', label: 'Projects delivered' },
-                { stat: 'In stock to 6 weeks', label: 'Express range or made to order' },
-                { stat: '$0', label: 'Hidden charges or surprises' },
-                { stat: '1', label: 'Point of contact, start to finish' }
+                { stat: '200+', label: 'Projects delivered across Australia' },
+                { stat: '1–2 weeks', label: 'Express delivery on in-stock range' },
+                { stat: '3D layout', label: 'Planning service at no extra cost' },
+                { stat: '$0', label: 'Hidden charges or surprises' }
               ].map((item) => (
                 <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
                   <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
@@ -241,6 +241,17 @@ export default function FurniturePage() {
               </FadeIn>
             ))}
           </div>
+          {/* Inline CTA strip */}
+          <FadeIn>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
+              <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: 'clamp(0.9rem,1.5vw,1.05rem)' }}>
+                Not sure what you need? Tell us your headcount and we'll put together options.
+              </p>
+              <Button href="/resources/furniture-quote" variant="primary" size="md">
+                Request a Quote →
+              </Button>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -292,6 +303,72 @@ export default function FurniturePage() {
         </div>
       </section>
 
+      {/* ─── WHY WORK WITH US ──────────────────────── */}
+      <section className="bg-[#0D1117]" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <SectionLabel>Why work with YOS</SectionLabel>
+            <h2 className="text-white font-bold leading-tight mt-3 mb-12 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
+              Not just a supplier — a partner who sees it through.
+            </h2>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+                title: 'Fast delivery available',
+                body: "In-stock items dispatched in days. Made-to-order typically 3–6 weeks. If you're on a tight timeline, tell us up front — we'll find a way."
+              },
+              {
+                icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>,
+                title: 'Custom finishes & configurations',
+                body: "We tailor products to match your brand, your space, and your budget. Not limited to what's on the shelf — we work to your brief."
+              },
+              {
+                icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>,
+                title: '3D layout planning',
+                body: 'Send us your floor plan and headcount. We plan the layout before you commit — no guesswork, no surprises on install day.'
+              },
+              {
+                icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
+                title: 'Trusted across NSW',
+                body: "We've worked with councils, schools, health facilities and businesses of all sizes across New South Wales. References available on request."
+              },
+              {
+                icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>,
+                title: 'Flexible payment terms',
+                body: 'Deposit structure to suit your cash flow. Account options available for repeat clients and ongoing relationships.'
+              },
+              {
+                icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
+                title: 'One contact, start to finish',
+                body: 'Same person from brief to install. We coordinate delivery, installation, and any issues. You focus on your business.'
+              }
+            ].map((item, i) => (
+              <FadeIn key={i} delay={i * 60} direction="up">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: '#00B5A5', color: '#0D1117' }}>
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-white font-bold text-base mb-2">{item.title}</h3>
+                    <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>{item.body}</p>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn delay={100}>
+            <div className="mt-10">
+              <Button href="/resources/furniture-quote" variant="primary" size="lg">
+                Request a Quote →
+              </Button>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ─── IMAGE BREAK 2 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
         <Image src="/images/furniture/dbt-boardroom.jpg" alt="DBT boardroom — oval table, dark feature wall, installed by YOS" fill className="object-cover object-center" />
@@ -302,6 +379,20 @@ export default function FurniturePage() {
               &ldquo;Joe was instrumental in building out our boardroom — high quality table, chairs, acoustic panelling. Practical advice, excellent detail.&rdquo;
               <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
             </p>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── BRAND TRUST BAR ──────────────────────────── */}
+      <section style={SEC_SM} className="bg-[#0D1117] border-y border-white/5">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <p className="text-white/30 font-light text-xs tracking-widest uppercase text-center mb-8">Trusted by organisations across NSW</p>
+            <div className="flex flex-wrap justify-center gap-8 items-center opacity-40">
+              {['Local Councils', 'Schools & Universities', 'Health Facilities', 'Professional Services', 'Government Bodies'].map(name => (
+                <span key={name} className="text-white font-bold text-sm tracking-wide uppercase" style={{ fontSize: '0.8rem' }}>{name}</span>
+              ))}
+            </div>
           </FadeIn>
         </div>
       </section>
