@@ -77,7 +77,7 @@ export default function TenantRepPage() {
                 Book a Clarity Call
               </Button>
               <Button href="/lease-review" variant="outline" size="lg">
-                Free Lease Review →
+                Free Lease Review
               </Button>
             </div>
           </FadeIn>
@@ -89,10 +89,10 @@ export default function TenantRepPage() {
         <div className={WRAP} style={PAD}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { stat: '8–15%', label: 'Average rent saving we negotiate' },
-              { stat: '$18k+', label: 'Average saving per lease deal' },
               { stat: '100%', label: 'Tenant-only representation' },
-              { stat: 'Fast', label: 'Initial lease review turnaround' }
+              { stat: '100%', label: 'No landlord conflicts — ever' },
+              { stat: 'Free', label: 'Initial brief and consultation' },
+              { stat: 'Fast', label: 'Initial response to every enquiry' }
             ].map((item) => (
               <div key={item.label}>
                 <p className="text-white font-black leading-none mb-2" style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>{item.stat}</p>
@@ -103,32 +103,32 @@ export default function TenantRepPage() {
         </div>
       </section>
 
-      {/* ─── THE GUARANTEE ────────────────────────────────── */}
+      {/* ─── OUR COMMITMENT ───────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
           <div className="max-w-3xl">
             <FadeIn>
-              <SectionLabel>The Guarantee</SectionLabel>
+              <SectionLabel>Our commitment</SectionLabel>
               <h2 className="text-white font-black leading-tight mt-3 mb-8"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
-                We pay for ourselves.<br />
-                <span className="text-teal">If we don&apos;t, you don&apos;t pay.</span>
+                We work for you.<br />
+                <span className="text-teal">Not the landlord.</span>
               </h2>
-              <p className="text-white/80 font-light leading-relaxed mb-14"
+              <p className="text-white/80 font-light leading-relaxed mb-8"
                 style={{ fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.85 }}>
-                Our fee for tenant representation is $12,000 ex GST or 3 months rent equivalent — whichever is higher.
-                The savings we negotiate — rent-free periods, fitout contributions, reduced make-good liability,
-                below-market rent — routinely exceed this multiple times over.
+                Every commercial lease has two sides. The landlord has representation. We exist to make sure you do too —
+                with someone whose only job is to get you the best possible deal. Every negotiation, every clause,
+                every conversation is in service of your outcome.
               </p>
             </FadeIn>
             <FadeIn delay={100}>
               <div className="border border-teal/40 p-8 sm:p-10 lg:p-12 bg-teal/5">
                 <p className="text-white font-bold leading-relaxed mb-5" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)' }}>
-                  If the documented savings we achieve don&apos;t exceed our professional fee — we waive it.
+                  Your interests come first. Every time.
                 </p>
                 <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  No invoice. No fee. This is not a marketing promise. It is a commercial commitment.
-                  We are on your side. If we don&apos;t deliver a return, we don&apos;t charge for it.
+                  We will never represent a landlord. If we don&apos;t deliver a return, we don&apos;t charge.
+                  This is not a marketing promise — it is a commercial commitment. Your outcome is the only metric that matters.
                 </p>
               </div>
             </FadeIn>
@@ -470,7 +470,7 @@ export default function TenantRepPage() {
               </div>
               <div className="flex-shrink-0">
                 <Button href="/lease-review" variant="primary" size="lg">
-                  Start Free Review →
+                  Start Free Review
                 </Button>
               </div>
             </div>
@@ -498,6 +498,67 @@ export default function TenantRepPage() {
           </FadeIn>
         </div>
       </section>
+
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does a tenant representative do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A tenant representative advocates exclusively for businesses looking to lease commercial space. Unlike a landlord's agent, we work only for you — negotiating rent, lease terms, incentives, and every clause on your behalf. We have no relationship with the landlord and no conflict of interest.",
+                },
+              },
+              {
+                "@type": "Question",
+                "name": "How does tenant representation work in practice?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "We start with your brief — space requirements, location, timeline, non-negotiables. We then search on-market and off-market options, shortlist based on your criteria, and negotiate the lease directly with the landlord's agent. We work alongside your solicitors through to signing and handover. Every step is in your interest.",
+                },
+              },
+              {
+                "@type": "Question",
+                "name": "Who pays for tenant representation?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "In most commercial lease transactions, the tenant representative's fee is negotiated as part of the deal structure — typically paid by the landlord through the agreed lease terms, not as a separate cost to you. Every brief is different, and we discuss the fee structure before any engagement begins.",
+                },
+              },
+              {
+                "@type": "Question",
+                "name": "How is a tenant representative different from a commercial agent?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Most commercial agents work for landlords — they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. We have no incentive to soften negotiations, no conflict of interest, and no relationship with the landlord. We read every clause through one lens: does this protect the tenant?",
+                },
+              },
+              {
+                "@type": "Question",
+                "name": "Can you help with an existing lease rather than a new one?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Our LeaseIntel review covers existing leases — we run your current agreement through a 12-category risk framework covering rent, make-good, relocation rights, option clauses, and outgoings. Each clause is rated Red / Amber / Green. If you are mid-lease or facing a renewal, we can identify leverage you didn't know you had.",
+                },
+              },
+              {
+                "@type": "Question",
+                "name": "What types of commercial property do you cover?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Office, industrial, retail, and specialised use — including childcare centres, medical suites, and hospitality fitouts. Each sector has its own lease dynamics, and we tailor the representation accordingly. If it is a commercial lease in NSW, we can help.",
+                },
+              },
+            ],
+          })
+        }}
+      />
 
       <Footer />
     </>

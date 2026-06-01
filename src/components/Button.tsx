@@ -25,30 +25,26 @@ export default function Button({
   type = 'button',
 }: ButtonProps) {
   const baseStyles = [
-    'inline-flex items-center justify-center gap-2',
-    'rounded-lg',
-    'font-bold uppercase tracking-[0.14em] text-center no-underline',
-    // Transitions — no scale bounce, just colour shift
-    'transition-colors duration-200 ease-out',
-    // Minimum touch target
-    'min-h-[52px]',
-    // Focus ring for keyboard navigation
+    'inline-flex items-center justify-center',
+    'rounded-[4px]',
+    'font-semibold uppercase tracking-[0.1em] text-center no-underline',
+    'transition-colors duration-200',
+    'min-h-[48px]',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2',
-    // Disabled state
     'disabled:opacity-40 disabled:cursor-not-allowed',
   ].join(' ')
 
   const variantStyles = {
-    primary:   'bg-teal text-white hover:bg-dark-teal',
+    primary:   'bg-teal text-white hover:bg-[#009688] active:opacity-90',
     secondary: 'border border-white text-white hover:bg-white hover:text-near-black',
     dark:      'bg-near-black text-white hover:bg-charcoal',
     outline:   'border border-teal text-teal hover:bg-teal hover:text-white',
   }
 
   const sizeStyles = {
-    sm: 'px-6 py-3 text-[0.68rem]',
-    md: 'px-8 py-4 text-[0.7rem]',
-    lg: 'px-14 py-[1.25rem] text-[0.72rem]',
+    sm: 'px-5 py-2.5 text-[0.65rem]',
+    md: 'px-8 py-4 text-[0.68rem]',
+    lg: 'px-10 py-[1.1rem] text-[0.7rem]',
   }
 
   const combinedClassName = [
@@ -61,12 +57,7 @@ export default function Button({
   if (href) {
     if (external) {
       return (
-        <a
-          href={href}
-          className={combinedClassName}
-          target="_blank"
-          rel="noopener noreferrer nofollow"
-        >
+        <a href={href} className={combinedClassName} target="_blank" rel="noopener noreferrer nofollow">
           {children}
         </a>
       )
@@ -79,12 +70,7 @@ export default function Button({
   }
 
   return (
-    <button
-      onClick={onClick}
-      className={combinedClassName}
-      disabled={disabled}
-      type={type}
-    >
+    <button onClick={onClick} className={combinedClassName} disabled={disabled} type={type}>
       {children}
     </button>
   )

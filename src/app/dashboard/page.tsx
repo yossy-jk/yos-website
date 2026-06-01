@@ -147,6 +147,14 @@ function fmt(n: number) {
   if (n >= 1000) return `$${(n / 1000).toFixed(0)}k`
   return `$${n.toLocaleString()}`
 }
+const STAGE_BENCHMARK_LIST: [string, number][] = [
+  ['Lead / Enquiry',        3],
+  ['Initial Discovery',    5],
+  ['Secondary Discovery',  7],
+  ['Proposal Prep',        3],
+  ['Proposal Issued',     14],
+  ['New Business',          5],
+]
 function fmtDate(iso: string | null) {
   if (!iso) return '—'
   return new Date(iso).toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' })
@@ -424,7 +432,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
-  const [now, setNow] = useState(aestNow())
+  const [now, setNow] = useState('')
   const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance' | 'health'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
   const [opsAllData, setOpsAllData] = useState<OpsAllData | null>(null)
@@ -432,7 +440,7 @@ export default function Dashboard() {
   const [outreachData, setOutreachData] = useState<OutreachData | null>(null)
   const [tasksData, setTasksData] = useState<TasksData | null>(null)
   const [tasksLoading, setTasksLoading] = useState(false)
-  const [seoSortKey, setSeoSortKey] = useState<'vol' | 'diff' | 'priority' | 'aeo'>('vol')
+  const [seoSortKey, setSeoSortKey] = useState<'vol' | 'diff' | 'priority' | 'aeo' | 'division' | 'rank' | 'move' | 'clicks' | 'impressions' | 'keyword'>('vol')
   const [seoSortDir, setSeoSortDir] = useState<'asc' | 'desc'>('desc')
   const [seoSearch, setSeoSearch] = useState('')
   const [delegateModal, setDelegateModal] = useState<{taskId: string; title: string} | null>(null)
@@ -468,6 +476,29 @@ export default function Dashboard() {
   } | null>(null)
   const [showPipeline, setShowPipeline] = useState(false)
   const [compliance, setCompliance] = useState<ComplianceData | null>(null)
+
+  // ── Per-tab refresh state ──────────────────────────────────────────────────
+  const [tabRefreshKeys, setTabRefreshKeys] = useState<Record<string, number>>({})
+
+  const refreshTab = (tab: string) => {
+    setTabRefreshKeys(k => ({ ...k, [tab]: (k[tab] || 0) + 1 }))
+    switch (tab) {
+      case 'dashboard': loadDashboard(); break
+      case 'queue': loadQueue(); break
+      case 'eos': loadEOS(); break
+      case 'seo': loadRankings(); break
+      case 'usage': loadUsage(); break
+      case 'memory': loadMemory(); break
+      case 'compliance': loadCompliance(); break
+      case 'operations': setOpsLoading(true); fetch('/api/operations-data').then(r=>r.json()).then((d:OpsData)=>{setOpsData(d);setOpsLoading(false)}).catch(()=>setOpsLoading(false)); break
+      case 'ops-all': fetch('/api/operations-all').then(r=>r.json()).then((d:OpsAllData)=>setOpsAllData(d)).catch(()=>{}); break
+      case 'proposals': fetch('/api/proposal-followup').then(r=>r.json()).then((d:ProposalFollowupData)=>setProposalData(d)).catch(()=>{}); break
+      case 'outreach': setOutreachLoading(true); fetch('/api/outreach-data').then(r=>r.json()).then((d:OutreachData)=>{setOutreachData(d);setOutreachLoading(false)}).catch(()=>setOutreachLoading(false)); break
+      case 'tasks': setTasksLoading(true); fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)}).catch(()=>setTasksLoading(false)); break
+      case 'finance': loadFinance(); break
+      case 'health': loadHealth(); break
+    }
+  }
 
   // ── EOS State ──────────────────────────────────────────────────────────────
   const [eos, setEos] = useState<EOSData | null>(null)
@@ -662,6 +693,14 @@ export default function Dashboard() {
     priorityActions: { id: number; label: string; detail: string; priority: string }[];
     monthlyBreakdown: Record<string, number>;
     ytdIncome: number; ytdSpending: number;
+    cashflow: {
+      arTotal: number; incoming30Days: number; outgoing30Days: number;
+      incoming60Days: number; outgoing60Days: number;
+      incoming90Days: number; outgoing90Days: number;
+      projectedLow: number; projectedLow60: number; projectedLow90: number;
+      projectedLowDate: string; projectedLowDate60: string; projectedLowDate90: string;
+      days30: number; days60: number; days90: number;
+    } | null;
   } | null>(null)
 
   const [healthData, setHealthData] = useState<{
@@ -739,7 +778,7 @@ export default function Dashboard() {
   }, [activeTab])
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0A0A0A', color: 'white', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', padding: 'clamp(1.25rem, 4vw, 2.5rem)' }}>
+    <div suppressHydrationWarning style={{ minHeight: '100vh', background: '#0A0A0A', color: 'white', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', padding: 'clamp(1.25rem, 4vw, 2.5rem)' }}>
 
       {/* ── Top Bar ── */}
       <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
@@ -788,6 +827,31 @@ export default function Dashboard() {
           </button>
         ))}
         <button
+          onClick={() => refreshTab(activeTab)}
+          style={{
+            background: 'transparent',
+            border: '1px solid rgba(255,255,255,0.15)',
+            padding: '0.35rem 0.75rem',
+            cursor: 'pointer',
+            fontFamily: 'inherit',
+            fontSize: '0.65rem',
+            fontWeight: 700,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'rgba(255,255,255,0.4)',
+            borderRadius: '4px',
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.35rem',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.color = 'white')}
+          onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+        >
+          <svg key={`r-${tabRefreshKeys[activeTab]}`} width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Refresh
+        </button>
+        <button
           onClick={async () => {
             await fetch('/api/auth/logout', { method: 'POST' })
             window.location.href = '/dashboard/login'
@@ -804,7 +868,6 @@ export default function Dashboard() {
             textTransform: 'uppercase',
             color: 'rgba(255,255,255,0.4)',
             borderRadius: '4px',
-            marginLeft: 'auto',
             flexShrink: 0,
           }}
           onMouseEnter={e => (e.currentTarget.style.color = 'white')}
@@ -1048,6 +1111,52 @@ export default function Dashboard() {
               </p>
             )}
           </div>
+        </div>
+      )}
+
+      {/* ── DEAL VELOCITY / STAGE BENCHMARK ── */}
+      {activeTab === 'dashboard' && data?.pipeline.deals && (
+        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, padding: '1.25rem' }}>
+          <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 1rem' }}>Stage Benchmark vs Actual</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            {STAGE_BENCHMARK_LIST.map(([stageLabel, benchDays]) => {
+              const stageDeals = data.pipeline.deals.filter((d: Deal) => d.stage === stageLabel && d.amount > 0)
+              const avgActual  = stageDeals.length
+                ? Math.round(stageDeals.reduce((s: number, d: Deal) => s + d.daysSinceTouch, 0) / stageDeals.length)
+                : null
+              const over       = avgActual !== null && avgActual > benchDays
+              return (
+                <div key={stageLabel}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '0.25rem', flexWrap: 'wrap', gap: '0.25rem' }}>
+                    <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>{stageLabel}</span>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                      <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.3)' }}>Benchmark {benchDays}d</span>
+                      {avgActual !== null && (
+                        <span style={{ fontSize: '0.78rem', fontWeight: 800, color: over ? '#ef4444' : '#22c55e' }}>
+                          {avgActual}d actual {over && <span style={{ fontSize: '0.6rem', fontWeight: 700, color: '#ef4444', marginLeft: '0.2rem' }}>▲{avgActual - benchDays}d over</span>}
+                        </span>
+                      )}
+                      {stageDeals.length > 0 && (
+                        <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.25)' }}>({stageDeals.length} deal{stageDeals.length !== 1 ? 's' : ''})</span>
+                      )}
+                    </div>
+                  </div>
+                  <div style={{ background: 'rgba(255,255,255,0.05)', borderRadius: 3, height: 5, overflow: 'hidden' }}>
+                    <div style={{
+                      width: avgActual !== null ? `${Math.min(100, (avgActual / (benchDays * 2.5)) * 100)}%` : '0%',
+                      height: '100%',
+                      background: avgActual === null ? 'rgba(255,255,255,0.1)' : over ? '#ef4444' : '#22c55e',
+                      borderRadius: 3,
+                      transition: 'width 0.4s ease',
+                    }} />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+          <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)', margin: '0.75rem 0 0', textAlign: 'right' }}>
+            Based on days since last contact · green = on track · red = over benchmark
+          </p>
         </div>
       )}
 
@@ -1830,7 +1939,8 @@ export default function Dashboard() {
                         case 'clicks': av = rA?.clicks ?? 0; bv = rB?.clicks ?? 0; break
                         case 'impressions': av = rA?.impressions ?? 0; bv = rB?.impressions ?? 0; break
                         case 'move': av = rA?.movement ?? 0; bv = rB?.movement ?? 0; break
-                        default: av = a.vol; bv = b.vol
+                        case 'division':
+                        case 'keyword': av = a[seoSortKey].toString(); bv = b[seoSortKey].toString(); break
                       }
                       if (typeof av === 'string') return seoSortDir === 'asc' ? av.localeCompare(bv as string) : (bv as string).localeCompare(av)
                       return seoSortDir === 'asc' ? (av as number) - (bv as number) : (bv as number) - (av as number)
@@ -3101,6 +3211,56 @@ export default function Dashboard() {
                       </div>
                     ))}
                   </div>
+                </div>
+              )}
+              {/* 30/60/90 Cashflow Projection */}
+              {financeData.cashflow && (
+                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 8, padding: '1.25rem' }}>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 1rem' }}>30 / 60 / 90 Day Cashflow Projection</p>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem' }}>
+                    {[
+                      {
+                        label: '30 Days', days: financeData.cashflow.days30, projected: financeData.cashflow.projectedLow,
+                        date: financeData.cashflow.projectedLowDate, incoming: financeData.cashflow.incoming30Days,
+                        outgoing: financeData.cashflow.outgoing30Days,
+                      },
+                      {
+                        label: '60 Days', days: financeData.cashflow.days60, projected: financeData.cashflow.projectedLow60,
+                        date: financeData.cashflow.projectedLowDate60, incoming: financeData.cashflow.incoming60Days,
+                        outgoing: financeData.cashflow.outgoing60Days,
+                      },
+                      {
+                        label: '90 Days', days: financeData.cashflow.days90, projected: financeData.cashflow.projectedLow90,
+                        date: financeData.cashflow.projectedLowDate90, incoming: financeData.cashflow.incoming90Days,
+                        outgoing: financeData.cashflow.outgoing90Days,
+                      },
+                    ].map(item => {
+                      const low = item.projected ?? 0
+                      const color = low <= 0 ? '#ef4444' : low < 5000 ? '#f59e0b' : '#22c55e'
+                      return (
+                        <div key={item.label} style={{ background: 'rgba(255,255,255,0.04)', padding: '1rem', borderRadius: 6, borderTop: `2px solid ${color}` }}>
+                          <p style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 0.5rem' }}>{item.label}</p>
+                          <p style={{ fontSize: '1.5rem', fontWeight: 900, color, margin: '0 0 0.4rem' }}>
+                            ${Math.max(0, low).toLocaleString('en-AU')}
+                          </p>
+                          <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.6rem' }}>est. by {item.date}</p>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <span style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>Incoming</span>
+                              <span style={{ fontSize: '0.62rem', color: '#22c55e', fontWeight: 700 }}>+${item.incoming?.toLocaleString('en-AU') ?? 0}</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                              <span style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>Outgoing</span>
+                              <span style={{ fontSize: '0.62rem', color: '#ef4444', fontWeight: 700 }}>-${item.outgoing?.toLocaleString('en-AU') ?? 0}</span>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                  <p style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.2)', margin: '0.75rem 0 0', textAlign: 'right' }}>
+                    Red = below $5K buffer · Amber = $5-10K · Green = above $10K
+                  </p>
                 </div>
               )}
             </>

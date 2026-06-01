@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import Button from '@/components/Button'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
@@ -443,11 +444,9 @@ export default function ResourcesPage() {
               style={{ fontSize: '1rem', lineHeight: 1.75 }}>
               Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
             </p>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
-              style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+            <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
               Book a Clarity Call
-            </a>
+            </Button>
             </div>
           </FadeIn>
         </div>

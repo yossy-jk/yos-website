@@ -1,14 +1,15 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import Button from '@/components/Button'
+import { HUBSPOT, CONTACT } from '@/lib/constants'
+import BookingCTA from '@/components/BookingCTA'
+import FadeIn from '@/components/FadeIn'
+import ContactForm from '@/components/ContactForm'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
-import FadeIn from '@/components/FadeIn'
-import { HUBSPOT, CONTACT } from '@/lib/constants'
-import BookingCTA from '@/components/BookingCTA'
-import ContactForm from '@/components/ContactForm'
 
 export const metadata = {
   title: 'Contact | Your Office Space',
@@ -202,10 +203,10 @@ export default function ContactPage() {
 
                   <button
                     type="submit"
-                    className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                    style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}
+                    className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.1em] min-h-[48px] rounded-[4px] w-full sm:w-auto"
+                    style={{ padding: '0.9rem 3rem', fontSize: '0.72rem' }}
                   >
-                    Send Message →
+                    Send Message
                   </button>
                 </form>
                 }
@@ -229,11 +230,9 @@ export default function ContactPage() {
                     <p className="text-charcoal font-light mb-4" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
                       20 minutes. Pick a time that suits you and we will call.
                     </p>
-                    <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                      className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                      style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-                      Book a Call →
-                    </a>
+            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+              Book a Call
+            </Button>
                   </div>
 
                   {/* Email */}

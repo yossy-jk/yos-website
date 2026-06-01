@@ -56,7 +56,7 @@ export default function BookingCTA({
   }
 
   const btnStyle: React.CSSProperties = {
-    padding: size === 'lg' ? '1.25rem 3.5rem' : '1rem 2.5rem',
+    padding: size === 'lg' ? '1.1rem 3rem' : '0.9rem 2.25rem',
     fontSize: '0.72rem',
     borderRadius: '0.5rem',
     letterSpacing: '0.14em',
@@ -67,7 +67,7 @@ export default function BookingCTA({
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '52px',
+    minHeight: '48px',
     transition: 'background 0.15s',
     width: '100%',
   }

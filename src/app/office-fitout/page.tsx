@@ -15,22 +15,22 @@ import FurniturePopup from '@/components/FurniturePopup'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Office Furniture & Fitout | Your Office Space',
-  description: 'Office furniture and fitout project management across Australia. Express in-stock range to made-to-order — tailored to your timeline, budget and design intent.',
-  twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'Brief to delivered. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
-  alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
+  title: 'Office Fit Out | Your Office Space',
+  description: 'Commercial office fit out services across Australia. From cold shell to turnkey — project managed by one team, start to finish. Brief to delivered.',
+  twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'Brief to delivered. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
+  alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   openGraph: {
-    title: 'Office Furniture & Fitout | Your Office Space',
-    description: 'Brief to delivered. Office furniture and fitout project management — end to end. One team, no gaps.',
+    title: 'Office Fit Out | Your Office Space',
+    description: 'Commercial office fit out. End-to-end project management — design, procurement, installation. One team, no gaps.',
     url: 'https://yourofficespace.au/furniture',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Furniture & Fitout — Your Office Space' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Fit Out — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
 }
 
-export default function FurniturePage() {
+export default function OfficeFitoutPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -61,8 +61,8 @@ export default function FurniturePage() {
           },
           {
             "@type": "Service",
-            "@id": "https://www.yourofficespace.au/furniture#service",
-            "name": "Office Furniture & Fitout Newcastle",
+            "@id": "https://www.yourofficespace.au/office-fitout#service",
+            "name": "Commercial Office Fit Out — Newcastle",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -72,8 +72,8 @@ export default function FurniturePage() {
               { "@type": "State", "name": "New South Wales" },
               { "@type": "Country", "name": "Australia" }
             ],
-            "serviceType": "Office Furniture and Fitout",
-            "url": "https://www.yourofficespace.au/furniture"
+            "serviceType": "Commercial Office Fit Out",
+            "url": "https://www.yourofficespace.au/office-fitout"
           },
           {
             "@type": "FAQPage",
@@ -105,12 +105,12 @@ export default function FurniturePage() {
         <div className="absolute inset-0 bg-near-black/70" />
         <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn delay={0}>
-            <SectionLabel>Office Furniture &amp; Fitout</SectionLabel>
+            <SectionLabel>Commercial Office Fit Out</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Office Furniture &amp; Fitout Newcastle —
+              Office Fit Out Newcastle —
               <br /><span className="text-teal">brief to delivered.</span>
             </h1>
           </FadeIn>
@@ -391,7 +391,7 @@ export default function FurniturePage() {
               </div>
               <div className="flex-shrink-0">
                 <Button href="/cleaning" variant="primary" size="lg">
-                  Learn about Cleaning
+                  Learn about Cleaning →
                 </Button>
               </div>
             </div>

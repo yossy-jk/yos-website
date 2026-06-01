@@ -79,13 +79,18 @@ export async function GET() {
     xeroError = 'Could not reach Xero'
   }
 
-  // Cashflow projections — simple 30/60 day forward-looking
+  // Cashflow projections — 30/60/90 day forward-looking
   // Based on YOS monthly burn ~$8-10K and known AR
   const incoming30Days = owedToYOS // AR is the main incoming
   const outgoing30Days = 8000      // conservative monthly burn
+  const outgoing60Days = outgoing30Days * 2
+  const outgoing90Days = outgoing30Days * 3
   const projectedLow30 = cashBalance + incoming30Days - outgoing30Days
-  const projectedLowDate = new Date(Date.now() + 30 * 86400000)
-    .toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })
+  const projectedLow60 = cashBalance + (incoming30Days * 2) - outgoing60Days
+  const projectedLow90 = Math.max(0, cashBalance + (incoming30Days * 3) - outgoing90Days)
+  const projectedLowDate  = new Date(Date.now() + 30 * 86400000).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })
+  const projectedLowDate60 = new Date(Date.now() + 60 * 86400000).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })
+  const projectedLowDate90 = new Date(Date.now() + 90 * 86400000).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })
 
   return NextResponse.json({
     generatedAt: new Date().toISOString(),
@@ -97,10 +102,18 @@ export async function GET() {
       incoming30Days,
       outgoing30Days,
       incoming60Days: incoming30Days,
-      outgoing60Days: outgoing30Days * 2,
+      outgoing60Days,
+      incoming90Days: incoming30Days,
+      outgoing90Days,
       projectedLow: Math.max(0, projectedLow30),
-      projectedLowDate: projectedLowDate.toString(),
+      projectedLow60: Math.max(0, projectedLow60),
+      projectedLow90: Math.max(0, projectedLow90),
+      projectedLowDate,
+      projectedLowDate60,
+      projectedLowDate90,
       days30: 30,
+      days60: 60,
+      days90: 90,
     },
     xeroError: xeroError || undefined,
   })

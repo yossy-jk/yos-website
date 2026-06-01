@@ -354,7 +354,7 @@ export default function LeaseReviewPage() {
                 <h1 className="text-white font-black leading-[0.95] tracking-tight mb-4"
                   style={{ fontSize: 'clamp(2.25rem,6vw,5.5rem)' }}>
                   Full LeaseIntel™ Report<br />
-                  <span className="text-teal">$297 ex GST</span>
+                  <span className="text-teal">Free — 100% No Obligation</span>
                 </h1>
               </FadeIn>
               <FadeIn delay={140}>
@@ -410,7 +410,7 @@ export default function LeaseReviewPage() {
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={PAD}>
               {[
-                { stat: '$297', label: 'Full report ex GST' },
+                { stat: 'Free', label: 'No obligation \u2014 lead gen' },
                 { stat: '24hr', label: 'Turnaround time' },
                 { stat: '12', label: 'Risk categories reviewed' },
               ].map(item => (
@@ -428,7 +428,7 @@ export default function LeaseReviewPage() {
           <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6" style={PAD}>
             <FadeIn>
               <div>
-                <p className="text-near-black font-bold text-sm mb-1">Not ready to submit yet?</p>
+                <p className="text-near-black font-black text-sm mb-1">Not ready to submit yet?</p>
                 <p className="text-charcoal text-sm font-light">Try the free Lease Risk Review first. 10 questions, 3 minutes, instant Red/Amber/Green rating. No document required.</p>
               </div>
             </FadeIn>
@@ -447,19 +447,18 @@ export default function LeaseReviewPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <FadeIn>
               <div className="max-w-2xl mb-7 md:mb-14">
-                <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full paid report — $297 ex GST</p>
+                <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase mb-4">Full LeaseIntel&trade; Report &mdash; Free, No Obligation</p>
                 <h2 className="text-white font-black leading-tight tracking-tight mb-5"
                   style={{ fontSize: 'clamp(1.6rem, 3.5vw, 2.5rem)' }}>
                   Everything you need to know<br />before you sign.
                 </h2>
                 <p className="text-white/75 text-sm md:text-base leading-relaxed font-light">
-                  Law firms charge $1,500–$4,000 and take 3–10 days.
-                  LeaseIntel™ delivers a complete 10-section report in 24 hours for $297 ex GST.
+                  No cost, no obligation. Submit your lease and receive a complete clause-by-clause analysis within 24 hours.
                 </p>
               </div>
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-7 md:mb-14">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 md:mb-16">
               {PAID_INCLUDES.map((item, i) => (
                 <FadeIn key={item.title} delay={i * 60} direction="up">
                   <div className="border border-white/10 p-6 rounded-xl hover:border-teal hover:bg-white/[0.02] transition-all duration-200">
@@ -473,12 +472,12 @@ export default function LeaseReviewPage() {
             <FadeIn>
               <div className="border-t border-white/10 pt-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                 <div>
-                  <p className="text-white font-black text-3xl mb-1">$297 <span className="text-white/60 font-light text-base">ex GST</span></p>
+                  <p className="text-white font-black text-3xl mb-1">Free <span className="text-white/60 font-light text-base">&nbsp;</span></p>
                   <p className="text-white/75 text-sm">24-hour turnaround · Invoiced via email · Pay before delivery</p>
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
-                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.3rem] hover:bg-dark-teal transition-all duration-200 min-h-[60px] w-full sm:w-auto"
                 >
                   Upload Your Lease →
                 </button>
@@ -499,12 +498,12 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {[
                 { name: 'Law Firm Review', price: '$1,500–$4,000', time: '3–10 days', plain: false, roadmap: false, highlight: false },
-                { name: 'LeaseIntel™', price: '$297 ex GST', time: '24 hours', plain: true, roadmap: true, highlight: true },
+                { name: 'LeaseIntel™', price: 'Free', time: '24 hours', plain: true, roadmap: true, highlight: true },
                 { name: 'Sign without review', price: 'Free', time: 'Instant', plain: false, roadmap: false, highlight: false },
               ].map((opt, i) => (
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
                   <div className={[
-                    'p-8 rounded-xl border-2 h-full',
+                    'p-9 rounded-xl border-2 h-full',
                     opt.highlight ? 'border-teal bg-white' : 'border-gray-200 bg-white',
                   ].join(' ')}>
                     {opt.highlight && (
@@ -593,7 +592,7 @@ export default function LeaseReviewPage() {
               <p className="text-white font-light leading-relaxed mb-12"
                 style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
                 &ldquo;Most business owners sign commercial leases they don&apos;t fully understand.
-                LeaseIntel™ changes that. For $297 ex GST, you get complete plain-English analysis —
+                LeaseIntel™ changes that. Submit your lease for a complete plain-English analysis —
                 every risk identified, every opportunity flagged, every number quantified.
                 Before you sign.&rdquo;
               </p>
@@ -625,7 +624,7 @@ export default function LeaseReviewPage() {
 
             <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $297 ex GST</span>
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — Free, No Obligation</span>
             </div>
 
             <StepBar current={1} />
@@ -635,7 +634,7 @@ export default function LeaseReviewPage() {
               Tell us about yourself
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-6 font-light">
-              We&apos;ll confirm your submission and send a $297 ex GST invoice to this email. Newcastle businesses: no payment required — declare your location below.
+              We&apos;ll confirm your submission and deliver your full report within 24 hours. No payment required.
             </p>
             <div className="rounded-xl border border-teal/30 bg-teal/10 px-5 py-4 mb-8">
               <p className="text-teal font-bold text-xs mb-1">Newcastle business? Free until 21 July 2026.</p>
@@ -700,7 +699,7 @@ export default function LeaseReviewPage() {
 
               <button
                 onClick={handleDetailsNext}
-                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2 w-full sm:w-auto"
+                className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.3rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2 w-full sm:w-auto"
               >
                 Continue — Upload Lease →
               </button>
@@ -732,7 +731,7 @@ export default function LeaseReviewPage() {
 
             <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
               <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — $297 ex GST</span>
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — Free, No Obligation</span>
             </div>
 
             <StepBar current={2} />
@@ -806,7 +805,7 @@ export default function LeaseReviewPage() {
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-8 sm:px-14 py-[1.25rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[52px] w-full sm:w-auto"
+                className="inline-flex items-center justify-center gap-2 bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.3rem] hover:bg-dark-teal transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 min-h-[60px] w-full sm:w-auto"
               >
                 {submitting ? (
                   <>
@@ -843,14 +842,13 @@ export default function LeaseReviewPage() {
           <p className="text-white/55 text-base leading-relaxed mb-10 font-light">
             {form.isNewcastle
               ? 'Newcastle business confirmed. No payment required. Joe will review your submission and deliver your full report within 24 hours.'
-              : 'Joe will review your submission and send a $297 ex GST invoice to your email. Full report delivered within 24 hours of payment confirmation.'}
+              : 'Joe will review your submission and deliver your full report within 24 hours. No payment required.'}
           </p>
           <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 mb-10 text-left">
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">What happens next</p>
             <div className="flex flex-col gap-4">
               {[
-                form.isNewcastle ? 'Newcastle business confirmed — no invoice, no payment' : '$297 ex GST invoice sent to your email',
-                ...(!form.isNewcastle ? ['Pay the invoice to confirm your review'] : []),
+                form.isNewcastle ? 'Newcastle business confirmed — no payment required' : 'No payment required — obligation-free',
                 'Full LeaseIntel™ report delivered within 24 hours',
                 'Every clause rated, financial exposure summarised, negotiation roadmap included',
                 'Book a free Clarity Call with Joe to walk through the findings',

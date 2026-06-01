@@ -5,6 +5,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import SectionLabel from '@/components/SectionLabel'
+import Button from '@/components/Button'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import { IMAGES } from '@/lib/images'
@@ -145,9 +146,7 @@ export default function Home() {
           style={{ ...PAD, paddingTop: 'clamp(5rem,12vw,13rem)', paddingBottom: 'clamp(4rem,10vw,9rem)' }}
         >
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-6">
-              Newcastle · NSW · Australia
-            </p>
+            <SectionLabel>Newcastle · NSW · Australia</SectionLabel>
           </FadeIn>
           <FadeIn delay={80}>
             <h1 className="text-white font-black uppercase leading-[1.02] tracking-tight"
@@ -163,13 +162,11 @@ export default function Home() {
             </p>
           </FadeIn>
           <FadeIn delay={240}>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col sm:flex-row gap-4">
               <BookingCTA label="Book a Free Call" variant="primary" size="lg" />
-              <Link href="/lease-review"
-                className="text-white/70 font-medium no-underline text-center hover:text-teal hover:border-teal transition-colors border border-white/30 inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] sm:w-auto w-full"
-                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-                Free Lease Review →
-              </Link>
+              <Button href="/lease-review" variant="secondary" size="lg">
+                Free Lease Review
+              </Button>
             </div>
           </FadeIn>
           <FadeIn delay={340}>
@@ -212,7 +209,7 @@ export default function Home() {
       <section className="bg-warm-grey" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">What clients say</p>
+            <SectionLabel>What clients say</SectionLabel>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-12"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Real people.<br />Real outcomes.
@@ -261,7 +258,7 @@ export default function Home() {
       <section className="bg-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
-            <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-3">What we do</p>
+            <SectionLabel>What we do</SectionLabel>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Four services.<br />One relationship.
@@ -382,17 +379,13 @@ export default function Home() {
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '2.5rem' }}>
                 Answer 10 questions. Get a plain-English risk rating — Red, Amber, or Green — and the top issues to deal with. Free, instant, no document needed.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Link href="/lease-review"
-                  className="bg-near-black text-white font-bold no-underline text-center hover:bg-near-black/80 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-                  Get Free Risk Check →
-                </Link>
-                <Link href="/lease-review#full-report"
-                  className="text-white font-medium no-underline text-center hover:bg-white/20 transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', background: 'rgba(255,255,255,0.12)', borderRadius: '0.5rem' }}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button href="/resources/lease-review" variant="dark" size="lg">
+                  Get Free Risk Check
+                </Button>
+                <Button href="/resources/lease-review#full-report" variant="outline" size="lg">
                   Full Report — $297
-                </Link>
+                </Button>
               </div>
             </div>
           </FadeIn>
@@ -405,7 +398,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn>
               <div>
-                <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">How it works</p>
+                <SectionLabel>How it works</SectionLabel>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight"
                   style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.5rem' }}>
                   A real conversation.<br />No obligation.
@@ -449,7 +442,7 @@ export default function Home() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <p style={{ fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase' }} className="text-teal font-semibold mb-4">Get started</p>
+              <SectionLabel>Get started</SectionLabel>
               <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
                 style={{ fontSize: 'clamp(2rem,5vw,5rem)', marginBottom: '1.25rem' }}>
                 Let&apos;s talk<br />about your space.
@@ -459,16 +452,12 @@ export default function Home() {
                 No obligation. No pitch. Tell us what you&apos;re working with and we&apos;ll give you a straight answer.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                  className="bg-teal text-white font-bold no-underline text-center hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
+                <Button href={HUBSPOT.bookingUrl} variant="primary" size="lg" external>
                   Book a Free Call
-                </a>
-                <Link href="/contact"
-                  className="text-white font-medium no-underline text-center hover:text-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '0.5rem' }}>
+                </Button>
+                <Button href="/contact" variant="outline" size="lg">
                   Get in Touch
-                </Link>
+                </Button>
               </div>
               <p className="text-white/20 font-light mt-8" style={{ fontSize: '0.78rem' }}>
                 <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>

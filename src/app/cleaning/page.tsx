@@ -325,7 +325,7 @@ export default function CleaningPage() {
               </div>
               <div className="flex-shrink-0">
                 <Button href="/furniture" variant="primary" size="lg">
-                  View Furniture &amp; Fitout →
+                  View Furniture &amp; Fitout
                 </Button>
               </div>
             </div>
@@ -400,7 +400,7 @@ export default function CleaningPage() {
             <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or the Hunter Valley?</p>
           </div>
           <Button href="/cleaning/work-with-us" variant="primary" size="lg">
-            Express interest →
+            Express interest
           </Button>
         </div>
       </section>

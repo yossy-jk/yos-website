@@ -126,7 +126,9 @@ export default function LeaseIntelPage() {
               Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included. $297 ex GST.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button href="/lease-review" variant="primary" size="lg">Submit Your Lease →</Button>
+              <Button href="/lease-review" variant="primary" size="lg">
+                Submit Your Lease
+              </Button>
               <Button href={HUBSPOT.bookingUrl} variant="outline" size="lg" external>Talk to us first</Button>
             </div>
           </FadeIn>
@@ -259,7 +261,9 @@ export default function LeaseIntelPage() {
             <p className="text-white/80 font-light mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
               Upload your lease and receive a complete risk report. If you engage us for tenant representation, the fee is credited.
             </p>
-            <Button href="/lease-review" variant="secondary" size="lg">Submit your lease →</Button>
+            <Button href="/lease-review" variant="secondary" size="lg">
+              Submit your lease
+            </Button>
           </div>
         </div>
       </section>

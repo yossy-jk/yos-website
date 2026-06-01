@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
 import ExitPopup from "@/components/ExitPopup";
+import WelcomeModal from "@/components/WelcomeModal";
 import FloatingCTA from "@/components/FloatingCTA";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32.png', sizes: '32x32' },
+      { url: '/favicon-192.png', sizes: '192x192' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   title: "Your Office Space | Commercial Property Advisory Australia",
   description: "Tenant-side commercial property advisory across Australia. Tenant rep, buyers agency, office furniture, fitout and cleaning. NSW focus.",
   keywords: "commercial tenant rep Australia, commercial buyers agent, office furniture fitout, commercial cleaning NSW, tenant representation Sydney Newcastle",
@@ -48,7 +57,7 @@ export default function RootLayout({
           src="//js-ap1.hs-scripts.com/442709765.js"
         />
       </head>
-      <body>{children}<FloatingCTA /><ExitPopup /><GoogleAnalytics /></body>
+      <body>{children}<WelcomeModal /><FloatingCTA /><ExitPopup /><GoogleAnalytics /></body>
     </html>
   );
 }

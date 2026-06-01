@@ -262,9 +262,9 @@ export default function LeaseRiskCheckerPage() {
               </div>
               <button
                 onClick={() => setStep(0)}
-                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-                Start the checker →
+                className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[48px] w-full sm:w-auto"
+                style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '4px' }}>
+                Start the checker
               </button>
             </div>
           )}
@@ -314,13 +314,13 @@ export default function LeaseRiskCheckerPage() {
                 <button
                   onClick={handleNext}
                   disabled={!selected}
-                  className={`font-bold transition-all min-h-[52px] ${
+                  className={`font-bold transition-all min-h-[48px] ${
                     selected
                       ? 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
                       : 'bg-white/8 text-white/25 cursor-not-allowed'
                   }`}
-                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem', minWidth: '12rem' }}>
-                  {step === QUESTIONS.length - 1 ? 'See my results →' : 'Next →'}
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '4px', minWidth: '12rem' }}>
+                  {step === QUESTIONS.length - 1 ? 'See my results' : 'Next'}
                 </button>
                 {step > 0 && (
                   <button
@@ -391,13 +391,13 @@ export default function LeaseRiskCheckerPage() {
                   <button
                     type="submit"
                     disabled={captureLoading}
-                    className={`font-bold transition-all min-h-[52px] ${
+                    className={`font-bold transition-all min-h-[48px] ${
                       captureLoading
                         ? 'bg-teal/50 text-white/50 cursor-not-allowed'
                         : 'bg-teal text-white hover:bg-dark-teal cursor-pointer'
                     }`}
-                    style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem', minWidth: '14rem' }}>
-                    {captureLoading ? 'One moment...' : 'Get my result →'}
+                    style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '4px', minWidth: '14rem' }}>
+                    {captureLoading ? 'One moment...' : 'Get my result'}
                   </button>
                   <button
                     type="button"
@@ -488,7 +488,7 @@ export default function LeaseRiskCheckerPage() {
                 </p>
                 <Link href="/lease-review"
                   className="inline-flex items-center justify-center bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
-                  style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.375rem' }}>
+                  style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '4px' }}>
                   Get the full report →
                 </Link>
               </div>

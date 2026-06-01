@@ -188,7 +188,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
               <button
                 type="submit"
                 disabled={submitting || !email.trim() || !firstname.trim()}
-                className="w-full bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full bg-teal text-white font-bold uppercase tracking-[0.1em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ padding: '1.25rem 2rem', fontSize: '0.72rem', marginTop: '0.35rem' }}
               >
                 {submitting ? 'Sending…' : 'Send me the snapshot'}
@@ -230,13 +230,13 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
     <div className="flex flex-wrap gap-4">
       <button
         onClick={onOpen}
-        className="inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-[0.14em] bg-teal text-white hover:bg-dark-teal transition-colors min-h-[52px] px-10 py-4 text-[0.72rem]"
+        className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-teal text-white hover:bg-dark-teal transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
       >
         Get it delivered monthly
       </button>
       <Link
         href={leaseIntelHref}
-        className="inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-[0.14em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[52px] px-10 py-4 text-[0.72rem] no-underline"
+        className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
       >
         Lease review — $297 ex GST, 24-hour turnaround
       </Link>
@@ -416,13 +416,13 @@ export default function MarketSnapshotPageContent({
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={openPopup}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-[0.14em] border border-white text-white hover:bg-white hover:text-near-black transition-colors min-h-[52px] px-10 py-4 text-[0.72rem]"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-white text-white hover:bg-white hover:text-near-black transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
                 >
                   Get it delivered monthly
                 </button>
                 <Link
                   href={leaseIntelHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-[0.14em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[52px] px-10 py-4 text-[0.72rem] no-underline"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
                   Lease review — $297 ex GST
                 </Link>
