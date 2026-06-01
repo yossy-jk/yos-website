@@ -1,3 +1,14 @@
+
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
+
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>
+    {children}
+  </p>
+)
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import NotForProfitForm from '@/components/NotForProfitForm'
@@ -10,14 +21,14 @@ export default function NotForProfitPage() {
       <Nav />
 
       {/* ─── HERO ─────────────────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+      <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>
               Pro Bono Programme — Newcastle &amp; Hunter
             </p>
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-6"
-              style={{ fontSize: 'clamp(2.5rem,7vw,6.5rem)' }}>
+              style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
               Your office lease.<br />
               <span style={{ color: '#00B5A5' }}>Our expertise.</span><br />
               No cost to you.
@@ -36,7 +47,7 @@ export default function NotForProfitPage() {
       </section>
 
       {/* ─── WHAT'S ON OFFER ───────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
+      <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Two ways we can help</p>
@@ -46,10 +57,10 @@ export default function NotForProfitPage() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Card 1 — Lease Review */}
             <FadeIn delay={0}>
-              <div style={{ border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem', padding: 'clamp(2rem,4vw,3.5rem)' }}>
+              <div style={{ border: '1px solid rgba(0,0,0,0.08)', borderRadius: '0.75rem', padding: 'clamp(2rem,4vw,3.5rem)', }}>
                 <div className="bg-near-black text-teal font-bold uppercase tracking-widest px-3 py-1.5 inline-block mb-6"
                   style={{ fontSize: '0.65rem' }}>
                   Option 1
@@ -86,7 +97,7 @@ export default function NotForProfitPage() {
 
             {/* Card 2 — Relocation Search */}
             <FadeIn delay={100}>
-              <div style={{ border: '1px solid rgba(0,0,0,0.1)', borderRadius: '0.5rem', padding: 'clamp(2rem,4vw,3.5rem)', background: '#0A0A0A' }}>
+              <div style={{ border: '1px solid rgba(0,0,0,0.08)', borderRadius: '0.75rem', padding: 'clamp(2rem,4vw,3.5rem)', background: '#0A0A0A' }}>
                 <div className="bg-teal text-near-black font-bold uppercase tracking-widest px-3 py-1.5 inline-block mb-6"
                   style={{ fontSize: '0.65rem' }}>
                   Option 2
@@ -125,9 +136,9 @@ export default function NotForProfitPage() {
       </section>
 
       {/* ─── WHO QUALIFIES ─────────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <FadeIn>
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Eligibility</p>
@@ -163,7 +174,7 @@ export default function NotForProfitPage() {
       </section>
 
       {/* ─── WHY THIS MATTERS ──────────────────────── */}
-      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
+      <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <div className="max-w-2xl">
@@ -203,7 +214,7 @@ export default function NotForProfitPage() {
       </section>
 
       {/* ─── THE PROCESS ───────────────────────────── */}
-      <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
+      <section className="bg-near-black" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>How it works</p>
@@ -213,7 +224,7 @@ export default function NotForProfitPage() {
             </h2>
           </FadeIn>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { num: '01', title: 'Apply', desc: 'Fill out the form below or call us. We respond within one business day.' },
               { num: '02', title: 'Chat', desc: '20-minute call to understand your situation and confirm eligibility.' },
@@ -222,7 +233,7 @@ export default function NotForProfitPage() {
             ].map((step, i) => (
               <FadeIn key={step.num} delay={i * 60}>
                 <div>
-                  <p className="text-teal font-black mb-4" style={{ fontSize: '2.5rem', lineHeight: 1 }}>{step.num}</p>
+                  <p className="text-teal font-black mb-4" style={{ fontSize: 'clamp(2rem,4vw,2.75rem)', lineHeight: 1 }}>{step.num}</p>
                   <p className="text-white font-bold uppercase mb-2" style={{ fontSize: '0.85rem', letterSpacing: '0.1em' }}>{step.title}</p>
                   <p className="text-white/45 font-light leading-relaxed" style={{ fontSize: '0.85rem', lineHeight: 1.7 }}>{step.desc}</p>
                 </div>
@@ -235,7 +246,7 @@ export default function NotForProfitPage() {
       {/* ─── APPLICATION FORM ──────────────────────── */}
       <section className="bg-white" id="apply" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
             {/* Left — intro */}
             <FadeIn>
