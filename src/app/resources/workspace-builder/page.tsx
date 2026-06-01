@@ -216,6 +216,11 @@ function calcSpec(
 }
 
 // ─── Reusable UI primitives ──────────────────────────────────────────────────
+
+const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
+
 function QtyInput({ value, onChange, min = 1, max = 200 }: { value: number; onChange: (n: number) => void; min?: number; max?: number }) {
   return (
     <div className="flex items-center gap-0" style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', overflow: 'hidden', display: 'inline-flex' }}>
@@ -335,7 +340,7 @@ export default function WorkspaceBuilderPage() {
     <>
       <Nav />
 
-      <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
+      <div className="min-h-screen bg-near-black" style={SEC_SM}>
 
         {/* Progress bar */}
         {step > 0 && (
@@ -345,7 +350,7 @@ export default function WorkspaceBuilderPage() {
         )}
 
         <div className="max-w-screen-xl mx-auto w-full"
-          style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
+          style={SEC}>
 
           {/* Step header */}
           <div style={{ marginBottom: '3.5rem' }}>
@@ -356,13 +361,13 @@ export default function WorkspaceBuilderPage() {
               </p>
             )}
             {step === 0 && (
-              <div className="inline-flex items-center gap-2 border border-teal/30" style={{ padding: '0.4rem 1rem', marginBottom: '1.75rem' }}>
+              <div className="inline-flex items-center gap-4 border border-teal/30" style={{ padding: '0.4rem 1rem', marginBottom: '1.75rem' }}>
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
             )}
             <h1 className="text-white font-black uppercase leading-tight tracking-tight"
-              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1.25rem' }}>
+              style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1rem' }}>
               {stepTitles[step] ?? 'Workspace Builder'}
             </h1>
             <p className="text-white/40 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.85, maxWidth: '36rem' }}>
@@ -382,7 +387,7 @@ export default function WorkspaceBuilderPage() {
                   { num: '02', label: 'Smart utilisation calc' },
                   { num: '03', label: 'Full spec with pricing' },
                 ].map(f => (
-                  <div key={f.label} className="border border-white/10 bg-white/[0.03]" style={{ padding: '1.75rem 1.5rem', borderRadius: '0.75rem' }}>
+                  <div key={f.label} className="border border-white/10 bg-white/[0.03] hover:shadow-md transition-shadow duration-300" style={{ padding: '1.75rem 1.5rem', borderRadius: '0.75rem' }}>
                     <p className="text-teal font-black" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', marginBottom: '0.625rem' }}>{f.num}</p>
                     <p className="text-white/70 font-medium" style={{ fontSize: '0.875rem', lineHeight: 1.5 }}>{f.label}</p>
                   </div>
@@ -876,7 +881,7 @@ function ResultsContent({
           {teamData.headcount} staff · {spaceData.buildingType} · {tierLabels[spec.tier]} spec
         </p>
         <h2 className="text-white font-black uppercase leading-none tracking-tight"
-          style={{ fontSize: 'clamp(2.25rem,5vw,4rem)', marginBottom: '1rem' }}>
+          style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1rem' }}>
           {fmt(spec.totalLow)} – {fmt(spec.totalHigh)}
         </h2>
         <p className="text-white/40 font-light" style={{ fontSize: '0.875rem' }}>
@@ -957,7 +962,7 @@ function ResultsContent({
         {/* Mobile cards */}
         <div className="sm:hidden" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {spec.lineItems.map((item, i) => (
-            <div key={i} className="border border-white/10 bg-white/[0.02]" style={{ borderRadius: '0.625rem', padding: '1rem 1.25rem' }}>
+            <div key={i} className="border border-white/10 bg-white/[0.02] hover:shadow-md transition-shadow duration-300" style={{ borderRadius: '0.625rem', padding: '1rem 1.25rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <span className="text-white font-semibold" style={{ fontSize: '0.875rem' }}>{item.space}</span>
                 <span className="text-white font-bold" style={{ fontSize: '0.875rem' }}>×{item.qty}</span>
@@ -977,7 +982,7 @@ function ResultsContent({
       </div>
 
       {/* Spec summary */}
-      <div className="border border-white/10 bg-white/[0.02]" style={{ borderRadius: '0.75rem', padding: '1.5rem', marginBottom: '3rem' }}>
+      <div className="border border-white/10 bg-white/[0.02] hover:shadow-md transition-shadow duration-300" style={{ borderRadius: '0.75rem', padding: '1.5rem', marginBottom: '3rem' }}>
         <p className="text-white/40 font-semibold uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', marginBottom: '1rem' }}>Spec summary</p>
         <div className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: '1rem' }}>
           {[
