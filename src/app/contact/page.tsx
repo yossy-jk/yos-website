@@ -11,6 +11,13 @@ const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3re
 const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
+const SectionLabel = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>
+    {children}
+  </p>
+)
+
 export const metadata = {
   title: 'Contact | Your Office Space',
   description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
@@ -96,7 +103,7 @@ export default function ContactPage() {
       {/* CONTACT — form + direct details */}
       <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             {/* Left — contact form */}
             <FadeIn>
@@ -224,7 +231,7 @@ export default function ContactPage() {
 
                 <div className="flex flex-col gap-6">
                   {/* Book a call */}
-                  <div className="border border-gray-100 p-6">
+                  <div className="border border-gray-100 p-8">
                     <p className="text-teal font-bold uppercase tracking-widest mb-2" style={{ fontSize: '0.65rem' }}>Fastest option</p>
                     <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Book a Clarity Call</p>
                     <p className="text-charcoal font-light mb-4" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
@@ -236,7 +243,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* Email */}
-                  <div style={{ paddingLeft: '1rem', borderLeft: '3px solid #00B5A5' }}>
+                  <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Email</p>
                     <a href={`mailto:${CONTACT.email}`}
                       className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
@@ -249,7 +256,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* Phone */}
-                  <div style={{ paddingLeft: '1rem', borderLeft: '3px solid #00B5A5' }}>
+                  <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Phone</p>
                     <a href={`tel:${CONTACT.phone.replace(/\s+/g,'')}`}
                       className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
@@ -262,7 +269,7 @@ export default function ContactPage() {
                   </div>
 
                   {/* Location */}
-                  <div style={{ paddingLeft: '1rem', borderLeft: '1px solid #e5e7eb' }}>
+                  <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in Newcastle</p>
                     <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Partnering with Business Owners Throughout Australia</p>
                   </div>
