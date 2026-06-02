@@ -6,7 +6,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { redisGet, redisSet, redisDel, redisIncr } from '@/lib/auth-v2'
+import { redisGet, redisSet, redisDel, redisIncr, getUser } from '@/lib/auth-v2'
 
 export const runtime = 'nodejs'
 
@@ -82,10 +82,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'This email is not authorised to access the dashboard.' }, { status: 403 })
   }
 
-  const user = await redisGet(`yos:users:email:${email}`)
-  if (!user || !user.active) {
-    return NextResponse.json({ error: 'No active dashboard account found for this email.' }, { status: 403 })
-  }
+  // Note: we do NOT check for existing user here. Code delivery to this email
+  // serves as proof of identity. The login route auto-seeds new users on first successful auth.
 
   const code = Math.floor(100000 + Math.random() * 900000).toString()
   await redisSet(`2fa:code:${email}`, JSON.stringify({ hash: code, attempts: 0, created_at: new Date().toISOString() }), CODE_TTL_SEC)
