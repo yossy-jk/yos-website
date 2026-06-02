@@ -53,21 +53,40 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, code, password }),
       })
-      const data = await res.json().catch(() => ({}))
+      let data: { ok?: boolean; error?: string; code_required?: boolean } = {}
+      try {
+        data = await res.json()
+      } catch {
+        setError('Server returned an invalid response. Try again.')
+        setLoading(false)
+        return
+      }
+
       if (res.ok && data.ok) {
         window.location.href = '/dashboard'
-      } else {
-        if (data.code_required) {
-          setError(data.error || 'Session expired — please request a new code.')
-          setStep('email')
-          setCode('')
-          setPassword('')
-          setCountdown(0)
-        } else {
-          setError(data.error || 'Incorrect details')
-        }
-        setLoading(false)
+        return
       }
+
+      // Clear errors only if truly a session/session expiry
+      if (data.code_required) {
+        setError(data.error || 'Code expired — a new code has been sent.')
+        // Keep current step but trigger a fresh code send silently
+        setCode('')
+        setPassword('')
+        try {
+          await fetch('/api/auth-v2/send-code', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email }),
+          })
+        } catch { /* silent — error shown above is enough */ }
+      } else {
+        // Wrong code or password — stay on the code step, keep inputs visible
+        setError(data.error || 'Incorrect code or password. Please try again.')
+        setCode('')
+        setPassword('')
+      }
+      setLoading(false)
     } catch {
       setError('Network error. Try again.')
       setLoading(false)
