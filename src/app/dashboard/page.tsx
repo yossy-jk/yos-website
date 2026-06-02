@@ -433,7 +433,7 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState('')
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance' | 'health'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance' | 'health' | 'blog'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
   const [opsAllData, setOpsAllData] = useState<OpsAllData | null>(null)
   const [proposalData, setProposalData] = useState<ProposalFollowupData | null>(null)
@@ -450,6 +450,8 @@ export default function Dashboard() {
   const [outreachLoading, setOutreachLoading] = useState(false)
   const [rewriting, setRewriting] = useState(false)
   const [rewriteMsg, setRewriteMsg] = useState<string | null>(null)
+  const [blogDrafts, setBlogDrafts] = useState<{ id: string; title: string; excerpt: string; division: string; targetKeyword: string; tags: string[]; author: string; scheduledFor: string; generatedAt: string }[]>([])
+  const [blogLoading, setBlogLoading] = useState(false)
   const [opsLoading, setOpsLoading] = useState(false)
   type MemClient = { id:string; name:string; division:string; industry?:string; contactName?:string; contactEmail?:string; contactPhone?:string; requirements:string[]; constraints:string[]; notes?:string; createdAt:string; updatedAt:string }
   type MemProject = { id:string; clientId:string; clientName?:string; name:string; division:string; scope:string; budget?:number; stage:string; startDate?:string; targetDate?:string; odooRef?:string; notes?:string; createdAt:string; updatedAt:string }
@@ -486,6 +488,7 @@ export default function Dashboard() {
       case 'dashboard': loadDashboard(); break
       case 'queue': loadQueue(); break
       case 'eos': loadEOS(); break
+      case 'blog': loadBlogDrafts(); break
       case 'seo': loadRankings(); break
       case 'usage': loadUsage(); break
       case 'memory': loadMemory(); break
@@ -563,6 +566,18 @@ export default function Dashboard() {
     } catch (e) {
       console.log('[SEO] fetch error:', e)
     }
+  }, [])
+
+  const loadBlogDrafts = useCallback(async () => {
+    setBlogLoading(true)
+    try {
+      const res = await fetch('/api/blog/drafts/list')
+      if (res.ok) {
+        const data = await res.json()
+        setBlogDrafts(data.drafts || [])
+      }
+    } catch { /* silent */ }
+    setBlogLoading(false)
   }, [])
 
   const loadUsage = useCallback(async () => {
@@ -801,6 +816,7 @@ export default function Dashboard() {
           { key: 'dashboard' as const, label: 'Dashboard', badge: false },
           { key: 'queue' as const, label: `Approvals${pendingCount > 0 ? ` (${pendingCount})` : ''}`, badge: urgentCount > 0 },
           { key: 'eos' as const, label: 'Traction', badge: false },
+          { key: 'blog' as const, label: `Blog${blogDrafts.length > 0 ? ` (${blogDrafts.length})` : ''}`, badge: blogDrafts.length > 0 },
           { key: 'seo' as const, label: 'SEO & AEO', badge: false },
           { key: 'usage' as const, label: 'Usage & Cost', badge: false },
           { key: 'memory' as const, label: 'Memory', badge: false },
@@ -1830,6 +1846,89 @@ export default function Dashboard() {
                 </div>
               </div>
             )}
+          </div>
+        )
+      })()}
+
+      {/* ── BLOG DRAFTS TAB ── */}
+      {activeTab === 'blog' && (() => {
+        if (blogLoading) return <div style={{ color: 'rgba(255,255,255,0.4)', padding: '2rem', textAlign: 'center' }}>Loading drafts...</div>
+        if (!blogDrafts.length) return (
+          <div style={{ textAlign: 'center', padding: '3rem' }}>
+            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', marginBottom: '1rem' }}>No blog drafts in queue.</p>
+            <button
+              onClick={async () => {
+                if (!confirm('Generate a new blog post now?')) return
+                const res = await fetch('/api/blog/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+                const d = await res.json()
+                if (d.ok) { alert(`Draft queued:\n${d.title}`); loadBlogDrafts() }
+                else alert(`Error: ${d.error}`)
+              }}
+              style={{ background: '#00B5A5', color: 'white', border: 'none', padding: '0.6rem 1.5rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}
+            >Generate Draft Now</button>
+          </div>
+        )
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.75rem' }}>
+                {blogDrafts.length} draft{blogDrafts.length !== 1 ? 's' : ''} awaiting approval. Posts go live at 6am AEST the day after you approve.
+              </p>
+              <button
+                onClick={loadBlogDrafts}
+                style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)', padding: '0.3rem 0.8rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.7rem' }}
+              >Refresh</button>
+            </div>
+            {blogDrafts.map(draft => (
+              <div key={draft.id} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '1.25rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                  <div>
+                    <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '0.3rem' }}>{draft.division}</div>
+                    <div style={{ color: 'white', fontSize: '1rem', fontWeight: 600, marginBottom: '0.25rem' }}>{draft.title}</div>
+                    <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.75rem' }}>Target keyword: {draft.targetKeyword}</div>
+                  </div>
+                  <span style={{ background: 'rgba(0,181,165,0.15)', color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, padding: '0.2rem 0.6rem', borderRadius: '999px', whiteSpace: 'nowrap' }}>PENDING</span>
+                </div>
+                {draft.excerpt && <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', marginBottom: '0.75rem', lineHeight: 1.5 }}>{draft.excerpt}</p>}
+                {draft.tags?.length > 0 && (
+                  <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
+                    {draft.tags.map(tag => (
+                      <span key={tag} style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)', fontSize: '0.7rem', padding: '0.2rem 0.6rem', borderRadius: '4px' }}>{tag}</span>
+                    ))}
+                  </div>
+                )}
+                <div style={{ display: 'flex', gap: '0.75rem', marginTop: '1rem' }}>
+                  <button
+                    onClick={async () => {
+                      if (!confirm(`Approve "${draft.title}"? It will publish tomorrow at 6am AEST.`)) return
+                      const res = await fetch('/api/queue/action', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: draft.id, action: 'approve' }),
+                      })
+                      const d = await res.json()
+                      if (d.ok) { loadBlogDrafts() }
+                      else alert(`Error: ${d.error}`)
+                    }}
+                    style={{ background: '#00B5A5', color: 'white', border: 'none', padding: '0.5rem 1.25rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600 }}
+                  >Approve & Publish</button>
+                  <button
+                    onClick={async () => {
+                      if (!confirm(`Skip "${draft.title}"?`)) return
+                      const res = await fetch('/api/queue/action', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: draft.id, action: 'skip' }),
+                      })
+                      const d = await res.json()
+                      if (d.ok) { loadBlogDrafts() }
+                      else alert(`Error: ${d.error}`)
+                    }}
+                    style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)', padding: '0.5rem 1.25rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.8rem' }}
+                  >Skip</button>
+                </div>
+              </div>
+            ))}
           </div>
         )
       })()}

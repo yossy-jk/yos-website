@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   title: "Your Office Space | Commercial Property Advisory Australia",
   description: "Tenant-side commercial property advisory across Australia. Tenant rep, buyers agency, office furniture, fitout and cleaning. NSW focus.",
   keywords: "commercial tenant rep Australia, commercial buyers agent, office furniture fitout, commercial cleaning NSW, tenant representation Sydney Newcastle",
-  metadataBase: new URL("https://yourofficespace.au"),
+  metadataBase: new URL("https://www.yourofficespace.au"),
   alternates: {
-    canonical: "https://yourofficespace.au",
+    canonical: "https://www.yourofficespace.au",
   },
   openGraph: {
     title: "Your Office Space | Commercial Property Advisory Australia",
