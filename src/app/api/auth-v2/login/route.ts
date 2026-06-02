@@ -13,7 +13,10 @@ import {
 
 export const runtime = 'nodejs'
 
+const CODE_TTL_SEC = 300 // must match send-code route
+
 export async function POST(req: NextRequest) {
+  console.log('[auth-v2/login] request received')
   const ip = getIp(req)
 
   const rate = checkRateLimit(ip)
@@ -52,36 +55,54 @@ export async function POST(req: NextRequest) {
   const raw     = await redisGet(codeKey)
 
   if (!raw) {
+    console.log('[auth-v2/login] no code found in Redis for', email)
     return NextResponse.json(
       { error: 'No code found. Request a new code and try again.', code_required: true },
       { status: 401 }
     )
   }
 
-  let codeData: { hash?: string; attempts?: number }
-  try { codeData = JSON.parse(raw) } catch { codeData = raw as unknown as { hash?: string } }
+  let codeData: { hash?: string; attempts?: number; maxed?: boolean }
+  try { codeData = JSON.parse(raw) } catch { codeData = { hash: raw as unknown as string } }
 
   if (codeData.hash !== code) {
-    // Increment attempt counter and persist before checking limit
+    // Increment attempt counter
     codeData.attempts = (codeData.attempts ?? 0) + 1
     const ttlRemaining = await redisTtl(codeKey)
-    const ttl = ttlRemaining > 0 ? ttlRemaining : 300
-    await redisSet(codeKey, JSON.stringify(codeData), ttl)
+    const ttl = ttlRemaining > 0 ? ttlRemaining : CODE_TTL_SEC
+
     if (codeData.attempts >= 5) {
-      await redisDel(codeKey)
+      // Mark as maxed instead of deleting — correct code can still be checked
+      codeData.maxed = true
+      await redisSet(codeKey, JSON.stringify(codeData), ttl)
+      console.log('[auth-v2/login] code maxed after', codeData.attempts, 'attempts for', email)
       return NextResponse.json(
         { error: 'Too many wrong attempts. Request a new code.', code_required: true },
         { status: 401 }
       )
     }
+
+    await redisSet(codeKey, JSON.stringify(codeData), ttl)
+    console.log('[auth-v2/login] wrong code, attempt', codeData.attempts, 'for', email)
     return NextResponse.json(
       { error: 'Incorrect code.', code_required: true },
       { status: 401 }
     )
   }
 
+  // Code matches. If key was maxed, treat as exhausted (can't trust the code now)
+  if (codeData.maxed) {
+    await redisDel(codeKey)
+    console.log('[auth-v2/login] correct code but key was maxed — requesting new code for', email)
+    return NextResponse.json(
+      { error: 'Session expired. Request a new code and try again.', code_required: true },
+      { status: 401 }
+    )
+  }
+
   // Code valid — invalidate immediately (one-time use)
   await redisDel(codeKey)
+  console.log('[auth-v2/login] code valid for', email)
 
   // ── Password Verification ─────────────────────────────────────────────
   let user = await getUser(email)
@@ -103,10 +124,12 @@ export async function POST(req: NextRequest) {
       active: true,
     }
     await saveUser(user)
+    console.log('[auth-v2/login] new user seeded for', email)
   } else {
     // Existing user — verify password
     const valid = await verifyPasswordHash(password, user.password_hash)
     if (!valid) {
+      console.log('[auth-v2/login] wrong password for', email)
       return NextResponse.json({ error: 'Incorrect email or password' }, { status: 401 })
     }
   }
@@ -121,5 +144,6 @@ export async function POST(req: NextRequest) {
     ok: true,
     user: { email: updated.email, name: updated.name, role: updated.role, scopes: updated.scopes },
   })
+  console.log('[auth-v2/login] success for', email, '— session cookie set')
   return setSessionCookie(response, session)
 }

@@ -2,7 +2,7 @@
  * POST /api/auth-v2/send-code
  * Body: { email: string }
  * Sends a 6-digit verification code to the user's email.
- * Rate limited: 3 codes per hour per IP.
+ * Rate limited: 5 codes per 2 hours per IP.
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
@@ -10,9 +10,9 @@ import { redisGet, redisSet, redisDel, redisIncr, getUser } from '@/lib/auth-v2'
 
 export const runtime = 'nodejs'
 
-const CODE_TTL_SEC    = 300      // 5 minutes
-const SEND_LIMIT      = 3        // max codes per hour
-const SEND_WINDOW_SEC = 3600
+const CODE_TTL_SEC    = 300  // 5 minutes
+const SEND_LIMIT      = 5   // max codes per 2 hours
+const SEND_WINDOW_SEC = 7200 // 2 hours
 
 // Whitelist — only these emails can receive codes
 const ALLOWED_EMAILS = ['jk@yourofficespace.au']
@@ -61,9 +61,10 @@ async function sendCodeEmail(email: string, code: string): Promise<void> {
 }
 
 export async function POST(req: NextRequest) {
+  console.log('[auth-v2/send-code] request received')
   const ip = getIp(req)
   if (await isSendRateLimited(ip)) {
-    return NextResponse.json({ error: 'Too many codes sent. Try again in an hour.' }, { status: 429 })
+    return NextResponse.json({ error: 'Too many codes sent. Try again in 2 hours.' }, { status: 429 })
   }
 
   let email: string
@@ -82,16 +83,20 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'This email is not authorised to access the dashboard.' }, { status: 403 })
   }
 
-  // Note: we do NOT check for existing user here. Code delivery to this email
-  // serves as proof of identity. The login route auto-seeds new users on first successful auth.
-
   const code = Math.floor(100000 + Math.random() * 900000).toString()
-  await redisSet(`2fa:code:${email}`, JSON.stringify({ hash: code, attempts: 0, created_at: new Date().toISOString() }), CODE_TTL_SEC)
+  console.log('[auth-v2/send-code] generating code for', email, '(code hidden)')
+
+  await redisSet(
+    `2fa:code:${email}`,
+    JSON.stringify({ hash: code, attempts: 0, maxed: false, created_at: new Date().toISOString() }),
+    CODE_TTL_SEC
+  )
 
   try {
     await sendCodeEmail(email, code)
+    console.log('[auth-v2/send-code] email sent to', email)
   } catch (err) {
-    console.error('Failed to send 2FA email:', err)
+    console.error('[auth-v2/send-code] Failed to send email:', err)
     return NextResponse.json({ error: 'Failed to send email. Try again shortly.' }, { status: 500 })
   }
 
