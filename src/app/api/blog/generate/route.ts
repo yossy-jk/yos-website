@@ -12,10 +12,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 import { requireAuth } from '@/lib/auth'
 
-const QUEUE_SECRET = process.env.QUEUE_SECRET || 'yos-queue-2026'
-const QUEUE_KEY    = 'yos:queue:pending'
-const MINIMAX_KEY  = process.env.MINIMAX_API_KEY || ''
-const MINIMAX_BASE = 'https://api.minimaxi.chat/v1'
+const QUEUE_SECRET  = process.env.QUEUE_SECRET || 'yos-queue-2026'
+const QUEUE_KEY     = 'yos:queue:pending'
+// Increase max function duration for this API route (Vercel Pro allows up to 300s)
+export const maxDuration = 60
+
+const MINIMAX_KEY   = process.env.MINIMAX_API_KEY || ''
+const MINIMAX_BASE  = 'https://api.minimaxi.chat/v1'
+const MINIMAX_MODEL = 'MiniMax-M2.7-highspeed'
 
 // ── 25-topic rotating library (5 per division) ───────────────────────────────
 const TOPICS = [
@@ -30,11 +34,11 @@ const TOPICS = [
   { division: 'buyers-agency', topic: 'Lease vs Buy: A Framework for Newcastle Businesses Deciding on Property',    targetKeyword: 'lease vs buy commercial property' },
   { division: 'buyers-agency', topic: 'What a Buyer\'s Agent Actually Does (And Why You Need One)',                  targetKeyword: 'commercial buyers agent newcastle' },
   { division: 'buyers-agency', topic: 'Off-Market Deals: How Tenant Buyers Access Properties Nobody Else Can See',  targetKeyword: 'off market commercial property newcastle' },
-  { division: 'buyers-agency', topic: 'Due Diligence Checklist for First-Time Commercial Property Buyers',         targetKeyword: 'commercial property due diligence' },
+  { division: 'buyers-agency', topic: 'Due Diligence Checklist for First-Time Commercial Property Buyers',           targetKeyword: 'commercial property due diligence' },
   // furniture (5)
-  { division: 'furniture',    topic: 'How Much Does a Full Office Fitout Cost in 2026? Real Newcastle Examples',    targetKeyword: 'office fitout cost newcastle' },
-  { division: 'furniture',    topic: 'The Hidden Costs of Cheap Office Furniture (And What to Budget Instead)',    targetKeyword: 'commercial office furniture newcastle' },
-  { division: 'furniture',    topic: 'Ergonomic Desk Setup Guide for Newcastle Small Businesses',                  targetKeyword: 'sit stand desk newcastle' },
+  { division: 'furniture',    topic: 'How Much Does a Full Office Fitout Cost in 2026? Real Newcastle Examples',   targetKeyword: 'office fitout cost newcastle' },
+  { division: 'furniture',    topic: 'The Hidden Costs of Cheap Office Furniture (And What to Budget Instead)',     targetKeyword: 'commercial office furniture newcastle' },
+  { division: 'furniture',    topic: 'Ergonomic Desk Setup Guide for Newcastle Small Businesses',                   targetKeyword: 'sit stand desk newcastle' },
   { division: 'furniture',    topic: 'Refurbished vs New: Which Office Furniture Makes Sense for Your Business',   targetKeyword: 'refurbished office furniture' },
   { division: 'furniture',    topic: 'What to Expect From a Commercial Furniture Supplier in the Hunter Region',   targetKeyword: 'office furniture hunter valley' },
   // cleaning (5)
@@ -44,11 +48,11 @@ const TOPICS = [
   { division: 'cleaning',     topic: 'How to Find a Reliable Commercial Cleaner in the Hunter Valley',            targetKeyword: 'commercial cleaning hunter valley' },
   { division: 'cleaning',     topic: 'What\'s Included in a Comprehensive Office Cleaning Service?',             targetKeyword: 'office cleaning newcastle' },
   // general (5)
-  { division: 'general',     topic: 'Newcastle Commercial Property Market Update: Q2 2026',                       targetKeyword: 'newcastle commercial property market' },
-  { division: 'general',     topic: 'How to Choose the Right Office Location in Newcastle for Your Industry',    targetKeyword: 'commercial office space newcastle' },
+  { division: 'general',     topic: 'Newcastle Commercial Property Market Update: Q2 2026',                      targetKeyword: 'newcastle commercial property market' },
+  { division: 'general',     topic: 'How to Choose the Right Office Location in Newcastle for Your Industry',   targetKeyword: 'commercial office space newcastle' },
   { division: 'general',     topic: 'The True Cost of a Bad Office Move (And How to Avoid It)',                  targetKeyword: 'office relocation newcastle' },
-  { division: 'general',     topic: 'Office Design Trends Newcastle Businesses Are Actually Adopting in 2026',   targetKeyword: 'office design newcastle' },
-  { division: 'general',     topic: 'Why Newcastle\'s Commercial Property Market Is Different From Sydney',       targetKeyword: 'newcastle commercial property' },
+  { division: 'general',     topic: 'Office Design Trends Newcastle Businesses Are Actually Adopting in 2026',  targetKeyword: 'office design newcastle' },
+  { division: 'general',     topic: 'Why Newcastle\'s Commercial Property Market Is Different From Sydney',      targetKeyword: 'newcastle commercial property' },
 ]
 
 function getTodayTopic() {
@@ -72,6 +76,8 @@ function tomorrowDate(): string {
 }
 
 // ── MiniMax generation ─────────────────────────────────────────────────────────
+// MiniMax-M2.7 returns content in .message.content; reasoning_content is trace only.
+// Use extra params to ensure clean JSON output.
 async function generatePost(topic: typeof TOPICS[number]) {
   if (!MINIMAX_KEY) throw new Error('MINIMAX_API_KEY not set')
 
@@ -83,25 +89,31 @@ TARGET KEYWORD: ${topic.targetKeyword}
 
 Requirements:
 - Write in plain English, like a knowledgeable expert explaining something to a smart business owner
-- Approximately 900–1200 words
+- Approximately 900-1200 words
 - Include the target keyword naturally in the title, first paragraph, and at least 2 subheadings
 - Short paragraphs (2-4 sentences max). No fluff. No emojis. No corporate speak.
 - Use 3-4 ## subheadings in markdown
 - Include a short 2-sentence excerpt for the blog listing page
-- Output ONLY valid JSON with keys: title, excerpt, content (full markdown body), tags (array of 3-5 strings)
-- Do not wrap the JSON in code fences or any additional text
+- Output ONLY valid JSON with these keys: title, excerpt (string), content (markdown body), tags (array of 3-5 strings)
+- Do not wrap the JSON in code fences, no explanation, no preamble
 
-Output JSON only:`
+Your JSON output:`
 
   const res = await fetch(`${MINIMAX_BASE}/text/chatcompletion_v2`, {
     method: 'POST',
     headers: { Authorization: `Bearer ${MINIMAX_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'abab6.5s',
+      model: MINIMAX_MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.7,
-      max_tokens: 2000,
+      max_tokens: 3000,
+      extra: {
+        enable_search: false,
+        input_planned: false,
+        use_threshold: false,
+      },
     }),
+    signal: AbortSignal.timeout(120000),
   })
 
   if (!res.ok) {
@@ -110,14 +122,37 @@ Output JSON only:`
   }
 
   const data = await res.json() as {
-    choices?: Array<{ message?: { content?: string } }>
-    error?: { message?: string }
+    choices?: Array<{ message?: { content?: string; reasoning_content?: string } }>
+    base_resp?: { status_code?: number; status_msg?: string }
   }
 
-  if (data.error) throw new Error(data.error.message || 'MiniMax error')
+  if (data.base_resp && data.base_resp.status_code !== 0) {
+    throw new Error(`MiniMax API error ${data.base_resp.status_code}: ${data.base_resp.status_msg}`)
+  }
 
-  const raw = data.choices?.[0]?.message?.content?.trim() || ''
-  const cleaned = raw.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim()
+  // content has the actual text in reasoning_content or content field
+  const raw = (data.choices?.[0]?.message?.content || '').trim()
+  const content = raw || (data.choices?.[0]?.message?.reasoning_content || '').trim()
+
+  // Find the first '{' after any preamble text
+  const jsonStart = content.indexOf('{')
+  if (jsonStart < 0) throw new Error(`MiniMax returned no JSON at all (content: ${content.slice(0, 80)})`)
+
+  // Extract balanced JSON object starting from first '{'
+  let depth = 0
+  let jsonEnd = -1
+  for (let i = jsonStart; i < content.length; i++) {
+    if (content[i] === '{') depth++
+    else if (content[i] === '}') { depth--; if (depth === 0) { jsonEnd = i; break } }
+  }
+  if (jsonEnd < 0) throw new Error(`MiniMax JSON was not balanced (content length: ${content.length})`)
+
+  let cleaned = content.slice(jsonStart, jsonEnd + 1)
+  // If the extracted text has a trailing " that breaks it, try trimming
+  try { JSON.parse(cleaned) } catch {
+    cleaned = cleaned.replace(/\}"$/, '}')
+    cleaned = cleaned.replace(/\}\\n"$/, '}')
+  }
   return JSON.parse(cleaned) as { title: string; content: string; excerpt: string; tags: string[] }
 }
 
