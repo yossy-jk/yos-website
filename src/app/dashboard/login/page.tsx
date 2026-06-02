@@ -1,33 +1,70 @@
 'use client'
-import { useState, FormEvent } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, FormEvent, useEffect } from 'react'
+
+type Step = 'email' | 'code'
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [username, setUsername] = useState('joe')
+  const [step, setStep] = useState<Step>('email')
+  const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [countdown, setCountdown] = useState(0)
 
-  async function handleSubmit(e: FormEvent) {
+  useEffect(() => {
+    if (countdown <= 0) return
+    const t = setTimeout(() => setCountdown(c => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [countdown])
+
+  async function handleSendCode(e: FormEvent) {
+    e.preventDefault()
+    setError(null)
+    setSending(true)
+    try {
+      const res = await fetch('/api/auth-v2/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data.ok) {
+        setStep('code')
+        setCountdown(300)
+      } else {
+        setError(data.error || 'Failed to send code')
+        setSending(false)
+      }
+    } catch {
+      setError('Network error. Try again.')
+      setSending(false)
+    }
+  }
+
+  async function handleLogin(e: FormEvent) {
     e.preventDefault()
     setError(null)
     setLoading(true)
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth-v2/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ email, code, password }),
       })
-      if (res.ok) {
-        router.push('/dashboard')
-        router.refresh()
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data.ok) {
+        window.location.href = '/dashboard'
       } else {
-        const data = await res.json().catch(() => ({}))
-        if (res.status === 429) {
-          setError(data.error || 'Too many attempts. Wait 15 minutes.')
+        if (data.code_required) {
+          setError(data.error || 'Session expired — please request a new code.')
+          setStep('email')
+          setCode('')
+          setPassword('')
+          setCountdown(0)
         } else {
-          setError(data.error || 'Incorrect password')
+          setError(data.error || 'Incorrect details')
         }
         setLoading(false)
       }
@@ -37,88 +74,150 @@ export default function LoginPage() {
     }
   }
 
+  function formatTime(s: number) {
+    return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`
+  }
+
+  const inputBase: React.CSSProperties = {
+    width: '100%',
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: 8,
+    padding: '0.75rem 1rem',
+    color: 'white',
+    fontSize: '0.9rem',
+    boxSizing: 'border-box',
+    outline: 'none',
+  }
+
   return (
     <div style={{
-      minHeight: '100vh',
-      background: '#0a0a0a',
-      color: 'white',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '2rem',
-      fontFamily: 'system-ui, -apple-system, sans-serif',
+      minHeight: '100vh', background: '#0a0a0a', color: 'white',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '2rem', fontFamily: 'system-ui, -apple-system, sans-serif',
     }}>
-      <form onSubmit={handleSubmit} style={{
-        background: 'rgba(0,181,165,0.06)',
-        border: '1px solid rgba(0,181,165,0.2)',
-        padding: '2.5rem',
-        borderRadius: 8,
-        width: '100%',
-        maxWidth: 360,
+      <div style={{
+        background: 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: 16,
+        padding: '2.5rem 2rem',
+        maxWidth: 420, width: '100%',
       }}>
-        <h1 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', fontWeight: 600 }}>
-          YOS Dashboard
-        </h1>
-        <label htmlFor="username" style={{ display: 'block', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.5rem' }}>
-          Username
-        </label>
-        <input
-          id="username"
-          type="text"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-          disabled={loading}
-          style={{ width: '100%', padding: '0.75rem 1rem', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: 4, color: 'white', fontSize: '1rem', marginBottom: '1rem', boxSizing: 'border-box' }}
-        />
-        <label htmlFor="password" style={{ display: 'block', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.5rem' }}>
-          Password
-        </label>
-        <input
-          id="password"
-          type="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          autoFocus
-          disabled={loading}
-          style={{
-            width: '100%',
-            padding: '0.75rem 1rem',
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.15)',
-            borderRadius: 4,
-            color: 'white',
-            fontSize: '1rem',
-            marginBottom: '1rem',
-            boxSizing: 'border-box',
-          }}
-        />
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{
+            width: 52, height: 52, background: '#00B5A5', borderRadius: 10,
+            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: '1.3rem', fontWeight: 900, color: 'white', marginBottom: 12,
+          }}>YOS</div>
+          <h1 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0 0 4px' }}>YOS Dashboard</h1>
+          <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.35)', margin: 0 }}>
+            {step === 'email'
+              ? 'Enter your email to continue'
+              : `Code sent to ${email}`}
+          </p>
+        </div>
+
         {error && (
           <div style={{
-            color: '#ff6b6b',
-            fontSize: '0.85rem',
-            marginBottom: '1rem',
-          }}>
-            {error}
-          </div>
+            background: 'rgba(239,68,68,0.12)',
+            border: '1px solid rgba(239,68,68,0.25)',
+            borderRadius: 8,
+            padding: '0.65rem 0.85rem',
+            marginBottom: '1.25rem',
+            color: '#EF4444',
+            fontSize: '0.78rem',
+          }}>{error}</div>
         )}
-        <button
-          type="submit"
-          disabled={loading || !password}
-          style={{
-            width: '100%',
-            padding: '0.75rem',
-            background: loading || !password ? 'rgba(0,181,165,0.3)' : '#00B5A5',
-            border: 'none',
-            borderRadius: 4,
-            color: 'white',
-            fontSize: '1rem',
-            fontWeight: 500,
-            cursor: loading || !password ? 'not-allowed' : 'pointer',
-          }}
-        >
-          {loading ? 'Signing in…' : 'Sign in'}
-        </button>
-      </form>
+
+        {/* Step 1 — Email */}
+        {step === 'email' && (
+          <form onSubmit={handleSendCode}>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              required autoFocus autoComplete="email"
+              style={{ ...inputBase, marginBottom: '1rem' }}
+            />
+            <button
+              type="submit"
+              disabled={sending}
+              style={{
+                width: '100%', background: '#00B5A5', color: 'white',
+                border: 'none', borderRadius: 8, padding: '0.85rem',
+                fontSize: '0.9rem', fontWeight: 600,
+                cursor: sending ? 'not-allowed' : 'pointer',
+                opacity: sending ? 0.7 : 1,
+              }}
+            >
+              {sending ? 'Sending...' : 'Send sign-in code'}
+            </button>
+          </form>
+        )}
+
+        {/* Step 2 — Code + Password */}
+        {step === 'code' && (
+          <form onSubmit={handleLogin}>
+            <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.4)', marginBottom: '1rem' }}>
+              Check your email — a 6-digit code has been sent.
+            </p>
+            <input
+              type="text"
+              value={code}
+              onChange={e => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+              placeholder="6-digit code"
+              maxLength={6} required autoFocus
+              inputMode="numeric" autoComplete="one-time-code"
+              style={{
+                ...inputBase, marginBottom: '0.75rem',
+                fontSize: '1.1rem', fontFamily: 'monospace',
+                letterSpacing: '0.25em', textAlign: 'center',
+              }}
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Password" required autoComplete="current-password"
+              style={{ ...inputBase, marginBottom: '1rem' }}
+            />
+            <button
+              type="submit"
+              disabled={loading || code.length !== 6}
+              style={{
+                width: '100%', background: '#00B5A5', color: 'white',
+                border: 'none', borderRadius: 8, padding: '0.85rem',
+                fontSize: '0.9rem', fontWeight: 600,
+                cursor: loading || code.length !== 6 ? 'not-allowed' : 'pointer',
+                opacity: loading || code.length !== 6 ? 0.7 : 1,
+              }}
+            >
+              {loading ? 'Signing in...' : 'Sign in'}
+            </button>
+            <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+              {countdown > 0 ? (
+                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)' }}>
+                  Resend in {formatTime(countdown)}
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => { setStep('email'); setEmail(''); setCode(''); setPassword(''); setError(null); setCountdown(0); }}
+                  style={{ background: 'none', border: 'none', color: '#00B5A5', fontSize: '0.75rem', cursor: 'pointer', padding: 0, textDecoration: 'underline' }}
+                >
+                  Use a different email
+                </button>
+              )}
+            </div>
+          </form>
+        )}
+
+        <p style={{ marginTop: '1.5rem', textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.18)' }}>
+          YOS internal dashboard
+        </p>
+      </div>
     </div>
   )
 }
