@@ -34,7 +34,8 @@ export default function LoginPage() {
         setStep('code')
         setCountdown(300)
       } else {
-        setError(data.error || 'Failed to send code')
+        // Show the actual error — don't hide it from the user
+        setError(data.error || 'Failed to send code. Try again.')
         setSending(false)
       }
     } catch {
@@ -67,25 +68,41 @@ export default function LoginPage() {
         return
       }
 
-      // Clear errors only if truly a session/session expiry
+      const errMsg = data.error || ''
+
+      // code_required means: code expired, was used, or too many wrong attempts
+      // In all cases the user needs a fresh code — send one automatically,
+      // but if that fails we surface the error clearly and let them re-enter email.
       if (data.code_required) {
-        setError(data.error || 'Code expired — a new code has been sent.')
-        // Keep current step but trigger a fresh code send silently
         setCode('')
         setPassword('')
+        setLoading(false)
         try {
-          await fetch('/api/auth-v2/send-code', {
+          const freshRes = await fetch('/api/auth-v2/send-code', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email }),
           })
-        } catch { /* silent — error shown above is enough */ }
-      } else {
-        // Wrong code or password — stay on the code step, keep inputs visible
-        setError(data.error || 'Incorrect code or password. Please try again.')
-        setCode('')
-        setPassword('')
+          const freshData = await freshRes.json().catch(() => ({}))
+          if (freshRes.ok && freshData.ok) {
+            setError(errMsg || 'Session expired — a new code has been sent to your email.')
+            setCountdown(300)
+          } else {
+            // Couldn't send a new code — send them back to email step
+            setError(freshData.error || errMsg || 'Your session expired. Please start again.')
+            setStep('email')
+          }
+        } catch {
+          setError('Session expired. Please start again.')
+          setStep('email')
+        }
+        return
       }
+
+      // Wrong password or other non-code error — stay on code step, keep inputs
+      setError(errMsg || 'Incorrect code or password. Please try again.')
+      setCode('')
+      setPassword('')
       setLoading(false)
     } catch {
       setError('Network error. Try again.')
