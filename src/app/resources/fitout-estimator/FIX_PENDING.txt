@@ -1,2 +1,0 @@
-# placeholder — file is intact, just tracking the fix needed
-# The edit tool will rewrite the file properly
