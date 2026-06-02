@@ -7,6 +7,7 @@ const SERVICES = [
   { label: 'Commercial Furniture', href: '/furniture' },
   { label: 'Office Fit Out', href: '/office-fitout' },
   { label: 'Commercial Cleaning', href: '/cleaning' },
+  { label: 'Fit Out & Furniture Estimator', href: '/resources/fitout-estimator', accent: true },
 ]
 
 export default function WelcomeModal() {
@@ -114,8 +115,8 @@ export default function WelcomeModal() {
               onClick={() => navigate(s.href)}
               style={{
                 textAlign: 'left',
-                background: '#1A1A1A',
-                border: '1.5px solid #2A2A2A',
+                background: s.accent ? '#00352F' : '#1A1A1A',
+                border: s.accent ? '1.5px solid #00B5A5' : '1.5px solid #2A2A2A',
                 borderRadius: '0.75rem',
                 padding: '1rem 0.9rem',
                 cursor: 'pointer',
@@ -124,16 +125,16 @@ export default function WelcomeModal() {
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLButtonElement
                 el.style.borderColor = '#00B5A5'
-                el.style.background = '#151515'
+                el.style.background = s.accent ? '#004A44' : '#151515'
               }}
               onMouseLeave={e => {
                 const el = e.currentTarget as HTMLButtonElement
-                el.style.borderColor = '#2A2A2A'
-                el.style.background = '#1A1A1A'
+                el.style.borderColor = s.accent ? '#00B5A5' : '#2A2A2A'
+                el.style.background = s.accent ? '#00352F' : '#1A1A1A'
               }}
             >
               <p style={{
-                color: '#fff', fontWeight: 700, fontSize: '0.82rem', lineHeight: 1.3,
+                color: s.accent ? '#00B5A5' : '#fff', fontWeight: 700, fontSize: '0.82rem', lineHeight: 1.3,
               }}>
                 {s.label}
               </p>
