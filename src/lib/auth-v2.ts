@@ -63,6 +63,12 @@ export async function redisIncr(key: string): Promise<number> {
   try { return (await r.incr(key)) as number } catch { return 0 }
 }
 
+export async function redisTtl(key: string): Promise<number> {
+  const r = getRedis()
+  if (!r) return -1
+  try { return (await r.ttl(key)) as number } catch { return -1 }
+}
+
 // ── Types ──────────────────────────────────────────────────────────────────
 type Role = 'super' | 'admin' | 'user' | 'limited' | 'tenant_rep'
 

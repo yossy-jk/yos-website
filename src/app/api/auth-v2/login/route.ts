@@ -8,7 +8,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import {
   getUser, getUserById, createSession, setSessionCookie, saveUser,
   checkRateLimit, getIp, clearRateLimit, verifyPasswordHash,
-  redisGet, redisSet, redisDel, hashPassword,
+  redisGet, redisSet, redisDel, redisTtl, hashPassword,
 } from '@/lib/auth-v2'
 
 export const runtime = 'nodejs'
@@ -62,7 +62,12 @@ export async function POST(req: NextRequest) {
   try { codeData = JSON.parse(raw) } catch { codeData = raw as unknown as { hash?: string } }
 
   if (codeData.hash !== code) {
-    if (codeData.attempts !== undefined && codeData.attempts >= 4) {
+    // Increment attempt counter and persist before checking limit
+    codeData.attempts = (codeData.attempts ?? 0) + 1
+    const ttlRemaining = await redisTtl(codeKey)
+    const ttl = ttlRemaining > 0 ? ttlRemaining : 300
+    await redisSet(codeKey, JSON.stringify(codeData), ttl)
+    if (codeData.attempts >= 5) {
       await redisDel(codeKey)
       return NextResponse.json(
         { error: 'Too many wrong attempts. Request a new code.', code_required: true },

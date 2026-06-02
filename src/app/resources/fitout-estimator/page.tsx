@@ -560,7 +560,7 @@ export default function FitoutEstimatorPage() {
           )}
 
           {/* ── STEP 8(Furn) / STEP 9(Turnkey): RESULT ── */}
-          {step >= maxStep && estimate && inputs.tier && (
+          {step > maxStep && estimate && inputs.tier && (
             <div className="max-w-2xl">
             <ToolGate
               tool="Fitout Estimator"
