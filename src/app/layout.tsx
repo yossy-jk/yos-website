@@ -5,6 +5,9 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  verification: {
+    google: "y_reMqD1jgJLEUomnBsCqbMF-ZrEZs0dcbQiMlpSZDE",
+  },
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
