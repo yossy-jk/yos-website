@@ -144,6 +144,19 @@ const STATE_NAMES: Record<State, string> = {
   ACT: 'Australian Capital Territory', NT: 'Northern Territory',
 }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Commercial Stamp Duty Calculator Australia | Your Office Space",
+  "description": "Calculate transfer duty on commercial property across all Australian states. 2025-26 verified rates.",
+  "url": "https://www.yourofficespace.au/resources/stamp-duty-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function StampDutyCalculatorPage() {
   const [selectedState, setSelectedState] = useState<State | ''>('')
   const [purchasePrice, setPurchasePrice] = useState('')
@@ -169,6 +182,7 @@ export default function StampDutyCalculatorPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>

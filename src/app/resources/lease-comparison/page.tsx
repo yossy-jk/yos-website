@@ -176,6 +176,19 @@ function YearTable({ result, isBest }: { result: LeaseResult; isBest: boolean })
   )
 }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Commercial Lease Comparison Tool | Your Office Space",
+  "description": "Compare two commercial lease scenarios side by side. Rent, outgoings, incentives and term.",
+  "url": "https://www.yourofficespace.au/resources/lease-comparison",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function LeaseComparisonPage() {
   const [leases, setLeases] = useState<LeaseInput[]>([empty(), empty(), empty()])
   const [results, setResults] = useState<LeaseResult[]>([])
@@ -227,6 +240,7 @@ export default function LeaseComparisonPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       {/* Hero */}

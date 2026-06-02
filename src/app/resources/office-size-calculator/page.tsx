@@ -83,6 +83,19 @@ const WORK_STYLE_RECOMMENDATIONS: Record<WorkStyle, string[]> = {
   ],
 }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Office Size Calculator | Your Office Space",
+  "description": "Calculate how much office space your team needs based on staff count and work style.",
+  "url": "https://www.yourofficespace.au/resources/office-size-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function OfficeSizeCalculatorPage() {
   const [staff, setStaff] = useState('')
   const [workStyle, setWorkStyle] = useState<WorkStyle | ''>('')
@@ -201,6 +214,7 @@ export default function OfficeSizeCalculatorPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>

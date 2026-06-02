@@ -9,7 +9,7 @@ import { requireAuth } from '@/lib/auth'
 const CLIENT_ID       = process.env.GSC_CLIENT_ID || ''
 const CLIENT_SECRET   = process.env.GSC_CLIENT_SECRET || ''
 const REFRESH_TOKEN   = process.env.GSC_REFRESH_TOKEN || ''
-const SITE_URL        = 'https://yourofficespace.au/'
+const SITE_URL        = 'https://www.yourofficespace.au/'
 
 // All keywords we track (must match the SEO tab's list)
 const TRACKED_KEYWORDS = [

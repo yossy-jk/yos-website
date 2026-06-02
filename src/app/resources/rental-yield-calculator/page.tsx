@@ -57,6 +57,19 @@ function calculate(
   return { grossYield, netYield, annualGross, annualNet, monthlyNet, weeklyEffective, weeklyBreakEven, annualMgmtFee }
 }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Commercial Rental Yield Calculator | Your Office Space",
+  "description": "Calculate gross and net rental yield on commercial property investments.",
+  "url": "https://www.yourofficespace.au/resources/rental-yield-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function RentalYieldCalculatorPage() {
   const [price, setPrice] = useState('')
   const [rent, setRent] = useState('')
@@ -91,6 +104,7 @@ export default function RentalYieldCalculatorPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>

@@ -63,6 +63,19 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Commercial Property Purchase Checklist | Your Office Space",
+  "description": "Interactive due diligence checklist for buying commercial property in Australia.",
+  "url": "https://www.yourofficespace.au/resources/purchase-checklist",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function PurchaseChecklistPage() {
   const [checked, setChecked] = useState<Set<string>>(new Set())
 
@@ -80,6 +93,7 @@ export default function PurchaseChecklistPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <section className="bg-near-black" style={SEC_SM}>

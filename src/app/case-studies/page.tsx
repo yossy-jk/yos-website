@@ -67,11 +67,22 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   )
 }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Case Studies | Your Office Space",
+  "description": "Real commercial property projects with real outcomes. Tenant representation, fitout, furniture and cleaning across Australia.",
+  "url": "https://www.yourofficespace.au/case-studies",
+  "numberOfItems": 999,
+}
+
 export default function CaseStudiesPage() {
   const all = getAllCaseStudies()
 
   return (
     <>
+      
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       {/* ─── HERO ─────────────────────────────────────────── */}

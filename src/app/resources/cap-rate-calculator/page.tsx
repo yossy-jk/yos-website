@@ -53,6 +53,19 @@ function MetricCard({ label, value, sub }: { label: string; value: string; sub?:
   )
 }
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cap Rate Calculator for Commercial Property | Your Office Space",
+  "description": "Calculate capitalisation rate for commercial property valuation and investment analysis.",
+  "url": "https://www.yourofficespace.au/resources/cap-rate-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function CapRateCalculatorPage() {
   // Net rent section — two modes: derive from gross or enter directly
   const [netRentMode, setNetRentMode] = useState<'derive' | 'direct'>('derive')
@@ -136,6 +149,7 @@ export default function CapRateCalculatorPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>

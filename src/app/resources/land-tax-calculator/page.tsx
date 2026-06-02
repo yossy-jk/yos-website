@@ -330,6 +330,19 @@ const STATE_NAMES: Record<LTState, string> = {
 
 const LT_STATES: LTState[] = ['NSW', 'VIC', 'QLD', 'WA', 'SA', 'TAS', 'ACT', 'NT']
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Land Tax Calculator Australia 2025-26 | Your Office Space",
+  "description": "Estimate land tax liability across NSW, VIC, QLD, WA and SA for 2025-26.",
+  "url": "https://www.yourofficespace.au/resources/land-tax-calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function LandTaxCalculatorPage() {
   const [selectedState, setSelectedState] = useState<LTState | ''>('')
   const [landValue, setLandValue] = useState('')
@@ -374,6 +387,7 @@ export default function LandTaxCalculatorPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>

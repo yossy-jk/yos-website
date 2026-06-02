@@ -101,6 +101,19 @@ const RISK_CONFIG = {
 
 const LS_KEY = 'yos_lease_checker_captured'
 
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Commercial Lease Risk Checker | Your Office Space",
+  "description": "Identify hidden risks in your commercial lease before you sign. Free clause-by-clause review.",
+  "url": "https://www.yourofficespace.au/resources/lease-review",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function LeaseRiskCheckerPage() {
   const [step, setStep] = useState<Step>('intro')
   const [answers, setAnswers] = useState<Record<string, string>>({})
@@ -210,6 +223,7 @@ export default function LeaseRiskCheckerPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>

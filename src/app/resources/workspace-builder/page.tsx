@@ -268,6 +268,19 @@ function NavButtons({ onNext, onBack, nextLabel = 'Next →', disabled = false }
 }
 
 // ─── Main page ───────────────────────────────────────────────────────────────
+const SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Commercial Office Workspace Builder | Your Office Space",
+  "description": "Plan and price a full commercial office fitout with real Hunter Valley supplier pricing.",
+  "url": "https://www.yourofficespace.au/resources/workspace-builder",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "areaServed": { "@type": "Country", "name": "Australia" },
+}
+
 export default function WorkspaceBuilderPage() {
   const [step, setStep] = useState(0)
 
@@ -338,6 +351,7 @@ export default function WorkspaceBuilderPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
       <div className="min-h-screen bg-near-black" style={SEC_SM}>
