@@ -15,7 +15,7 @@ import { requireAuth } from '@/lib/auth'
 const QUEUE_SECRET  = process.env.QUEUE_SECRET || 'yos-queue-2026'
 const QUEUE_KEY     = 'yos:queue:pending'
 // Increase max function duration for this API route (Vercel Pro allows up to 300s)
-export const maxDuration = 60
+export const maxDuration = 120
 
 const MINIMAX_KEY   = process.env.MINIMAX_API_KEY || ''
 const MINIMAX_BASE  = 'https://api.minimaxi.chat/v1'
@@ -106,7 +106,7 @@ Your JSON output:`
       model: MINIMAX_MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.7,
-      max_tokens: 3000,
+      max_tokens: 5000,
       extra: {
         enable_search: false,
         input_planned: false,
