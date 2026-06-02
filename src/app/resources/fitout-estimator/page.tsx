@@ -343,12 +343,12 @@ export default function FitoutEstimatorPage() {
               </div>
 
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(3)} disabled={!canProceed()}
+                <button onClick={() => setStep(isFurnitureOnly ? 4 : 3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(getBack(2))} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(1) >= 0 ? setStep(getBack(1)) : undefined} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -387,7 +387,7 @@ export default function FitoutEstimatorPage() {
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(getBack(1))} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => getBack(3) >= 0 ? setStep(getBack(3)) : undefined} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -465,9 +465,9 @@ export default function FitoutEstimatorPage() {
                 </button>
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(5)}
-                  className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px]"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
+                <button onClick={() => setStep(6)} disabled={!canProceed()}
+                  className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
                 <button onClick={() => getBack(5) >= 0 ? setStep(getBack(5)) : undefined} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
