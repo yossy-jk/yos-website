@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 import { HUBSPOT } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
-/* ─── Rate data (YOS Fitout Cost Guide — April 2026, ex GST) ─── */
+/* ─── Rate data (YOS Fitout Cost Guide - April 2026, ex GST) ─── */
 type Tier = 'basic' | 'mid' | 'premium'
 type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -48,9 +48,9 @@ const STEPS = [
   { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
   { id: 'service',     title: 'What are you after?',     subtitle: 'Furniture only or a full turnkey fitout?' },
   { id: 'space',       title: 'Tell us about the space',  subtitle: 'Floor area and building type' },
-  { id: 'shell',       title: 'What is the space now?',  subtitle: 'Cold shell or warm shell — this changes the estimate significantly' },
+  { id: 'shell',       title: 'What is the space now?',  subtitle: 'Cold shell or warm shell - this changes the estimate significantly' },
   { id: 'quality',     title: 'What quality level?',     subtitle: 'This drives the biggest cost variable' },
-  { id: 'wkstype',     title: 'Workstation type',         subtitle: 'Fixed or adjustable — different cost, different feel' },
+  { id: 'wkstype',     title: 'Workstation type',         subtitle: 'Fixed or adjustable - different cost, different feel' },
   { id: 'workstations',title: 'Workstations and meeting rooms', subtitle: 'Your day-to-day workspace needs' },
   { id: 'spaces',      title: 'Additional spaces',       subtitle: 'Kitchen, reception, AV and tech' },
   { id: 'result',      title: 'Your estimate',           subtitle: 'Based on current market rates' },
@@ -137,7 +137,7 @@ export default function FitoutEstimatorPage() {
   const maxStep = isFurnitureOnly ? 7 : 8
 
   const getBack = (cur: number) => {
-    if (cur === 0) return -1 // intro — no back
+    if (cur === 0) return -1 // intro - no back
     if (cur === 1) return 0  // service type → intro
     if (cur === 2) return 1   // space → service type
     if (cur === 3) return 2   // shell → space
@@ -152,7 +152,7 @@ export default function FitoutEstimatorPage() {
     if (step === 0) return true
     if (step === 1) return !!inputs.fitoutType
     if (step === 2) return !!inputs.sqm && parseFloat(inputs.sqm) > 0
-    if (step === 3) return true  // Shell always valid — warm is default
+    if (step === 3) return true  // Shell always valid - warm is default
     if (step === 4) return !!inputs.tier
     if (step === 5) return !!inputs.workstationType
     if (step === 6) return !!inputs.desks && parseInt(inputs.desks) > 0
@@ -180,7 +180,7 @@ export default function FitoutEstimatorPage() {
         <div className="flex-1 max-w-screen-xl mx-auto w-full"
           style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
 
-          {/* Step header — shown only inside the estimator, above the form */}
+          {/* Step header - shown only inside the estimator, above the form */}
           <div style={{ marginBottom: '3.5rem' }}>
             {step === 0 ? (
               <>
@@ -216,7 +216,7 @@ export default function FitoutEstimatorPage() {
           {step === 0 && (
             <div className="max-w-2xl">
               <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '3rem' }}>
-                Get a realistic cost range for your commercial fitout in under two minutes. We&apos;ll walk you through space, quality, workstations, and everything else that affects the price — with a contingency built in.
+                Get a realistic cost range for your commercial fitout in under two minutes. We&apos;ll walk you through space, quality, workstations, and everything else that affects the price - with a contingency built in.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
@@ -267,7 +267,7 @@ export default function FitoutEstimatorPage() {
                       </svg>
                     ),
                     label: 'Turnkey fitout',
-                    body: 'Brief to key — construction, joinery, electrical, AV, furniture. One team, ready to move in.',
+                    body: 'Brief to key - construction, joinery, electrical, AV, furniture. One team, ready to move in.',
                   },
                 ].map(opt => (
                   <button key={opt.key} onClick={() => set('fitoutType', opt.key)}
@@ -300,7 +300,7 @@ export default function FitoutEstimatorPage() {
                 {/* Floor area */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
-                    Floor area (m²) <span className="text-teal">*</span>
+                    Floor area (m2) <span className="text-teal">*</span>
                   </label>
                   <input
                     type="number" min="1" placeholder="e.g. 250"
@@ -330,7 +330,7 @@ export default function FitoutEstimatorPage() {
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Timeframe</label>
                   <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
-                    {['ASAP (under 3 months)', '3–6 months', '6–12 months', 'Planning ahead (12m+)'].map(t => (
+                    {['ASAP (under 3 months)', '3-6 months', '6-12 months', 'Planning ahead (12m+)'].map(t => (
                       <button key={t} onClick={() => set('timeframe', t)}
                         className={`font-medium border transition-colors ${inputs.timeframe === t ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1.25rem', fontSize: '0.85rem', borderRadius: '0.5rem' }}>
@@ -425,7 +425,7 @@ export default function FitoutEstimatorPage() {
                   )
                 })}
               </div>
-              <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Your full cost estimate — including all items — will be shown at the end.</p>
+              <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Your full cost estimate - including all items - will be shown at the end.</p>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(5)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
@@ -460,7 +460,7 @@ export default function FitoutEstimatorPage() {
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Electric height adjustable</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
-                    Sit-stand capability. Dual-motor, programmable. Adds roughly 45% to workstation cost — the wellbeing ROI is well documented.
+                    Sit-stand capability. Dual-motor, programmable. Adds roughly 45% to workstation cost - the wellbeing ROI is well documented.
                   </p>
                 </button>
               </div>
@@ -490,7 +490,7 @@ export default function FitoutEstimatorPage() {
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
                     style={{ padding: '1rem 1.25rem', fontSize: '1.15rem', borderRadius: '0.5rem', display: 'block', marginBottom: '0.75rem' }}
                   />
-                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes desk, chair, and cable management. Mid-range = $1,050–$2,000 per person.</p>
+                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes desk, chair, and cable management. Mid-range = $1,050-$2,000 per person.</p>
                 </div>
 
                 {/* Meeting rooms */}
@@ -507,7 +507,7 @@ export default function FitoutEstimatorPage() {
                       </button>
                     ))}
                   </div>
-                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Mid-range: $18,000–$30,000 per room incl. AV, glass, joinery.</p>
+                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Mid-range: $18,000-$30,000 per room incl. AV, glass, joinery.</p>
                 </div>
 
               </div>
@@ -564,9 +564,9 @@ export default function FitoutEstimatorPage() {
             <div className="max-w-2xl">
             <ToolGate
               tool="Fitout Estimator"
-              context={() => `Budget range: ${fmt(estimate!.totalLow)} – ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m² | Quality: ${((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier}`}
+              context={() => `Budget range: ${fmt(estimate!.totalLow)} - ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m2 | Quality: ${((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier}`}
               heading="Where should we send your estimate?"
-              subheading="Enter your details — we'll email you a branded 1-page report with your full cost breakdown."
+              subheading="Enter your details - we'll email you a branded 1-page report with your full cost breakdown."
               onUnlock={(name, email) => {
                 // Send branded report to client + notify Joe
                 fetch('/api/fitout-report', {
@@ -591,22 +591,22 @@ export default function FitoutEstimatorPage() {
                 }).catch(() => {})
               }}
               teaser={
-                <div className="max-w-2xl">
+                <>
                   <div className="mb-8">
                     <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.7rem' }}>
-                      {inputs.sqm}m² · {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} quality
+                      {inputs.sqm}m2 · {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} quality
                     </p>
                     <h2 className="text-white font-black uppercase leading-none tracking-tight mb-2"
                       style={{ fontSize: 'clamp(2rem,5vw,4rem)' }}>
-                      {fmt(estimate!.totalLow)} – {fmt(estimate!.totalHigh)}
+                      {fmt(estimate!.totalLow)} - {fmt(estimate!.totalHigh)}
                     </h2>
                     <p className="text-white/40 font-light" style={{ fontSize: '0.85rem' }}>
-                      {fmt(estimate!.perSqm.low)}–{fmt(estimate!.perSqm.high)} per m² · All figures ex GST
+                      {fmt(estimate!.perSqm.low)}-{fmt(estimate!.perSqm.high)} per m2 · All figures ex GST
                     </p>
                   </div>
                   <div className="border border-white/10">
                     <div className="border-b border-white/10 px-5 py-3">
-                      <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Cost breakdown — unlock to view</p>
+                      <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Cost breakdown - unlock to view</p>
                     </div>
                     {[1,2,3].map(i => (
                       <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
@@ -615,36 +615,36 @@ export default function FitoutEstimatorPage() {
                       </div>
                     ))}
                   </div>
-                </div>
+                </>
               }
             >
               {/* Summary */}
-              <div style={{ marginBottom: '3rem', paddingBottom: '3rem', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <p className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.7rem', marginBottom: '1rem' }}>
-                  {inputs.sqm}m² · {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} quality
+              <div className="mb-10 pb-10" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.68rem' }}>
+                  {inputs.sqm}m2 · {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} quality
                 </p>
-                <h2 className="text-white font-black uppercase leading-none tracking-tight" style={{ fontSize: 'clamp(2.25rem,5vw,4.5rem)', marginBottom: '1rem' }}>
+                <h2 className="text-white font-black uppercase leading-none tracking-tight mb-4" style={{ fontSize: 'clamp(2.5rem,6vw,5rem)' }}>
                   {fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}
                 </h2>
-                <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
-                  {fmt(estimate.perSqm.low)} – {fmt(estimate.perSqm.high)} per m² &nbsp;·&nbsp; All figures ex GST &nbsp;·&nbsp; 10% contingency included
+                <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>
+                  {fmt(estimate.perSqm.low)} – {fmt(estimate.perSqm.high)} per m2 &nbsp;·&nbsp; All figures ex GST &nbsp;·&nbsp; 10% contingency included
                 </p>
               </div>
 
               {/* Breakdown */}
-              <div style={{ marginBottom: '3rem' }}>
-                <p className="text-white/40 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', marginBottom: '1.25rem' }}>Cost breakdown</p>
+              <div className="mb-10">
+                <p className="text-white/40 font-semibold uppercase tracking-widest mb-5" style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}>Cost breakdown</p>
                 <div className="border border-white/10" style={{ borderRadius: '0.75rem', overflow: 'hidden' }}>
                   {estimate.breakdown.map((row, i) => (
                     <div key={i} className={`flex justify-between items-center ${i < estimate.breakdown.length - 1 ? 'border-b border-white/8' : ''} ${row.label.includes('Contingency') ? 'bg-white/[0.02]' : ''}`}
-                      style={{ padding: '1.1rem 1.5rem' }}>
+                      style={{ padding: '1.25rem 1.5rem' }}>
                       <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/65'}`} style={{ fontSize: '0.95rem' }}>{row.label}</span>
                       <span className={`font-semibold ${row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85'}`} style={{ fontSize: '0.95rem' }}>
                         {fmt(row.low)} – {fmt(row.high)}
                       </span>
                     </div>
                   ))}
-                  <div className="flex justify-between items-center bg-teal/10 border-t border-teal/25" style={{ padding: '1.35rem 1.5rem' }}>
+                  <div className="flex justify-between items-center bg-teal/10" style={{ padding: '1.5rem 1.5rem' }}>
                     <span className="text-white font-black uppercase tracking-wide" style={{ fontSize: '0.85rem' }}>Total estimate</span>
                     <span className="text-teal font-black" style={{ fontSize: '1.1rem' }}>{fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}</span>
                   </div>
@@ -652,7 +652,7 @@ export default function FitoutEstimatorPage() {
               </div>
 
               {/* Disclaimer */}
-              <p className="text-white/25 font-light leading-relaxed" style={{ fontSize: '0.82rem', lineHeight: 1.85, marginBottom: '3rem' }}>
+              <p className="text-white/25 font-light leading-relaxed mb-10" style={{ fontSize: '0.82rem', lineHeight: 1.85 }}>
                 This estimate is based on current NSW market rates from the YOS Fitout Cost Guide (April 2026). Rates vary by location — figures shown reflect Newcastle and Hunter Region benchmarks. Actual costs depend on site conditions, specification detail, and market conditions at time of tender. A site visit and detailed brief will refine this estimate significantly.
               </p>
 
@@ -696,8 +696,8 @@ export default function FitoutEstimatorPage() {
               {/* 4 process steps with connecting line */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', position: 'relative' }}>
                 {[
-                  { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. Floor plan, headcount, how your team works — we start with your needs, not a product catalogue." },
-                  { step: '02', title: '3D Design', body: "We model your layout in 3D. You see exactly where workstations, meeting rooms, and breakout areas sit before anything is ordered. Adjustments before ordering — no cost." },
+                  { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. Floor plan, headcount, how your team works - we start with your needs, not a product catalogue." },
+                  { step: '02', title: '3D Design', body: "We model your layout in 3D. You see exactly where workstations, meeting rooms, and breakout areas sit before anything is ordered. Adjustments before ordering - no cost." },
                   { step: '03', title: 'Fixed Quote', body: 'You get a fixed price based on the approved layout. Deposit structure to suit your cash flow. No surprises, no hidden line items.' },
                   { step: '04', title: 'Install', body: "We manage delivery and installation. One team on site, one point of contact throughout. Your team walks in to a ready workspace." }
                 ].map((s, i) => (
@@ -777,7 +777,7 @@ export default function FitoutEstimatorPage() {
                 <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>What was involved?</p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.875rem' }}>
                   {[
-                    'Desk, chair and cable management for 5–50 people',
+                    'Desk, chair and cable management for 5-50 people',
                     'Meeting room design and configuration',
                     'Joinery, shelving and storage solutions',
                     'Delivery, install and on-site management',
@@ -808,11 +808,11 @@ export default function FitoutEstimatorPage() {
                 {[
                   {
                     q: 'Why does building grade matter?',
-                    a: "A-Grade buildings have higher base costs — deeper cores, better services, stricter BCA requirements. C-Grade and industrial tenancies are cheaper to fit out but may need more work on base condition. We adjust specs to match the building reality."
+                    a: "A-Grade buildings have higher base costs - deeper cores, better services, stricter BCA requirements. C-Grade and industrial tenancies are cheaper to fit out but may need more work on base condition. We adjust specs to match the building reality."
                   },
                   {
                     q: "What's the real timeline?",
-                    a: "Furniture-only fitout: 2–4 weeks. Full commercial fitout: 6–16 weeks depending on scope. The biggest delay is decisions — not construction. Our process compresses that phase so you move faster."
+                    a: "Furniture-only fitout: 2-4 weeks. Full commercial fitout: 6-16 weeks depending on scope. The biggest delay is decisions - not construction. Our process compresses that phase so you move faster."
                   },
 
                 ].map((item, i) => (
