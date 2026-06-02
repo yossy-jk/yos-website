@@ -816,10 +816,7 @@ export default function FitoutEstimatorPage() {
                     q: "What's the real timeline?",
                     a: "Furniture-only fitout: 2–4 weeks. Full commercial fitout: 6–16 weeks depending on scope. The biggest delay is decisions — not construction. Our process compresses that phase so you move faster."
                   },
-                  {
-                    q: "What's the payment structure?",
-                    a: "Orders under $4,000: full payment upfront. Orders over $4,000: 40% deposit, balance on completion. Account terms available for repeat clients. We don't add surprise line items — if it wasn't in the quote, we discuss it first."
-                  },
+
                 ].map((item, i) => (
                   <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #00B5A5' }}>
                     <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.875rem', lineHeight: 1.4 }}>{item.q}</h3>
