@@ -3,7 +3,7 @@
  * POST /api/tasks-data — updates task status (complete/delegate/snooze)
  */
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
@@ -22,8 +22,8 @@ const LISTS = [
 ]
 
 export async function GET() {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   if (!UPSTASH_URL || !UPSTASH_TOKEN) {
     return NextResponse.json({ error: 'Redis not configured' })
@@ -105,8 +105,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   const body = await req.json() as { taskId: string; action: string; note?: string; agent?: string }
   const { taskId, action, note, agent } = body

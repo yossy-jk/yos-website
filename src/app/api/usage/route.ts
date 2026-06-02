@@ -5,7 +5,7 @@
  * Falls back to direct Langfuse query if Redis empty.
  */
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
@@ -33,8 +33,8 @@ function calcCost(model: string, tokens: number): number {
 }
 
 export async function GET() {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   // Try Redis first (pushed by usage-sync job)
   if (REDIS_URL && REDIS_TOKEN) {

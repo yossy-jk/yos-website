@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 import { promises as fs } from 'fs'
 import path from 'path'
 
@@ -146,8 +146,8 @@ function calcDaysRemaining(targetDate: string): number {
 }
 
 export async function GET(req: NextRequest) {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   // Try Redis first (pushed by compliance-sync automation job)
   const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''

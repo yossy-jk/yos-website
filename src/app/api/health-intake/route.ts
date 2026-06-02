@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 // Health Auto Export → YOS Health Intake
 // POST /api/health-intake
@@ -92,8 +92,8 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const token = url.searchParams.get('token')
 
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL
   const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN

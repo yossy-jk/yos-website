@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN || ''
 const MATON_KEY   = process.env.MATON_API_KEY || 'GT9qpes_m-iYf4YpPdPBjBIkFyMO9HtAHM9mGAqyBb53wIvAhJ836ehgHmtJz71WTprCYyBjJo1fWbBIMJBh17wv_SQ2ddeRl4I'
@@ -247,8 +247,8 @@ function timeAgo(iso: string): string {
 }
 
 export async function GET(req: Request) {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   const [dealsRaw, events, invoices] = await Promise.all([
     getDeals(),

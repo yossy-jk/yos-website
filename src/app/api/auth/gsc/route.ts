@@ -3,7 +3,7 @@
  * One-time setup to get a refresh token for Search Console API
  */
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const CLIENT_ID     = process.env.GSC_CLIENT_ID || ''
 const REDIRECT_URI  = process.env.VERCEL_URL
@@ -12,8 +12,8 @@ const REDIRECT_URI  = process.env.VERCEL_URL
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   const params = new URLSearchParams({
     client_id:     CLIENT_ID,

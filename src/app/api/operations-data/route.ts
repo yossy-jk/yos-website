@@ -10,7 +10,7 @@
  * Falls back gracefully if Redis is unconfigured or keys are missing.
  */
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const JOBS = ['compliance-sweep', 'memory-compaction', 'day-review', 'weekly-l10'] as const
 type JobName = typeof JOBS[number]
@@ -54,8 +54,8 @@ async function redisGet(url: string, token: string, key: string): Promise<string
 }
 
 export async function GET() {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
   const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''

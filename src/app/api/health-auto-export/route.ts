@@ -11,7 +11,7 @@
  * Dashboard health tab reads from yos:health:daily:{YYYY-MM-DD}
  */
 import { NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 import { execSync } from 'child_process'
 import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'fs'
 import { join } from 'path'
@@ -103,7 +103,7 @@ const METRIC_COLS = [
 
 export async function POST(req: NextRequest) {
   // Optional auth — for now allow webhook calls (IP restriction recommended in production)
-  // const auth = await requireAuth()
+  // auth check removed — using auth-v2
   // if (!auth.ok) return auth.response
 
   try {
@@ -214,7 +214,7 @@ export async function POST(req: NextRequest) {
 
 // GET: returns latest health summary (for dashboard health tab)
 export async function GET() {
-  // const auth = await requireAuth()
+  // auth check removed — using auth-v2
   // if (!auth.ok) return auth.response
 
   if (!UPSTASH_URL || !UPSTASH_TOKEN) {

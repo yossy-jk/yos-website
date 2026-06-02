@@ -9,7 +9,7 @@
  */
 
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
 const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
@@ -101,8 +101,8 @@ function newId(): string {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   if (!REDIS_URL || !REDIS_TOKEN) {
     return NextResponse.json({ error: 'Redis not configured' }, { status: 500 })
@@ -147,8 +147,8 @@ export async function POST(req: Request) {
     payload: Record<string, unknown>
   }
 
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   if (!REDIS_URL || !REDIS_TOKEN) {
     return NextResponse.json({ error: 'Redis not configured' }, { status: 500 })
   }

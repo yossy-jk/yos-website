@@ -12,7 +12,7 @@
  * Freshness: cached in Redis, refreshed daily by tenant-rep-bdm-weekly job.
  */
 import { NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { getCurrentUser } from '@/lib/auth-v2'
 
 const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
@@ -52,8 +52,8 @@ interface TenantIntel {
 }
 
 export async function GET(): Promise<NextResponse> {
-  const auth = await requireAuth()
-  if (!auth.ok) return auth.response
+  const user = await getCurrentUser()
+  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   const [intelRaw, listingsRaw] = await Promise.all([
     redisGet('yos:tenant-intel:weekly'),
