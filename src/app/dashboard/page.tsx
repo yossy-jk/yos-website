@@ -2695,11 +2695,11 @@ export default function Dashboard() {
       {activeTab === 'tasks' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
 
-          {/* ── HEADER ── */}
+          {/* HEADER */}
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div>
               <h2 style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', margin: 0 }}>Task Command Centre</h2>
-              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', margin: '0.2rem 0 0' }}>AI-prioritised · extracted from emails, meetings, commitments</p>
+              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.65rem', margin: '0.2rem 0 0' }}>AI-prioritised · extracted from emails, meetings, calls, PLAUD recordings</p>
             </div>
             <button
               onClick={() => { setTasksLoading(true); fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)}) }}
@@ -2711,15 +2711,15 @@ export default function Dashboard() {
 
           {tasksData && !tasksLoading && (
             <>
-              {/* ── FOCUS SCORE + STATS ── */}
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr', gap: '0.75rem' }}>
-                {([
-                  { label: 'Focus Score', val: tasksData.completionRate7d >= 80 ? '🔥 Hot' : tasksData.completionRate7d >= 50 ? '⚡ Good' : '❄️ Cold', sub: `${tasksData.completionRate7d}% 7-day rate`, color: tasksData.completionRate7d >= 80 ? '#22c55e' : tasksData.completionRate7d >= 50 ? '#f59e0b' : '#ef4444' },
+              {/* STATS ROW */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem' }}>
+                {[
+                  { label: 'Focus Score', val: tasksData.completionRate7d >= 80 ? '🔥 Hot' : tasksData.completionRate7d >= 50 ? '⚡ Good' : '❄️ Cold', sub: `${tasksData.completionRate7d}% 7-day`, color: tasksData.completionRate7d >= 80 ? '#22c55e' : tasksData.completionRate7d >= 50 ? '#f59e0b' : '#ef4444' },
                   { label: 'Today', val: String(tasksData.todayTasks.length), sub: `of ${tasksData.maxJoeCapacity} capacity`, color: tasksData.todayTasks.length >= tasksData.maxJoeCapacity ? '#ef4444' : '#00B5A5' },
                   { label: 'Overdue', val: String(tasksData.overdue.length), sub: tasksData.overdue.length > 0 ? 'needs attention' : 'all clear', color: tasksData.overdue.length > 0 ? '#ef4444' : '#22c55e' },
                   { label: 'Backlog', val: String(tasksData.totalBacklog), sub: 'scheduled ahead', color: 'rgba(255,255,255,0.5)' },
                   { label: 'Done', val: String(tasksData.totalCompleted), sub: 'completed total', color: '#22c55e' },
-                ] as const).map(s => (
+                ].map(s => (
                   <div key={s.label} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', padding: '0.875rem', borderRadius: 6, textAlign: 'center' }}>
                     <div style={{ fontSize: '1.3rem', fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.val}</div>
                     <div style={{ fontSize: '0.58rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', margin: '0.3rem 0 0.15rem' }}>{s.label}</div>
@@ -2728,23 +2728,41 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              {/* ── WIN TODAY — TOP 3 PRIORITIES ── */}
+              {/* WIN TODAY — TOP 3 */}
               {tasksData.todayTasks.length > 0 && (
                 <div style={{ background: 'linear-gradient(135deg, rgba(0,181,165,0.08) 0%, rgba(0,181,165,0.03) 100%)', border: '1px solid rgba(0,181,165,0.25)', borderLeft: '3px solid #00B5A5', padding: '1.25rem', borderRadius: 6 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
-                    <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00B5A5' }}>⚡ Win Today — Your Top Priorities</span>
-                    <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)' }}>AI-ranked by urgency + revenue impact</span>
+                    <span style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#00B5A5' }}>⚡ Win Today — Top Priorities</span>
+                    <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)' }}>COO-ranked by urgency + revenue impact</span>
                   </div>
                   {tasksData.todayTasks.slice(0, 3).map((t, i) => (
-                    <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', padding: '0.75rem', background: 'rgba(0,0,0,0.2)', borderRadius: 4, marginBottom: '0.5rem', border: '1px solid rgba(0,181,165,0.1)' }}>
-                      <div style={{ width: 24, height: 24, borderRadius: '50%', background: i === 0 ? '#00B5A5' : i === 1 ? 'rgba(0,181,165,0.4)' : 'rgba(0,181,165,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.7rem', fontWeight: 900, color: 'white' }}>{i + 1}</div>
+                    <div key={t.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.875rem', padding: '0.875rem', background: 'rgba(0,0,0,0.2)', borderRadius: 4, marginBottom: '0.5rem', border: '1px solid rgba(0,181,165,0.1)' }}>
+                      <div style={{ width: 24, height: 24, borderRadius: '50%', background: i === 0 ? '#00B5A5' : i === 1 ? 'rgba(0,181,165,0.4)' : 'rgba(0,181,165,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: '0.7rem', fontWeight: 900, color: 'white', marginTop: 2 }}>{i + 1}</div>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: '0.82rem', color: 'white', fontWeight: 600, lineHeight: 1.3 }}>{t.title}</div>
-                        <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', marginTop: '0.2rem' }}>
-                          {t.due_date && <span>Due {t.due_date} · </span>}
-                          <span style={{ textTransform: 'capitalize' }}>{t.source}</span>
-                          {t.raw_commitment && <span> · "{t.raw_commitment.slice(0, 60)}{t.raw_commitment.length > 60 ? '...' : ''}"</span>}
+                        <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.3rem', flexWrap: 'wrap' }}>
+                          {t.source && (
+                            <span style={{ fontSize: '0.58rem', background: t.source === 'fireflies' ? 'rgba(99,102,241,0.2)' : t.source === 'plaud' ? 'rgba(245,158,11,0.2)' : t.source === 'email' ? 'rgba(0,181,165,0.2)' : 'rgba(255,255,255,0.1)', color: t.source === 'fireflies' ? '#a5b4fc' : t.source === 'plaud' ? '#fcd34d' : t.source === 'email' ? '#00B5A5' : 'rgba(255,255,255,0.5)', padding: '0.1rem 0.4rem', borderRadius: 3, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                              {t.source === 'fireflies' ? '🎙 Meeting' : t.source === 'plaud' ? '🎤 Voice' : t.source === 'email' ? '✉️ Email' : t.source}
+                            </span>
+                          )}
+                          {(t as TaskItem & {revenue_value?: number}).revenue_value ? (
+                            <span style={{ fontSize: '0.58rem', background: 'rgba(34,197,94,0.15)', color: '#22c55e', padding: '0.1rem 0.4rem', borderRadius: 3, fontWeight: 700 }}>
+                              💰 ${((t as TaskItem & {revenue_value?: number}).revenue_value || 0).toLocaleString()}
+                            </span>
+                          ) : null}
+                          {(t as TaskItem & {client_name?: string}).client_name && (
+                            <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.4)' }}>
+                              👤 {(t as TaskItem & {client_name?: string}).client_name}
+                            </span>
+                          )}
+                          {t.due_date && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.3)' }}>📅 {t.due_date}</span>}
                         </div>
+                        {(t as TaskItem & {raw_commitment?: string}).raw_commitment && (
+                          <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', marginTop: '0.3rem', fontStyle: 'italic', borderLeft: '2px solid rgba(0,181,165,0.3)', paddingLeft: '0.5rem' }}>
+                            "{((t as TaskItem & {raw_commitment?: string}).raw_commitment || '').slice(0, 100)}{((t as TaskItem & {raw_commitment?: string}).raw_commitment || '').length > 100 ? '...' : ''}"
+                          </div>
+                        )}
                       </div>
                       <div style={{ display: 'flex', gap: '0.4rem', flexShrink: 0 }}>
                         {t.can_delegate === 1 && (
@@ -2771,17 +2789,21 @@ export default function Dashboard() {
                 </div>
               )}
 
-              {/* ── OVERDUE — RED ALERT ── */}
+              {/* OVERDUE */}
               {tasksData.overdue.length > 0 && (
                 <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.25)', borderLeft: '3px solid #ef4444', padding: '1.25rem', borderRadius: 6 }}>
                   <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#ef4444', marginBottom: '0.75rem' }}>
-                    🚨 Overdue ({tasksData.overdue.length}) — These need attention now
+                    🚨 Overdue ({tasksData.overdue.length})
                   </div>
                   {tasksData.overdue.map(t => (
                     <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.6rem 0.75rem', background: 'rgba(239,68,68,0.05)', borderRadius: 4, marginBottom: '0.4rem' }}>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: '0.8rem', color: 'white', fontWeight: 600 }}>{t.title}</div>
-                        <div style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.35)', marginTop: '0.15rem' }}>Due {t.due_date} · {t.source} · Priority {t.priority}</div>
+                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.2rem', flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: '0.6rem', color: '#ef4444' }}>Due {t.due_date}</span>
+                          {t.source && <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase' }}>{t.source}</span>}
+                          {(t as TaskItem & {client_name?: string}).client_name && <span style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.3)' }}>{(t as TaskItem & {client_name?: string}).client_name}</span>}
+                        </div>
                       </div>
                       <div style={{ display: 'flex', gap: '0.4rem' }}>
                         {t.can_delegate === 1 && (
@@ -2805,7 +2827,7 @@ export default function Dashboard() {
                 </div>
               )}
 
-              {/* ── ALL TODAY TASKS ── */}
+              {/* ALL TODAY */}
               {tasksData.todayTasks.length > 3 && (
                 <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', padding: '1.25rem', borderRadius: 6 }}>
                   <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)', marginBottom: '0.75rem' }}>
@@ -2815,7 +2837,11 @@ export default function Dashboard() {
                     <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.6rem 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.8)', fontWeight: 500 }}>{t.title}</div>
-                        <div style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)', marginTop: '0.1rem' }}>{t.source}{t.due_date ? ` · Due ${t.due_date}` : ''}</div>
+                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.15rem' }}>
+                          {t.source && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase' }}>{t.source}</span>}
+                          {(t as TaskItem & {client_name?: string}).client_name && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.25)' }}>{(t as TaskItem & {client_name?: string}).client_name}</span>}
+                          {t.due_date && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)' }}>{t.due_date}</span>}
+                        </div>
                       </div>
                       <div style={{ display: 'flex', gap: '0.4rem' }}>
                         {t.can_delegate === 1 && (
@@ -2839,53 +2865,65 @@ export default function Dashboard() {
                 </div>
               )}
 
-              {/* ── BACKLOG ── */}
+              {/* BACKLOG */}
               {tasksData.backlog.length > 0 && (
                 <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', padding: '1.25rem', borderRadius: 6 }}>
                   <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: '0.75rem' }}>
-                    Backlog ({tasksData.backlog.length}) — Scheduled ahead
+                    Backlog ({tasksData.backlog.length})
                   </div>
-                  {tasksData.backlog.slice(0, 5).map(t => (
+                  {tasksData.backlog.slice(0, 8).map(t => (
                     <div key={t.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.5rem 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)' }}>{t.title}</div>
-                        <div style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', marginTop: '0.1rem' }}>{t.source}{t.due_date ? ` · Due ${t.due_date}` : ''}</div>
+                        <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.1rem' }}>
+                          {t.source && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase' }}>{t.source}</span>}
+                          {t.due_date && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)' }}>Due {t.due_date}</span>}
+                        </div>
                       </div>
+                      <button
+                        onClick={async () => {
+                          await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) })
+                          setTasksLoading(true)
+                          fetch('/api/tasks-data').then(r=>r.json()).then((d:TasksData)=>{setTasksData(d);setTasksLoading(false)})
+                        }}
+                        style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 3, padding: '0.2rem 0.5rem', color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', cursor: 'pointer' }}>
+                        ✓
+                      </button>
                     </div>
                   ))}
-                  {tasksData.backlog.length > 5 && (
-                    <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.62rem', margin: '0.5rem 0 0' }}>+ {tasksData.backlog.length - 5} more in backlog</p>
-                  )}
+                  {tasksData.backlog.length > 8 && <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.62rem', margin: '0.5rem 0 0' }}>+ {tasksData.backlog.length - 8} more in backlog</p>}
                 </div>
               )}
 
-              {/* ── COMPLETED TODAY ── */}
+              {/* COMPLETED */}
               {tasksData.completed.length > 0 && (
                 <div style={{ background: 'rgba(34,197,94,0.03)', border: '1px solid rgba(34,197,94,0.1)', padding: '1rem 1.25rem', borderRadius: 6 }}>
                   <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#22c55e', marginBottom: '0.5rem' }}>
                     ✓ Completed ({tasksData.completed.length})
                   </div>
-                  {tasksData.completed.slice(0, 3).map(t => (
-                    <div key={t.id} style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', padding: '0.2rem 0', textDecoration: 'line-through' }}>{t.title}</div>
+                  {tasksData.completed.slice(0, 5).map(t => (
+                    <div key={t.id} style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.3)', padding: '0.2rem 0', textDecoration: 'line-through', display: 'flex', gap: '0.5rem' }}>
+                      <span>{t.title}</span>
+                      {t.source && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.15)', textTransform: 'uppercase', textDecoration: 'none' }}>{t.source}</span>}
+                    </div>
                   ))}
-                  {tasksData.completed.length > 3 && <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem', margin: '0.25rem 0 0' }}>+ {tasksData.completed.length - 3} more completed</p>}
+                  {tasksData.completed.length > 5 && <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: '0.6rem', margin: '0.25rem 0 0' }}>+ {tasksData.completed.length - 5} more completed</p>}
                 </div>
               )}
 
-              {/* ── DELEGATE MODAL ── */}
+              {/* DELEGATE MODAL */}
               {delegateModal && (
                 <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '1rem' }}>
                   <div style={{ background: '#111', border: '1px solid rgba(0,181,165,0.3)', borderRadius: 8, padding: '2rem', maxWidth: 420, width: '100%' }}>
                     <p style={{ color: 'white', fontWeight: 700, fontSize: '0.9rem', margin: '0 0 0.5rem' }}>Delegate Task</p>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.78rem', margin: '0 0 1.25rem', lineHeight: 1.5 }}>{delegateModal.title}</p>
-                    <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.68rem', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Assign to agent</p>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.25rem' }}>
                       {[
                         { id: 'inbox-ea', label: 'Inbox EA', desc: 'Email follow-ups, scheduling, admin' },
                         { id: 'hubspot-revops', label: 'HubSpot RevOps', desc: 'Quotes, proposals, CRM updates' },
                         { id: 'finance', label: 'Finance', desc: 'Invoices, payments, Xero' },
-                        { id: 'cleaning-bdm', label: 'Cleaning BDM', desc: 'Cleaning leads, proposals' },
-                        { id: 'furniture-bdm', label: 'Furniture BDM', desc: 'Furniture quotes, tenders' },
+                        { id: 'cleaning-bdm', label: 'Cleaning BDM', desc: 'Cleaning leads and proposals' },
+                        { id: 'furniture-bdm', label: 'Furniture BDM', desc: 'Furniture quotes and tenders' },
                         { id: 'chief-of-staff', label: 'Chief of Staff', desc: 'Coordination, research, comms' },
                       ].map(agent => (
                         <button key={agent.id}
@@ -2908,14 +2946,15 @@ export default function Dashboard() {
                   </div>
                 </div>
               )}
-            </>
-          )}
 
-          {tasksData && !tasksLoading && tasksData.totalOpen === 0 && tasksData.totalCompleted === 0 && (
-            <div style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.2)' }}>
-              <p style={{ fontSize: '1rem', margin: 0 }}>No tasks yet</p>
-              <p style={{ fontSize: '0.72rem', margin: '0.5rem 0 0' }}>Inbox EA extracts tasks from emails and meetings automatically</p>
-            </div>
+              {/* EMPTY STATE */}
+              {tasksData.totalOpen === 0 && tasksData.totalCompleted === 0 && (
+                <div style={{ textAlign: 'center', padding: '3rem', color: 'rgba(255,255,255,0.2)' }}>
+                  <p style={{ fontSize: '1rem', margin: 0 }}>No tasks yet</p>
+                  <p style={{ fontSize: '0.72rem', margin: '0.5rem 0 0' }}>COO extracts tasks from emails, meetings, and voice recordings automatically</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}
