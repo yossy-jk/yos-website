@@ -12,8 +12,10 @@ const REDIRECT_URI  = process.env.VERCEL_URL
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  // Auth check — support both auth-v2 and simple auth
+  const { requireAuth } = await import('@/lib/auth')
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const params = new URLSearchParams({
     client_id:     CLIENT_ID,
