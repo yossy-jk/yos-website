@@ -161,7 +161,8 @@ export default function FitoutEstimatorPage() {
 
   const estimate = calcEstimate(inputs)
   const progress = step === 0 ? 0 : ((step - 1) / (maxStep - 1)) * 100
-  const stepCount = maxStep - 1
+  const stepCount = isFurnitureOnly ? 6 : 7  // actual content steps (excludes intro, excludes result)
+  const resultStep = maxStep  // "Show my estimate" advances to this step to trigger result block
 
   return (
     <>
@@ -549,7 +550,7 @@ export default function FitoutEstimatorPage() {
               </div>
 
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(maxStep)}
+                <button onClick={() => setStep(maxStep + 1)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
@@ -559,9 +560,23 @@ export default function FitoutEstimatorPage() {
             </div>
           )}
 
-          {/* ── STEP 8(Furn) / STEP 9(Turnkey): RESULT ── */}
+          {/* ── RESULT ── */}
           {step >= maxStep && estimate && inputs.tier && (
             <div className="max-w-2xl">
+
+            {/* Result header — no step counter, just a back button */}
+            {step > maxStep && getBack(step) >= 0 && (
+              <div style={{ marginBottom: '2.5rem' }}>
+                <button
+                  onClick={() => setStep(getBack(step))}
+                  className="text-white/40 hover:text-white/70 transition-colors font-light"
+                  style={{ fontSize: '0.85rem' }}
+                >
+                  ← Back
+                </button>
+              </div>
+            )}
+
             <ToolGate
               tool="Fitout Estimator"
               context={() => `Budget range: ${fmt(estimate!.totalLow)} - ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m2 | Quality: ${((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier}`}
