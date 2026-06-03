@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@upstash/ratelimit": "^2.0.8",
-    "@upstash/redis": "^1.37.0",
+    "@upstash/redis": "^1.38.0",
     "bcryptjs": "^3.0.3",
     "glob": "^13.0.6",
     "jspdf": "^4.2.1",
@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.3",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.19.41",
     "@types/react": "^19",
     "@types/react-dom": "^19",
