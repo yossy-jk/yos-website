@@ -10,7 +10,7 @@ interface ToolGateProps {
   heading?: string
   subheading?: string
   onUnlock?: (name: string, email: string) => void
-  dark?: boolean  // true = dark background page (default), false = light
+  dark?: boolean
 }
 
 export default function ToolGate({
@@ -19,7 +19,7 @@ export default function ToolGate({
   children,
   context,
   heading = 'Where should we send your results?',
-  subheading = 'Enter your details — we\'ll email you a full branded report instantly.',
+  subheading = 'Enter your details \u2014 we\u2019ll email you a full branded report instantly.',
   onUnlock,
   dark = true,
 }: ToolGateProps) {
@@ -80,7 +80,7 @@ export default function ToolGate({
   return (
     <div style={{ position: 'relative' }}>
 
-      {/* Teaser — fades out at bottom */}
+      {/* Teaser */}
       <div style={{ position: 'relative', overflow: 'hidden', maxHeight: '22rem', marginBottom: '0' }}>
         <div style={{ pointerEvents: 'none', userSelect: 'none' }}>
           {teaser}
@@ -91,30 +91,36 @@ export default function ToolGate({
         }} />
       </div>
 
-      {/* Gate card */}
+      {/* Gate card — tighter for estimator result context */}
       <div style={{
         background: cardBg,
         border: cardBorder,
         borderRadius: '1rem',
-        padding: 'clamp(2rem,4vw,3rem)',
-        marginTop: '2rem',
+        padding: 'clamp(1.5rem,4vw,2.5rem)',
+        marginTop: '0.75rem',
       }}>
-        {/* Teal accent bar */}
-        <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.75rem' }} />
+        <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.5rem' }} />
 
-        <h3 style={{ color: headingColor, fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.15, marginBottom: '0.875rem' }}>
+        <h3 style={{
+          color: headingColor,
+          fontSize: 'clamp(1rem,2vw,1.35rem)',
+          fontWeight: 900,
+          textTransform: 'uppercase',
+          letterSpacing: '-0.01em',
+          lineHeight: 1.15,
+          marginBottom: '0.75rem',
+        }}>
           {heading}
         </h3>
-        <p style={{ color: subColor, fontSize: '0.9rem', lineHeight: 1.75, fontWeight: 300, marginBottom: '2.5rem', maxWidth: '36rem' }}>
+        <p style={{ color: subColor, fontSize: '0.875rem', lineHeight: 1.75, fontWeight: 300, marginBottom: '2rem', maxWidth: '36rem' }}>
           {subheading}
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem', marginBottom: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.75rem' }}>
 
-            {/* First name */}
             <div>
-              <label style={{ display: 'block', color: labelColor, fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+              <label style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                 First name <span style={{ color: '#00B5A5' }}>*</span>
               </label>
               <input
@@ -127,8 +133,8 @@ export default function ToolGate({
                   display: 'block', width: '100%',
                   background: inputBg, color: inputText,
                   border: `1px solid ${errors.name ? '#ef4444' : inputBorder}`,
-                  borderRadius: '0.625rem', outline: 'none',
-                  padding: '0.9rem 1.1rem', fontSize: '0.95rem', fontWeight: 300,
+                  borderRadius: '0.5rem', outline: 'none',
+                  padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300,
                   transition: 'border-color 0.15s',
                 }}
                 onFocus={e => e.target.style.borderColor = inputFocus}
@@ -137,9 +143,8 @@ export default function ToolGate({
               {errors.name && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.4rem' }}>{errors.name}</p>}
             </div>
 
-            {/* Work email */}
             <div>
-              <label style={{ display: 'block', color: labelColor, fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.75rem' }}>
+              <label style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                 Work email <span style={{ color: '#00B5A5' }}>*</span>
               </label>
               <input
@@ -152,8 +157,8 @@ export default function ToolGate({
                   display: 'block', width: '100%',
                   background: inputBg, color: inputText,
                   border: `1px solid ${errors.email ? '#ef4444' : inputBorder}`,
-                  borderRadius: '0.625rem', outline: 'none',
-                  padding: '0.9rem 1.1rem', fontSize: '0.95rem', fontWeight: 300,
+                  borderRadius: '0.5rem', outline: 'none',
+                  padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300,
                   transition: 'border-color 0.15s',
                 }}
                 onFocus={e => e.target.style.borderColor = inputFocus}
@@ -169,20 +174,20 @@ export default function ToolGate({
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
               background: loading ? 'rgba(0,181,165,0.5)' : '#00B5A5',
-              color: 'white', fontWeight: 800, fontSize: '0.72rem',
+              color: 'white', fontWeight: 800, fontSize: '0.7rem',
               letterSpacing: '0.18em', textTransform: 'uppercase',
-              padding: '1.1rem 3rem', borderRadius: '0.5rem', border: 'none',
+              padding: '1rem 2.75rem', borderRadius: '0.5rem', border: 'none',
               cursor: loading ? 'not-allowed' : 'pointer',
-              minHeight: '52px', transition: 'background 0.15s',
+              minHeight: '48px', transition: 'background 0.15s',
             }}
           >
             {loading
-              ? <><span style={{ width: '1rem', height: '1rem', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.7s linear infinite' }} />Sending…</>
-              : 'Get Full Results →'
+              ? <><span style={{ width: '1rem', height: '1rem', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', display: 'inline-block', animation: 'spin 0.7s linear infinite' }} />Sending\u2026</>
+              : 'Get Full Results \u2192'
             }
           </button>
 
-          <p style={{ color: noteColor, fontSize: '0.72rem', marginTop: '1.25rem', lineHeight: 1.6 }}>
+          <p style={{ color: noteColor, fontSize: '0.7rem', marginTop: '1.25rem', lineHeight: 1.6 }}>
             No spam. No pitch. We use this to send your results and follow up only if it&apos;s relevant.
           </p>
         </form>
