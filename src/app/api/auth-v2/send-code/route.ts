@@ -2,7 +2,8 @@
  * POST /api/auth-v2/send-code
  * Body: { email: string }
  * Sends a 6-digit verification code to the user's email.
- * Rate limited: 5 codes per 2 hours per IP.
+ * Rate limited: 5 codes per 15 minutes per IP.
+ * Suspicious access (unrecognised email + rate limit) triggers a security alert to Joe.
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
@@ -10,12 +11,14 @@ import { redisGet, redisSet, redisDel, redisIncr } from '@/lib/auth-v2'
 
 export const runtime = 'nodejs'
 
-const CODE_TTL_SEC    = 300  // 5 minutes
-const SEND_LIMIT      = 5   // max codes per 2 hours
-const SEND_WINDOW_SEC = 7200 // 2 hours
+const CODE_TTL_SEC    = 300  // 5 minutes — code validity window
+const SEND_LIMIT      = 5   // max codes per window
+const SEND_WINDOW_SEC = 900 // 15 minutes — rate limit window
 
 // Whitelist — only these emails can receive codes
 const ALLOWED_EMAILS = ['jk@yourofficespace.au']
+// Security: alert recipient for suspicious access
+const SECURITY_ALERT_EMAIL = 'jk@yourofficespace.au'
 
 function getIp(req: NextRequest): string {
   const fwd = req.headers.get('x-forwarded-for')
@@ -25,11 +28,69 @@ function getIp(req: NextRequest): string {
   return 'unknown'
 }
 
-async function isSendRateLimited(ip: string): Promise<boolean> {
+async function getSendCount(ip: string): Promise<number> {
+  const key = `2fa:send:ip:${ip}`
+  const raw = await redisGet(key)
+  if (!raw) return 0
+  if (typeof raw === 'string') {
+    try { return parseInt(raw, 10) } catch { /* fall through */ }
+    try { return parseInt(JSON.parse(raw) as string, 10) } catch { return 0 }
+  }
+  if (typeof raw === 'object' && raw !== null) {
+    const obj = raw as Record<string, unknown>
+    if (typeof obj.attempts === 'number') return obj.attempts
+  }
+  return 0
+}
+
+async function incrementSendCount(ip: string): Promise<number> {
   const key = `2fa:send:ip:${ip}`
   const count = await redisIncr(key)
   if (count === 1) await redisSet(key, '1', SEND_WINDOW_SEC)
-  return count > SEND_LIMIT
+  return count
+}
+
+async function sendAlertEmail(ip: string, email: string, attemptCount: number): Promise<void> {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) return
+  const resend = new Resend(apiKey)
+  const time = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })
+  await resend.emails.send({
+    from: 'YOS Dashboard <notifications@yourofficespace.au>',
+    to: SECURITY_ALERT_EMAIL,
+    subject: 'Security Alert: Dashboard access attempt',
+    text: `Someone tried to access the YOS Dashboard with an unauthorised email.\n\nTime: ${time}\nEmail attempted: ${email}\nIP address: ${ip}\nFailed attempts: ${attemptCount}\n\nIf this wasn't you, consider changing your password.`,
+    html: `
+      <div style="font-family:-apple-system,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px">
+        <div style="background:#7f1d1d;padding:24px;border-radius:12px 12px 0 0">
+          <p style="color:#fca5a5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 8px">Security Alert</p>
+          <h1 style="color:white;font-size:20px;font-weight:800;margin:0">Dashboard access attempt</h1>
+        </div>
+        <div style="background:#111;padding:24px;border-radius:0 0 12px 12px;border:1px solid rgba(255,255,255,0.08);border-top:none">
+          <p style="color:rgba(255,255,255,0.5);font-size:14px;margin:0 0 20px">Someone attempted to access the YOS Dashboard with an email address not authorised for this system.</p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+              <td style="padding:10px 0;color:rgba(255,255,255,0.4)">Email attempted</td>
+              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${email}</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+              <td style="padding:10px 0;color:rgba(255,255,255,0.4)">IP address</td>
+              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${ip}</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
+              <td style="padding:10px 0;color:rgba(255,255,255,0.4)">Failed attempts</td>
+              <td style="padding:10px 0;color:#fca5a5;font-weight:600;text-align:right">${attemptCount}</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 0;color:rgba(255,255,255,0.4)">Time (AEST)</td>
+              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${time}</td>
+            </tr>
+          </table>
+          <p style="color:rgba(255,255,255,0.35);font-size:12px;margin-top:20px">If this wasn't you, consider changing your password or contacting your IT support.</p>
+        </div>
+      </div>
+    `,
+  }).catch(() => { /* don't block login flow on alert failure */ })
 }
 
 async function sendCodeEmail(email: string, code: string): Promise<void> {
@@ -62,9 +123,6 @@ async function sendCodeEmail(email: string, code: string): Promise<void> {
 
 export async function POST(req: NextRequest) {
   const ip = getIp(req)
-  if (await isSendRateLimited(ip)) {
-    return NextResponse.json({ error: 'Too many codes sent. Try again in 2 hours.' }, { status: 429 })
-  }
 
   let email: string
   try {
@@ -78,8 +136,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Valid email required' }, { status: 400 })
   }
 
+  // Check rate limit before processing the email
+  const count = await incrementSendCount(ip)
+  if (count > SEND_LIMIT) {
+    // Alert Joe if this is an unrecognised email address
+    if (!ALLOWED_EMAILS.includes(email)) {
+      const attemptCount = await getSendCount(ip)
+      sendAlertEmail(ip, email, attemptCount).catch(() => {})
+    }
+    return NextResponse.json(
+      { error: 'Too many codes sent. Try again in 15 minutes.', retry_after: SEND_WINDOW_SEC },
+      { status: 429 }
+    )
+  }
+
   if (!ALLOWED_EMAILS.includes(email)) {
-    return NextResponse.json({ error: 'This email is not authorised to access the dashboard.' }, { status: 403 })
+    // This is suspicious — someone is trying an unrecognised email repeatedly.
+    // Alert Joe but don't tell the attacker whether the email exists.
+    sendAlertEmail(ip, email, count).catch(() => {})
+    return NextResponse.json(
+      { error: 'Too many codes sent. Try again in 15 minutes.', retry_after: SEND_WINDOW_SEC },
+      { status: 429 }
+    )
   }
 
   const code = Math.floor(100000 + Math.random() * 900000).toString()

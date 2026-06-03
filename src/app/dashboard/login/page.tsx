@@ -34,7 +34,11 @@ export default function LoginPage() {
         setStep('code')
         setCountdown(300)
       } else {
-        setError(data.error || 'Failed to send code. Try again.')
+        // Show retry_after if provided, otherwise generic error
+        const retryAfter = data.retry_after ?? 0
+        setError(retryAfter > 0
+          ? `Too many codes sent. Try again in ${Math.ceil(retryAfter / 60)} minutes.`
+          : (data.error || 'Failed to send code. Try again.'))
         setSending(false)
       }
     } catch {
@@ -87,7 +91,6 @@ export default function LoginPage() {
       }
 
       // code_required without go_to_email — simple wrong code, stay on step 2
-      // (auto-refresh silently handled by backend now)
       setError(data.error || 'Incorrect code. Try the latest one in your inbox.')
       setCode('')
       setPassword('')
@@ -161,7 +164,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="jk@yourofficespace.au"
+              placeholder="Username / Email"
               required autoFocus autoComplete="email"
               style={{ ...inputBase, marginBottom: '1rem' }}
             />
