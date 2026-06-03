@@ -86,6 +86,7 @@ export async function POST(req: NextRequest) {
   const code = Math.floor(100000 + Math.random() * 900000).toString()
   console.log('[auth-v2/send-code] generating code for', email, '(code hidden)')
 
+  // Reset attempts AND maxed flag on fresh code — a new code invalidates old wrong-attempt history
   await redisSet(
     `2fa:code:${email}`,
     JSON.stringify({ hash: code, attempts: 0, maxed: false, created_at: new Date().toISOString() }),

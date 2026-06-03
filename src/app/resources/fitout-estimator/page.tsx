@@ -4,8 +4,6 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { HUBSPOT } from '@/lib/constants'
-import ToolGate from '@/components/ToolGate'
-
 /* ─── Rate data (YOS Fitout Cost Guide - April 2026, ex GST) ─── */
 type Tier = 'basic' | 'mid' | 'premium'
 type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
@@ -17,18 +15,18 @@ const RATES: Record<FitoutTypeKey, Record<string, any>> = {
     premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, contingency: 0.15 },
   },
   'turnkey-warm': {
-    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 490,  high: 590  }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500, high: 5000  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1040, high: 1290 }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1780, high: 2200 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
+    // Warm shell: base build already in place (floors, ceilings, services), less work
+    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 600,  high: 900  }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500,  high: 5000  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 900,  high: 1290 }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1200, high: 1800 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
   },
   'turnkey-cold': {
-    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 320,  high: 385  }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500, high: 5000  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 680,  high: 840  }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1155, high: 1430 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
+    // Cold shell: blank canvas, everything from scratch — higher cost than warm
+    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 800,  high: 1200 }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500,  high: 5000  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1000, high: 1550 }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1400, high: 2500 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
   },
 }
-
-
 interface Inputs {
   fitoutType: 'furniture-only' | 'turnkey' | ''
   sqm: string
@@ -43,7 +41,6 @@ interface Inputs {
   buildingType: string
   timeframe: string
 }
-
 const STEPS = [
   { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
   { id: 'service',     title: 'What are you after?',     subtitle: 'Furniture only or a full turnkey fitout?' },
@@ -55,11 +52,9 @@ const STEPS = [
   { id: 'spaces',      title: 'Additional spaces',       subtitle: 'Kitchen, reception, AV and tech' },
   { id: 'result',      title: 'Your estimate',           subtitle: 'Based on current market rates' },
 ]
-
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
 }
-
 function calcEstimate(inputs: Inputs) {
   if (!inputs.sqm || !inputs.tier || !inputs.fitoutType) return null
   const isFurniture = inputs.fitoutType === 'furniture-only'
@@ -69,7 +64,6 @@ function calcEstimate(inputs: Inputs) {
   const desks = parseInt(inputs.desks) || 0
   const meetings = parseInt(inputs.meetingRooms) || 0
   const ehaMult = inputs.workstationType === 'eha' ? 1.45 : 1.0
-
   const base = isFurniture
     ? { low: 0, high: 0 }
     : { low: sqm * (r.sqm?.low ?? 0), high: sqm * (r.sqm?.high ?? 0) }
@@ -78,15 +72,11 @@ function calcEstimate(inputs: Inputs) {
   const kitchenCost = (!isFurniture && r.kitchen) ? { low: r.kitchen.low, high: r.kitchen.high } : { low: 0, high: 0 }
   const receptionCost = (!isFurniture && r.reception) ? { low: r.reception.low, high: r.reception.high } : { low: 0, high: 0 }
   const avCost = (!isFurniture && r.av) ? { low: r.av.low, high: r.av.high } : { low: 0, high: 0 }
-
   const subLow = base.low + furniture.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
   const subHigh = base.high + furniture.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
-
   const totalLow = Math.round(subLow * (1 + r.contingency))
   const totalHigh = Math.round(subHigh * (1 + r.contingency))
-
   const constructionLabel = isFurniture ? null : rateKey === 'turnkey-cold' ? 'Construction fitout (cold shell)' : 'Construction fitout (warm shell)'
-
   return {
     breakdown: [
       ...(constructionLabel ? [{ label: constructionLabel, low: base.low, high: base.high }] : []),
@@ -107,7 +97,6 @@ function calcEstimate(inputs: Inputs) {
       : 'Warm shell condition assumed. Base build services already in place.',
   }
 }
-
 const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -120,7 +109,6 @@ const SCHEMA = {
   "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
   "areaServed": { "@type": "Country", "name": "Australia" },
 }
-
 export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)
   const [inputs, setInputs] = useState<Inputs>({
@@ -129,13 +117,11 @@ export default function FitoutEstimatorPage() {
     buildingType: '', timeframe: '',
   })
   const [lastShellStep, setLastShellStep] = useState(1)
-
   const set = (k: keyof Inputs, v: string | boolean) => setInputs(prev => ({ ...prev, [k]: v }))
   const isFurnitureOnly = inputs.fitoutType === 'furniture-only'
   // Furniture path: 0→1→2→3(Quality)→4(Wkstype)→5(WksQty)→6(Spaces)→7(Result)
   // Turnkey path:   0→1→2→3(Shell)→4(Quality)→5(Wkstype)→6(WksQty)→7(Spaces)→8(Result)
   const maxStep = isFurnitureOnly ? 7 : 8
-
   const getBack = (cur: number) => {
     if (cur === 0) return -1 // intro - no back
     if (cur === 1) return 0  // service type → intro
@@ -147,7 +133,6 @@ export default function FitoutEstimatorPage() {
     if (cur === 7) return 6   // spaces → wksqty
     return 0
   }
-
   const canProceed = () => {
     if (step === 0) return true
     if (step === 1) return !!inputs.fitoutType
@@ -158,29 +143,23 @@ export default function FitoutEstimatorPage() {
     if (step === 6) return !!inputs.desks && parseInt(inputs.desks) > 0
     return true
   }
-
   const estimate = calcEstimate(inputs)
   const progress = step === 0 ? 0 : ((step - 1) / (maxStep - 1)) * 100
-  const stepCount = isFurnitureOnly ? 6 : 7  // actual content steps (excludes intro, excludes result)
+  const stepCount = maxStep  // last content step number (1-indexed for display)
   const resultStep = maxStep  // "Show my estimate" advances to this step to trigger result block
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
-
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
-
         {/* Progress bar */}
         {step > 0 && (
           <div className="fixed top-16 md:top-20 left-0 right-0 z-40 h-0.5 bg-white/10">
             <div className="h-full bg-teal transition-all duration-500" style={{ width: `${progress}%` }} />
           </div>
         )}
-
         <div className="flex-1 max-w-screen-xl mx-auto w-full"
           style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
-
           {/* Step header - shown only inside the estimator, above the form */}
           <div style={{ marginBottom: '3.5rem' }}>
             {step === 0 ? (
@@ -212,7 +191,6 @@ export default function FitoutEstimatorPage() {
               </>
             )}
           </div>
-
           {/* ── STEP 0: INTRO ── */}
           {step === 0 && (
             <div className="max-w-2xl">
@@ -238,8 +216,6 @@ export default function FitoutEstimatorPage() {
               </button>
             </div>
           )}
-
-
           {/* ── STEP 1: SERVICE TYPE ── */}
           {step === 1 && (
             <div className="max-w-2xl">
@@ -297,7 +273,6 @@ export default function FitoutEstimatorPage() {
           {step === 2 && (
             <div className="max-w-2xl">
               <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
-
                 {/* Floor area */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
@@ -312,7 +287,6 @@ export default function FitoutEstimatorPage() {
                   />
                   <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>The net lettable area (NLA) of the space you are fitting out</p>
                 </div>
-
                 {/* Building type */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Building type</label>
@@ -326,7 +300,6 @@ export default function FitoutEstimatorPage() {
                     ))}
                   </div>
                 </div>
-
                 {/* Timeframe */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Timeframe</label>
@@ -340,9 +313,7 @@ export default function FitoutEstimatorPage() {
                     ))}
                   </div>
                 </div>
-
               </div>
-
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(isFurnitureOnly ? 4 : 3)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
@@ -353,8 +324,6 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-
-
           {/* ── STEP 3: SHELL CONDITION (turnkey only) ── */}
           {step === 3 && (
             <div className="max-w-2xl">
@@ -437,7 +406,6 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-
           {/* ── STEP 5: WORKSTATION TYPE ── */}
           {step === 5 && (
             <div className="max-w-2xl">
@@ -475,12 +443,10 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-
           {/* ── STEP 6: WORKSTATIONS & MEETINGS ── */}
           {step === 6 && (
             <div className="max-w-xl">
               <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
-
                 {/* Workstations */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
@@ -493,7 +459,6 @@ export default function FitoutEstimatorPage() {
                   />
                   <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes desk, chair, and cable management. Mid-range = $1,050-$2,000 per person.</p>
                 </div>
-
                 {/* Meeting rooms */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
@@ -510,9 +475,7 @@ export default function FitoutEstimatorPage() {
                   </div>
                   <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Mid-range: $18,000-$30,000 per room incl. AV, glass, joinery.</p>
                 </div>
-
               </div>
-
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(7)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
@@ -523,7 +486,6 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-
           {/* ── STEP 7: ADDITIONAL SPACES ── */}
           {step === 7 && (
             <div className="max-w-xl">
@@ -548,7 +510,6 @@ export default function FitoutEstimatorPage() {
                   </button>
                 ))}
               </div>
-
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(maxStep + 1)}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
@@ -559,143 +520,140 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-
-          {/* ── RESULT ── */}
+          {/* ── RESULT — always visible, no gate ── */}
           {step >= maxStep && estimate && inputs.tier && (
             <div className="max-w-2xl">
-
-            {/* Result header — no step counter, just a back button */}
+            {/* Back button */}
             {step > maxStep && getBack(step) >= 0 && (
-              <div style={{ marginBottom: '2.5rem' }}>
-                <button
-                  onClick={() => setStep(getBack(step))}
-                  className="text-white/40 hover:text-white/70 transition-colors font-light"
-                  style={{ fontSize: '0.85rem' }}
-                >
-                  ← Back
-                </button>
-              </div>
-            )}
-
-            <ToolGate
-              tool="Fitout Estimator"
-              context={() => `Budget range: ${fmt(estimate!.totalLow)} - ${fmt(estimate!.totalHigh)} | Area: ${inputs.sqm}m2 | Quality: ${((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier}`}
-              heading="Where should we send your estimate?"
-              subheading="Enter your details - we'll email you a branded 1-page report with your full cost breakdown."
-              onUnlock={(name, email) => {
-                // Send branded report to client + notify Joe
-                fetch('/api/fitout-report', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    name,
-                    email,
-                    sqm: inputs.sqm,
-                    tier: ((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
-                    desks: inputs.desks,
-                    meetingRooms: inputs.meetingRooms,
-                    hasKitchen: inputs.hasKitchen,
-                    hasReception: inputs.hasReception,
-                    hasAV: inputs.hasAV,
-                    totalLow: estimate!.totalLow,
-                    totalHigh: estimate!.totalHigh,
-                    perSqmLow: estimate!.perSqm.low,
-                    perSqmHigh: estimate!.perSqm.high,
-                    breakdown: estimate!.breakdown,
-                  }),
-                }).catch(() => {})
-              }}
-              teaser={
-                <>
-                  <div className="mb-8">
-                    <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.7rem' }}>
-                      {inputs.sqm}m2 · {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} quality
-                    </p>
-                    <h2 className="text-white font-black uppercase leading-none tracking-tight mb-2"
-                      style={{ fontSize: 'clamp(2rem,5vw,4rem)' }}>
-                      {fmt(estimate!.totalLow)} - {fmt(estimate!.totalHigh)}
-                    </h2>
-                    <p className="text-white/40 font-light" style={{ fontSize: '0.85rem' }}>
-                      {fmt(estimate!.perSqm.low)}-{fmt(estimate!.perSqm.high)} per m2 · All figures ex GST
-                    </p>
-                  </div>
-                  <div className="border border-white/10">
-                    <div className="border-b border-white/10 px-5 py-3">
-                      <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Cost breakdown - unlock to view</p>
-                    </div>
-                    {[1,2,3].map(i => (
-                      <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
-                        <span className="w-32 h-3 bg-white/10 rounded-lg" />
-                        <span className="w-20 h-3 bg-white/10 rounded-lg" />
-                      </div>
-                    ))}
-                  </div>
-                </>
-              }
-            >
-              {/* Summary */}
-              <div className="mb-10 pb-10" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.68rem' }}>
-                  {inputs.sqm}m2 · {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} quality
-                </p>
-                <h2 className="text-white font-black uppercase leading-none tracking-tight mb-4" style={{ fontSize: 'clamp(2.5rem,6vw,5rem)' }}>
-                  {fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}
-                </h2>
-                <p className="text-white/40 font-light" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>
-                  {fmt(estimate.perSqm.low)} – {fmt(estimate.perSqm.high)} per m2 &nbsp;·&nbsp; All figures ex GST &nbsp;·&nbsp; 10% contingency included
-                </p>
-              </div>
-
-              {/* Breakdown */}
-              <div className="mb-10">
-                <p className="text-white/40 font-semibold uppercase tracking-widest mb-5" style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}>Cost breakdown</p>
-                <div className="border border-white/10" style={{ borderRadius: '0.75rem', overflow: 'hidden' }}>
-                  {estimate.breakdown.map((row, i) => (
-                    <div key={i} className={`flex justify-between items-center ${i < estimate.breakdown.length - 1 ? 'border-b border-white/8' : ''} ${row.label.includes('Contingency') ? 'bg-white/[0.02]' : ''}`}
-                      style={{ padding: '1.25rem 1.5rem' }}>
-                      <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/65'}`} style={{ fontSize: '0.95rem' }}>{row.label}</span>
-                      <span className={`font-semibold ${row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85'}`} style={{ fontSize: '0.95rem' }}>
-                        {fmt(row.low)} – {fmt(row.high)}
-                      </span>
-                    </div>
-                  ))}
-                  <div className="flex justify-between items-center bg-teal/10" style={{ padding: '1.5rem 1.5rem' }}>
-                    <span className="text-white font-black uppercase tracking-wide" style={{ fontSize: '0.85rem' }}>Total estimate</span>
-                    <span className="text-teal font-black" style={{ fontSize: '1.1rem' }}>{fmt(estimate.totalLow)} – {fmt(estimate.totalHigh)}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Disclaimer */}
-              <p className="text-white/25 font-light leading-relaxed mb-10" style={{ fontSize: '0.82rem', lineHeight: 1.85 }}>
-                This estimate is based on current NSW market rates from the YOS Fitout Cost Guide (April 2026). Rates vary by location — figures shown reflect Newcastle and Hunter Region benchmarks. Actual costs depend on site conditions, specification detail, and market conditions at time of tender. A site visit and detailed brief will refine this estimate significantly.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col gap-3 max-w-sm">
-                <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                  className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-                  style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-                  Book a Fitout Consultation →
-                </a>
-                <Link href="/furniture"
-                  className="text-white font-medium no-underline text-center hover:bg-white/10 transition-colors"
-                  style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', border: '1px solid rgba(255,255,255,0.2)' }}>
-                  View Furniture & Fitout Services
-                </Link>
-              </div>
-
-              <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
-                className="block mt-6 text-white/25 hover:text-white/50 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
-                ← Start again
+              <button onClick={() => setStep(getBack(step))}
+                className="text-white/40 hover:text-white/70 transition-colors font-light mb-8"
+                style={{ fontSize: '0.82rem', letterSpacing: '0.05em', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                ← Back
               </button>
-            </ToolGate>
+            )}
+            {/* Estimate header */}
+            <div style={{ marginBottom: '2.5rem' }}>
+              <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.65rem' }}>
+                {inputs.sqm}m2 &nbsp;·&nbsp; {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
+              </p>
+              <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
+                {fmt(estimate.totalLow)} &ndash; {fmt(estimate.totalHigh)}
+              </h2>
+              <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
+                {fmt(estimate.perSqm.low)} &ndash; {fmt(estimate.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
+              </p>
+            </div>
+            {/* Cost breakdown table */}
+            <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '2rem' }}>
+              {estimate.breakdown.map((row, i) => (
+                <div key={i}
+                  className={`flex justify-between items-center ${i < estimate.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
+                  style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(0,181,165,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
+                  <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
+                  <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
+                    {fmt(row.low)} &ndash; {fmt(row.high)}
+                  </span>
+                </div>
+              ))}
+            </div>
+            {/* Coverage note */}
+            {estimate.coverageNote && (
+              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
+                {estimate.coverageNote}
+              </p>
+            )}
+            {/* Disclaimer */}
+            <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
+              Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
+            </p>
+            {/* CTA — primary action */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
+              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
+                style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
+                Book a Fitout Consultation &nbsp;→
+              </a>
+              <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
+                30-minute call. Fixed-price proposal. No obligation.
+              </p>
+            </div>
+            {/* Email capture — send them the full breakdown */}
+            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
+              <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
+              <h3 className="text-white font-black uppercase mb-2" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
+                Get the full breakdown by email
+              </h3>
+              <p className="text-white/45 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '32rem' }}>
+                We'll email you a branded 1-page report with your complete cost breakdown, line by line, plus next steps.
+              </p>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  const form = e.currentTarget
+                  const name = (form.elements.namedItem('name') as HTMLInputElement)?.value
+                  const email = (form.elements.namedItem('email') as HTMLInputElement)?.value
+                  if (!name || !email) return
+                  try {
+                    await fetch('/api/fitout-report', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        name, email,
+                        sqm: inputs.sqm,
+                        tier: ((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
+                        desks: inputs.desks,
+                        meetingRooms: inputs.meetingRooms,
+                        hasKitchen: inputs.hasKitchen,
+                        hasReception: inputs.hasReception,
+                        hasAV: inputs.hasAV,
+                        totalLow: estimate.totalLow,
+                        totalHigh: estimate.totalHigh,
+                        perSqmLow: estimate.perSqm.low,
+                        perSqmHigh: estimate.perSqm.high,
+                        breakdown: estimate.breakdown,
+                      }),
+                    })
+                    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
+                    if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
+                  } catch {}
+                }}
+                noValidate
+                style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                  <input
+                    type="text" name="name" placeholder="First name" autoComplete="given-name"
+                    required
+                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                  />
+                  <input
+                    type="email" name="email" placeholder="Work email" autoComplete="email"
+                    required
+                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                  />
+                </div>
+                <button type="submit"
+                  style={{ background: '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
+                  Send me the full breakdown &rarr;
+                </button>
+              </form>
+            </div>
+            {/* Secondary link */}
+            <Link href="/furniture"
+              className="text-white/40 hover:text-white/70 no-underline transition-colors font-light"
+              style={{ fontSize: '0.8rem', letterSpacing: '0.05em', display: 'inline-block', marginBottom: '3rem' }}>
+              View our furniture & fitout services &rarr;
+            </Link>
+            {/* Start again */}
+            <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
+              className="block text-white/25 hover:text-white/50 transition-colors font-light"
+              style={{ fontSize: '0.8rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              ← Start again
+            </button>
             </div>
           )}
-
         </div>
       </div>
-
           {/* ── SECTION 1: THE FITOUT PROCESS (dark) ── */}
           <section style={{ background: '#0A0A0A', paddingTop: '5rem', paddingBottom: '5rem' }}>
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -707,7 +665,6 @@ export default function FitoutEstimatorPage() {
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '4rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
                 How a YOS fitout works
               </h2>
-
               {/* 4 process steps with connecting line */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', position: 'relative' }}>
                 {[
@@ -728,7 +685,6 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           </section>
-
           {/* ── SECTION 2: RECENT PROJECTS (case study gallery) ── */}
           <section style={{ background: '#0A0A0A', paddingTop: '0', paddingBottom: '5rem' }}>
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -743,7 +699,6 @@ export default function FitoutEstimatorPage() {
               <p style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 300, fontSize: '0.9rem', marginBottom: '3rem', lineHeight: 1.7 }}>
                 Selected fitouts delivered by YOS across NSW
               </p>
-
               {/* 2×3 project card grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '0' }}>
                 {[
@@ -786,7 +741,6 @@ export default function FitoutEstimatorPage() {
                   </div>
                 ))}
               </div>
-
               {/* What was involved strip */}
               <div style={{ marginTop: '3rem', padding: '2rem 2.5rem', background: '#131313', border: '1px solid #2A2A2A', borderRadius: '0.75rem' }}>
                 <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>What was involved?</p>
@@ -806,7 +760,6 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           </section>
-
           {/* ── SECTION 3: KNOWLEDGE / FAQ ── */}
           <section style={{ background: '#0D1117', paddingTop: '5rem', paddingBottom: '5rem' }}>
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -818,7 +771,6 @@ export default function FitoutEstimatorPage() {
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '3.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
                 What affects fitout cost?
               </h2>
-
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {[
                   {
@@ -829,7 +781,6 @@ export default function FitoutEstimatorPage() {
                     q: "What's the real timeline?",
                     a: "Furniture-only fitout: 2-4 weeks. Full commercial fitout: 6-16 weeks depending on scope. The biggest delay is decisions - not construction. Our process compresses that phase so you move faster."
                   },
-
                 ].map((item, i) => (
                   <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #00B5A5' }}>
                     <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.875rem', lineHeight: 1.4 }}>{item.q}</h3>
@@ -839,7 +790,6 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           </section>
-
       <Footer />
     </>
   )
