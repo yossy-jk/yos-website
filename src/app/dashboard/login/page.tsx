@@ -34,7 +34,6 @@ export default function LoginPage() {
         setStep('code')
         setCountdown(300)
       } else {
-        // Show the actual error — don't hide it from the user
         setError(data.error || 'Failed to send code. Try again.')
         setSending(false)
       }
@@ -54,11 +53,11 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, code, password }),
       })
-      let data: { ok?: boolean; error?: string; code_required?: boolean } = {}
+      let data: { ok?: boolean; error?: string; code_required?: boolean; go_to_email?: boolean } = {}
       try {
         data = await res.json()
       } catch {
-        setError('Server returned an invalid response. Try again.')
+        setError('Server error. Try again.')
         setLoading(false)
         return
       }
@@ -68,39 +67,28 @@ export default function LoginPage() {
         return
       }
 
-      const errMsg = data.error || ''
-
-      // code_required means: code expired, was used, or too many wrong attempts
-      // In all cases the user needs a fresh code — send one automatically,
-      // but if that fails we surface the error clearly and let them re-enter email.
-      if (data.code_required) {
+      // Any server response that says "go back to email" — obey it immediately
+      if (data.go_to_email) {
         setCode('')
         setPassword('')
+        setStep('email')
+        setError(data.error || 'Something went wrong. Please start again.')
         setLoading(false)
-        try {
-          const freshRes = await fetch('/api/auth-v2/send-code', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email }),
-          })
-          const freshData = await freshRes.json().catch(() => ({}))
-          if (freshRes.ok && freshData.ok) {
-            setError(errMsg || 'Session expired — a new code has been sent to your email.')
-            setCountdown(300)
-          } else {
-            // Couldn't send a new code — send them back to email step
-            setError(freshData.error || errMsg || 'Your session expired. Please start again.')
-            setStep('email')
-          }
-        } catch {
-          setError('Session expired. Please start again.')
-          setStep('email')
-        }
         return
       }
 
-      // Wrong password or other non-code error — stay on code step, keep inputs
-      setError(errMsg || 'Incorrect code or password. Please try again.')
+      // Wrong password — stay on code step, keep inputs
+      if (!data.code_required) {
+        setError(data.error || 'Incorrect details. Please try again.')
+        setCode('')
+        setPassword('')
+        setLoading(false)
+        return
+      }
+
+      // code_required without go_to_email — simple wrong code, stay on step 2
+      // (auto-refresh silently handled by backend now)
+      setError(data.error || 'Incorrect code. Try the latest one in your inbox.')
       setCode('')
       setPassword('')
       setLoading(false)
@@ -173,7 +161,7 @@ export default function LoginPage() {
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder="jk@yourofficespace.au"
               required autoFocus autoComplete="email"
               style={{ ...inputBase, marginBottom: '1rem' }}
             />

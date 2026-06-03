@@ -6,7 +6,7 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { redisGet, redisSet, redisDel, redisIncr, getUser } from '@/lib/auth-v2'
+import { redisGet, redisSet, redisDel, redisIncr } from '@/lib/auth-v2'
 
 export const runtime = 'nodejs'
 
@@ -61,7 +61,6 @@ async function sendCodeEmail(email: string, code: string): Promise<void> {
 }
 
 export async function POST(req: NextRequest) {
-  console.log('[auth-v2/send-code] request received')
   const ip = getIp(req)
   if (await isSendRateLimited(ip)) {
     return NextResponse.json({ error: 'Too many codes sent. Try again in 2 hours.' }, { status: 429 })
@@ -84,18 +83,19 @@ export async function POST(req: NextRequest) {
   }
 
   const code = Math.floor(100000 + Math.random() * 900000).toString()
-  console.log('[auth-v2/send-code] generating code for', email, '(code hidden)')
 
-  // Reset attempts AND maxed flag on fresh code — a new code invalidates old wrong-attempt history
+  // Delete any existing code first — prevents old code being used if new code was sent
+  // then old code was accidentally copy-pasted from email
+  await redisDel(`2fa:code:${email}`)
+
   await redisSet(
     `2fa:code:${email}`,
-    JSON.stringify({ hash: code, attempts: 0, maxed: false, created_at: new Date().toISOString() }),
+    JSON.stringify({ hash: code, attempts: 0, maxed: false }),
     CODE_TTL_SEC
   )
 
   try {
     await sendCodeEmail(email, code)
-    console.log('[auth-v2/send-code] email sent to', email)
   } catch (err) {
     console.error('[auth-v2/send-code] Failed to send email:', err)
     return NextResponse.json({ error: 'Failed to send email. Try again shortly.' }, { status: 500 })
