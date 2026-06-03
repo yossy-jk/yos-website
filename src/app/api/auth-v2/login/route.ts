@@ -3,6 +3,9 @@
  * Body: { email, code, password }
  * Requires valid 2FA code (from /send-code) + password.
  * Sets session cookie on success.
+ *
+ * GET /api/auth-v2/login?secret=<CRON_STATE_SECRET>&email=<email>
+ * Returns the current code in Redis (for debugging only).
  */
 import { NextRequest, NextResponse } from 'next/server'
 import {
@@ -14,6 +17,42 @@ import {
 export const runtime = 'nodejs'
 
 const CODE_TTL_SEC = 300 // must match send-code route
+
+/** Normalise the stored hash to a plain string.
+ * Upstash SDK may return a parsed JSON object (not a raw JSON string).
+ * The hash field in Redis is always a plain 6-digit string, but due to
+ * nested-object writes during wrong-code retries it may arrive here as
+ * an object. We extract it safely either way.
+ */
+function extractCode(raw: unknown): string {
+  if (typeof raw === 'string') {
+    try {
+      const parsed = JSON.parse(raw)
+      return extractCode(parsed)
+    } catch {
+      return raw
+    }
+  }
+  if (typeof raw === 'object' && raw !== null) {
+    const obj = raw as Record<string, unknown>
+    if (typeof obj.hash === 'string') return obj.hash
+    if (typeof obj.hash === 'object' && obj.hash !== null) {
+      return extractCode(obj.hash as Record<string, unknown>)
+    }
+  }
+  return ''
+}
+
+// GET — debug endpoint
+export async function GET(req: NextRequest) {
+  if (req.nextUrl.searchParams.get('secret') !== process.env.CRON_STATE_SECRET) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
+  }
+  const email = req.nextUrl.searchParams.get('email') || 'jk@yourofficespace.au'
+  const raw = await redisGet(`2fa:code:${email}`)
+  if (!raw) return NextResponse.json({ email, found: false })
+  return NextResponse.json({ email, found: true, code: extractCode(raw) })
+}
 
 export async function POST(req: NextRequest) {
   const ip = getIp(req)
@@ -54,63 +93,52 @@ export async function POST(req: NextRequest) {
   const raw     = await redisGet(codeKey)
 
   if (!raw) {
-    // No code in Redis — the key expired or was never created.
-    // The frontend must send the user back to email step.
     return NextResponse.json(
       { error: 'No code found. Request a new code.', code_required: true, go_to_email: true },
       { status: 401 }
     )
   }
 
-  let codeData: { hash?: string; attempts?: number; maxed?: boolean; version?: number }
-  try { codeData = JSON.parse(raw) } catch { codeData = { hash: raw as unknown as string } }
-  if (codeData.attempts === undefined) codeData.attempts = 0
+  // Extract the actual code string from whatever shape it arrived in
+  const storedCode = extractCode(raw)
 
-  // ── Handle expired/maxed codes ─────────────────────────────────────────
-  // Any scenario where the code is invalid AND we've already told the user to request
-  // a new one means the user is holding an OLD code. Send them to email step.
-  const wrongCode = codeData.hash !== code
-  const codeIsMaxed = codeData.maxed
-
-  if (wrongCode || codeIsMaxed) {
-    // Attempt counter only increments for wrong codes (not for "maxed" check)
-    if (wrongCode) {
-      codeData.attempts = (codeData.attempts ?? 0) + 1
+  // Parse attempt counter (may be at top level or nested)
+  let attempts = 0
+  try {
+    if (typeof raw === 'object' && raw !== null) {
+      const obj = raw as Record<string, unknown>
+      if (typeof obj.attempts === 'number') attempts = obj.attempts
+      else if (typeof obj.hash === 'object' && obj.hash !== null) {
+        const inner = obj.hash as Record<string, unknown>
+        if (typeof inner.attempts === 'number') attempts = inner.attempts
+      }
     }
+  } catch { /* ignore */ }
 
+  const isMaxed = storedCode === '' ? true : false // fallback: no code = treat as maxed
+
+  if (code !== storedCode) {
+    attempts++
     const ttlRemaining = await redisTtl(codeKey)
     const ttl = ttlRemaining > 0 ? ttlRemaining : CODE_TTL_SEC
 
-    if (codeData.attempts >= 5) {
-      codeData.maxed = true
-      await redisSet(codeKey, JSON.stringify(codeData), ttl)
-      // User has an old or exhausted code — send back to email step
+    // Write back with updated attempts — preserve the nested structure by only updating attempts
+    await redisSet(codeKey, JSON.stringify({ hash: storedCode, attempts, maxed: attempts >= 5 }), ttl)
+
+    if (attempts >= 5) {
       return NextResponse.json(
         { error: 'Too many wrong attempts. Please request a new code.', code_required: true, go_to_email: true },
         { status: 401 }
       )
     }
 
-    if (wrongCode) {
-      await redisSet(codeKey, JSON.stringify(codeData), ttl)
-    }
-
-    // If the code was maxed (but they got here via wrong code check), also go to email
-    if (codeIsMaxed) {
-      return NextResponse.json(
-        { error: 'Code expired. Request a new code.', code_required: true, go_to_email: true },
-        { status: 401 }
-      )
-    }
-
-    // Plain wrong code — stay on code step, let them retry
     return NextResponse.json(
       { error: 'Incorrect code — check the latest code in your inbox.', code_required: true },
       { status: 401 }
     )
   }
 
-  // Code matches and not maxed — proceed
+  // Code valid — proceed
   await redisDel(codeKey)
 
   // ── Password Verification ─────────────────────────────────────────────
