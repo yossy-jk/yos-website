@@ -34,12 +34,12 @@ export async function POST(req: NextRequest) {
     if (contentType.includes('application/json')) {
       const body = await req.json() as { email?: string; code?: string; password?: string }
       email    = (body?.email || '').trim().toLowerCase()
-      code     = body?.code  || ''
+      code     = (body?.code  || '').replace(/\s/g, '').trim()
       password = body?.password || ''
     } else {
       const body = await req.text()
       email    = ((body.match(/email=([^&]+)/)?.[1] || '')).replace(/%40/g, '@').trim()
-      code     = body.match(/code=([^&]+)/)?.[1] || ''
+      code     = (body.match(/code=([^&]+)/)?.[1] || '').replace(/\s/g, '')
       password = (body.match(/password=([^&]+)/)?.[1] || '').replace(/\+/g, ' ')
     }
   } catch {
@@ -64,6 +64,8 @@ export async function POST(req: NextRequest) {
 
   let codeData: { hash?: string; attempts?: number; maxed?: boolean }
   try { codeData = JSON.parse(raw) } catch { codeData = { hash: raw as unknown as string } }
+
+  console.log('[auth-v2/login] code from Redis:', codeData.hash, '| code from input:', code, '| match:', codeData.hash === code)
 
   if (codeData.hash !== code) {
     // Increment attempt counter
@@ -144,6 +146,7 @@ export async function POST(req: NextRequest) {
     ok: true,
     user: { email: updated.email, name: updated.name, role: updated.role, scopes: updated.scopes },
   })
+  setSessionCookie(response, session)
   console.log('[auth-v2/login] success for', email, '— session cookie set')
-  return setSessionCookie(response, session)
+  return response
 }
