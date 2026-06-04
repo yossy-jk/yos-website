@@ -1,131 +1,171 @@
 /**
- * GET /api/tasks-data — returns task summary from Redis
- * POST /api/tasks-data — updates task status (complete/delegate/snooze)
+ * GET /api/tasks-data — reads/writes tasks from Upstash Redis
+ * POST /api/tasks-data — create/complete/delegate tasks
  */
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
-const TASKS_KEY = 'yos:tasks:summary'
-const MATON_API_KEY = process.env.MATON_API_KEY || ''
-const MATON_CONNECTION = process.env.MATON_TODO_CONNECTION_ID || '111c70ef-60c3-4333-bc7e-a5b4be1a6a96'
 
-// All MS To Do list IDs
-const LISTS = [
-  { id: 'AAMkADIyYjMzNWFiLWUyNWEtNDIzMi05ZmU4LWIyNDljMzMxMzYwNgAuAAAAAADTJyF1wTFJRZRASvZ91KDJAQDW57amVQ5qQqdp0VpMdqZ2AAAAAAESAAA=', name: 'Tasks' },
-  { id: 'AAMkADIyYjMzNWFiLWUyNWEtNDIzMi05ZmU4LWIyNDljMzMxMzYwNgAuAAAAAADTJyF1wTFJRZRASvZ91KDJAQDW57amVQ5qQqdp0VpMdqZ2AADY539yAAA=', name: 'Finance' },
-  { id: 'AAMkADIyYjMzNWFiLWUyNWEtNDIzMi05ZmU4LWIyNDljMzMxMzYwNgAuAAAAAADTJyF1wTFJRZRASvZ91KDJAQDW57amVQ5qQqdp0VpMdqZ2AADjR-w8AAA=', name: 'Today' },
-  { id: 'AAMkADIyYjMzNWFiLWUyNWEtNDIzMi05ZmU4LWIyNDljMzMxMzYwNgAuAAAAAADTJyF1wTFJRZRASvZ91KDJAQDW57amVQ5qQqdp0VpMdqZ2AADsQiwSAAA=', name: 'Health & Personal' },
-  { id: 'AAMkADIyYjMzNWFiLWUyNWEtNDIzMi05ZmU4LWIyNDljMzMxMzYwNgAuAAAAAADTJyF1wTFJRZRASvZ91KDJAQDW57amVQ5qQqdp0VpMdqZ2AADsQiwRAAA=', name: 'Operations' },
-  { id: 'AAMkADIyYjMzNWFiLWUyNWEtNDIzMi05ZmU4LWIyNDljMzMxMzYwNgAuAAAAAADTJyF1wTFJRZRASvZ91KDJAQDW57amVQ5qQqdp0VpMdqZ2AADsQiwQAAA=', name: 'Sales & Pipeline' },
-]
+const TASKS_KEY = 'tasks:v1'
+const COMPLETED_KEY = 'tasks:completed:v1'
+
+async function redisGet(key: string): Promise<string | null> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return null
+  const res = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent(key)}`, {
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` }
+  })
+  if (!res.ok) return null
+  const d = await res.json() as { result?: string | null }
+  return d.result ?? null
+}
+
+async function redisSet(key: string, value: string, ttlSeconds?: number): Promise<void> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return
+  const body: Record<string, string | number> = { key, value }
+  if (ttlSeconds) body['ex'] = ttlSeconds
+  await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    body: JSON.stringify(body)
+  })
+}
+
+interface Task {
+  id: string; title: string; description: string; source: string; status: string
+  priority: string; due_date: string | null; due_time: string | null
+  assigned_to: string; revenue_value: number | null; client_name: string; client_id: string
+  can_delegate: number; raw_commitment: string; tags: string; completed_at: string | null
+  created_at: string; updated_at: string
+}
+
+function nowISO(): string {
+  return new Date().toISOString()
+}
+
+function todayStr(): string {
+  return new Date().toISOString().split('T')[0]
+}
+
+function makeId(): string {
+  return Math.random().toString(36).slice(2) + Date.now().toString(36)
+}
 
 export async function GET() {
   const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
-  if (!UPSTASH_URL || !UPSTASH_TOKEN) {
-    return NextResponse.json({ error: 'Redis not configured' })
-  }
+  const raw = await redisGet(TASKS_KEY)
+  const tasks: Task[] = raw ? JSON.parse(raw) : []
+  const completedRaw = await redisGet(COMPLETED_KEY)
+  const completed: Task[] = completedRaw ? JSON.parse(completedRaw) : []
 
-  // Try Redis first
-  try {
-    const res = await fetch(
-      `${UPSTASH_URL}/get/${encodeURIComponent(TASKS_KEY)}`,
-      { headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` }, cache: 'no-store' }
-    )
-    if (res.ok) {
-      const d = await res.json() as { result?: string | null }
-      if (d.result) {
-        let parsed: unknown = JSON.parse(d.result)
-        if (typeof parsed === 'object' && parsed !== null && 'value' in parsed) {
-          const wrapped = parsed as { value: string }
-          return NextResponse.json(JSON.parse(wrapped.value))
-        }
-        return NextResponse.json(parsed)
-      }
-    }
-  } catch { /* fall through */ }
+  const today = todayStr()
+  const overdue = tasks.filter(t => t.status === 'pending' && t.due_date && t.due_date < today)
+  const todayTasks = tasks.filter(t => t.status === 'pending' && t.due_date === today)
+  const backlog = tasks.filter(t => t.status === 'pending' && t.due_date && t.due_date > today).slice(0, 20)
+  const delegated = tasks.filter(t => t.status === 'delegated')
 
-  // Fall back to MS To Do via Maton
-  if (!MATON_API_KEY) {
-    return NextResponse.json({ generatedAt: new Date().toISOString(), todayTasks: [], overdue: [], delegated: [], completed: [], completionRate7d: 0, totalOpen: 0, totalCompleted: 0, joeCapacityToday: 0, maxJoeCapacity: 10, sources: { ms_todo: 0 }, error: 'Configure MATON_API_KEY env var to connect Microsoft To Do' })
-  }
+  const totalDoneLast7 = completed.filter(t => t.completed_at && t.completed_at > nowISO()).length
+  const rate = tasks.length > 0 ? Math.round((completed.length / (tasks.length + completed.length)) * 100) : 0
 
-  try {
-    const now = new Date()
-    const today = now.toISOString().split('T')[0]
-    const allTasks: { id: string; title: string; dueDate: string; importance: string; listName: string; status: string; body: string }[] = []
+  const sources: Record<string, number> = {}
+  tasks.forEach(t => { sources[t.source] = (sources[t.source] || 0) + 1 })
 
-    await Promise.all(LISTS.map(async (list) => {
-      try {
-        const r = await fetch(
-          `https://gateway.maton.ai/microsoft-to-do/v1.0/me/todo/lists/${list.id}/tasks`,
-          { headers: { Authorization: `Bearer ${MATON_API_KEY}`, 'Maton-Connection': MATON_CONNECTION } }
-        )
-        if (!r.ok) return
-        const data = await r.json() as { value: { id: string; title: string; status: string; importance: string; dueDateTime?: { dateTime: string }; body?: { content: string } }[] }
-        for (const t of data.value || []) {
-          if (t.status === 'completed') continue
-          allTasks.push({
-            id: t.id,
-            title: t.title,
-            status: t.status,
-            importance: t.importance,
-            dueDate: t.dueDateTime?.dateTime?.split('T')[0] || '',
-            listName: list.name,
-            body: t.body?.content || '',
-          })
-        }
-      } catch { /* skip failed list */ }
-    }))
-
-    const overdue = allTasks.filter(t => t.dueDate && t.dueDate < today)
-    const todayTasks = allTasks.filter(t => t.dueDate === today)
-    const backlog = allTasks.filter(t => t.dueDate && t.dueDate > today).slice(0, 20)
-
-    return NextResponse.json({
-      generatedAt: now.toISOString(),
-      todayTasks: todayTasks.map(t => ({ id: t.id, title: t.title, dueDate: t.dueDate, importance: t.importance, source: t.listName })),
-      overdue: overdue.map(t => ({ id: t.id, title: t.title, dueDate: t.dueDate, importance: t.importance, source: t.listName })),
-      backlog: backlog.map(t => ({ id: t.id, title: t.title, dueDate: t.dueDate, importance: t.importance, source: t.listName })),
-      delegated: [],
-      completed: [],
-      completionRate7d: 0,
-      totalOpen: allTasks.length,
-      totalCompleted: 0,
-      joeCapacityToday: todayTasks.length,
-      maxJoeCapacity: 10,
-      sources: { 'ms-todo': allTasks.length },
-    })
-  } catch (e) {
-    return NextResponse.json({ generatedAt: new Date().toISOString(), todayTasks: [], overdue: [], delegated: [], completed: [], completionRate7d: 0, totalOpen: 0, totalCompleted: 0, joeCapacityToday: 0, maxJoeCapacity: 10, sources: {}, error: 'MS To Do fetch failed' })
-  }
+  return NextResponse.json({
+    generatedAt: nowISO(),
+    todayTasks,
+    overdue,
+    backlog,
+    delegated,
+    completed,
+    completionRate7d: rate,
+    totalOpen: tasks.length,
+    totalCompleted: completed.length,
+    totalBacklog: backlog.length,
+    maxJoeCapacity: 10,
+    sources,
+  })
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
-  const body = await req.json() as { taskId: string; action: string; note?: string; agent?: string }
-  const { taskId, action, note, agent } = body
+  try {
+    const body = await req.json() as {
+      taskId?: string; action: string; agent?: string
+      title?: string; due_date?: string; priority?: string; source?: string; description?: string
+      note?: string
+    }
+    const now = nowISO()
 
-  if (!taskId || !action) {
-    return NextResponse.json({ error: 'Missing taskId or action' }, { status: 400 })
+    if (body.action === 'create') {
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = raw ? JSON.parse(raw) : []
+      const newTask: Task = {
+        id: makeId(),
+        title: body.title || 'Untitled',
+        description: body.description || '',
+        source: body.source || 'manual',
+        status: 'pending',
+        priority: body.priority || '2',
+        due_date: body.due_date || null,
+        due_time: null,
+        assigned_to: '',
+        revenue_value: null,
+        client_name: '',
+        client_id: '',
+        can_delegate: 0,
+        raw_commitment: '',
+        tags: '',
+        completed_at: null,
+        created_at: now,
+        updated_at: now,
+      }
+      tasks.unshift(newTask)
+      await redisSet(TASKS_KEY, JSON.stringify(tasks))
+      return NextResponse.json({ ok: true, task: newTask }, { status: 201 })
+    }
+
+    if (body.action === 'complete' && body.taskId) {
+      // Move from active to completed
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = raw ? JSON.parse(raw) : []
+      const completedRaw = await redisGet(COMPLETED_KEY)
+      const completed: Task[] = completedRaw ? JSON.parse(completedRaw) : []
+
+      const idx = tasks.findIndex(t => t.id === body.taskId)
+      if (idx !== -1) {
+        const [done] = tasks.splice(idx, 1)
+        done.status = 'completed'
+        done.completed_at = now
+        done.updated_at = now
+        completed.unshift(done)
+        // Keep completed list at 50
+        if (completed.length > 50) completed.splice(50)
+        await redisSet(TASKS_KEY, JSON.stringify(tasks))
+        await redisSet(COMPLETED_KEY, JSON.stringify(completed))
+      }
+      return NextResponse.json({ ok: true })
+    }
+
+    if (body.action === 'delegate' && body.taskId && body.agent) {
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = raw ? JSON.parse(raw) : []
+      const idx = tasks.findIndex(t => t.id === body.taskId)
+      if (idx !== -1) {
+        tasks[idx].assigned_to = body.agent
+        tasks[idx].status = 'delegated'
+        tasks[idx].updated_at = now
+        await redisSet(TASKS_KEY, JSON.stringify(tasks))
+      }
+      return NextResponse.json({ ok: true })
+    }
+
+    return NextResponse.json({ ok: true })
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 })
   }
-
-  const update = JSON.stringify({
-    taskId, action, note,
-    timestamp: new Date().toISOString()
-  })
-
-  if (UPSTASH_URL && UPSTASH_TOKEN) {
-    await fetch(
-      `${UPSTASH_URL}/lpush/${encodeURIComponent('yos:tasks:actions')}/${encodeURIComponent(update)}`,
-      { method: 'POST', headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` } }
-    )
-  }
-
-  return NextResponse.json({ ok: true })
 }

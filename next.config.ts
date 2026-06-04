@@ -1,5 +1,12 @@
 import type { NextConfig } from "next";
 
+/**
+ * Force Webpack instead of Turbopack for build.
+ * Turbopack (next@16) has a bug where middleware.js.nft.json is not generated,
+ * causing Vercel deploy --prebuilt to fail. Webpack build path works correctly.
+ */
+process.env.TURBOPACK = '0';
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
