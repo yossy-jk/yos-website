@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useState, useCallback, useRef } from 'react'
+import TasksTab from './tasks-tab'
 import type { EOSData, VTO, KPIMetric } from '@/app/api/eos/data/route'
 
 
@@ -2445,6 +2446,9 @@ export default function Dashboard() {
         )
       })()}
 
+
+      {/* ── TASKS TAB ── */}
+      {activeTab === 'tasks' && <TasksTab />}
       {/* ── MEMORY TAB ── */}
       {activeTab === 'memory' && (() => {
         const DIVISION_COLOURS: Record<string,string> = {
