@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback, useRef } from 'react'
 import type { EOSData, VTO, KPIMetric } from '@/app/api/eos/data/route'
-
+import TenantRepTab from './tenant-rep-tab'
 
 // ── Types ───────────────────────────────────────────────────────────────────
 type Priority = { label: string; detail: string; type: 'critical' | 'action' | 'info' }
@@ -433,7 +433,7 @@ export default function Dashboard() {
   const [queueLoading, setQueueLoading] = useState(false)
   const [energy, setEnergy] = useState<number | null>(null)
   const [now, setNow] = useState('')
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance' | 'health' | 'blog'>('dashboard')
+  const [activeTab, setActiveTab] = useState<'dashboard' | 'queue' | 'eos' | 'seo' | 'usage' | 'memory' | 'archive' | 'compliance' | 'operations' | 'ops-all' | 'outreach' | 'tasks' | 'proposals' | 'finance' | 'health' | 'tenant-rep'>('dashboard')
   const [opsData, setOpsData] = useState<OpsData | null>(null)
   const [opsAllData, setOpsAllData] = useState<OpsAllData | null>(null)
   const [proposalData, setProposalData] = useState<ProposalFollowupData | null>(null)
@@ -829,6 +829,7 @@ export default function Dashboard() {
           { key: 'tasks' as const, label: 'Tasks', badge: false },
           { key: 'finance' as const, label: 'Finance', badge: false },
           { key: 'health' as const, label: 'Health', badge: false },
+          { key: 'tenant-rep' as const, label: 'Tenant Rep', badge: false },
         ] as const).map(tab => (
           <button key={tab.key} onClick={() => setActiveTab(tab.key)}
             style={{
@@ -3817,6 +3818,12 @@ export default function Dashboard() {
           </div>
         )
       })()}
+
+      {activeTab === 'tenant-rep' && (
+        <div style={{ padding: '0 0 2rem' }}>
+          <TenantRepTab />
+        </div>
+      )}
 
       {/* Footer */}
       <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.06)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
