@@ -1,6 +1,6 @@
 /**
  * POST /api/blog/generate
- * Generates a single blog post draft and pushes to the approval queue.
+ * Generates a single SEO/AEO-optimised blog post draft and pushes to approval queue.
  * Auth: x-queue-secret header (cron) OR auth-v2 session cookie (manual trigger)
  *
  * Flow: Generate → yos:queue:pending (status: pending)
@@ -75,29 +75,78 @@ function tomorrowDate(): string {
   return d.toISOString().split('T')[0]
 }
 
-// ── MiniMax generation ─────────────────────────────────────────────────────────
-// MiniMax-M2.7 returns content in .message.content; reasoning_content is trace only.
-// Use extra params to ensure clean JSON output.
+// ── SEO/AEO-optimised generation prompt ──────────────────────────────────────
+// Targets: Google's Helpful Content system, AI Overviews, People Also Ask,
+// featured snippets, and FAQ schema. See Google Search Essentials.
 async function generatePost(topic: typeof TOPICS[number]) {
   if (!MINIMAX_KEY) throw new Error('MINIMAX_API_KEY not set')
 
-  const prompt = `You are a content writer for Your Office Space, a Newcastle-based commercial property and office services company. Write one high-quality, original blog post for their website.
+  const prompt = `You are a senior content strategist and SEO writer for Your Office Space — a Newcastle-based commercial property and office services company operating across the Hunter Region, NSW. Write one blog post that is optimised for both traditional search ranking and AI-powered answer engines (Google AI Overviews, People Also Ask, featured snippets).
+
+=== STRUCTURE (follow exactly) ===
+
+## 1. TITLE
+- Must start with or be a close variant of the target keyword
+- Under 60 characters
+- Compelling click-through intent — not just informational
+
+## 2. INTRO (first 50 words)
+- Open with one direct, authoritative sentence that answers the searcher's question immediately
+- This is the paragraph most likely to appear as a featured snippet or AI answer — make it self-contained
+- No preamble phrases like "In this article..." — get straight to the point
+- Include the target keyword in the first sentence
+
+## 3. BODY — H2 HEADINGS
+Use 4-6 ## headings. Most should be question-based (matching how people actually search):
+- "How much does..." / "What is the average..." / "Why does..."
+- "When should I..." / "What\'s included in..." / "How do I..."
+
+Each H2 must:
+- Contain the target keyword or a semantic variant
+- Be followed by 2-3 paragraphs answering the sub-question completely
+- Include specific concrete detail: dollar amounts, timeframes, percentages, named Newcastle/Hunter suburbs, legal references, real process steps
+
+## 4. SEMANTIC KEYWORDS
+In addition to the target keyword, weave in 3-5 related terms naturally throughout:
+- For "commercial cleaning Newcastle": "professional cleaning services", "commercial cleaner", "office hygiene", "facility management", "regular cleaning"
+- For "office fitout cost Newcastle": "commercial fitout", "office fitout builder", "Hunter region fitout", "office refurbishment", "commercial fitout cost"
+Choose terms that search engines use to understand topic depth — not exact-match repetition.
+
+## 5. E-E-A-T SIGNALS (weave naturally — no fabrication)
+- Experience: reference operating in the Hunter region, Newcastle commercial property market
+- Expertise: cite NSW commercial tenancy law, industry processes, real pricing frameworks
+- Authority: reference YOS's position in the Newcastle market, years operating, client types
+- Trust: mention Class 2 real estate licence, commercial tenancy experience, local knowledge
+
+## 6. FAQ SECTION (required — powers People Also Ask ranking)
+End the article with "## Frequently Asked Questions" and 4-5 questions with 2-3 sentence answers each. Questions must be genuine ones a business owner would ask — not generic. Answers must be directly from the article content, not generic.
+
+## 7. LENGTH: 1200-1500 words
+
+## 8. OUTPUT FORMAT
+Output ONLY valid JSON, no code fences, no explanation:
+{
+  "title": "string — exact post title",
+  "metaDescription": "string — 140-155 chars, compelling click-through with keyword, no sales hype",
+  "excerpt": "string — 2 sentences for blog listing page, no sales language",
+  "content": "string — full markdown body with intro, ## headings, body, FAQ section. No preamble text.",
+  "tags": ["string"] — 5-6 strings: target keyword + semantic variants + related terms"
+}
+
+## 9. STYLE
+- Plain English. Like a knowledgeable expert explaining to a smart business owner
+- Short paragraphs: 2-3 sentences max
+- No emojis. No corporate speak. No filler: never use "in today's fast-paced world", "leveraging", "synergy", "holistic", "seamlessly", "robust", "transformative"
+- Numbers over words for big figures: "$45,000" not "forty-five thousand dollars"
+- Australian spelling: optimise, recognise, practise, analyse
+- Active voice throughout
+- 1-2 relevant local Newcastle/Hunter specifics per article
 
 TOPIC: ${topic.topic}
 DIVISION: ${topic.division}
 TARGET KEYWORD: ${topic.targetKeyword}
 
-Requirements:
-- Write in plain English, like a knowledgeable expert explaining something to a smart business owner
-- Approximately 900-1200 words
-- Include the target keyword naturally in the title, first paragraph, and at least 2 subheadings
-- Short paragraphs (2-4 sentences max). No fluff. No emojis. No corporate speak.
-- Use 3-4 ## subheadings in markdown
-- Include a short 2-sentence excerpt for the blog listing page
-- Output ONLY valid JSON with these keys: title, excerpt (string), content (markdown body), tags (array of 3-5 strings)
-- Do not wrap the JSON in code fences, no explanation, no preamble
-
-Your JSON output:`
+Output your JSON now:`
 
   const res = await fetch(`${MINIMAX_BASE}/text/chatcompletion_v2`, {
     method: 'POST',
@@ -106,7 +155,7 @@ Your JSON output:`
       model: MINIMAX_MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.7,
-      max_tokens: 5000,
+      max_tokens: 6000,
       extra: {
         enable_search: false,
         input_planned: false,
@@ -130,15 +179,12 @@ Your JSON output:`
     throw new Error(`MiniMax API error ${data.base_resp.status_code}: ${data.base_resp.status_msg}`)
   }
 
-  // content has the actual text in reasoning_content or content field
   const raw = (data.choices?.[0]?.message?.content || '').trim()
   const content = raw || (data.choices?.[0]?.message?.reasoning_content || '').trim()
 
-  // Find the first '{' after any preamble text
   const jsonStart = content.indexOf('{')
   if (jsonStart < 0) throw new Error(`MiniMax returned no JSON at all (content: ${content.slice(0, 80)})`)
 
-  // Extract balanced JSON object starting from first '{'
   let depth = 0
   let jsonEnd = -1
   for (let i = jsonStart; i < content.length; i++) {
@@ -148,12 +194,16 @@ Your JSON output:`
   if (jsonEnd < 0) throw new Error(`MiniMax JSON was not balanced (content length: ${content.length})`)
 
   let cleaned = content.slice(jsonStart, jsonEnd + 1)
-  // If the extracted text has a trailing " that breaks it, try trimming
   try { JSON.parse(cleaned) } catch {
+    // Try to fix trailing " corruption
     cleaned = cleaned.replace(/\}"$/, '}')
     cleaned = cleaned.replace(/\}\\n"$/, '}')
+    cleaned = cleaned.replace(/,\s*}$/, '}')  // trailing comma before closing brace
   }
-  return JSON.parse(cleaned) as { title: string; content: string; excerpt: string; tags: string[] }
+  return JSON.parse(cleaned) as {
+    title: string; content: string; excerpt: string; tags: string[]
+    metaDescription?: string
+  }
 }
 
 // ── POST /api/blog/generate ───────────────────────────────────────────────────
@@ -195,6 +245,7 @@ export async function POST(req: NextRequest) {
       division: topic.division,
       targetKeyword: topic.targetKeyword,
       excerpt: generated.excerpt,
+      metaDescription: generated.metaDescription || '',
       slug: slugify(generated.title),
       author: 'Joe Kelley',
       tags: generated.tags,
@@ -222,6 +273,7 @@ export async function POST(req: NextRequest) {
     targetKeyword: topic.targetKeyword,
     scheduledFor: item.metadata.scheduledFor,
     excerpt: generated.excerpt,
+    metaDescription: generated.metaDescription || '',
     tags: generated.tags,
     queuedAt: item.createdAt,
   })
