@@ -1,63 +1,92 @@
 /**
- * GET /api/tasks-data — returns tasks from local SQLite DB
+ * GET /api/tasks-data — reads/writes tasks from Upstash Redis
  * POST /api/tasks-data — create/complete/delegate tasks
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
-import path from 'path'
 
-const DB = '/Users/yourofficespace-main/.openclaw/tasks/tasks.db'
+const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 
-function getDb() {
-  const { init } = require('better-sqlite3')
-  return init(DB)
+const TASKS_KEY = 'tasks:v1'
+const COMPLETED_KEY = 'tasks:completed:v1'
+
+async function redisGet(key: string): Promise<string | null> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return null
+  const res = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent(key)}`, {
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` }
+  })
+  if (!res.ok) return null
+  const d = await res.json() as { result?: string | null }
+  return d.result ?? null
+}
+
+async function redisSet(key: string, value: string, ttlSeconds?: number): Promise<void> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return
+  const body: Record<string, string | number> = { key, value }
+  if (ttlSeconds) body['ex'] = ttlSeconds
+  await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    body: JSON.stringify(body)
+  })
+}
+
+interface Task {
+  id: string; title: string; description: string; source: string; status: string
+  priority: string; due_date: string | null; due_time: string | null
+  assigned_to: string; revenue_value: number | null; client_name: string; client_id: string
+  can_delegate: number; raw_commitment: string; tags: string; completed_at: string | null
+  created_at: string; updated_at: string
+}
+
+function nowISO(): string {
+  return new Date().toISOString()
+}
+
+function todayStr(): string {
+  return new Date().toISOString().split('T')[0]
+}
+
+function makeId(): string {
+  return Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
 export async function GET() {
   const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
-  try {
-    const db = getDb()
-    const today = new Date().toISOString().split('T')[0]
+  const raw = await redisGet(TASKS_KEY)
+  const tasks: Task[] = raw ? JSON.parse(raw) : []
+  const completedRaw = await redisGet(COMPLETED_KEY)
+  const completed: Task[] = completedRaw ? JSON.parse(completedRaw) : []
 
-    const allTasks = db.prepare('SELECT * FROM tasks WHERE status NOT IN ("completed","done") ORDER BY priority ASC, created_at DESC').all() as any[]
+  const today = todayStr()
+  const overdue = tasks.filter(t => t.status === 'pending' && t.due_date && t.due_date < today)
+  const todayTasks = tasks.filter(t => t.status === 'pending' && t.due_date === today)
+  const backlog = tasks.filter(t => t.status === 'pending' && t.due_date && t.due_date > today).slice(0, 20)
+  const delegated = tasks.filter(t => t.status === 'delegated')
 
-    const pending = allTasks.filter(t => t.due_date && t.due_date < today)
-    const todayTasks = allTasks.filter(t => t.due_date === today)
-    const backlog = allTasks.filter(t => t.due_date && t.due_date > today).slice(0, 20)
-    const completed = db.prepare('SELECT * FROM tasks WHERE status IN ("completed","done") ORDER BY updated_at DESC LIMIT 20').all() as any[]
+  const totalDoneLast7 = completed.filter(t => t.completed_at && t.completed_at > nowISO()).length
+  const rate = tasks.length > 0 ? Math.round((completed.length / (tasks.length + completed.length)) * 100) : 0
 
-    // Completion rate last 7 days
-    const totalLast7 = db.prepare("SELECT COUNT(*) FROM tasks WHERE completed_at >= datetime('now', '-7 days')").get() as any
-    const doneLast7 = db.prepare("SELECT COUNT(*) FROM tasks WHERE status IN ('completed','done') AND completed_at >= datetime('now', '-7 days')").get() as any
-    const rate = totalLast7[0] > 0 ? Math.round((doneLast7[0] / totalLast7[0]) * 100) : 0
+  const sources: Record<string, number> = {}
+  tasks.forEach(t => { sources[t.source] = (sources[t.source] || 0) + 1 })
 
-    // Source breakdown
-    const sources: Record<string, number> = {}
-    allTasks.forEach(t => { sources[t.source] = (sources[t.source] || 0) + 1 })
-
-    const totalBacklog = allTasks.filter(t => t.due_date && t.due_date > today).length
-
-    db.close()
-    return NextResponse.json({
-      generatedAt: new Date().toISOString(),
-      todayTasks,
-      overdue: pending,
-      backlog,
-      delegated: [],
-      completed,
-      completionRate7d: rate,
-      totalOpen: allTasks.length,
-      totalCompleted: db.prepare("SELECT COUNT(*) FROM tasks WHERE status IN ('completed','done')").get()[0] || 0,
-      totalBacklog,
-      maxJoeCapacity: 10,
-      sources,
-    })
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message, todayTasks: [], overdue: [], backlog: [], delegated: [], completed: [], completionRate7d: 0, totalOpen: 0, totalCompleted: 0, totalBacklog: 0, maxJoeCapacity: 10, sources: {} })
-  }
+  return NextResponse.json({
+    generatedAt: nowISO(),
+    todayTasks,
+    overdue,
+    backlog,
+    delegated,
+    completed,
+    completionRate7d: rate,
+    totalOpen: tasks.length,
+    totalCompleted: completed.length,
+    totalBacklog: backlog.length,
+    maxJoeCapacity: 10,
+    sources,
+  })
 }
 
 export async function POST(req: NextRequest) {
@@ -65,35 +94,76 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
 
   try {
-    const body = await req.json() as { taskId?: string; action: string; agent?: string; title?: string; due_date?: string; priority?: string; source?: string; description?: string; note?: string }
-    const db = getDb()
-    const now = new Date().toISOString()
+    const body = await req.json() as {
+      taskId?: string; action: string; agent?: string
+      title?: string; due_date?: string; priority?: string; source?: string; description?: string
+      note?: string
+    }
+    const now = nowISO()
 
     if (body.action === 'create') {
-      const id = require('crypto').randomUUID().replace(/-/g, '').slice(0, 16)
-      db.prepare("INSERT INTO tasks (id,title,description,source,priority,due_date,can_delegate,created_at,updated_at) VALUES (?,?,?,?,?,?,0,?,?)").run(
-        id, body.title || 'Untitled', body.description || '', body.source || 'manual', body.priority || '2', body.due_date || null, now, now
-      )
-      const task = db.prepare('SELECT * FROM tasks WHERE id=?').get(id)
-      db.close()
-      return NextResponse.json({ ok: true, task })
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = raw ? JSON.parse(raw) : []
+      const newTask: Task = {
+        id: makeId(),
+        title: body.title || 'Untitled',
+        description: body.description || '',
+        source: body.source || 'manual',
+        status: 'pending',
+        priority: body.priority || '2',
+        due_date: body.due_date || null,
+        due_time: null,
+        assigned_to: '',
+        revenue_value: null,
+        client_name: '',
+        client_id: '',
+        can_delegate: 0,
+        raw_commitment: '',
+        tags: '',
+        completed_at: null,
+        created_at: now,
+        updated_at: now,
+      }
+      tasks.unshift(newTask)
+      await redisSet(TASKS_KEY, JSON.stringify(tasks))
+      return NextResponse.json({ ok: true, task: newTask }, { status: 201 })
     }
 
     if (body.action === 'complete' && body.taskId) {
-      db.prepare("UPDATE tasks SET status='completed',completed_at=?,updated_at=? WHERE id=?").run(now, now, body.taskId)
-      db.close()
+      // Move from active to completed
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = raw ? JSON.parse(raw) : []
+      const completedRaw = await redisGet(COMPLETED_KEY)
+      const completed: Task[] = completedRaw ? JSON.parse(completedRaw) : []
+
+      const idx = tasks.findIndex(t => t.id === body.taskId)
+      if (idx !== -1) {
+        const [done] = tasks.splice(idx, 1)
+        done.status = 'completed'
+        done.completed_at = now
+        done.updated_at = now
+        completed.unshift(done)
+        // Keep completed list at 50
+        if (completed.length > 50) completed.splice(50)
+        await redisSet(TASKS_KEY, JSON.stringify(tasks))
+        await redisSet(COMPLETED_KEY, JSON.stringify(completed))
+      }
       return NextResponse.json({ ok: true })
     }
 
     if (body.action === 'delegate' && body.taskId && body.agent) {
-      db.prepare("UPDATE tasks SET assigned_to=?,updated_at=? WHERE id=?").run(body.agent, now, body.taskId)
-      // Log
-      db.prepare("INSERT INTO task_log (task_id,action,actor,note,created_at) VALUES (?,?,?,?,?)").run(body.taskId, 'delegate', body.agent, body.note || '', now)
-      db.close()
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = raw ? JSON.parse(raw) : []
+      const idx = tasks.findIndex(t => t.id === body.taskId)
+      if (idx !== -1) {
+        tasks[idx].assigned_to = body.agent
+        tasks[idx].status = 'delegated'
+        tasks[idx].updated_at = now
+        await redisSet(TASKS_KEY, JSON.stringify(tasks))
+      }
       return NextResponse.json({ ok: true })
     }
 
-    db.close()
     return NextResponse.json({ ok: true })
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })

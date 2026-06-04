@@ -1,29 +1,47 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getCurrentUser } from '@/lib/auth-v2'
+
+const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
+const KEY = 'tr:properties'
+
+async function redisGet(key: string): Promise<string | null> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return null
+  const r = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent(key)}`, { headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` } })
+  if (!r.ok) return null
+  const d = await r.json() as { result?: string | null }
+  return d.result ?? null
+}
+
+async function redisSet(key: string, value: string): Promise<void> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return
+  await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}`, {
+    method: 'POST', headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    body: JSON.stringify({ key, value })
+  })
+}
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const user = (await import('@/lib/auth-v2')).getCurrentUser()
+  const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   const { id } = await params
   try {
     const body = await req.json()
-    const sqlite3 = require('better-sqlite3')
-    const db2 = sqlite3('/Users/yourofficespace-main/.openclaw/tenant-rep/data/pipeline.db')
+    const raw = await redisGet(KEY)
+    const properties: any[] = raw ? JSON.parse(raw) : []
+    const idx = properties.findIndex(p => p.id === id)
+    if (idx === -1) return NextResponse.json({ error: 'Not found' }, { status: 404 })
     const now = new Date().toISOString()
-    if (body.stage) {
-      db2.prepare('UPDATE properties SET stage=?,updated_at=? WHERE id=?').run(body.stage, now, id)
-    }
+    const updates: Record<string, unknown> = { updated_at: now }
+    if (body.stage) { updates.stage = body.stage; if (body.stage === 'Disqualified') updates.disqualified_reason = body.disqualified_reason || 'Not specified' }
     if (body.notes !== undefined) {
-      const prev = db2.prepare('SELECT notes FROM properties WHERE id=?').get(id)
-      const prevNote = prev?.notes ? prev.notes + '\n' : ''
-      db2.prepare('UPDATE properties SET notes=?,updated_at=? WHERE id=?').run(prevNote + '[' + now.slice(0,16) + '] ' + body.notes, now, id)
+      const prev = properties[idx].notes ? properties[idx].notes + '\n' : ''
+      updates.notes = prev + '[' + now.slice(0,16) + '] ' + body.notes
     }
-    if (body.disqualified_reason !== undefined) {
-      db2.prepare('UPDATE properties SET disqualified_reason=?,stage=?,updated_at=? WHERE id=?').run(body.disqualified_reason, 'Disqualified', now, id)
-    }
-    const prop = db2.prepare('SELECT * FROM properties WHERE id=?').get(id)
-    db2.close()
-    return NextResponse.json(prop)
-  } catch (e) {
+    properties[idx] = { ...properties[idx], ...updates }
+    await redisSet(KEY, JSON.stringify(properties))
+    return NextResponse.json(properties[idx])
+  } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })
   }
 }

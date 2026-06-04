@@ -1,18 +1,43 @@
+/**
+ * GET /api/tenant-rep-pipeline/properties — all properties
+ * POST /api/tenant-rep-pipeline/properties — create property
+ */
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
+
+const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
+const KEY = 'tr:properties'
+
+async function redisGet(key: string): Promise<string | null> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return null
+  const r = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent(key)}`, {
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` }
+  })
+  if (!r.ok) return null
+  const d = await r.json() as { result?: string | null }
+  return d.result ?? null
+}
+
+async function redisSet(key: string, value: string): Promise<void> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return
+  await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
+    body: JSON.stringify({ key, value })
+  })
+}
+
+interface Property { id: string; client_id: string; address: string; suburb: string; size_sqm: number|null; asking_rent: number|null; stage: string; notes: string; disqualified_reason: string|null; created_at: string; updated_at: string }
 
 export async function GET() {
   const user = await getCurrentUser()
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   try {
-    const db = require('/Users/yourofficespace-main/.openclaw/tenant-rep/tenant-rep.py')
-    // Use direct sqlite
-    const sqlite3 = require('better-sqlite3')
-    const db2 = sqlite3('/Users/yourofficespace-main/.openclaw/tenant-rep/data/pipeline.db')
-    const props = db2.prepare('SELECT * FROM properties ORDER BY updated_at DESC').all()
-    db2.close()
-    return NextResponse.json(props)
-  } catch (e) {
+    const raw = await redisGet(KEY)
+    const properties: Property[] = raw ? JSON.parse(raw) : []
+    return NextResponse.json(properties)
+  } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })
   }
 }
@@ -22,15 +47,26 @@ export async function POST(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   try {
     const body = await req.json()
-    const sqlite3 = require('better-sqlite3')
-    const db2 = sqlite3('/Users/yourofficespace-main/.openclaw/tenant-rep/data/pipeline.db')
-    const id = require('crypto').randomUUID().replace(/-/g,'').slice(0,12)
+    const raw = await redisGet(KEY)
+    const properties: Property[] = raw ? JSON.parse(raw) : []
     const now = new Date().toISOString()
-    db2.prepare("INSERT INTO properties (id,client_id,address,suburb,size_sqm,asking_rent,outgoings,stage,notes,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?)").run(id, body.client_id||'', body.address||'', body.suburb||'', body.size_sqm||null, body.asking_rent||null, body.outgoings||null, 'Evaluation', body.notes||'', now, now)
-    const prop = db2.prepare('SELECT * FROM properties WHERE id=?').get(id)
-    db2.close()
+    const prop: Property = {
+      id: Math.random().toString(36).slice(2) + Date.now().toString(36),
+      client_id: body.client_id || '',
+      address: body.address || '',
+      suburb: body.suburb || '',
+      size_sqm: body.size_sqm || null,
+      asking_rent: body.asking_rent || null,
+      stage: 'Evaluation',
+      notes: body.notes || '',
+      disqualified_reason: null,
+      created_at: now,
+      updated_at: now,
+    }
+    properties.unshift(prop)
+    await redisSet(KEY, JSON.stringify(properties))
     return NextResponse.json(prop, { status: 201 })
-  } catch (e) {
+  } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })
   }
 }
