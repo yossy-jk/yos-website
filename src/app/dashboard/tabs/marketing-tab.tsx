@@ -81,7 +81,7 @@ export default function MarketingTab() {
             <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'rgba(245,158,11,0.04)', borderRadius: 6, marginBottom: '0.5rem' }}>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ margin: 0, fontWeight: 600, fontSize: '0.82rem' }}>{item.title || item.content?.slice(0,60)}</p>
-                {item.metadata?.targetKeyword && <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: C.teal }}>🎯 {String(item.metadata.targetKeyword)}</p>}
+                {item.metadata?.targetKeyword ? <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: C.teal }}>🎯 {String(item.metadata.targetKeyword)}</p> : null}
               </div>
               <button onClick={() => approveBlog(item.id)} disabled={approving === item.id}
                 style={{ background: C.green, border: 'none', borderRadius: 4, padding: '0.4rem 1rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>
