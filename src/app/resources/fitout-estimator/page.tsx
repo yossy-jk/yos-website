@@ -523,138 +523,143 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-          {/* ── RESULT — always visible, no gate ── */}
-          {step >= maxStep && estimate && inputs.tier && (
-            <div className="max-w-2xl">
-            {/* Back button */}
-            {step > maxStep && getBack(step) >= 0 && (
-              <button onClick={() => setStep(getBack(step))}
-                className="text-white/40 hover:text-white/70 transition-colors font-light mb-8"
-                style={{ fontSize: '0.82rem', letterSpacing: '0.05em', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-                ← Back
-              </button>
-            )}
-            {/* Estimate header */}
-            <div style={{ marginBottom: '2.5rem' }}>
-              <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.65rem' }}>
-                {inputs.sqm}m2 &nbsp;·&nbsp; {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
-              </p>
-              <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
-                {fmt(estimate.totalLow)} &ndash; {fmt(estimate.totalHigh)}
-              </h2>
-              <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
-                {fmt(estimate.perSqm.low)} &ndash; {fmt(estimate.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
-              </p>
-            </div>
-            {/* Cost breakdown table */}
-            <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '2rem' }}>
-              {estimate.breakdown.map((row, i) => (
-                <div key={i}
-                  className={`flex justify-between items-center ${i < estimate.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
-                  style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(0,181,165,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
-                  <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
-                  <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
-                    {fmt(row.low)} &ndash; {fmt(row.high)}
-                  </span>
+          {/* ── RESULT ── */}
+          {step >= maxStep + 1 && (() => {
+            const result = calcEstimate(inputs)
+            if (!result || !inputs.tier) return null
+            const rateKey = isFurnitureOnly ? 'furniture-only' : inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm'
+            return (
+              <div className="max-w-2xl">
+                {/* Back button */}
+                {step > maxStep && getBack(step) >= 0 && (
+                  <button onClick={() => setStep(getBack(step))}
+                    className="text-white/40 hover:text-white/70 transition-colors font-light mb-8"
+                    style={{ fontSize: '0.82rem', letterSpacing: '0.05em', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                    ← Back
+                  </button>
+                )}
+                {/* Estimate header */}
+                <div style={{ marginBottom: '2.5rem' }}>
+                  <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.65rem' }}>
+                    {inputs.sqm}m2 &nbsp;·&nbsp; {((RATES as any)[rateKey] as any)[inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
+                  </p>
+                  <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
+                    {fmt(result.totalLow)} &ndash; {fmt(result.totalHigh)}
+                  </h2>
+                  <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
+                    {fmt(result.perSqm.low)} &ndash; {fmt(result.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round((((RATES as any)[rateKey] as any)[inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
+                  </p>
                 </div>
-              ))}
-            </div>
-            {/* Coverage note */}
-            {estimate.coverageNote && (
-              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
-                {estimate.coverageNote}
-              </p>
-            )}
-            {/* Disclaimer */}
-            <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
-              Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
-            </p>
-            {/* CTA — primary action */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
-                style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
-                Book a Fitout Consultation &nbsp;→
-              </a>
-              <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
-                30-minute call. Fixed-price proposal. No obligation.
-              </p>
-            </div>
-            {/* Email capture — send them the full breakdown */}
-            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
-              <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
-              <h3 className="text-white font-black uppercase mb-2" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
-                Get the full breakdown by email
-              </h3>
-              <p className="text-white/45 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '32rem' }}>
-                We'll email you a branded 1-page report with your complete cost breakdown, line by line, plus next steps.
-              </p>
-              <form
-                onSubmit={async (e) => {
-                  e.preventDefault()
-                  const form = e.currentTarget
-                  const name = (form.elements.namedItem('name') as HTMLInputElement)?.value
-                  const email = (form.elements.namedItem('email') as HTMLInputElement)?.value
-                  if (!name || !email) return
-                  try {
-                    await fetch('/api/fitout-report', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        name, email,
-                        sqm: inputs.sqm,
-                        tier: ((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
-                        desks: inputs.desks,
-                        meetingRooms: inputs.meetingRooms,
-                        hasKitchen: inputs.hasKitchen,
-                        hasReception: inputs.hasReception,
-                        hasAV: inputs.hasAV,
-                        totalLow: estimate.totalLow,
-                        totalHigh: estimate.totalHigh,
-                        perSqmLow: estimate.perSqm.low,
-                        perSqmHigh: estimate.perSqm.high,
-                        breakdown: estimate.breakdown,
-                      }),
-                    })
-                    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
-                    if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
-                  } catch {}
-                }}
-                noValidate
-                style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
-              >
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
-                  <input
-                    type="text" name="name" placeholder="First name" autoComplete="given-name"
-                    required
-                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
-                  />
-                  <input
-                    type="email" name="email" placeholder="Work email" autoComplete="email"
-                    required
-                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
-                  />
+                {/* Cost breakdown table */}
+                <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '2rem' }}>
+                  {result.breakdown.map((row, i) => (
+                    <div key={i}
+                      className={`flex justify-between items-center ${i < result.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
+                      style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(0,181,165,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
+                      <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
+                      <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
+                        {fmt(row.low)} &ndash; {fmt(row.high)}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <button type="submit"
-                  style={{ background: '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
-                  Send me the full breakdown &rarr;
+                {/* Coverage note */}
+                {result.coverageNote && (
+                  <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
+                    {result.coverageNote}
+                  </p>
+                )}
+                {/* Disclaimer */}
+                <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
+                  Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
+                </p>
+                {/* CTA — primary action */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
+                  <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                    className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
+                    style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
+                    Book a Fitout Consultation &nbsp;→
+                  </a>
+                  <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
+                    30-minute call. Fixed-price proposal. No obligation.
+                  </p>
+                </div>
+                {/* Email capture — send them the full breakdown */}
+                <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
+                  <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
+                  <h3 className="text-white font-black uppercase mb-2" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
+                    Get the full breakdown by email
+                  </h3>
+                  <p className="text-white/45 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '32rem' }}>
+                    We'll email you a branded 1-page report with your complete cost breakdown, line by line, plus next steps.
+                  </p>
+                  <form
+                    onSubmit={async (e) => {
+                      e.preventDefault()
+                      const form = e.currentTarget
+                      const name = (form.elements.namedItem('name') as HTMLInputElement)?.value
+                      const email = (form.elements.namedItem('email') as HTMLInputElement)?.value
+                      if (!name || !email) return
+                      try {
+                        await fetch('/api/fitout-report', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                            name, email,
+                            sqm: inputs.sqm,
+                            tier: ((RATES as any)[rateKey] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
+                            desks: inputs.desks,
+                            meetingRooms: inputs.meetingRooms,
+                            hasKitchen: inputs.hasKitchen,
+                            hasReception: inputs.hasReception,
+                            hasAV: inputs.hasAV,
+                            totalLow: result.totalLow,
+                            totalHigh: result.totalHigh,
+                            perSqmLow: result.perSqm.low,
+                            perSqmHigh: result.perSqm.high,
+                            breakdown: result.breakdown,
+                          }),
+                        })
+                        const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
+                        if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
+                      } catch {}
+                    }}
+                    noValidate
+                    style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
+                  >
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                      <input
+                        type="text" name="name" placeholder="First name" autoComplete="given-name"
+                        required
+                        style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                      />
+                      <input
+                        type="email" name="email" placeholder="Work email" autoComplete="email"
+                        required
+                        style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                      />
+                    </div>
+                    <button type="submit"
+                      style={{ background: '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
+                      Send me the full breakdown &rarr;
+                    </button>
+                  </form>
+                </div>
+                {/* Secondary link */}
+                <Link href="/furniture"
+                  className="text-white/40 hover:text-white/70 no-underline transition-colors font-light"
+                  style={{ fontSize: '0.8rem', letterSpacing: '0.05em', display: 'inline-block', marginBottom: '3rem' }}>
+                  View our furniture & fitout services &rarr;
+                </Link>
+                {/* Start again */}
+                <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
+                  className="block text-white/25 hover:text-white/50 transition-colors font-light"
+                  style={{ fontSize: '0.8rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                  ← Start again
                 </button>
-              </form>
-            </div>
-            {/* Secondary link */}
-            <Link href="/furniture"
-              className="text-white/40 hover:text-white/70 no-underline transition-colors font-light"
-              style={{ fontSize: '0.8rem', letterSpacing: '0.05em', display: 'inline-block', marginBottom: '3rem' }}>
-              View our furniture & fitout services &rarr;
-            </Link>
-            {/* Start again */}
-            <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
-              className="block text-white/25 hover:text-white/50 transition-colors font-light"
-              style={{ fontSize: '0.8rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
-              ← Start again
-            </button>
-            </div>
-          )}
+              </div>
+            )
+          })()}
         </div>
       </div>
           {/* ── SECTION 1: THE FITOUT PROCESS (dark) ── */}
