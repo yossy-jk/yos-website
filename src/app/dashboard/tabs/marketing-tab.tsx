@@ -15,7 +15,7 @@ export default function MarketingTab() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/api/seo/rankings').then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/seo/rankings', {credentials:'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/api/queue/list', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(([s, q]) => {
       setSeo(s)

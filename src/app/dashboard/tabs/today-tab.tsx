@@ -58,9 +58,9 @@ export default function TodayTab(): JSX.Element {
       if (saved) setEnergy(parseInt(saved))
     }
     Promise.all([
-      fetch('/api/dashboard-data').then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('/api/agent-intel').then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('/api/tasks-data').then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/dashboard-data, {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/agent-intel, {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/tasks-data, {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(([d, i, t]: [DashData | null, IntelData | null, TasksData | null]) => {
       setData(d)
       setIntel(i)
