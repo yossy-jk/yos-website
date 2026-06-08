@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 
-const QUEUE_KEY = 'yos:queue:pending'
-const ARCHIVE_KEY = 'yos:queue:archive'
+const QUEUE_KEY    = 'yos:queue:pending'
+const ARCHIVE_KEY  = 'yos:queue:archive'
 
 async function redis(url: string, token: string, path: string) {
   const res = await fetch(`${url}${path}`, {
@@ -14,33 +14,29 @@ async function redis(url: string, token: string, path: string) {
 }
 
 export async function GET(req: Request) {
-  const url = new URL(req.url)
-  const token = url.searchParams.get('token')
   const auth = await requireAuth()
   if (!auth.ok) return auth.response
 
-  const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL
-  const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN
+  const UPSTASH_URL    = process.env.UPSTASH_REDIS_REST_URL
+  const UPSTASH_TOKEN  = process.env.UPSTASH_REDIS_REST_TOKEN
   if (!UPSTASH_URL || !UPSTASH_TOKEN) {
-    return NextResponse.json({ pending: [], archive: [] })
+    return NextResponse.json({ items: [], pending: [], archive: [] })
   }
 
   try {
-    // Get all pending items
     const pendingRaw = await redis(UPSTASH_URL, UPSTASH_TOKEN, `/lrange/${QUEUE_KEY}/0/-1`)
     const pending = (pendingRaw || []).map((s: string) => {
       try { return JSON.parse(s) } catch { return null }
     }).filter(Boolean)
 
-    // Get recent archive (last 20)
     const archiveRaw = await redis(UPSTASH_URL, UPSTASH_TOKEN, `/lrange/${ARCHIVE_KEY}/-20/-1`)
     const archive = (archiveRaw || []).map((s: string) => {
       try { return JSON.parse(s) } catch { return null }
     }).filter(Boolean).reverse()
 
-    return NextResponse.json({ pending, archive })
+    return NextResponse.json({ items: pending, pending, archive })
   } catch (e) {
     console.error('Queue list error:', e)
-    return NextResponse.json({ pending: [], archive: [] })
+    return NextResponse.json({ items: [], pending: [], archive: [] })
   }
 }
