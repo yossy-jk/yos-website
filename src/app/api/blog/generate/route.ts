@@ -232,11 +232,8 @@ export async function POST(req: NextRequest) {
   const isCron = queueSecret === QUEUE_SECRET
 
   if (!isCron) {
-    const user = await getCurrentUser()
-    if (!user) {
-      const old = await requireAuth()
-      if (!old.ok) return old.response
-    }
+    const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   }
 
   const body = await req.json().catch(() => ({})) as {

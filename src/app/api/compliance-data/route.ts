@@ -146,8 +146,8 @@ function calcDaysRemaining(targetDate: string): number {
 }
 
 export async function GET(req: NextRequest) {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   // Try Redis first (pushed by compliance-sync automation job)
   const REDIS_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''

@@ -3,6 +3,7 @@
  * Returns outreach pipeline metrics from Upstash Redis.
  * Data pushed by push-outreach-to-redis.py daily + after each drafter run.
  */
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
@@ -11,8 +12,8 @@ const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 const OUTREACH_KEY = 'yos:outreach:summary'
 
 export async function GET() {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   if (!REDIS_URL || !REDIS_TOKEN) {
     return NextResponse.json({ error: 'Redis not configured' })

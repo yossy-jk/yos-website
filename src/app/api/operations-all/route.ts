@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
@@ -37,8 +38,8 @@ async function redisGet(key: string): Promise<string | null> {
 }
 
 export async function GET() {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   // Try Upstash for live state first (pushed by Mac Mini every 15min)
   const redisStateRaw = await redisGet('yos:openclaw:cron:state')

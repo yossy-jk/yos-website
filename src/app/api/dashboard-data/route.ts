@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
@@ -247,8 +248,8 @@ function timeAgo(iso: string): string {
 }
 
 export async function GET(req: Request) {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const [dealsRaw, events, invoices] = await Promise.all([
     getDeals(),

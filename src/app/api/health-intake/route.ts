@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
@@ -92,8 +93,8 @@ export async function GET(req: Request) {
   const url = new URL(req.url)
   const token = url.searchParams.get('token')
 
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL
   const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN

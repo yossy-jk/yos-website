@@ -53,8 +53,8 @@ function makeId(): string {
 }
 
 export async function GET() {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const raw = await redisGet(TASKS_KEY)
   const tasks: Task[] = raw ? JSON.parse(raw) : []
@@ -90,8 +90,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   try {
     const body = await req.json() as {

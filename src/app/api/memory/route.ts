@@ -8,6 +8,7 @@
  *   yos:memory:projects — JSON array of Project objects
  */
 
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
@@ -101,8 +102,8 @@ function newId(): string {
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   if (!REDIS_URL || !REDIS_TOKEN) {
     return NextResponse.json({ error: 'Redis not configured' }, { status: 500 })
@@ -147,8 +148,8 @@ export async function POST(req: Request) {
     payload: Record<string, unknown>
   }
 
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   if (!REDIS_URL || !REDIS_TOKEN) {
     return NextResponse.json({ error: 'Redis not configured' }, { status: 500 })
   }

@@ -2,6 +2,7 @@
  * GET /api/finance-dashboard — Business finance data (YOS/EOF)
  * Xero AR, cashflow projections, outstanding invoices
  */
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
@@ -9,8 +10,8 @@ const MATON_KEY = process.env.MATON_API_KEY || ''
 const XERO_CONN = 'c347d27e-0149-44ac-962c-babbd63b9f00'
 
 export async function GET() {
-  const user = await getCurrentUser()
-  if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const headers = {
     'Authorization': `Bearer ${MATON_KEY}`,

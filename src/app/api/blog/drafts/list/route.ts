@@ -11,11 +11,8 @@ const QUEUE_KEY = 'yos:queue:pending'
 
 export async function GET() {
   // Auth
-  const user = await getCurrentUser()
-  if (!user) {
-    const old = await requireAuth()
-    if (!old.ok) return old.response
-  }
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
 
   const url = process.env.UPSTASH_REDIS_REST_URL!
   const token = process.env.UPSTASH_REDIS_REST_TOKEN!
