@@ -114,6 +114,7 @@ const SCHEMA = {
 }
 export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)
+  const [hasResult, setHasResult] = useState(false)
   const [inputs, setInputs] = useState<Inputs>({
     fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
@@ -514,7 +515,7 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(maxStep + 1)}
+                <button onClick={() => { setStep(maxStep + 1); setHasResult(true) }}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
@@ -523,8 +524,8 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           )}
-          {/* ── RESULT — always visible, no gate ── */}
-          {step >= maxStep && estimate && inputs.tier && (
+          {/* ── RESULT — always visible once generated ── */}
+          {(step >= maxStep || hasResult) && estimate && inputs.tier && (
             <div className="max-w-2xl">
             {/* Back button */}
             {step > maxStep && getBack(step) >= 0 && (
