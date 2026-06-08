@@ -110,6 +110,9 @@ export default function Home() {
               { "@type": "Review", "author": { "@type": "Person", "name": "Liz Murray" }, "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
               { "@type": "Review", "author": { "@type": "Person", "name": "Nathan Franks" }, "reviewBody": "Joe was instrumental in building out our boardroom — high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
               { "@type": "Review", "author": { "@type": "Person", "name": "Sophie" }, "reviewBody": "We are very happy with the service provided by Sarah and Joe. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } }
+            ],
+            "sameAs": [
+              "https://www.google.com/maps?cid=00516804211961979706"
             ]
           },
           {
