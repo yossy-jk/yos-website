@@ -87,6 +87,46 @@ export default function FurniturePage() {
               { "@type": "Question", "name": "Can you supply furniture for government and council organisations?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have worked with local government and public sector organisations across Australia. We understand procurement requirements, panel supplier arrangements, and compliance obligations specific to government fitout projects." } },
               { "@type": "Question", "name": "What areas of NSW do you deliver fitouts to?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver across Newcastle, the Hunter Valley, Sydney, the Central Coast and regional NSW. We also work with commercial property clients across Australia for product supply regardless of location." } }
             ]
+          },
+          {
+            "@type": "Product",
+            "name": "Commercial Workstations",
+            "description": "Commercial workstations and desking systems — fixed and height-adjustable (EHA). Rapidline and commercial grade. Designed for teams of 2–200+.",
+            "brand": { "@type": "Brand", "name": "Your Office Space" },
+            "url": "https://www.yourofficespace.au/furniture",
+            "image": "https://www.yourofficespace.au/images/furniture/burgtec-room4.jpg",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "AUD",
+              "availability": "https://schema.org/InStock",
+              "seller": { "@id": "https://www.yourofficespace.au/#organization" }
+            }
+          },
+          {
+            "@type": "Product",
+            "name": "Commercial Seating",
+            "description": "Commercial task chairs, executive chairs, and breakout seating. Ergonomic, durable, and suited to high-use commercial environments.",
+            "brand": { "@type": "Brand", "name": "Your Office Space" },
+            "url": "https://www.yourofficespace.au/furniture",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "AUD",
+              "availability": "https://schema.org/InStock",
+              "seller": { "@id": "https://www.yourofficespace.au/#organization" }
+            }
+          },
+          {
+            "@type": "Product",
+            "name": "Meeting Tables & Boardroom",
+            "description": "Meeting tables, boardroom tables, and collaborative furniture. Configurable size, finish, and integration options for commercial fitouts.",
+            "brand": { "@type": "Brand", "name": "Your Office Space" },
+            "url": "https://www.yourofficespace.au/furniture",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "AUD",
+              "availability": "https://schema.org/InStock",
+              "seller": { "@id": "https://www.yourofficespace.au/#organization" }
+            }
           }
         ]
       }) }} />
