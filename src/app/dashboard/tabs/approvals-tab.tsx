@@ -22,7 +22,11 @@ export default function ApprovalsTab({ onCountChange }: { onCountChange?: (n: nu
 
   const loadQueue = useCallback(() => {
     fetch('/api/queue/list').then(r => r.ok ? r.json() : { items: [] }).then(d => {
-      const items = d.pending || d.items || []
+      const rawItems = d.pending || d.items || []
+      const items = rawItems.map((item: Record<string,unknown>) => ({
+        ...item,
+        title: item.title || (item.content as string || '').slice(0,60) || item.type,
+      }))
       setQueue(items)
       onCountChange?.(items.length)
       setLoading(false)
