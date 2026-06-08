@@ -63,7 +63,6 @@ function mapTask(raw: Record<string, unknown>): Task {
     title:         String(raw.title || ''),
     description:   String(raw.description || ''),
     source:        String(raw.source || 'unknown'),
-    source_id:     String(raw.id || ''),
     status:        String(raw.status || 'pending'),
     priority:      String(raw.priority || '2'),
     due_date:       raw.due_date ? String(raw.due_date) : null,
