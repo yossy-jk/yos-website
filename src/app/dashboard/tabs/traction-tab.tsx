@@ -30,8 +30,8 @@ export default function TractionTab() {
               <div key={i} style={{ display: 'flex', gap: '0.875rem', padding: '0.75rem', background: 'rgba(255,255,255,0.02)', borderRadius: 6, marginBottom: '0.4rem' }}>
                 <span style={{ color: colour, fontSize: '0.8rem', flexShrink: 0 }}>{status === 'done' ? '✅' : status === 'on-track' ? '🟢' : status === 'off-track' ? '🔴' : '⚪'}</span>
                 <div>
-                  <p style={{ margin: 0, fontWeight: 600, fontSize: '0.8rem' }}>{rock.title as string}</p>
-                  {rock.owner && <p style={{ margin: '0.1rem 0 0', fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>{rock.owner as string}</p>}
+                  <p style={{ margin: 0, fontWeight: 600, fontSize: '0.8rem' }}>{String(rock.title ?? '')}</p>
+                  {rock.owner ? <p style={{ margin: '0.1rem 0 0', fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>{String(rock.owner)}</p> : null}
                 </div>
               </div>
             )
@@ -45,10 +45,10 @@ export default function TractionTab() {
           <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>📊 KPIs</p>
           {kpis.map((kpi: Record<string, unknown>, i: number) => (
             <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.6rem 0', borderBottom: `1px solid ${C.border}` }}>
-              <p style={{ margin: 0, fontSize: '0.78rem' }}>{kpi.label as string}</p>
+              <p style={{ margin: 0, fontSize: '0.78rem' }}>{String(kpi.label ?? '')}</p>
               <div style={{ textAlign: 'right' }}>
-                <span style={{ fontWeight: 700, color: C.teal, fontSize: '0.85rem' }}>{kpi.actual as string}</span>
-                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem' }}> / {kpi.goal as string}</span>
+<span style={{ fontWeight: 700, color: C.teal, fontSize: '0.85rem' }}>{String(kpi.actual ?? '')}</span>
+                <span style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem' }}> / {String(kpi.goal ?? '')}</span>
               </div>
             </div>
           ))}
