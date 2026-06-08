@@ -116,8 +116,14 @@ export async function POST(req: Request) {
         tags: meta.tags || [meta.targetKeyword || '', division].filter(Boolean),
       }
 
-      // Write to Redis live hash
-      await redisPost(url, token, `/hset/${LIVE_KEY}`, [slug, JSON.stringify(post)])
+      // Write to Redis live hash — Upstash hset requires field+value in the URL path
+      // Format: POST /hset/{key}/{field}/{value} with value URL-encoded
+      const postJson = JSON.stringify(post)
+      const encodedPost = encodeURIComponent(postJson)
+      await fetch(`${url}/hset/${LIVE_KEY}/${slug}/${encodedPost}`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      })
 
       // Update the archive item to mark as published
       const updatedItem = { ...item, status: 'published', publishedAt: new Date().toISOString() }

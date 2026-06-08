@@ -15,11 +15,11 @@ import { requireAuth } from '@/lib/auth'
 const QUEUE_SECRET  = process.env.QUEUE_SECRET || 'yos-queue-2026'
 const QUEUE_KEY     = 'yos:queue:pending'
 // Increase max function duration for this API route (Vercel Pro allows up to 300s)
-export const maxDuration = 120
+export const maxDuration = 180
 
 const MINIMAX_KEY   = process.env.MINIMAX_API_KEY || ''
 const MINIMAX_BASE  = 'https://api.minimaxi.chat/v1'
-const MINIMAX_MODEL = 'MiniMax-M2.7-highspeed'
+const MINIMAX_MODEL = 'MiniMax-M2.1'
 
 // ── 25-topic rotating library (5 per division) ───────────────────────────────
 const TOPICS = [
@@ -75,72 +75,101 @@ function tomorrowDate(): string {
   return d.toISOString().split('T')[0]
 }
 
+// ── Robust JSON extractor with multiple repair strategies ────────────────────
+function safeJsonParse(raw: string): { title: string; metaDescription?: string; excerpt: string; content: string; tags: string[] } | null {
+  const start = raw.indexOf('{')
+  if (start < 0) return null
+
+  // Strategy 1: balanced JSON from first '{'
+  let depth = 0, end = -1
+  for (let i = start; i < raw.length; i++) {
+    if (raw[i] === '{') depth++
+    else if (raw[i] === '}') { depth--; if (depth === 0) { end = i; break } }
+  }
+  if (end < 0) return null
+
+  const candidates = [
+    raw.slice(start, end + 1),
+    raw.slice(start, end + 1).replace(/,\s*}$/, '}'),
+    raw.slice(start, end + 1).replace(/\}"$/, '}').replace(/\}"\n"$/, '}'),
+  ]
+
+  // Strategy 2: last valid property boundary (if truncation mid-string)
+  // Try truncating at last complete property
+  const original = raw.slice(start, end + 1)
+  for (const candidate of candidates) {
+    try { return JSON.parse(candidate) } catch { /* try next */ }
+  }
+
+  // Strategy 3: find last complete property before truncation
+  const truncated = raw.slice(start, end + 1)
+  // Look for the content field and truncate to last }\n
+  const lastCompleteProp = truncated.lastIndexOf(',"tags"')
+  if (lastCompleteProp > 1000) {
+    const beforeTags = truncated.slice(0, lastCompleteProp)
+    for (const prefix of [
+      beforeTags + '],"tags":[]}',
+      beforeTags + '],"tags":[""]}',
+      beforeTags.slice(0, Math.max(start, lastCompleteProp - 2000)) + '"}',
+    ]) {
+      try { return JSON.parse(prefix) } catch { /* try next */ }
+    }
+  }
+
+  // Strategy 4: find longest prefix that parses
+  for (let i = end; i > start + 50; i--) {
+    try { return JSON.parse(truncated.slice(0, i - start)) } catch { /* keep trying */ }
+  }
+
+  return null
+}
+
 // ── SEO/AEO-optimised generation prompt ──────────────────────────────────────
 // Targets: Google's Helpful Content system, AI Overviews, People Also Ask,
 // featured snippets, and FAQ schema. See Google Search Essentials.
 async function generatePost(topic: typeof TOPICS[number]) {
   if (!MINIMAX_KEY) throw new Error('MINIMAX_API_KEY not set')
 
-  const prompt = `You are a senior content strategist and SEO writer for Your Office Space — a Newcastle-based commercial property and office services company operating across the Hunter Region, NSW. Write one blog post that is optimised for both traditional search ranking and AI-powered answer engines (Google AI Overviews, People Also Ask, featured snippets).
+  const prompt = `You are a senior content strategist and SEO writer for Your Office Space — a Newcastle-based commercial property and office services company operating across the Hunter Region, NSW. Write one blog post optimised for search ranking and AI answer engines (Google AI Overviews, People Also Ask, featured snippets).
 
-=== STRUCTURE (follow exactly) ===
+=== STRUCTURE ===
 
 ## 1. TITLE
 - Must start with or be a close variant of the target keyword
 - Under 60 characters
-- Compelling click-through intent — not just informational
+- Compelling click-through intent
 
 ## 2. INTRO (first 50 words)
-- Open with one direct, authoritative sentence that answers the searcher's question immediately
-- This is the paragraph most likely to appear as a featured snippet or AI answer — make it self-contained
-- No preamble phrases like "In this article..." — get straight to the point
-- Include the target keyword in the first sentence
+- One direct, authoritative sentence answering the searcher's question immediately
+- Target keyword in first sentence. No preamble. This is the featured snippet paragraph.
 
 ## 3. BODY — H2 HEADINGS
-Use 4-6 ## headings. Most should be question-based (matching how people actually search):
-- "How much does..." / "What is the average..." / "Why does..."
-- "When should I..." / "What\'s included in..." / "How do I..."
-
-Each H2 must:
-- Contain the target keyword or a semantic variant
-- Be followed by 2-3 paragraphs answering the sub-question completely
-- Include specific concrete detail: dollar amounts, timeframes, percentages, named Newcastle/Hunter suburbs, legal references, real process steps
+4-6 ## headings. Most should be question-based:
+- "How much does..." / "What is the average..." / "Why does..." / "When should I..."
+Each H2 contains the target keyword or semantic variant. 2-3 paragraphs per section.
+Include concrete detail: dollar amounts, timeframes, Newcastle/Hunter suburbs, NSW legal references.
 
 ## 4. SEMANTIC KEYWORDS
-In addition to the target keyword, weave in 3-5 related terms naturally throughout:
-- For "commercial cleaning Newcastle": "professional cleaning services", "commercial cleaner", "office hygiene", "facility management", "regular cleaning"
-- For "office fitout cost Newcastle": "commercial fitout", "office fitout builder", "Hunter region fitout", "office refurbishment", "commercial fitout cost"
-Choose terms that search engines use to understand topic depth — not exact-match repetition.
+Weave 3-5 related terms naturally throughout the body (not just repeated exact match).
 
-## 5. E-E-A-T SIGNALS (weave naturally — no fabrication)
-- Experience: reference operating in the Hunter region, Newcastle commercial property market
-- Expertise: cite NSW commercial tenancy law, industry processes, real pricing frameworks
-- Authority: reference YOS's position in the Newcastle market, years operating, client types
-- Trust: mention Class 2 real estate licence, commercial tenancy experience, local knowledge
+## 5. E-E-A-T SIGNALS
+Reference: Hunter region, Newcastle market, Class 2 real estate licence, commercial tenancy experience, local knowledge. No fabrication.
 
-## 6. FAQ SECTION (required — powers People Also Ask ranking)
-End the article with "## Frequently Asked Questions" and 4-5 questions with 2-3 sentence answers each. Questions must be genuine ones a business owner would ask — not generic. Answers must be directly from the article content, not generic.
+## 6. FAQ SECTION (required)
+End with "## Frequently Asked Questions" + 4-5 questions with 2-3 sentence answers each. Questions genuine to the article content.
 
 ## 7. LENGTH: 1200-1500 words
 
 ## 8. OUTPUT FORMAT
-Output ONLY valid JSON, no code fences, no explanation:
-{
-  "title": "string — exact post title",
-  "metaDescription": "string — 140-155 chars, compelling click-through with keyword, no sales hype",
-  "excerpt": "string — 2 sentences for blog listing page, no sales language",
-  "content": "string — full markdown body with intro, ## headings, body, FAQ section. No preamble text.",
-  "tags": ["string"] — 5-6 strings: target keyword + semantic variants + related terms"
-}
+Output ONLY valid JSON. No code fences. No explanation.
+{"title":"...","metaDescription":"...","excerpt":"...","content":"...","tags":["..."]}
 
 ## 9. STYLE
-- Plain English. Like a knowledgeable expert explaining to a smart business owner
-- Short paragraphs: 2-3 sentences max
-- No emojis. No corporate speak. No filler: never use "in today's fast-paced world", "leveraging", "synergy", "holistic", "seamlessly", "robust", "transformative"
-- Numbers over words for big figures: "$45,000" not "forty-five thousand dollars"
-- Australian spelling: optimise, recognise, practise, analyse
-- Active voice throughout
-- 1-2 relevant local Newcastle/Hunter specifics per article
+- Plain English. No emojis. No filler ("in today's fast-paced world", "leveraging", "synergy", "holistic", "seamlessly", "robust", "transformative").
+- Short paragraphs 2-3 sentences.
+- Numbers for figures: "$45,000" not "forty-five thousand dollars".
+- Australian spelling: optimise, recognise, practise.
+- 1-2 Newcastle/Hunter specifics per article.
 
 TOPIC: ${topic.topic}
 DIVISION: ${topic.division}
@@ -155,12 +184,7 @@ Output your JSON now:`
       model: MINIMAX_MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature: 0.7,
-      max_tokens: 6000,
-      extra: {
-        enable_search: false,
-        input_planned: false,
-        use_threshold: false,
-      },
+      max_tokens: 16000,
     }),
     signal: AbortSignal.timeout(120000),
   })
@@ -179,30 +203,26 @@ Output your JSON now:`
     throw new Error(`MiniMax API error ${data.base_resp.status_code}: ${data.base_resp.status_msg}`)
   }
 
-  const raw = (data.choices?.[0]?.message?.content || '').trim()
-  const content = raw || (data.choices?.[0]?.message?.reasoning_content || '').trim()
+  // For long complex outputs, MiniMax puts the response in reasoning_content
+  // For short responses, it goes in content field
+  // Try content field first (if it starts with '{' — direct JSON), otherwise use reasoning
+  const rawContent = (data.choices?.[0]?.message?.content || '').trim()
+  const reasoning  = (data.choices?.[0]?.message?.reasoning_content || '').trim()
+  const content = rawContent.startsWith('{') ? rawContent : reasoning
 
-  const jsonStart = content.indexOf('{')
-  if (jsonStart < 0) throw new Error(`MiniMax returned no JSON at all (content: ${content.slice(0, 80)})`)
-
-  let depth = 0
-  let jsonEnd = -1
-  for (let i = jsonStart; i < content.length; i++) {
-    if (content[i] === '{') depth++
-    else if (content[i] === '}') { depth--; if (depth === 0) { jsonEnd = i; break } }
+  const parsed = safeJsonParse(content)
+  if (!parsed) {
+    const sample = content.slice(0, 200)
+    throw new Error(`Could not parse JSON from MiniMax response (len=${content.length}, sample: ${sample})`)
   }
-  if (jsonEnd < 0) throw new Error(`MiniMax JSON was not balanced (content length: ${content.length})`)
 
-  let cleaned = content.slice(jsonStart, jsonEnd + 1)
-  try { JSON.parse(cleaned) } catch {
-    // Try to fix trailing " corruption
-    cleaned = cleaned.replace(/\}"$/, '}')
-    cleaned = cleaned.replace(/\}\\n"$/, '}')
-    cleaned = cleaned.replace(/,\s*}$/, '}')  // trailing comma before closing brace
-  }
-  return JSON.parse(cleaned) as {
-    title: string; content: string; excerpt: string; tags: string[]
-    metaDescription?: string
+  // Ensure required fields are present with fallbacks
+  return {
+    title: parsed.title || 'Untitled',
+    metaDescription: parsed.metaDescription || '',
+    excerpt: parsed.excerpt || '',
+    content: parsed.content || '',
+    tags: Array.isArray(parsed.tags) ? parsed.tags : [],
   }
 }
 
@@ -245,7 +265,7 @@ export async function POST(req: NextRequest) {
       division: topic.division,
       targetKeyword: topic.targetKeyword,
       excerpt: generated.excerpt,
-      metaDescription: generated.metaDescription || '',
+      metaDescription: generated.metaDescription,
       slug: slugify(generated.title),
       author: 'Joe Kelley',
       tags: generated.tags,
