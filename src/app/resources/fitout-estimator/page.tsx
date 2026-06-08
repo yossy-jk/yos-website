@@ -116,6 +116,7 @@ const SCHEMA = {
 export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)
   const [hasResult, setHasResult] = useState(false)
+  const [storedEstimate, setStoredEstimate] = useState<ReturnType<typeof calcEstimate>>(null)
   const [inputs, setInputs] = useState<Inputs>({
     fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
@@ -516,7 +517,7 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => { setStep(maxStep); setHasResult(true) }}
+                <button onClick={() => { setStoredEstimate(calcEstimate(inputs)); setStep(maxStep); setHasResult(true) }}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
@@ -526,7 +527,7 @@ export default function FitoutEstimatorPage() {
             </div>
           )}
           {/* ── RESULT — always visible once generated ── */}
-          {(step >= maxStep || hasResult) && estimate && inputs.tier && (
+          {(step >= maxStep || hasResult) && hasResult && inputs.tier && (
             <div className="max-w-2xl">
             {/* Back button */}
             {step > maxStep && getBack(step) >= 0 && (
@@ -542,17 +543,17 @@ export default function FitoutEstimatorPage() {
                 {inputs.sqm}m2 &nbsp;·&nbsp; {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
               </p>
               <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
-                {fmt(estimate.totalLow)} &ndash; {fmt(estimate.totalHigh)}
+                {fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}
               </h2>
               <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
-                {fmt(estimate.perSqm.low)} &ndash; {fmt(estimate.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
+                {fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
               </p>
             </div>
             {/* Cost breakdown table */}
             <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '2rem' }}>
-              {estimate.breakdown.map((row, i) => (
+              {storedEstimate!.breakdown.map((row, i) => (
                 <div key={i}
-                  className={`flex justify-between items-center ${i < estimate.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
+                  className={`flex justify-between items-center ${i < storedEstimate!.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
                   style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(0,181,165,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
                   <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
                   <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
@@ -562,9 +563,9 @@ export default function FitoutEstimatorPage() {
               ))}
             </div>
             {/* Coverage note */}
-            {estimate.coverageNote && (
+            {storedEstimate!.coverageNote && (
               <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
-                {estimate.coverageNote}
+                {storedEstimate!.coverageNote}
               </p>
             )}
             {/* Disclaimer */}
@@ -611,11 +612,11 @@ export default function FitoutEstimatorPage() {
                         hasKitchen: inputs.hasKitchen,
                         hasReception: inputs.hasReception,
                         hasAV: inputs.hasAV,
-                        totalLow: estimate.totalLow,
-                        totalHigh: estimate.totalHigh,
-                        perSqmLow: estimate.perSqm.low,
-                        perSqmHigh: estimate.perSqm.high,
-                        breakdown: estimate.breakdown,
+                        totalLow: storedEstimate!.totalLow,
+                        totalHigh: storedEstimate!.totalHigh,
+                        perSqmLow: storedEstimate!.perSqm.low,
+                        perSqmHigh: storedEstimate!.perSqm.high,
+                        breakdown: storedEstimate!.breakdown,
                       }),
                     })
                     const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
