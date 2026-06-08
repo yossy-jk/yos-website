@@ -58,9 +58,9 @@ export default function TodayTab(): JSX.Element {
       if (saved) setEnergy(parseInt(saved))
     }
     Promise.all([
-      fetch('//api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('//api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
-      fetch('//api/tasks-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
+      fetch('/api/tasks-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(([d, i, t]: [DashData | null, IntelData | null, TasksData | null]) => {
       setData(d)
       setIntel(i)
@@ -179,7 +179,7 @@ export default function TodayTab(): JSX.Element {
                 </div>
                 <button
                   onClick={async () => {
-                    await fetch('/api/tasks-data', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) })
+                    await fetch('/api/tasks-data', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ taskId: t.id, action: 'complete' }) })
                     window.location.reload()
                   }}
                   style={{ background: GREEN, border: 'none', borderRadius: 4, padding: '0.35rem 0.875rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>

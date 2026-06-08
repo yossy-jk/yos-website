@@ -24,7 +24,7 @@ export default function TeamTab() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('//api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false) }).catch(() => setLoading(false))
+    fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false) }).catch(() => setLoading(false))
   }, [])
 
   if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center' }}>Loading team status...</div>

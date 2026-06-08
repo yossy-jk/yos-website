@@ -27,7 +27,7 @@ export default function MarketingTab() {
 
   const approveBlog = async (id: string) => {
     setApproving(id)
-    await fetch('/api/queue/action', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ id, action: 'approve' }) }).catch(() => {})
+    await fetch('/api/queue/action', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ id, action: 'approve' }) }).catch(() => {})
     setQueue(q => q.filter(i => i.id !== id))
     setApproving(null)
   }

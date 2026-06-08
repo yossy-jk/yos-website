@@ -37,7 +37,7 @@ export default function ApprovalsTab({ onCountChange }: { onCountChange?: (n: nu
 
   const action = async (id: string, act: 'approve' | 'skip') => {
     setActing(id)
-    await fetch('/api/queue/action', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ id, action: act }) }).catch(() => {})
+    await fetch('/api/queue/action', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ id, action: act }) }).catch(() => {})
     setQueue(q => q.filter(i => i.id !== id))
     onCountChange?.(queue.length - 1)
     setActing(null)
