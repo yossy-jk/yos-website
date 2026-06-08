@@ -73,9 +73,9 @@ export default function MarketingTab() {
             <div key={item.id as string} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'rgba(245,158,11,0.04)', borderRadius: 6, marginBottom: '0.5rem', border: '1px solid rgba(245,158,11,0.15)' }}>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ margin: 0, fontWeight: 600, fontSize: '0.82rem' }}>{item.title as string}</p>
-                {(item.metadata as Record<string, unknown>)?.targetKeyword && (
-                  <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: C.teal }}>🎯 {(item.metadata as Record<string, unknown>).targetKeyword as string}</p>
-                )}
+                {(item.metadata as Record<string, unknown>)?.targetKeyword ? (
+                  <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: C.teal }}>🎯 {String((item.metadata as Record<string, unknown>).targetKeyword)}</p>
+                ) : null}
               </div>
               <button
                 onClick={() => approveBlog(item.id as string)}
