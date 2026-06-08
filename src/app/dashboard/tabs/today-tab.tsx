@@ -146,8 +146,8 @@ export default function TodayTab() {
         <Label>⚡ COO Morning Brief</Label>
         {briefLines.length > 0 ? (
           <div style={{ fontSize: '0.8rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>
-            {briefLines.slice(0, 10).map((line: string, i: number) => (
-              <p key={i} style={{ margin: '0 0 0.3rem' }}>{line}</p>
+            {briefLines.slice(0, 10).map((line: unknown, i: number) => (
+              <p key={i} style={{ margin: '0 0 0.3rem' }}>{String(line)}</p>
             ))}
           </div>
         ) : (
