@@ -24,7 +24,9 @@ export const metadata = {
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
   twitter: { card: 'summary_large_image', title: 'Contact | Your Office Space', description: 'Get in touch with Your Office Space. First conversation is always free.' },
   openGraph: {
-    title: 'Contact | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Contact | Your Office Space',
     description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
     url: 'https://yourofficespace.au/contact',
     siteName: 'Your Office Space',

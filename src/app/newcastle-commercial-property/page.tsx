@@ -18,7 +18,9 @@ export const metadata: Metadata = {
   description: 'Everything Newcastle businesses need to know about commercial property. Tenant representation, lease negotiation, office fitout costs, and commercial cleaning — all local, all practical.',
   alternates: { canonical: 'https://www.yourofficespace.au/newcastle-commercial-property' },
   openGraph: {
-    title: 'Newcastle Commercial Property Hub — Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Newcastle Commercial Property Hub — Your Office Space',
     description: 'Local guides, market updates and practical advice for Newcastle businesses navigating commercial property.',
     url: 'https://www.yourofficespace.au/newcastle-commercial-property',
     siteName: 'Your Office Space',

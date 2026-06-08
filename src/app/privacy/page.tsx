@@ -8,7 +8,9 @@ export const metadata = {
   description: 'How Your Office Space collects, uses, and protects your personal information. Governed by the Privacy Act 1988 (Cth).',
   alternates: { canonical: 'https://www.yourofficespace.au/privacy' },
   openGraph: {
-    title: 'Privacy Policy | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Privacy Policy | Your Office Space',
     description: 'How Your Office Space collects, uses, and protects your personal information.',
     url: 'https://yourofficespace.au/privacy',
     siteName: 'Your Office Space',

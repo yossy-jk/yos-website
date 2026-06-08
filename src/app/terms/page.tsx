@@ -8,7 +8,9 @@ export const metadata = {
   description: 'Terms and conditions governing use of the Your Office Space website and engagement of its services, including LeaseIntel™.',
   alternates: { canonical: 'https://www.yourofficespace.au/terms' },
   openGraph: {
-    title: 'Terms & Conditions | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Terms & Conditions | Your Office Space',
     description: 'Terms and conditions governing use of the Your Office Space website and engagement of its services.',
     url: 'https://yourofficespace.au/terms',
     siteName: 'Your Office Space',

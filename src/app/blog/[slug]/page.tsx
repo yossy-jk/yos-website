@@ -21,7 +21,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: post.metaDescription || post.excerpt,
     alternates: { canonical: `https://yourofficespace.au/blog/${post.slug}` },
     openGraph: {
-      title: post.metaTitle || post.title,
+      
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
       url: `https://yourofficespace.au/blog/${post.slug}`,
       siteName: 'Your Office Space',

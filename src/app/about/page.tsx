@@ -13,7 +13,9 @@ export const metadata = {
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
   twitter: { card: 'summary_large_image', title: 'About | Your Office Space', description: "Licensed. Experienced. On your side. Founded by Joe Kelley after a decade in commercial property." },
   openGraph: {
-    title: 'About | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'About | Your Office Space',
     description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Licensed. Experienced. On your side.",
     url: 'https://yourofficespace.au/about',
     siteName: 'Your Office Space',
