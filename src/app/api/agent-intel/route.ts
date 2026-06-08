@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
-import { readFileSync, existsSync } from 'fs'
+import { readFileSync, existsSync, statSync } from 'fs'
 import { homedir } from 'os'
 import { join } from 'path'
 
@@ -38,7 +38,7 @@ export async function GET() {
   const agentActivity = agents.map(agent => {
     const memPath = join(base, `workspace-${agent}/MEMORY.md`)
     if (!existsSync(memPath)) return { agent, status: 'no-memory', lastRun: null, snippet: '' }
-    const stat = require('fs').statSync(memPath)
+    const stat = statSync(memPath)
     const hoursAgo = (Date.now() - stat.mtimeMs) / 3600000
     const content = readFileSync(memPath, 'utf8')
     const lines = content.split('\n').filter(l => l.trim())
