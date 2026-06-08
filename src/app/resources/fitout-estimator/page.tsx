@@ -10,21 +10,24 @@ type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RATES: Record<FitoutTypeKey, Record<string, any>> = {
   'furniture-only': {
-    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, contingency: 0.15 },
+    // Rate spread: ~30% max (low to high). Updated 2026-06-08 — Joe approved target 10-30%.
+    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, contingency: 0.15 },
   },
   'turnkey-warm': {
     // Warm shell: base build already in place (floors, ceilings, services), less work
-    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 600,  high: 900  }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500,  high: 5000  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 900,  high: 1290 }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1200, high: 1800 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
+    // Rate spread: ~30% max. Updated 2026-06-08 — Joe approved target 10-30%.
+    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 600,  high: 780  }, desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, kitchen: { low: 5000,  high: 6500  }, reception: { low: 6000,  high: 7800  }, av: { low: 2500,  high: 3250  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 900,  high: 1170 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000,  high: 10400 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1200, high: 1560 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
   },
   'turnkey-cold': {
     // Cold shell: blank canvas, everything from scratch — higher cost than warm
-    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 800,  high: 1200 }, desk: { low: 550,  high: 900  }, meetingRoom: { low: 8000,  high: 14000 }, kitchen: { low: 5000,  high: 10000 }, reception: { low: 6000,  high: 12000 }, av: { low: 2500,  high: 5000  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1000, high: 1550 }, desk: { low: 1050, high: 2000 }, meetingRoom: { low: 18000, high: 30000 }, kitchen: { low: 15000, high: 25000 }, reception: { low: 20000, high: 35000 }, av: { low: 8000,  high: 18000 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1400, high: 2500 }, desk: { low: 2500, high: 5000 }, meetingRoom: { low: 40000, high: 70000 }, kitchen: { low: 35000, high: 60000 }, reception: { low: 50000, high: 90000 }, av: { low: 25000, high: 60000 }, contingency: 0.15 },
+    // Rate spread: ~30% max. Updated 2026-06-08 — Joe approved target 10-30%.
+    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 800,  high: 1040 }, desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, kitchen: { low: 5000,  high: 6500  }, reception: { low: 6000,  high: 7800  }, av: { low: 2500,  high: 3250  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1000, high: 1300 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000,  high: 10400 }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1400, high: 1820 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
   },
 }
 interface Inputs {
