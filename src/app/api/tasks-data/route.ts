@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 /**
  * GET /api/tasks-data — reads/writes tasks from Upstash Redis
  * POST /api/tasks-data — create/complete/delegate tasks

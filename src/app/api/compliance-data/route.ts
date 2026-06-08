@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 import { promises as fs } from 'fs'
