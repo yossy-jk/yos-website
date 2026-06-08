@@ -9,7 +9,7 @@ import { requireAuth } from '@/lib/auth'
 
 const MATON_KEY    = process.env.MATON_API_KEY || ''
 const GSC_CONN     = '2561bc54-7747-471a-afd7-36ab4e39de47'
-const SITE_URL_RAW = 'yourofficespace.au'           // used in URL path (URL-encoded)
+const SITE_URL_RAW = 'https://yourofficespace.au/'   // URL-encoded in path
 const SITE_URL_RAW_ENCODE = encodeURIComponent(SITE_URL_RAW)
 
 // All keywords we track — YOS services and commercial property Newcastle
