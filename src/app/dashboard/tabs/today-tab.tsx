@@ -10,7 +10,7 @@ const C = {
   border: 'rgba(255,255,255,0.07)',
 }
 
-function Card({ children, style }: { children: React.ReactNode; style?: React.CSSProperties }) {
+function Card({ children, style }: { children: React.ReactNode | React.ReactNode[]; style?: React.CSSProperties }) {
   return (
     <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem', ...style }}>
       {children}
@@ -18,7 +18,7 @@ function Card({ children, style }: { children: React.ReactNode; style?: React.CS
   )
 }
 
-function Label({ children }: { children: React.ReactNode }) {
+function Label({ children }: { children: React.ReactNode | string }) {
   return <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>{children}</p>
 }
 
