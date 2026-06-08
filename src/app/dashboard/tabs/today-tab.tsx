@@ -72,11 +72,11 @@ export default function TodayTab() {
   const weeklyPct = Math.min(100, (weeklyActual / weeklyTarget) * 100)
 
   // Extract COO brief from memory
-  const cooMem = (intel as Record<string, unknown> | null)?.cooMem as string || ''
-  const briefLines = cooMem.split('\n').filter((l: string) => l.trim() && !l.startsWith('#')).slice(0, 15)
+  const cooMem: string = ((intel as Record<string, unknown> | null)?.cooMem as string) || ''
+  const briefLines: string[] = cooMem.split('\n').filter((l: string) => l.trim() && !l.startsWith('#')).slice(0, 15)
 
   // Top 3 tasks
-  const todayTasks = ((tasks as Record<string, unknown> | null)?.todayTasks as Record<string, unknown>[] || []).slice(0, 3)
+  const todayTasks: Record<string, unknown>[] = (((tasks as Record<string, unknown> | null)?.todayTasks as Record<string, unknown>[]) || []).slice(0, 3)
 
   if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center' }}>Loading your command centre...</div>
 
