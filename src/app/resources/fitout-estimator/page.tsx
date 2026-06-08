@@ -11,9 +11,10 @@ type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
 const RATES: Record<FitoutTypeKey, Record<string, any>> = {
   'furniture-only': {
     // Rate spread: ~30% max (low to high). Updated 2026-06-08 — Joe approved target 10-30%.
-    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, contingency: 0.15 },
+    // Meeting rooms: flat $2000–$3000 per room (furniture path only — Joe 2026-06-08).
+    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 715  }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.15 },
   },
   'turnkey-warm': {
     // Warm shell: base build already in place (floors, ceilings, services), less work
@@ -495,8 +496,8 @@ export default function FitoutEstimatorPage() {
             <div className="max-w-xl">
               <div className="flex flex-col" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
-                  { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' },
-                  { key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' },
+                  ...(isFurnitureOnly ? [] : [{ key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' }]),
+                  ...(isFurnitureOnly ? [] : [{ key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' }]),
                   { key: 'hasAV' as const, label: 'AV & integrated technology', desc: 'Screens, conferencing, cabling and control' },
                 ].map(item => (
                   <button key={item.key} onClick={() => set(item.key, !inputs[item.key])}
@@ -515,7 +516,7 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => { setStep(maxStep + 1); setHasResult(true) }}
+                <button onClick={() => { setStep(maxStep); setHasResult(true) }}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
