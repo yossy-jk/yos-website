@@ -39,7 +39,7 @@ export default function Dashboard() {
   useEffect(() => {
     const t = setInterval(() => setNow(aestNow()), 60000)
     // Check pending queue count
-    fetch('/api/queue/list').then(r => r.json()).then(d => {
+    fetch('/api/queue/list', {credentials: 'include'}).then(r => r.json()).then(d => {
       setPendingCount(d?.items?.length || 0)
     }).catch(() => {})
     return () => clearInterval(t)
