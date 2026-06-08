@@ -117,6 +117,7 @@ export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)
   const [hasResult, setHasResult] = useState(false)
   const [storedEstimate, setStoredEstimate] = useState<ReturnType<typeof calcEstimate>>(null)
+  const [stepError, setStepError] = useState('')
   const [inputs, setInputs] = useState<Inputs>({
     fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
@@ -517,11 +518,19 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => { const result = calcEstimate(inputs); if (result) { setStoredEstimate(result); setStep(maxStep); setHasResult(true) } }}
+                <button onClick={() => {
+                  const result = calcEstimate(inputs)
+                  if (!result) { setStepError('Please fill in all required fields above.'); return }
+                  setStepError('')
+                  setStoredEstimate(result)
+                  setStep(maxStep)
+                  setHasResult(true)
+                }}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
                 </button>
+                {stepError && <p style={{ color: '#FF6B6B', fontSize: '0.82rem', marginTop: '0.75rem' }}>{stepError}</p>}
                 <button onClick={() => getBack(7) >= 0 ? setStep(getBack(7)) : undefined} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
