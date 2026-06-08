@@ -142,12 +142,12 @@ export default function TodayTab() {
       </div>
 
       {/* COO Morning Brief */}
-      <Card style={{ borderLeft: `3px solid ${C.teal}` }}>
-        <Label>⚡ COO Morning Brief</Label>
+      <div style={{ background: C.card, border: `1px solid ${C.border}`, borderLeft: `3px solid ${C.teal}`, borderRadius: 8, padding: '1.25rem' }}>
+        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>⚡ COO Morning Brief</p>
         {briefLines.length > 0 ? (
           <div style={{ fontSize: '0.8rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>
-            {briefLines.slice(0, 10).map((line: unknown, i: number) => (
-              <p key={i} style={{ margin: '0 0 0.3rem' }}>{String(line)}</p>
+            {briefLines.map((line: string, i: number) => (
+              <p key={i} style={{ margin: '0 0 0.3rem' }}>{line}</p>
             ))}
           </div>
         ) : (
@@ -155,7 +155,7 @@ export default function TodayTab() {
             Awaiting COO brief — runs at 5am daily. Send &quot;HEARTBEAT&quot; to the COO bot on Telegram to trigger now.
           </p>
         )}
-      </Card>
+      </div>
 
       {/* Top 3 Tasks */}
       <Card>
