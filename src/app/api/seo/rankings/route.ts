@@ -1,17 +1,18 @@
 /**
- * GET /api/seo/rankings?token=***
- * Fetches Google Search Console query performance for tracked keywords.
- * Returns current 7-day position + movement vs previous 7 days.
+ * GET /api/seo/rankings
+ * Fetches Google Search Console query performance via Maton GSC connection.
+ * Returns current 28-day position + movement vs previous 28 days.
+ * Falls back to Maton GSC API (live, confirmed working 2026-06-08).
  */
 import { NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 
-const CLIENT_ID       = process.env.GSC_CLIENT_ID || ''
-const CLIENT_SECRET   = process.env.GSC_CLIENT_SECRET || ''
-const REFRESH_TOKEN   = process.env.GSC_REFRESH_TOKEN || ''
-const SITE_URL        = 'https://www.yourofficespace.au/'
+const MATON_KEY    = process.env.MATON_API_KEY || ''
+const GSC_CONN     = '2561bc54-7747-471a-afd7-36ab4e39de47'
+const SITE_URL_RAW = 'https://yourofficespace.au/'   // URL-encoded in path
+const SITE_URL_RAW_ENCODE = encodeURIComponent(SITE_URL_RAW)
 
-// All keywords we track (must match the SEO tab's list)
+// All keywords we track — YOS services and commercial property Newcastle
 const TRACKED_KEYWORDS = [
   'tenant representation Newcastle',
   'commercial tenant representative NSW',
@@ -51,25 +52,6 @@ const TRACKED_KEYWORDS = [
   'office chair newcastle',
 ]
 
-async function getAccessToken(): Promise<string> {
-  if (!CLIENT_ID || !CLIENT_SECRET || !REFRESH_TOKEN) {
-    throw new Error(`GSC config missing: CLIENT_ID=${!!CLIENT_ID} CLIENT_SECRET=${!!CLIENT_SECRET} REFRESH_TOKEN=${!!REFRESH_TOKEN}`)
-  }
-  const res = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      client_id:     CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-      refresh_token: REFRESH_TOKEN,
-      grant_type:    'refresh_token',
-    }),
-  })
-  const data = await res.json() as { access_token?: string; error?: string }
-  if (!data.access_token) throw new Error(data.error || 'Token refresh failed')
-  return data.access_token
-}
-
 function dateStr(daysAgo: number): string {
   const d = new Date()
   d.setDate(d.getDate() - daysAgo)
@@ -84,24 +66,22 @@ interface GSCRow {
   position: number
 }
 
-async function fetchGSC(token: string, startDate: string, endDate: string): Promise<GSCRow[]> {
-  const res = await fetch(
-    `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(SITE_URL)}/searchAnalytics/query`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        startDate,
-        endDate,
-        dimensions: ['query'],
-        rowLimit: 1000,
-        dataState: 'all',
-      }),
-    }
-  )
+async function fetchGSC(startDate: string, endDate: string): Promise<GSCRow[]> {
+  const url = `https://gateway.maton.ai/google-search-console/webmasters/v3/sites/${SITE_URL_RAW_ENCODE}/searchAnalytics/query`
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${MATON_KEY}`,
+      'Maton-Connection': GSC_CONN,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      startDate,
+      endDate,
+      dimensions: ['query'],
+      rowLimit: 500,
+    }),
+  })
   if (!res.ok) {
     const err = await res.text()
     throw new Error(`GSC API ${res.status}: ${err.slice(0, 200)}`)
@@ -111,27 +91,24 @@ async function fetchGSC(token: string, startDate: string, endDate: string): Prom
 }
 
 export async function GET(req: Request) {
-  const { searchParams } = new URL(req.url)
   const auth = await requireAuth()
   if (!auth.ok) return auth.response
 
-  if (!REFRESH_TOKEN) {
+  if (!MATON_KEY) {
     return NextResponse.json({
       connected: false,
-      error: 'GSC_REFRESH_TOKEN not set',
-      authUrl: '/api/auth/gsc',
+      error: 'MATON_API_KEY not set',
       rankings: [],
+      topQueries: [],
     })
   }
 
   try {
-    const accessToken = await getAccessToken()
-
-    // Fetch current 7 days and previous 7 days in parallel
-    // GSC data lags ~2-3 days, so use 3–9 days ago as "current", 10–16 as "previous"
+    // Current: last 28 days. Previous: 29-56 days ago.
+    // GSC data lags ~2-3 days, so shift window: current=16-44 days ago, previous=45-72 days ago
     const [currentRows, previousRows] = await Promise.all([
-      fetchGSC(accessToken, dateStr(16), dateStr(4)),
-      fetchGSC(accessToken, dateStr(30), dateStr(17)),
+      fetchGSC(dateStr(44), dateStr(4)),
+      fetchGSC(dateStr(72), dateStr(45)),
     ])
 
     // Build lookup maps: query → position
@@ -152,22 +129,22 @@ export async function GET(req: Request) {
       const current = currentMap[key]
       const prevPosition = previousMap[key] ?? null
 
-      const position   = current ? Math.round(current.position * 10) / 10 : null
-      const movement   = (position !== null && prevPosition !== null)
-        ? Math.round((prevPosition - position) * 10) / 10   // positive = improved (moved up)
+      const position = current ? Math.round(current.position * 10) / 10 : null
+      const movement = (position !== null && prevPosition !== null)
+        ? Math.round((prevPosition - position) * 10) / 10   // positive = moved up
         : null
 
       return {
         keyword:     kw,
-        position,                          // current avg position (null = not ranking in top 100)
-        prevPosition,                      // previous period avg position
-        movement,                          // + = moved up, - = moved down
+        position,
+        prevPosition,
+        movement,
         clicks:      current?.clicks ?? 0,
         impressions: current?.impressions ?? 0,
       }
     })
 
-    // Also pull top performing queries (not just our tracked ones)
+    // Top performing queries (not just tracked ones)
     const topQueries = currentRows
       .filter(r => r.impressions >= 1)
       .sort((a, b) => b.impressions - a.impressions)
@@ -186,8 +163,8 @@ export async function GET(req: Request) {
     return NextResponse.json({
       connected: true,
       updatedAt:  new Date().toISOString(),
-      periodCurrent: `${dateStr(9)} → ${dateStr(3)}`,
-      periodPrev:    `${dateStr(16)} → ${dateStr(10)}`,
+      periodCurrent: `${dateStr(44)} → ${dateStr(4)}`,
+      periodPrev:    `${dateStr(72)} → ${dateStr(45)}`,
       rankings,
       topQueries,
     })
@@ -195,7 +172,6 @@ export async function GET(req: Request) {
     return NextResponse.json({
       connected: false,
       error: err instanceof Error ? err.message : 'Unknown error',
-      authUrl: '/api/auth/gsc',
       rankings: [],
       topQueries: [],
     })

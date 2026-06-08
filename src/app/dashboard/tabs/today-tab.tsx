@@ -201,10 +201,10 @@ export default function TodayTab(): JSX.Element {
             <div key={i} style={{ display: 'flex', gap: '1rem', padding: '0.6rem 0', borderBottom: `1px solid ${BORDER}` }}>
               <div style={{ flexShrink: 0, minWidth: 60 }}>
                 <p style={{ color: TEAL, fontSize: '0.6rem', fontWeight: 700, textTransform: 'uppercase', margin: 0 }}>
-                  {new Date(ev.start).toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Australia/Sydney' })}
+                  {new Date(ev.start.endsWith('Z') ? ev.start : ev.start + 'Z').toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Australia/Sydney' })}
                 </p>
                 <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', margin: '0.1rem 0 0' }}>
-                  {new Date(ev.start).toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Australia/Sydney' })}
+                  {new Date(ev.start.endsWith('Z') ? ev.start : ev.start + 'Z').toLocaleTimeString('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Australia/Sydney' })}
                 </p>
               </div>
               <div>

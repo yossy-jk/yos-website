@@ -9,7 +9,10 @@ import { getCurrentUser } from '@/lib/auth-v2'
 const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 
+// Read from yos:tasks:summary (written by Inbox EA agent)
+// Write to tasks:v1 (Inbox EA agent reads this on next run to pick up manual creates)
 const TASKS_KEY = 'tasks:v1'
+const TASKS_SUMMARY_KEY = 'yos:tasks:summary'
 const COMPLETED_KEY = 'tasks:completed:v1'
 
 async function redisGet(key: string): Promise<string | null> {
@@ -53,12 +56,57 @@ function makeId(): string {
   return Math.random().toString(36).slice(2) + Date.now().toString(36)
 }
 
+// Map yos:tasks:summary fields to tasks-tab.tsx expected format
+function mapTask(raw: Record<string, unknown>): Task {
+  return {
+    id:            String(raw.id || makeId()),
+    title:         String(raw.title || ''),
+    description:   String(raw.description || ''),
+    source:        String(raw.source || 'unknown'),
+    status:        String(raw.status || 'pending'),
+    priority:      String(raw.priority || '2'),
+    due_date:       raw.due_date ? String(raw.due_date) : null,
+    due_time:       raw.due_time ? String(raw.due_time) : null,
+    assigned_to:   String(raw.assigned_to || ''),
+    revenue_value: raw.revenue_value ? Number(raw.revenue_value) : null,
+    client_name:   String(raw.client_name || ''),
+    client_id:     String(raw.client_id || ''),
+    can_delegate:  Number(raw.can_delegate || 0),
+    raw_commitment: String(raw.committed_to || raw.raw_commitment || ''),
+    tags:          String(raw.tags || ''),
+    completed_at:  raw.completed_at ? String(raw.completed_at) : null,
+    created_at:    raw.created_at ? String(raw.created_at) : nowISO(),
+    updated_at:    nowISO(),
+  }
+}
+
 export async function GET() {
   const auth = await requireAuth()
   if (!auth.ok) return auth.response
 
-  const raw = await redisGet(TASKS_KEY)
-  const tasks: Task[] = raw ? JSON.parse(raw) : []
+  // Read from yos:tasks:summary (written by Inbox EA agent)
+  const raw = await redisGet(TASKS_SUMMARY_KEY)
+  if (raw) {
+    const summary = JSON.parse(raw)
+    return NextResponse.json({
+      generatedAt:    summary.generatedAt || nowISO(),
+      todayTasks:     (summary.todayTasks  || []).map(mapTask),
+      overdue:        (summary.overdue     || []).map(mapTask),
+      backlog:        (summary.backlog       || []).map(mapTask),
+      delegated:      (summary.delegated     || []).map(mapTask),
+      completed:      (summary.completed     || []).map(mapTask),
+      completionRate7d: summary.completionRate7d || 0,
+      totalOpen:      summary.totalOpen      || 0,
+      totalCompleted: summary.totalCompleted || 0,
+      totalBacklog:   summary.totalBacklog   || 0,
+      maxJoeCapacity: summary.maxJoeCapacity  || 10,
+      sources:        summary.sources         || {},
+    })
+  }
+
+  // Fallback: legacy tasks:v1 (empty, but keep for manual creates)
+  const legacyRaw = await redisGet(TASKS_KEY)
+  const tasks: Task[] = legacyRaw ? JSON.parse(legacyRaw) : []
   const completedRaw = await redisGet(COMPLETED_KEY)
   const completed: Task[] = completedRaw ? JSON.parse(completedRaw) : []
 
@@ -67,9 +115,6 @@ export async function GET() {
   const todayTasks = tasks.filter(t => t.status === 'pending' && t.due_date === today)
   const backlog = tasks.filter(t => t.status === 'pending' && t.due_date && t.due_date > today).slice(0, 20)
   const delegated = tasks.filter(t => t.status === 'delegated')
-
-  const totalDoneLast7 = completed.filter(t => t.completed_at && t.completed_at > nowISO()).length
-  const rate = tasks.length > 0 ? Math.round((completed.length / (tasks.length + completed.length)) * 100) : 0
 
   const sources: Record<string, number> = {}
   tasks.forEach(t => { sources[t.source] = (sources[t.source] || 0) + 1 })
@@ -81,7 +126,7 @@ export async function GET() {
     backlog,
     delegated,
     completed,
-    completionRate7d: rate,
+    completionRate7d: 0,
     totalOpen: tasks.length,
     totalCompleted: completed.length,
     totalBacklog: backlog.length,
