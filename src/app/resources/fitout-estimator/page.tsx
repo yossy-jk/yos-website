@@ -581,17 +581,6 @@ export default function FitoutEstimatorPage() {
             <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
               Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
             </p>
-            {/* CTA — primary action */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-                className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
-                style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
-                Book a Fitout Consultation &nbsp;→
-              </a>
-              <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
-                30-minute call. Fixed-price proposal. No obligation.
-              </p>
-            </div>
             {/* Email capture — send them the full breakdown */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
               <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
@@ -652,6 +641,17 @@ export default function FitoutEstimatorPage() {
                   Send me the full breakdown &rarr;
                 </button>
               </form>
+            </div>
+            {/* CTA — Book a consultation */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
+              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
+                style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
+                Book a Fitout Consultation &nbsp;→
+              </a>
+              <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
+                30-minute call. Fixed-price proposal. No obligation.
+              </p>
             </div>
             {/* Secondary link */}
             <Link href="/furniture"
