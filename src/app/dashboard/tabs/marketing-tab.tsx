@@ -21,6 +21,14 @@ export default function MarketingTab() {
   const [activeCluster, setActiveCluster] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
 
+  // Edit / Suggest state
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editContent, setEditContent] = useState('')
+  const [suggestingId, setSuggestingId] = useState<string | null>(null)
+  const [suggestText, setSuggestText] = useState('')
+  const [saving, setSaving] = useState(false)
+  const [rewriting, setRewriting] = useState(false)
+
   useEffect(() => {
     Promise.all([
       fetch('/api/seo/rankings', {credentials:'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
@@ -40,6 +48,47 @@ export default function MarketingTab() {
     await fetch('/api/queue/action', { method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ id, action: 'approve' }) }).catch(() => {})
     setQueue(q => q.filter(i => i.id !== id))
     setApproving(null)
+  }
+
+  const startEdit = (item: QueueItem) => {
+    setEditingId(item.id)
+    setEditContent(item.content || '')
+    setSuggestingId(null)
+    setSuggestText('')
+  }
+
+  const saveEdit = async (id: string) => {
+    if (!editContent.trim()) return
+    setSaving(true)
+    await fetch('/api/queue/action', {
+      method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ id, action: 'edit', editedContent: editContent, feedback: 'Manual edit by Joe' }),
+    }).catch(() => {})
+    setEditingId(null)
+    setEditContent('')
+    setSaving(false)
+  }
+
+  const startSuggest = (item: QueueItem) => {
+    setSuggestingId(item.id)
+    setSuggestText('')
+    setEditingId(null)
+    setEditContent('')
+  }
+
+  const submitSuggestion = async (id: string) => {
+    if (!suggestText.trim()) return
+    setRewriting(true)
+    await fetch('/api/queue/action', {
+      method: 'POST', credentials: 'include', headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ id, action: 'revision', feedback: suggestText }),
+    }).catch(() => {})
+    // Trigger blog rewriter
+    await fetch('/api/blog-rewrite-now', { method: 'POST', credentials: 'include' }).catch(() => {})
+    setQueue(q => q.filter(i => i.id !== id))
+    setSuggestingId(null)
+    setSuggestText('')
+    setRewriting(false)
   }
 
   if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center' }}>Loading marketing data...</div>
@@ -77,18 +126,80 @@ export default function MarketingTab() {
       {queue.length > 0 && (
         <div style={{ background: C.card, border: `1px solid rgba(245,158,11,0.3)`, borderRadius: 8, padding: '1.25rem' }}>
           <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: C.amber, margin: '0 0 0.75rem' }}>📝 Blog Posts Ready ({queue.length})</p>
-          {queue.map(item => (
-            <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: 'rgba(245,158,11,0.04)', borderRadius: 6, marginBottom: '0.5rem' }}>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ margin: 0, fontWeight: 600, fontSize: '0.82rem' }}>{item.title || item.content?.slice(0,60)}</p>
-                {item.metadata?.targetKeyword ? <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: C.teal }}>🎯 {String(item.metadata.targetKeyword)}</p> : null}
+          {queue.map(item => {
+            const isEditing = editingId === item.id
+            const isSuggesting = suggestingId === item.id
+            return (
+              <div key={item.id} style={{ background: isEditing || isSuggesting ? 'rgba(245,158,11,0.08)' : 'rgba(245,158,11,0.04)', borderRadius: 6, marginBottom: '0.5rem', border: `1px solid ${isEditing || isSuggesting ? 'rgba(245,158,11,0.3)' : 'transparent'}` }}>
+                {/* Card header */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.75rem 1rem' }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <p style={{ margin: 0, fontWeight: 600, fontSize: '0.82rem' }}>{item.title || item.content?.slice(0,60)}</p>
+                    {item.metadata?.targetKeyword ? <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: C.teal }}>🎯 {String(item.metadata.targetKeyword)}</p> : null}
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.4rem', flexShrink: 0 }}>
+                    <button onClick={() => startEdit(item)}
+                      style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.35rem 0.75rem', color: 'rgba(255,255,255,0.5)', fontSize: '0.62rem', cursor: 'pointer' }}>
+                      ✏️ Edit
+                    </button>
+                    <button onClick={() => startSuggest(item)}
+                      style={{ background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: 4, padding: '0.35rem 0.75rem', color: '#a78bfa', fontSize: '0.62rem', cursor: 'pointer' }}>
+                      💡 Suggest
+                    </button>
+                    <button onClick={() => approveBlog(item.id)} disabled={approving === item.id}
+                      style={{ background: C.green, border: 'none', borderRadius: 4, padding: '0.35rem 0.875rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: 'pointer' }}>
+                      {approving === item.id ? '...' : '✓ Publish'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Edit panel */}
+                {isEditing && (
+                  <div style={{ borderTop: `1px solid ${C.border}`, padding: '1rem' }}>
+                    <p style={{ fontSize: '0.6rem', color: C.amber, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 0.5rem' }}>✏️ Direct Edit — changes saved immediately</p>
+                    <textarea
+                      value={editContent}
+                      onChange={e => setEditContent(e.target.value)}
+                      style={{ width: '100%', minHeight: 200, background: 'rgba(0,0,0,0.3)', border: `1px solid ${C.border}`, borderRadius: 6, padding: '0.75rem', color: 'rgba(255,255,255,0.8)', fontSize: '0.78rem', lineHeight: 1.7, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                    />
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
+                      <button onClick={() => saveEdit(item.id)} disabled={saving}
+                        style={{ background: C.green, border: 'none', borderRadius: 4, padding: '0.4rem 1rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: 'pointer' }}>
+                        {saving ? 'Saving...' : '💾 Save Edits'}
+                      </button>
+                      <button onClick={() => setEditingId(null)}
+                        style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.4rem 1rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', cursor: 'pointer' }}>
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Suggest panel */}
+                {isSuggesting && (
+                  <div style={{ borderTop: `1px solid rgba(139,92,246,0.3)`, padding: '1rem' }}>
+                    <p style={{ fontSize: '0.6rem', color: '#a78bfa', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 0.5rem' }}>💡 Suggest Changes — AI will rewrite the blog incorporating your feedback</p>
+                    <textarea
+                      value={suggestText}
+                      onChange={e => setSuggestText(e.target.value)}
+                      placeholder="e.g. Add a section on typical project timelines. Make the intro more specific to Newcastle. Tone should be more direct, less corporate."
+                      style={{ width: '100%', minHeight: 100, background: 'rgba(139,92,246,0.05)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: 6, padding: '0.75rem', color: 'rgba(255,255,255,0.8)', fontSize: '0.78rem', lineHeight: 1.6, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box' }}
+                    />
+                    <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
+                      <button onClick={() => submitSuggestion(item.id)} disabled={rewriting || !suggestText.trim()}
+                        style={{ background: '#7c3aed', border: 'none', borderRadius: 4, padding: '0.4rem 1rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: suggestText.trim() && !rewriting ? 'pointer' : 'not-allowed', opacity: !suggestText.trim() || rewriting ? 0.5 : 1 }}>
+                        {rewriting ? '⏳ Rewriting...' : '✨ Rewrite Blog'}
+                      </button>
+                      <button onClick={() => setSuggestingId(null)}
+                        style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.4rem 1rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', cursor: 'pointer' }}>
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
-              <button onClick={() => approveBlog(item.id)} disabled={approving === item.id}
-                style={{ background: C.green, border: 'none', borderRadius: 4, padding: '0.4rem 1rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>
-                {approving === item.id ? '...' : '✓ Approve'}
-              </button>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
 
