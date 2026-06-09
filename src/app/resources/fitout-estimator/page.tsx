@@ -71,20 +71,31 @@ function calcEstimate(inputs: Inputs) {
   const base = isFurniture
     ? { low: 0, high: 0 }
     : { low: sqm * (r.sqm?.low ?? 0), high: sqm * (r.sqm?.high ?? 0) }
-  const furniture = { low: desks * r.desk.low * ehaMult, high: desks * r.desk.high * ehaMult }
+  const deskRate = { low: desks * r.desk.low * ehaMult, high: desks * r.desk.high * ehaMult }
   const meetingCost = { low: meetings * r.meetingRoom.low, high: meetings * r.meetingRoom.high }
   const kitchenCost = (!isFurniture && r.kitchen) ? { low: r.kitchen.low, high: r.kitchen.high } : { low: 0, high: 0 }
   const receptionCost = (!isFurniture && r.reception) ? { low: r.reception.low, high: r.reception.high } : { low: 0, high: 0 }
   const avCost = (!isFurniture && r.av) ? { low: r.av.low, high: r.av.high } : { low: 0, high: 0 }
-  const subLow = base.low + furniture.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
-  const subHigh = base.high + furniture.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
+  // Furniture-only: split desk rate into Workstations (45%), Seating (35%), Accessories (20%)
+  const furnWkst = { low: Math.round(deskRate.low * 0.45), high: Math.round(deskRate.high * 0.45) }
+  const furnSeat = { low: Math.round(deskRate.low * 0.35), high: Math.round(deskRate.high * 0.35) }
+  const furnAcc  = { low: Math.round(deskRate.low * 0.20), high: Math.round(deskRate.high * 0.20) }
+  const subLow = base.low + deskRate.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
+  const subHigh = base.high + deskRate.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
   const totalLow = Math.round(subLow * (1 + r.contingency))
   const totalHigh = Math.round(subHigh * (1 + r.contingency))
   const constructionLabel = isFurniture ? null : rateKey === 'turnkey-cold' ? 'Construction fitout (cold shell)' : 'Construction fitout (warm shell)'
   return {
     breakdown: [
       ...(constructionLabel ? [{ label: constructionLabel, low: base.low, high: base.high }] : []),
-      { label: isFurniture ? 'Furniture supply & installation' : 'Workstations & seating', low: furniture.low, high: furniture.high },
+      // Furniture-only: show granular breakdown
+      ...(isFurniture ? [
+        { label: 'Workstations', low: furnWkst.low, high: furnWkst.high },
+        { label: 'Seating',      low: furnSeat.low, high: furnSeat.high },
+        { label: 'Accessories',   low: furnAcc.low,  high: furnAcc.high  },
+      ] : [
+        { label: 'Workstations & seating', low: deskRate.low, high: deskRate.high },
+      ]),
       { label: 'Meeting rooms', low: meetingCost.low, high: meetingCost.high },
       ...(kitchenCost.low > 0 ? [{ label: 'Kitchen / breakout', low: kitchenCost.low, high: kitchenCost.high }] : []),
       ...(receptionCost.low > 0 ? [{ label: 'Reception area', low: receptionCost.low, high: receptionCost.high }] : []),
