@@ -90,9 +90,9 @@ export default function ApprovalsTab({ onCountChange }: { onCountChange?: (n: nu
               </div>
             </div>
             {isExp && (
-              <div style={{ borderTop: `1px solid ${C.border}`, padding: '1rem 1.25rem', background: 'rgba(0,0,0,0.2)' }}>
-                <pre style={{ margin: 0, fontSize: '0.78rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.7)', whiteSpace: 'pre-wrap', fontFamily: 'inherit' }}>
-                  {content.slice(0, 2000)}{content.length > 2000 ? '...' : ''}
+              <div style={{ borderTop: `1px solid ${C.border}`, background: 'rgba(0,0,0,0.2)', maxHeight: item.type === 'blog-post' ? '70vh' : '50vh', overflowY: 'auto' }}>
+                <pre style={{ margin: 0, padding: '1rem 1.25rem', fontSize: '0.78rem', lineHeight: 1.8, color: 'rgba(255,255,255,0.75)', whiteSpace: 'pre-wrap', fontFamily: 'inherit' }}>
+                  {content}
                 </pre>
               </div>
             )}
