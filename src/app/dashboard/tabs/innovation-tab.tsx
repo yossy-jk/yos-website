@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 const C = { teal: '#00B5A5', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', purple: '#8b5cf6', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
 
@@ -11,11 +11,17 @@ export default function InnovationTab() {
   const [data, setData] = useState<Record<string, unknown> | null>(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false) }).catch(() => setLoading(false))
+  const [refreshing, setRefreshing] = useState(false)
+  const load = useCallback(() => {
+    setRefreshing(true)
+    fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false); setRefreshing(false) }).catch(() => { setLoading(false); setRefreshing(false) })
   }, [])
+  useEffect(() => { load() }, [load])
 
-  if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center' }}>Loading innovation data...</div>
+  if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+    <div>Loading innovation data...</div>
+    <button onClick={load} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.3)', fontSize: '0.6rem', padding: '0.3rem 0.75rem', cursor: 'pointer', borderRadius: 4, letterSpacing: '0.1em', textTransform: 'uppercase' }}>↺ Refresh</button>
+  </div>
 
   // Parse pending approvals
   const pending = (data?.pending as string) || ''

@@ -40,7 +40,7 @@ async function getDeals() {
           { propertyName: 'dealstage', operator: 'NEQ', value: '2455891419' },
         ]}],
         properties: [
-          'dealname','dealstage','amount','closedate',
+          'dealname','dealstage','amount','closedate','createdate',
           'hs_lastmodifieddate','hubspot_owner_id',
           'notes_last_updated',  // last note/email/call logged
           'hs_object_id',
@@ -79,7 +79,8 @@ async function getDeals() {
         daysToClose,
         daysSinceMod: Math.floor((now - lastMod) / 86400000),
         daysSinceTouch,           // <-- new: any contact logged
-        lastTouchDate: lastTouchISO, // <-- new: when was last touch
+        lastTouchDate: lastTouchISO,
+        createdDate: p.createdate || null,
         isStale,
         isQuoteQuiet,             // <-- new: >48hrs, needs action
         isOverdue,
@@ -180,6 +181,8 @@ type DealItem = {
   id: string; name: string; stage: string; stageId: string; amount: number
   closeDate: string | null; daysToClose: number | null
   daysSinceMod: number; daysSinceTouch: number; lastTouchDate: string | null
+  createdDate: string | null
+
   isStale: boolean; isQuoteQuiet: boolean; isOverdue: boolean; isUrgent: boolean
   benchmarkDays: number; isOverBenchmark: boolean
 }
@@ -282,6 +285,29 @@ export async function GET(req: Request) {
     })
   }
 
+  // Stage velocity: avg days-in-stage for open deals
+  const stageDaysMap: Record<string, number[]> = {}
+  const nowMs = Date.now()
+  for (const d of deals) {
+    if (!d.createdDate) continue
+    const created = new Date(d.createdDate).getTime()
+    if (!created) continue
+    const days = Math.floor((nowMs - created) / 86400000)
+    if (!stageDaysMap[d.stageId]) stageDaysMap[d.stageId] = []
+    stageDaysMap[d.stageId].push(days)
+  }
+  const stageVelocity = STAGE_ORDER.map(sid => {
+    const days = stageDaysMap[sid] || []
+    const avg = days.length ? Math.round(days.reduce((a, b) => a + b, 0) / days.length) : null
+    return {
+      stageId: sid,
+      stage: STAGE_LABELS[sid] || sid,
+      avgDaysInStage: avg,
+      dealCount: days.length,
+      benchmarkDays: STAGE_BENCHMARK[sid] ?? 7,
+    }
+  })
+
   return NextResponse.json({
     generatedAt: new Date().toISOString(),
     priorities,
@@ -294,6 +320,7 @@ export async function GET(req: Request) {
       overdueCount: overdueInvoices.length,
       outstandingCount: invoices.filter(i => String(i.Type || '') === 'ACCREC').length,
     },
-    cashflow,  // <-- new
+    cashflow,
+    stageVelocity,
   })
 }
