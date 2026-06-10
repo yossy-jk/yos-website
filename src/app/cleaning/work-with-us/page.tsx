@@ -10,7 +10,9 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning/work-with-us' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Commission Sales Partners — Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Commission Sales Partners — Your Office Space',
     description: 'Earn serious commission selling commercial cleaning and office furniture in Newcastle and the Hunter Valley. No base, no cap.',
     url: 'https://yourofficespace.au/cleaning/work-with-us',
     siteName: 'Your Office Space',

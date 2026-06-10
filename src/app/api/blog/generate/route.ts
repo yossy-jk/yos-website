@@ -158,9 +158,26 @@ Reference: Hunter region, Newcastle market, Class 2 real estate licence, commerc
 ## 6. FAQ SECTION (required)
 End with "## Frequently Asked Questions" + 4-5 questions with 2-3 sentence answers each. Questions genuine to the article content.
 
-## 7. LENGTH: 1200-1500 words
+## 7. INTERNAL LINKS (required — minimum 3)
+Include exactly 3 or more HTML anchor links to other pages on yourofficespace.au, embedded naturally within the body text. Do NOT list them at the end — weave them into relevant paragraphs. Examples:
+- <a href="https://yourofficespace.au/furniture">office furniture</a>
+- <a href="https://yourofficespace.au/resources/fitout-estimator">fitout cost estimator</a>
+- <a href="https://yourofficespace.au/contact">speak with our team</a>
+- <a href="https://yourofficespace.au/furniture/workstations">commercial workstations</a>
+- <a href="https://yourofficespace.au/resources/commercial-property-valuation">property valuation</a>
+- <a href="https://yourofficespace.au/tenant-rep">tenant representation</a>
+Use 3 or more links relevant to the article topic. All links must point to yourofficespace.au pages.
 
-## 8. OUTPUT FORMAT
+
+## 8. CALL TO ACTION (required — bottom of page)
+End the article with a short, natural closing paragraph that includes a call to action linking to a relevant yourofficespace.au page. Example:
+"If you'd like a fixed-price quote for your commercial fitout, <a href="https://yourofficespace.au/resources/fitout-estimator">use our free estimator</a> or <a href="https://yourofficespace.au/contact">get in touch</a> to speak with our team."
+Do not put the CTA in a separate box or heading — integrate it naturally into the final paragraph.
+
+
+## 9. LENGTH: 1200-1500 words
+
+## 10. OUTPUT FORMAT
 Output ONLY valid JSON. No code fences. No explanation.
 {"title":"...","metaDescription":"...","excerpt":"...","content":"...","tags":["..."]}
 

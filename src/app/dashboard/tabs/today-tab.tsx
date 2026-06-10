@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState, JSX } from 'react'
+import { useEffect, useState, useCallback, JSX } from 'react'
 
 const TEAL = '#00B5A5'
 const RED = '#ef4444'

@@ -11,9 +11,10 @@ type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
 const RATES: Record<FitoutTypeKey, Record<string, any>> = {
   'furniture-only': {
     // Rate spread: ~30% max (low to high). Updated 2026-06-08 — Joe approved target 10-30%.
-    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, contingency: 0.15 },
+    // Meeting rooms: flat $2000–$3000 per room (furniture path only — Joe 2026-06-08).
+    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 715  }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.10 },
+    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.10 },
+    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.15 },
   },
   'turnkey-warm': {
     // Warm shell: base build already in place (floors, ceilings, services), less work
@@ -70,20 +71,31 @@ function calcEstimate(inputs: Inputs) {
   const base = isFurniture
     ? { low: 0, high: 0 }
     : { low: sqm * (r.sqm?.low ?? 0), high: sqm * (r.sqm?.high ?? 0) }
-  const furniture = { low: desks * r.desk.low * ehaMult, high: desks * r.desk.high * ehaMult }
+  const deskRate = { low: desks * r.desk.low * ehaMult, high: desks * r.desk.high * ehaMult }
   const meetingCost = { low: meetings * r.meetingRoom.low, high: meetings * r.meetingRoom.high }
   const kitchenCost = (!isFurniture && r.kitchen) ? { low: r.kitchen.low, high: r.kitchen.high } : { low: 0, high: 0 }
   const receptionCost = (!isFurniture && r.reception) ? { low: r.reception.low, high: r.reception.high } : { low: 0, high: 0 }
   const avCost = (!isFurniture && r.av) ? { low: r.av.low, high: r.av.high } : { low: 0, high: 0 }
-  const subLow = base.low + furniture.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
-  const subHigh = base.high + furniture.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
+  // Furniture-only: split desk rate into Workstations (45%), Seating (35%), Accessories (20%)
+  const furnWkst = { low: Math.round(deskRate.low * 0.45), high: Math.round(deskRate.high * 0.45) }
+  const furnSeat = { low: Math.round(deskRate.low * 0.35), high: Math.round(deskRate.high * 0.35) }
+  const furnAcc  = { low: Math.round(deskRate.low * 0.20), high: Math.round(deskRate.high * 0.20) }
+  const subLow = base.low + deskRate.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
+  const subHigh = base.high + deskRate.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
   const totalLow = Math.round(subLow * (1 + r.contingency))
   const totalHigh = Math.round(subHigh * (1 + r.contingency))
   const constructionLabel = isFurniture ? null : rateKey === 'turnkey-cold' ? 'Construction fitout (cold shell)' : 'Construction fitout (warm shell)'
   return {
     breakdown: [
       ...(constructionLabel ? [{ label: constructionLabel, low: base.low, high: base.high }] : []),
-      { label: isFurniture ? 'Furniture supply & installation' : 'Workstations & seating', low: furniture.low, high: furniture.high },
+      // Furniture-only: show granular breakdown
+      ...(isFurniture ? [
+        { label: 'Workstations', low: furnWkst.low, high: furnWkst.high },
+        { label: 'Seating',      low: furnSeat.low, high: furnSeat.high },
+        { label: 'Accessories',   low: furnAcc.low,  high: furnAcc.high  },
+      ] : [
+        { label: 'Workstations & seating', low: deskRate.low, high: deskRate.high },
+      ]),
       { label: 'Meeting rooms', low: meetingCost.low, high: meetingCost.high },
       ...(kitchenCost.low > 0 ? [{ label: 'Kitchen / breakout', low: kitchenCost.low, high: kitchenCost.high }] : []),
       ...(receptionCost.low > 0 ? [{ label: 'Reception area', low: receptionCost.low, high: receptionCost.high }] : []),
@@ -114,6 +126,9 @@ const SCHEMA = {
 }
 export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)
+  const [hasResult, setHasResult] = useState(false)
+  const [storedEstimate, setStoredEstimate] = useState<ReturnType<typeof calcEstimate>>(null)
+  const [stepError, setStepError] = useState('')
   const [inputs, setInputs] = useState<Inputs>({
     fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
@@ -263,7 +278,7 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(isFurnitureOnly ? 4 : 3)} disabled={!canProceed()}
+                <button onClick={() => setStep(2)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
@@ -405,7 +420,7 @@ export default function FitoutEstimatorPage() {
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', borderRadius: '0.5rem', minWidth: '12rem', minHeight: '52px' }}>
                   Next →
                 </button>
-                <button onClick={() => setStep(getBack(3))} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
+                <button onClick={() => setStep(getBack(4))} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
           )}
@@ -494,8 +509,8 @@ export default function FitoutEstimatorPage() {
             <div className="max-w-xl">
               <div className="flex flex-col" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
-                  { key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' },
-                  { key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' },
+                  ...(isFurnitureOnly ? [] : [{ key: 'hasKitchen' as const, label: 'Kitchen / breakout area', desc: 'Benchtop, sink, appliances, storage' }]),
+                  ...(isFurnitureOnly ? [] : [{ key: 'hasReception' as const, label: 'Reception area', desc: 'Entry desk, feature wall, visitor seating' }]),
                   { key: 'hasAV' as const, label: 'AV & integrated technology', desc: 'Screens, conferencing, cabling and control' },
                 ].map(item => (
                   <button key={item.key} onClick={() => set(item.key, !inputs[item.key])}
@@ -514,11 +529,19 @@ export default function FitoutEstimatorPage() {
                 ))}
               </div>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
-                <button onClick={() => setStep(maxStep + 1)}
+                <button onClick={() => {
+                  const result = calcEstimate(inputs)
+                  if (!result) { setStepError('Please fill in all required fields above.'); return }
+                  setStepError('')
+                  setStoredEstimate(result)
+                  setStep(maxStep)
+                  setHasResult(true)
+                }}
                   className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
                   style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
                   Show my estimate →
                 </button>
+                {stepError && <p style={{ color: '#FF6B6B', fontSize: '0.82rem', marginTop: '0.75rem' }}>{stepError}</p>}
                 <button onClick={() => getBack(7) >= 0 ? setStep(getBack(7)) : undefined} className="text-white/30 hover:text-white/60 transition-colors" style={{ fontSize: '0.82rem', letterSpacing: '0.05em' }}>← Back</button>
               </div>
             </div>
@@ -562,6 +585,108 @@ export default function FitoutEstimatorPage() {
                       </span>
                     </div>
                   ))}
+=======
+          {/* ── RESULT — always visible once generated ── */}
+          {(step >= maxStep || hasResult) && hasResult && inputs.tier && storedEstimate && (
+            <div className="max-w-2xl">
+            {/* Back button */}
+            {step > maxStep && getBack(step) >= 0 && (
+              <button onClick={() => setStep(getBack(step))}
+                className="text-white/40 hover:text-white/70 transition-colors font-light mb-8"
+                style={{ fontSize: '0.82rem', letterSpacing: '0.05em', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                ← Back
+              </button>
+            )}
+            {/* Estimate header */}
+            <div style={{ marginBottom: '2.5rem' }}>
+              <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.65rem' }}>
+                {inputs.sqm}m2 &nbsp;·&nbsp; {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
+              </p>
+              <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
+                {fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}
+              </h2>
+              <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
+                {fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
+              </p>
+            </div>
+            {/* Cost breakdown table */}
+            <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '2rem' }}>
+              {storedEstimate!.breakdown.map((row, i) => (
+                <div key={i}
+                  className={`flex justify-between items-center ${i < storedEstimate!.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
+                  style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(0,181,165,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
+                  <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
+                  <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
+                    {fmt(row.low)} &ndash; {fmt(row.high)}
+                  </span>
+                </div>
+              ))}
+            </div>
+            {/* Coverage note */}
+            {storedEstimate!.coverageNote && (
+              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
+                {storedEstimate!.coverageNote}
+              </p>
+            )}
+            {/* Disclaimer */}
+            <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
+              Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
+            </p>
+            {/* Email capture — send them the full breakdown */}
+            <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
+              <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
+              <h3 className="text-white font-black uppercase mb-2" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
+                Get the full breakdown by email
+              </h3>
+              <p className="text-white/45 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '32rem' }}>
+                We'll email you a branded 1-page report with your complete cost breakdown, line by line, plus next steps.
+              </p>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  const form = e.currentTarget
+                  const name = (form.elements.namedItem('name') as HTMLInputElement)?.value
+                  const email = (form.elements.namedItem('email') as HTMLInputElement)?.value
+                  if (!name || !email) return
+                  try {
+                    await fetch('/api/fitout-report', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        name, email,
+                        sqm: inputs.sqm,
+                        tier: ((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
+                        desks: inputs.desks,
+                        meetingRooms: inputs.meetingRooms,
+                        hasKitchen: inputs.hasKitchen,
+                        hasReception: inputs.hasReception,
+                        hasAV: inputs.hasAV,
+                        totalLow: storedEstimate!.totalLow,
+                        totalHigh: storedEstimate!.totalHigh,
+                        perSqmLow: storedEstimate!.perSqm.low,
+                        perSqmHigh: storedEstimate!.perSqm.high,
+                        breakdown: storedEstimate!.breakdown,
+                      }),
+                    })
+                    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
+                    if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
+                  } catch {}
+                }}
+                noValidate
+                style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
+              >
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                  <input
+                    type="text" name="name" placeholder="First name" autoComplete="given-name"
+                    required
+                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                  />
+                  <input
+                    type="email" name="email" placeholder="Work email" autoComplete="email"
+                    required
+                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                  />
+>>>>>>> origin/main
                 </div>
                 {/* Coverage note */}
                 {result.coverageNote && (
@@ -657,9 +782,32 @@ export default function FitoutEstimatorPage() {
                   style={{ fontSize: '0.8rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
                   ← Start again
                 </button>
-              </div>
-            )
-          })()}
+              </form>
+            </div>
+            {/* CTA — Book a consultation */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
+              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
+                style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
+                Book a Fitout Consultation &nbsp;→
+              </a>
+              <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
+                30-minute call. Fixed-price proposal. No obligation.
+              </p>
+            </div>
+            {/* Secondary link */}
+            <Link href="/furniture"
+              className="text-white/40 hover:text-white/70 no-underline transition-colors font-light"
+              style={{ fontSize: '0.8rem', letterSpacing: '0.05em', display: 'inline-block', marginBottom: '3rem' }}>
+              View our furniture & fitout services &rarr;
+            </Link>
+            {/* Start again */}
+            <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
+              className="block text-white/25 hover:text-white/50 transition-colors font-light"
+              style={{ fontSize: '0.8rem', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+              ← Start again
+            </button>
+          )}
         </div>
       </div>
           {/* ── SECTION 1: THE FITOUT PROCESS (dark) ── */}

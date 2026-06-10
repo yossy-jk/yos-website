@@ -21,7 +21,9 @@ export const metadata = {
   twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Free lease checker, fitout estimator, stamp duty and yield calculators for Australian business owners.' },
   alternates: { canonical: 'https://www.yourofficespace.au/resources' },
   openGraph: {
-    title: 'Resources & Insights | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Resources & Insights | Your Office Space',
     description: 'Free tools, calculators and market insights for Australian business owners. Lease checker, fitout estimator, stamp duty calculator and more.',
     url: 'https://yourofficespace.au/resources',
     siteName: 'Your Office Space',

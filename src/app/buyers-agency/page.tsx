@@ -13,7 +13,9 @@ export const metadata = {
   twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
   alternates: { canonical: 'https://www.yourofficespace.au/buyers-agency' },
   openGraph: {
-    title: 'Commercial Buyers Agency | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Commercial Buyers Agency | Your Office Space',
     description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
   twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
     url: 'https://yourofficespace.au/buyers-agency',

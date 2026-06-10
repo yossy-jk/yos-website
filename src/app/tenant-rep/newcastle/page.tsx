@@ -11,7 +11,9 @@ export const metadata: Metadata = {
   description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants — never landlords. Free initial consultation. Call 0434 655 511.',
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep/newcastle' },
   openGraph: {
-    title: 'Tenant Rep Newcastle | Your Office Space',
+    
+  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+title: 'Tenant Rep Newcastle | Your Office Space',
     description: 'Expert commercial tenant representation in Newcastle. Better terms, no conflicts, always working for tenants.',
     url: 'https://yourofficespace.au/tenant-rep/newcastle',
     siteName: 'Your Office Space',
