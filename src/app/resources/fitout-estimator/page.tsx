@@ -629,28 +629,45 @@ export default function FitoutEstimatorPage() {
             <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
               Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
             </p>
-            {/* Email capture — send them the full breakdown */}
+            {/* Email capture — teaser summary, then email ask */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
               <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
-              <h3 className="text-white font-black uppercase mb-2" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
-                Get the full breakdown by email
+              <h3 className="text-white font-black uppercase mb-4" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
+                Here's the picture so far
               </h3>
-              <p className="text-white/45 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '1.75rem', maxWidth: '32rem' }}>
-                We'll email you a branded 1-page report with your complete cost breakdown, line by line, plus next steps.
+              {/* Teaser summary */}
+              <div style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '0.75rem', padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '1.5rem' }}>
+                  <div>
+                    <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Total estimate</p>
+                    <p className="text-white font-black" style={{ fontSize: 'clamp(1.1rem,3vw,1.5rem)', lineHeight: 1.1 }}>{fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Per m2</p>
+                    <p className="text-white font-semibold" style={{ fontSize: '1rem' }}>{fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)}</p>
+                  </div>
+                  <div>
+                    <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Contingency</p>
+                    <p className="text-white font-semibold" style={{ fontSize: '1rem' }}>{Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% included</p>
+                  </div>
+                </div>
+              </div>
+              <p className="text-white/50 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.75, maxWidth: '34rem' }}>
+                Drop your email and we'll send you a branded one-page report with the full line-by-line breakdown, what's included, and what comes next — no pitch, no follow-up unless you ask.
               </p>
               <form
                 onSubmit={async (e) => {
                   e.preventDefault()
                   const form = e.currentTarget
-                  const name = (form.elements.namedItem('name') as HTMLInputElement)?.value
                   const email = (form.elements.namedItem('email') as HTMLInputElement)?.value
-                  if (!name || !email) return
+                  if (!email) return
                   try {
                     await fetch('/api/fitout-report', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({
-                        name, email,
+                        name: '',
+                        email,
                         sqm: inputs.sqm,
                         tier: ((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
                         desks: inputs.desks,
@@ -672,21 +689,14 @@ export default function FitoutEstimatorPage() {
                 noValidate
                 style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
               >
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
-                  <input
-                    type="text" name="name" placeholder="First name" autoComplete="given-name"
-                    required
-                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
-                  />
-                  <input
-                    type="email" name="email" placeholder="Work email" autoComplete="email"
-                    required
-                    style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
-                  />
-                </div>
+                <input
+                  type="email" name="email" placeholder="Your work email" autoComplete="email"
+                  required
+                  style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                />
                 <button type="submit"
                   style={{ background: '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
-                  Send me the full breakdown &rarr;
+                  Send me the full report &rarr;
                 </button>
               </form>
             </div>
