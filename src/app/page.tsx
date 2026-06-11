@@ -132,7 +132,7 @@ export default function Home() {
           <span className="text-near-black font-bold text-xs tracking-widest uppercase">Free for Newcastle businesses</span>
           <span className="text-near-black/60 text-xs hidden sm:inline">—</span>
           <span className="text-near-black font-light text-xs">Get a professional lease review in 24 hours. Spots limited.</span>
-          <Link href="/lease-review" className="text-near-black font-bold text-xs underline underline-offset-2 hover:opacity-70 transition-opacity no-underline" style={{ textDecoration: 'underline' }}>Claim yours →</Link>
+          <Link href="/contact" className="text-near-black font-bold text-xs underline underline-offset-2 hover:opacity-70 transition-opacity no-underline" style={{ textDecoration: 'underline' }}>Now Working With New Clients →</Link>
         </div>
       </div>
 

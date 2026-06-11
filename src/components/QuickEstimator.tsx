@@ -2,10 +2,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 
+// Rates mirror fitout-estimator's turnkey-warm sqm bands (see RATES in
+// /resources/fitout-estimator/page.tsx) so the homepage slider and the
+// detailed estimator never diverge. Excludes furniture/FF&E, AV & IT —
+// those are priced separately in the full breakdown.
 const TIERS = [
-  { label: 'Basic', min: 800, max: 1200, desc: 'Functional, clean finish', highlight: false },
-  { label: 'Midrange', min: 1400, max: 2000, desc: 'Professional standard', highlight: true },
-  { label: 'Premium', min: 2500, max: 4000, desc: 'High-spec, bespoke', highlight: false },
+  { label: 'Basic', min: 600, max: 780, desc: 'Functional, clean finish', highlight: false },
+  { label: 'Midrange', min: 900, max: 1170, desc: 'Professional standard', highlight: true },
+  { label: 'Premium', min: 1200, max: 1560, desc: 'High-spec, bespoke', highlight: false },
 ]
 
 export default function QuickEstimator() {
@@ -22,7 +26,7 @@ export default function QuickEstimator() {
           Newcastle rates
         </span>
       </div>
-      <p className="text-mid-grey text-xs mb-7 font-light">Drag to estimate — April 2026 market rates</p>
+      <p className="text-mid-grey text-xs mb-7 font-light">Drag to estimate — current NSW market rates</p>
 
       <div className="mb-8">
         <div className="flex justify-between items-baseline mb-4">

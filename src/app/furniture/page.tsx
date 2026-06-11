@@ -11,7 +11,7 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
-import FurniturePopup from '@/components/FurniturePopup'
+
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
@@ -170,6 +170,12 @@ export default function FurniturePage() {
                 style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em', padding: '1.1rem 3rem' }}>
                 <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
                 Fit Out Cost Estimator
+              </a>
+              <a href="/resources/fitout-estimator"
+                className="inline-flex items-center gap-2 text-white font-bold border border-teal/40 bg-teal/10 rounded-none no-underline hover:border-teal/80 hover:bg-teal/20 transition-colors"
+                style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em', padding: '1.1rem 3rem' }}>
+                <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" /></svg>
+                Office Furniture Calculator
               </a>
             </div>
           </FadeIn>
@@ -564,8 +570,7 @@ export default function FurniturePage() {
         </FadeIn>
       </section>
 
-      <FurniturePopup />
-      <BookingCTA label="Book a Free Consultation" />
+<BookingCTA label="Book a Free Consultation" />
       <Footer />
     </>
   )
