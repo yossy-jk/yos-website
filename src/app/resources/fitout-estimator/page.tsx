@@ -67,7 +67,7 @@ function calcEstimate(inputs: Inputs) {
   const sqm = parseFloat(inputs.sqm) || 0
   const desks = parseInt(inputs.desks) || 0
   const meetings = parseInt(inputs.meetingRooms) || 0
-  const ehaMult = inputs.workstationType === 'eha' ? 1.45 : 1.0
+  const ehaMult = inputs.workstationType === 'eha' ? 1.25 : 1.0
   const base = isFurniture
     ? { low: 0, high: 0 }
     : { low: sqm * (r.sqm?.low ?? 0), high: sqm * (r.sqm?.high ?? 0) }
@@ -81,8 +81,10 @@ function calcEstimate(inputs: Inputs) {
   const furnWkst = { low: Math.round(deskRate.low * 0.45), high: Math.round(deskRate.high * 0.45) }
   const furnSeat = { low: Math.round(deskRate.low * 0.35), high: Math.round(deskRate.high * 0.35) }
   const furnAcc  = { low: Math.round(deskRate.low * 0.20), high: Math.round(deskRate.high * 0.20) }
-  const subLow = base.low + deskRate.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
-  const subHigh = base.high + deskRate.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
+  // Delivery & Install — 5% of furniture/desk supply value (Joe, 2026-06-11)
+  const deliveryCost = { low: Math.round(deskRate.low * 0.05), high: Math.round(deskRate.high * 0.05) }
+  const subLow = base.low + deskRate.low + deliveryCost.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
+  const subHigh = base.high + deskRate.high + deliveryCost.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
   const totalLow = Math.round(subLow * (1 + r.contingency))
   const totalHigh = Math.round(subHigh * (1 + r.contingency))
   const constructionLabel = isFurniture ? null : rateKey === 'turnkey-cold' ? 'Construction fitout (cold shell)' : 'Construction fitout (warm shell)'
@@ -97,6 +99,7 @@ function calcEstimate(inputs: Inputs) {
       ] : [
         { label: 'Workstations & seating', low: deskRate.low, high: deskRate.high },
       ]),
+      { label: 'Delivery & install', low: deliveryCost.low, high: deliveryCost.high },
       ...(!isFurniture ? [{ label: 'Meeting rooms', low: meetingCost.low, high: meetingCost.high }] : []),
       ...(kitchenCost.low > 0 ? [{ label: 'Kitchen / breakout', low: kitchenCost.low, high: kitchenCost.high }] : []),
       ...(receptionCost.low > 0 ? [{ label: 'Reception area', low: receptionCost.low, high: receptionCost.high }] : []),
@@ -111,6 +114,9 @@ function calcEstimate(inputs: Inputs) {
       : rateKey === 'turnkey-cold'
       ? 'Cold shell condition assumed. Base build services and ceiling works are included.'
       : 'Warm shell condition assumed. Base build services already in place.',
+    joineryNote: isFurniture
+      ? 'If your fitout includes built-in joinery or custom storage (reception desks, kitchenettes, bookshelves), budget an additional 25-35% on top of this estimate. Speak to us for a joinery quote alongside your furniture package.'
+      : null,
   }
 }
 const SCHEMA = {
@@ -585,8 +591,14 @@ export default function FitoutEstimatorPage() {
             </div>
             {/* Coverage note */}
             {storedEstimate!.coverageNote && (
-              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
+              <p className="text-white/40 font-light mb-4" style={{ fontSize: '0.8rem', lineHeight: 1.7 }}>
                 {storedEstimate!.coverageNote}
+              </p>
+            )}
+            {/* Joinery note — furniture-only, informational, not included in total */}
+            {storedEstimate!.joineryNote && (
+              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7, fontStyle: 'italic' }}>
+                {storedEstimate!.joineryNote}
               </p>
             )}
             {/* Disclaimer */}
