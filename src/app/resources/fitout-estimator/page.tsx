@@ -576,6 +576,30 @@ export default function FitoutEstimatorPage() {
                 {fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
               </p>
             </div>
+            {/* Inputs summary */}
+            <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '1.25rem' }}>
+              <div style={{ padding: '0.875rem 1.75rem', background: 'rgba(0,181,165,0.06)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                <p className="text-teal font-semibold uppercase tracking-[0.2em]" style={{ fontSize: '0.6rem' }}>Your brief</p>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0' }}>
+                {[
+                  { label: 'Fitout type', value: isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell') },
+                  { label: 'Area', value: `${inputs.sqm}m2` },
+                  { label: 'Workstations', value: `${inputs.desks} desk${parseInt(inputs.desks) !== 1 ? 's' : ''}` },
+                  { label: 'Desk type', value: inputs.workstationType === 'eha' ? 'EHA (standing)' : 'Standard' },
+                  ...(!isFurnitureOnly ? [{ label: 'Meeting rooms', value: `${inputs.meetingRooms} room${parseInt(inputs.meetingRooms) !== 1 ? 's' : ''}` }] : []),
+                  ...(inputs.hasKitchen ? [{ label: 'Kitchen', value: 'Included' }] : []),
+                  ...(inputs.hasReception ? [{ label: 'Reception', value: 'Included' }] : []),
+                  ...(inputs.hasAV ? [{ label: 'AV & tech', value: 'Included' }] : []),
+                ].map(item => (
+                  <div key={item.label} style={{ padding: '1rem 1.75rem', borderRight: '1px solid rgba(255,255,255,0.08)' }}>
+                    <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>{item.label}</p>
+                    <p className="text-white font-semibold" style={{ fontSize: '0.85rem' }}>{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Cost breakdown table */}
             <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '2rem' }}>
               {storedEstimate!.breakdown.map((row, i) => (
