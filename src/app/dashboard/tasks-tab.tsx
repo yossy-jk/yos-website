@@ -234,25 +234,29 @@ export default function TasksTab() {
   const [addingTask, setAddingTask] = useState(false)
   const [newTask, setNewTask] = useState({ title:'', due_date:'', priority:'2', source:'manual', description:'' })
 
-  const load = useCallback(async () => {
-    setLoading(true)
-    try {
-      const res = await fetch('/api/tasks-data')
-      const d = await res.json() as TasksData
-      setData(d)
-    } catch { setData(null) }
-    setLoading(false)
-  }, [])
+  const [loadKey, setLoadKey] = useState(0)
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    let cancelled = false
+    setLoading(true)
+    fetch('/api/tasks-data').then(r => r.json()).then(d => {
+      if (!cancelled) { setData(d as TasksData); setLoading(false) }
+    }).catch(() => { if (!cancelled) { setData(null); setLoading(false) } })
+    return () => { cancelled = true }
+  }, [loadKey])
+
+  const load = useCallback(() => setLoadKey(k => k + 1), [])
 
   const apiAction = async (taskId: string, action: string, extra: Record<string, unknown> = {}) => {
-    await fetch('/api/tasks-data', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ taskId, action, ...extra }) })
-    load()
+    const res = await fetch('/api/tasks-data', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ taskId, action, ...extra }),
+    })
+    if (res.ok) load()
   }
 
-  const complete = (taskId: string) => {
-    const note = window.prompt('Add a completion note (optional):')
+  const complete = (taskId: string, note?: string) => {
     apiAction(taskId, 'complete', { completionNote: note || '' })
   }
 
@@ -367,7 +371,7 @@ export default function TasksTab() {
           onStandby={() => setStandbyFor(task)}
           onUnstandby={() => apiAction(task.id, 'unstandby')}
           onDelegate={task.can_delegate ? () => setDelegateFor(task) : undefined}
-          onSaveNotes={(notes) => apiAction(task.id, 'save-notes', { notes })}
+          onSaveNotes={(notes) => apiAction(task.id, 'save-notes', { completionNote: notes })}
         />
       ))}
 
