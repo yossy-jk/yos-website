@@ -7,9 +7,9 @@ import Link from 'next/link'
 // detailed estimator never diverge. Excludes furniture/FF&E, AV & IT —
 // those are priced separately in the full breakdown.
 const TIERS = [
-  { label: 'Basic', min: 600, max: 780, desc: 'Functional, clean finish', highlight: false },
-  { label: 'Midrange', min: 900, max: 1170, desc: 'Professional standard', highlight: true },
-  { label: 'Premium', min: 1200, max: 1560, desc: 'High-spec, bespoke', highlight: false },
+  { label: 'Basic', min: 600, max: 780, desc: 'Functional, clean finish', highlight: false, contingency: 0.10 },
+  { label: 'Midrange', min: 900, max: 1170, desc: 'Professional standard', highlight: true, contingency: 0.10 },
+  { label: 'Premium', min: 1200, max: 1560, desc: 'High-spec, bespoke', highlight: false, contingency: 0.15 },
 ]
 
 export default function QuickEstimator() {
@@ -61,8 +61,8 @@ export default function QuickEstimator() {
 
       <div className="grid grid-cols-3 gap-2 mb-6">
         {TIERS.map(tier => {
-          const lo = Math.round((tier.min * sqm) / 1000)
-          const hi = Math.round((tier.max * sqm) / 1000)
+          const lo = Math.round((tier.min * sqm * (1 + tier.contingency)) / 1000)
+          const hi = Math.round((tier.max * sqm * (1 + tier.contingency)) / 1000)
           return (
             <div
               key={tier.label}
