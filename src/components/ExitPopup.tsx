@@ -10,14 +10,18 @@ export default function ExitPopup() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const triggered = useRef(false)
+  const canTrigger = useRef(false)
 
   useEffect(() => {
-    // Don't show if already seen this session
+    // Don't show if already dismissed this session
     if (sessionStorage.getItem('exit-popup-dismissed')) return
 
+    // Activate trigger after 30 seconds on page
+    const timer = setTimeout(() => { canTrigger.current = true }, 30000)
+
     const handleMouseLeave = (e: MouseEvent) => {
-      // Trigger when mouse moves toward top of viewport (exiting toward tab bar)
-      if (e.clientY <= 20 && !triggered.current && !dismissed) {
+      // Trigger when mouse moves toward top of viewport (exit intent)
+      if (e.clientY <= 20 && !triggered.current && !dismissed && canTrigger.current) {
         triggered.current = true
         setVisible(true)
       }
@@ -25,7 +29,7 @@ export default function ExitPopup() {
 
     // Mobile: trigger on back button / visibility change
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden' && !triggered.current && !dismissed) {
+      if (document.visibilityState === 'hidden' && !triggered.current && !dismissed && canTrigger.current) {
         triggered.current = true
         setVisible(true)
       }
@@ -35,6 +39,7 @@ export default function ExitPopup() {
     document.addEventListener('visibilitychange', handleVisibilityChange)
 
     return () => {
+      clearTimeout(timer)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
