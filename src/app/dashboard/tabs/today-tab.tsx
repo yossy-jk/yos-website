@@ -147,7 +147,7 @@ export default function TodayTab(): JSX.Element {
 
       {/* COO Brief */}
       <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderLeft: `3px solid ${TEAL}`, borderRadius: 8, padding: '1.25rem' }}>
-        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>⚡ COO Morning Brief</p>
+        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>COO Morning Brief</p>
         {briefLines.length > 0 ? (
           <div style={{ fontSize: '0.8rem', lineHeight: 1.7, color: 'rgba(255,255,255,0.8)' }}>
             {briefLines.map((line: string, i: number) => (
@@ -163,7 +163,7 @@ export default function TodayTab(): JSX.Element {
 
       {/* Top 3 Tasks */}
       <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderLeft: `3px solid ${TEAL}`, borderRadius: 8, padding: '1.25rem' }}>
-        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>⚡ Win Today — Top 3 Priorities</p>
+        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>Win Today — Top 3 Priorities</p>
         {todayTasks.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {todayTasks.map((t: TaskItem, i: number) => (
@@ -183,7 +183,7 @@ export default function TodayTab(): JSX.Element {
                     window.location.reload()
                   }}
                   style={{ background: GREEN, border: 'none', borderRadius: 4, padding: '0.35rem 0.875rem', color: 'white', fontSize: '0.65rem', fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>
-                  ✓ Done
+                  Done
                 </button>
               </div>
             ))}
@@ -196,7 +196,7 @@ export default function TodayTab(): JSX.Element {
       {/* Calendar */}
       {data?.events && data.events.length > 0 && (
         <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderRadius: 8, padding: '1.25rem' }}>
-          <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>📅 Upcoming</p>
+          <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>Upcoming</p>
           {data.events.slice(0, 4).map((ev: { start: string; subject: string; location?: string }, i: number) => (
             <div key={i} style={{ display: 'flex', gap: '1rem', padding: '0.6rem 0', borderBottom: `1px solid ${BORDER}` }}>
               <div style={{ flexShrink: 0, minWidth: 60 }}>

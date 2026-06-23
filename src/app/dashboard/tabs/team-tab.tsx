@@ -85,7 +85,7 @@ export default function TeamTab() {
       {/* Agent intel feed */}
       {intelLines.length > 0 && (
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-          <Label>📡 Agent Intelligence Feed</Label>
+          <Label>Agent Intelligence Feed</Label>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
             {intelLines.map((line: string, i: number) => (
               <p key={i} style={{ margin: 0, fontSize: '0.72rem', color: 'rgba(255,255,255,0.6)', lineHeight: 1.5, padding: '0.3rem 0', borderBottom: `1px solid ${C.border}` }}>

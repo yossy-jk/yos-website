@@ -71,7 +71,7 @@ export default function PipelineTab() {
       {/* Urgent */}
       {urgent.length > 0 && (
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-          <Label>🚨 Need Action Now ({urgent.length})</Label>
+          <Label>NEED ACTION NOW ({urgent.length})</Label>
           {urgent.map(d => <DealRow key={d.id} deal={d} />)}
         </div>
       )}
