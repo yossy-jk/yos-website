@@ -522,7 +522,7 @@ export default function LeaseReviewPage() {
                         { label: 'All 12 risk categories', val: opt.roadmap },
                       ].map(f => (
                         <div key={f.label} className="flex items-center gap-2.5">
-                          <span className={`text-sm font-black ${f.val ? 'text-teal' : 'text-mid-grey'}`}>{f.val ? ' OK ' : '✗'}</span>
+                          <span className={`text-sm font-black ${f.val ? 'text-teal' : 'text-mid-grey'}`}>{f.val ? <CheckIcon size={16} /> : <span style={{fontSize:'0.9rem',lineHeight:1}}>X</span>}</span>
                           <span className={`text-sm ${f.val ? 'text-charcoal' : 'text-mid-grey'}`}>{f.label}</span>
                         </div>
                       ))}

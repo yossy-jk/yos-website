@@ -117,7 +117,7 @@ export default function CleaningCareersForm() {
   if (submitted) {
     return (
       <div style={{ background: 'rgba(0,181,165,0.08)', border: '1px solid rgba(0,181,165,0.25)', padding: '2.5rem', textAlign: 'center' }}>
-        <div style={{ width: '48px', height: '48px', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem', fontSize: '1.25rem' }}>✓</div>
+        <div style={{ width: '48px', height: '48px', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}><CheckIcon size={28} /></div>
         <h3 style={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.75rem' }}>We&apos;ve got your application.</h3>
         <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.9rem', lineHeight: 1.7, margin: 0 }}>
           Sarah will be in touch within 2 business days.

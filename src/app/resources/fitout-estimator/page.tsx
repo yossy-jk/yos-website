@@ -684,7 +684,7 @@ export default function FitoutEstimatorPage() {
                       }),
                     })
                     const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
-                    if (btn) { btn.textContent = 'Sent ✓'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
+                    if (btn) { btn.textContent = 'Sent'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
                   } catch {}
                 }}
                 noValidate

@@ -916,7 +916,7 @@ function ResultsContent({
               padding: '1rem 1.25rem',
               display: 'flex', alignItems: 'flex-start', gap: '0.75rem',
             }}>
-              <span style={{ color: '#00B5A5', fontSize: '1rem', flexShrink: 0, marginTop: '0.05rem' }}>💡</span>
+              <span style={{ color: '#00B5A5', fontSize: '1rem', flexShrink: 0, marginTop: '0.05rem' }}>TIP:</span>
               <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.875rem', lineHeight: 1.65, fontWeight: 400 }}>{c}</p>
             </div>
           ))}

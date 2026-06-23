@@ -231,7 +231,7 @@ export default function LeaseVsBuyPage() {
         <div className={`border ${result.leaseIsCheaper ? 'bg-teal/10 border-teal/30' : 'bg-white/5 border-white/10'}`} style={{ padding: '1.5rem 1.25rem' }}>
           <p className={`font-light mb-1 uppercase tracking-widest ${result.leaseIsCheaper ? 'text-teal/70' : 'text-white/40'}`} style={{ fontSize: '0.65rem' }}>
             Total Lease Cost
-            {result.leaseIsCheaper && <span className="ml-2 text-teal">✓ Cheaper</span>}
+            {result.leaseIsCheaper && <span className="ml-2 text-teal">Cheaper</span>}
           </p>
           <p className={`font-black leading-tight ${result.leaseIsCheaper ? 'text-teal' : 'text-white'}`} style={{ fontSize: '1.6rem' }}>
             {fmtAUD(result.leaseTotalCost)}
@@ -240,7 +240,7 @@ export default function LeaseVsBuyPage() {
         <div className={`border ${!result.leaseIsCheaper ? 'bg-teal/10 border-teal/30' : 'bg-white/5 border-white/10'}`} style={{ padding: '1.5rem 1.25rem' }}>
           <p className={`font-light mb-1 uppercase tracking-widest ${!result.leaseIsCheaper ? 'text-teal/70' : 'text-white/40'}`} style={{ fontSize: '0.65rem' }}>
             Total Buy Cost
-            {!result.leaseIsCheaper && <span className="ml-2 text-teal">✓ Better Value</span>}
+            {!result.leaseIsCheaper && <span className="ml-2 text-teal">Better Value</span>}
           </p>
           <p className={`font-black leading-tight ${!result.leaseIsCheaper ? 'text-teal' : 'text-white'}`} style={{ fontSize: '1.6rem' }}>
             {fmtAUD(result.buyTotalCost)}
