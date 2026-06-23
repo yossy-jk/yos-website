@@ -15,9 +15,81 @@ import NotForProfitForm from '@/components/NotForProfitForm'
 import FadeIn from '@/components/FadeIn'
 import { CONTACT } from '@/lib/constants'
 
+export const metadata = {
+  title: 'Free Lease Support for Not-for-Profits | Your Office Space Newcastle',
+  description: 'Pro bono lease reviews and relocation search for not-for-profits in Newcastle and the Hunter. No fee, no obligation. Limited spots available. Apply now.',
+  alternates: { canonical: 'https://www.yourofficespace.au/not-for-profit-lease-support' },
+  twitter: { card: 'summary_large_image', title: 'Free Lease Support for Not-for-Profits | Your Office Space', description: 'Pro bono lease reviews for not-for-profits in Newcastle and the Hunter. No fee, no obligation.' },
+  openGraph: {
+    title: 'Free Lease Support for Not-for-Profits | Your Office Space',
+    description: 'Pro bono lease reviews and relocation search for not-for-profits. No fee, no obligation. Limited spots available in Newcastle and the Hunter.',
+    url: 'https://yourofficespace.au/not-for-profit-lease-support',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Free Lease Support for Not-for-Profits — Your Office Space' }],
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+  },
+}
+
+
+const FAQ_SCHEMA = [
+  {
+    q: 'Make-good clauses that were not negotiated',
+    a: 'Standard make-good clauses can cost $20,000–$80,000 at exit. Most not-for-profits do not budget for them because they did not know they were there.',
+  },
+  {
+    q: 'Rent reviews with no caps or guards',
+    a: 'Uncapped rent reviews can blow out operating costs by 40% over a five-year term. Knowing what you are signing matters.',
+  },
+  {
+    q: 'Security requirements that tie up working capital',
+    a: 'Large bank guarantees or security deposits lock away cash that could be funding your mission. There are better ways to structure security.',
+  },
+  {
+    q: 'Assignment clauses that do not account for change',
+    a: 'If your organisation merges, restructures, or changes purpose, your lease needs to handle that gracefully. Most do not.',
+  },
+]
+
 export default function NotForProfitPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.yourofficespace.au/#organization",
+            "name": "Your Office Space",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/favicon-32x32.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+61-2-4000-0717",
+              "contactType": "customer service",
+              "areaServed": "AU",
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "16A Chelmsford St",
+              "addressLocality": "Maryville",
+              "addressRegion": "NSW",
+              "postalCode": "2293",
+              "addressCountry": "AU",
+            },
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.yourofficespace.au/not-for-profit-lease-support/#faq",
+            "mainEntity": FAQ_SCHEMA.map(item => ({
+              "@type": "Question",
+              "name": item.q,
+              "acceptedAnswer": { "@type": "Answer", "text": item.a },
+            })),
+          },
+        ],
+      }) }} />
+
       <Nav />
 
       {/* ─── HERO ─────────────────────────────────── */}
