@@ -59,6 +59,14 @@ async function redisSet(url: string, token: string, key: string, value: string):
   })
 }
 
+// Archive is stored as a Redis LIST (items appended with RPUSH, read with LRANGE)
+async function redisRpush(url: string, token: string, key: string, value: string): Promise<void> {
+  await fetch(`${url}/rpush/${encodeURIComponent(key)}/${encodeURIComponent(value)}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+  })
+}
+
 // ── Blog post publish ───────────────────────────────────────────────────────
 
 const VALID_DIVISIONS = ['tenant-rep', 'buyers-agency', 'furniture', 'cleaning', 'general', 'lease-intel']
@@ -147,18 +155,15 @@ export async function POST(req: NextRequest) {
     queue.splice(itemIndex, 1)
     await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-    // Archive
-    const archiveRaw = normaliseValue(await redisGet(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY))
-    const archive: Record<string, unknown>[] = Array.isArray(archiveRaw) ? archiveRaw as Record<string, unknown>[] : []
-    archive.push({
+    // Archive — append to list (publish-scheduled reads it as LRANGE list)
+    await redisRpush(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify({
       ...item,
       status: 'approved',
       approvedAt: new Date().toISOString(),
       approvedContent: contentToApprove,
       content: contentToApprove,
       publishedAt: new Date().toISOString(),
-    })
-    await redisSet(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify(archive))
+    }))
 
     return NextResponse.json({ ok: true, action: 'approved', id, slug })
 
@@ -195,15 +200,13 @@ export async function POST(req: NextRequest) {
     queue.splice(itemIndex, 1)
     await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-    const archiveRaw = normaliseValue(await redisGet(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY))
-    const archive: Record<string, unknown>[] = Array.isArray(archiveRaw) ? archiveRaw as Record<string, unknown>[] : []
-    archive.push({
+    // Archive — append to list
+    await redisRpush(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify({
       ...item,
       status: 'skipped',
       skippedAt: new Date().toISOString(),
       skipReason: feedback || '',
-    })
-    await redisSet(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify(archive))
+    }))
 
     return NextResponse.json({ ok: true, action: 'skipped', id })
 

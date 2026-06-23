@@ -61,6 +61,14 @@ async function redisSet(url: string, token: string, key: string, value: string):
   })
 }
 
+// Archive is a Redis LIST — use RPUSH (publish-scheduled reads it with LRANGE)
+async function redisRpush(url: string, token: string, key: string, value: string): Promise<void> {
+  await fetch(`${url}/rpush/${encodeURIComponent(key)}/${encodeURIComponent(value)}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+  })
+}
+
 // ── Slug helper ─────────────────────────────────────────────────────────────
 
 function slugify(title: string): string {
@@ -134,18 +142,15 @@ export async function POST(req: NextRequest) {
   queue.splice(itemIndex, 1)
   await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-  // ── Archive ──────────────────────────────────────────────────────────────
-  const archiveRaw = normaliseValue(await redisGet(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY))
-  const archive: Record<string, unknown>[] = Array.isArray(archiveRaw) ? archiveRaw as Record<string, unknown>[] : []
-  archive.push({
+  // ── Archive — append single item to list ────────────────────────────────
+  await redisRpush(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify({
     ...item,
-    status:         'approved',
-    approvedAt:     new Date().toISOString(),
+    status:          'approved',
+    approvedAt:      new Date().toISOString(),
     approvedContent: content,
     content,
-    publishedAt:    new Date().toISOString(),
-  })
-  await redisSet(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify(archive))
+    publishedAt:     new Date().toISOString(),
+  }))
 
   return NextResponse.json({
     ok: true,
