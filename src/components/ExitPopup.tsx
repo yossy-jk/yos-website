@@ -104,7 +104,6 @@ export default function ExitPopup() {
               className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full mb-6"
               style={{ padding: '0.5rem 1rem' }}
             >
-              <span className="text-sm">🎁</span>
               <span className="font-bold text-xs tracking-widest uppercase">$100 Furniture Voucher</span>
             </div>
 
