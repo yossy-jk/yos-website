@@ -12,8 +12,8 @@ import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
-  title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
-  description: 'One team working only for you. Tenant rep, furniture & fitout, and commercial cleaning across Newcastle and NSW. Honest advice. Real outcomes.',
+  title: 'Commercial Office Space Newcastle | Tenant Rep, Fitout & Furniture | Your Office Space',
+  description: 'Newcastle and NSW commercial tenant advisory. One team working exclusively for tenants. Tenant rep, office fitout and furniture. No landlord conflicts. Better terms, better outcomes.',
   alternates: { canonical: 'https://www.yourofficespace.au' },
   twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle', description: 'One team working only for you. Tenant rep, furniture, fitout and cleaning — Newcastle NSW.' },
   openGraph: {

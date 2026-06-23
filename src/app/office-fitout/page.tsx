@@ -15,8 +15,8 @@ import FurniturePopup from '@/components/FurniturePopup'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Office Fit Out | Your Office Space',
-  description: 'Commercial office fit out services across Australia. From cold shell to turnkey — project managed by one team, start to finish. Brief to delivered.',
+  title: 'Commercial Office Fit Out Newcastle | Office Fitout NSW | Your Office Space',
+  description: 'Newcastle office fitout specialists. Cold shell to turnkey, managed end to end by one team. Office fitout, furniture and installation across Newcastle and NSW.',
   twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'Brief to delivered. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
   alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   openGraph: {

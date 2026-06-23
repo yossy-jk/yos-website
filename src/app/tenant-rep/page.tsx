@@ -7,8 +7,8 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Tenant Representation | Your Office Space',
-  description: 'Expert commercial tenant representation across Australia, NSW focus. We negotiate leases, secure better terms, and only ever work for tenants — never landlords.',
+  title: 'Tenant Representation NSW | Commercial Tenant Rep Services | Your Office Space',
+  description: 'Newcastle and NSW tenant representation. We negotiate commercial leases exclusively for tenants. No landlord conflicts, better terms, better deals. The landlord has an agent. Now you do too.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'We negotiate commercial leases for tenants. Never landlords. Better terms, stronger outcomes.' },
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
   openGraph: {
