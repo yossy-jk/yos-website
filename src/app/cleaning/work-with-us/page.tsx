@@ -3,6 +3,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import SalesCareersForm from './SalesCareersForm'
 import RoleSwitcher from './RoleSwitcher'
+import { BroomIcon, ChairIcon, HandshakeIcon, CheckIcon } from '@/components/Icons'
 
 export const metadata: Metadata = {
   title: 'Commission Sales Partners | Your Office Space',
@@ -23,17 +24,17 @@ title: 'Commission Sales Partners — Your Office Space',
 
 const WHAT_YOU_SELL = [
   {
-    icon: '🧹',
+    icon: 'broom',
     heading: 'Commercial Cleaning',
     body: 'Ongoing office, medical and childcare cleaning contracts. Clients want consistency — you bring the opportunity, we deliver the service.',
   },
   {
-    icon: '🪑',
+    icon: 'chair',
     heading: 'Office Furniture & Fitout',
     body: 'New offices, refits, expansion projects. We manage the full supply and install so you never have to worry about delivery or execution.',
   },
   {
-    icon: '🤝',
+    icon: 'handshake',
     heading: 'Tenant Representation',
     body: 'Leasing support for businesses moving or growing. Smallish deals (50–300sqm) that move fast and pay well.',
   },
@@ -120,7 +121,7 @@ export default function SalesPartnersPage() {
                 background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
                 padding: '1.75rem', borderTop: '2px solid #00B5A5',
               }}>
-                <div style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{s.icon}</div>
+                <BroomIcon size={28} />
                 <p style={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', marginBottom: '0.75rem', lineHeight: 1.3 }}>{s.heading}</p>
                 <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', lineHeight: 1.75, margin: 0 }}>{s.body}</p>
               </div>
@@ -167,7 +168,7 @@ export default function SalesPartnersPage() {
                 {WHO_THIS_FITS.map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
                     <div style={{ width: '20px', height: '20px', background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' }}>
-                      <span style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700 }}>✓</span>
+                      <CheckIcon />
                     </div>
                     <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>{item}</p>
                   </div>

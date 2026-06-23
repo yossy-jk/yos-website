@@ -3,6 +3,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
 import FadeIn from '@/components/FadeIn'
+import { LockIcon, ShieldIcon, FolderIcon } from '@/components/Icons'
 import { HUBSPOT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 
@@ -98,9 +99,9 @@ const INCLUDED = [
 ]
 
 const SECURITY_ITEMS = [
-  { emoji: '🔒', title: 'AES-256-GCM encryption', desc: 'Your document is encrypted in your browser before upload. We never receive an unencrypted copy.' },
-  { emoji: '🛡️', title: 'Malware scan on upload', desc: 'Every file is scanned against VirusTotal before it enters our system.' },
-  { emoji: '📁', title: 'Secure OneDrive storage', desc: 'Documents are stored in a dedicated encrypted folder, accessed only by your assigned reviewer.' },
+  { icon: 'lock', title: 'AES-256-GCM encryption', desc: 'Your document is encrypted in your browser before upload. We never receive an unencrypted copy.' },
+  { icon: 'shield', title: 'Malware scan on upload', desc: 'Every file is scanned against VirusTotal before it enters our system.' },
+  { icon: 'folder', title: 'Secure OneDrive storage', desc: 'Documents are stored in a dedicated encrypted folder, accessed only by your assigned reviewer.' },
 ]
 
 export default function LeaseIntelPage() {
@@ -248,7 +249,9 @@ export default function LeaseIntelPage() {
             {SECURITY_ITEMS.map((s, i) => (
               <FadeIn key={i} delay={i * 80}>
                 <div className="flex flex-col gap-6">
-                  <div className="text-3xl">{s.emoji}</div>
+                  {s.icon === 'lock'    && <LockIcon size={36} />}
+                  {s.icon === 'shield'  && <ShieldIcon size={36} />}
+                  {s.icon === 'folder'  && <FolderIcon size={36} />}
                   <h3 className="text-near-black font-bold" style={{ fontSize: '1rem' }}>{s.title}</h3>
                   <p className="text-mid-grey font-light" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>{s.desc}</p>
                 </div>

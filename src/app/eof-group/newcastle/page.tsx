@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { CheckIcon } from '@/components/Icons'
 import FadeIn from '@/components/FadeIn'
 import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
@@ -143,7 +144,7 @@ export default function NewcastlePage() {
                   'Regulatory knowledge specific to NSW and Hunter local council requirements',
                 ].map(point => (
                   <div key={point} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                    <span style={{ color: '#22c55e', fontSize: '0.9rem', lineHeight: 1.6, flexShrink: 0 }}>✓</span>
+                    <CheckIcon />
                     <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.85rem', lineHeight: 1.65 }}>{point}</p>
                   </div>
                 ))}

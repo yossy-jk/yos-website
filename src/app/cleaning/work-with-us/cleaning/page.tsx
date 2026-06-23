@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
+import { CheckIcon } from '@/components/Icons'
 import Footer from '@/components/Footer'
 import CleaningCareersForm from './CleaningCareersForm'
 
@@ -142,7 +143,7 @@ export default function CleaningWorkWithUsPage() {
                 {WHO_WE_WANT.map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
                     <div style={{ width: '20px', height: '20px', background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' }}>
-                      <span style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700 }}>✓</span>
+                      <CheckIcon />
                     </div>
                     <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>{item}</p>
                   </div>

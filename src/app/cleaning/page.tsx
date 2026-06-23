@@ -3,6 +3,7 @@ import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
+import { CheckIcon } from '@/components/Icons'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
@@ -349,7 +350,7 @@ export default function CleaningPage() {
                 </p>
                 <div className="flex flex-col gap-2 text-white/40 text-sm">
                   {["Newcastle CBD & surrounds","Maitland & Hunter Valley","Lake Macquarie","Cessnock & Singleton","Port Stephens"].map(s => (
-                    <span key={s} className="flex items-center gap-2"><span className="text-teal">✓</span>{s}</span>
+                    <span key={s} className="flex items-center gap-2"><CheckIcon />{s}</span>
                   ))}
                 </div>
               </div>

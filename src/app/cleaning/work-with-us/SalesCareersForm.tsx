@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { CheckIcon } from '@/components/Icons'
 
 const INPUT = {
   background: 'rgba(255,255,255,0.04)',
@@ -202,7 +203,7 @@ export default function SalesCareersForm() {
                 textAlign: 'left', transition: 'all 0.1s',
               }}
             >
-              {channel.includes(opt.value) ? '✓  ' : '   '}{opt.label}
+              {channel.includes(opt.value) ? ' OK ' : '   '}{opt.label}
             </button>
           ))}
         </div>
@@ -237,7 +238,7 @@ export default function SalesCareersForm() {
                   textAlign: 'left', transition: 'all 0.1s',
                 }}
               >
-                {industry.includes(opt.value) ? '✓ ' : ''}{opt.label}
+                {industry.includes(opt.value) ? ' OK ' : ''}{opt.label}
               </button>
             ))}
           </div>

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { CheckIcon } from '@/components/Icons'
 
 type AppType = 'employee' | 'contractor'
 
@@ -151,7 +152,7 @@ export default function CareersForm() {
                 transition: 'all 0.15s',
               }}
             >
-              {t === 'employee' ? '👔 Employee' : '🔧 Contractor'}
+              {t === 'employee' ? 'Employee' : 'Contractor'}
             </button>
           ))}
         </div>
@@ -207,7 +208,7 @@ export default function CareersForm() {
                   textAlign: 'left', transition: 'all 0.1s',
                 }}
               >
-                {experience.includes(opt.value) ? '✓ ' : ''}{opt.label}
+                {experience.includes(opt.value) ? ' OK ' : ''}{opt.label}
               </button>
             ))}
           </div>
@@ -246,7 +247,7 @@ export default function CareersForm() {
                 textAlign: 'left', transition: 'all 0.1s',
               }}
             >
-              {availability.includes(opt.value) ? '✓  ' : '   '}{opt.label}
+              {availability.includes(opt.value) ? ' OK ' : '   '}{opt.label}
             </button>
           ))}
         </div>

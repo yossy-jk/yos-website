@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { CheckIcon } from '@/components/Icons'
 import FadeIn from '@/components/FadeIn'
 import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
@@ -211,7 +212,7 @@ export default function EOFFurniturePage() {
                   'National coverage through established supplier networks for multi-site rollouts',
                 ].map(point => (
                   <div key={point} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
-                    <span style={{ color: '#22c55e', fontSize: '0.9rem', lineHeight: 1.6, flexShrink: 0 }}>✓</span>
+                    <CheckIcon />
                     <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.85rem', lineHeight: 1.65 }}>{point}</p>
                   </div>
                 ))}
@@ -245,7 +246,7 @@ export default function EOFFurniturePage() {
                     'In-stock express to made-to-order options',
                   ].map(s => (
                     <span key={s} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem' }}>
-                      <span style={{ color: '#f59e0b', fontWeight: 700 }}>✓</span> {s}
+                      <CheckIcon /> {s}
                     </span>
                   ))}
                 </div>

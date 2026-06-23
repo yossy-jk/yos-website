@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { CheckIcon } from '@/components/Icons'
 
 const QUESTIONS = [
   {
@@ -262,15 +263,15 @@ export default function LeaseRiskCheckerPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
-                  <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
+                  <CheckIcon />
                   <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Free — always</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
+                  <CheckIcon />
                   <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-teal font-bold" style={{ fontSize: '0.8rem' }}>✓</span>
+                  <CheckIcon />
                   <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Instant result</span>
                 </div>
               </div>

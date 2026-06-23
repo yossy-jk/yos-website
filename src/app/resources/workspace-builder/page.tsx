@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { CheckIcon } from '@/components/Icons'
 import { HUBSPOT } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
@@ -506,7 +507,7 @@ export default function WorkspaceBuilderPage() {
                       color: workStyleTotal === 100 ? '#00B5A5' : '#ef4444',
                       letterSpacing: '0.05em',
                     }}>
-                      Total: {workStyleTotal}%{workStyleTotal !== 100 ? ' ← must equal 100' : ' ✓'}
+                      Total: {workStyleTotal}%{workStyleTotal !== 100 ? ' ← must equal 100' : ' OK '}
                     </span>
                   </div>
 
@@ -686,7 +687,7 @@ export default function WorkspaceBuilderPage() {
                       <button key={role} onClick={() => toggleRole(role)}
                         className={`font-medium border transition-colors ${prioritiesData.roles.includes(role) ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1.25rem', fontSize: '0.875rem', borderRadius: '0.5rem' }}>
-                        {prioritiesData.roles.includes(role) ? '✓ ' : ''}{role}
+                        {prioritiesData.roles.includes(role) ? ' OK ' : ''}{role}
                       </button>
                     ))}
                   </div>
@@ -863,7 +864,7 @@ function SpaceRow({
       <button type="button" onClick={onToggle} className="w-full text-left flex items-center" style={{ gap: '1rem' }}>
         <span className={`w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center transition-all ${checked ? 'border-teal bg-teal' : 'border-white/30'}`}
           style={{ borderRadius: '0.25rem' }}>
-          {checked && <span className="text-white font-black" style={{ fontSize: '0.7rem', lineHeight: 1 }}>✓</span>}
+          {checked && <CheckIcon />}
         </span>
         <div>
           <p className="text-white font-semibold" style={{ fontSize: '0.95rem' }}>{label}</p>

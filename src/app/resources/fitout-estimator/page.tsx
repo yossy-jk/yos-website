@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import { CheckIcon } from '@/components/Icons'
 import { HUBSPOT } from '@/lib/constants'
 /* ─── Rate data (YOS Fitout Cost Guide - April 2026, ex GST) ─── */
 type Tier = 'basic' | 'mid' | 'premium'
@@ -525,7 +526,7 @@ export default function FitoutEstimatorPage() {
                     style={{ padding: '1.5rem 1.75rem', borderRadius: '0.75rem' }}>
                     <div className="flex items-center" style={{ gap: '1.5rem' }}>
                       <span className={`w-5 h-5 border-2 flex-shrink-0 flex items-center justify-center transition-all ${inputs[item.key] ? 'border-teal bg-teal' : 'border-white/30'}`}>
-                        {inputs[item.key] && <span className="text-white font-black" style={{ fontSize: '0.7rem' }}>✓</span>}
+                        {inputs[item.key] && <CheckIcon />}
                       </span>
                       <div>
                         <p className="text-white font-semibold" style={{ fontSize: '0.95rem' }}>{item.label}</p>

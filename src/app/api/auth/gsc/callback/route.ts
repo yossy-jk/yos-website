@@ -58,7 +58,7 @@ export async function GET(req: Request) {
 </style>
 </head>
 <body>
-  <h1>✓ Google Search Console connected</h1>
+  <h1>Google Search Console connected</h1>
   <p>Copy the refresh token below and send it to YOS (your OpenClaw assistant) — it will save it as <code>GSC_REFRESH_TOKEN</code> in Vercel automatically.</p>
 
   <div class="token-box">

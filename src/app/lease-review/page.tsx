@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import { virusTotalScan, encryptFile } from '@/lib/file-security'
+import { LockIcon, ShieldIcon, TLSIcon, PrivateIcon, CheckIcon } from '@/components/Icons'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
@@ -155,7 +156,7 @@ function StepBar({ current }: { current: 1 | 2 }) {
                 ? 'bg-teal text-white'
                 : 'bg-white/10 text-white/40',
             ].join(' ')}>
-              {current > s.n ? '✓' : s.n}
+              {current > s.n ? ' OK ' : s.n}
             </div>
             <span className={[
               'text-xs font-semibold tracking-wide transition-colors duration-300',
@@ -391,12 +392,12 @@ export default function LeaseReviewPage() {
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-2 mt-6">
                   {[
-                    { icon: '🔐', text: 'AES-256 encrypted' },
-                    { icon: '🛡️', text: 'Virus scanned' },
-                    { icon: '🇦🇺', text: 'Privacy Act compliant' },
+                    { icon: 'lock', text: 'AES-256 encrypted' },
+                    { icon: 'shield', text: 'Virus scanned' },
+                    { icon: 'au', text: 'Privacy Act compliant' },
                   ].map(s => (
                     <span key={s.text} className="flex items-center gap-1.5 text-white/60 text-xs font-medium whitespace-nowrap">
-                      <span>{s.icon}</span>{s.text}
+                      {s.icon === 'lock' && <LockIcon />}{s.icon === 'shield' && <ShieldIcon />}{s.icon === 'au' && <span className='text-xs font-bold text-teal'>AU</span>}{s.text}
                     </span>
                   ))}
                 </div>
@@ -521,7 +522,7 @@ export default function LeaseReviewPage() {
                         { label: 'All 12 risk categories', val: opt.roadmap },
                       ].map(f => (
                         <div key={f.label} className="flex items-center gap-2.5">
-                          <span className={`text-sm font-black ${f.val ? 'text-teal' : 'text-mid-grey'}`}>{f.val ? '✓' : '✗'}</span>
+                          <span className={`text-sm font-black ${f.val ? 'text-teal' : 'text-mid-grey'}`}>{f.val ? ' OK ' : '✗'}</span>
                           <span className={`text-sm ${f.val ? 'text-charcoal' : 'text-mid-grey'}`}>{f.label}</span>
                         </div>
                       ))}
@@ -541,14 +542,18 @@ export default function LeaseReviewPage() {
             <FadeIn>
               <div className="flex flex-wrap gap-4 mb-12">
                 {[
-                  { icon: '🔐', label: 'AES-256-GCM Encrypted' },
-                  { icon: '🛡️', label: 'Virus Scanned on Upload' },
-                  { icon: '🔒', label: 'TLS Encrypted in Transit' },
-                  { icon: '🇦🇺', label: 'Privacy Act 1988 Compliant' },
-                  { icon: '🚫', label: 'Never Shared or Sold' },
+                  { icon: 'lock', label: 'AES-256-GCM Encrypted' },
+                  { icon: 'shield', label: 'Virus Scanned on Upload' },
+                  { icon: 'tls', label: 'TLS Encrypted in Transit' },
+                  { icon: 'au', label: 'Privacy Act 1988 Compliant' },
+                  { icon: 'private', label: 'Never Shared or Sold' },
                 ].map(b => (
                   <div key={b.label} className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-5 py-3 bg-gray-50">
-                    <span className="text-sm">{b.icon}</span>
+                    {b.icon === 'lock'    && <LockIcon />}
+                    {b.icon === 'shield'  && <ShieldIcon />}
+                    {b.icon === 'tls'     && <TLSIcon />}
+                    {b.icon === 'au'      && <span className='text-xs font-bold text-teal'>AU</span>}
+                    {b.icon === 'private' && <PrivateIcon />}
                     <span className="text-near-black font-bold text-xs tracking-wide">{b.label}</span>
                   </div>
                 ))}
@@ -766,7 +771,7 @@ export default function LeaseReviewPage() {
                 {form.file ? (
                   <div>
                     <div className="w-10 h-10 bg-teal/15 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <span className="text-teal font-black text-lg">✓</span>
+                      <CheckIcon />
                     </div>
                     <p className="text-teal font-bold text-sm mb-1">{form.file.name}</p>
                     <p className="text-white/35 text-xs">
@@ -791,9 +796,9 @@ export default function LeaseReviewPage() {
               {/* Security trust signals */}
               <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                 {[
-                  '🔐 AES-256 encrypted in your browser',
-                  '🛡️ Virus scanned before processing',
-                  '🔒 TLS secured in transit',
+                  'AES-256 encrypted in your browser',
+                  'Virus scanned before processing',
+                  'TLS secured in transit',
                 ].map(s => (
                   <span key={s} className="text-white/35 text-xs font-medium">{s}</span>
                 ))}
@@ -833,7 +838,7 @@ export default function LeaseReviewPage() {
       <div className="min-h-screen bg-near-black flex items-center justify-center px-6 md:px-12 lg:px-20">
         <div className="w-full max-w-lg text-center">
           <div className="w-16 h-16 bg-teal/15 border border-teal/30 rounded-full flex items-center justify-center mx-auto mb-8">
-            <span className="text-teal text-2xl font-black">✓</span>
+            <CheckIcon />
           </div>
           <h2 className="text-white font-black leading-tight tracking-tight mb-5"
             style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}>
