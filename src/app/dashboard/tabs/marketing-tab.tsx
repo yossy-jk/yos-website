@@ -217,6 +217,7 @@ export default function MarketingTab() {
         body: JSON.stringify({
           type: 'blog-request',
           title: s.topic,
+          content: `${s.keyword} — ${s.reason}`,
           metadata: {
             targetKeyword: s.keyword,
             division: s.division,

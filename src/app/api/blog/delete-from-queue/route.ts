@@ -1,46 +1,59 @@
 /**
  * POST /api/blog/delete-from-queue
- * Permanently removes a blog post from the queue without archiving it.
- * Use when a post is not suitable for the website.
+ *
+ * Permanently removes a blog post from the v2 queue.
+ * The item is NOT archived — it's a hard delete.
+ * Does NOT delete from yos:blog:live (already-published posts).
  *
  * Auth: requireAuth session cookie
  */
-
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 
-const QUEUE_KEY   = 'yos:queue:pending'
-const ARCHIVE_KEY = 'yos:queue:archive'
+const QUEUE_KEY_V2 = 'yos:queue:pending:v2'
 
-async function redisFetch(
-  url: string, token: string,
-  path: string, method = 'GET', body?: unknown
-): Promise<unknown> {
-  const res = await fetch(`${url}${path}`, {
-    method,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: body !== undefined ? JSON.stringify(body) : undefined,
+// ── Upstash helpers ───────────────────────────────────────────────────────
+
+async function redisGet(url: string, token: string, key: string): Promise<unknown> {
+  const res = await fetch(`${url}/get/${encodeURIComponent(key)}`, {
+    headers: { Authorization: `Bearer ${token}` },
   })
-  const d = await res.json()
-  return d.result
+  if (!res.ok) return null
+  const d = await res.json() as { result?: unknown }
+  return d.result ?? null
 }
 
-function parseQueueItem(s: string | null): Record<string, unknown> | null {
-  if (!s) return null
-  try {
-    const p = JSON.parse(s)
-    return typeof p === 'string' ? JSON.parse(p) : p
-  } catch {
-    return null
+function normaliseValue(raw: unknown): unknown {
+  if (!raw) return null
+  if (typeof raw === 'object' && raw !== null && 'result' in (raw as object)) {
+    return normaliseValue((raw as { result: unknown }).result)
   }
+  if (typeof raw === 'object' && raw !== null && 'value' in (raw as object)) {
+    const val = String((raw as { value: unknown }).value)
+    try {
+      const decoded = Buffer.from(val, 'base64').toString('utf-8')
+      const parsed = JSON.parse(decoded)
+      if (typeof parsed === 'string') return JSON.parse(parsed)
+      return parsed
+    } catch {
+      try { return JSON.parse(val) } catch { return val }
+    }
+  }
+  if (typeof raw === 'string') {
+    try { return JSON.parse(raw) } catch { return raw }
+  }
+  return raw
 }
 
-function serializeForRedis(obj: Record<string, unknown>): string {
-  return JSON.stringify(JSON.stringify(obj))
+async function redisSet(url: string, token: string, key: string, value: string): Promise<void> {
+  await fetch(`${url}/set/${encodeURIComponent(key)}`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(value),
+  })
 }
+
+// ── POST ────────────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
   const auth = await requireAuth()
@@ -56,31 +69,18 @@ export async function POST(req: NextRequest) {
   const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL!
   const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN!
 
-  // Find the item
-  const rawItems = await redisFetch(
-    UPSTASH_URL, UPSTASH_TOKEN,
-    `/lrange/${QUEUE_KEY}/0/-1`
-  ) as string[] | null
+  // Load from v2 queue
+  const rawQueue = normaliseValue(await redisGet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2))
+  const queue: Record<string, unknown>[] = Array.isArray(rawQueue) ? rawQueue as Record<string, unknown>[] : []
 
-  const items = (rawItems || [])
-    .map((s: string) => parseQueueItem(s))
-    .filter(Boolean) as Record<string, unknown>[]
-
-  const item = items.find((i: Record<string, unknown>) => String(i.id) === id)
-  if (!item) {
+  const itemIndex = queue.findIndex(i => String(i.id) === id)
+  if (itemIndex === -1) {
     return NextResponse.json({ error: 'Item not found in queue' }, { status: 404 })
   }
 
-  // Remove from pending — don't archive
-  const removed = await redisFetch(
-    UPSTASH_URL, UPSTASH_TOKEN,
-    `/lrem/${QUEUE_KEY}/1/${encodeURIComponent(serializeForRedis(item))}`, 'POST'
-  )
+  // Remove item
+  queue.splice(itemIndex, 1)
+  await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-  return NextResponse.json({
-    ok: true,
-    action: 'deleted',
-    id,
-    removed: Number(removed) > 0,
-  })
+  return NextResponse.json({ ok: true, action: 'deleted', id })
 }

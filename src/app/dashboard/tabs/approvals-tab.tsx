@@ -51,6 +51,24 @@ const DIVISION_COLOURS: Record<string, string> = {
   'lease-intel':   '#ec4899',
 }
 
+// ── Helpers ──────────────────────────────────────────────────────────────────
+
+function revCount(item: BlogItem) {
+  return (item.metadata?.revisionCount || 0) + (item.metadata?.editCount || 0)
+}
+
+function formatDate(iso: string) {
+  if (!iso) return ''
+  const d = new Date(iso)
+  return d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })
+}
+
+function wordCount(content: string) {
+  return content.split(/\s+/).filter(Boolean).length
+}
+
+// ── Component ───────────────────────────────────────────────────────────────
+
 export default function ApprovalsTab({
   onCountChange,
 }: {
@@ -59,8 +77,9 @@ export default function ApprovalsTab({
   const [items, setItems] = useState<BlogItem[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [lastAction, setLastAction] = useState<string | null>(null)
 
-  // Modal state: 'preview' | 'edit' | 'revision' | 'delete'
+  // Modal state
   const [modal, setModal] = useState<{
     item: BlogItem
     mode: 'preview' | 'edit' | 'revision' | 'delete'
@@ -69,15 +88,18 @@ export default function ApprovalsTab({
   const [editContent, setEditContent] = useState('')
   const [feedback, setFeedback] = useState('')
   const [saving, setSaving] = useState(false)
-  const [actionMsg, setActionMsg] = useState<string | null>(null)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const msgTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const showMsg = (msg: string) => {
-    setActionMsg(msg)
+  // ── Toast ──────────────────────────────────────────────────────────────
+
+  const showMsg = useCallback((msg: string) => {
+    setLastAction(msg)
     if (msgTimer.current) clearTimeout(msgTimer.current)
-    msgTimer.current = setTimeout(() => setActionMsg(null), 3000)
-  }
+    msgTimer.current = setTimeout(() => setLastAction(null), 4000)
+  }, [])
+
+  // ── Load queue (stable, no stale closure) ──────────────────────────────
 
   const loadQueue = useCallback(async () => {
     setLoading(true)
@@ -87,7 +109,7 @@ export default function ApprovalsTab({
       if (!res.ok) throw new Error('Not authenticated')
       const data = await res.json()
       const rawItems = data.pending || data.items || []
-      const blogItems: BlogItem[] = rawItems
+      const blogItems: BlogItem[] = (rawItems as Record<string, unknown>[])
         .filter((i: Record<string, unknown>) => i.type === 'blog-post')
         .map((i: Record<string, unknown>) => ({
           id:         String(i.id),
@@ -99,23 +121,39 @@ export default function ApprovalsTab({
           updatedAt:  String(i.updatedAt || ''),
           metadata:   (i.metadata as BlogItem['metadata']) || {},
         }))
+      // Update both local state AND parent badge count in one place
       setItems(blogItems)
       onCountChange?.(blogItems.length)
-    } catch (e: unknown) {
+    } catch {
       setError('Could not load queue. Is the dashboard session active?')
+      onCountChange?.(0)
     } finally {
       setLoading(false)
     }
   }, [onCountChange])
 
-  useEffect(() => { loadQueue() }, [loadQueue])
+  // Mount: load once
+  useEffect(() => {
+    loadQueue()
+  }, [loadQueue])
 
-  // ── API calls ─────────────────────────────────────────────────────────────
+  // ── Remove item after action (functional update — no stale closure) ─────
+
+  const removeItem = useCallback((id: string) => {
+    setItems(prev => {
+      const next = prev.filter(i => i.id !== id)
+      onCountChange?.(next.length)
+      return next
+    })
+  }, [onCountChange])
+
+  // ── API actions ────────────────────────────────────────────────────────
 
   const doAction = async (
     item: BlogItem,
     act: 'approve' | 'edit' | 'revision' | 'delete'
   ) => {
+    if (act !== 'delete' && act !== 'revision' && act !== 'edit' && !saving === undefined) return
     setSaving(true)
     try {
       if (act === 'approve') {
@@ -130,7 +168,8 @@ export default function ApprovalsTab({
         })
         const data = await res.json()
         if (!res.ok) throw new Error(data.error || 'Failed to publish')
-        showMsg(`"${item.title.slice(0, 50)}" published to ${data.slug}`)
+        showMsg(`"${item.title.slice(0, 50)}${item.title.length > 50 ? '…' : ''}" published`)
+        removeItem(item.id)
 
       } else if (act === 'edit') {
         if (!editContent.trim()) return
@@ -146,7 +185,8 @@ export default function ApprovalsTab({
           }),
         })
         if (!res.ok) throw new Error('Failed to save edit')
-        showMsg('Edit saved — the post stays in the queue for re-approval')
+        showMsg('Edit saved — post stays in queue for re-approval')
+        removeItem(item.id)
 
       } else if (act === 'revision') {
         if (!feedback.trim()) return
@@ -161,7 +201,8 @@ export default function ApprovalsTab({
           }),
         })
         if (!res.ok) throw new Error('Failed to request revision')
-        showMsg('Revision sent — the team will fix and resubmit')
+        showMsg('Revision sent — team will fix and resubmit')
+        removeItem(item.id)
 
       } else if (act === 'delete') {
         const res = await fetch('/api/blog/delete-from-queue', {
@@ -171,12 +212,10 @@ export default function ApprovalsTab({
           body: JSON.stringify({ id: item.id }),
         })
         if (!res.ok) throw new Error('Failed to delete')
-        showMsg('Deleted — permanently removed from the queue')
+        showMsg('Deleted — permanently removed')
+        removeItem(item.id)
       }
 
-      // Remove item from local list
-      setItems(prev => prev.filter(i => i.id !== item.id))
-      onCountChange?.(items.length - 1)
       setModal(null)
       setEditContent('')
       setFeedback('')
@@ -187,11 +226,9 @@ export default function ApprovalsTab({
     }
   }
 
-  // ── Open modal helpers ───────────────────────────────────────────────────
+  // ── Modal helpers ──────────────────────────────────────────────────────
 
-  const openPreview = (item: BlogItem) => {
-    setModal({ item, mode: 'preview' })
-  }
+  const openPreview = (item: BlogItem) => setModal({ item, mode: 'preview' })
 
   const openEdit = (item: BlogItem) => {
     setEditContent(item.content)
@@ -210,7 +247,13 @@ export default function ApprovalsTab({
     setModal({ item, mode: 'delete' })
   }
 
-  // ── Render ───────────────────────────────────────────────────────────────
+  const closeModal = () => {
+    setModal(null)
+    setEditContent('')
+    setFeedback('')
+  }
+
+  // ── Render ──────────────────────────────────────────────────────────────
 
   if (loading) return (
     <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center', fontSize: '0.85rem' }}>
@@ -221,16 +264,24 @@ export default function ApprovalsTab({
   if (error) return (
     <div style={{ padding: '3rem', textAlign: 'center' }}>
       <p style={{ color: C.red, fontSize: '0.85rem', marginBottom: '0.5rem' }}>{error}</p>
-      <button onClick={loadQueue} style={{ background: 'rgba(255,255,255,0.05)', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.4rem 1rem', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: '0.75rem' }}>Retry</button>
+      <button
+        onClick={loadQueue}
+        style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.4rem 1rem', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: '0.75rem' }}
+      >
+        Retry
+      </button>
     </div>
   )
 
   if (items.length === 0) return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-      {actionMsg && (
-        <div style={{ background: 'rgba(34,197,94,0.12)', border: `1px solid rgba(34,197,94,0.25)`, borderRadius: 8, padding: '0.75rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <span style={{ color: C.green, fontSize: '0.8rem' }}>Last action:</span>
-          <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.8rem' }}>{actionMsg}</span>
+      {lastAction && (
+        <div style={{
+          background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)',
+          borderRadius: 6, padding: '0.6rem 1rem',
+        }}>
+          <span style={{ color: C.green, fontSize: '0.75rem', fontWeight: 600 }}>Done:</span>{' '}
+          <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.75rem' }}>{lastAction}</span>
         </div>
       )}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '3.5rem', textAlign: 'center' }}>
@@ -245,21 +296,18 @@ export default function ApprovalsTab({
     </div>
   )
 
-  const revCount = (item: BlogItem) =>
-    (item.metadata?.revisionCount || 0) + (item.metadata?.editCount || 0)
-
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
 
-      {/* Action feedback */}
-      {actionMsg && (
+      {/* Last action toast */}
+      {lastAction && (
         <div style={{
-          background: 'rgba(34,197,94,0.08)', border: `1px solid rgba(34,197,94,0.2)`,
+          background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.2)',
           borderRadius: 6, padding: '0.6rem 1rem',
           display: 'flex', alignItems: 'center', gap: '0.5rem',
         }}>
           <span style={{ color: C.green, fontSize: '0.72rem', fontWeight: 700 }}>Done:</span>
-          <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.72rem' }}>{actionMsg}</span>
+          <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.72rem' }}>{lastAction}</span>
         </div>
       )}
 
@@ -273,13 +321,11 @@ export default function ApprovalsTab({
             {items.length} post{items.length !== 1 ? 's' : ''} waiting for review
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.5rem' }}>
-          <button
-            onClick={() => { setActionMsg(null); loadQueue() }}
-            style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.35rem 0.875rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', cursor: 'pointer', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
-            Refresh
-          </button>
-        </div>
+        <button
+          onClick={() => { setLastAction(null); loadQueue() }}
+          style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 4, padding: '0.35rem 0.875rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.62rem', cursor: 'pointer', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          Refresh
+        </button>
       </div>
 
       {/* Post cards */}
@@ -332,11 +378,6 @@ export default function ApprovalsTab({
                       Target: {kw}
                     </span>
                   )}
-                  {item.metadata?.excerpt && (
-                    <span style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>
-                      {item.metadata.excerpt.slice(0, 80)}...
-                    </span>
-                  )}
                 </div>
                 <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.35rem', alignItems: 'center' }}>
                   {revNum > 0 && (
@@ -345,10 +386,10 @@ export default function ApprovalsTab({
                     </span>
                   )}
                   <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)' }}>
-                    {item.createdAt ? new Date(item.createdAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' }) : ''}
+                    {formatDate(item.createdAt)}
                   </span>
                   <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)' }}>
-                    {item.content.split(/\s+/).length} words
+                    {wordCount(item.content)} words
                   </span>
                 </div>
               </div>
@@ -376,7 +417,7 @@ export default function ApprovalsTab({
                   Delete
                 </button>
                 <button
-                  onClick={() => { setEditContent(''); doAction(item, 'approve') }}
+                  onClick={() => doAction(item, 'approve')}
                   disabled={saving}
                   style={{ background: C.green, border: 'none', borderRadius: 4, padding: '0.35rem 1rem', color: 'white', fontSize: '0.62rem', fontWeight: 700, cursor: 'pointer', opacity: saving ? 0.5 : 1 }}>
                   {saving ? '...' : 'Approve'}
@@ -386,7 +427,12 @@ export default function ApprovalsTab({
 
             {/* Content snippet */}
             <div style={{ padding: '0.75rem 1.25rem' }}>
-              <p style={{ margin: 0, fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', lineHeight: 1.6, display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              <p style={{
+                margin: 0, fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)',
+                lineHeight: 1.6,
+                display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}>
                 {item.content.replace(/[#*_`]/g, '').slice(0, 300)}
               </p>
             </div>
@@ -405,7 +451,7 @@ export default function ApprovalsTab({
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             padding: '1rem',
           }}
-          onClick={(e) => { if (e.target === e.currentTarget) setModal(null) }}
+          onClick={(e) => { if (e.target === e.currentTarget) closeModal() }}
         >
           <div style={{
             background: '#0f1117',
@@ -425,17 +471,11 @@ export default function ApprovalsTab({
               borderBottom: `1px solid ${C.border}`,
               flexShrink: 0,
             }}>
-              {/* Icon */}
-              <span style={{ fontSize: '1.3rem', flexShrink: 0 }}>
-                {modal.mode === 'preview'  ? 'Read' :
-                 modal.mode === 'edit'     ? 'Edit' :
-                 modal.mode === 'revision' ? 'Revise' : 'Delete'}
-              </span>
               <div style={{ flex: 1 }}>
                 <p style={{ margin: 0, fontWeight: 700, fontSize: '0.9rem', color: 'white' }}>
-                  {modal.mode === 'preview'  ? 'Full post preview' :
-                   modal.mode === 'edit'     ? 'Edit post content' :
-                   modal.mode === 'revision' ? 'Request revision' :
+                  {modal.mode === 'preview'  ? 'Full post preview'    :
+                   modal.mode === 'edit'     ? 'Edit post content'    :
+                   modal.mode === 'revision' ? 'Request revision'     :
                                              'Delete this post?'}
                 </p>
                 <p style={{ margin: '0.1rem 0 0', fontSize: '0.62rem', color: 'rgba(255,255,255,0.35)' }}>
@@ -446,7 +486,7 @@ export default function ApprovalsTab({
                 </p>
               </div>
               <button
-                onClick={() => { setModal(null); setEditContent(''); setFeedback('') }}
+                onClick={closeModal}
                 style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 6, padding: '0.35rem 0.75rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', cursor: 'pointer' }}>
                 Close
               </button>
@@ -454,7 +494,7 @@ export default function ApprovalsTab({
 
             {/* ── PREVIEW ─────────────────────────────────────────────────── */}
             {modal.mode === 'preview' && (
-              <div style={{ flex: 1, overflowY: 'auto', padding: '0' }}>
+              <div style={{ flex: 1, overflowY: 'auto' }}>
                 <div style={{ background: 'rgba(0,0,0,0.2)', padding: '1.25rem 1.5rem', borderBottom: `1px solid ${C.border}` }}>
                   <p style={{ fontSize: '1.1rem', fontWeight: 800, color: 'white', margin: '0 0 0.5rem', lineHeight: 1.3 }}>
                     {modal.item.title}
@@ -506,7 +546,7 @@ export default function ApprovalsTab({
                   justifyContent: 'flex-end',
                 }}>
                   <button
-                    onClick={() => { setModal(null); setEditContent('') }}
+                    onClick={closeModal}
                     style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 6, padding: '0.5rem 1.25rem', color: 'rgba(255,255,255,0.45)', fontSize: '0.72rem', cursor: 'pointer' }}>
                     Discard
                   </button>
@@ -563,7 +603,7 @@ export default function ApprovalsTab({
                   />
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
-                  <button onClick={() => { setModal(null); setFeedback('') }}
+                  <button onClick={closeModal}
                     style={{ background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 6, padding: '0.5rem 1.25rem', color: 'rgba(255,255,255,0.45)', fontSize: '0.72rem', cursor: 'pointer' }}>
                     Cancel
                   </button>
@@ -581,11 +621,11 @@ export default function ApprovalsTab({
             {modal.mode === 'delete' && (
               <div style={{ padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.25rem', alignItems: 'center', textAlign: 'center' }}>
                 <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(239,68,68,0.12)', border: '2px solid rgba(239,68,68,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <span style={{ color: C.red, fontSize: '1.3rem' }}>X</span>
+                  <span style={{ color: C.red, fontSize: '1.3rem', fontWeight: 700 }}>X</span>
                 </div>
                 <div>
                   <p style={{ fontWeight: 700, fontSize: '0.95rem', color: 'white', margin: '0 0 0.5rem' }}>
-                    Delete &quot;{modal.item.title.slice(0, 60)}&quot;?
+                    Delete &quot;{modal.item.title.slice(0, 60)}{modal.item.title.length > 60 ? '…' : ''}&quot;?
                   </p>
                   <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.35)', margin: 0, lineHeight: 1.6 }}>
                     This removes the post from the queue permanently.
@@ -594,7 +634,7 @@ export default function ApprovalsTab({
                 </div>
                 <div style={{ display: 'flex', gap: '0.75rem', width: '100%' }}>
                   <button
-                    onClick={() => setModal(null)}
+                    onClick={closeModal}
                     style={{ flex: 1, background: 'transparent', border: `1px solid ${C.border}`, borderRadius: 6, padding: '0.6rem 1rem', color: 'rgba(255,255,255,0.5)', fontSize: '0.75rem', cursor: 'pointer' }}>
                     Keep it
                   </button>

@@ -9,11 +9,11 @@ const CARD = 'rgba(255,255,255,0.03)'
 const BORDER = 'rgba(255,255,255,0.07)'
 
 const ENERGY_LABELS: Record<number, string> = {
-  1: '😴 Low — delegate everything possible',
-  2: '😐 Below average — focus on high-value tasks only',
-  3: '🙂 Average — normal day',
-  4: '💪 High — push on big opportunities',
-  5: '🔥 Peak — tackle your hardest challenges',
+  1: 'LOW — delegate everything possible',
+  2: 'BELOW AVERAGE — focus on high-value tasks only',
+  3: 'AVERAGE — normal day',
+  4: 'HIGH — push on big opportunities',
+  5: 'PEAK — tackle your hardest challenges',
 }
 
 const ENERGY_COLOURS: Record<number, string> = {

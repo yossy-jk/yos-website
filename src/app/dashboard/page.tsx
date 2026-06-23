@@ -13,15 +13,15 @@ import TractionTab from './tabs/traction-tab'
 type TabKey = 'today' | 'pipeline' | 'tasks' | 'marketing' | 'finance' | 'approvals' | 'team' | 'innovation' | 'traction'
 
 const TABS: { key: TabKey; label: string; icon: string }[] = [
-  { key: 'today',      label: 'Today',      icon: '⚡' },
-  { key: 'pipeline',   label: 'Pipeline',   icon: '💰' },
-  { key: 'tasks',      label: 'Tasks',      icon: '✅' },
-  { key: 'marketing',  label: 'Marketing',  icon: '📈' },
-  { key: 'finance',    label: 'Finance',    icon: '💳' },
-  { key: 'approvals',  label: 'Approvals',  icon: '📋' },
-  { key: 'team',       label: 'Team',       icon: '🤖' },
-  { key: 'innovation', label: 'Innovation', icon: '🚀' },
-  { key: 'traction',   label: 'Traction',   icon: '🎯' },
+  { key: 'today',      label: 'Today',      icon: '' },
+  { key: 'pipeline',   label: 'Pipeline',   icon: '' },
+  { key: 'tasks',      label: 'Tasks',      icon: '' },
+  { key: 'marketing',  label: 'Marketing',  icon: '' },
+  { key: 'finance',    label: 'Finance',    icon: '' },
+  { key: 'approvals',  label: 'Approvals',  icon: '' },
+  { key: 'team',       label: 'Team',       icon: '' },
+  { key: 'innovation', label: 'Innovation', icon: '' },
+  { key: 'traction',   label: 'Traction',   icon: '' },
 ]
 
 function aestNow() {

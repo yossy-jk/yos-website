@@ -59,7 +59,7 @@ export default function InnovationTab() {
       {/* Pending approvals */}
       {pendingItems.length > 0 && (
         <div style={{ background: C.card, border: `1px solid rgba(139,92,246,0.3)`, borderLeft: `3px solid ${C.purple}`, borderRadius: 8, padding: '1.25rem' }}>
-          <Label c={C.purple}>⏳ Pending Your Approval ({pendingItems.length})</Label>
+          <Label c={C.purple}>Pending Your Approval ({pendingItems.length})</Label>
           {pendingItems.map((item, i) => (
             <div key={i} style={{ padding: '0.875rem', background: 'rgba(139,92,246,0.05)', borderRadius: 6, marginBottom: '0.75rem', border: `1px solid rgba(139,92,246,0.15)` }}>
               <p style={{ margin: '0 0 0.4rem', fontWeight: 700, fontSize: '0.82rem', color: 'white' }}>{item.title}</p>
@@ -74,11 +74,11 @@ export default function InnovationTab() {
 
       {/* Skills status */}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-        <Label>🔧 Capability Status</Label>
+        <Label>Capability Status</Label>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           {skills.map(s => (
             <div key={s.name} style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.6rem 0.875rem', background: 'rgba(255,255,255,0.02)', borderRadius: 6 }}>
-              <span style={{ color: s.status === 'ready' ? C.green : C.amber, fontSize: '0.8rem', flexShrink: 0 }}>{s.status === 'ready' ? '✅' : '⏳'}</span>
+              <span style={{ color: s.status === 'ready' ? C.green : C.amber, fontSize: '0.8rem', flexShrink: 0 }}>{s.status === 'ready' ? 'READY' : 'PENDING'}</span>
               <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ margin: 0, fontWeight: 600, fontSize: '0.78rem' }}>{s.name}</p>
                 <p style={{ margin: '0.1rem 0 0', fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>{s.impact}</p>
@@ -94,7 +94,7 @@ export default function InnovationTab() {
 
       {/* What to do next */}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-        <Label>🚀 Next Level Upgrades — Priority Order</Label>
+        <Label>Next Level Upgrades — Priority Order</Label>
         {[
           { rank: 1, item: 'Sign up fal.ai ($20)', impact: 'Brand-marketing generates LinkedIn graphics overnight', tag: 'CRITICAL' },
           { rank: 2, item: 'Get Google Places API key (free)', impact: 'Agents research client locations, competitor mapping', tag: 'HIGH' },
