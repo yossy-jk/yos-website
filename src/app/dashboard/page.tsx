@@ -139,7 +139,9 @@ export default function Dashboard() {
                 position: 'relative',
               }}
             >
-              <span style={{ fontSize: '0.85rem' }}>{tab.icon}</span>
+              {isActive && (
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#00B5A5', flexShrink: 0, display: 'inline-block' }} />
+              )}
               {tab.label}
               {badge > 0 && (
                 <span style={{ background: '#ef4444', color: 'white', fontSize: '0.55rem', fontWeight: 900, padding: '0.1rem 0.35rem', borderRadius: 99, lineHeight: 1.4 }}>
