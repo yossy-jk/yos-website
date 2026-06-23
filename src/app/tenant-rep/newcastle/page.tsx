@@ -263,7 +263,47 @@ export default function TenantRepNewcastlePage() {
               </h2>
             </FadeIn>
 
-            <script
+                          <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                  __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@graph": [
+                      {
+                        "@type": "Organization",
+                        "@id": "https://www.yourofficespace.au/#organization",
+                        "name": "Your Office Space",
+                        "url": "https://www.yourofficespace.au",
+                        "logo": "https://www.yourofficespace.au/favicon-32x32.png",
+                        "telephone": "0434 655 511",
+                        "email": "jk@yourofficespace.au",
+                        "address": {
+                          "@type": "PostalAddress",
+                          "streetAddress": "16A Chelmsford St",
+                          "addressLocality": "Maryville",
+                          "addressRegion": "NSW",
+                          "postalCode": "2293",
+                          "addressCountry": "AU"
+                        },
+                        "areaServed": ["NSW", "Australia"],
+                        "sameAs": ["https://www.linkedin.com/company/your-office-space"]
+                      },
+                      {
+                        "@type": "Service",
+                        "@id": "https://www.yourofficespace.au/#service-tenant-rep-newcastle",
+                        "name": "Tenant Representation Newcastle",
+                        "provider": { "@id": "https://www.yourofficespace.au/#organization" },
+                        "description": "Expert commercial tenant representation in Newcastle and the Hunter Valley. We negotiate better lease terms for tenants — never landlords.",
+                        "areaServed": ["Newcastle", "NSW", "Australia"],
+                        "serviceType": "Tenant Representation",
+                        "offers": { "@type": "Offer", "description": "First consultation free. Fee typically paid by landlord." }
+                      }
+                    ]
+                  })
+                }}
+              />
+
+<script
               type="application/ld+json"
               dangerouslySetInnerHTML={{
                 __html: JSON.stringify({

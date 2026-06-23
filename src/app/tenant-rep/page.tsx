@@ -30,17 +30,57 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 export default function TenantRepPage() {
   return (
     <>
-      <Nav />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Commercial Tenant Representation",
-        "provider": { "@type": "ProfessionalService", "name": "Your Office Space", "url": "https://yourofficespace.au" },
-        "description": "Independent commercial tenant representation across Australia. We negotiate leases, rent-free periods, incentives and make-good terms — exclusively on behalf of tenants.",
-        "areaServed": ["New South Wales", "Australia"],
-        "serviceType": "Tenant Representation",
-        "offers": { "@type": "Offer", "description": "First consultation free. Fee typically paid by landlord." }
-      }) }} />
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
+        {
+                "@context": "https://schema.org",
+                "@graph": [
+                        {
+                                "@type": "Organization",
+                                "@id": "https://www.yourofficespace.au/#organization",
+                                "name": "Your Office Space",
+                                "url": "https://www.yourofficespace.au",
+                                "logo": "https://www.yourofficespace.au/favicon-32x32.png",
+                                "telephone": "0434 655 511",
+                                "email": "jk@yourofficespace.au",
+                                "address": {
+                                        "@type": "PostalAddress",
+                                        "streetAddress": "16A Chelmsford St",
+                                        "addressLocality": "Maryville",
+                                        "addressRegion": "NSW",
+                                        "postalCode": "2293",
+                                        "addressCountry": "AU"
+                                },
+                                "areaServed": [
+                                        "NSW",
+                                        "Australia"
+                                ],
+                                "sameAs": [
+                                        "https://www.linkedin.com/company/your-office-space"
+                                ]
+                        },
+                        {
+                                "@type": "Service",
+                                "@id": "https://www.yourofficespace.au/tenant-rep",
+                                "name": "Commercial Tenant Representation",
+                                "provider": {
+                                        "@id": "https://www.yourofficespace.au/#organization"
+                                },
+                                "description": "Independent commercial tenant representation across Australia. We negotiate leases, rent-free periods, incentives and make-good terms \u2014 exclusively on behalf of tenants.",
+                                "areaServed": [
+                                        "New South Wales",
+                                        "Australia"
+                                ],
+                                "serviceType": "Commercial Tenant Representation",
+                                "offers": {
+                                        "@type": "Offer",
+                                        "description": "First consultation free. Fee typically paid by landlord."
+                                }
+                        }
+                ]
+        }
+      ) }} />
+
+
 
 
       {/* ─── HERO ─────────────────────────────────────────── */}
