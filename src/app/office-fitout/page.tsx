@@ -85,6 +85,19 @@ export default function OfficeFitoutPage() {
               { "@type": "Question", "name": "How do you handle heritage buildings in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Newcastle has a significant number of heritage-listed commercial buildings in areas like the CBD, Honeysuckle, and Newcastle East. Heritage constraints affect what can be done externally and to the fabric of the building. We manage heritage consent applications through Newcastle City Council as part of the approvals process." } },
               { "@type": "Question", "name": "What happens if my fitout programme runs over?", "acceptedAnswer": { "@type": "Answer", "text": "We track every milestone against the programme. If a trade falls behind, we identify it early and manage the recovery — sequencing remaining work, escalating to contractors, and finding solutions. Programme overruns are almost always managed before they become crises. You are informed before it becomes your problem." } }
             ]
+          },
+          {
+            "@type": "HowTo",
+            "name": "How to plan a commercial office fitout in Newcastle",
+            "description": "A step-by-step guide to planning a commercial office fitout in Newcastle — from initial brief to practical completion.",
+            "step": [
+              { "@type": "HowToStep", "name": "Define your brief", "text": "Identify what you need — workstation count, meeting rooms, breakout zones, and any specific requirements. A rough floor plan or headcount is enough to get started." },
+              { "@type": "HowToStep", "name": "Set a realistic budget", "text": "Budget guides: basic fitout $600-$1,200/sqm, mid-range $1,200-$2,000/sqm, premium $2,000+/sqm. Use our fitout estimator or call us for a budget based on your brief." },
+              { "@type": "HowToStep", "name": "Confirm your lease and timeline", "text": "Know your lease commencement date before you start. Every week of delay between handover and practical completion costs your business money. A tight timeline affects contractor selection and scope." },
+              { "@type": "HowToStep", "name": "Choose your fitout manager", "text": "Appoint a licensed commercial fitout manager who works in Newcastle and knows the local contractor market, council requirements, and heritage constraints where applicable." },
+              { "@type": "HowToStep", "name": "Approve the design and price", "text": "Review the 3D layout, finishes schedule, and itemised price before committing. What you approve in writing is what gets built — no surprises on installation day." },
+              { "@type": "HowToStep", "name": "Hand over and move in", "text": "We manage the build, coordinate all trades, handle practical completion, and manage the defects period. You receive a finished workspace on the agreed date." }
+            ]
           }
         ]
       }) }} />

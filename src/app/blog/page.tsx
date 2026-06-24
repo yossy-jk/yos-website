@@ -14,10 +14,11 @@ export const metadata = {
   openGraph: {
     title: 'Blog | Your Office Space',
     description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',
-    url: 'https://yourofficespace.au/blog',
+    url: 'https://www.yourofficespace.au/blog',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
+    images: [{ url: '/og-blog.png', width: 1200, height: 630, alt: 'Blog — Your Office Space' }],
   },
 }
 
