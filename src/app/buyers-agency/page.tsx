@@ -16,7 +16,7 @@ export const metadata = {
     title: 'Commercial Buyers Agency Newcastle | Your Office Space',
     description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
     url: 'https://www.yourofficespace.au/buyers-agency',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Buyers Agency Newcastle — Your Office Space' }],
+    images: [{ url: '/og/og-buyers-agency.png', width: 1200, height: 630, alt: 'Commercial Buyers Agency Newcastle | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

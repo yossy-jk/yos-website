@@ -16,7 +16,7 @@ export const metadata = {
     title: 'About | Your Office Space Newcastle',
     description: "Joe Kelley founded Your Office Space after a decade in commercial property. Australia's tenant-side advisor. Licensed, experienced, and genuinely on your side.",
     url: 'https://www.yourofficespace.au/about',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'About Your Office Space — Newcastle Commercial Property Advisory' }],
+    images: [{ url: '/og/og-about.png', width: 1200, height: 630, alt: 'About Your Office Space | Newcastle NSW | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

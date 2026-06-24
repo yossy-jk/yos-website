@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space',
     description: 'Professional commercial lease review in Newcastle and NSW. 24-hour turnaround. Every risk clause rated Red/Amber/Green with plain-English explanation.',
     url: 'https://www.yourofficespace.au/leaseintel',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'LeaseIntel — Commercial Lease Review Newcastle | Your Office Space' }],
+    images: [{ url: '/og/og-leaseintel.png', width: 1200, height: 630, alt: 'LeaseIntel Commercial Lease Review Newcastle | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     title: 'Newcastle Office Market Snapshot | Your Office Space',
     description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
     url: 'https://www.yourofficespace.au/market-snapshot',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Newcastle Office Market Snapshot | Your Office Space' }],
+    images: [{ url: '/og/og-market-snapshot.png', width: 1200, height: 630, alt: 'Newcastle Office Market Snapshot | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

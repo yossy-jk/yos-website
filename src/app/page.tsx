@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space — Tenant-Side Commercial Property Advisory Newcastle' }],
+    images: [{ url: '/og/og-home.png', width: 1200, height: 630, alt: 'Commercial Office Space Newcastle | Your Office Space' }],
   },
 }
 

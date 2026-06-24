@@ -21,7 +21,7 @@ export const metadata = {
     title: 'Commercial Office Fitout Newcastle | Your Office Space',
     description: 'Commercial fitout project management from brief to practical completion. One team. Transparent process. Newcastle and NSW.',
     url: 'https://www.yourofficespace.au/office-fitout',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Office Fitout Newcastle — Your Office Space' }],
+    images: [{ url: '/og/og-office-fitout.png', width: 1200, height: 630, alt: 'Commercial Office Fitout Newcastle | Brief to Practical Completion | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

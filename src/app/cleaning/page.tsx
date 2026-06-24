@@ -23,7 +23,7 @@ export const metadata = {
     title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
     description: 'Consistent. Accountable. Same team every visit. Commercial cleaning for offices, medical and childcare across Newcastle.',
     url: 'https://www.yourofficespace.au/cleaning',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Cleaning Newcastle — Your Office Space' }],
+    images: [{ url: '/og/og-cleaning.png', width: 1200, height: 630, alt: 'Commercial Office Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
