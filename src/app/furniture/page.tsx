@@ -15,8 +15,8 @@ const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3re
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 export const metadata = {
-  title: 'Commercial Office Furniture Newcastle | Burgtec, Rapidline & Commercial Brands | Your Office Space',
-  description: 'Commercial office furniture across Newcastle and NSW. Burgtec workstations and seating, Rapidline commercial range, Nova storage and more. Express delivery available. Brief to delivered.',
+  title: 'Commercial Office Furniture Newcastle | Burgtec & Commercial Brands | YOS',
+  description: 'Commercial office furniture across Newcastle and NSW. Burgtec workstations and seating, Rapidline ranges, storage and accessories. Supply, delivery and installation.',
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   twitter: { card: 'summary_large_image', title: 'Commercial Office Furniture Newcastle | Your Office Space', description: 'Burgtec, Rapidline and commercial furniture brands. Supply and install across Newcastle and NSW. Express delivery available.' },
   openGraph: {

@@ -13,8 +13,8 @@ const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3re
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 export const metadata = {
-  title: 'Commercial Office Fitout Newcastle | Project Management Brief to Practical Completion | Your Office Space',
-  description: 'Newcastle commercial fitout project management. One team from brief to practical completion — design, construction, joinery, services coordination. Fixed price, transparent process.',
+  title: 'Commercial Office Fitout Newcastle | Brief to Practical Completion | YOS',
+  description: 'Newcastle commercial fitout project management. One team from brief to practical completion — design, construction, joinery and services. Fixed price, no surprises.',
   alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   twitter: { card: 'summary_large_image', title: 'Commercial Office Fitout Newcastle | Your Office Space', description: 'Office fitout project management from brief to practical completion. One team. Fixed price. Newcastle and NSW.' },
   openGraph: {
