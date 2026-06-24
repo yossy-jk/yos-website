@@ -22,7 +22,7 @@ export const metadata = {
   openGraph: {
     title: 'Commercial Office Furniture Newcastle | Your Office Space',
     description: 'Burgtec workstations and seating, Rapidline commercial range, Nova storage — supply and install across Newcastle and NSW.',
-    url: 'https://yourofficespace.au/furniture',
+    url: 'https://www.yourofficespace.au/furniture',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Office Furniture Newcastle — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',

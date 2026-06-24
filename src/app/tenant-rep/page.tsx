@@ -14,7 +14,7 @@ export const metadata = {
   openGraph: {
     title: 'Tenant Representation | Your Office Space',
     description: 'We negotiate leases for tenants. Never landlords. Stronger terms, smarter deals, better outcomes.',
-    url: 'https://yourofficespace.au/tenant-rep',
+    url: 'https://www.yourofficespace.au/tenant-rep',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Tenant Representation — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',

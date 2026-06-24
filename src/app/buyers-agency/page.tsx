@@ -8,17 +8,15 @@ import { HUBSPOT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 
 export const metadata = {
-  title: 'Commercial Buyers Agency | Your Office Space',
+  title: 'Commercial Buyers Agency Newcastle | Off-Market Property Access | Your Office Space',
   description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
-  twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
   alternates: { canonical: 'https://www.yourofficespace.au/buyers-agency' },
+  twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency Newcastle | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
   openGraph: {
-    
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
-title: 'Commercial Buyers Agency | Your Office Space',
+    title: 'Commercial Buyers Agency Newcastle | Your Office Space',
     description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
-  twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
-    url: 'https://yourofficespace.au/buyers-agency',
+    url: 'https://www.yourofficespace.au/buyers-agency',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Buyers Agency Newcastle — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -76,7 +74,9 @@ export default function BuyersAgencyPage() {
               { "@type": "Question", "name": "What does a buyers agent do in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "A commercial buyers agent works exclusively for the buyer — not the vendor. They source off-market properties, conduct due diligence, negotiate the price and terms, and manage the transaction through to settlement. Their loyalty is 100% to you." } },
               { "@type": "Question", "name": "How much does a commercial buyers agent cost in Australia?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial buyers agents in Australia typically charge 1–2% of the purchase price or a fixed fee. Some also receive a portion of the selling agent's commission. Your Office Space discloses all fee arrangements upfront before any engagement." } },
               { "@type": "Question", "name": "What is off-market commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Off-market properties are not advertised publicly. They are sold quietly through agent networks, direct approaches, or off-market campaigns. Some of the best commercial deals in Newcastle never appear on realestate.com.au or Domain. A buyers agent with established relationships accesses these opportunities." } },
-              { "@type": "Question", "name": "What is due diligence in commercial property buying?", "acceptedAnswer": { "@type": "Answer", "text": "Due diligence is the investigation phase before settlement — covering title, zoning, building condition, environmental reports, lease agreements, and financial performance. Skipping this step is how buyers end up with a property that costs them significantly more than the purchase price." } }
+              { "@type": "Question", "name": "What is due diligence in commercial property buying?", "acceptedAnswer": { "@type": "Answer", "text": "Due diligence is the investigation phase before settlement — covering title, zoning, building condition, environmental reports, lease agreements, and financial performance. Skipping this step is how buyers end up with a property that costs them significantly more than the purchase price." } },
+              { "@type": "Question", "name": "How long does commercial property due diligence take in NSW?", "acceptedAnswer": { "@type": "Answer", "text": "A thorough commercial property due diligence typically takes 4–6 weeks from the time you go under contract. It includes title searches, zoning verification, building and pest inspections, lease reviews, environmental reports, and financial analysis. Rushing this process is where buyers get caught." } },
+              { "@type": "Question", "name": "What is the process for buying commercial property in NSW?", "acceptedAnswer": { "@type": "Answer", "text": "The process: brief and strategy — off-market and market search — offer and negotiation — contract exchange — due diligence period — finance approval — pre-settlement inspection — settlement. A buyers agent manages every step and coordinates your legal and financial advisors throughout." } }
             ]
           }
         ]

@@ -15,14 +15,14 @@ import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Commercial Cleaning Newcastle | Your Office Space',
+  title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
   description: 'Consistent, accountable commercial cleaning for offices, medical and childcare across Newcastle and the Hunter Valley. Same team every visit.',
-  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Consistent. Accountable. Same team every visit. Monthly site audits on every contract.' },
+  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space', description: 'Consistent. Accountable. Same team every visit. Monthly site audits on every contract.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
-    title: 'Commercial Cleaning Newcastle | Your Office Space',
+    title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
     description: 'Consistent. Accountable. Same team every visit. Commercial cleaning for offices, medical and childcare across Newcastle.',
-    url: 'https://yourofficespace.au/cleaning',
+    url: 'https://www.yourofficespace.au/cleaning',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Cleaning Newcastle — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',

@@ -21,7 +21,7 @@ export const metadata = {
   openGraph: {
     title: 'Commercial Office Fitout Newcastle | Your Office Space',
     description: 'Commercial fitout project management from brief to practical completion. One team. Transparent process. Newcastle and NSW.',
-    url: 'https://yourofficespace.au/office-fitout',
+    url: 'https://www.yourofficespace.au/office-fitout',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Office Fitout Newcastle — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',

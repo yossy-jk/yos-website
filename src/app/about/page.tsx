@@ -8,16 +8,15 @@ import { HUBSPOT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 
 export const metadata = {
-  title: 'About | Your Office Space — Commercial Property Advisory',
+  title: 'About | Your Office Space — Commercial Property Advisory Newcastle',
   description: "Joe Kelley founded Your Office Space after a decade in commercial property. Australia's tenant-side advisor. Licensed, experienced, and genuinely on your side.",
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
-  twitter: { card: 'summary_large_image', title: 'About | Your Office Space', description: "Licensed. Experienced. On your side. Founded by Joe Kelley after a decade in commercial property." },
+  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: "Licensed. Experienced. On your side. Founded by Joe Kelley after a decade in commercial property." },
   openGraph: {
-    
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
-title: 'About | Your Office Space',
-    description: "Joe Kelley founded Your Office Space after a decade in commercial fitouts. Licensed. Experienced. On your side.",
-    url: 'https://yourofficespace.au/about',
+    title: 'About | Your Office Space Newcastle',
+    description: "Joe Kelley founded Your Office Space after a decade in commercial property. Australia's tenant-side advisor. Licensed, experienced, and genuinely on your side.",
+    url: 'https://www.yourofficespace.au/about',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'About Your Office Space — Newcastle Commercial Property Advisory' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -118,7 +117,9 @@ export default function AboutPage() {
               { "@type": "Question", "name": "How does Your Office Space make money?", "acceptedAnswer": { "@type": "Answer", "text": "For tenant representation, landlords typically pay our fees as part of the leasing deal — so tenants pay nothing. For buyers agency, fees are agreed upfront. We disclose everything before you commit to anything." } },
               { "@type": "Question", "name": "Why do you only work for tenants and buyers?", "acceptedAnswer": { "@type": "Answer", "text": "Because representing both sides of a deal creates a conflict of interest. The moment you represent a landlord, your advice is compromised. We eliminated that conflict entirely by only working for one side." } },
               { "@type": "Question", "name": "How long have you been operating in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space was founded by Joe Kelley after over a decade in commercial fitouts and property. We have been operating in the Newcastle and Hunter market for over 12 years." } },
-              { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } }
+              { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
+              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Start with a no-obligation conversation. Tell us what you are dealing with — a lease expiring, a fitout needed, a property to buy. We will tell you exactly what we can do, how we charge, and what the process looks like. If it makes sense to work together, we will say so." } },
+              { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier — many of our best client relationships are conducted entirely online." } }
             ]
           },
           {
