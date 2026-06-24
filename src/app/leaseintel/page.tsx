@@ -16,16 +16,15 @@ export const metadata: Metadata = {
   description: 'Two ways to know your lease risk. Free Lease Risk Review — 10 questions, instant Red/Amber/Green rating, no document required. Or the full LeaseIntel™ report — every clause analysed, $297 ex GST, 24-hour turnaround. Newcastle businesses: free until 21 July 2026.',
   alternates: { canonical: 'https://www.yourofficespace.au/leaseintel' },
   openGraph: {
-    
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
-title: 'LeaseIntel™ — Commercial Lease Review | Your Office Space',
-    description: 'Professional lease review in 24 hours. Every clause rated Red / Amber / Green with a full negotiation roadmap.',
-    url: 'https://yourofficespace.au/leaseintel',
+    title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space',
+    description: 'Professional commercial lease review in Newcastle and NSW. 24-hour turnaround. Every risk clause rated Red/Amber/Green with plain-English explanation.',
+    url: 'https://www.yourofficespace.au/leaseintel',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'LeaseIntel — Commercial Lease Review Newcastle | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ Lease Review', description: 'Professional commercial lease review. 24-hour turnaround. Every risk explained.' },
+  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space', description: 'Professional commercial lease review in Newcastle and NSW. 24-hour turnaround. Every risk explained.' },
 }
 
 /* ─── FAQ Data ────────────────────────────────────────────── */

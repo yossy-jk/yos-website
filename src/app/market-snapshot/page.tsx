@@ -8,11 +8,10 @@ export const metadata: Metadata = {
   description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
   alternates: { canonical: 'https://www.yourofficespace.au/market-snapshot' },
   openGraph: {
-    
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
-title: 'Newcastle Office Market Snapshot | Your Office Space',
-    description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline — what landlords already know but tenants don\'t.',
-    url: 'https://yourofficespace.au/market-snapshot',
+    title: 'Newcastle Office Market Snapshot | Your Office Space',
+    description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
+    url: 'https://www.yourofficespace.au/market-snapshot',
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Newcastle Office Market Snapshot | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
