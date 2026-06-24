@@ -595,6 +595,14 @@ export default function TenantRepPage() {
                   "text": "Office, industrial, retail, and specialised use — including childcare centres, medical suites, and hospitality fitouts. Each sector has its own lease dynamics, and we tailor the representation accordingly. If it is a commercial lease in NSW, we can help.",
                 },
               },
+              {
+                "@type": "Question",
+                "name": "How much can a tenant representative save on a commercial lease?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "It depends on the deal. We consistently negotiate rent-free periods worth tens of thousands of dollars, caps on annual rent increases, make-good obligations reduced or eliminated, and fitout contributions from the landlord. The fee is usually covered by what we negotiate. Most clients see a net positive return on representation within the first year of their lease.",
+                },
+              },
             ],
           })
         }}

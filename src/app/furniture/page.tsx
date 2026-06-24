@@ -305,6 +305,56 @@ export default function FurniturePage() {
         </div>
       </section>
 
+
+      {/* ─── SECTOR BROWSING ────────────────────────── */}
+      <section className="bg-warm-grey" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <SectionLabel>Furniture by sector</SectionLabel>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
+              Every environment has different requirements.
+            </h2>
+            <p className="text-charcoal font-light leading-relaxed max-w-2xl mb-12"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.85 }}>
+              Office furniture is not one-size-fits-all. A legal firm boardroom has different demands to a call centre, a school library, or a medical practice. We work with each sector on its own terms.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {([
+              { sector: 'Workplace', icon: 'svg-workplace', needs: ['Sit-stand workstations','Ergonomic seating','Meeting and collaboration zones','Quiet rooms and phone booths','Storage and filing'], image: '/images/furniture/space-wsi-openplan.jpg' },
+              { sector: 'Education', icon: 'svg-education', needs: ['Student learning environments','Staffroom and administration','Library and study spaces','Flexible learning furniture','Durable commercial-grade finishes'], image: '/images/furniture/space-geelong-a.jpg' },
+              { sector: 'Healthcare', icon: 'svg-healthcare', needs: ['Infection-control-grade surfaces','Task seating for clinical staff','Reception and patient waiting','Consultation room furniture','Healthcare standards compliance'], image: '/images/furniture/space-cogc-office.jpg' },
+              { sector: 'Government', icon: 'svg-government', needs: ['Procurement-compliant specification','DDA accessibility compliance','High-volume workstation deployment','Council and civic fitouts','Panel and standing-offer arrangements'], image: '/images/furniture/space-cogc-wide.jpg' }
+            ]).map((item) => (
+              <FadeIn key={item.sector} direction="up">
+                <div className="bg-white rounded-xl overflow-hidden flex flex-col">
+                  <div className="relative" style={{ height: 'clamp(7rem, 12vw, 10rem)' }}>
+                    <Image src={item.image} alt={item.sector + ' commercial furniture Newcastle NSW'} fill className="object-cover object-center" />
+                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(26,26,26,0.85) 0%, rgba(26,26,26,0.2) 70%, transparent 100%)' }} />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <p className="text-white font-bold text-base">{item.sector}</p>
+                    </div>
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <ul className="space-y-1.5 flex-1">
+                      {item.needs.map(n => (
+                        <li key={n} className="text-charcoal font-light text-xs flex items-start gap-1.5">
+                          <span className="text-teal mt-0.5 flex-shrink-0" style={{ fontSize: '0.65rem' }}>—</span>{n}
+                        </li>
+                      ))}
+                    </ul>
+                    <Button href="/resources/furniture-quote" variant="primary" size="sm" className="mt-4 w-full justify-center">
+                      Get a Quote →
+                    </Button>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── INSPIRATION GALLERY ─────────────────────── */}
       <section style={SEC} className="bg-warm-grey">
         <div className="max-w-screen-xl mx-auto" style={PAD}>
@@ -344,8 +394,48 @@ export default function FurniturePage() {
         </div>
       </section>
 
+
+
+      {/* ─── SPECIFICATION RESOURCES ─────────────────── */}
+      <section className="bg-[#0D1117]" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <SectionLabel>Resources</SectionLabel>
+            <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-4 max-w-2xl"
+              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
+              Download specs. Book a showroom visit.
+            </h2>
+            <p className="text-white/50 font-light leading-relaxed max-w-2xl mb-12"
+              style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.85 }}>
+              Burgtec, Rapidline, and all our commercial brands have full product specifications, CAD drawings, Revit families, and colour/finish guides available. We also run showroom viewings by appointment — bring your floor plan and we walk you through the options.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {([
+              { title: 'Burgtec Product Brochures', desc: 'Full range catalogues for workstations, seating, and storage systems. Includes finish options, dimensions, and lead times.', action: 'Download Brochures' },
+              { title: 'Rapidline Commercial Catalogue', desc: 'Desk systems, storage, and meeting tables for commercial offices. Specification sheets by product line.', action: 'Download Catalogue' },
+              { title: 'CAD Drawings and Revit Files', desc: 'Revit families and CAD blocks for Burgtec and Rapidline workstation configurations. Ready for architectural documentation.', action: 'Request CAD Files' },
+              { title: 'Finish and Colour Guide', desc: 'Frame colours, worktop laminates, fabric options, and screen fabrics for Burgtec and Rapidline. Match to your brand.', action: 'Download Finish Guide' },
+              { title: 'Showroom Appointment', desc: 'See Burgtec workstations and seating in person. Bring your floor plan and headcount — we walk through configurations on the showroom floor.', action: 'Book a Showroom Visit' },
+              { title: 'Bulk and Government Pricing', desc: 'Standing offer, panel arrangement, and government procurement pricing available. Councils, schools, and health facilities — talk to us first.', action: 'Enquire About Pricing' }
+            ]).map((item) => (
+              <FadeIn key={item.title} direction="up">
+                <div className="bg-[#0A0A0A] rounded-xl p-7 border border-white/5 flex flex-col">
+                  <h3 className="text-white font-bold text-base mb-2">{item.title}</h3>
+                  <p className="text-white/50 font-light text-sm leading-relaxed flex-1 mb-5">{item.desc}</p>
+                  <Button href="/resources/furniture-quote" variant="primary" size="md" className="w-full justify-center">
+                    {item.action} →
+                  </Button>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── WHY BUY THROUGH YOS ────────────────────── */}
       <section className="bg-[#0D1117]" style={SEC}>
+
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>Why buy through YOS</SectionLabel>
