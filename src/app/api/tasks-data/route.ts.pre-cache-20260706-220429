@@ -1,24 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
-
 /**
  * GET  /api/tasks-data  — reads tasks from Upstash Redis
  * POST /api/tasks-data  — create/complete/delegate/standby/unstandby tasks
  *
  * Data model:
- *   tasks:v1            — canonical active task list (all non-completed tasks)
+ *   tasks:v1            — all active tasks (manual + Inbox EA)
  *   tasks:completed:v1  — last 100 completed tasks
  *   tasks:standby:v1    — tasks on hold/standby
- *   yos:tasks:summary   — dashboard reads from here; rebuilt from tasks:v1 on every mutation
+ *   yos:tasks:summary    — Inbox EA writes Microsoft To Do tasks here (primary source)
  *
  * All mutations write to tasks:v1 AND rebuild yos:tasks:summary
  * so the dashboard stays fresh without waiting for Inbox EA's next sync.
- *
- * Key invariant: yos:tasks:summary is ALWAYS rebuilt from tasks:v1.
- * tasks:v1 is the single source of truth; never the other way around.
  */
 
 const UPSTASH_URL    = process.env.UPSTASH_REDIS_REST_URL    || ''
@@ -84,12 +78,6 @@ interface TasksData {
   sources: Record<string, number>
 }
 
-interface SummaryRaw {
-  todayTasks: Task[]; overdue: Task[]; backlog: Task[]
-  delegated: Task[]; completed: Task[]; onHold: Task[]
-  [key: string]: unknown
-}
-
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
@@ -110,30 +98,25 @@ function safeJsonParse<T>(raw: string | null, fallback: T): T {
 
 // ---------------------------------------------------------------------------
 // Summary rebuild — called after every mutation
-// Builds todayTasks/overdue/backlog/delegated from tasks:v1
-// then writes both tasks:v1 (normalised) and yos:tasks:summary to Redis.
-//
-// tasks:v1 is the source of truth. Always rebuild summary from tasks:v1,
-// never let the two diverge.
+// Rebuilds yos:tasks:summary from tasks:v1 so dashboard stays fresh
 // ---------------------------------------------------------------------------
 async function rebuildSummary(): Promise<void> {
-  const raw          = await redisGet(TASKS_KEY)
-  const standbyRaw   = await redisGet(STANDBY_KEY)
+  const raw = await redisGet(TASKS_KEY)
+  const standbyRaw = await redisGet(STANDBY_KEY)
   const completedRaw = await redisGet(COMPLETED_KEY)
-
-  const standby:   Task[] = safeJsonParse(standbyRaw,   [])
+  const standby: Task[] = safeJsonParse(standbyRaw, [])
   const completed: Task[] = safeJsonParse(completedRaw, [])
-  const allTasks:  Task[] = safeJsonParse(raw,          [])
+  const allTasks: Task[] = safeJsonParse(raw, [])
 
-  const today        = todayStr()
+  // Active tasks (not standby, not completed)
+  const active = allTasks.filter(t => t.status !== 'completed' && t.status !== 'standby')
+  const today = todayStr()
   const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0]
 
-  // Canonical active tasks (not completed, not on standby)
-  const active     = allTasks.filter(t => t.status !== 'completed' && t.status !== 'standby')
-  const todayTasks  = active.filter(t => t.due_date === today)
-  const overdue    = active.filter(t => t.due_date !== null && t.due_date < today)
-  const backlog    = active.filter(t => t.due_date !== null && t.due_date > today)
-  const delegated  = active.filter(t => t.status === 'delegated')
+  const todayTasks = active.filter(t => t.due_date === today)
+  const overdue   = active.filter(t => t.due_date !== null && t.due_date < today)
+  const backlog   = active.filter(t => t.due_date !== null && t.due_date > today)
+  const delegated = active.filter(t => t.status === 'delegated')
 
   const completed7d = completed.filter(t =>
     t.completed_date && t.completed_date >= sevenDaysAgo
@@ -146,32 +129,23 @@ async function rebuildSummary(): Promise<void> {
   active.forEach(t => { sources[t.source] = (sources[t.source] || 0) + 1 })
 
   const summary = {
-    generatedAt:     nowISO(),
+    generatedAt: nowISO(),
     todayTasks,
     overdue,
     backlog,
     delegated,
     completed,
-    onHold:         standby,
+    onHold: standby,
     completionRate7d: rate7d,
-    totalOpen:       active.length,
-    totalCompleted:  completed.length,
-    totalBacklog:    backlog.length,
+    totalOpen: active.length,
+    totalCompleted: completed.length,
+    totalBacklog: backlog.length,
     joeCapacityToday: todayTasks.length,
-    maxJoeCapacity:  10,
+    maxJoeCapacity: 10,
     sources,
   }
 
-  // Write summary
   await redisSet(SUMMARY_KEY, JSON.stringify(summary))
-
-  // Canonicalise and re-write tasks:v1 — keeps it in sync with summary
-  // (active + standby, no completed)
-  const canonical: Task[] = [
-    ...active,
-    ...standby.map(t => ({ ...t, status: 'standby' } as Task)),
-  ]
-  await redisSet(TASKS_KEY, JSON.stringify(canonical))
 }
 
 // ---------------------------------------------------------------------------
@@ -185,43 +159,43 @@ export async function GET() {
   const summaryRaw = await redisGet(SUMMARY_KEY)
   if (summaryRaw) {
     try {
-      const s = JSON.parse(summaryRaw) as SummaryRaw
+      const s = JSON.parse(summaryRaw)
       return NextResponse.json({
-        generatedAt:     (s.generatedAt as string) || nowISO(),
-        todayTasks:      ((s.todayTasks  || []) as Task[]).map(deepClone),
-        overdue:         ((s.overdue     || []) as Task[]).map(deepClone),
-        backlog:         ((s.backlog     || []) as Task[]).map(deepClone),
-        delegated:       ((s.delegated   || []) as Task[]).map(deepClone),
-        completed:       ((s.completed   || []) as Task[]).map(deepClone),
-        onHold:          ((s.onHold      || []) as Task[]).map(deepClone),
-        completionRate7d: (s.completionRate7d as number) || 0,
-        totalOpen:       (s.totalOpen      as number) || 0,
-        totalCompleted:  (s.totalCompleted as number) || 0,
-        totalBacklog:    (s.totalBacklog   as number) || 0,
-        joeCapacityToday: (s.joeCapacityToday as number) ?? ((s.todayTasks || []).length),
-        maxJoeCapacity:  (s.maxJoeCapacity  as number) || 10,
-        sources:         (s.sources         as Record<string, number>) || {},
+        generatedAt:     s.generatedAt || nowISO(),
+        todayTasks:      (s.todayTasks  || []).map(deepClone),
+        overdue:         (s.overdue     || []).map(deepClone),
+        backlog:         (s.backlog     || []).map(deepClone),
+        delegated:       (s.delegated   || []).map(deepClone),
+        completed:       (s.completed   || []).map(deepClone),
+        onHold:          (s.onHold      || []).map(deepClone),
+        completionRate7d: s.completionRate7d || 0,
+        totalOpen:       s.totalOpen      || 0,
+        totalCompleted:  s.totalCompleted || 0,
+        totalBacklog:    s.totalBacklog   || 0,
+        joeCapacityToday: s.joeCapacityToday ?? ((s.todayTasks || []).length),
+        maxJoeCapacity:  s.maxJoeCapacity  || 10,
+        sources:         s.sources         || {},
       } as TasksData)
     } catch { /* fall through to legacy */ }
   }
 
   // Fallback: build from tasks:v1
-  const raw          = await redisGet(TASKS_KEY)
-  const standbyRaw   = await redisGet(STANDBY_KEY)
+  const raw = await redisGet(TASKS_KEY)
+  const standbyRaw = await redisGet(STANDBY_KEY)
   const completedRaw = await redisGet(COMPLETED_KEY)
 
-  const allTasks:  Task[] = safeJsonParse(raw,          [])
-  const standby:   Task[] = safeJsonParse(standbyRaw,   [])
+  const allTasks: Task[]  = safeJsonParse(raw, [])
+  const standby: Task[]   = safeJsonParse(standbyRaw, [])
   const completed: Task[] = safeJsonParse(completedRaw, [])
 
-  const today        = todayStr()
+  const today = todayStr()
   const sevenDaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0]
 
-  const active     = allTasks.filter(t => t.status !== 'completed' && t.status !== 'standby')
-  const todayTasks  = active.filter(t => t.due_date === today)
-  const overdue    = active.filter(t => t.due_date !== null && t.due_date < today)
-  const backlog    = active.filter(t => t.due_date !== null && t.due_date > today)
-  const delegated  = active.filter(t => t.status === 'delegated')
+  const active = allTasks.filter(t => t.status !== 'completed' && t.status !== 'standby')
+  const overdue   = active.filter(t => t.due_date !== null && t.due_date < today)
+  const todayTasks = active.filter(t => t.due_date === today)
+  const backlog   = active.filter(t => t.due_date !== null && t.due_date > today)
+  const delegated = active.filter(t => t.status === 'delegated')
 
   const completed7d = completed.filter(t =>
     t.completed_date && t.completed_date >= sevenDaysAgo
@@ -265,24 +239,24 @@ export async function POST(req: NextRequest) {
 
     // ---- CREATE ----
     if (body.action === 'create') {
-      const raw   = await redisGet(TASKS_KEY)
+      const raw = await redisGet(TASKS_KEY)
       const tasks: Task[] = safeJsonParse(raw, [])
       const newTask: Task = {
         id: makeId(),
-        title:         body.title || 'Untitled',
-        description:   body.description || '',
-        source:        body.source || 'manual',
-        status:        'pending',
-        priority:      body.priority || '2',
-        due_date:      body.due_date || null,
-        due_time:      null,
-        assigned_to:   '', revenue_value: null, client_name: '', client_id: '',
-        can_delegate:  0, raw_commitment: '', tags: '',
-        completed_at:  null, completed_date: null,
-        created_at:    now, updated_at: now,
-        committed_to:  '', meeting_title: '', completion_note: '',
-        delegated_to:  '', hold_reason: '', on_hold_at: null,
-        notes:         '', notes_updated_at: null,
+        title: body.title || 'Untitled',
+        description: body.description || '',
+        source: body.source || 'manual',
+        status: 'pending',
+        priority: body.priority || '2',
+        due_date: body.due_date || null,
+        due_time: null,
+        assigned_to: '', revenue_value: null, client_name: '', client_id: '',
+        can_delegate: 0, raw_commitment: '', tags: '',
+        completed_at: null, completed_date: null,
+        created_at: now, updated_at: now,
+        committed_to: '', meeting_title: '', completion_note: '',
+        delegated_to: '', hold_reason: '', on_hold_at: null,
+        notes: '', notes_updated_at: null,
       }
       tasks.unshift(newTask)
       await redisSet(TASKS_KEY, JSON.stringify(tasks))
@@ -292,98 +266,59 @@ export async function POST(req: NextRequest) {
 
     // ---- COMPLETE ----
     if (body.action === 'complete' && body.taskId) {
-      const raw          = await redisGet(TASKS_KEY)
-      const standbyRaw   = await redisGet(STANDBY_KEY)
+      const raw = await redisGet(TASKS_KEY)
+      const standbyRaw = await redisGet(STANDBY_KEY)
+      const tasks: Task[] = safeJsonParse(raw, [])
+      const standby: Task[] = safeJsonParse(standbyRaw, [])
       const completedRaw = await redisGet(COMPLETED_KEY)
-      const summaryRaw   = await redisGet(SUMMARY_KEY)
-
-      const tasks:    Task[] = safeJsonParse(raw,          [])
-      const standby:  Task[] = safeJsonParse(standbyRaw,   [])
       const completed: Task[] = safeJsonParse(completedRaw, [])
 
-      // Search tasks:v1 first, then standby, then summary (Microsoft To Do tasks)
-      let idx  = tasks.findIndex(t => t.id === body.taskId)
+      // Try active tasks
+      let idx = tasks.findIndex(t => t.id === body.taskId)
       let done: Task | null = null
-
       if (idx !== -1) {
         [done] = tasks.splice(idx, 1)
       } else {
+        // Try standby
         idx = standby.findIndex(t => t.id === body.taskId)
-        if (idx !== -1) {
-          [done] = standby.splice(idx, 1)
-        } else {
-          // Task may live only in yos:tasks:summary (from MS To Do / Inbox EA sync)
-          const summaryData = safeJsonParse<SummaryRaw>(summaryRaw, {
-            todayTasks: [], overdue: [], backlog: [],
-            delegated: [], completed: [], onHold: [],
-          })
-
-          const allSummaryLists = [
-            ...(summaryData.todayTasks  || []),
-            ...(summaryData.overdue     || []),
-            ...(summaryData.backlog     || []),
-            ...(summaryData.delegated   || []),
-            ...(summaryData.onHold      || []),
-          ]
-
-          const sumIdx = allSummaryLists.findIndex(t => t.id === body.taskId)
-          if (sumIdx !== -1) {
-            done = { ...allSummaryLists[sumIdx] }
-            // Also remove from the appropriate summary list to keep summary consistent
-            const removeFrom = (arr: Task[]) => {
-              const i = arr.findIndex(t => t.id === body.taskId)
-              if (i !== -1) arr.splice(i, 1)
-            }
-            removeFrom(summaryData.todayTasks)
-            removeFrom(summaryData.overdue)
-            removeFrom(summaryData.backlog)
-            removeFrom(summaryData.delegated)
-            removeFrom(summaryData.onHold)
-            // Persist the updated summary immediately since tasks:v1 won't have it
-            await redisSet(SUMMARY_KEY, JSON.stringify(summaryData))
-          }
-        }
+        if (idx !== -1) [done] = standby.splice(idx, 1)
       }
 
       if (done) {
-        done.status         = 'completed'
-        done.completed_at   = now
+        done.status = 'completed'
+        done.completed_at = now
         done.completed_date = now.split('T')[0]
-        done.updated_at     = now
+        done.updated_at = now
         if (body.completionNote) done.completion_note = body.completionNote
         completed.unshift(done)
         if (completed.length > 100) completed.splice(100)
-
-        // Persist all stores and rebuild summary to sync tasks:v1 + summary
-        await redisSet(COMPLETED_KEY, JSON.stringify(completed))
-        await redisSet(STANDBY_KEY,   JSON.stringify(standby))
-        await redisSet(TASKS_KEY,     JSON.stringify(tasks))
-        await rebuildSummary()
-        return NextResponse.json({ ok: true })
       }
 
-      // Task not found anywhere — return ok to avoid UI errors, include warning for debugging
-      return NextResponse.json({ ok: true, warning: 'task not found' })
+      await redisSet(TASKS_KEY, JSON.stringify(tasks))
+      await redisSet(STANDBY_KEY, JSON.stringify(standby))
+      await redisSet(COMPLETED_KEY, JSON.stringify(completed))
+      await rebuildSummary()
+      return NextResponse.json({ ok: true })
     }
 
     // ---- STANDBY ----
     if (body.action === 'standby' && body.taskId) {
-      const raw        = await redisGet(TASKS_KEY)
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = safeJsonParse(raw, [])
       const standbyRaw = await redisGet(STANDBY_KEY)
-      const tasks:   Task[] = safeJsonParse(raw,        [])
       const standby: Task[] = safeJsonParse(standbyRaw, [])
 
       const idx = tasks.findIndex(t => t.id === body.taskId)
       if (idx !== -1) {
         const [stby] = tasks.splice(idx, 1)
-        stby.status       = 'standby'
-        stby.hold_reason  = body.holdReason || ''
-        stby.on_hold_at   = now
-        stby.updated_at   = now
+        stby.status = 'standby'
+        stby.hold_reason = body.holdReason || ''
+        stby.on_hold_at = now
+        stby.updated_at = now
         standby.unshift(stby)
       }
 
-      await redisSet(TASKS_KEY,   JSON.stringify(tasks))
+      await redisSet(TASKS_KEY, JSON.stringify(tasks))
       await redisSet(STANDBY_KEY, JSON.stringify(standby))
       await rebuildSummary()
       return NextResponse.json({ ok: true })
@@ -391,22 +326,22 @@ export async function POST(req: NextRequest) {
 
     // ---- UNSTANDBY ----
     if (body.action === 'unstandby' && body.taskId) {
-      const raw        = await redisGet(TASKS_KEY)
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = safeJsonParse(raw, [])
       const standbyRaw = await redisGet(STANDBY_KEY)
-      const tasks:   Task[] = safeJsonParse(raw,        [])
       const standby: Task[] = safeJsonParse(standbyRaw, [])
 
       const idx = standby.findIndex(t => t.id === body.taskId)
       if (idx !== -1) {
         const [active] = standby.splice(idx, 1)
-        active.status      = 'pending'
+        active.status = 'pending'
         active.hold_reason = ''
-        active.on_hold_at  = null
-        active.updated_at  = now
+        active.on_hold_at = null
+        active.updated_at = now
         tasks.unshift(active)
       }
 
-      await redisSet(TASKS_KEY,   JSON.stringify(tasks))
+      await redisSet(TASKS_KEY, JSON.stringify(tasks))
       await redisSet(STANDBY_KEY, JSON.stringify(standby))
       await rebuildSummary()
       return NextResponse.json({ ok: true })
@@ -414,14 +349,14 @@ export async function POST(req: NextRequest) {
 
     // ---- DELEGATE ----
     if (body.action === 'delegate' && body.taskId && body.agentId) {
-      const raw   = await redisGet(TASKS_KEY)
+      const raw = await redisGet(TASKS_KEY)
       const tasks: Task[] = safeJsonParse(raw, [])
-      const idx   = tasks.findIndex(t => t.id === body.taskId)
+      const idx = tasks.findIndex(t => t.id === body.taskId)
       if (idx !== -1) {
-        tasks[idx].assigned_to  = body.agentId
+        tasks[idx].assigned_to = body.agentId
         tasks[idx].delegated_to = body.agentId
-        tasks[idx].status      = 'delegated'
-        tasks[idx].updated_at  = now
+        tasks[idx].status = 'delegated'
+        tasks[idx].updated_at = now
       }
       await redisSet(TASKS_KEY, JSON.stringify(tasks))
       await rebuildSummary()
@@ -430,35 +365,27 @@ export async function POST(req: NextRequest) {
 
     // ---- SAVE NOTES ----
     if (body.action === 'save-notes' && body.taskId) {
-      const raw        = await redisGet(TASKS_KEY)
+      const raw = await redisGet(TASKS_KEY)
+      const tasks: Task[] = safeJsonParse(raw, [])
       const standbyRaw = await redisGet(STANDBY_KEY)
-      const tasks:   Task[] = safeJsonParse(raw,        [])
       const standby: Task[] = safeJsonParse(standbyRaw, [])
 
-      let found = false
-      let idx   = tasks.findIndex(t => t.id === body.taskId)
+      let idx = tasks.findIndex(t => t.id === body.taskId)
       if (idx !== -1) {
-        tasks[idx].notes            = body.completionNote || ''
-        tasks[idx].notes_updated_at = now
-        tasks[idx].updated_at       = now
-        found = true
-      }
-      if (!found) {
+        tasks[idx].notes = body.completionNote || ''
+        tasks[idx].updated_at = now
+      } else {
         idx = standby.findIndex(t => t.id === body.taskId)
         if (idx !== -1) {
-          standby[idx].notes            = body.completionNote || ''
-          standby[idx].notes_updated_at = now
-          standby[idx].updated_at       = now
-          found = true
+          standby[idx].notes = body.completionNote || ''
+          standby[idx].updated_at = now
         }
       }
 
-      if (found) {
-        await redisSet(TASKS_KEY,   JSON.stringify(tasks))
-        await redisSet(STANDBY_KEY, JSON.stringify(standby))
-        // Notes don't need summary rebuild — no structural change
-      }
-      return NextResponse.json({ ok: true, updated: found })
+      await redisSet(TASKS_KEY, JSON.stringify(tasks))
+      await redisSet(STANDBY_KEY, JSON.stringify(standby))
+      // Notes don't need summary rebuild — no structural change
+      return NextResponse.json({ ok: true })
     }
 
     return NextResponse.json({ ok: true })

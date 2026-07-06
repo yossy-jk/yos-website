@@ -239,7 +239,7 @@ export default function TasksTab() {
   useEffect(() => {
     let cancelled = false
     setLoading(true)
-    fetch('/api/tasks-data',{cache:'no-store'}).then(r => r.json()).then(d => {
+    fetch('/api/tasks-data').then(r => r.json()).then(d => {
       if (!cancelled) { setData(d as TasksData); setLoading(false) }
     }).catch(() => { if (!cancelled) { setData(null); setLoading(false) } })
     return () => { cancelled = true }

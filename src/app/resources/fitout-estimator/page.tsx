@@ -776,7 +776,7 @@ export default function FitoutEstimatorPage() {
               {/* 2×3 project card grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '0' }}>
                 {[
-                  { src: '/images/furniture/space-wsi-openplan.jpg',  alt: 'Large open plan office with Burgtec workstations',    label: 'Open Plan',          mood: 'Bright & Airy' },
+                  { src: '/images/furniture/space-wsi-openplan.jpg',  alt: 'Large open plan commercial office fitout',    label: 'Open Plan',          mood: 'Bright & Airy' },
                   { src: '/images/furniture/space-cogc-wide.jpg',     alt: 'Contemporary government office fitout',               label: 'Corporate',          mood: 'Clean & Modern' },
                   { src: '/images/furniture/space-pillowtalk-a.jpg',  alt: 'Vibrant collaborative workspace with lounge',          label: 'Collaborative',      mood: 'Warm & Energetic' },
                   { src: '/images/furniture/space-bendigo-wide.jpg',  alt: 'Premium large scale commercial fitout',               label: 'Premium Fitout',     mood: 'Bold & Executive' },
