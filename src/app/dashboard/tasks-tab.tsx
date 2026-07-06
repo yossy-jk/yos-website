@@ -248,12 +248,28 @@ export default function TasksTab() {
   const load = useCallback(() => setLoadKey(k => k + 1), [])
 
   const apiAction = async (taskId: string, action: string, extra: Record<string, unknown> = {}) => {
-    const res = await fetch('/api/tasks-data', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ taskId, action, ...extra }),
-    })
-    if (res.ok) load()
+    // Optimistic UI: reflect the change instantly, reconcile with server after
+    const snapshot = data
+    if (data && ['complete','delegate','standby'].includes(action)) {
+      const strip = (arr?: Task[]) => (arr || []).filter(t => t.id !== taskId)
+      const moved = [...(data.todayTasks||[]), ...(data.backlog||[]), ...(data.overdue||[])].find(t => t.id === taskId)
+      setData({
+        ...data,
+        todayTasks: strip(data.todayTasks),
+        backlog: strip(data.backlog),
+        overdue: strip(data.overdue),
+        completed: action === 'complete' && moved ? [{ ...moved, status: 'completed' }, ...(data.completed||[])] : data.completed,
+        totalOpen: Math.max(0, (data.totalOpen||0) - (moved ? 1 : 0)),
+      })
+    }
+    try {
+      const res = await fetch('/api/tasks-data', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ taskId, action, ...extra }),
+      })
+      if (res.ok) { load() } else if (snapshot) { setData(snapshot) }
+    } catch { if (snapshot) setData(snapshot) }
   }
 
   const complete = (taskId: string, note?: string) => {
