@@ -105,14 +105,7 @@ function deepClone<T>(v: T): T {
 
 function safeJsonParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback
-  try {
-    let v: any = JSON.parse(raw)
-    // Defensive: unwrap {key, value} envelope if a writer wrapped it
-    if (v && typeof v === 'object' && !Array.isArray(v) && 'value' in v && 'key' in v) {
-      v = typeof v.value === 'string' ? JSON.parse(v.value) : v.value
-    }
-    return (v ?? fallback) as T
-  } catch { return fallback }
+  try { return JSON.parse(raw) as T } catch { return fallback }
 }
 
 // ---------------------------------------------------------------------------
