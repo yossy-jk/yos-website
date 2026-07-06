@@ -239,9 +239,9 @@ export default function TasksTab() {
   useEffect(() => {
     let cancelled = false
     setLoading(true)
-    fetch('/api/tasks-data',{cache:'no-store'}).then(r => r.json()).then(d => {
+    fetch('/api/tasks-data',{cache:'no-store'}).then(async r => { if (!r.ok) throw new Error('load '+r.status); const d = await r.json(); if (!d || typeof (d as any).totalOpen === 'undefined') throw new Error('bad payload');
       if (!cancelled) { setData(d as TasksData); setLoading(false) }
-    }).catch(() => { if (!cancelled) { setData(null); setLoading(false) } })
+    }).catch(() => { if (!cancelled) { setLoading(false) /* keep last data on failed load */ } })
     return () => { cancelled = true }
   }, [loadKey])
 
