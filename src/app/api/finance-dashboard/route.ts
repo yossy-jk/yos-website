@@ -32,12 +32,12 @@ export async function GET() {
   try {
     // Xero bank summary — everyday account
     const bankRes = await fetch(
-      `https://gateway.maton.ai/xero/v2.0/connections/${XERO_CONN}/xero/api.xro/2.0/BankTransactions?where=Type=="ACCPAYCC"&page=1`,
+      `https://gateway.maton.ai/xero/connections/${XERO_CONN}/xero/api.xro/2.0/BankTransactions?where=Type=="ACCPAYCC"&page=1`,
       { headers, cache: 'no-store' }
     )
     // Cash position from Xero bank summary
     const cashRes = await fetch(
-      `https://gateway.maton.ai/xero/v2.0/connections/${XERO_CONN}/xero/api.xro/2.0/Accounts?where=Type=="BANQ"`,
+      `https://gateway.maton.ai/xero/connections/${XERO_CONN}/xero/api.xro/2.0/Accounts?where=Type=="BANQ"`,
       { headers, cache: 'no-store' }
     )
     if (cashRes.ok) {
@@ -55,7 +55,7 @@ export async function GET() {
   // Pull unpaid invoices
   try {
     const invRes = await fetch(
-      `https://gateway.maton.ai/xero/v2.0/connections/${XERO_CONN}/xero/api.xro/2.0/Invoices?status= AUTHORISED&page=1`,
+      `https://gateway.maton.ai/xero/connections/${XERO_CONN}/xero/api.xro/2.0/Invoices?status= AUTHORISED&page=1`,
       { headers, cache: 'no-store' }
     )
     if (invRes.ok) {
