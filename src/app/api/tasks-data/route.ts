@@ -42,6 +42,18 @@ async function redisGet(key: string): Promise<string | null> {
 }
 
 async function redisSet(key: string, value: string): Promise<void> {
+  // WIPE-GUARD: never let a bad read shrink task lists catastrophically
+  if (key === 'tasks:v1' || key === 'tasks:completed:v1') {
+    try {
+      const curRaw = await redisGet(key)
+      const cur = safeJsonParse<any[]>(curRaw, [])
+      const next = JSON.parse(value)
+      if (Array.isArray(cur) && Array.isArray(next) && cur.length >= 10 && next.length < cur.length * 0.5) {
+        console.error('wipe-guard refused ' + key + ': ' + cur.length + ' -> ' + next.length)
+        return
+      }
+    } catch {}
+  }
   if (!UPSTASH_URL || !UPSTASH_TOKEN) return
   await fetch(`${UPSTASH_URL}/set/${key}`, {
     method: 'POST',
