@@ -8,6 +8,7 @@ import { getCurrentUser } from '@/lib/auth-v2'
 
 const MATON_KEY = process.env.MATON_API_KEY || ''
 const XERO_CONN = process.env.XERO_CONNECTION_ID || '5082bc91-b9dd-4cf1-9ca0-95d8e3dd251c'
+const XERO_TENANT = process.env.XERO_TENANT_ID || 'e916ee6b-ca12-4abd-ad84-c8fa0b1c476b'
 
 export async function GET() {
   const auth = await requireAuth()
@@ -32,12 +33,12 @@ export async function GET() {
   try {
     // Xero bank summary — everyday account
     const bankRes = await fetch(
-      `https://gateway.maton.ai/xero/connections/${XERO_CONN}/xero/api.xro/2.0/BankTransactions?where=Type=="ACCPAYCC"&page=1`,
+      `https://gateway.maton.ai/xero/api.xro/2.0/BankTransactions?where=Type=="ACCPAYCC"&page=1`,
       { headers, cache: 'no-store' }
     )
     // Cash position from Xero bank summary
     const cashRes = await fetch(
-      `https://gateway.maton.ai/xero/connections/${XERO_CONN}/xero/api.xro/2.0/Accounts?where=Type=="BANQ"`,
+      `https://gateway.maton.ai/xero/api.xro/2.0/Accounts?where=Type=="BANQ"`,
       { headers, cache: 'no-store' }
     )
     if (cashRes.ok) {
@@ -55,7 +56,7 @@ export async function GET() {
   // Pull unpaid invoices
   try {
     const invRes = await fetch(
-      `https://gateway.maton.ai/xero/connections/${XERO_CONN}/xero/api.xro/2.0/Invoices?status= AUTHORISED&page=1`,
+      `https://gateway.maton.ai/xero/api.xro/2.0/Invoices?status= AUTHORISED&page=1`,
       { headers, cache: 'no-store' }
     )
     if (invRes.ok) {
