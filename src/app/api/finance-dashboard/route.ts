@@ -16,6 +16,7 @@ export async function GET() {
 
   const headers = {
     'Authorization': `Bearer ${MATON_KEY}`,
+    'Xero-Tenant-Id': XERO_TENANT,
     'Content-Type': 'application/json',
   }
 
