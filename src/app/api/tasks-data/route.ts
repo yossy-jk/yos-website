@@ -36,7 +36,7 @@ async function redisGet(key: string): Promise<string | null> {
   const r = await fetch(`${UPSTASH_URL}/get/${key}`, {
     headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
   })
-  if (!r.ok) return null
+  if (!r.ok) throw new Error(`redis-read-failed: HTTP ${r.status} for ${key}`)
   const d = await r.json() as { result?: unknown }
   return (d.result as string) ?? null
 }
