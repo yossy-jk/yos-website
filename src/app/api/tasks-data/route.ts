@@ -205,6 +205,7 @@ export async function GET() {
   if (summaryRaw) {
     try {
       const s = JSON.parse(summaryRaw) as SummaryRaw
+      if ((((s.backlog || []) as unknown[]).length === 0) && (((s.totalOpen as number) || 0) === 0)) throw new Error('summary-wiped: falling back to task lists')
       return NextResponse.json({
         generatedAt:     (s.generatedAt as string) || nowISO(),
         todayTasks:      ((s.todayTasks  || []) as Task[]).map(deepClone),
