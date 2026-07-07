@@ -93,11 +93,11 @@ function WaitingModal({ task, onSave, onCancel }: { task: Task; onSave: (reason:
           style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(245,158,11,0.3)', borderRadius:6, padding:'0.6rem 0.8rem', color:'white', fontSize:'0.78rem', fontFamily:'inherit', width:'100%', resize:'vertical', outline:'none', lineHeight:1.5 }}
         />
         <div style={{ display:'flex', gap:'0.5rem', marginTop:'0.75rem' }}>
-          <button onClick={() => reason.trim() ? onSave(reason.trim()) : null} disabled={!reason.trim()}
+          <button type="button" onClick={() => reason.trim() ? onSave(reason.trim()) : null} disabled={!reason.trim()}
             style={{ background: reason.trim() ? '#f59e0b' : 'rgba(245,158,11,0.2)', border:'none', borderRadius:4, padding:'0.5rem 1.2rem', cursor: reason.trim() ? 'pointer' : 'not-allowed', color: reason.trim() ? '#111' : 'rgba(245,158,11,0.4)', fontFamily:'inherit', fontWeight:700, fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase' }}>
             Mark Waiting
           </button>
-          <button onClick={onCancel} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'0.5rem 1rem', cursor:'pointer', color:'rgba(255,255,255,0.4)', fontFamily:'inherit', fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase' }}>Cancel</button>
+          <button type="button" onClick={onCancel} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'0.5rem 1rem', cursor:'pointer', color:'rgba(255,255,255,0.4)', fontFamily:'inherit', fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase' }}>Cancel</button>
         </div>
       </div>
     </div>
@@ -114,14 +114,14 @@ function NotesSection({ task, onSave }: { task: Task; onSave: (notes: string)=>v
     saveTimer.current = setTimeout(() => onSave(v), 1200)
   }
   if (!editing && !task.notes) {
-    return <button onClick={()=>setEditing(true)} style={{ background:'rgba(0,181,165,0.07)', border:'1px dashed rgba(0,181,165,0.25)', borderRadius:4, padding:'0.5rem 0.75rem', cursor:'pointer', color:'rgba(0,181,165,0.5)', fontFamily:'inherit', fontSize:'0.68rem', textAlign:'left', lineHeight:1.5 }}>+ Add notes</button>
+    return <button type="button" onClick={()=>setEditing(true)} style={{ background:'rgba(0,181,165,0.07)', border:'1px dashed rgba(0,181,165,0.25)', borderRadius:4, padding:'0.5rem 0.75rem', cursor:'pointer', color:'rgba(0,181,165,0.5)', fontFamily:'inherit', fontSize:'0.68rem', textAlign:'left', lineHeight:1.5 }}>+ Add notes</button>
   }
   if (!editing && task.notes) {
     return (
       <div>
         <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'0.3rem' }}>
           <span style={{ fontSize:'0.55rem', fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase', color:'rgba(0,181,165,0.5)' }}>Notes</span>
-          <button onClick={()=>setEditing(true)} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(0,181,165,0.4)', fontSize:'0.6rem', fontFamily:'inherit' }}>Edit</button>
+          <button type="button" onClick={()=>setEditing(true)} style={{ background:'none', border:'none', cursor:'pointer', color:'rgba(0,181,165,0.4)', fontSize:'0.6rem', fontFamily:'inherit' }}>Edit</button>
         </div>
         <div style={{ fontSize:'0.72rem', color:'rgba(255,255,255,0.5)', lineHeight:1.6, whiteSpace:'pre-wrap' }}>{task.notes}</div>
         {task.notes_updated_at && <div style={{ fontSize:'0.58rem', color:'rgba(255,255,255,0.2)', marginTop:'0.25rem' }}>Updated {formatAEST(task.notes_updated_at)}</div>}
@@ -190,10 +190,10 @@ function TaskCard({ task, onComplete, onStandby, onUnstandby, onDelegate, onSave
         </div>
         {task.status !== 'completed' && (
           <div style={{ display:'flex', gap:'0.35rem', flexShrink:0, alignItems:'center' }} onClick={e=>e.stopPropagation()}>
-            {onDelegate && task.can_delegate && <button onClick={onDelegate} style={{ background:'rgba(99,102,241,0.1)', border:'1px solid rgba(99,102,241,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#a5b4fc', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Del</button>}
-            {!isStandby && <button onClick={onStandby} style={{ background:'rgba(245,158,11,0.1)', border:'1px solid rgba(245,158,11,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#f59e0b', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Wait</button>}
-            {isStandby && <button onClick={onUnstandby} style={{ background:'rgba(0,181,165,0.1)', border:'1px solid rgba(0,181,165,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#00B5A5', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Resume</button>}
-            <button onClick={onComplete} style={{ background:'#22c55e', border:'none', borderRadius:3, padding:'0.3rem 0.7rem', color:'white', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Done</button>
+            {onDelegate && task.can_delegate && <button type="button" onClick={onDelegate} style={{ background:'rgba(99,102,241,0.1)', border:'1px solid rgba(99,102,241,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#a5b4fc', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Del</button>}
+            {!isStandby && <button type="button" onClick={onStandby} style={{ background:'rgba(245,158,11,0.1)', border:'1px solid rgba(245,158,11,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#f59e0b', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Wait</button>}
+            {isStandby && <button type="button" onClick={onUnstandby} style={{ background:'rgba(0,181,165,0.1)', border:'1px solid rgba(0,181,165,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#00B5A5', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Resume</button>}
+            <button type="button" onClick={onComplete} style={{ background:'#22c55e', border:'none', borderRadius:3, padding:'0.3rem 0.7rem', color:'white', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Done</button>
           </div>
         )}
       </div>
@@ -330,8 +330,8 @@ export default function TasksTab() {
           <p style={{ color:'rgba(255,255,255,0.2)', fontSize:'0.65rem', margin:'0.2rem 0 0' }}>Inbox · meetings · voice · AI — sorted by what matters most</p>
         </div>
         <div style={{ display:'flex', gap:'0.5rem' }}>
-          <button onClick={()=>setAddingTask(true)} style={{ background:'#00B5A5', border:'none', padding:'0.4rem 0.9rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', color:'white', borderRadius:4 }}>+ Add</button>
-          <button onClick={load} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', padding:'0.4rem 0.8rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', color:'rgba(255,255,255,0.4)', borderRadius:4 }}>Refresh</button>
+          <button type="button" onClick={()=>setAddingTask(true)} style={{ background:'#00B5A5', border:'none', padding:'0.4rem 0.9rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', color:'white', borderRadius:4 }}>+ Add</button>
+          <button type="button" onClick={load} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', padding:'0.4rem 0.8rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', color:'rgba(255,255,255,0.4)', borderRadius:4 }}>Refresh</button>
         </div>
       </div>
 
@@ -361,7 +361,7 @@ export default function TasksTab() {
 
       <div style={{ display:'flex', gap:'0.5rem', alignItems:'center', flexWrap:'wrap' }}>
         {tabs.map(t => (
-          <button key={t.id} onClick={()=>{ setTab(t.id); setExpanded(null) }} style={{
+          <button type="button" key={t.id} onClick={()=>{ setTab(t.id); setExpanded(null) }} style={{
             background: tab === t.id ? 'rgba(0,181,165,0.15)' : 'rgba(255,255,255,0.04)',
             border: tab === t.id ? '1px solid rgba(0,181,165,0.4)' : '1px solid rgba(255,255,255,0.08)',
             color: tab === t.id ? '#00B5A5' : 'rgba(255,255,255,0.5)',
@@ -413,14 +413,14 @@ export default function TasksTab() {
             <p style={{ color:'rgba(255,255,255,0.4)', fontSize:'0.75rem', margin:'0 0 1rem' }}>Select an agent to hand this task to. A follow-up reminder will be created to check in.</p>
             <div style={{ display:'flex', flexDirection:'column', gap:'0.5rem', marginBottom:'1rem' }}>
               {[{id:'inbox-ea',label:'Inbox EA',desc:'Email follow-ups, scheduling, admin'}, {id:'hubspot-revops',label:'HubSpot RevOps',desc:'Quotes, proposals, CRM'}, {id:'finance',label:'Finance',desc:'Invoices, payments, Xero'}, {id:'cleaning-bdm',label:'Cleaning BDM',desc:'Cleaning leads and proposals'}, {id:'chief-of-staff',label:'Chief of Staff',desc:'Coordination, research'}].map(a => (
-                <button key={a.id} onClick={() => { apiAction(delegateFor.id, 'delegate', { agentId: a.id }); setDelegateFor(null) }}
+                <button type="button" key={a.id} onClick={() => { apiAction(delegateFor.id, 'delegate', { agentId: a.id }); setDelegateFor(null) }}
                   style={{ background:'rgba(99,102,241,0.08)', border:'1px solid rgba(99,102,241,0.2)', borderRadius:6, padding:'0.75rem 1rem', cursor:'pointer', textAlign:'left' }}>
                   <div style={{ fontSize:'0.78rem', fontWeight:700, color:'white', marginBottom:'0.2rem' }}>{a.label}</div>
                   <div style={{ fontSize:'0.65rem', color:'rgba(255,255,255,0.4)' }}>{a.desc}</div>
                 </button>
               ))}
             </div>
-            <button onClick={()=>setDelegateFor(null)} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'0.5rem 1rem', cursor:'pointer', color:'rgba(255,255,255,0.4)', fontFamily:'inherit', fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase' }}>Cancel</button>
+            <button type="button" onClick={()=>setDelegateFor(null)} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'0.5rem 1rem', cursor:'pointer', color:'rgba(255,255,255,0.4)', fontFamily:'inherit', fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase' }}>Cancel</button>
           </div>
         </div>
       )}
