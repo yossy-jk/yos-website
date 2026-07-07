@@ -33,6 +33,7 @@ export default function FinanceTab() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      <UpcomingBills />
 
       {/* Key numbers */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
@@ -131,6 +132,41 @@ export default function FinanceTab() {
           <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.72rem', margin: '0.5rem 0 0' }}>Ensure Xero is connected via Maton credentials</p>
         </div>
       )}
+    </div>
+  )
+}
+
+function UpcomingBills() {
+  const [bd, setBd] = useState<{ bills: {payee:string;amount:number;due:string;source:string;status:string}[]; totals: {next7:number;next7Count:number;next30:number;next30Count:number} } | null>(null)
+  useEffect(() => {
+    fetch('/api/bills-upcoming', { cache: 'no-store' })
+      .then(async r => { if (!r.ok) throw new Error(String(r.status)); const j = await r.json(); if (j && j.bills) setBd(j) })
+      .catch(() => {})
+  }, [])
+  if (!bd) return null
+  const tag = (s: string) => s === 'bill' ? 'Bill' : s === 'scheduled' ? 'Scheduled' : 'Direct debit'
+  const tagColor = (s: string) => s === 'bill' ? '#f59e0b' : s === 'scheduled' ? '#3b82f6' : '#8b5cf6'
+  return (
+    <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: 12, padding: 20, marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12, flexWrap: 'wrap' }}>
+        <h3 style={{ margin: 0, fontSize: 15, color: '#f9fafb' }}>Upcoming Bills / Direct Debits</h3>
+        <div style={{ fontSize: 12, color: '#9ca3af' }}>
+          next 7d: <b style={{ color: '#f9fafb' }}>{`$${bd.totals.next7.toLocaleString()}`}</b> ({bd.totals.next7Count}) - 30d: <b style={{ color: '#f9fafb' }}>{`$${bd.totals.next30.toLocaleString()}`}</b> ({bd.totals.next30Count})
+        </div>
+      </div>
+      {bd.bills.slice(0, 25).map((b, i) => (
+        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderTop: i ? '1px solid #1f2937' : 'none', fontSize: 13 }}>
+          <div style={{ minWidth: 0 }}>
+            <span style={{ color: '#f9fafb' }}>{b.payee}</span>
+            <span style={{ marginLeft: 8, fontSize: 10, padding: '1px 6px', borderRadius: 4, background: `${tagColor(b.source)}22`, color: tagColor(b.source) }}>{tag(b.source)}</span>
+            <div style={{ fontSize: 11, color: '#6b7280' }}>{b.status}</div>
+          </div>
+          <div style={{ textAlign: 'right', whiteSpace: 'nowrap', marginLeft: 12 }}>
+            <div style={{ color: '#f9fafb' }}>{`$${b.amount.toLocaleString()}`}</div>
+            <div style={{ fontSize: 11, color: '#9ca3af' }}>{b.due || 'date tbc'}</div>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
