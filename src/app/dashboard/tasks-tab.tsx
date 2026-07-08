@@ -268,7 +268,7 @@ export default function TasksTab() {
         headers:{'Content-Type':'application/json'},
         body: JSON.stringify({ taskId, action, ...extra }),
       })
-      if (res.ok) { load() } else if (snapshot) { setData(snapshot) }
+      if (!res.ok && snapshot) { setData(snapshot) } // success: optimistic state stands, no disruptive reload
     } catch { if (snapshot) setData(snapshot) }
   }
 
