@@ -35,6 +35,7 @@ export default function PipelineTab() {
     const colour = deal.isOverdue || deal.isQuoteQuiet ? C.red : deal.isUrgent ? C.amber : C.teal
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', background: deal.isOverdue ? 'rgba(239,68,68,0.05)' : 'rgba(255,255,255,0.02)', borderRadius: 6, marginBottom: '0.4rem', borderLeft: `2px solid ${colour}` }}>
+        <TenderShortlist />
         <div style={{ flex: 1, minWidth: 0 }}>
           <p style={{ margin: 0, fontWeight: 600, fontSize: '0.82rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{deal.name}</p>
           <p style={{ margin: '0.15rem 0 0', fontSize: '0.62rem', color: 'rgba(255,255,255,0.3)' }}>{deal.stage}</p>
@@ -128,6 +129,37 @@ export default function PipelineTab() {
           <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No deals found — HubSpot may be loading.</p>
         )}
       </div>
+    </div>
+  )
+}
+
+function TenderShortlist() {
+  const [td, setTd] = useState<{ items: {id:string;name:string;builder?:string;category?:string;due?:string;stage:string;source:string}[]; count: number } | null>(null)
+  useEffect(() => {
+    fetch('/api/tenders-data', { cache: 'no-store' })
+      .then(async r => { if (!r.ok) throw new Error(String(r.status)); const j = await r.json(); if (j && j.items) setTd(j) })
+      .catch(() => {})
+  }, [])
+  if (!td || !td.items.length) return null
+  const soon = (d?: string) => d && (Date.parse(d) - Date.now()) < 7*86400000
+  return (
+    <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: 12, padding: 20, marginBottom: 20 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>
+        <h3 style={{ margin: 0, fontSize: 15, color: '#f9fafb' }}>Tender Shortlist</h3>
+        <span style={{ fontSize: 12, color: '#9ca3af' }}>{td.count} awaiting decision - approve via /pursue in Telegram</span>
+      </div>
+      {td.items.slice(0, 15).map((x, i) => (
+        <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '7px 0', borderTop: i ? '1px solid #1f2937' : 'none', fontSize: 13 }}>
+          <div style={{ minWidth: 0 }}>
+            <span style={{ color: '#f9fafb' }}>{(x.name || x.id || '?').slice(0, 60)}</span>
+            <div style={{ fontSize: 11, color: '#6b7280' }}>{[x.builder, x.category].filter(Boolean).join(' - ') || x.source}</div>
+          </div>
+          <div style={{ textAlign: 'right', whiteSpace: 'nowrap', marginLeft: 12 }}>
+            <span style={{ fontSize: 10, padding: '1px 6px', borderRadius: 4, background: '#3b82f622', color: '#3b82f6' }}>{x.stage}</span>
+            <div style={{ fontSize: 11, color: soon(x.due) ? '#ef4444' : '#9ca3af' }}>{x.due || ''}</div>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }
