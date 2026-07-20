@@ -13,7 +13,10 @@ type FeedItem = { type: string; priority: number; title: string; detail: string;
 type Tile = { label: string; value: any; sub: string; fmt: string }
 type Feed = { next3: Task[]; feed: FeedItem[]; numbers: Tile[]; generated: string } | null
 type ChatMsg = { role: 'you' | 'fleet'; text: string }
-type View = 'home' | 'content' | 'personal-finance' | 'whs' | 'seo'
+type View = 'home' | 'content' | 'personal-finance' | 'whs' | 'seo' | 'tasks'
+type Note = { ts: string; text: string }
+type BoardTask = { id: string; title: string; status: string; assignee: string; notes: Note[]; due_date: string; tags: string }
+type Board = { stats: { done_today: number; done_week: number; open: number; delegated: number; streak: number; rate: number }; tasks: BoardTask[]; people: string[]; agents: string[]; generated: string } | null
 type Ranking = { q: string; page: string; clicks: number; imp: number; pos: number }
 type Target = { keyword: string; pos: number | null; imp: number }
 type Brief = { created: string; query: string; opportunity: string }
@@ -64,6 +67,11 @@ export default function Dashboard() {
   const [refreshing, setRefreshing] = useState(false)
   const [whs, setWhs] = useState<Whs>(null)
   const [seo, setSeo] = useState<Seo>(null)
+  const [board, setBoard] = useState<Board>(null)
+  const [taskOpen, setTaskOpen] = useState<string | null>(null)
+  const [noteText, setNoteText] = useState('')
+  const [newTask, setNewTask] = useState('')
+  const [taskFilter, setTaskFilter] = useState('active')
   const [incDesc, setIncDesc] = useState('')
   const [incSev, setIncSev] = useState('low')
   const chatEnd = useRef<HTMLDivElement>(null)
@@ -79,9 +87,32 @@ export default function Dashboard() {
   useEffect(() => { load(); const t = setInterval(load, 60000); return () => clearInterval(t) }, [load])
   useEffect(() => { if (view === 'whs') fetch('/api/whs', { cache: 'no-store' }).then(r => r.json()).then(j => { if (j) setWhs(j) }).catch(() => {}) }, [view])
   useEffect(() => { if (view === 'seo') fetch('/api/seo', { cache: 'no-store' }).then(r => r.json()).then(j => { if (j) setSeo(j) }).catch(() => {}) }, [view])
+  const loadBoard = () => fetch('/api/tasks', { cache: 'no-store' }).then(r => r.json()).then(j => { if (j) setBoard(j) }).catch(() => {})
+  useEffect(() => { if (view === 'tasks') loadBoard() }, [view])
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [chat, chatOpen])
 
   const refresh = () => { setRefreshing(true); load(); setTimeout(() => setRefreshing(false), 900) }
+
+  const taskAct = async (payload: object, local?: (t: BoardTask) => BoardTask) => {
+    await fetch('/api/tasks', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    if (board && local && (payload as any).id) {
+      setBoard({ ...board, tasks: board.tasks.map(t => t.id === (payload as any).id ? local(t) : t) })
+    }
+  }
+  const cycleStatus = (t: BoardTask) => {
+    const next = t.status === 'todo' ? 'in_progress' : t.status === 'in_progress' ? 'todo' : t.status
+    taskAct({ action: 'status', id: t.id, status: next }, x => ({ ...x, status: next }))
+  }
+  const completeTask = (t: BoardTask) => {
+    taskAct({ action: 'complete', id: t.id, by: 'Joe' }, x => ({ ...x, status: 'done' }))
+    if (board) setBoard(b => b ? { ...b, stats: { ...b.stats, done_today: b.stats.done_today + 1, open: Math.max(0, b.stats.open - 1) } } : b)
+  }
+  const addTask = () => {
+    if (!newTask.trim()) return
+    taskAct({ action: 'new', title: newTask })
+    if (board) setBoard({ ...board, tasks: [{ id: 'tmp' + Date.now(), title: newTask, status: 'todo', assignee: 'Joe', notes: [], due_date: '', tags: '' }, ...board.tasks], stats: { ...board.stats, open: board.stats.open + 1 } })
+    setNewTask('')
+  }
 
   const whsAct = async (payload: object) => {
     await fetch('/api/whs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
@@ -145,6 +176,9 @@ export default function Dashboard() {
             <button className={view === 'home' ? 'nav-item active' : 'nav-item'} onClick={() => setView('home')}>
               <span className="nav-ic">⌂</span> Home
             </button>
+            <button className={view === 'tasks' ? 'nav-item active' : 'nav-item'} onClick={() => setView('tasks')}>
+              <span className="nav-ic">☑️</span> Tasks
+            </button>
             <button className={view === 'content' ? 'nav-item active' : 'nav-item'} onClick={() => setView('content')}>
               <span className="nav-ic">✏️</span> Content
             </button>
@@ -166,7 +200,105 @@ export default function Dashboard() {
 
         {/* ── MAIN ── */}
         <main className="main">
-          {view === 'seo' ? (
+          {view === 'tasks' ? (
+            <div className="deepdive">
+              <button className="back" onClick={() => setView('home')}>← Back to Home</button>
+              <header className="topbar"><div><h1>Tasks</h1>
+                <p className="date">{board ? `Updated ${board.generated.slice(11)}` : 'Loading…'}</p></div></header>
+
+              <section className="kpis">
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">✅</span><span className="kpi-label">Done today</span></div>
+                  <div className="kpi-value" style={{ color: 'var(--green)' }}>{board?.stats.done_today ?? '…'}</div>
+                  <div className="kpi-sub">{(board?.stats.done_today ?? 0) >= 3 ? 'crushing it 🔥' : 'keep going'}</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">📅</span><span className="kpi-label">This week</span></div>
+                  <div className="kpi-value">{board?.stats.done_week ?? '…'}</div>
+                  <div className="kpi-sub">{board?.stats.rate ?? 0}% completion rate</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🔥</span><span className="kpi-label">Streak</span></div>
+                  <div className="kpi-value">{board?.stats.streak ?? '…'}<span style={{ fontSize: 13, fontWeight: 600 }}> days</span></div>
+                  <div className="kpi-sub">consecutive days shipping</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">📋</span><span className="kpi-label">Open</span></div>
+                  <div className="kpi-value">{board?.stats.open ?? '…'}</div>
+                  <div className="kpi-sub">{board?.stats.delegated ?? 0} delegated</div></div>
+              </section>
+
+              <div className="panel" style={{ marginBottom: 14 }}>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <input className="newtask" value={newTask} onChange={e => setNewTask(e.target.value)}
+                         onKeyDown={e => e.key === 'Enter' && addTask()} placeholder="Add a task…" />
+                  <button className="done-btn solid" onClick={addTask}>+ Add</button>
+                </div>
+              </div>
+
+              <div className="filterrow">
+                {['active', 'delegated', 'done', 'all'].map(f => (
+                  <button key={f} className={taskFilter === f ? 'chipf on' : 'chipf'} onClick={() => setTaskFilter(f)}>
+                    {f[0].toUpperCase() + f.slice(1)}
+                  </button>
+                ))}
+              </div>
+
+              <section className="panel">
+                {(board?.tasks || []).filter(t =>
+                  taskFilter === 'all' ? true
+                  : taskFilter === 'done' ? t.status === 'done'
+                  : taskFilter === 'delegated' ? t.status === 'delegated'
+                  : t.status === 'todo' || t.status === 'in_progress'
+                ).map(t => (
+                  <div key={t.id}>
+                    <div className="task">
+                      <button className={`check ${t.status === 'done' ? 'checked' : ''}`}
+                              onClick={() => t.status !== 'done' && completeTask(t)}
+                              aria-label="Complete">
+                        {t.status === 'done' ? '✓' : ''}
+                      </button>
+                      <div className="task-body" onClick={() => setTaskOpen(taskOpen === t.id ? null : t.id)} style={{ cursor: 'pointer' }}>
+                        <div className="task-title" style={t.status === 'done' ? { textDecoration: 'line-through', color: 'var(--ink2)' } : {}}>{t.title}</div>
+                        <div className="task-tags">{t.assignee}{t.due_date ? ` · due ${t.due_date}` : ''}{t.notes.length ? ` · ${t.notes.length} notes` : ''}</div>
+                      </div>
+                      {t.status !== 'done' && (
+                        <button className={`pill ${t.status === 'in_progress' ? 'pill-blue' : t.status === 'delegated' ? 'pill-amberp' : 'pill-grey'}`}
+                                onClick={() => cycleStatus(t)}>
+                          {t.status === 'in_progress' ? 'In progress' : t.status === 'delegated' ? 'Delegated' : 'Not started'}
+                        </button>
+                      )}
+                    </div>
+                    {taskOpen === t.id && (
+                      <div className="task-detail">
+                        <div className="delg">
+                          <span>Delegate:</span>
+                          <select onChange={e => { if (!e.target.value) return
+                            const [kind, to] = e.target.value.split('|')
+                            taskAct({ action: kind === 'a' ? 'delegate_agent' : 'delegate_person', id: t.id, to },
+                                    x => ({ ...x, status: 'delegated', assignee: kind === 'a' ? '🤖 ' + to : to }))
+                            e.target.value = '' }}>
+                            <option value="">Choose…</option>
+                            <optgroup label="People">
+                              {(board?.people || []).map(p => <option key={p} value={'p|' + p}>{p}</option>)}
+                            </optgroup>
+                            <optgroup label="Agents 🤖">
+                              {(board?.agents || []).map(a => <option key={a} value={'a|' + a}>{a}</option>)}
+                            </optgroup>
+                          </select>
+                        </div>
+                        {t.notes.map((n, i) => (
+                          <div key={i} className="note"><span>{n.ts.slice(5, 16).replace('T', ' ')}</span>{n.text}</div>
+                        ))}
+                        <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+                          <input className="newtask" value={noteText} onChange={e => setNoteText(e.target.value)}
+                                 placeholder="Add a note…" style={{ fontSize: 12 }} />
+                          <button className="done-btn" onClick={() => { if (!noteText.trim()) return
+                            taskAct({ action: 'note', id: t.id, text: noteText },
+                                    x => ({ ...x, notes: [...x.notes, { ts: new Date().toISOString(), text: noteText }] }))
+                            setNoteText('') }}>Save</button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {!board?.tasks?.length && <div className="empty">No tasks yet — add one above or they flow in from email capture.</div>}
+              </section>
+            </div>
+          ) : view === 'seo' ? (
             <div className="deepdive">
               <button className="back" onClick={() => setView('home')}>← Back to Home</button>
               <header className="topbar"><div><h1>SEO / AEO</h1>
@@ -418,6 +550,7 @@ export default function Dashboard() {
       {/* ── MOBILE BOTTOM NAV ── */}
       <nav className="bottomnav">
         <button className={view === 'home' ? 'bn active' : 'bn'} onClick={() => setView('home')}>⌂<span>Home</span></button>
+        <button className={view === 'tasks' ? 'bn active' : 'bn'} onClick={() => setView('tasks')}>☑️<span>Tasks</span></button>
         <button className={view === 'content' ? 'bn active' : 'bn'} onClick={() => setView('content')}>✏️<span>Content</span></button>
         <button className={view === 'personal-finance' ? 'bn active' : 'bn'} onClick={() => setView('personal-finance')}>🏠<span>Personal</span></button>
         <button className={view === 'whs' ? 'bn active' : 'bn'} onClick={() => setView('whs')}>🦺<span>WHS</span></button>
@@ -605,6 +738,24 @@ html,body { background:var(--canvas); }
   padding:0 16px; font-size:16px; cursor:pointer; }
 .chat-input button:disabled { background:#b9c9e2; }
 
+.check { width:26px; height:26px; border-radius:50%; border:2px solid #c3c8d4; background:var(--surface);
+  cursor:pointer; flex:none; font-size:14px; color:#fff; display:grid; place-items:center; transition:all .15s; }
+.check:hover { border-color:var(--green); }
+.check.checked { background:var(--green); border-color:var(--green); }
+.newtask { flex:1; border:1px solid var(--line); border-radius:8px; padding:10px 12px; font:inherit; font-size:13.5px; outline:none; }
+.newtask:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(0,115,234,.12); }
+.filterrow { display:flex; gap:6px; margin-bottom:12px; }
+.chipf { border:1px solid var(--line); background:var(--surface); border-radius:16px; padding:6px 14px;
+  font:inherit; font-size:12.5px; font-weight:600; color:var(--ink2); cursor:pointer; }
+.chipf.on { background:var(--blue); color:#fff; border-color:var(--blue); }
+.pill-grey { background:#eef1f6; color:var(--ink2); border:0; cursor:pointer; font:inherit; }
+.pill-amberp { background:color-mix(in srgb,var(--amber) 18%,white); color:#c07600; border:0; cursor:pointer; font:inherit; }
+.pill-blue.pill { border:0; cursor:pointer; font:inherit; }
+.task-detail { background:#f7f9fc; border-radius:10px; padding:12px; margin:0 0 8px 38px; }
+.delg { display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink2); margin-bottom:8px; }
+.delg select { border:1px solid var(--line); border-radius:8px; padding:6px 8px; font:inherit; font-size:12.5px; background:var(--surface); }
+.note { font-size:12.5px; padding:6px 0; border-top:1px solid var(--line); }
+.note span { color:var(--ink2); margin-right:8px; font-size:11px; }
 .aeo-note { font-size:12px; color:var(--ink2); background:#f2f5fa; border-radius:8px; padding:10px 12px; margin-bottom:10px; line-height:1.5; }
 .task.clickable { cursor:pointer; }
 .done-btn { border:1px solid var(--line); background:var(--surface); color:var(--blue);

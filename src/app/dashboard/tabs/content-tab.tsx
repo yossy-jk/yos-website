@@ -26,6 +26,8 @@ export default function ContentTab() {
   const [d, setD] = useState<Pipeline>(null)
   const [loading, setLoading] = useState(true)
   const [expanded, setExpanded] = useState<number | null>(null)
+  const [suggestion, setSuggestion] = useState('')
+  const [sugChannel, setSugChannel] = useState('yos-linkedin')
   const [editText, setEditText] = useState('')
 
   const load = () => {
@@ -59,8 +61,35 @@ export default function ContentTab() {
 
   const cols = d.columns.filter(c => c !== 'archived')
 
+  const suggest = async () => {
+    if (!suggestion.trim()) return
+    await fetch('/api/content-pipeline', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'suggest', idea: suggestion, channel: sugChannel }),
+    })
+    setSuggestion('')
+    alert('Idea sent to the pipeline — it will be drafted in the next cycle.')
+  }
+
   return (
     <div style={{ fontFamily: 'sans-serif' }}>
+      <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: 10, padding: 12, marginBottom: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <input value={suggestion} onChange={e => setSuggestion(e.target.value)}
+               onKeyDown={e => e.key === 'Enter' && suggest()}
+               placeholder="Suggest content — e.g. 'Post about the new corner workstation range'"
+               style={{ flex: '1 1 240px', background: '#0b0f19', border: '1px solid #1f2937', borderRadius: 8, padding: '10px 12px', color: '#e5e7eb', fontSize: 13, outline: 'none' }} />
+        <select value={sugChannel} onChange={e => setSugChannel(e.target.value)}
+                style={{ background: '#0b0f19', border: '1px solid #1f2937', borderRadius: 8, color: '#e5e7eb', fontSize: 12, padding: '0 8px' }}>
+          <option value="yos-linkedin">YOS LinkedIn</option>
+          <option value="joe-linkedin">Joe LinkedIn</option>
+          <option value="yos-instagram">YOS Instagram</option>
+          <option value="tr-instagram">TenantRep Insta</option>
+        </select>
+        <button onClick={suggest}
+                style={{ background: '#2563eb', color: '#fff', border: 0, borderRadius: 8, padding: '10px 16px', fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
+          + Suggest
+        </button>
+      </div>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
         <h2 style={{ margin: 0, fontSize: 16, color: '#f9fafb' }}>Content Pipeline</h2>
         <span style={{ fontSize: 11, color: '#4b5563' }}>Updated {d.generated}</span>
