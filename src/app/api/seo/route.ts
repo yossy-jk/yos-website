@@ -9,6 +9,8 @@ export async function GET() {
       headers: { Authorization: `Bearer ${RTOK}` }, cache: 'no-store' })
     const raw = await r.json()
     if (!raw?.result) return NextResponse.json(null)
-    return NextResponse.json(JSON.parse(raw.result))
+    let v = JSON.parse(raw.result)
+    if (typeof v === 'string') v = JSON.parse(v)
+    return NextResponse.json(v)
   } catch { return NextResponse.json(null) }
 }
