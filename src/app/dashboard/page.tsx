@@ -13,7 +13,11 @@ type FeedItem = { type: string; priority: number; title: string; detail: string;
 type Tile = { label: string; value: any; sub: string; fmt: string }
 type Feed = { next3: Task[]; feed: FeedItem[]; numbers: Tile[]; generated: string } | null
 type ChatMsg = { role: 'you' | 'fleet'; text: string }
-type View = 'home' | 'content' | 'personal-finance' | 'whs'
+type View = 'home' | 'content' | 'personal-finance' | 'whs' | 'seo'
+type Ranking = { q: string; page: string; clicks: number; imp: number; pos: number }
+type Target = { keyword: string; pos: number | null; imp: number }
+type Brief = { created: string; query: string; opportunity: string }
+type Seo = { rankings: Ranking[]; targets: Target[]; briefs: Brief[]; total_clicks_30d: number; generated: string } | null
 type Checklist = { id: number; code: string; title: string; business: string; frequency: string; next_due: string; overdue: boolean; due_soon: boolean; last_done: string | null }
 type WhsDoc = { id: number; code: string; title: string; category: string; business: string; status: string }
 type Incident = { id: number; reported_at: string; business: string; severity: string; description: string; status: string }
@@ -59,6 +63,7 @@ export default function Dashboard() {
   const [asking, setAsking] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
   const [whs, setWhs] = useState<Whs>(null)
+  const [seo, setSeo] = useState<Seo>(null)
   const [incDesc, setIncDesc] = useState('')
   const [incSev, setIncSev] = useState('low')
   const chatEnd = useRef<HTMLDivElement>(null)
@@ -73,6 +78,7 @@ export default function Dashboard() {
 
   useEffect(() => { load(); const t = setInterval(load, 60000); return () => clearInterval(t) }, [load])
   useEffect(() => { if (view === 'whs') fetch('/api/whs', { cache: 'no-store' }).then(r => r.json()).then(j => { if (j) setWhs(j) }).catch(() => {}) }, [view])
+  useEffect(() => { if (view === 'seo') fetch('/api/seo', { cache: 'no-store' }).then(r => r.json()).then(j => { if (j) setSeo(j) }).catch(() => {}) }, [view])
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [chat, chatOpen])
 
   const refresh = () => { setRefreshing(true); load(); setTimeout(() => setRefreshing(false), 900) }
@@ -148,6 +154,9 @@ export default function Dashboard() {
             <button className={view === 'whs' ? 'nav-item active' : 'nav-item'} onClick={() => setView('whs')}>
               <span className="nav-ic">🦺</span> WHS &amp; Quality
             </button>
+            <button className={view === 'seo' ? 'nav-item active' : 'nav-item'} onClick={() => setView('seo')}>
+              <span className="nav-ic">🔍</span> SEO / AEO
+            </button>
           </nav>
           <div className="sidebar-foot">
             <div className="avatar">J</div>
@@ -157,7 +166,75 @@ export default function Dashboard() {
 
         {/* ── MAIN ── */}
         <main className="main">
-          {view === 'whs' ? (
+          {view === 'seo' ? (
+            <div className="deepdive">
+              <button className="back" onClick={() => setView('home')}>← Back to Home</button>
+              <header className="topbar"><div><h1>SEO / AEO</h1>
+                <p className="date">Rankings, targets, and the content that gets you found — organic + AI search</p></div></header>
+              <section className="kpis">
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🔍</span><span className="kpi-label">Clicks 30d</span></div>
+                  <div className="kpi-value">{seo?.total_clicks_30d ?? '…'}</div>
+                  <div className="kpi-sub">Google organic</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🎯</span><span className="kpi-label">Targets ranking</span></div>
+                  <div className="kpi-value">{seo ? `${seo.targets.filter(t => t.pos != null && t.pos <= 20).length}/${seo.targets.length}` : '…'}</div>
+                  <div className="kpi-sub">in top 20</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">✏️</span><span className="kpi-label">Briefs created</span></div>
+                  <div className="kpi-value">{seo?.briefs?.length ?? '…'}</div>
+                  <div className="kpi-sub">search-driven content</div></div>
+              </section>
+              <div className="cols">
+                <section className="panel">
+                  <div className="panel-head"><h2>Target keywords</h2>
+                    <span className="panel-count">{seo?.targets?.length ?? 0}</span></div>
+                  {(seo?.targets || []).map((t, i) => (
+                    <div key={i} className="task">
+                      <span className="rail" style={{ background: t.pos == null ? 'var(--red)' : t.pos <= 10 ? 'var(--green)' : t.pos <= 20 ? 'var(--amber)' : 'var(--red)' }} />
+                      <div className="task-body">
+                        <div className="task-title">{t.keyword}</div>
+                        {t.imp > 0 && <div className="task-tags">{t.imp} impressions/mo</div>}
+                      </div>
+                      <span className={`pill ${t.pos != null && t.pos <= 10 ? 'pill-green' : t.pos != null && t.pos <= 20 ? 'pill-blue' : 'pill-red'}`}>
+                        {t.pos != null ? `#${t.pos}` : 'Not ranking'}
+                      </span>
+                    </div>
+                  ))}
+                  {!seo?.targets?.length && <div className="empty">Targets load after the next 4:30am SEO run — or run the engine manually.</div>}
+                </section>
+                <div>
+                  <section className="panel" style={{ marginBottom: 16 }}>
+                    <div className="panel-head"><h2>Current rankings</h2>
+                      <span className="panel-count">{seo?.rankings?.length ?? 0}</span></div>
+                    {(seo?.rankings || []).slice(0, 10).map((r, i) => (
+                      <div key={i} className="task">
+                        <div className="task-body">
+                          <div className="task-title">{r.q}</div>
+                          <div className="task-tags">{r.page || '/'} · {r.clicks} clicks · {r.imp} imp</div>
+                        </div>
+                        <span className={`pill ${r.pos <= 10 ? 'pill-green' : r.pos <= 20 ? 'pill-blue' : 'pill-red'}`}>#{r.pos}</span>
+                      </div>
+                    ))}
+                    {!seo?.rankings?.length && <div className="empty">No ranking data yet — the site is early in its organic journey. Every brief below builds it.</div>}
+                  </section>
+                  <section className="panel">
+                    <div className="panel-head"><h2>Content opportunities</h2>
+                      <span className="panel-count">{seo?.briefs?.length ?? 0}</span></div>
+                    <p className="aeo-note">Briefs are drafted in answer-first structure (question headings, direct answers, FAQ blocks) so content ranks in Google <em>and</em> gets cited by AI assistants — that's the AEO play.</p>
+                    {(seo?.briefs || []).map((b, i) => (
+                      <div key={i} className="task clickable" onClick={() => setView('content')}>
+                        <span className="rail" style={{ background: 'var(--purple)' }} />
+                        <div className="task-body">
+                          <div className="task-title">{b.query}</div>
+                          <div className="task-tags">{b.opportunity === 'quick_win' ? 'Quick win — near page 1' : 'Content gap'} · {b.created}</div>
+                        </div>
+                        <span className="chev">›</span>
+                      </div>
+                    ))}
+                    {!seo?.briefs?.length && <div className="empty">Opportunities appear here as search data grows. The engine checks daily at 4:30am.</div>}
+                  </section>
+                </div>
+              </div>
+            </div>
+          ) : view === 'whs' ? (
             <div className="deepdive">
               <button className="back" onClick={() => setView('home')}>← Back to Home</button>
               <header className="topbar"><div><h1>WHS &amp; Quality Hub</h1>
@@ -528,6 +605,8 @@ html,body { background:var(--canvas); }
   padding:0 16px; font-size:16px; cursor:pointer; }
 .chat-input button:disabled { background:#b9c9e2; }
 
+.aeo-note { font-size:12px; color:var(--ink2); background:#f2f5fa; border-radius:8px; padding:10px 12px; margin-bottom:10px; line-height:1.5; }
+.task.clickable { cursor:pointer; }
 .done-btn { border:1px solid var(--line); background:var(--surface); color:var(--blue);
   font:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:7px 12px;
   cursor:pointer; flex:none; transition:background .15s; }
