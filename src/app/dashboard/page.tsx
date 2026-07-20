@@ -13,7 +13,11 @@ type FeedItem = { type: string; priority: number; title: string; detail: string;
 type Tile = { label: string; value: any; sub: string; fmt: string }
 type Feed = { next3: Task[]; feed: FeedItem[]; numbers: Tile[]; generated: string } | null
 type ChatMsg = { role: 'you' | 'fleet'; text: string }
-type View = 'home' | 'content' | 'personal-finance'
+type View = 'home' | 'content' | 'personal-finance' | 'whs'
+type Checklist = { id: number; code: string; title: string; business: string; frequency: string; next_due: string; overdue: boolean; due_soon: boolean; last_done: string | null }
+type WhsDoc = { id: number; code: string; title: string; category: string; business: string; status: string }
+type Incident = { id: number; reported_at: string; business: string; severity: string; description: string; status: string }
+type Whs = { score: number; checklists: Checklist[]; documents: WhsDoc[]; docs_current: number; docs_needed: number; incidents: Incident[]; open_incidents: number; overdue_checklists: number; generated: string } | null
 
 const fmtVal = (v: any, fmt: string) => {
   if (v === '—' || v == null || v === '') return '—'
@@ -54,6 +58,9 @@ export default function Dashboard() {
   const [q, setQ] = useState('')
   const [asking, setAsking] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+  const [whs, setWhs] = useState<Whs>(null)
+  const [incDesc, setIncDesc] = useState('')
+  const [incSev, setIncSev] = useState('low')
   const chatEnd = useRef<HTMLDivElement>(null)
 
   const load = useCallback(() => {
@@ -65,9 +72,24 @@ export default function Dashboard() {
   }, [])
 
   useEffect(() => { load(); const t = setInterval(load, 60000); return () => clearInterval(t) }, [load])
+  useEffect(() => { if (view === 'whs') fetch('/api/whs', { cache: 'no-store' }).then(r => r.json()).then(j => { if (j) setWhs(j) }).catch(() => {}) }, [view])
   useEffect(() => { chatEnd.current?.scrollIntoView({ behavior: 'smooth' }) }, [chat, chatOpen])
 
   const refresh = () => { setRefreshing(true); load(); setTimeout(() => setRefreshing(false), 900) }
+
+  const whsAct = async (payload: object) => {
+    await fetch('/api/whs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+  }
+  const markChecklist = (id: number) => {
+    whsAct({ type: 'checklist_done', id, by: 'Joe' })
+    if (whs) setWhs({ ...whs, checklists: whs.checklists.map(c => c.id === id ? { ...c, overdue: false, due_soon: false, last_done: 'just now' } : c) })
+  }
+  const reportIncident = () => {
+    if (!incDesc.trim()) return
+    whsAct({ type: 'incident', description: incDesc, severity: incSev, business: 'ALL' })
+    if (whs) setWhs({ ...whs, incidents: [{ id: Date.now(), reported_at: 'just now', business: 'ALL', severity: incSev, description: incDesc, status: 'open' }, ...whs.incidents], open_incidents: whs.open_incidents + 1 })
+    setIncDesc('')
+  }
 
   const ask = async (text?: string) => {
     const question = (text ?? q).trim()
@@ -123,6 +145,9 @@ export default function Dashboard() {
             <button className={view === 'personal-finance' ? 'nav-item active' : 'nav-item'} onClick={() => setView('personal-finance')}>
               <span className="nav-ic">🏠</span> Personal
             </button>
+            <button className={view === 'whs' ? 'nav-item active' : 'nav-item'} onClick={() => setView('whs')}>
+              <span className="nav-ic">🦺</span> WHS &amp; Quality
+            </button>
           </nav>
           <div className="sidebar-foot">
             <div className="avatar">J</div>
@@ -132,7 +157,83 @@ export default function Dashboard() {
 
         {/* ── MAIN ── */}
         <main className="main">
-          {view !== 'home' ? (
+          {view === 'whs' ? (
+            <div className="deepdive">
+              <button className="back" onClick={() => setView('home')}>← Back to Home</button>
+              <header className="topbar"><div><h1>WHS &amp; Quality Hub</h1>
+                <p className="date">Policies, checklists, incidents — your WHS manager</p></div></header>
+              <section className="kpis">
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🛡️</span><span className="kpi-label">Compliance</span></div>
+                  <div className={`kpi-value ${(whs?.score ?? 0) < 60 ? 'neg' : ''}`}>{whs ? `${whs.score}%` : '…'}</div>
+                  <div className="kpi-sub">weighted score</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">☑️</span><span className="kpi-label">Checklists overdue</span></div>
+                  <div className={`kpi-value ${(whs?.overdue_checklists ?? 0) > 0 ? 'neg' : ''}`}>{whs?.overdue_checklists ?? '…'}</div>
+                  <div className="kpi-sub">of {whs?.checklists?.length ?? 0} scheduled</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🚨</span><span className="kpi-label">Open incidents</span></div>
+                  <div className={`kpi-value ${(whs?.open_incidents ?? 0) > 0 ? 'neg' : ''}`}>{whs?.open_incidents ?? '…'}</div>
+                  <div className="kpi-sub">require action</div></div>
+                <div className="kpi"><div className="kpi-top"><span className="kpi-ic">📄</span><span className="kpi-label">Documents</span></div>
+                  <div className="kpi-value">{whs ? `${whs.docs_current}/${whs.documents.length}` : '…'}</div>
+                  <div className="kpi-sub">{whs?.docs_needed ?? 0} to draft</div></div>
+              </section>
+              <div className="cols">
+                <section className="panel">
+                  <div className="panel-head"><h2>Safety checklists</h2>
+                    <span className="panel-count">{whs?.checklists?.length ?? 0}</span></div>
+                  {(whs?.checklists || []).map(ch => (
+                    <div key={ch.id} className="task">
+                      <span className="rail" style={{ background: ch.overdue ? 'var(--red)' : ch.due_soon ? 'var(--amber)' : 'var(--green)' }} />
+                      <div className="task-body">
+                        <div className="task-title">{ch.title}</div>
+                        <div className="task-tags">{ch.business} · {ch.frequency} · due {ch.next_due}{ch.last_done ? ` · last ${ch.last_done}` : ''}</div>
+                      </div>
+                      <button className="done-btn" onClick={() => markChecklist(ch.id)}>Mark done</button>
+                    </div>
+                  ))}
+                  {!whs?.checklists?.length && <div className="empty">Checklist register loads after the first WHS manager run.</div>}
+                </section>
+                <div>
+                  <section className="panel" style={{ marginBottom: 16 }}>
+                    <div className="panel-head"><h2>Report an incident</h2></div>
+                    <textarea className="inc-input" value={incDesc} onChange={e => setIncDesc(e.target.value)}
+                      placeholder="What happened? Where, who was involved, any injury?" />
+                    <div className="inc-row">
+                      <select className="inc-sev" value={incSev} onChange={e => setIncSev(e.target.value)}>
+                        <option value="low">Low — near miss / hazard</option>
+                        <option value="medium">Medium — minor injury</option>
+                        <option value="high">High — injury / notifiable</option>
+                      </select>
+                      <button className="done-btn solid" onClick={reportIncident}>Log incident</button>
+                    </div>
+                    {(whs?.incidents || []).slice(0, 4).map(inc => (
+                      <div key={inc.id} className="task">
+                        <span className="rail" style={{ background: inc.severity === 'high' ? 'var(--red)' : inc.severity === 'medium' ? 'var(--amber)' : 'var(--blue)' }} />
+                        <div className="task-body">
+                          <div className="task-title">{inc.description.slice(0, 70)}</div>
+                          <div className="task-tags">{inc.reported_at} · {inc.severity} · {inc.status}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </section>
+                  <section className="panel">
+                    <div className="panel-head"><h2>Document register</h2>
+                      <span className="panel-count">{whs?.documents?.length ?? 0}</span></div>
+                    {(whs?.documents || []).map(doc => (
+                      <div key={doc.id} className="task">
+                        <div className="task-body">
+                          <div className="task-title">{doc.code} — {doc.title}</div>
+                          <div className="task-tags">{doc.category} · {doc.business}</div>
+                        </div>
+                        <span className={`pill ${doc.status === 'current' ? 'pill-green' : doc.status === 'draft' ? 'pill-blue' : 'pill-red'}`}>
+                          {doc.status === 'template_needed' ? 'To draft' : doc.status}
+                        </span>
+                      </div>
+                    ))}
+                  </section>
+                </div>
+              </div>
+            </div>
+          ) : view !== 'home' ? (
             <div className="deepdive">
               <button className="back" onClick={() => setView('home')}>← Back to Home</button>
               <div className="deepdive-dark">
@@ -242,6 +343,7 @@ export default function Dashboard() {
         <button className={view === 'home' ? 'bn active' : 'bn'} onClick={() => setView('home')}>⌂<span>Home</span></button>
         <button className={view === 'content' ? 'bn active' : 'bn'} onClick={() => setView('content')}>✏️<span>Content</span></button>
         <button className={view === 'personal-finance' ? 'bn active' : 'bn'} onClick={() => setView('personal-finance')}>🏠<span>Personal</span></button>
+        <button className={view === 'whs' ? 'bn active' : 'bn'} onClick={() => setView('whs')}>🦺<span>WHS</span></button>
         <button className="bn" onClick={() => setChatOpen(true)}>💬<span>Ask</span></button>
       </nav>
 
@@ -425,6 +527,18 @@ html,body { background:var(--canvas); }
 .chat-input button { background:var(--blue); color:#fff; border:0; border-radius:10px;
   padding:0 16px; font-size:16px; cursor:pointer; }
 .chat-input button:disabled { background:#b9c9e2; }
+
+.done-btn { border:1px solid var(--line); background:var(--surface); color:var(--blue);
+  font:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:7px 12px;
+  cursor:pointer; flex:none; transition:background .15s; }
+.done-btn:hover { background:color-mix(in srgb,var(--blue) 8%,white); }
+.done-btn.solid { background:var(--blue); color:#fff; border-color:var(--blue); }
+.inc-input { width:100%; min-height:70px; border:1px solid var(--line); border-radius:10px;
+  padding:10px 12px; font:inherit; font-size:13px; resize:vertical; outline:none; }
+.inc-input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(0,115,234,.12); }
+.inc-row { display:flex; gap:8px; margin:10px 0 14px; }
+.inc-sev { flex:1; border:1px solid var(--line); border-radius:8px; padding:8px 10px;
+  font:inherit; font-size:12.5px; background:var(--surface); }
 
 /* Bottom nav (mobile) */
 .bottomnav { display:none; }
