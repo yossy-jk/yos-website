@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
 import AgentNetworkBanner from '@/components/AgentNetworkBanner'
+import TenantProcess from '@/components/TenantProcess'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
@@ -349,64 +350,8 @@ export default function TenantRepPage() {
         </div>
       </section>
 
-      {/* ─── FULL SERVICE ─────────────────────────────────── */}
-      <section className="bg-warm-grey" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            <FadeIn direction="left">
-              <div>
-                <SectionLabel>Full-Service Tenant Representation</SectionLabel>
-                <h2 className="text-near-black font-bold leading-tight mt-3 mb-8"
-                  style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-                  Leasing the right space isn&apos;t just about price.
-                </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-14"
-                  style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  It&apos;s about fit, flexibility, and future-proofing. We work with business owners to manage the entire process — from brief to keys.
-                  This isn&apos;t box-ticking. It&apos;s full-service representation that protects your business.
-                </p>
-                <ul className="space-y-4 mb-10">
-                  {[
-                    'Set your requirements based on business goals — not just a headcount',
-                    'Find and shortlist real options, not just what\'s listed online',
-                    'Handle landlord negotiations, contract terms, and final execution',
-                    'Coordinate fitout, furniture, and cleaning through to day one',
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start pl-5 border-l-2 border-teal">
-                      <span className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.8 }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                  Book a Clarity Call
-                </Button>
-              </div>
-            </FadeIn>
-
-            <FadeIn direction="right" delay={100}>
-              <div className="lg:pt-20 space-y-5">
-                {[
-                  { step: '01', title: 'Briefing', body: 'We understand your business. Space requirements, budget, timeline, non-negotiables. Nothing goes to market until the brief is exactly right.' },
-                  { step: '02', title: 'Market Search', body: 'On-market, off-market, pre-release. We find options your broker missed — including properties that never reach the listing portals.' },
-                  { step: '03', title: 'Negotiation', body: 'We handle every clause, every rate, every timeline. Legal review included. Your seat at the table is secured from day one.' },
-                  { step: '04', title: 'Handover', body: 'Signed. Settled. We coordinate fitout, furniture, and cleaning. You focus on running your business, not managing contractors.' },
-                ].map((item, i) => (
-                  <FadeIn key={i} delay={i * 70} direction="up">
-                    <div className="bg-white p-7 flex gap-6 items-start">
-                      <span className="text-teal font-black flex-shrink-0 leading-none" style={{ fontSize: 'clamp(1.5rem,2.5vw,2rem)', minWidth: '2.5rem' }}>{item.step}</span>
-                      <div>
-                        <h3 className="text-near-black font-bold text-base mb-2">{item.title}</h3>
-                        <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>{item.body}</p>
-                      </div>
-                    </div>
-                  </FadeIn>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
+      {/* ─── FULL SERVICE — 6-STEP PROCESS ─────────────────── */}
+      <TenantProcess dark={false} />
       {/* ─── WHAT'S AT STAKE ──────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>

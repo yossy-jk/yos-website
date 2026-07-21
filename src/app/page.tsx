@@ -11,6 +11,7 @@ import BookingCTA from '@/components/BookingCTA'
 import CapabilityDownload from '@/components/CapabilityDownload'
 import AgentNetworkBanner from '@/components/AgentNetworkBanner'
 import FeeGuarantee from '@/components/FeeGuarantee'
+import TenantProcess from '@/components/TenantProcess'
 import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
@@ -456,50 +457,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── HOW WE WORK ───────────────────────── white */}
-      <section className="bg-white" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            <FadeIn>
-              <div>
-                <SectionLabel>How it works</SectionLabel>
-                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight"
-                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.5rem' }}>
-                  A real conversation.<br />No obligation.
-                </h2>
-                <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85, marginBottom: '1.5rem' }}>
-                  The first call is just a conversation. No forms, no pitch, no pressure. We ask about your situation —
-                  what you are trying to achieve, what&apos;s worrying you, what timeline you are working with.
-                </p>
-                <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  We will tell you honestly whether we can help and what it looks like. If we are not the right fit,
-                  we will say so and point you somewhere better.
-                </p>
-              </div>
-            </FadeIn>
-            <FadeIn delay={120}>
-              <div className="flex flex-col gap-6">
-                {[
-                  { step: '01', title: 'We talk', body: 'A real conversation. No forms. No pressure. Just your situation.' },
-                  { step: '02', title: 'We assess', body: 'Honest view of your options. What is realistic, what it costs, what you can expect.' },
-                  { step: '03', title: 'We act', body: 'One team. One contact. Full accountability from the first meeting to the last invoice.' },
-                  { step: '04', title: 'We stay', body: 'We do not disappear after the deal is done. Most clients come back for the next decision.' },
-                ].map((item, i) => (
-                  <FadeIn key={item.step} delay={i * 80}>
-                    <div className="flex gap-6 items-start py-7 border-b border-gray-100">
-                      <span className="text-teal font-black flex-shrink-0" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', minWidth: '2rem', paddingTop: '0.2rem' }}>{item.step}</span>
-                      <div>
-                        <p className="text-near-black font-black uppercase tracking-tight mb-2" style={{ fontSize: '1.15rem' }}>{item.title}</p>
-                        <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.body}</p>
-                      </div>
-                    </div>
-                  </FadeIn>
-                ))}
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
+      {/* ─── TENANT PROCESS ─────────────────────────────────── */}
+      <TenantProcess dark={false} compact />
 
       {/* ─── CTA ───────────────────────────────────── near-black */}
       <section className="bg-near-black" style={SEC}>

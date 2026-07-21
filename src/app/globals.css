@@ -51,6 +51,16 @@
 
 
 
+/* ─── Tenant Process Section ─────────────────────────── */
+.tenant-process-section {
+  padding-top: clamp(4rem, 8vw, 9rem);
+  padding-bottom: clamp(4rem, 8vw, 9rem);
+}
+
+.tenant-process-card {
+  border-width: 1px;
+}
+
 /* ─── Fee Guarantee Section ────────────────────────────── */
 .fee-guarantee-section {
   background: linear-gradient(135deg, #0B7E74 0%, #083C38 100%);
