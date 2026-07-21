@@ -209,6 +209,9 @@ export async function GET() {
     try {
       const s = safeJsonParse<SummaryRaw>(summaryRaw, {} as SummaryRaw)
       if ((((s.backlog || []) as unknown[]).length === 0) && (((s.totalOpen as number) || 0) === 0)) throw new Error('summary-wiped: falling back to task lists')
+      const _done = new Set(((s.completed || []) as Task[]).map(t => String(t.id)))
+      const _strip = (a: unknown) => ((a || []) as Task[]).filter(t => !_done.has(String(t.id)))
+      s.todayTasks = _strip(s.todayTasks); s.overdue = _strip(s.overdue); s.backlog = _strip(s.backlog); s.delegated = _strip(s.delegated); s.onHold = _strip(s.onHold)
       return NextResponse.json({
         generatedAt:     (s.generatedAt as string) || nowISO(),
         todayTasks:      ((s.todayTasks  || []) as Task[]).map(deepClone),

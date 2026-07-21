@@ -48,24 +48,37 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    let completedStore: Array<Record<string, unknown>> = []
+    try {
+      const cr = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent('tasks:completed:v1')}`, { headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` } })
+      const cd = await cr.json()
+      let cv: unknown = cd.result
+      for (let i = 0; i < 4; i++) {
+        if (typeof cv === 'string') { cv = JSON.parse(cv as string); continue }
+        if (cv && typeof cv === 'object' && !Array.isArray(cv) && 'value' in (cv as object) && 'key' in (cv as object)) { const o = cv as { value: unknown }; cv = typeof o.value === 'string' ? JSON.parse(o.value) : o.value; continue }
+        break
+      }
+      if (Array.isArray(cv)) completedStore = cv as Array<Record<string, unknown>>
+    } catch {}
+    const doneIds = new Set(completedStore.map(t => String((t as { id?: unknown }).id)))
+    const notDone = (arr?: Array<Record<string, unknown>>) => (arr || []).filter(t => !doneIds.has(String((t as { id?: unknown }).id)))
     const tasks_data = {
       generatedAt: new Date().toISOString(),
-      todayTasks: body.todayTasks || [],
-      backlog: body.backlog || [],
-      overdue: body.overdue || [],
+      todayTasks: notDone(body.todayTasks),
+      backlog: notDone(body.backlog),
+      overdue: notDone(body.overdue),
       delegated: [],
-      completed: body.completed || [],
+      completed: completedStore.length ? completedStore.slice(0, 100) : (body.completed || []),
       completionRate7d: 0,
-      totalOpen: body.totalOpen || 0,
-      totalCompleted: body.totalCompleted || 0,
-      totalBacklog: (body.backlog || []).length,
-      joeCapacityToday: (body.todayTasks || []).length,
+      totalOpen: notDone(body.todayTasks).length + notDone(body.backlog).length,
+      totalCompleted: completedStore.length || (body.totalCompleted || 0),
+      totalBacklog: notDone(body.backlog).length,
+      joeCapacityToday: notDone(body.todayTasks).length,
       maxJoeCapacity: 10,
-      sources: { 'local-sync': (body.todayTasks || []).length },
+      sources: { 'local-sync': notDone(body.todayTasks).length },
     }
-
     await redisPost(UPSTASH_URL, UPSTASH_TOKEN,
-      `/set/${encodeURIComponent(TASKS_KEY)}?ex=7200`,
+      `/set/${encodeURIComponent(TASKS_KEY)}`,
       tasks_data
     )
 
