@@ -119,9 +119,12 @@ function safeJsonParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback
   try {
     let v: any = JSON.parse(raw)
-    // Defensive: unwrap {key, value} envelope if a writer wrapped it
-    if (v && typeof v === 'object' && !Array.isArray(v) && 'value' in v && 'key' in v) {
-      v = typeof v.value === 'string' ? JSON.parse(v.value) : v.value
+    for (let i = 0; i < 4; i++) {
+      if (typeof v === 'string') { v = JSON.parse(v); continue }
+      if (v && typeof v === 'object' && !Array.isArray(v) && 'value' in v && 'key' in v) {
+        v = typeof v.value === 'string' ? JSON.parse(v.value) : v.value; continue
+      }
+      break
     }
     return (v ?? fallback) as T
   } catch { return fallback }
@@ -204,7 +207,7 @@ export async function GET() {
   const summaryRaw = await redisGet(SUMMARY_KEY)
   if (summaryRaw) {
     try {
-      const s = JSON.parse(summaryRaw) as SummaryRaw
+      const s = safeJsonParse<SummaryRaw>(summaryRaw, {} as SummaryRaw)
       if ((((s.backlog || []) as unknown[]).length === 0) && (((s.totalOpen as number) || 0) === 0)) throw new Error('summary-wiped: falling back to task lists')
       return NextResponse.json({
         generatedAt:     (s.generatedAt as string) || nowISO(),
