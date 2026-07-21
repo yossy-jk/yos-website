@@ -41,5 +41,7 @@ yarn-error.log*
 next-env.d.ts
 credentials/
 *.json
+# Blog content (JSON files tracked in git)
+!src/content/blog/*.json
 credentials/
 *.pre-*
