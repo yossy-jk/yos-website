@@ -8,6 +8,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
+import CapabilityDownload from '@/components/CapabilityDownload'
 import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
@@ -348,6 +349,53 @@ export default function Home() {
                 </div>
               </FadeIn>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CAPABILITY STATEMENT DOWNLOAD ────────────────────── */}
+      <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
+        <div className={WRAP} style={PAD}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <FadeIn>
+              <div>
+                <SectionLabel>Our credentials</SectionLabel>
+                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
+                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
+                  See what we have done for businesses like yours.
+                </h2>
+                <p className="text-charcoal font-light leading-relaxed mb-6"
+                  style={{ fontSize: '1rem', lineHeight: 1.85 }}>
+                  The capability statement covers our experience, track record, client outcomes,
+                  and the sectors we work in. Download it before our first call so we can skip the intro
+                  and get straight to your situation.
+                </p>
+                <p className="text-charcoal/60 font-light" style={{ fontSize: '0.85rem' }}>
+                  Includes: completed projects, client case studies, sector coverage, and contact details.
+                </p>
+              </div>
+            </FadeIn>
+            <FadeIn delay={120}>
+              <div className="border border-gray-200 p-8 sm:p-10 flex flex-col gap-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 bg-teal/10 rounded-full flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-near-black font-bold mb-1" style={{ fontSize: '0.95rem' }}>YOS Tenant Representation Capability Statement</p>
+                    <p className="text-charcoal/60" style={{ fontSize: '0.8rem' }}>PDF · Your Office Space</p>
+                  </div>
+                </div>
+                <CapabilityDownload
+                  label="Download Capability Statement"
+                  variant="primary"
+                  className="w-full sm:w-auto"
+                />
+              </div>
+            </FadeIn>
           </div>
         </div>
       </section>

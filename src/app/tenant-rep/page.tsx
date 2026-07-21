@@ -4,6 +4,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
+import CapabilityDownload from '@/components/CapabilityDownload'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
@@ -519,21 +520,32 @@ export default function TenantRepPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────────────────── */}
-      <section className="bg-teal" style={SEC}>
+      <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <h2 className="text-white font-bold leading-tight mb-5 w-full"
-                style={{ fontSize: 'clamp(1.7rem,4.5vw,3.75rem)' }}>
+              <SectionLabel>Get started</SectionLabel>
+              <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
+                style={{ fontSize: 'clamp(1.7rem,4.5vw,3.75rem)', marginTop: '0.75rem', marginBottom: '1.25rem' }}>
                 Let&apos;s talk about your next lease.
               </h2>
-              <p className="text-white/80 font-light leading-relaxed mb-14 w-full"
+              <p className="text-white/60 font-light leading-relaxed mb-10 w-full"
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
                 20 minutes. No pitch. Just a straight conversation about your space, your situation, and what you&apos;re trying to achieve.
               </p>
-              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Clarity Call
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+                <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+                  Book a Clarity Call
+                </Button>
+                <CapabilityDownload
+                  label="Download Our Credentials"
+                  variant="outline"
+                  className="min-h-[56px] px-8"
+                />
+              </div>
+              <p className="text-white/20 font-light" style={{ fontSize: '0.78rem' }}>
+                Not ready to talk? Download our capability statement first.
+              </p>
             </div>
           </FadeIn>
         </div>
