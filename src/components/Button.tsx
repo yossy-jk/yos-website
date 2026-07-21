@@ -4,7 +4,7 @@ import Link from 'next/link'
 interface ButtonProps {
   href?: string
   onClick?: () => void
-  variant?: 'primary' | 'secondary' | 'dark' | 'outline'
+  variant?: 'primary' | 'secondary' | 'dark' | 'outline' | 'outline-light'
   size?: 'sm' | 'md' | 'lg'
   className?: string
   children: React.ReactNode
@@ -35,10 +35,11 @@ export default function Button({
   ].join(' ')
 
   const variantStyles = {
-    primary:   'bg-teal text-white hover:bg-[#009688] active:opacity-90',
-    secondary: 'border border-white text-white hover:bg-white hover:text-near-black',
-    dark:      'bg-near-black text-white hover:bg-charcoal',
-    outline:   'border border-teal text-teal hover:bg-teal hover:text-white',
+    primary:       'bg-teal text-white hover:bg-[#009688] active:opacity-90',
+    secondary:   'border border-white text-white hover:bg-white hover:text-near-black',
+    dark:        'bg-near-black text-white hover:bg-charcoal',
+    outline:     'border border-teal text-teal hover:bg-teal hover:text-white',
+    'outline-light': 'border-2 border-white/70 text-white hover:bg-white/10 hover:border-white',
   }
 
   const sizeStyles = {

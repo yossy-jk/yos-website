@@ -10,6 +10,7 @@ import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import CapabilityDownload from '@/components/CapabilityDownload'
 import AgentNetworkBanner from '@/components/AgentNetworkBanner'
+import FeeGuarantee from '@/components/FeeGuarantee'
 import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
@@ -214,6 +215,9 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
+      {/* ─── FEE GUARANTEE ──────────────────────────────── dark teal gradient */}
+      <FeeGuarantee />
 
       {/* ─── TESTIMONIALS ───────────────────────── warm grey */}
       <section className="bg-warm-grey" style={SEC}>
