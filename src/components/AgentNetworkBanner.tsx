@@ -1,21 +1,21 @@
 'use client'
 
 const AGENTS = [
-  { name: 'CBRE', src: '/agent-logos/cbre.png', alt: 'CBRE' },
-  { name: 'JLL', src: '/agent-logos/jll.png', alt: 'JLL' },
-  { name: 'Knight Frank', src: '/agent-logos/knightfrank.png', alt: 'Knight Frank' },
-  { name: 'Colliers', src: '/agent-logos/colliers.png', alt: 'Colliers' },
-  { name: 'Cushman & Wakefield', src: '/agent-logos/cushwake.png', alt: 'Cushman & Wakefield' },
-  { name: 'Savills', src: '/agent-logos/savills.png', alt: 'Savills' },
-  { name: 'LJ Hooker Commercial', src: '/agent-logos/ljhooker.png', alt: 'LJ Hooker Commercial' },
-  { name: 'Macquarie Commercial', src: '/agent-logos/macquarie.png', alt: 'Macquarie Commercial' },
+  { name: 'CBRE',              src: '/agent-logos/cbre.svg',         alt: 'CBRE' },
+  { name: 'JLL',               src: '/agent-logos/jll.svg',          alt: 'JLL' },
+  { name: 'Knight Frank',       src: '/agent-logos/knightfrank.svg',  alt: 'Knight Frank' },
+  { name: 'Colliers',           src: '/agent-logos/colliers.svg',     alt: 'Colliers' },
+  { name: 'Cushman & Wakefield', src: '/agent-logos/cushman.svg',   alt: 'Cushman & Wakefield' },
+  { name: 'Savills',            src: '/agent-logos/savills.svg',      alt: 'Savills' },
+  { name: 'LJ Hooker Commercial', src: '/agent-logos/ljhooker.svg',  alt: 'LJ Hooker Commercial' },
+  { name: 'Macquarie Commercial', src: '/agent-logos/macquarie.svg',  alt: 'Macquarie Commercial' },
 ]
 
 export default function AgentNetworkBanner() {
   return (
     <section
       className="agent-network-banner overflow-hidden"
-      aria-label="Agent network"
+      aria-label="Commercial real estate agent network"
     >
       {/* ─── Stats headline ─── */}
       <div className="max-w-screen-xl mx-auto text-center mb-8 px-8">
@@ -50,6 +50,7 @@ export default function AgentNetworkBanner() {
                 src={agent.src}
                 alt={agent.alt}
                 className="h-full w-auto max-w-[10rem] object-contain opacity-60 hover:opacity-100 transition-opacity duration-200"
+                style={{ minWidth: '6rem' }}
               />
             </div>
           ))}

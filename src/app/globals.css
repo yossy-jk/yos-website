@@ -158,8 +158,8 @@
 /* ─── Agent Network Marquee ──────────────────────────────── */
 .agent-network-banner {
   background: var(--color-near-black, #1A1A1A);
-  padding-top: clamp(3.5rem,7vw,6rem);
-  padding-bottom: clamp(3.5rem,7vw,6rem);
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
 }
 
 .agent-marquee-track {
