@@ -5,6 +5,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
+import AgentNetworkBanner from '@/components/AgentNetworkBanner'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
@@ -143,6 +144,9 @@ export default function TenantRepPage() {
           </div>
         </div>
       </section>
+
+      {/* ─── AGENT NETWORK BANNER ─────────────────────────── */}
+      <AgentNetworkBanner />
 
       {/* ─── OUR COMMITMENT ───────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>

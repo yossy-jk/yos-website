@@ -9,6 +9,7 @@ import Button from '@/components/Button'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import CapabilityDownload from '@/components/CapabilityDownload'
+import AgentNetworkBanner from '@/components/AgentNetworkBanner'
 import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
@@ -244,6 +245,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ─── AGENT NETWORK BANNER ───────────────────────────── */}
+      <AgentNetworkBanner />
 
       {/* ─── IMAGE BREAK 1 ─────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(24rem,40vw,34rem)' }}>

@@ -12,6 +12,22 @@
   --font-sans: 'Montserrat', sans-serif;
 }
 
+/* ─── Agent Network Marquee ──────────────────────────────── */
+.agent-network-banner {
+  background: var(--color-near-black, #1A1A1A);
+  padding-top: clamp(3.5rem,7vw,6rem);
+  padding-bottom: clamp(3.5rem,7vw,6rem);
+}
+
+.agent-marquee-track {
+  animation: agent-marquee 36s linear infinite;
+}
+
+@keyframes agent-marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 /* ─── Layout system ──────────────────────────────────────── */
 :root {
   /* Content widths */
