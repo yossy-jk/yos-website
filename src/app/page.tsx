@@ -151,8 +151,8 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-near-black/65" />
         <div
-          className={`relative z-10 w-full ${WRAP}`}
-          style={{ ...PAD, paddingTop: SEC_SM.paddingTop, paddingBottom: SEC_SM.paddingBottom }}
+          className={`relative z-10 w-full ${WRAP} hero-overlay-content`}
+          style={PAD}
         >
           <FadeIn>
             <SectionLabel>Newcastle · NSW · Australia</SectionLabel>
@@ -181,7 +181,7 @@ export default function Home() {
             </div>
           </FadeIn>
           <FadeIn delay={340}>
-            <div className="hidden md:grid grid-cols-4 gap-10 pt-10 border-t border-white/10" style={{ marginTop: 'clamp(4rem,10vw,9rem)' }}>
+            <div className="hidden md:grid grid-cols-4 gap-10 border-t border-white/10" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', marginTop: 'clamp(2.5rem,6vw,5rem)' }}>
               {[
                 { stat: '100+', label: 'Projects delivered' },
                 { stat: 'Tenant-side only', label: 'We never represent landlords' },
@@ -199,7 +199,7 @@ export default function Home() {
       </section>
 
       {/* ─── EMOTIONAL HOOK ──────────────────────── near-black */}
-      <section className="bg-near-black" style={SEC_SM}>
+      <section className="bg-near-black" style={{ paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div style={{ maxWidth: '54rem' }}>
@@ -232,7 +232,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {TESTIMONIALS.map((t, i) => (
               <FadeIn key={t.name} delay={i * 80}>
-                <div className="bg-white flex flex-col h-full p-7 sm:p-8 rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-300">
+                <div className="testimonial-card">
                   <Stars />
                   <p className="text-near-black font-light leading-relaxed flex-1 mt-8 mb-10"
                     style={{ fontSize: '1.05rem', lineHeight: 1.9 }}>
@@ -351,7 +351,7 @@ export default function Home() {
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
-                <div className="p-7 sm:p-8 bg-white/5 border-l-4 border-teal rounded-xl overflow-hidden hover:shadow-md transition-shadow duration-300">
+                <div className="whyus-card">
                   <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
                   <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: 'clamp(0.95rem,1.5vw,1rem)', lineHeight: 1.8 }}>{p.body}</p>
                 </div>

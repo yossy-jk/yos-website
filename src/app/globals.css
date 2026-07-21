@@ -12,18 +12,67 @@
   --font-sans: 'Montserrat', sans-serif;
 }
 
+/* ─── Hero overlay positioning ────────────────────────── */
+.hero-overlay-content {
+  padding-top: clamp(8rem, 16vw, 14rem);
+  padding-bottom: clamp(6rem, 12vw, 11rem);
+}
+
+/* ─── Testimonial card polish ──────────────────────────── */
+.testimonial-card {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(1.75rem, 3vw, 2.25rem);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.testimonial-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+/* ─── Why Us card polish ──────────────────────────────── */
+.whyus-card {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: rgba(255,255,255,0.04);
+  border-left: 4px solid #00B5A5;
+  border-radius: 0.75rem;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+}
+.whyus-card:hover {
+  background: rgba(255,255,255,0.07);
+  box-shadow: 0 4px 24px rgba(0,181,165,0.1);
+}
+
+
+
 /* ─── Fee Guarantee Section ────────────────────────────── */
 .fee-guarantee-section {
   background: linear-gradient(135deg, #0B7E74 0%, #083C38 100%);
-  padding-top: clamp(4.5rem, 9vw, 7rem);
-  padding-bottom: clamp(4.5rem, 9vw, 7rem);
+  padding-top: clamp(3.5rem, 7vw, 6rem);
+  padding-bottom: clamp(3.5rem, 7vw, 6rem);
 }
 
 .fee-guarantee-inner {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: clamp(2.5rem, 5vw, 5rem);
+  gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
+}
+
+@media (max-width: 640px) {
+  .fee-guarantee-section {
+    padding-top: clamp(3rem, 10vw, 4.5rem);
+    padding-bottom: clamp(3rem, 10vw, 4.5rem);
+  }
+  .fee-guarantee-inner {
+    gap: clamp(1.75rem, 8vw, 2.5rem);
+  }
 }
 
 /* Seal */
