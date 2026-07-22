@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import PersonalFinanceTab from './tabs/personal-finance-tab'
 import ContentTab from './tabs/content-tab'
+import RankingsPanel from './rankings-panel'
 
 /* ────────────────────────────────────────────────────────────────
    YOS Command Centre v2 — Monday.com × HubSpot design language
@@ -333,20 +334,7 @@ export default function Dashboard() {
                   {!seo?.targets?.length && <div className="empty">Targets load after the next 4:30am SEO run — or run the engine manually.</div>}
                 </section>
                 <div>
-                  <section className="panel" style={{ marginBottom: 16 }}>
-                    <div className="panel-head"><h2>Current rankings</h2>
-                      <span className="panel-count">{seo?.rankings?.length ?? 0}</span></div>
-                    {(seo?.rankings || []).slice(0, 10).map((r, i) => (
-                      <div key={i} className="task">
-                        <div className="task-body">
-                          <div className="task-title">{r.q}</div>
-                          <div className="task-tags">{r.page || '/'} · {r.clicks} clicks · {r.imp} imp</div>
-                        </div>
-                        <span className={`pill ${r.pos <= 10 ? 'pill-green' : r.pos <= 20 ? 'pill-blue' : 'pill-red'}`}>#{r.pos}</span>
-                      </div>
-                    ))}
-                    {!seo?.rankings?.length && <div className="empty">No ranking data yet — the site is early in its organic journey. Every brief below builds it.</div>}
-                  </section>
+                  <RankingsPanel rankings={(seo?.rankings || []) as never} baseline={(seo as unknown as { baseline_date?: string | null } | null)?.baseline_date ?? null} />
                   <section className="panel">
                     <div className="panel-head"><h2>Content opportunities</h2>
                       <span className="panel-count">{seo?.briefs?.length ?? 0}</span></div>
