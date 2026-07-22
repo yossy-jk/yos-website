@@ -102,7 +102,7 @@ export default async function BlogPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: '2rem' }}>
               {rest.map(post => {
-                const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
+                const readTime = Math.max(2, Math.round(String(post.body || post.excerpt || '').split(' ').length / 200))
                 const imgSrc = post.heroImage || DIVISION_HERO_IMAGES[SAFE_DIVISION(post.division)]
                 return (
                   <Link key={post.slug} href={`/blog/${post.slug}`}
