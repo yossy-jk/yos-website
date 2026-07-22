@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BlogEmailCapture from '@/components/BlogEmailCapture'
-import { getAllPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
+import { getAllPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES, SAFE_DIVISION } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
 export const metadata = {
@@ -56,7 +56,7 @@ export default async function BlogPage() {
                 {/* Image — fixed height on mobile, auto on desktop */}
                 <div className="relative w-full lg:w-1/2 flex-shrink-0" style={{ minHeight: '18rem' }}>
                   <Image
-                    src={featured.heroImage || DIVISION_HERO_IMAGES[featured.division as Division]}
+                    src={featured.heroImage || DIVISION_HERO_IMAGES[SAFE_DIVISION(featured.division)]}
                     alt={featured.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -65,9 +65,9 @@ export default async function BlogPage() {
                   />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 60%)' }} />
                   <div style={{ position: 'absolute', top: '1.25rem', left: '1.25rem' }}>
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase ${DIVISION_COLORS[featured.division as Division]}`}
+                    <span className={`text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(featured.division)]}`}
                       style={{ fontSize: '0.58rem' }}>
-                      {DIVISION_LABELS[featured.division as Division]}
+                      {DIVISION_LABELS[SAFE_DIVISION(featured.division)]}
                     </span>
                   </div>
                 </div>
@@ -103,7 +103,7 @@ export default async function BlogPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: '2rem' }}>
               {rest.map(post => {
                 const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
-                const imgSrc = post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]
+                const imgSrc = post.heroImage || DIVISION_HERO_IMAGES[SAFE_DIVISION(post.division)]
                 return (
                   <Link key={post.slug} href={`/blog/${post.slug}`}
                     style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', borderRadius: '0.875rem', overflow: 'hidden', border: '1px solid #E5E7EB', background: 'white' }}
@@ -119,9 +119,9 @@ export default async function BlogPage() {
                         className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       />
                       <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
-                        <span className={`font-bold rounded-full tracking-widest uppercase ${DIVISION_COLORS[post.division as Division]}`}
+                        <span className={`font-bold rounded-full tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(post.division)]}`}
                           style={{ fontSize: '0.58rem', padding: '0.25rem 0.625rem', display: 'inline-block' }}>
-                          {DIVISION_LABELS[post.division as Division]}
+                          {DIVISION_LABELS[SAFE_DIVISION(post.division)]}
                         </span>
                       </div>
                     </div>

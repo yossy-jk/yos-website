@@ -26,6 +26,11 @@ export const DIVISION_HERO_IMAGES: Record<Division, string> = {
   'general':        'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80',
 }
 
+
+export const SAFE_DIVISION = (d: unknown): Division =>
+  (['tenant-rep','buyers-agency','furniture','cleaning','general'] as string[]).includes(String(d))
+    ? (d as Division) : 'general'
+
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog')
 
 export const DIVISION_LABELS: Record<Division, string> = {
