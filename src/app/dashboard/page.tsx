@@ -104,6 +104,19 @@ export default function Dashboard() {
     const next = t.status === 'todo' ? 'in_progress' : t.status === 'in_progress' ? 'todo' : t.status
     taskAct({ action: 'status', id: t.id, status: next }, x => ({ ...x, status: next }))
   }
+  const [sel, setSel] = useState<string[]>([])
+  const toggleSel = (id: string) => setSel(s => s.includes(id) ? s.filter(x => x !== id) : [...s, id])
+  const bulkAct = async (op: string, due?: string) => {
+    if (!sel.length) return
+    if (op === 'delete' && !confirm('Delete ' + sel.length + ' task(s)? This can be undone from tasks:deleted:v1.')) return
+    const ids = [...sel]
+    setBoard(b => b ? { ...b, tasks: op === 'delete' ? b.tasks.filter(t => !ids.includes(t.id))
+      : b.tasks.map(t => ids.includes(t.id) ? { ...t, ...(op === 'complete' ? { status: 'done' } : { due_date: due || '' }) } : t) } : b)
+    setSel([])
+    await fetch('/api/tasks', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'bulk', op, ids, due }) })
+    loadBoard()
+  }
   const completeTask = (t: BoardTask) => {
     taskAct({ action: 'complete', id: t.id, by: 'Joe' }, x => ({ ...x, status: 'done' }))
     if (board) setBoard(b => b ? { ...b, stats: { ...b.stats, done_today: b.stats.done_today + 1, open: Math.max(0, b.stats.open - 1) } } : b)
@@ -238,6 +251,18 @@ export default function Dashboard() {
                 ))}
               </div>
 
+              {sel.length > 0 && (
+                <div style={{ position: 'sticky', top: 0, zIndex: 5, display: 'flex', gap: 8, alignItems: 'center',
+                  flexWrap: 'wrap', padding: '10px 12px', marginBottom: 8, borderRadius: 10,
+                  background: '#00B5A5', color: '#fff', fontSize: 13 }}>
+                  <strong>{sel.length} selected</strong>
+                  <button onClick={() => bulkAct('complete')} style={{ padding: '5px 10px', borderRadius: 7, cursor: 'pointer', border: 'none' }}>Complete</button>
+                  <input type="date" onChange={e => e.target.value && bulkAct('due', e.target.value)}
+                    style={{ padding: '4px 8px', borderRadius: 7, border: 'none', fontSize: 12 }} />
+                  <button onClick={() => bulkAct('delete')} style={{ padding: '5px 10px', borderRadius: 7, cursor: 'pointer', border: 'none', background: '#e5484d', color: '#fff' }}>Delete</button>
+                  <button onClick={() => setSel([])} style={{ marginLeft: 'auto', background: 'transparent', border: '1px solid rgba(255,255,255,.5)', color: '#fff', padding: '5px 10px', borderRadius: 7, cursor: 'pointer' }}>Clear</button>
+                </div>
+              )}
               <section className="panel">
                 {(board?.tasks || []).filter(t =>
                   taskFilter === 'all' ? true
@@ -247,6 +272,8 @@ export default function Dashboard() {
                 ).map(t => (
                   <div key={t.id}>
                     <div className="task">
+                      <input type="checkbox" checked={sel.includes(t.id)} onChange={() => toggleSel(t.id)}
+                        onClick={e => e.stopPropagation()} style={{ marginRight: 8, cursor: 'pointer', flexShrink: 0 }} />
                       <button className={`check ${t.status === 'done' ? 'checked' : ''}`}
                               onClick={() => t.status !== 'done' && completeTask(t)}
                               aria-label="Complete">
@@ -254,7 +281,12 @@ export default function Dashboard() {
                       </button>
                       <div className="task-body" onClick={() => setTaskOpen(taskOpen === t.id ? null : t.id)} style={{ cursor: 'pointer' }}>
                         <div className="task-title" style={t.status === 'done' ? { textDecoration: 'line-through', color: 'var(--ink2)' } : {}}>{t.title}</div>
-                        <div className="task-tags">{t.assignee}{t.due_date ? ` · due ${t.due_date}` : ''}{t.notes.length ? ` · ${t.notes.length} notes` : ''}</div>
+                        <div className="task-tags">{t.assignee}
+                          {(() => { const c = (t as unknown as { created_at?: string }).created_at
+                            return c ? <span> · created {String(c).slice(0, 10)}</span> : null })()}
+                          {t.due_date ? (() => { const od = String(t.due_date) < new Date().toLocaleDateString('en-CA', { timeZone: 'Australia/Sydney' })
+                            return <span style={{ color: od && t.status !== 'done' ? '#e5484d' : undefined, fontWeight: od && t.status !== 'done' ? 600 : undefined }}> · due {t.due_date}</span> })() : null}
+                          {t.notes.length ? <span> · {t.notes.length} notes</span> : null}</div>
                       </div>
                       {t.status !== 'done' && (
                         <button className={`pill ${t.status === 'in_progress' ? 'pill-blue' : t.status === 'delegated' ? 'pill-amberp' : 'pill-grey'}`}

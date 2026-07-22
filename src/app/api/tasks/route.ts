@@ -66,6 +66,58 @@ export async function POST(req: Request) {
   const action = String(body.action || '')
   const id = String(body.id || body.taskId || '')
 
+  // Bulk ops + delete, applied server-side in one pass
+  if (action === 'bulk' || action === 'delete') {
+    try {
+      const ids: string[] = action === 'delete' ? [id] : (body.ids as string[] || []).map(String)
+      const op = action === 'delete' ? 'delete' : String(body.op || 'complete')
+      if (!ids.length) return NextResponse.json({ ok: true, n: 0 })
+      const now = new Date().toISOString().slice(0, 19)
+      const listRaw = await rget('tasks:v1')
+      const list: Task[] = Array.isArray(listRaw) ? (listRaw as Task[]) : []
+      const compRaw = await rget('tasks:completed:v1')
+      const comp: Task[] = Array.isArray(compRaw) ? (compRaw as Task[]) : []
+      const delRaw = await rget('tasks:deleted:v1')
+      const del: Task[] = Array.isArray(delRaw) ? (delRaw as Task[]) : []
+      const set = new Set(ids)
+      const keep: Task[] = []
+      let n = 0
+      for (const t of list) {
+        if (!set.has(String(t.id))) { keep.push(t); continue }
+        n++
+        if (op === 'delete') { t.status = 'deleted'; t.deleted_at = now; del.unshift({ ...t }) }
+        else if (op === 'due') { t.due_date = String(body.due || ''); keep.push(t) }
+        else { t.status = 'done'; t.completed_at = now
+               if (!comp.some(c => String(c.id) === String(t.id))) comp.unshift({ ...t }) }
+      }
+      if (keep.length >= Math.min(5, list.length)) await rset('tasks:v1', keep)
+      if (op === 'delete') await rset('tasks:deleted:v1', del.slice(0, 300))
+      if (op === 'complete') await rset('tasks:completed:v1', comp.slice(0, 300))
+      const boardRaw = await rget('yos:tasks:board')
+      if (boardRaw && typeof boardRaw === 'object') {
+        const board = boardRaw as { tasks?: Task[]; stats?: Record<string, number> }
+        if (Array.isArray(board.tasks)) {
+          board.tasks = board.tasks.filter(t => !(set.has(String(t.id)) && op === 'delete'))
+          for (const t of board.tasks) {
+            if (set.has(String(t.id))) {
+              if (op === 'complete') { t.status = 'done'; t.completed_at = now }
+              if (op === 'due') t.due_date = String(body.due || '')
+            }
+          }
+          const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Australia/Sydney' })
+          board.stats = { ...(board.stats || {}),
+            open: board.tasks.filter(t => !CLOSED.includes(String(t.status))).length,
+            done_today: board.tasks.filter(t => DONE.includes(String(t.status)) &&
+              String(t.completed_at || '').slice(0, 10) === today).length }
+        }
+        await rset('yos:tasks:board', board)
+      }
+      return NextResponse.json({ ok: true, n, op })
+    } catch (e) {
+      return NextResponse.json({ ok: false, error: String(e) })
+    }
+  }
+
   // Complete server-side immediately so a stopped cron can never swallow it
   if (action !== 'complete' || !id) return NextResponse.json({ ok: true, queued: true })
 
