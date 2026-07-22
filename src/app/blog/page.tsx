@@ -25,7 +25,19 @@ export const metadata = {
 export const revalidate = 3600 // re-check Redis every hour
 
 export default async function BlogPage() {
-  const posts = await getAllPostsAsync()
+  const raw = await getAllPostsAsync()
+  const posts = (raw || []).filter(Boolean).map((x) => {
+    const o = x as unknown as Record<string, unknown>
+    return { ...o,
+      slug: String(o.slug || ''),
+      title: String(o.title || 'Untitled'),
+      excerpt: String(o.excerpt || String(o.body || '').slice(0, 160)),
+      body: String(o.body || o.excerpt || ''),
+      date: String(o.date || new Date().toISOString().slice(0, 10)),
+      division: String(o.division || 'general'),
+      tags: Array.isArray(o.tags) ? o.tags : [],
+    }
+  }).filter((x) => x.slug) as typeof raw
   const featured = posts[0]
   const rest = posts.slice(1)
 
