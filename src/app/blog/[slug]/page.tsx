@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BookingCTA from '@/components/BookingCTA'
+import HubSpotForm from '@/components/HubSpotForm'
 import { getAllPosts, getAllPostsAsync, getPostBySlug, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import { HUBSPOT } from '@/lib/constants'
 import type { Division } from '@/lib/blog'
@@ -395,6 +396,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
                 <div>
                   <BookingCTA label="Book a Clarity Call" variant="primary" />
+                </div>
+                {/* Inline contact form */}
+                <div style={{ marginTop: '1.5rem' }}>
+                  <HubSpotForm targetId="blog-contact-form" />
                 </div>
               </div>
 
