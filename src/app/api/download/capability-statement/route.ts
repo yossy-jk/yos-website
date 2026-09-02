@@ -7,6 +7,7 @@
  * No credentials exposed to the client.
  */
 import { NextResponse } from 'next/server'
+import { createDownloadToken } from '@/lib/download-token.mjs'
 
 const TOKEN       = process.env.HUBSPOT_TOKEN
 const BASE        = 'https://api.hubapi.com'
@@ -87,16 +88,17 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Name too long' }, { status: 400 })
     }
 
+    const signingSecret = process.env.DOWNLOAD_SIGNING_SECRET
+    if (!signingSecret) {
+      return NextResponse.json({ error: 'Download service not configured' }, { status: 503 })
+    }
+
     // Upsert to HubSpot (fire-and-forget — don't block download on HS errors)
     upsertContact(email, firstname).catch(console.error)
 
-    // Generate a minimal signed URL (base64 timestamp + simple token)
-    // In production use crypto.sign() — here we use a URL-safe base64 timestamp approach
-    // that Next.js rewrites can validate at the /public/YOS-Capability-Statement.pdf level
+    // The token contains only file scope and expiry. Its HMAC is verified server-side.
     const expiresAt = Math.floor(Date.now() / 1000) + DOWNLOAD_TTL
-    const signingSecret = process.env.DOWNLOAD_SIGNING_SECRET
-    const raw = `${email.trim().toLowerCase()}:${expiresAt}:${signingSecret}`
-    const token = Buffer.from(raw).toString('base64url')
+    const token = createDownloadToken(PDF_FILENAME, expiresAt, signingSecret)
     const downloadUrl = `${PDF_ROUTE}?t=${token}`
 
     return NextResponse.json({ downloadUrl, expiresAt })
