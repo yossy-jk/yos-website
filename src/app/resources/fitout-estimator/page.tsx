@@ -1,62 +1,17 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
 import { HUBSPOT } from '@/lib/constants'
-/* ─── Rate data (YOS Fitout Cost Guide - April 2026, ex GST) ─── */
-type Tier = 'basic' | 'mid' | 'premium'
-type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
-type RateBand = { low: number; high: number }
-interface FitoutRate {
-  label: string
-  color: string
-  sqm?: RateBand
-  desk: RateBand
-  meetingRoom: RateBand
-  kitchen?: RateBand
-  reception?: RateBand
-  av?: RateBand
-  contingency: number
-}
-const RATES: Record<FitoutTypeKey, Record<Tier, FitoutRate>> = {
-  'furniture-only': {
-    // Rate spread: ~30% max (low to high). Updated 2026-06-08 — Joe approved target 10-30%.
-    // Meeting rooms: flat $2000–$3000 per room (furniture path only — Joe 2026-06-08).
-    basic:    { label: 'Basic',     color: '#9B9B9B', desk: { low: 550,  high: 715  }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 2000,  high: 3000  }, contingency: 0.15 },
-  },
-  'turnkey-warm': {
-    // Warm shell: base build already in place (floors, ceilings, services), less work
-    // Rate spread: ~30% max. Updated 2026-06-08 — Joe approved target 10-30%.
-    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 600,  high: 780  }, desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, kitchen: { low: 5000,  high: 6500  }, reception: { low: 6000,  high: 7800  }, av: { low: 2500,  high: 3250  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 900,  high: 1170 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000,  high: 10400 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1200, high: 1560 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
-  },
-  'turnkey-cold': {
-    // Cold shell: blank canvas, everything from scratch — higher cost than warm
-    // Rate spread: ~30% max. Updated 2026-06-08 — Joe approved target 10-30%.
-    basic:    { label: 'Basic',     color: '#9B9B9B', sqm: { low: 800,  high: 1040 }, desk: { low: 550,  high: 715  }, meetingRoom: { low: 8000,  high: 10400 }, kitchen: { low: 5000,  high: 6500  }, reception: { low: 6000,  high: 7800  }, av: { low: 2500,  high: 3250  }, contingency: 0.10 },
-    mid:      { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1000, high: 1300 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000,  high: 10400 }, contingency: 0.10 },
-    premium:  { label: 'Premium',   color: '#1A1A1A', sqm: { low: 1400, high: 1820 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
-  },
-}
-interface Inputs {
-  fitoutType: 'furniture-only' | 'turnkey' | ''
-  sqm: string
-  shellCondition: 'cold' | 'warm' | ''
-  tier: Tier | ''
-  workstationType: 'fixed' | 'eha' | ''
-  desks: string
-  meetingRooms: string
-  hasKitchen: boolean
-  hasReception: boolean
-  hasAV: boolean
-  buildingType: string
-  timeframe: string
-}
+import {
+  FITOUT_RATES as RATES,
+  calculateFitoutEstimate as calcEstimate,
+  type FitoutInputs as Inputs,
+  type FitoutTier as Tier,
+} from '@/lib/fitout-estimate'
+
 const STEPS = [
   { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
   { id: 'service',     title: 'What are you after?',     subtitle: 'Furniture only or a full turnkey fitout?' },
@@ -70,66 +25,6 @@ const STEPS = [
 ]
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
-}
-function calcEstimate(inputs: Inputs) {
-  if (!inputs.sqm || !inputs.tier || !inputs.fitoutType) return null
-  const isFurniture = inputs.fitoutType === 'furniture-only'
-  const rateKey: FitoutTypeKey = isFurniture ? 'furniture-only' : inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm'
-  const r = RATES[rateKey][inputs.tier as Tier]
-  const sqm = parseFloat(inputs.sqm) || 0
-  const desks = parseInt(inputs.desks) || 0
-  const meetings = parseInt(inputs.meetingRooms) || 0
-  const ehaMult = inputs.workstationType === 'eha' ? 1.25 : 1.0
-  const base = isFurniture
-    ? { low: 0, high: 0 }
-    : { low: sqm * (r.sqm?.low ?? 0), high: sqm * (r.sqm?.high ?? 0) }
-  const deskRate = { low: desks * r.desk.low * ehaMult, high: desks * r.desk.high * ehaMult }
-  // Meeting rooms: fitout/construction cost only — not applicable to furniture-only path
-  const meetingCost = isFurniture ? { low: 0, high: 0 } : { low: meetings * r.meetingRoom.low, high: meetings * r.meetingRoom.high }
-  const kitchenCost = (!isFurniture && r.kitchen) ? { low: r.kitchen.low, high: r.kitchen.high } : { low: 0, high: 0 }
-  const receptionCost = (!isFurniture && r.reception) ? { low: r.reception.low, high: r.reception.high } : { low: 0, high: 0 }
-  const avCost = (!isFurniture && r.av) ? { low: r.av.low, high: r.av.high } : { low: 0, high: 0 }
-  // Furniture-only: split desk rate into Workstations (45%), Seating (35%), Accessories (20%)
-  const furnWkst = { low: Math.round(deskRate.low * 0.45), high: Math.round(deskRate.high * 0.45) }
-  const furnSeat = { low: Math.round(deskRate.low * 0.35), high: Math.round(deskRate.high * 0.35) }
-  const furnAcc  = { low: Math.round(deskRate.low * 0.20), high: Math.round(deskRate.high * 0.20) }
-  // Delivery & Install — 5% of furniture/desk supply value (Joe, 2026-06-11)
-  const deliveryCost = { low: Math.round(deskRate.low * 0.05), high: Math.round(deskRate.high * 0.05) }
-  const subLow = base.low + deskRate.low + deliveryCost.low + meetingCost.low + kitchenCost.low + receptionCost.low + avCost.low
-  const subHigh = base.high + deskRate.high + deliveryCost.high + meetingCost.high + kitchenCost.high + receptionCost.high + avCost.high
-  const totalLow = Math.round(subLow * (1 + r.contingency))
-  const totalHigh = Math.round(subHigh * (1 + r.contingency))
-  const constructionLabel = isFurniture ? null : rateKey === 'turnkey-cold' ? 'Construction fitout (cold shell)' : 'Construction fitout (warm shell)'
-  return {
-    breakdown: [
-      ...(constructionLabel ? [{ label: constructionLabel, low: base.low, high: base.high }] : []),
-      // Furniture-only: show granular breakdown
-      ...(isFurniture ? [
-        { label: 'Workstations', low: furnWkst.low, high: furnWkst.high },
-        { label: 'Seating',      low: furnSeat.low, high: furnSeat.high },
-        { label: 'Accessories',   low: furnAcc.low,  high: furnAcc.high  },
-      ] : [
-        { label: 'Workstations & seating', low: deskRate.low, high: deskRate.high },
-      ]),
-      { label: 'Delivery & install', low: deliveryCost.low, high: deliveryCost.high },
-      ...(!isFurniture ? [{ label: 'Meeting rooms', low: meetingCost.low, high: meetingCost.high }] : []),
-      ...(kitchenCost.low > 0 ? [{ label: 'Kitchen / breakout', low: kitchenCost.low, high: kitchenCost.high }] : []),
-      ...(receptionCost.low > 0 ? [{ label: 'Reception area', low: receptionCost.low, high: receptionCost.high }] : []),
-      ...(avCost.low > 0 ? [{ label: 'AV & technology', low: avCost.low, high: avCost.high }] : []),
-      { label: `Contingency (${Math.round(r.contingency * 100)}%)`, low: Math.round(subLow * r.contingency), high: Math.round(subHigh * r.contingency) },
-    ].filter(b => b.low > 0 || b.high > 0),
-    totalLow,
-    totalHigh,
-    perSqm: { low: Math.round(totalLow / (parseFloat(inputs.sqm) || 1)), high: Math.round(totalHigh / (parseFloat(inputs.sqm) || 1)) },
-    coverageNote: isFurniture
-      ? 'Price is for supply and installation of furniture items listed. Excludes construction, electrical, and joinery.'
-      : rateKey === 'turnkey-cold'
-      ? 'Cold shell condition assumed. Base build services and ceiling works are included.'
-      : 'Warm shell condition assumed. Base build services already in place.',
-    joineryNote: isFurniture
-      ? 'If your fitout includes built-in joinery or custom storage (reception desks, kitchenettes, bookshelves), budget an additional 25-35% on top of this estimate. Speak to us for a joinery quote alongside your furniture package.'
-      : null,
-  }
 }
 const SCHEMA = {
   "@context": "https://schema.org",
@@ -148,6 +43,10 @@ export default function FitoutEstimatorPage() {
   const [hasResult, setHasResult] = useState(false)
   const [storedEstimate, setStoredEstimate] = useState<ReturnType<typeof calcEstimate>>(null)
   const [stepError, setStepError] = useState('')
+  const [reportName, setReportName] = useState('')
+  const [reportEmail, setReportEmail] = useState('')
+  const [reportState, setReportState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
+  const [reportMessage, setReportMessage] = useState('')
   const [inputs, setInputs] = useState<Inputs>({
     fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
@@ -184,6 +83,45 @@ export default function FitoutEstimatorPage() {
   const progress = step === 0 ? 0 : ((step - 1) / (maxStep - 1)) * 100
   const stepCount = maxStep  // last content step number (1-indexed for display)
   const resultStep = maxStep  // "Show my estimate" advances to this step to trigger result block
+
+  async function submitReport(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    if (!storedEstimate || !reportName.trim() || !reportEmail.trim()) return
+
+    setReportState('sending')
+    setReportMessage('')
+
+    try {
+      const response = await fetch('/api/fitout-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: reportName,
+          email: reportEmail,
+          fitoutType: inputs.fitoutType,
+          sqm: inputs.sqm,
+          tier: inputs.tier,
+          shellCondition: inputs.shellCondition,
+          workstationType: inputs.workstationType,
+          desks: inputs.desks,
+          meetingRooms: inputs.meetingRooms,
+          hasKitchen: inputs.hasKitchen,
+          hasReception: inputs.hasReception,
+          hasAV: inputs.hasAV,
+          source: 'fitout-estimator',
+        }),
+      })
+      const result = await response.json().catch(() => ({})) as { error?: string; message?: string }
+      if (!response.ok) throw new Error(result.error || 'We could not send the report right now.')
+
+      setReportState('sent')
+      setReportMessage(result.message || 'Your report has been sent. Check your inbox.')
+    } catch (error) {
+      setReportState('error')
+      setReportMessage(error instanceof Error ? error.message : 'We could not send the report right now.')
+    }
+  }
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
@@ -668,48 +606,34 @@ export default function FitoutEstimatorPage() {
                 Drop your email and we&apos;ll send you a branded one-page report with the full line-by-line breakdown, what&apos;s included, and what comes next — no pitch, no follow-up unless you ask.
               </p>
               <form
-                onSubmit={async (e) => {
-                  e.preventDefault()
-                  const form = e.currentTarget
-                  const email = (form.elements.namedItem('email') as HTMLInputElement)?.value
-                  if (!email) return
-                  try {
-                    await fetch('/api/fitout-report', {
-                      method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({
-                        name: '',
-                        email,
-                        sqm: inputs.sqm,
-                        tier: RATES['turnkey-warm'][inputs.tier as Tier]?.label ?? inputs.tier,
-                        desks: inputs.desks,
-                        meetingRooms: inputs.meetingRooms,
-                        hasKitchen: inputs.hasKitchen,
-                        hasReception: inputs.hasReception,
-                        hasAV: inputs.hasAV,
-                        totalLow: storedEstimate!.totalLow,
-                        totalHigh: storedEstimate!.totalHigh,
-                        perSqmLow: storedEstimate!.perSqm.low,
-                        perSqmHigh: storedEstimate!.perSqm.high,
-                        breakdown: storedEstimate!.breakdown,
-                      }),
-                    })
-                    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement
-                    if (btn) { btn.textContent = 'Sent'; btn.disabled = true; btn.style.background = 'rgba(0,181,165,0.4)' }
-                  } catch {}
-                }}
-                noValidate
+                onSubmit={submitReport}
                 style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
               >
                 <input
-                  type="email" name="email" placeholder="Your work email" autoComplete="email"
-                  required
+                  type="text" name="name" placeholder="Your name" autoComplete="name"
+                  value={reportName}
+                  onChange={(event) => setReportName(event.target.value)}
+                  required minLength={2} maxLength={100}
+                  disabled={reportState === 'sending' || reportState === 'sent'}
                   style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
                 />
-                <button type="submit"
-                  style={{ background: '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
-                  Send me the full report &rarr;
+                <input
+                  type="email" name="email" placeholder="Your work email" autoComplete="email"
+                  value={reportEmail}
+                  onChange={(event) => setReportEmail(event.target.value)}
+                  required maxLength={200}
+                  disabled={reportState === 'sending' || reportState === 'sent'}
+                  style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                />
+                <button type="submit" disabled={reportState === 'sending' || reportState === 'sent'}
+                  style={{ background: reportState === 'sent' ? 'rgba(0,181,165,0.4)' : '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
+                  {reportState === 'sending' ? 'Sending…' : reportState === 'sent' ? 'Report sent' : 'Send me the full report →'}
                 </button>
+                {reportMessage && (
+                  <p role="status" aria-live="polite" style={{ color: reportState === 'error' ? '#FF8A8A' : '#5FE3D5', fontSize: '0.82rem', lineHeight: 1.6 }}>
+                    {reportMessage}
+                  </p>
+                )}
               </form>
             </div>
             {/* CTA — Book a consultation */}

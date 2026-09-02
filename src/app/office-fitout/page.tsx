@@ -11,8 +11,8 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
-import FurniturePopup from '@/components/FurniturePopup'
 import HubSpotForm from '@/components/HubSpotForm'
+import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Fit Out | Your Office Space',
@@ -496,6 +496,8 @@ export default function OfficeFitoutPage() {
         </FadeIn>
       </section>
 
+      <FurnitureVoucherSection />
+
       {/* INLINE QUOTE FORM */}
       <section className="bg-near-black" style={SEC}>
         <FadeIn>
@@ -530,7 +532,6 @@ export default function OfficeFitoutPage() {
         </FadeIn>
       </section>
 
-      <FurniturePopup />
       <BookingCTA label="Book a Free Consultation" />
       <Footer />
     </>

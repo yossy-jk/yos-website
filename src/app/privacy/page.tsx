@@ -112,7 +112,7 @@ export default function PrivacyPage() {
                 <li><strong>Enquiry details</strong> — the information you type into any contact or service form.</li>
                 <li><strong>Payment details</strong> — for LeaseIntel™ ($97 review). Card processing is handled by Stripe; we do not store card numbers.</li>
                 <li><strong>IP address</strong> — collected automatically for rate limiting purposes (see Third Parties below). Not linked to your identity.</li>
-                <li><strong>Basic browser/device info</strong> — standard server logs used for security and performance monitoring.</li>
+                <li><strong>Basic browser/device and usage information</strong> — standard server logs used for security and performance monitoring. If you accept optional analytics, Google Analytics and HubSpot analytics also process information about pages viewed, device/browser type and approximate location.</li>
               </ul>
               <p>We do not collect sensitive information (health, financial records, government IDs) unless you voluntarily include it in an enquiry message.</p>
             </PrivacySection>
@@ -123,6 +123,7 @@ export default function PrivacyPage() {
                 <li>To deliver your LeaseIntel™ lease review report.</li>
                 <li>To send you occasional updates or resources if you&apos;ve opted in (you can unsubscribe any time).</li>
                 <li>To protect the website from abuse (rate limiting).</li>
+                <li>With your permission, to understand which pages and resources are useful and improve the website.</li>
               </ul>
               <p>We don&apos;t sell your data. We don&apos;t use it for advertising. Full stop.</p>
             </PrivacySection>
@@ -133,8 +134,13 @@ export default function PrivacyPage() {
               <div className="not-prose space-y-5 my-6">
                 <ThirdParty
                   name="HubSpot"
-                  role="CRM — stores your name, email, and enquiry context so we can follow up properly."
+                  role="CRM and optional website analytics — stores enquiry details you submit. Its analytics tracking only loads after you accept optional analytics."
                   link="https://legal.hubspot.com/privacy-policy"
+                />
+                <ThirdParty
+                  name="Google Analytics"
+                  role="Optional website analytics — helps us understand aggregate site usage. It only loads after you accept optional analytics, with IP anonymisation enabled."
+                  link="https://policies.google.com/privacy"
                 />
                 <ThirdParty
                   name="Resend"
@@ -162,11 +168,10 @@ export default function PrivacyPage() {
 
             <PrivacySection title="Cookies">
               <p>
-                We use minimal cookies — primarily session and security cookies required for the site to function.
-                We do not use advertising or cross-site tracking cookies. If we add analytics in future, we&apos;ll update this policy.
+                Essential session and security storage is used where required for the site to function. Optional Google Analytics and HubSpot analytics are disabled by default and only load after you select <strong>Accept analytics</strong>.
               </p>
               <p>
-                You can disable cookies in your browser settings, though some site functionality may be affected.
+                We do not use analytics for advertising. You can choose <strong>Essential only</strong> or reopen <strong>Privacy choices</strong> at any time to change your preference. You can also disable cookies in your browser settings, though some site functionality may be affected.
               </p>
             </PrivacySection>
 

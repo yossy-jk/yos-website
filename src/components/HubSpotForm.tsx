@@ -1,5 +1,6 @@
 'use client'
-import { useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
+import Script from 'next/script'
 
 declare global {
   interface Window {
@@ -23,44 +24,32 @@ export default function HubSpotForm({
   targetId,
   className = ''
 }: HubSpotFormProps) {
-  useEffect(() => {
-    const portalId = '442709765'
-
-    function createForm() {
-      if (window.hbspt) {
-        window.hbspt.forms.create({
-          portalId,
-          formId,
-          target: `#${targetId}`,
-          cssClass: 'hs-form-yos',
-          submitButtonClass: 'hs-submit-btn',
-          onFormSubmit: () => {
-            // Form submitted — HubSpot handles confirmation
-          }
-        })
-      }
-    }
-
-    if (window.hbspt) {
-      createForm()
-    } else {
-      // Wait for HubSpot script to load
-      const script = document.getElementById('hs-script-loader')
-      if (script) {
-        script.addEventListener('load', createForm)
-        return () => script.removeEventListener('load', createForm)
-      } else {
-        // Fallback: poll briefly
-        const interval = setInterval(() => {
-          if (window.hbspt) {
-            createForm()
-            clearInterval(interval)
-          }
-        }, 300)
-        return () => clearInterval(interval)
-      }
-    }
+  const created = useRef(false)
+  const createForm = useCallback(() => {
+    if (!window.hbspt || created.current) return
+    window.hbspt.forms.create({
+      portalId: '442709765',
+      formId,
+      target: `#${targetId}`,
+      cssClass: 'hs-form-yos',
+      submitButtonClass: 'hs-submit-btn',
+    })
+    created.current = true
   }, [formId, targetId])
 
-  return <div id={targetId} className={className} />
+  useEffect(() => {
+    createForm()
+  }, [createForm])
+
+  return (
+    <>
+      <Script
+        id="hs-forms-loader"
+        src="https://js.hsforms.net/forms/embed/v2.js"
+        strategy="afterInteractive"
+        onReady={createForm}
+      />
+      <div id={targetId} className={className} />
+    </>
+  )
 }

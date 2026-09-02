@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import ExitPopup from "@/components/ExitPopup";
 import FloatingCTA from "@/components/FloatingCTA";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
+import AnalyticsConsent from "@/components/AnalyticsConsent";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -50,16 +49,8 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        {/* HubSpot Tracking Code */}
-        <script
-          type="text/javascript"
-          id="hs-script-loader"
-          async
-          defer
-          src="//js-ap1.hs-scripts.com/442709765.js"
-        />
       </head>
-      <body>{children}<FloatingCTA /><ExitPopup /><GoogleAnalytics /></body>
+      <body>{children}<FloatingCTA /><AnalyticsConsent /></body>
     </html>
   );
 }

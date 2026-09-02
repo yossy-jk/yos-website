@@ -1,27 +1,26 @@
 /**
  * YOS Dashboard Auth v2 — Redis-backed user store with scopes and roles.
- * Session token: base64url(exp|id|email|role|scopes|clients).hmac-sha256
- * Using pipe separator (|) — never in email addresses.
+ * Session token: base64url(JSON payload).hmac-sha256
+ * The signature and expiry are verified before Redis user resolution.
  *
  * Roles: super | admin | user | limited | tenant_rep
  * Scopes: health | finance | deals | outreach | tasks | operations | compliance | tenant_rep
  * Tenant reps also have allowed_clients: string[] (client IDs)
  */
 
-import { NextRequest, NextResponse } from 'next/server'
-import { createHmac, timingSafeEqual } from 'crypto'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
 import { Redis } from '@upstash/redis'
 import bcrypt from 'bcryptjs'
+import { createSignedSessionToken, verifySignedSessionToken } from '@/lib/auth-session'
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const UPSTASH_URL       = process.env.UPSTASH_REDIS_REST_URL  || ''
 const UPSTASH_TOKEN     = process.env.UPSTASH_REDIS_REST_TOKEN || ''
-const COOKIE_SECRET     = process.env.AUTH_COOKIE_SECRET      || ''
 const COOKIE_NAME       = 'yos_dash_session_v2'
 const SESSION_TTL_SEC   = 60 * 60 * 24 * 7   // 7 days
 const BCRYPT_ROUNDS     = 12
-const FIELD_SEP         = '|'                // between token fields; never in emails
 
 // ── Redis Client ────────────────────────────────────────────────────────────
 let _redis: Redis | null = null
@@ -32,10 +31,10 @@ function getRedis(): Redis | null {
 }
 
 // ── Redis helpers ──────────────────────────────────────────────────────────
-export async function redisGet(key: string): Promise<string | null> {
+export async function redisGet(key: string): Promise<unknown | null> {
   const r = getRedis()
   if (!r) return null
-  try { return (await r.get<string>(key)) ?? null } catch { return null }
+  try { return (await r.get(key)) ?? null } catch { return null }
 }
 
 export async function redisSet(key: string, value: string, ttl?: number): Promise<boolean> {
@@ -125,18 +124,25 @@ function userByIdKey(id: string)   { return `yos:users:id:${id}` }
 export async function getUser(email: string): Promise<User | null> {
   const raw = await redisGet(userKey(email))
   if (!raw) return null
+  if (typeof raw === 'object') return raw as User
+  if (typeof raw !== 'string') return null
   try { return JSON.parse(raw) as User } catch { return null }
 }
 
 export async function getUserById(id: string): Promise<User | null> {
   const raw = await redisGet(userByIdKey(id))
   if (!raw) return null
+  if (typeof raw === 'object') return raw as User
+  if (typeof raw !== 'string') return null
   try { return JSON.parse(raw) as User } catch { return null }
 }
 
 export async function saveUser(user: User): Promise<void> {
-  await redisSet(userKey(user.email), JSON.stringify(user))
-  await redisSet(userByIdKey(user.id), JSON.stringify(user))
+  const [savedByEmail, savedById] = await Promise.all([
+    redisSet(userKey(user.email), JSON.stringify(user)),
+    redisSet(userByIdKey(user.id), JSON.stringify(user)),
+  ])
+  if (!savedByEmail || !savedById) throw new Error('User store unavailable')
 }
 
 // Hash password
@@ -160,29 +166,23 @@ type Session = {
 }
 
 export async function createSession(user: User): Promise<string> {
+  const cookieSecret = process.env.AUTH_COOKIE_SECRET
+  if (!cookieSecret || cookieSecret.length < 32) throw new Error('AUTH_COOKIE_SECRET is not configured')
   const exp = Math.floor(Date.now() / 1000) + SESSION_TTL_SEC
-  const payload = [exp, user.id, user.email, user.role, user.scopes.join(','), user.allowed_clients.join(',')].join(FIELD_SEP)
-  const mac = createHmac('sha256', COOKIE_SECRET).update(payload).digest('base64url')
-  return `${payload}.${mac}`
+  return createSignedSessionToken({
+    userId: user.id,
+    email: user.email,
+    role: user.role,
+    scopes: user.scopes,
+    allowed_clients: user.allowed_clients,
+    exp,
+  }, cookieSecret)
 }
 
 function parseSession(token: string): Session | null {
-  const parts = token.split('.')
-  if (parts.length !== 2) return null
-  const [payload, mac] = parts
-  const expectedMac = createHmac('sha256', COOKIE_SECRET).update(payload).digest('base64url')
-  if (!timingSafeEqual(Buffer.from(mac), Buffer.from(expectedMac))) return null
-  const [expStr, userId, email, role, scopesStr, clientsStr] = payload.split(FIELD_SEP)
-  const exp = parseInt(expStr, 10)
-  if (isNaN(exp) || exp < Math.floor(Date.now() / 1000)) return null
-  return {
-    userId,
-    email,
-    role: role as Role,
-    scopes: scopesStr ? scopesStr.split(',').filter(Boolean) : [],
-    allowed_clients: clientsStr ? clientsStr.split(',').filter(Boolean) : [],
-    exp,
-  }
+  const cookieSecret = process.env.AUTH_COOKIE_SECRET
+  if (!cookieSecret || cookieSecret.length < 32) return null
+  return verifySignedSessionToken(token, cookieSecret) as Session | null
 }
 
 export function setSessionCookie(response: NextResponse, session: string): NextResponse {
@@ -201,17 +201,18 @@ export function clearSessionCookie(response: NextResponse): NextResponse {
   return response
 }
 
-export async function getCurrentUser(req?: NextRequest): Promise<User | null> {
+export async function getCurrentUser(): Promise<User | null> {
   const cookieStore = await cookies()
   const token = cookieStore.get(COOKIE_NAME)?.value
   if (!token) return null
   const session = parseSession(token)
   if (!session) return null
-  return getUserById(session.userId)
+  const user = await getUserById(session.userId)
+  return user?.active ? user : null
 }
 
-export async function requireAuth(req?: NextRequest): Promise<{ ok: boolean; user?: User; response?: NextResponse }> {
-  const user = await getCurrentUser(req)
+export async function requireAuth(): Promise<{ ok: boolean; user?: User; response?: NextResponse }> {
+  const user = await getCurrentUser()
   if (!user) {
     const response = NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     return { ok: false, response }

@@ -26,6 +26,13 @@ export function fitoutLimiter() {
   return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '10 m'), prefix: 'rl:fitout' })
 }
 
+// Furniture voucher — 3 sends per IP per 30 minutes
+export function voucherLimiter() {
+  const redis = getRedis()
+  if (!redis) return null
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '30 m'), prefix: 'rl:voucher' })
+}
+
 // HubSpot route — 10 per IP per 10 minutes (tool gates, form gates)
 export function hubspotLimiter() {
   const redis = getRedis()

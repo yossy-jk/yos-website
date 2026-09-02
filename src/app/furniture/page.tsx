@@ -13,6 +13,7 @@ import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 
 import HubSpotForm from '@/components/HubSpotForm'
+import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
@@ -535,6 +536,8 @@ export default function FurniturePage() {
           </div>
         </FadeIn>
       </section>
+
+      <FurnitureVoucherSection />
 
       {/* INLINE QUOTE FORM */}
       <section className="bg-near-black" style={SEC}>
