@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+
 import { createDownloadToken, validateDownloadToken } from './download-token.mjs'
 
 const filename = 'YOS-Capability-Statement.pdf'
@@ -16,6 +17,7 @@ test('valid token is accepted only for its file and secret', () => {
 test('tampered, expired and missing-secret tokens fail closed', () => {
   const replacement = token.endsWith('A') ? 'B' : 'A'
   const tampered = token.slice(0, -1) + replacement
+
   assert.equal(validateDownloadToken(tampered, filename, secret, now), false)
   assert.equal(validateDownloadToken(token, filename, secret, now + 901), false)
   assert.equal(validateDownloadToken(token, filename, undefined, now), false)
@@ -24,6 +26,11 @@ test('tampered, expired and missing-secret tokens fail closed', () => {
 test('token payload contains scope and expiry but not the signing secret', () => {
   const [payload] = token.split('.')
   const decoded = Buffer.from(payload, 'base64url').toString('utf8')
+
   assert.equal(decoded, `${filename}:${now + 900}`)
   assert.equal(token.includes(secret), false)
+})
+
+test('required-check denial proof intentionally fails', () => {
+  assert.fail('INTENTIONAL DENIAL PROOF: this branch must never be merged')
 })
