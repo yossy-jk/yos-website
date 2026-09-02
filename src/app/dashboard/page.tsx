@@ -11,7 +11,7 @@ import RankingsPanel from './rankings-panel'
 
 type Task = { title: string; due: string; tags: string; why: string }
 type FeedItem = { type: string; priority: number; title: string; detail: string; action: string; count: number }
-type Tile = { label: string; value: any; sub: string; fmt: string }
+type Tile = { label: string; value: unknown; sub: string; fmt: string }
 type Feed = { next3: Task[]; feed: FeedItem[]; numbers: Tile[]; generated: string } | null
 type ChatMsg = { role: 'you' | 'fleet'; text: string }
 type View = 'home' | 'content' | 'personal-finance' | 'whs' | 'seo' | 'tasks'
@@ -27,7 +27,7 @@ type WhsDoc = { id: number; code: string; title: string; category: string; busin
 type Incident = { id: number; reported_at: string; business: string; severity: string; description: string; status: string }
 type Whs = { score: number; checklists: Checklist[]; documents: WhsDoc[]; docs_current: number; docs_needed: number; incidents: Incident[]; open_incidents: number; overdue_checklists: number; generated: string } | null
 
-const fmtVal = (v: any, fmt: string) => {
+const fmtVal = (v: unknown, fmt: string) => {
   if (v === '—' || v == null || v === '') return '—'
   if (fmt === 'money') {
     const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[$,]/g, ''))
@@ -94,10 +94,10 @@ export default function Dashboard() {
 
   const refresh = () => { setRefreshing(true); load(); setTimeout(() => setRefreshing(false), 900) }
 
-  const taskAct = async (payload: object, local?: (t: BoardTask) => BoardTask) => {
+  const taskAct = async (payload: { id?: string; [key: string]: unknown }, local?: (t: BoardTask) => BoardTask) => {
     await fetch('/api/tasks', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-    if (board && local && (payload as any).id) {
-      setBoard({ ...board, tasks: board.tasks.map(t => t.id === (payload as any).id ? local(t) : t) })
+    if (board && local && payload.id) {
+      setBoard({ ...board, tasks: board.tasks.map(t => t.id === payload.id ? local(t) : t) })
     }
   }
   const cycleStatus = (t: BoardTask) => {
@@ -370,7 +370,7 @@ export default function Dashboard() {
                   <section className="panel">
                     <div className="panel-head"><h2>Content opportunities</h2>
                       <span className="panel-count">{seo?.briefs?.length ?? 0}</span></div>
-                    <p className="aeo-note">Briefs are drafted in answer-first structure (question headings, direct answers, FAQ blocks) so content ranks in Google <em>and</em> gets cited by AI assistants — that's the AEO play.</p>
+                    <p className="aeo-note">Briefs are drafted in answer-first structure (question headings, direct answers, FAQ blocks) so content ranks in Google <em>and</em> gets cited by AI assistants — that&apos;s the AEO play.</p>
                     {(seo?.briefs || []).map((b, i) => (
                       <div key={i} className="task clickable" onClick={() => setView('content')}>
                         <span className="rail" style={{ background: 'var(--purple)' }} />
@@ -529,7 +529,7 @@ export default function Dashboard() {
                     )
                   })}
                   {loaded && !d?.next3?.length && (
-                    <div className="empty">No open tasks in the queue. Add tasks via Telegram or the task agent — they'll rank here automatically.</div>
+                    <div className="empty">No open tasks in the queue. Add tasks via Telegram or the task agent — they&apos;ll rank here automatically.</div>
                   )}
                 </section>
 

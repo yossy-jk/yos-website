@@ -14,12 +14,21 @@ export default function PipelineTab() {
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
 
+  const requestData = useCallback(() =>
+    fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null), [])
+
   const load = useCallback(() => {
     setRefreshing(true)
-    fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false); setRefreshing(false) }).catch(() => { setLoading(false); setRefreshing(false) })
-  }, [])
+    requestData().then(d => { setData(d); setLoading(false) }).catch(() => { setLoading(false) }).finally(() => setRefreshing(false))
+  }, [requestData])
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    let cancelled = false
+    requestData()
+      .then(d => { if (!cancelled) { setData(d); setLoading(false) } })
+      .catch(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [requestData])
 
   if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center' }}>Loading pipeline...</div>
 
@@ -135,13 +144,14 @@ export default function PipelineTab() {
 
 function TenderShortlist() {
   const [td, setTd] = useState<{ items: {id:string;name:string;builder?:string;category?:string;due?:string;stage:string;source:string}[]; count: number } | null>(null)
+  const [renderedAt] = useState(() => Date.now())
   useEffect(() => {
     fetch('/api/tenders-data', { cache: 'no-store' })
       .then(async r => { if (!r.ok) throw new Error(String(r.status)); const j = await r.json(); if (j && j.items) setTd(j) })
       .catch(() => {})
   }, [])
   if (!td || !td.items.length) return null
-  const soon = (d?: string) => d && (Date.parse(d) - Date.now()) < 7*86400000
+  const soon = (d?: string) => d && (Date.parse(d) - renderedAt) < 7*86400000
   return (
     <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: 12, padding: 20, marginBottom: 20 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 12 }}>

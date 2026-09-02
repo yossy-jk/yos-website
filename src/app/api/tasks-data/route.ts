@@ -46,7 +46,7 @@ async function redisSet(key: string, value: string): Promise<void> {
   if (key === 'tasks:v1' || key === 'tasks:completed:v1') {
     try {
       const curRaw = await redisGet(key)
-      const cur = safeJsonParse<any[]>(curRaw, [])
+      const cur = safeJsonParse<unknown[]>(curRaw, [])
       const next = JSON.parse(value)
       if (Array.isArray(cur) && Array.isArray(next) && cur.length >= 10 && next.length < cur.length * 0.5) {
         console.error('wipe-guard refused ' + key + ': ' + cur.length + ' -> ' + next.length)
@@ -118,11 +118,12 @@ function deepClone<T>(v: T): T {
 function safeJsonParse<T>(raw: string | null, fallback: T): T {
   if (!raw) return fallback
   try {
-    let v: any = JSON.parse(raw)
+    let v: unknown = JSON.parse(raw)
     for (let i = 0; i < 4; i++) {
       if (typeof v === 'string') { v = JSON.parse(v); continue }
       if (v && typeof v === 'object' && !Array.isArray(v) && 'value' in v && 'key' in v) {
-        v = typeof v.value === 'string' ? JSON.parse(v.value) : v.value; continue
+        const wrapped = v as Record<string, unknown>
+        v = typeof wrapped.value === 'string' ? JSON.parse(wrapped.value) : wrapped.value; continue
       }
       break
     }

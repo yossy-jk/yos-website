@@ -106,7 +106,7 @@ export default function TenantRepPage() {
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
-              Every lease negotiation has two sides. The landlord's agent is an expert at protecting their client.
+              Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
               We exist to make sure you have the same. Independent representation across Australia —
               negotiating rent, terms, incentives, and every clause that matters.
             </p>

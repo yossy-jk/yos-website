@@ -27,7 +27,9 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
 
   // Hide if quote modal opens while popup is visible
   useEffect(() => {
-    if (quoteModalOpen && visible) setVisible(false)
+    if (!quoteModalOpen || !visible) return
+    const timer = window.setTimeout(() => setVisible(false), 0)
+    return () => window.clearTimeout(timer)
   }, [quoteModalOpen, visible])
 
   const dismiss = () => {

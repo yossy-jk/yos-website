@@ -21,6 +21,7 @@ import { getCurrentUser } from '@/lib/auth-v2'
 import { redisSet } from '@/lib/auth-v2'
 import { createHmac, randomBytes } from 'crypto'
 import { Redis } from '@upstash/redis'
+import bcrypt from 'bcryptjs'
 
 const UPSTASH_URL    = process.env.UPSTASH_REDIS_REST_URL  || ''
 const UPSTASH_TOKEN  = process.env.UPSTASH_REDIS_REST_TOKEN || ''
@@ -36,7 +37,6 @@ function genToken(): string {
 }
 
 function hashPassword(password: string): string {
-  const bcrypt = require('bcryptjs')
   return bcrypt.hashSync(password, 12)
 }
 

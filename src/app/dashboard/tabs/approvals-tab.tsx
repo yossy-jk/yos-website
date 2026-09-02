@@ -134,7 +134,8 @@ export default function ApprovalsTab({
 
   // Mount: load once
   useEffect(() => {
-    loadQueue()
+    const timer = window.setTimeout(loadQueue, 0)
+    return () => window.clearTimeout(timer)
   }, [loadQueue])
 
   // ── Remove item after action (functional update — no stale closure) ─────

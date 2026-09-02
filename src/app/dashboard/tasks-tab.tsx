@@ -55,7 +55,7 @@ function CapacityBar({ current, max, onStandby }: { current: number; max: number
   return (
     <div style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:8, padding:'1rem 1.25rem' }}>
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'baseline', marginBottom:'0.5rem' }}>
-        <span style={{ fontSize:'0.58rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.12em', color:'rgba(255,255,255,0.4)' }}>Joe's Day</span>
+        <span style={{ fontSize:'0.58rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.12em', color:'rgba(255,255,255,0.4)' }}>Joe&apos;s Day</span>
         <span style={{ fontSize:'0.72rem', color, fontWeight:700 }}>
           {remaining > 0 ? `${remaining} free` : remaining < 0 ? `${Math.abs(remaining)} over` : 'At capacity'}
         </span>
@@ -180,7 +180,7 @@ function TaskCard({ task, onComplete, onStandby, onUnstandby, onDelegate, onSave
           {expanded && (
             <div style={{ marginTop:'0.75rem', display:'flex', flexDirection:'column', gap:'0.6rem' }}>
               {task.description && <div style={{ fontSize:'0.72rem', color:'rgba(255,255,255,0.4)', lineHeight:1.55, borderLeft:'2px solid rgba(255,255,255,0.1)', paddingLeft:'0.7rem' }}>{task.description.slice(0,350)}{task.description.length > 350 ? '...' : ''}</div>}
-              {task.committed_to && <div style={{ fontSize:'0.7rem', color:'rgba(0,181,165,0.65)', fontStyle:'italic', borderLeft:'2px solid rgba(0,181,165,0.25)', paddingLeft:'0.7rem', lineHeight:1.5 }}>"{task.committed_to.slice(0,200)}{task.committed_to.length > 200 ? '...' : ''}"</div>}
+              {task.committed_to && <div style={{ fontSize:'0.7rem', color:'rgba(0,181,165,0.65)', fontStyle:'italic', borderLeft:'2px solid rgba(0,181,165,0.25)', paddingLeft:'0.7rem', lineHeight:1.5 }}>&ldquo;{task.committed_to.slice(0,200)}{task.committed_to.length > 200 ? '...' : ''}&rdquo;</div>}
               {isStandby && task.hold_reason && <div style={{ fontSize:'0.7rem', color:'rgba(245,158,11,0.8)', borderLeft:'2px solid rgba(245,158,11,0.4)', paddingLeft:'0.7rem', lineHeight:1.5 }}>Waiting: {task.hold_reason}</div>}
               {task.completion_note && <div style={{ fontSize:'0.68rem', color:'rgba(34,197,94,0.6)', borderLeft:'2px solid rgba(34,197,94,0.3)', paddingLeft:'0.7rem' }}>Done: {task.completion_note}</div>}
               {task.completed_date && <div style={{ fontSize:'0.68rem', color:'rgba(34,197,94,0.5)' }}>Completed {formatAEST(task.completed_date)}</div>}
@@ -238,14 +238,16 @@ export default function TasksTab() {
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    fetch('/api/tasks-data',{cache:'no-store'}).then(async r => { if (!r.ok) throw new Error('load '+r.status); const d = await r.json(); if (!d || typeof (d as any).totalOpen === 'undefined') throw new Error('bad payload');
+    fetch('/api/tasks-data',{cache:'no-store'}).then(async r => { if (!r.ok) throw new Error('load '+r.status); const d: unknown = await r.json(); if (!d || typeof d !== 'object' || !('totalOpen' in d)) throw new Error('bad payload');
       if (!cancelled) { setData(d as TasksData); setLoading(false) }
     }).catch(() => { if (!cancelled) { setLoading(false) /* keep last data on failed load */ } })
     return () => { cancelled = true }
   }, [loadKey])
 
-  const load = useCallback(() => setLoadKey(k => k + 1), [])
+  const load = useCallback(() => {
+    setLoading(true)
+    setLoadKey(k => k + 1)
+  }, [])
 
   const apiAction = async (taskId: string, action: string, extra: Record<string, unknown> = {}) => {
     // Optimistic UI: reflect the change instantly, reconcile with server after

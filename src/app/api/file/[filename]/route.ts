@@ -14,7 +14,7 @@ const ALLOWED_FILES: Record<string, string> = {
   'YOS-Capability-Statement.pdf': 'YOS-Capability-Statement.pdf',
 }
 
-const SIGNING_SECRET = process.env.DOWNLOAD_SIGNING_SECRET ?? 'yos-capability-statement-dev'
+const SIGNING_SECRET = process.env.DOWNLOAD_SIGNING_SECRET
 
 function validateToken(raw: string): boolean {
   try {

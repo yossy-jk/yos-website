@@ -195,7 +195,7 @@ export default function OfficeFitoutPage() {
                   Fast-track your fitout.
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,1.8vw,1.1rem)', lineHeight: 1.8 }}>
-                  In-stock items dispatched within days. Made-to-order typically 3–6 weeks. If you're up against a lease end or a hard opening date, tell us — we'll map out what's possible and what it'll cost. No guesswork.
+                  In-stock items dispatched within days. Made-to-order typically 3–6 weeks. If you&apos;re up against a lease end or a hard opening date, tell us — we&apos;ll map out what&apos;s possible and what it&apos;ll cost. No guesswork.
                 </p>
               </div>
               <div className="flex-shrink-0">
@@ -220,7 +220,7 @@ export default function OfficeFitoutPage() {
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.85 }}>
-              Send us your floor plan and headcount. We design the layout in 3D before you commit to anything — so you can see how the space works, test different workstation configurations, and know exactly what you're getting before installation day.
+              Send us your floor plan and headcount. We design the layout in 3D before you commit to anything — so you can see how the space works, test different workstation configurations, and know exactly what you&apos;re getting before installation day.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

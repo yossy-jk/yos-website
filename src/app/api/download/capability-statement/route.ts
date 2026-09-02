@@ -94,7 +94,7 @@ export async function POST(req: Request) {
     // In production use crypto.sign() — here we use a URL-safe base64 timestamp approach
     // that Next.js rewrites can validate at the /public/YOS-Capability-Statement.pdf level
     const expiresAt = Math.floor(Date.now() / 1000) + DOWNLOAD_TTL
-    const signingSecret = process.env.DOWNLOAD_SIGNING_SECRET ?? 'yos-capability-statement-dev'
+    const signingSecret = process.env.DOWNLOAD_SIGNING_SECRET
     const raw = `${email.trim().toLowerCase()}:${expiresAt}:${signingSecret}`
     const token = Buffer.from(raw).toString('base64url')
     const downloadUrl = `${PDF_ROUTE}?t=${token}`

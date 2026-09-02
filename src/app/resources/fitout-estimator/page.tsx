@@ -8,8 +8,19 @@ import { HUBSPOT } from '@/lib/constants'
 /* ─── Rate data (YOS Fitout Cost Guide - April 2026, ex GST) ─── */
 type Tier = 'basic' | 'mid' | 'premium'
 type FitoutTypeKey = 'furniture-only' | 'turnkey-warm' | 'turnkey-cold'
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const RATES: Record<FitoutTypeKey, Record<string, any>> = {
+type RateBand = { low: number; high: number }
+interface FitoutRate {
+  label: string
+  color: string
+  sqm?: RateBand
+  desk: RateBand
+  meetingRoom: RateBand
+  kitchen?: RateBand
+  reception?: RateBand
+  av?: RateBand
+  contingency: number
+}
+const RATES: Record<FitoutTypeKey, Record<Tier, FitoutRate>> = {
   'furniture-only': {
     // Rate spread: ~30% max (low to high). Updated 2026-06-08 — Joe approved target 10-30%.
     // Meeting rooms: flat $2000–$3000 per room (furniture path only — Joe 2026-06-08).
@@ -64,7 +75,7 @@ function calcEstimate(inputs: Inputs) {
   if (!inputs.sqm || !inputs.tier || !inputs.fitoutType) return null
   const isFurniture = inputs.fitoutType === 'furniture-only'
   const rateKey: FitoutTypeKey = isFurniture ? 'furniture-only' : inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm'
-  const r = (RATES as any)[rateKey][inputs.tier as Tier]
+  const r = RATES[rateKey][inputs.tier as Tier]
   const sqm = parseFloat(inputs.sqm) || 0
   const desks = parseInt(inputs.desks) || 0
   const meetings = parseInt(inputs.meetingRooms) || 0
@@ -392,7 +403,7 @@ export default function FitoutEstimatorPage() {
             <div className="max-w-3xl">
               <div className="grid grid-cols-1 mb-10" style={{ gap: '1rem' }}>
                 {(['basic', 'mid', 'premium'] as Tier[]).map(key => {
-                  const r = (RATES as Record<string, Record<Tier, typeof RATES['furniture-only']['basic']>>)[inputs.fitoutType === 'furniture-only' ? 'furniture-only' : inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm'][key]
+                  const r = RATES[inputs.fitoutType === 'furniture-only' ? 'furniture-only' : inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm'][key]
                   return (
                     <button key={key} onClick={() => set('tier', key)}
                       className={`text-left border transition-all duration-150 ${inputs.tier === key ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
@@ -568,13 +579,13 @@ export default function FitoutEstimatorPage() {
             {/* Estimate header */}
             <div style={{ marginBottom: '2.5rem' }}>
               <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.65rem' }}>
-                {inputs.sqm}m2 &nbsp;·&nbsp; {((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
+                {inputs.sqm}m2 &nbsp;·&nbsp; {RATES['turnkey-warm'][inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
               </p>
               <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
                 {fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}
               </h2>
               <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
-                {fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
+                {fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round((RATES[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
               </p>
             </div>
             {/* Inputs summary */}
@@ -634,7 +645,7 @@ export default function FitoutEstimatorPage() {
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
               <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
               <h3 className="text-white font-black uppercase mb-4" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
-                Here's the picture so far
+                Here&apos;s the picture so far
               </h3>
               {/* Teaser summary */}
               <div style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '0.75rem', padding: '1.25rem 1.5rem', marginBottom: '1.5rem' }}>
@@ -649,12 +660,12 @@ export default function FitoutEstimatorPage() {
                   </div>
                   <div>
                     <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Contingency</p>
-                    <p className="text-white font-semibold" style={{ fontSize: '1rem' }}>{Math.round(((RATES as any)[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% included</p>
+                    <p className="text-white font-semibold" style={{ fontSize: '1rem' }}>{Math.round((RATES[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% included</p>
                   </div>
                 </div>
               </div>
               <p className="text-white/50 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.75, maxWidth: '34rem' }}>
-                Drop your email and we'll send you a branded one-page report with the full line-by-line breakdown, what's included, and what comes next — no pitch, no follow-up unless you ask.
+                Drop your email and we&apos;ll send you a branded one-page report with the full line-by-line breakdown, what&apos;s included, and what comes next — no pitch, no follow-up unless you ask.
               </p>
               <form
                 onSubmit={async (e) => {
@@ -670,7 +681,7 @@ export default function FitoutEstimatorPage() {
                         name: '',
                         email,
                         sqm: inputs.sqm,
-                        tier: ((RATES as any)['turnkey-warm'] as any)[inputs.tier as Tier]?.label ?? inputs.tier,
+                        tier: RATES['turnkey-warm'][inputs.tier as Tier]?.label ?? inputs.tier,
                         desks: inputs.desks,
                         meetingRooms: inputs.meetingRooms,
                         hasKitchen: inputs.hasKitchen,

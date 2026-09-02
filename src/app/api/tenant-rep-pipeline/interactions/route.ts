@@ -5,6 +5,15 @@ const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 const KEY = 'tr:interactions'
 
+interface Interaction {
+  id: number
+  client_id: string | null
+  property_id: string | null
+  interaction_type: string
+  note: string
+  created_at: string
+}
+
 async function redisGet(key: string): Promise<string | null> {
   if (!UPSTASH_URL || !UPSTASH_TOKEN) return null
   const r = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent(key)}`, { headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` } })
@@ -26,10 +35,10 @@ export async function GET() {
   if (!user) return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   try {
     const raw = await redisGet(KEY)
-    const interactions: any[] = raw ? JSON.parse(raw) : []
+    const interactions: Interaction[] = raw ? JSON.parse(raw) : []
     return NextResponse.json(interactions)
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }
 
@@ -39,14 +48,14 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
     const raw = await redisGet(KEY)
-    const interactions: any[] = raw ? JSON.parse(raw) : []
+    const interactions: Interaction[] = raw ? JSON.parse(raw) : []
     const now = new Date().toISOString()
     const interaction = { id: Date.now(), client_id: body.client_id || null, property_id: body.property_id || null, interaction_type: body.interaction_type || 'Other', note: body.note || '', created_at: now }
     interactions.unshift(interaction)
     if (interactions.length > 200) interactions.splice(200)
     await redisSet(KEY, JSON.stringify(interactions))
     return NextResponse.json(interaction, { status: 201 })
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }

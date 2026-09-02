@@ -291,7 +291,7 @@ export default function FurniturePage() {
           <FadeIn>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
               <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: 'clamp(0.9rem,1.5vw,1.05rem)' }}>
-                Not sure what you need? Tell us your headcount and we'll put together options.
+                Not sure what you need? Tell us your headcount and we&apos;ll put together options.
               </p>
               <Button href="/resources/furniture-quote" variant="primary" size="md">
                 Request a Quote →

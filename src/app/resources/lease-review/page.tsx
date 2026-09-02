@@ -129,12 +129,14 @@ export default function LeaseRiskCheckerPage() {
 
   // Check localStorage on mount
   useEffect(() => {
+    let timer: number | undefined
     try {
       const stored = localStorage.getItem(LS_KEY)
-      if (stored) setAlreadyCaptured(true)
+      if (stored) timer = window.setTimeout(() => setAlreadyCaptured(true), 0)
     } catch {
       // localStorage unavailable — continue without it
     }
+    return () => { if (timer !== undefined) window.clearTimeout(timer) }
   }, [])
 
   const currentQ = typeof step === 'number' ? QUESTIONS[step] : null
@@ -478,7 +480,7 @@ export default function LeaseRiskCheckerPage() {
                 <p className="text-white/40 font-light uppercase mb-5" style={{ fontSize: '0.7rem', letterSpacing: '0.15em' }}>Three things to act on</p>
                 <ul className="flex flex-col" style={{ gap: '1.25rem', listStyle: 'none', padding: 0, margin: 0 }}>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                    Get the full clause-by-clause breakdown before you sign or renew anything. Most lease risk is invisible until it isn't.
+                    Get the full clause-by-clause breakdown before you sign or renew anything. Most lease risk is invisible until it isn&apos;t.
                   </li>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
                     Make-good and outgoings clauses are the two most expensive surprises in commercial leases. Know what yours say.

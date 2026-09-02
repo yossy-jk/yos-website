@@ -200,7 +200,7 @@ export async function GET(req: NextRequest) {
     } catch { /* file may not exist */ }
 
     // Read training log
-    let aiCompliance = { tracesThisWeek: 0, qualityPassRate: null as number | null, lastAudit: null as string | null }
+    const aiCompliance = { tracesThisWeek: 0, qualityPassRate: null as number | null, lastAudit: null as string | null }
     try {
       const trainingContent = await fs.readFile(TRAINING_LOG, 'utf8')
       const { total, pass } = parseTrainingLog(trainingContent)
