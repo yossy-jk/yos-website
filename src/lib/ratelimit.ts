@@ -4,6 +4,7 @@
  */
 import { Ratelimit } from '@upstash/ratelimit'
 import { Redis } from '@upstash/redis'
+import { deploymentScopedKey } from '@/lib/deployment-scope'
 
 function getRedis() {
   const url   = process.env.UPSTASH_REDIS_REST_URL
@@ -16,35 +17,35 @@ function getRedis() {
 export function contactLimiter() {
   const redis = getRedis()
   if (!redis) return null
-  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(5, '10 m'), prefix: 'rl:contact' })
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(5, '10 m'), prefix: deploymentScopedKey('rl:contact') })
 }
 
 // Fitout report — 3 per IP per 10 minutes (sends two emails per request)
 export function fitoutLimiter() {
   const redis = getRedis()
   if (!redis) return null
-  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '10 m'), prefix: 'rl:fitout' })
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '10 m'), prefix: deploymentScopedKey('rl:fitout') })
 }
 
 // Furniture voucher — 3 sends per IP per 30 minutes
 export function voucherLimiter() {
   const redis = getRedis()
   if (!redis) return null
-  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '30 m'), prefix: 'rl:voucher' })
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '30 m'), prefix: deploymentScopedKey('rl:voucher') })
 }
 
 // HubSpot route — 10 per IP per 10 minutes (tool gates, form gates)
 export function hubspotLimiter() {
   const redis = getRedis()
   if (!redis) return null
-  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(10, '10 m'), prefix: 'rl:hubspot' })
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(10, '10 m'), prefix: deploymentScopedKey('rl:hubspot') })
 }
 
 // Notify route — 5 per IP per 10 minutes
 export function notifyLimiter() {
   const redis = getRedis()
   if (!redis) return null
-  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(5, '10 m'), prefix: 'rl:notify' })
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(5, '10 m'), prefix: deploymentScopedKey('rl:notify') })
 }
 
 // Helper — extract IP from request headers (Vercel edge)

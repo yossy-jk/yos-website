@@ -14,6 +14,7 @@ import { cookies } from 'next/headers'
 import { Redis } from '@upstash/redis'
 import bcrypt from 'bcryptjs'
 import { createSignedSessionToken, verifySignedSessionToken } from '@/lib/auth-session'
+import { deploymentScopedKey } from '@/lib/deployment-scope'
 
 // ── Config ──────────────────────────────────────────────────────────────────
 const UPSTASH_URL       = process.env.UPSTASH_REDIS_REST_URL  || ''
@@ -34,7 +35,7 @@ function getRedis(): Redis | null {
 export async function redisGet(key: string): Promise<unknown | null> {
   const r = getRedis()
   if (!r) return null
-  try { return (await r.get(key)) ?? null } catch { return null }
+  try { return (await r.get(deploymentScopedKey(key))) ?? null } catch { return null }
 }
 
 export async function redisSet(key: string, value: string, ttl?: number): Promise<boolean> {
@@ -42,9 +43,9 @@ export async function redisSet(key: string, value: string, ttl?: number): Promis
   if (!r) return false
   try {
     if (ttl) {
-      await r.set(key, value, { ex: ttl })
+      await r.set(deploymentScopedKey(key), value, { ex: ttl })
     } else {
-      await r.set(key, value)
+      await r.set(deploymentScopedKey(key), value)
     }
     return true
   } catch { return false }
@@ -53,19 +54,19 @@ export async function redisSet(key: string, value: string, ttl?: number): Promis
 export async function redisDel(key: string): Promise<boolean> {
   const r = getRedis()
   if (!r) return false
-  try { await r.del(key); return true } catch { return false }
+  try { await r.del(deploymentScopedKey(key)); return true } catch { return false }
 }
 
 export async function redisIncr(key: string): Promise<number> {
   const r = getRedis()
   if (!r) return 0
-  try { return (await r.incr(key)) as number } catch { return 0 }
+  try { return (await r.incr(deploymentScopedKey(key))) as number } catch { return 0 }
 }
 
 export async function redisTtl(key: string): Promise<number> {
   const r = getRedis()
   if (!r) return -1
-  try { return (await r.ttl(key)) as number } catch { return -1 }
+  try { return (await r.ttl(deploymentScopedKey(key))) as number } catch { return -1 }
 }
 
 // ── Types ──────────────────────────────────────────────────────────────────

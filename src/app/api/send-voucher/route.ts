@@ -3,6 +3,7 @@ import { Resend } from 'resend'
 import { readFileSync } from 'fs'
 import { join } from 'path'
 import { getIp, voucherLimiter } from '@/lib/ratelimit'
+import { isPreviewDeployment } from '@/lib/deployment-scope'
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -172,7 +173,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Failed to send' }, { status: 500 })
     }
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true, preview: isPreviewDeployment() })
   } catch (err) {
     console.error('send-voucher crash:', err)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })

@@ -3,6 +3,7 @@ import { Resend } from 'resend'
 import { HUBSPOT } from '@/lib/constants'
 import { calculateFitoutEstimate, type FitoutInputs, type FitoutTier } from '@/lib/fitout-estimate'
 import { fitoutLimiter, getIp } from '@/lib/ratelimit'
+import { isPreviewDeployment } from '@/lib/deployment-scope'
 
 export const runtime = 'nodejs'
 
@@ -204,6 +205,12 @@ export async function POST(req: NextRequest) {
     if (reportResult.error) {
       console.error('[fitout-report] Customer email failed:', reportResult.error)
       return NextResponse.json({ error: 'We could not send the report. Please try again shortly.' }, { status: 502 })
+    }
+
+    // Preview acceptance proves the customer-delivery contract only. Keep
+    // synthetic preview submissions out of production notifications and CRM.
+    if (isPreviewDeployment()) {
+      return NextResponse.json({ ok: true, preview: true, message: 'Your report has been emailed. Check your inbox.' })
     }
 
     const safeName = escapeHtml(data.name)

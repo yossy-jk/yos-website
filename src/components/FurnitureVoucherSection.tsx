@@ -27,13 +27,13 @@ export default function FurnitureVoucherSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, _honey: honeypot }),
       })
-      const result = await response.json().catch(() => ({})) as { error?: string }
+      const result = await response.json().catch(() => ({})) as { error?: string; preview?: boolean }
       if (!response.ok) throw new Error(result.error || 'We could not send the voucher right now.')
 
       setState('sent')
       setMessage('Your voucher has been sent. Check your inbox.')
 
-      if (!honeypot) {
+      if (!honeypot && !result.preview) {
         void Promise.allSettled([
           submitLead({
             firstname: name || 'Furniture voucher lead',
