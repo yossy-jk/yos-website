@@ -265,7 +265,7 @@ export default function RelocateQuizPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>

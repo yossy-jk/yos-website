@@ -108,7 +108,7 @@ export default function LeaseIntelPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
 

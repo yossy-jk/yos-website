@@ -31,7 +31,7 @@ export default function LeaseReviewPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)' }}>

@@ -45,7 +45,7 @@ export default async function BlogPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ─── HERO ─────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>

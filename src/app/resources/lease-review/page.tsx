@@ -229,7 +229,7 @@ export default function LeaseRiskCheckerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
 

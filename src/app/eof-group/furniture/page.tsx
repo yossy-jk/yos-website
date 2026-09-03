@@ -32,7 +32,7 @@ export default function EOFFurniturePage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #1a1200 100%)' }}>

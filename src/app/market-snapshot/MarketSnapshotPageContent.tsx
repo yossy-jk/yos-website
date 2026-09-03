@@ -278,7 +278,7 @@ export default function MarketSnapshotPageContent({
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section

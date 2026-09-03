@@ -8,7 +8,7 @@ export default function NotFound() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
       <section className="bg-near-black min-h-screen flex items-center pt-[72px]">
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 py-28 text-center">
           <p className="text-teal font-bold text-xs tracking-[0.28em] uppercase mb-6">404</p>

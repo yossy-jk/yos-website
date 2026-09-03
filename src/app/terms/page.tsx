@@ -76,7 +76,7 @@ export default function TermsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(TERMS_SCHEMA) }} />
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section

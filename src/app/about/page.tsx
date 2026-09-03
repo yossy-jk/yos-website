@@ -33,7 +33,7 @@ export default function AboutPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="bg-near-black relative overflow-hidden" style={SEC_SM}>

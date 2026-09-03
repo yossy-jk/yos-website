@@ -123,7 +123,7 @@ export default function FurnitureQuotePage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section

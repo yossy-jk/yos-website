@@ -59,7 +59,7 @@ export default function TenantRepNewcastlePage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden" style={SEC}>

@@ -138,7 +138,7 @@ export default function NewcastleCommercialPropertyHub() {
 
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section className="bg-near-black" style={SEC_SM}>

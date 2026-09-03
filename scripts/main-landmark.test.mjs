@@ -40,8 +40,12 @@ test('every rendered global navigation has one matching main landmark', () => {
     if (navCount === 0) continue
 
     const mainCount = source.match(/<main\s+id=["']main-content["']/g)?.length ?? 0
+    const focusTargetCount = source.match(/<main\s+id=["']main-content["']\s+tabIndex=\{-1\}/g)?.length ?? 0
     if (mainCount !== navCount) {
       failures.push(`${path.relative(APP_ROOT, file)}: Nav=${navCount}, main=${mainCount}`)
+    }
+    if (focusTargetCount !== mainCount) {
+      failures.push(`${path.relative(APP_ROOT, file)}: main=${mainCount}, skip targets=${focusTargetCount}`)
     }
   }
 
@@ -72,7 +76,7 @@ test('the not-for-profit route owns navigation and landmark in its layout only',
   const layout = fs.readFileSync(path.join(APP_ROOT, 'not-for-profit-lease-support/layout.tsx'), 'utf8')
   const page = fs.readFileSync(path.join(APP_ROOT, 'not-for-profit-lease-support/page.tsx'), 'utf8')
 
-  assert.match(layout, /<Nav\s*\/>[\s\S]*<main\s+id="main-content">\{children\}<\/main>[\s\S]*<Footer\s*\/>/)
+  assert.match(layout, /<Nav\s*\/>[\s\S]*<main\s+id="main-content"\s+tabIndex=\{-1\}>\{children\}<\/main>[\s\S]*<Footer\s*\/>/)
   assert.doesNotMatch(page, /<(?:Nav|Footer)\s*\/>/)
 })
 
@@ -80,6 +84,6 @@ test('the multi-step lease review renders a main landmark in every UI state', ()
   const source = fs.readFileSync(path.join(APP_ROOT, 'lease-review/page.tsx'), 'utf8')
 
   assert.equal(source.match(/<Nav\s*\/>/g)?.length, 4)
-  assert.equal(source.match(/<main\s+id="main-content">/g)?.length, 4)
+  assert.equal(source.match(/<main\s+id="main-content"\s+tabIndex=\{-1\}>/g)?.length, 4)
   assert.equal(source.match(/<\/main>/g)?.length, 4)
 })

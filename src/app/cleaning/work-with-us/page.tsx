@@ -72,7 +72,7 @@ export default function SalesPartnersPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{

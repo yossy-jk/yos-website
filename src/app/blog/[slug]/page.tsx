@@ -316,7 +316,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ── HERO ─────────────────────────────────── */}
       <section className="relative bg-near-black overflow-hidden" style={{ minHeight: 'clamp(24rem,48vw,38rem)' }}>

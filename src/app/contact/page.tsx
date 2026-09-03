@@ -39,7 +39,7 @@ export default function ContactPage() {
     <>
       <Nav />
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
 
       {/* ─── SCHEMA ────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
