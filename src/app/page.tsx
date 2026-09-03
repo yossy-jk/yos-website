@@ -64,6 +64,8 @@ export default function Home() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
@@ -491,6 +493,8 @@ export default function Home() {
           </FadeIn>
         </div>
       </section>
+
+      </main>
 
       <Footer />
       <WelcomeModal />

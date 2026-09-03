@@ -101,6 +101,8 @@ export default function CleaningPage() {
         ]
       }) }} />
       <Nav />
+
+      <main id="main-content">
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden"
         style={SEC}>
         <div className="absolute inset-0 opacity-[0.04]" style={{
@@ -405,6 +407,8 @@ export default function CleaningPage() {
           </Button>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 const source = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
+const globalStyles = await readFile(new URL('../src/app/globals.css', import.meta.url), 'utf8')
 
 test('navigation disclosure buttons expose state and controlled menu IDs', () => {
   assert.match(source, /aria-expanded=\{servicesOpen\}/)
@@ -36,4 +37,10 @@ test('Escape closes open navigation and restores focus to its disclosure button'
 
 test('navigation buttons do not suppress the global focus-visible outline', () => {
   assert.doesNotMatch(source, /focus:outline-none/)
+})
+
+test('navigation starts with a visible-on-focus skip link to the main landmark', () => {
+  assert.match(source, /<a className="skip-link" href="#main-content">Skip to main content<\/a>/)
+  assert.match(globalStyles, /\.skip-link\s*\{[\s\S]*transform:\s*translateY\(-200%\)/)
+  assert.match(globalStyles, /\.skip-link:focus-visible\s*\{[\s\S]*transform:\s*translateY\(0\)/)
 })

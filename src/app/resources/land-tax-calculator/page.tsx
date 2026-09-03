@@ -387,6 +387,8 @@ export default function LandTaxCalculatorPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
+      <main id="main-content">
+
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingTop: 'clamp(4rem,8vw,6rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
 
@@ -643,6 +645,8 @@ export default function LandTaxCalculatorPage() {
           </p>
         </div>
       </div>
+      </main>
+
       <Footer />
     </>
   )

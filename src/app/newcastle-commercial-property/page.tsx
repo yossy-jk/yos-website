@@ -138,6 +138,8 @@ export default function NewcastleCommercialPropertyHub() {
 
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
@@ -258,6 +260,8 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       <BookingCTA label="Book a Free Call" />
+      </main>
+
       <Footer />
     </>
   )

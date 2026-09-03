@@ -68,7 +68,7 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
   // Password gate
   if (data && (data as BriefData).requires_password) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <main id="main-content" className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
           <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mb-4 mx-auto">
             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,21 +94,21 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
             </button>
           </form>
         </div>
-      </div>
+      </main>
     )
   }
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main id="main-content" className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-gray-400">Loading brief...</div>
-      </div>
+      </main>
     )
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+      <main id="main-content" className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
         <div className="text-center">
           <div className="text-4xl mb-4 text-gray-300">
             <svg className="w-16 h-16 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -118,7 +118,7 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
           <h2 className="text-xl font-semibold text-gray-700 mb-2">{error}</h2>
           <p className="text-gray-400">Contact your advisor for a new link.</p>
         </div>
-      </div>
+      </main>
     )
   }
 
@@ -150,7 +150,7 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
   })
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main id="main-content" className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-6">
@@ -255,7 +255,7 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
           <p className="mt-1">Questions? Contact your advisor directly.</p>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

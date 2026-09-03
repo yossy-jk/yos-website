@@ -31,6 +31,8 @@ export default function LeaseReviewPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)' }}>
         <FadeIn>
@@ -266,6 +268,8 @@ export default function LeaseReviewPage() {
       </section>
 
       <BookingCTA label="Talk to EOF Lease Review" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

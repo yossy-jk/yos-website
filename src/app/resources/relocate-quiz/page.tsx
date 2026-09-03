@@ -265,6 +265,8 @@ export default function RelocateQuizPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
         <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -688,6 +690,8 @@ export default function RelocateQuizPage() {
           </div>
         </section>
       )}
+
+      </main>
 
       <Footer />
     </>

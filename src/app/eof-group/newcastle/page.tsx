@@ -31,6 +31,8 @@ export default function NewcastlePage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #001500 100%)' }}>
         <FadeIn>
@@ -259,6 +261,8 @@ export default function NewcastlePage() {
 
       {/* CTA */}
       <BookingCTA label="Talk to EOF Group in Newcastle" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

@@ -133,6 +133,8 @@ export default function FurniturePage() {
       }) }} />
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black"
         style={SEC}>
@@ -574,6 +576,8 @@ export default function FurniturePage() {
       </section>
 
 <BookingCTA label="Book a Free Consultation" />
+      </main>
+
       <Footer />
     </>
   )

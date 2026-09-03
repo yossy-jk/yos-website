@@ -33,6 +33,9 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 export default function TenantRepPage() {
   return (
     <>
+      <Nav />
+
+      <main id="main-content">
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
         {
                 "@context": "https://schema.org",
@@ -568,6 +571,8 @@ export default function TenantRepPage() {
           })
         }}
       />
+
+      </main>
 
       <Footer />
     </>

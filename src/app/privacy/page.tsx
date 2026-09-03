@@ -58,6 +58,8 @@ export default function PrivacyPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(PRIVACY_SCHEMA) }} />
       <Nav />
 
+      <main id="main-content">
+
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="bg-near-black relative overflow-hidden" style={SEC_SM}>
         <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -250,6 +252,8 @@ export default function PrivacyPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

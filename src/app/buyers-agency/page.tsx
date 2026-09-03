@@ -32,6 +32,8 @@ export default function BuyersAgencyPage() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
       {/* ─── SCHEMA ────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
@@ -321,6 +323,8 @@ export default function BuyersAgencyPage() {
           </div>
         </FadeIn>
       </section>
+
+      </main>
 
       <Footer />
       <BookingCTA label="Book a Free Consultation" />

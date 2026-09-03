@@ -76,6 +76,8 @@ export default function TermsPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(TERMS_SCHEMA) }} />
       <Nav />
 
+      <main id="main-content">
+
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section
         className="bg-near-black relative overflow-hidden"
@@ -387,6 +389,8 @@ export default function TermsPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

@@ -559,6 +559,8 @@ export default function HealthCheckPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={SEC_SM}>
         <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -1179,6 +1181,8 @@ export default function HealthCheckPage() {
           </div>
         </section>
       )}
+
+      </main>
 
       <Footer />
     </>

@@ -67,6 +67,8 @@ export default function ResourcesPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* ─── SCHEMA ────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
@@ -454,6 +456,8 @@ export default function ResourcesPage() {
       </section>
 
       <BookingCTA label="Book a Clarity Call" />
+      </main>
+
       <Footer />
     </>
   )

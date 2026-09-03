@@ -28,6 +28,8 @@ export default function SpacePlannerPage() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
       {/* ─── SCHEMA ────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
@@ -133,6 +135,8 @@ export default function SpacePlannerPage() {
           </FadeIn>
         </div>
       </section>
+
+      </main>
 
       <Footer />
       <BookingCTA />

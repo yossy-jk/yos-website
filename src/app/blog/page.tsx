@@ -45,6 +45,8 @@ export default async function BlogPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* ─── HERO ─────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)' }}>
@@ -182,6 +184,8 @@ export default async function BlogPage() {
           <BlogEmailCapture />
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

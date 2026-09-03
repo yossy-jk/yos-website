@@ -60,6 +60,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section className="bg-near-black" style={{ paddingTop: 'clamp(5rem,10vw,8rem)' }}>
         {cs.heroImage && (
@@ -170,6 +172,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

@@ -92,6 +92,8 @@ export default function OfficeFitoutPage() {
       }) }} />
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black"
         style={SEC}>
@@ -533,6 +535,8 @@ export default function OfficeFitoutPage() {
       </section>
 
       <BookingCTA label="Book a Free Consultation" />
+      </main>
+
       <Footer />
     </>
   )

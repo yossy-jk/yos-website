@@ -55,6 +55,8 @@ export default function CleaningWorkWithUsPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{
         background: '#0A0A0A',
@@ -200,6 +202,8 @@ export default function CleaningWorkWithUsPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

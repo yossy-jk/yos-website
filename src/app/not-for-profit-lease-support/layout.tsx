@@ -25,7 +25,7 @@ export default function NotForProfitLayout({ children }: { children: React.React
   return (
     <>
       <Nav />
-      {children}
+      <main id="main-content">{children}</main>
       <Footer />
     </>
   )

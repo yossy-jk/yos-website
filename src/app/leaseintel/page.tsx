@@ -108,6 +108,8 @@ export default function LeaseIntelPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
 
       {/* Hero */}
@@ -319,6 +321,8 @@ export default function LeaseIntelPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
       <BookingCTA label="Book a Free Consultation" />

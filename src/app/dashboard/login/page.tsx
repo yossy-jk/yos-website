@@ -76,7 +76,7 @@ export default function LoginPage() {
     : email.trim().length > 0
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+    <main id="main-content" style={{ minHeight: '100vh', background: '#0a0a0a', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       <form onSubmit={handleSubmit} style={{ background: 'rgba(0,181,165,0.06)', border: '1px solid rgba(0,181,165,0.2)', padding: '2.5rem', borderRadius: 8, width: '100%', maxWidth: 390 }}>
         <h1 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 600 }}>YOS Dashboard</h1>
         <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>Your Office Space — Agent Command Centre</p>
@@ -150,6 +150,6 @@ export default function LoginPage() {
           </button>
         )}
       </form>
-    </div>
+    </main>
   )
 }

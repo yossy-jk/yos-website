@@ -31,6 +31,8 @@ export default function TenantRepPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #001a17 100%)' }}>
         <FadeIn>
@@ -260,6 +262,8 @@ export default function TenantRepPage() {
       </section>
 
       <BookingCTA label="Talk to EOF Tenant Rep" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

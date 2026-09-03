@@ -126,6 +126,8 @@ export default function FitoutEstimatorPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
+
+      <main id="main-content">
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
         {/* Progress bar */}
         {step > 0 && (
@@ -799,6 +801,8 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           </section>
+      </main>
+
       <Footer />
     </>
   )

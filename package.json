@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:internal-links",
+    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:main-landmark && npm run test:internal-links",
     "test:credential-scan": "node --test scripts/scan-source-credentials.test.mjs",
     "test:download-token": "node --test src/lib/download-token.test.mjs",
     "test:fitout-estimate": "node --no-warnings --experimental-strip-types --test src/lib/fitout-estimate.test.ts",
@@ -15,6 +15,7 @@
     "test:deployment-scope": "node --no-warnings --experimental-strip-types --test src/lib/deployment-scope.test.ts",
     "test:nav-accessibility": "node --test scripts/nav-accessibility.test.mjs",
     "test:form-accessibility": "node --test scripts/form-accessibility.test.mjs",
+    "test:main-landmark": "node --test scripts/main-landmark.test.mjs",
     "test:internal-links": "node --test scripts/internal-link-routes.test.mjs",
     "scan:credentials": "node scripts/scan-source-credentials.mjs",
     "check": "npm test && npm run scan:credentials && npm run lint && npm audit --audit-level=high && npm run build"
