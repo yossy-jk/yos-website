@@ -254,7 +254,7 @@ export default function LeaseReviewPage() {
                 { label: 'EOF Group overview', href: '/eof-group' },
                 { label: 'Tenant Representation', href: '/eof-group/tenant-representation' },
                 { label: 'Newcastle & Hunter', href: '/eof-group/newcastle' },
-                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide' },
+                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
               ].map(link => (
                 <Button key={link.href} href={link.href} variant="outline" size="sm">
                   {link.label}

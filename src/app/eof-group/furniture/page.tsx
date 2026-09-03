@@ -268,9 +268,9 @@ export default function EOFFurniturePage() {
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               {[
-                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide' },
-                { label: 'Commercial Furniture Supplier', href: '/blog/commercial-furniture-supplier' },
-                { label: 'Office Fitout Costs', href: '/blog/office-fitout-costs' },
+                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
+                { label: 'Commercial Furniture Supplier', href: '/blog/commercial-furniture-supplier-guide-australia' },
+                { label: 'Office Fitout Costs', href: '/blog/newcastle-office-fitout-costs-2026' },
                 { label: 'Lease Review', href: '/eof-group/lease-review' },
                 { label: 'Tenant Representation', href: '/eof-group/tenant-representation' },
               ].map(link => (
