@@ -20,6 +20,13 @@ test('closed mobile navigation is removed from the tab and accessibility trees',
   assert.match(source, /id="mobile-navigation-menu" hidden=\{!open\} aria-hidden=\{!open\}/)
 })
 
+test('desktop disclosure targets stay mounted while collapsed', () => {
+  assert.match(source, /id="desktop-services-menu" hidden=\{!servicesOpen\} aria-hidden=\{!servicesOpen\}/)
+  assert.match(source, /id="desktop-resources-menu" hidden=\{!resourcesOpen\} aria-hidden=\{!resourcesOpen\}/)
+  assert.doesNotMatch(source, /\{servicesOpen && \(/)
+  assert.doesNotMatch(source, /\{resourcesOpen && \(/)
+})
+
 test('Escape closes open navigation and restores focus to its disclosure button', () => {
   assert.match(source, /e\.key !== 'Escape'/)
   assert.match(source, /mobileMenuButtonRef\.current\?\.focus\(\)/)

@@ -36,10 +36,14 @@ export default function BlogEmailCapture() {
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full gap-3" style={{ maxWidth: '28rem' }}>
+      <label htmlFor="blog-email" className="sr-only">Email address</label>
       <input
+        id="blog-email"
+        name="email"
         type="email"
         required
         placeholder="Your email address"
+        autoComplete="email"
         value={email}
         onChange={e => setEmail(e.target.value)}
         className="flex-1 border border-gray-200 rounded-lg text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"

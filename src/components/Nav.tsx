@@ -131,9 +131,9 @@ export default function Nav() {
                 </svg>
               </button>
 
-              {servicesOpen && (
-                <div id="desktop-services-menu" className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
-                  style={{ top: `${NAV_H}px` }}>
+              <div id="desktop-services-menu" hidden={!servicesOpen} aria-hidden={!servicesOpen}
+                className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
+                style={{ top: `${NAV_H}px` }}>
                   <div className="max-w-screen-xl mx-auto"
                     style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
                     <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
@@ -157,8 +157,7 @@ export default function Nav() {
                       ))}
                     </div>
                   </div>
-                </div>
-              )}
+              </div>
             </div>
 
             {/* ── Resources dropdown ── */}
@@ -179,9 +178,9 @@ export default function Nav() {
                 </svg>
               </button>
 
-              {resourcesOpen && (
-                <div id="desktop-resources-menu" className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
-                  style={{ top: `${NAV_H}px` }}>
+              <div id="desktop-resources-menu" hidden={!resourcesOpen} aria-hidden={!resourcesOpen}
+                className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
+                style={{ top: `${NAV_H}px` }}>
                   <div className="max-w-screen-xl mx-auto"
                     style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
                     <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
@@ -260,8 +259,7 @@ export default function Nav() {
 
                     </div>
                   </div>
-                </div>
-              )}
+              </div>
             </div>
 
             {/* Plain links */}

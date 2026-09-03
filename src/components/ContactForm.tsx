@@ -87,15 +87,16 @@ export default function ContactForm() {
       <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass} style={labelStyle}>Your name <span className="text-teal">*</span></label>
-          <input type="text" value={fields.name} onChange={e => set('name')(e.target.value)}
+          <label htmlFor="contact-name" className={labelClass} style={labelStyle}>Your name <span className="text-teal">*</span></label>
+          <input id="contact-name" name="name" type="text" value={fields.name} onChange={e => set('name')(e.target.value)}
             placeholder="Jane Smith" autoComplete="name"
+            required aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'contact-name-error' : undefined}
             className={inputClass(errors.name)} style={style} />
-          {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+          {errors.name && <p id="contact-name-error" role="alert" className="text-red-500 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label className={labelClass} style={labelStyle}>Business name</label>
-          <input type="text" value={fields.company} onChange={e => set('company')(e.target.value)}
+          <label htmlFor="contact-company" className={labelClass} style={labelStyle}>Business name</label>
+          <input id="contact-company" name="company" type="text" value={fields.company} onChange={e => set('company')(e.target.value)}
             placeholder="Acme Pty Ltd" autoComplete="organization"
             className={inputClass()} style={style} />
         </div>
@@ -103,26 +104,28 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass} style={labelStyle}>Email <span className="text-teal">*</span></label>
-          <input type="email" value={fields.email} onChange={e => set('email')(e.target.value)}
+          <label htmlFor="contact-email" className={labelClass} style={labelStyle}>Email <span className="text-teal">*</span></label>
+          <input id="contact-email" name="email" type="email" value={fields.email} onChange={e => set('email')(e.target.value)}
             placeholder="jane@company.com.au" autoComplete="email"
+            required aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'contact-email-error' : undefined}
             className={inputClass(errors.email)} style={style} />
-          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+          {errors.email && <p id="contact-email-error" role="alert" className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
         <div>
-          <label className={labelClass} style={labelStyle}>Phone</label>
-          <input type="tel" value={fields.phone} onChange={e => set('phone')(e.target.value)}
+          <label htmlFor="contact-phone" className={labelClass} style={labelStyle}>Phone</label>
+          <input id="contact-phone" name="phone" type="tel" value={fields.phone} onChange={e => set('phone')(e.target.value)}
             placeholder="0400 000 000" autoComplete="tel"
             className={inputClass()} style={style} />
         </div>
       </div>
 
       <div>
-        <label className={labelClass} style={labelStyle}>How can we help? <span className="text-teal">*</span></label>
-        <textarea value={fields.message} onChange={e => set('message')(e.target.value)}
+        <label htmlFor="contact-message" className={labelClass} style={labelStyle}>How can we help? <span className="text-teal">*</span></label>
+        <textarea id="contact-message" name="message" value={fields.message} onChange={e => set('message')(e.target.value)}
           rows={4} placeholder="Tell us what you&apos;re working on..."
+          required aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined}
           className={inputClass(errors.message)} style={{ ...style, resize: 'vertical' as const }} />
-        {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+        {errors.message && <p id="contact-message-error" role="alert" className="text-red-500 text-xs mt-1">{errors.message}</p>}
       </div>
 
       <button
