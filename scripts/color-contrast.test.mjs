@@ -5,6 +5,9 @@ import test from 'node:test'
 const globalsSource = await readFile(new URL('../src/app/globals.css', import.meta.url), 'utf8')
 const footerSource = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
 const fitoutEstimatorSource = await readFile(new URL('../src/app/resources/fitout-estimator/page.tsx', import.meta.url), 'utf8')
+const homeSource = await readFile(new URL('../src/app/page.tsx', import.meta.url), 'utf8')
+const tenantRepSource = await readFile(new URL('../src/app/tenant-rep/page.tsx', import.meta.url), 'utf8')
+const cleaningSource = await readFile(new URL('../src/app/cleaning/page.tsx', import.meta.url), 'utf8')
 
 function relativeLuminance(hex) {
   const channels = hex.match(/[0-9a-f]{2}/gi).map((value) => parseInt(value, 16) / 255)
@@ -39,7 +42,17 @@ test('brand accents and supporting copy switch to accessible colours on light su
   assert.ok(contrastRatio('666666', 'f5f5f5') >= 4.5)
   assert.match(globalsSource, /\.bg-warm-grey \.text-teal[\s\S]*var\(--color-action-teal\)/)
   assert.match(globalsSource, /\.bg-warm-grey \.text-mid-grey[\s\S]*var\(--color-readable-grey\)/)
-  assert.match(globalsSource, /\.text-white\\\/30:not\(:disabled\)[\s\S]*0\.55/)
+  assert.match(globalsSource, /\.bg-near-black \.text-teal[\s\S]*var\(--color-teal\)/)
+  assert.match(globalsSource, /\.text-white\\\/20:not\(:disabled\)[\s\S]*0\.55/)
+})
+
+test('full-width teal panels use the accessible action surface and opaque white copy', () => {
+  assert.match(homeSource, /section className="bg-teal text-white"/)
+  assert.doesNotMatch(homeSource, /<section className="bg-teal text-white"[\s\S]{0,1600}text-white\/80/)
+  assert.match(tenantRepSource, /section className="bg-teal text-white"/)
+  assert.match(tenantRepSource, /<p className="text-white font-light leading-snug"/)
+  assert.match(cleaningSource, /section className="bg-teal text-white"/)
+  assert.match(cleaningSource, /rgba\(255,255,255,0\.55\)/)
 })
 
 test('fitout estimator audited intro and project captions use accessible contrast', () => {

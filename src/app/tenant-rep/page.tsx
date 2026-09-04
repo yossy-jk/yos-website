@@ -131,7 +131,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* ─── STATS BAR ────────────────────────────────────── */}
-      <section className="bg-teal" style={SEC_SM}>
+      <section className="bg-teal text-white" style={SEC_SM}>
         <div className={WRAP} style={PAD}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -142,7 +142,7 @@ export default function TenantRepPage() {
             ].map((item) => (
               <div key={item.label}>
                 <p className="text-white font-black leading-none mb-2" style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>{item.stat}</p>
-                <p className="text-white/80 font-light leading-snug" style={{ fontSize: '0.85rem' }}>{item.label}</p>
+                <p className="text-white font-light leading-snug" style={{ fontSize: '0.85rem' }}>{item.label}</p>
               </div>
             ))}
           </div>

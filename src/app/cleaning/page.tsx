@@ -365,7 +365,7 @@ export default function CleaningPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal"
+      <section className="bg-teal text-white"
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
@@ -374,7 +374,7 @@ export default function CleaningPage() {
                 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
                 Ready to move to a better standard?
               </h2>
-              <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
+              <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
                 We&apos;ll visit your site, understand your needs, and give you a clear proposal. No pressure. No surprises.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center">
@@ -399,7 +399,7 @@ export default function CleaningPage() {
       <section style={{ background: '#111', paddingTop: 'clamp(3rem,6vw,4.5rem)', paddingBottom: 'clamp(3rem,6vw,4.5rem)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
+            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
             <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or the Hunter Valley?</p>
           </div>
           <Button href="/cleaning/work-with-us" variant="primary" size="lg">

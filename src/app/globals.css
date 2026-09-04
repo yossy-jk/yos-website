@@ -476,7 +476,18 @@ input[type='range']::-moz-range-thumb {
   color: var(--color-readable-grey);
 }
 
+.bg-white .text-charcoal\/60,
+.bg-warm-grey .text-charcoal\/60 {
+  color: var(--color-readable-grey);
+}
+
+/* A light ancestor can contain a nested dark card; restore the brighter accent there. */
+.bg-near-black .text-teal {
+  color: var(--color-teal);
+}
+
 /* Low-opacity body copy on dark surfaces was below 4.5:1 in the axe audit. */
+.text-white\/20:not(:disabled),
 .text-white\/30:not(:disabled),
 .text-white\/35:not(:disabled),
 .text-white\/40:not(:disabled),

@@ -426,7 +426,7 @@ export default function Home() {
       </section>
 
       {/* ─── LEASEINTEL ────────────────────────────── teal */}
-      <section className="bg-teal" style={SEC}>
+      <section className="bg-teal text-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '46rem', margin: '0 auto' }}>
@@ -438,11 +438,11 @@ export default function Home() {
                 style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.25rem' }}>
                 Does your lease have a trap you haven&apos;t found yet?
               </h2>
-              <p className="text-white/80 font-light leading-relaxed w-full"
+              <p className="text-white font-light leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '0.75rem' }}>
                 Most business owners don&apos;t read every clause. Most landlords know that.
               </p>
-              <p className="text-white/80 font-light leading-relaxed w-full"
+              <p className="text-white font-light leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '2.5rem' }}>
                 Answer 10 questions. Get a plain-English risk rating — Red, Amber, or Green — and the top issues to deal with. Free, instant, no document needed.
               </p>
