@@ -44,10 +44,12 @@ test('retries a transient service error and succeeds only on a clean audit', () 
     },
   ];
   let calls = 0;
+  let spawnOptions;
 
   const status = runAudit({
-    run: () => {
+    run: (_command, _args, options) => {
       calls += 1;
+      spawnOptions = options;
       return results.shift();
     },
     stdout: discard,
@@ -56,6 +58,7 @@ test('retries a transient service error and succeeds only on a clean audit', () 
 
   assert.equal(status, 0);
   assert.equal(calls, 2);
+  assert.equal(spawnOptions.timeout, 135_000);
 });
 
 test('fails immediately when the audit reports a real vulnerability', () => {

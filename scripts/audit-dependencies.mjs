@@ -13,7 +13,7 @@ const TRANSIENT_AUDIT_PATTERNS = [
   /fetch failed/i,
 ];
 
-const AUDIT_PROCESS_TIMEOUT_MS = 75_000;
+const AUDIT_PROCESS_TIMEOUT_MS = 135_000;
 
 export function parseAuditReport(stdout) {
   try {
