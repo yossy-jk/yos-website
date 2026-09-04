@@ -450,7 +450,7 @@ export default function Home() {
                 <Button href="/resources/lease-review" variant="dark" size="lg">
                   Get Free Risk Check
                 </Button>
-                <Button href="/resources/lease-review#full-report" variant="outline" size="lg">
+                <Button href="/resources/lease-review#full-report" variant="secondary" size="lg">
                   Full Report — $297
                 </Button>
               </div>
