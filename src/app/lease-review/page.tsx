@@ -436,7 +436,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* STATS */}
-        <section className="bg-teal" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
+        <section className="bg-teal text-white" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={PAD}>
               {[
@@ -446,7 +446,7 @@ export default function LeaseReviewPage() {
               ].map(item => (
                 <div key={item.stat}>
                   <p className="text-white font-black text-2xl md:text-3xl leading-none mb-1">{item.stat}</p>
-                  <p className="text-white/70 text-xs font-medium tracking-wide">{item.label}</p>
+                  <p className="text-white text-xs font-medium tracking-wide">{item.label}</p>
                 </div>
               ))}
             </div>

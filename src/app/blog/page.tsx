@@ -87,7 +87,7 @@ export default async function BlogPage() {
                 </div>
                 {/* Content */}
                 <div className="lg:w-1/2" style={{ background: '#141414', padding: 'clamp(2rem,5vw,4rem)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.78rem', fontWeight: 300, marginBottom: '1.25rem' }}>
+                  <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.78rem', fontWeight: 300, marginBottom: '1.25rem' }}>
                     {new Date(featured.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })} · Featured
                   </p>
                   <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.35rem,2.5vw,2.1rem)', lineHeight: 1.2, letterSpacing: '-0.01em', marginBottom: '1.25rem' }}
@@ -112,7 +112,7 @@ export default async function BlogPage() {
       {rest.length > 0 && (
         <section style={{ background: 'white', paddingTop: 'clamp(4rem,8vw,6rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)' }}>
-            <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '2.5rem' }}>All articles</p>
+            <p style={{ color: '#00796F', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '2.5rem' }}>All articles</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: '2rem' }}>
               {rest.map(post => {
@@ -152,12 +152,12 @@ export default async function BlogPage() {
                       {/* Footer row */}
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.25rem', borderTop: '1px solid #F3F4F6' }}>
                         <div>
-                          <p style={{ color: '#9CA3AF', fontSize: '0.72rem', lineHeight: 1.5 }}>
+                          <p style={{ color: '#666666', fontSize: '0.72rem', lineHeight: 1.5 }}>
                             {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </p>
-                          <p style={{ color: '#9CA3AF', fontSize: '0.72rem', fontWeight: 300, lineHeight: 1.5 }}>{readTime} min read</p>
+                          <p style={{ color: '#666666', fontSize: '0.72rem', fontWeight: 300, lineHeight: 1.5 }}>{readTime} min read</p>
                         </div>
-                        <span style={{ color: '#00B5A5', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}
+                        <span style={{ color: '#00796F', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}
                           className="group-hover:text-dark-teal transition-colors">
                           Read →
                         </span>
@@ -174,7 +174,7 @@ export default async function BlogPage() {
       {/* ─── EMAIL CAPTURE ────────────────────────── */}
       <section style={{ background: '#F9FAFB', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Stay sharp</p>
+          <p style={{ color: '#00796F', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Stay sharp</p>
           <h2 style={{ color: '#0A0A0A', fontWeight: 900, fontSize: 'clamp(1.5rem,3vw,2.25rem)', textTransform: 'uppercase', letterSpacing: '-0.01em', marginBottom: '1rem', maxWidth: '28rem' }}>
             Get new articles when they land.
           </h2>

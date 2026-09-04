@@ -361,10 +361,10 @@ export default function ResourcesPage() {
                       {/* Footer row */}
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1.25rem', borderTop: '1px solid #F3F4F6' }}>
                         <div>
-                          <p style={{ color: '#9CA3AF', fontSize: '0.72rem', fontWeight: 400, lineHeight: 1.4 }}>
+                          <p style={{ color: '#666666', fontSize: '0.72rem', fontWeight: 400, lineHeight: 1.4 }}>
                             {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </p>
-                          <p style={{ color: '#9CA3AF', fontSize: '0.72rem', fontWeight: 300, lineHeight: 1.4 }}>{readTime} min read</p>
+                          <p style={{ color: '#666666', fontSize: '0.72rem', fontWeight: 300, lineHeight: 1.4 }}>{readTime} min read</p>
                         </div>
                         <span className="text-teal font-bold group-hover:text-dark-teal transition-colors"
                           style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase' }}>Read →</span>
@@ -435,7 +435,7 @@ export default function ResourcesPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────── */}
-      <section className="bg-teal" style={SEC}>
+      <section className="bg-teal text-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
@@ -443,7 +443,7 @@ export default function ResourcesPage() {
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
               Tools get you started.<br />A conversation gets you moving.
             </h2>
-            <p className="text-white/80 font-light leading-relaxed mb-12 w-full"
+            <p className="text-white font-light leading-relaxed mb-12 w-full"
               style={{ fontSize: '1rem', lineHeight: 1.75 }}>
               Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
             </p>

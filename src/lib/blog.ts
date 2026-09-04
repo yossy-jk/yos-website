@@ -45,8 +45,8 @@ export const DIVISION_COLORS: Record<Division, string> = {
   'tenant-rep': 'bg-teal text-white',
   'buyers-agency': 'bg-near-black text-white',
   'furniture': 'bg-charcoal text-white',
-  'cleaning': 'bg-dark-teal text-white',
-  'general': 'bg-mid-grey text-white'
+  'cleaning': 'bg-action-teal text-white',
+  'general': 'bg-readable-grey text-white'
 }
 
 export function getAllPosts(): BlogPost[] {

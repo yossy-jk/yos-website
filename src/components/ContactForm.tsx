@@ -145,7 +145,7 @@ export default function ContactForm() {
         ) : 'Send Message →'}
       </button>
 
-      <p className="text-gray-400 text-xs">
+      <p className="text-readable-grey text-xs">
         Your information is handled under the Australian Privacy Act 1988 and never shared.
       </p>
     </form>

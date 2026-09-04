@@ -9,6 +9,12 @@ const homeSource = await readFile(new URL('../src/app/page.tsx', import.meta.url
 const tenantRepSource = await readFile(new URL('../src/app/tenant-rep/page.tsx', import.meta.url), 'utf8')
 const cleaningSource = await readFile(new URL('../src/app/cleaning/page.tsx', import.meta.url), 'utf8')
 const welcomeModalSource = await readFile(new URL('../src/components/WelcomeModal.tsx', import.meta.url), 'utf8')
+const leaseReviewSource = await readFile(new URL('../src/app/lease-review/page.tsx', import.meta.url), 'utf8')
+const resourcesSource = await readFile(new URL('../src/app/resources/page.tsx', import.meta.url), 'utf8')
+const blogSource = await readFile(new URL('../src/app/blog/page.tsx', import.meta.url), 'utf8')
+const blogLibrarySource = await readFile(new URL('../src/lib/blog.ts', import.meta.url), 'utf8')
+const blogArticleSource = await readFile(new URL('../src/app/blog/[slug]/page.tsx', import.meta.url), 'utf8')
+const contactFormSource = await readFile(new URL('../src/components/ContactForm.tsx', import.meta.url), 'utf8')
 
 function relativeLuminance(hex) {
   const channels = hex.match(/[0-9a-f]{2}/gi).map((value) => parseInt(value, 16) / 255)
@@ -56,6 +62,21 @@ test('full-width teal panels use the accessible action surface and opaque white 
   assert.match(cleaningSource, /section className="bg-teal text-white"/)
   assert.match(cleaningSource, /rgba\(255,255,255,0\.55\)/)
   assert.match(welcomeModalSource, /color: '#9B9B9B'/)
+  assert.match(leaseReviewSource, /section className="bg-teal text-white"/)
+  assert.match(leaseReviewSource, /text-white text-xs font-medium tracking-wide/)
+  assert.doesNotMatch(resourcesSource, /#9CA3AF/)
+  assert.match(resourcesSource, /section className="bg-teal text-white"/)
+})
+
+test('blog cards use readable metadata, action links, and category badges', () => {
+  assert.doesNotMatch(blogSource, /#9CA3AF/)
+  assert.doesNotMatch(blogSource, /rgba\(255,255,255,0\.35\)/)
+  assert.match(blogSource, /color: '#00796F'/)
+  assert.match(blogLibrarySource, /'cleaning': 'bg-action-teal text-white'/)
+  assert.match(blogLibrarySource, /'general': 'bg-readable-grey text-white'/)
+  assert.doesNotMatch(blogArticleSource, /#9CA3AF|rgba\(255,255,255,0\.35\)/)
+  assert.match(blogArticleSource, /text-action-teal font-medium/)
+  assert.match(contactFormSource, /text-readable-grey text-xs/)
 })
 
 test('fitout estimator audited intro and project captions use accessible contrast', () => {
