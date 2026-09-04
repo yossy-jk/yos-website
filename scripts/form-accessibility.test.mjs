@@ -33,10 +33,10 @@ test('blog email capture has a persistent accessible label and autocomplete meta
 
 test('multi-step tools move focus to the new step heading', () => {
   for (const source of [leaseReviewSource, leaseRiskSource, fitoutEstimatorSource]) {
-    assert.match(source, /stepHeadingRef\.current\?\.focus\(\{ preventScroll: true \}\)/)
+    assert.match(source, /stepHeadingRef\.current\?\.focus\(\)/)
     assert.match(source, /ref=\{stepHeadingRef\} tabIndex=\{-1\}/)
   }
-  assert.match(fitoutEstimatorSource, /resultHeadingRef\.current\?\.focus\(\{ preventScroll: true \}\)/)
+  assert.match(fitoutEstimatorSource, /resultHeadingRef\.current\?\.focus\(\)/)
   assert.match(fitoutEstimatorSource, /ref=\{resultHeadingRef\}[\s\S]{0,160}aria-label=\{`Your estimated fitout cost:/)
 })
 

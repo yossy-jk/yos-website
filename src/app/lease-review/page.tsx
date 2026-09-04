@@ -200,7 +200,7 @@ export default function LeaseReviewPage() {
 
   useEffect(() => {
     if (previousStepRef.current !== step) {
-      stepHeadingRef.current?.focus({ preventScroll: true })
+      stepHeadingRef.current?.focus()
       previousStepRef.current = step
     }
   }, [step])

@@ -60,14 +60,14 @@ export default function FitoutEstimatorPage() {
 
   useEffect(() => {
     if (previousStepRef.current !== step) {
-      stepHeadingRef.current?.focus({ preventScroll: true })
+      stepHeadingRef.current?.focus()
       previousStepRef.current = step
     }
   }, [step])
 
   useEffect(() => {
     if (!previousHasResultRef.current && hasResult) {
-      resultHeadingRef.current?.focus({ preventScroll: true })
+      resultHeadingRef.current?.focus()
     }
     previousHasResultRef.current = hasResult
   }, [hasResult])
