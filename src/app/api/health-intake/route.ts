@@ -12,7 +12,7 @@ const HEALTH_HISTORY_KEY = 'yos:health:history'
 
 export async function POST(req: Request) {
   const secret = req.headers.get('x-health-secret')
-  const HEALTH_SECRET = process.env.HEALTH_SECRET || 'yos-health-2026'
+  const HEALTH_SECRET = process.env.HEALTH_SECRET
 
   if (secret !== HEALTH_SECRET) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

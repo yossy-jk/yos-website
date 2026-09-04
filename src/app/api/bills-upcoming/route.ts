@@ -9,10 +9,28 @@ const TENANT = process.env.XERO_TENANT_ID || 'e916ee6b-ca12-4abd-ad84-c8fa0b1c47
 const H = { 'Authorization': `Bearer ${KEY}`, 'Accept': 'application/json', 'Xero-Tenant-Id': TENANT }
 const BASE = 'https://gateway.maton.ai/xero/api.xro/2.0'
 
-async function xero(path: string) {
+interface XeroContact { Name?: string }
+interface XeroInvoice {
+  Contact?: XeroContact
+  AmountDue?: number
+  DueDateString?: string
+}
+interface XeroRepeatingInvoice {
+  Type?: string
+  Contact?: XeroContact
+  Total?: number
+  Schedule?: { NextScheduledDateString?: string; Period?: string; Unit?: string }
+}
+interface XeroBankTransaction {
+  Contact?: XeroContact
+  DateString?: string
+  Total?: number
+}
+
+async function xero<T>(path: string): Promise<T> {
   const r = await fetch(`${BASE}/${path}`, { headers: H })
   if (!r.ok) throw new Error(`xero ${r.status} on ${path}`)
-  return r.json()
+  return r.json() as Promise<T>
 }
 
 function median(ns: number[]) { const s=[...ns].sort((a,b)=>a-b); return s[Math.floor(s.length/2)] }
@@ -26,14 +44,14 @@ export async function GET(req: Request) {
     const bills: Bill[] = []
 
     // 1. Entered bills awaiting payment
-    const inv = await xero('Invoices?where=Type%3D%3D%22ACCPAY%22%20AND%20Status%3D%3D%22AUTHORISED%22&order=DueDate')
+    const inv = await xero<{ Invoices?: XeroInvoice[] }>('Invoices?where=Type%3D%3D%22ACCPAY%22%20AND%20Status%3D%3D%22AUTHORISED%22&order=DueDate')
     for (const i of (inv.Invoices || [])) {
       bills.push({ payee: i.Contact?.Name || '?', amount: i.AmountDue || 0,
         due: (i.DueDateString || '').slice(0,10), source: 'bill', status: 'awaiting payment' })
     }
 
     // 2. Scheduled repeating bills
-    const rep = await xero('RepeatingInvoices')
+    const rep = await xero<{ RepeatingInvoices?: XeroRepeatingInvoice[] }>('RepeatingInvoices')
     for (const x of (rep.RepeatingInvoices || [])) {
       if (x.Type !== 'ACCPAY') continue
       bills.push({ payee: x.Contact?.Name || '?', amount: x.Total || 0,
@@ -42,9 +60,9 @@ export async function GET(req: Request) {
     }
 
     // 3. Predicted direct debits from SPEND recurrence
-    const txs: any[] = []
+    const txs: XeroBankTransaction[] = []
     for (const pg of [1,2,3]) {
-      const bt = await xero(`BankTransactions?where=Type%3D%3D%22SPEND%22&order=Date%20DESC&page=${pg}`)
+      const bt = await xero<{ BankTransactions?: XeroBankTransaction[] }>(`BankTransactions?where=Type%3D%3D%22SPEND%22&order=Date%20DESC&page=${pg}`)
       txs.push(...(bt.BankTransactions || []))
       if ((bt.BankTransactions || []).length < 100) break
     }
@@ -81,7 +99,7 @@ export async function GET(req: Request) {
       totals: { next7: Math.round(in7.reduce((s,b)=>s+b.amount,0)), next7Count: in7.length,
                 next30: Math.round(in30.reduce((s,b)=>s+b.amount,0)), next30Count: in30.length },
     })
-  } catch (e: any) {
-    return NextResponse.json({ error: e?.message || 'failed' }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }

@@ -1,7 +1,7 @@
 'use client'
 // Note: metadata must be in a separate server component for 'use client' pages
 // SEO is handled via layout.tsx root metadata + page-level title tags
-import { useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
@@ -67,12 +67,15 @@ function Field({
   placeholder?: string
   autoComplete?: string
 }) {
+  const id = useId()
+  const errorId = `${id}-error`
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-white/80 text-xs font-semibold tracking-wide uppercase">
+      <label htmlFor={id} className="text-white/80 text-xs font-semibold tracking-wide uppercase">
         {label}{required && <span className="text-teal ml-1">*</span>}
       </label>
       <input
+        id={id}
         type={type}
         value={value}
         onChange={e => onChange(e.target.value)}
@@ -80,6 +83,7 @@ function Field({
         autoComplete={autoComplete}
         required={required}
         aria-invalid={!!error}
+        aria-describedby={error ? errorId : undefined}
         className={[
           'bg-white/[0.07] text-white text-sm px-4 py-3.5 rounded-sm',
           'border transition-all duration-200 outline-none',
@@ -91,7 +95,7 @@ function Field({
         ].join(' ')}
       />
       {error && (
-        <p className="text-red-400 text-xs font-medium">{error}</p>
+        <p id={errorId} role="alert" className="text-red-400 text-xs font-medium">{error}</p>
       )}
     </div>
   )
@@ -108,16 +112,20 @@ function SelectField({
   error?: string
   required?: boolean
 }) {
+  const id = useId()
+  const errorId = `${id}-error`
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-white/80 text-xs font-semibold tracking-wide uppercase">
+      <label htmlFor={id} className="text-white/80 text-xs font-semibold tracking-wide uppercase">
         {label}{required && <span className="text-teal ml-1">*</span>}
       </label>
       <select
+        id={id}
         value={value}
         onChange={e => onChange(e.target.value)}
         required={required}
         aria-invalid={!!error}
+        aria-describedby={error ? errorId : undefined}
         className={[
           'text-sm px-4 py-3.5 rounded-sm',
           'border transition-all duration-200 outline-none',
@@ -134,7 +142,7 @@ function SelectField({
         ))}
       </select>
       {error && (
-        <p className="text-red-400 text-xs font-medium">{error}</p>
+        <p id={errorId} role="alert" className="text-red-400 text-xs font-medium">{error}</p>
       )}
     </div>
   )
@@ -187,6 +195,15 @@ export default function LeaseReviewPage() {
   const [errors, setErrors] = useState<FieldErrors>({})
   const [submitting, setSubmitting] = useState(false)
   const [securityStep, setSecurityStep] = useState<SecurityStep>('idle')
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null)
+  const previousStepRef = useRef<FlowStep>(step)
+
+  useEffect(() => {
+    if (previousStepRef.current !== step) {
+      stepHeadingRef.current?.focus()
+      previousStepRef.current = step
+    }
+  }, [step])
 
   const set = (field: keyof FormState) => (value: string | File | null) =>
     setForm(prev => ({ ...prev, [field]: value }))
@@ -199,7 +216,13 @@ export default function LeaseReviewPage() {
     if (!form.leaseType) e.leaseType = 'Please select a lease type'
     if (!form.state) e.state = 'Please select your state'
     setErrors(e)
-    return Object.keys(e).length === 0
+    const valid = Object.keys(e).length === 0
+    if (!valid) {
+      window.requestAnimationFrame(() => {
+        document.querySelector<HTMLElement>('#main-content [aria-invalid="true"]')?.focus()
+      })
+    }
+    return valid
   }
 
   /* Step 2 validation */
@@ -210,7 +233,11 @@ export default function LeaseReviewPage() {
     else if (form.file.size > 50 * 1024 * 1024) e.file = 'File must be under 50MB'
     else if (!allowedTypes.includes(form.file.type) && !form.file.name.match(/\.(pdf|doc|docx)$/i)) e.file = 'Please upload a PDF or Word document'
     setErrors(e)
-    return Object.keys(e).length === 0
+    const valid = Object.keys(e).length === 0
+    if (!valid) {
+      window.requestAnimationFrame(() => document.getElementById('lease-file-upload')?.focus())
+    }
+    return valid
   }
 
   const handleDetailsNext = () => {
@@ -337,6 +364,8 @@ export default function LeaseReviewPage() {
       <>
         <Nav />
 
+        <main id="main-content" tabIndex={-1}>
+
         {/* HERO */}
         <section className="bg-near-black relative overflow-hidden" style={{ paddingTop: 'clamp(6rem,12vw,12rem)', paddingBottom: 'clamp(5rem,10vw,10rem)' }}>
           <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -352,7 +381,7 @@ export default function LeaseReviewPage() {
                 </div>
               </FadeIn>
               <FadeIn delay={80}>
-                <h1 className="text-white font-black leading-[0.95] tracking-tight mb-4"
+                <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black leading-[0.95] tracking-tight mb-4 outline-none"
                   style={{ fontSize: 'clamp(2.25rem,6vw,5.5rem)' }}>
                   Full LeaseIntel™ Report<br />
                   <span className="text-teal">Free — 100% No Obligation</span>
@@ -407,7 +436,7 @@ export default function LeaseReviewPage() {
         </section>
 
         {/* STATS */}
-        <section className="bg-teal" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
+        <section className="bg-teal text-white" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }}>
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={PAD}>
               {[
@@ -417,7 +446,7 @@ export default function LeaseReviewPage() {
               ].map(item => (
                 <div key={item.stat}>
                   <p className="text-white font-black text-2xl md:text-3xl leading-none mb-1">{item.stat}</p>
-                  <p className="text-white/70 text-xs font-medium tracking-wide">{item.label}</p>
+                  <p className="text-white text-xs font-medium tracking-wide">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -608,6 +637,8 @@ export default function LeaseReviewPage() {
           </FadeIn>
         </section>
 
+        </main>
+
         <Footer />
       </>
     )
@@ -618,6 +649,7 @@ export default function LeaseReviewPage() {
     return (
       <>
         <Nav />
+        <main id="main-content" tabIndex={-1}>
         <div className="min-h-screen bg-near-black flex items-start justify-center px-6 md:px-12 lg:px-20 py-24 md:py-32">
           <div className="w-full max-w-md">
             <button
@@ -634,7 +666,7 @@ export default function LeaseReviewPage() {
 
             <StepBar current={1} />
 
-            <h2 className="text-white font-black leading-tight tracking-tight mb-2"
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black leading-tight tracking-tight mb-2 outline-none"
               style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}>
               Tell us about yourself
             </h2>
@@ -715,6 +747,7 @@ export default function LeaseReviewPage() {
             </div>
           </div>
         </div>
+        </main>
       </>
     )
   }
@@ -724,6 +757,7 @@ export default function LeaseReviewPage() {
     return (
       <>
         <Nav />
+        <main id="main-content" tabIndex={-1}>
         <div className="min-h-screen bg-near-black flex items-start justify-center px-6 md:px-12 lg:px-20 py-24 md:py-32">
           <form onSubmit={handleSubmit} className="w-full max-w-md">
             <button
@@ -741,7 +775,7 @@ export default function LeaseReviewPage() {
 
             <StepBar current={2} />
 
-            <h2 className="text-white font-black leading-tight tracking-tight mb-2"
+            <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black leading-tight tracking-tight mb-2 outline-none"
               style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}>
               Upload your lease
             </h2>
@@ -752,12 +786,14 @@ export default function LeaseReviewPage() {
             <div className="flex flex-col gap-5">
               {/* Upload zone */}
               <label className={[
+                'relative overflow-hidden focus-within:border-teal focus-within:ring-2 focus-within:ring-teal focus-within:ring-offset-2 focus-within:ring-offset-near-black',
                 'border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-200',
                 'hover:border-teal/60 hover:bg-white/[0.03]',
                 form.file ? 'border-teal/60 bg-teal/[0.04]' : 'border-white/20',
                 errors.file ? 'border-red-400/60' : '',
               ].join(' ')}>
                 <input
+                  id="lease-file-upload"
                   type="file"
                   accept=".pdf,.doc,.docx"
                   onChange={e => {
@@ -765,8 +801,10 @@ export default function LeaseReviewPage() {
                     set('file')(f as unknown as string)
                     if (f) setErrors(prev => ({ ...prev, file: undefined }))
                   }}
-                  className="hidden"
+                  className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
                   aria-label="Upload lease document"
+                  aria-invalid={Boolean(errors.file)}
+                  aria-describedby={errors.file ? 'lease-file-error' : undefined}
                 />
                 {form.file ? (
                   <div>
@@ -790,7 +828,7 @@ export default function LeaseReviewPage() {
               </label>
 
               {errors.file && (
-                <p className="text-red-400 text-xs font-medium -mt-2">{errors.file}</p>
+                <p id="lease-file-error" role="alert" className="text-red-400 text-xs font-medium -mt-2">{errors.file}</p>
               )}
 
               {/* Security trust signals */}
@@ -827,6 +865,7 @@ export default function LeaseReviewPage() {
             </div>
           </form>
         </div>
+        </main>
       </>
     )
   }
@@ -835,12 +874,13 @@ export default function LeaseReviewPage() {
   return (
     <>
       <Nav />
+      <main id="main-content" tabIndex={-1}>
       <div className="min-h-screen bg-near-black flex items-center justify-center px-6 md:px-12 lg:px-20">
         <div className="w-full max-w-lg text-center">
           <div className="w-16 h-16 bg-teal/15 border border-teal/30 rounded-full flex items-center justify-center mx-auto mb-8">
             <CheckIcon />
           </div>
-          <h2 className="text-white font-black leading-tight tracking-tight mb-5"
+          <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black leading-tight tracking-tight mb-5 outline-none"
             style={{ fontSize: 'clamp(1.6rem, 4vw, 2.2rem)' }}>
             Lease received. Report incoming.
           </h2>
@@ -875,6 +915,7 @@ export default function LeaseReviewPage() {
           </a>
         </div>
       </div>
+      </main>
     </>
   )
 }

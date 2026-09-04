@@ -31,6 +31,8 @@ export default function LeaseReviewPage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0d0d1a 100%)' }}>
         <FadeIn>
@@ -254,7 +256,7 @@ export default function LeaseReviewPage() {
                 { label: 'EOF Group overview', href: '/eof-group' },
                 { label: 'Tenant Representation', href: '/eof-group/tenant-representation' },
                 { label: 'Newcastle & Hunter', href: '/eof-group/newcastle' },
-                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide' },
+                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
               ].map(link => (
                 <Button key={link.href} href={link.href} variant="outline" size="sm">
                   {link.label}
@@ -266,6 +268,8 @@ export default function LeaseReviewPage() {
       </section>
 
       <BookingCTA label="Talk to EOF Lease Review" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

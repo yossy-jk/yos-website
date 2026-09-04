@@ -29,7 +29,7 @@ export async function GET() {
 
   // Pull Xero bank transactions for cash position
   let cashBalance = 0
-  let arTotal = 0
+  const arTotal = 0
 
   try {
     // Xero bank summary — everyday account

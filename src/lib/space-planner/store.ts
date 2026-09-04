@@ -325,7 +325,7 @@ function findNextRoomPosition(
   // Try packing rooms left-to-right, wrapping when needed
   // Sort rooms by row then column
   let curX = 0;
-  let curY = 0;
+  const curY = 0;
   let rowMaxDepth = 0;
 
   // Find the right-most extent of rooms on the last row

@@ -278,6 +278,8 @@ export default function MarketSnapshotPageContent({
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* ── Hero ─────────────────────────────────────────── */}
       <section
         className="bg-near-black"
@@ -453,6 +455,8 @@ export default function MarketSnapshotPageContent({
           </p>
         </div>
       </section>
+
+      </main>
 
       <Footer />
 

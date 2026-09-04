@@ -243,6 +243,8 @@ export default function LeaseComparisonPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* Hero */}
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -504,6 +506,8 @@ export default function LeaseComparisonPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

@@ -1,32 +1,102 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { requireAuth } from '@/lib/auth'
+import { Resend } from 'resend'
 import { HUBSPOT } from '@/lib/constants'
+import { calculateFitoutEstimate, type FitoutInputs, type FitoutTier } from '@/lib/fitout-estimate'
+import { fitoutLimiter, getIp } from '@/lib/ratelimit'
+import { isPreviewDeployment } from '@/lib/deployment-scope'
+
+export const runtime = 'nodejs'
 
 const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL  || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 
-async function redisSet(key: string, value: string): Promise<void> {
-  if (!UPSTASH_URL || !UPSTASH_TOKEN) return
-  await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}`, {
+async function redisSet(key: string, value: string): Promise<boolean> {
+  if (!UPSTASH_URL || !UPSTASH_TOKEN) return false
+  const response = await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(value)}`, {
     method: 'POST',
-    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ key, value }),
+    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
   })
+  return response.ok
+}
+
+type ReportData = FitoutInputs & {
+  name: string
+  email: string
+  phone?: string
+  tier: FitoutTier
+  totalLow: number
+  totalHigh: number
+  perSqmLow: number
+  perSqmHigh: number
+  breakdown: { label: string; low: number; high: number }[]
+  coverageNote?: string
+}
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const escapeHtml = (value: string) => value
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+
+function parseReportRequest(raw: unknown): { data?: Omit<ReportData, 'totalLow' | 'totalHigh' | 'perSqmLow' | 'perSqmHigh' | 'breakdown' | 'coverageNote'>; error?: string; honeypot?: boolean } {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return { error: 'Invalid request body' }
+  const body = raw as Record<string, unknown>
+  if (body._honey) return { honeypot: true }
+
+  const name = typeof body.name === 'string' ? body.name.trim().replace(/[\r\n]+/g, ' ') : ''
+  const email = typeof body.email === 'string' ? body.email.trim().toLowerCase() : ''
+  const phone = typeof body.phone === 'string' ? body.phone.trim().replace(/[\r\n]+/g, ' ') : ''
+  if (name.length < 2 || name.length > 100) return { error: 'Please enter your name' }
+  if (email.length > 200 || !EMAIL_RE.test(email)) return { error: 'Please enter a valid email address' }
+  if (phone.length > 50) return { error: 'Phone number is too long' }
+
+  const fitoutType = body.fitoutType
+  const tier = body.tier
+  const shellCondition = body.shellCondition
+  const workstationType = body.workstationType
+  if (fitoutType !== 'furniture-only' && fitoutType !== 'turnkey') return { error: 'Invalid fitout type' }
+  if (tier !== 'basic' && tier !== 'mid' && tier !== 'premium') return { error: 'Invalid quality tier' }
+  if (shellCondition !== 'cold' && shellCondition !== 'warm') return { error: 'Invalid shell condition' }
+  if (workstationType !== 'fixed' && workstationType !== 'eha') return { error: 'Invalid workstation type' }
+
+  const sqm = Number(body.sqm)
+  const desks = Number(body.desks)
+  const meetingRooms = Number(body.meetingRooms)
+  if (!Number.isFinite(sqm) || sqm < 5 || sqm > 100000) return { error: 'Floor area must be between 5 and 100,000 m²' }
+  if (!Number.isInteger(desks) || desks < 1 || desks > 5000) return { error: 'Workstations must be between 1 and 5,000' }
+  if (!Number.isInteger(meetingRooms) || meetingRooms < 0 || meetingRooms > 200) return { error: 'Meeting rooms must be between 0 and 200' }
+
+  for (const field of ['hasKitchen', 'hasReception', 'hasAV'] as const) {
+    if (typeof body[field] !== 'boolean') return { error: `Invalid ${field} value` }
+  }
+
+  return {
+    data: {
+      name,
+      email,
+      ...(phone ? { phone } : {}),
+      fitoutType,
+      sqm: String(sqm),
+      shellCondition,
+      tier,
+      workstationType,
+      desks: String(desks),
+      meetingRooms: String(meetingRooms),
+      hasKitchen: body.hasKitchen as boolean,
+      hasReception: body.hasReception as boolean,
+      hasAV: body.hasAV as boolean,
+      buildingType: '',
+      timeframe: '',
+    },
+  }
 }
 
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
 }
 
-function buildEmailHtml(data: {
-  name: string; email: string; phone?: string
-  fitoutType: string; sqm: string; tier: string; shellCondition: string
-  workstationType: string; desks: string; meetingRooms: string
-  hasKitchen: boolean; hasReception: boolean; hasAV: boolean
-  totalLow: number; totalHigh: number; perSqmLow: number; perSqmHigh: number
-  breakdown: { label: string; low: number; high: number }[]
-  coverageNote?: string
-}): string {
+function buildEmailHtml(data: ReportData): string {
   const tierLabel = { basic: 'Basic', mid: 'Mid-Range', premium: 'Premium' }[data.tier as string] || data.tier
   const typeLabel = data.fitoutType === 'furniture-only' ? 'Furniture Only' : 'Full Fitout'
   const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` — ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
@@ -95,73 +165,90 @@ ${data.fitoutType !== 'furniture-only' ? `<tr><td style="padding:0.5rem 0;font-s
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json() as {
-      name: string; email: string; phone?: string
-      fitoutType: string; sqm: string; tier: string; shellCondition: string
-      workstationType: string; desks: string; meetingRooms: string
-      hasKitchen: boolean; hasReception: boolean; hasAV: boolean
-      totalLow: number; totalHigh: number; perSqmLow: number; perSqmHigh: number
-      breakdown: { label: string; low: number; high: number }[]
-      coverageNote?: string
-      source?: string
+    const limiter = fitoutLimiter()
+    if (limiter) {
+      const { success } = await limiter.limit(getIp(req))
+      if (!success) return NextResponse.json({ error: 'Too many report requests. Please try again in 10 minutes.' }, { status: 429 })
+    }
+  } catch (error) {
+    console.warn('[fitout-report] Rate limiter unavailable:', error)
+  }
+
+  try {
+    const parsed = parseReportRequest(await req.json())
+    if (parsed.honeypot) return NextResponse.json({ ok: true })
+    if (!parsed.data) return NextResponse.json({ error: parsed.error || 'Invalid request' }, { status: 400 })
+
+    const estimate = calculateFitoutEstimate(parsed.data)
+    if (!estimate) return NextResponse.json({ error: 'Unable to calculate this estimate' }, { status: 400 })
+
+    const data: ReportData = {
+      ...parsed.data,
+      totalLow: estimate.totalLow,
+      totalHigh: estimate.totalHigh,
+      perSqmLow: estimate.perSqm.low,
+      perSqmHigh: estimate.perSqm.high,
+      breakdown: estimate.breakdown,
+      coverageNote: estimate.coverageNote,
+    }
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) return NextResponse.json({ error: 'Report delivery is temporarily unavailable' }, { status: 503 })
+
+    const resend = new Resend(apiKey)
+    const reportResult = await resend.emails.send({
+      from: 'Your Office Space <notifications@yourofficespace.au>',
+      to: data.email,
+      replyTo: 'jk@yourofficespace.au',
+      subject: `Your Fitout Estimate — ${data.sqm}m² ${data.tier} · Your Office Space`,
+      html: buildEmailHtml(data),
+    })
+    if (reportResult.error) {
+      console.error('[fitout-report] Customer email failed:', reportResult.error)
+      return NextResponse.json({ error: 'We could not send the report. Please try again shortly.' }, { status: 502 })
     }
 
-    if (!body.email || !body.name) {
-      return NextResponse.json({ error: 'Name and email are required' }, { status: 400 })
+    // Preview acceptance proves the customer-delivery contract only. Keep
+    // synthetic preview submissions out of production notifications and CRM.
+    if (isPreviewDeployment()) {
+      return NextResponse.json({ ok: true, preview: true, message: 'Your report has been emailed. Check your inbox.' })
     }
 
-    // 1. Send branded email to customer
-    const emailHtml = buildEmailHtml(body)
-    const emailPayload = {
-      to: [{ email: body.email, name: body.name }],
-      subject: `Your Fitout Estimate — ${body.sqm}m² ${body.tier} · Your Office Space`,
-      html: emailHtml,
-      from: { name: 'Your Office Space', email: 'hello@yourofficespace.au' },
-      replyTo: { name: 'Your Office Space', email: 'jk@yourofficespace.au' },
-    }
+    const safeName = escapeHtml(data.name)
+    const safeEmail = escapeHtml(data.email)
+    const safePhone = data.phone ? escapeHtml(data.phone) : ''
 
-    // Use Upstash as a queue — Inbox EA picks it up and sends via Resend
-    await redisSet('yos:email:outbound', JSON.stringify({
-      type: 'fitout-report',
-      payload: emailPayload,
-      createdAt: new Date().toISOString(),
-    }))
+    // Customer delivery is the success contract. Internal notification and CRM
+    // enrichment are attempted separately so a secondary outage cannot cause a
+    // duplicate customer email on retry.
+    const notification = resend.emails.send({
+      from: 'YOS Website <notifications@yourofficespace.au>',
+      to: 'jk@yourofficespace.au',
+      replyTo: data.email,
+      subject: `New fitout estimate lead — ${data.name} (${data.email})`,
+      html: `<p>New fitout estimate submitted.</p><p><strong>${safeName}</strong> · ${safeEmail}${safePhone ? ` · ${safePhone}` : ''}</p><p>${data.sqm}m² · ${data.tier} · ${data.fitoutType === 'furniture-only' ? 'Furniture only' : `Full fitout (${data.shellCondition} shell)`}</p><p>Estimate: ${fmt(data.totalLow)}–${fmt(data.totalHigh)} ex GST</p><p><a href="${HUBSPOT.bookingUrl}">Book follow-up call</a></p>`,
+    })
 
-    // 2. Notify Joe
-    await redisSet('yos:email:outbound', JSON.stringify({
-      type: 'fitout-report-notification',
-      payload: {
-        to: [{ email: 'jk@yourofficespace.au', name: 'Joe Kelley' }],
-        subject: `New fitout estimate lead — ${body.name} (${body.email})`,
-        html: `<p>New fitout estimate submitted.</p><p><strong>${body.name}</strong> · ${body.email}${body.phone ? ` · ${body.phone}` : ''}</p><p>${body.sqm}m² · ${body.tier} · ${body.fitoutType === 'furniture-only' ? 'Furniture only' : 'Full fitout' + (body.shellCondition === 'cold' ? ' (cold shell)' : ' (warm shell)')}</p><p>Estimate: $${body.totalLow.toLocaleString()}–$${body.totalHigh.toLocaleString()} ex GST</p><p><a href="${HUBSPOT.bookingUrl}">Book follow-up call</a></p>`,
-        from: { name: 'Your Office Space', email: 'noreply@yourofficespace.au' },
-        replyTo: { name: 'Your Office Space', email: 'jk@yourofficespace.au' },
-      },
-      createdAt: new Date().toISOString(),
-    }))
-
-    // 3. Queue HubSpot deal creation (Inbox EA picks this up)
-    await redisSet('yos:hubspot:actions', JSON.stringify({
+    const crmQueue = redisSet('yos:hubspot:actions', JSON.stringify({
       action: 'create-deal',
       data: {
-        title: `Fitout Estimate — ${body.name}`,
-        email: body.email,
-        phone: body.phone || '',
+        title: `Fitout Estimate — ${data.name}`,
+        email: data.email,
+        phone: data.phone || '',
         company: '',
         pipeline: 'furniture',
         stage: 'New Enquiry',
-        amount: Math.round((body.totalLow + body.totalHigh) / 2),
+        amount: Math.round((data.totalLow + data.totalHigh) / 2),
         closeDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
         notes: [
-          `Fitout type: ${body.fitoutType}`,
-          `Size: ${body.sqm}m²`,
-          `Tier: ${body.tier}`,
-          body.fitoutType !== 'furniture-only' ? `Shell: ${body.shellCondition}` : null,
-          `Workstation type: ${body.workstationType}`,
-          `Desks: ${body.desks}, Meeting rooms: ${body.meetingRooms}`,
-          `Kitchen: ${body.hasKitchen ? 'Yes' : 'No'}`,
-          `Reception: ${body.hasReception ? 'Yes' : 'No'}`,
-          `AV: ${body.hasAV ? 'Yes' : 'No'}`,
+          `Fitout type: ${data.fitoutType}`,
+          `Size: ${data.sqm}m²`,
+          `Tier: ${data.tier}`,
+          data.fitoutType !== 'furniture-only' ? `Shell: ${data.shellCondition}` : null,
+          `Workstation type: ${data.workstationType}`,
+          `Desks: ${data.desks}, Meeting rooms: ${data.meetingRooms}`,
+          `Kitchen: ${data.hasKitchen ? 'Yes' : 'No'}`,
+          `Reception: ${data.hasReception ? 'Yes' : 'No'}`,
+          `AV: ${data.hasAV ? 'Yes' : 'No'}`,
           `Source: fitout-estimator`,
         ].filter(Boolean).join('\n'),
         source: 'fitout-estimator',
@@ -169,8 +256,17 @@ export async function POST(req: NextRequest) {
       createdAt: new Date().toISOString(),
     }))
 
-    return NextResponse.json({ ok: true, message: 'Estimate sent and deal queued' })
-  } catch (e: unknown) {
-    return NextResponse.json({ error: String(e) }, { status: 500 })
+    const [notificationResult, crmResult] = await Promise.allSettled([notification, crmQueue])
+    if (notificationResult.status === 'rejected' || (notificationResult.status === 'fulfilled' && notificationResult.value.error)) {
+      console.error('[fitout-report] Internal notification failed')
+    }
+    if (crmResult.status === 'rejected' || (crmResult.status === 'fulfilled' && !crmResult.value)) {
+      console.warn('[fitout-report] CRM queue unavailable')
+    }
+
+    return NextResponse.json({ ok: true, message: 'Your report has been emailed. Check your inbox.' })
+  } catch (error: unknown) {
+    console.error('[fitout-report] Request failed:', error)
+    return NextResponse.json({ error: 'We could not send the report. Please try again shortly.' }, { status: 500 })
   }
 }

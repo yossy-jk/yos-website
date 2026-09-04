@@ -4,6 +4,9 @@
 @theme inline {
   --color-teal: rgb(0 181 165);
   --color-dark-teal: rgb(0 143 130);
+  --color-action-teal: rgb(0 121 111);
+  --color-action-teal-hover: rgb(0 109 99);
+  --color-readable-grey: rgb(102 102 102);
   --color-light-teal: rgb(224 245 243);
   --color-near-black: #1A1A1A;
   --color-warm-grey: #F5F5F5;
@@ -329,6 +332,24 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2px;
 }
 
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: #ffffff;
+  color: #0a0a0a;
+  font-weight: 700;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
 /* ─── Selection ──────────────────────────────────────────── */
 ::selection {
   background: #00B5A5;
@@ -431,3 +452,45 @@ input[type='range']::-moz-range-thumb {
 .bg-teal-5  { background-color: rgba(0, 181, 165, 0.05); }
 .bg-teal-10 { background-color: rgba(0, 181, 165, 0.10); }
 .bg-teal-50 { background-color: rgba(0, 181, 165, 0.50); }
+
+/* White copy needs a darker teal surface to meet WCAG AA at small sizes. */
+.bg-teal.text-white {
+  background-color: var(--color-action-teal);
+}
+.bg-teal.text-white:hover {
+  background-color: var(--color-action-teal-hover);
+}
+
+/* Preserve the bright brand teal on dark surfaces; darken it on light ones. */
+.bg-white .text-teal,
+.bg-white.text-teal,
+.bg-warm-grey .text-teal,
+.bg-warm-grey.text-teal {
+  color: var(--color-action-teal);
+}
+
+.bg-white .text-mid-grey,
+.bg-white.text-mid-grey,
+.bg-warm-grey .text-mid-grey,
+.bg-warm-grey.text-mid-grey {
+  color: var(--color-readable-grey);
+}
+
+.bg-white .text-charcoal\/60,
+.bg-warm-grey .text-charcoal\/60 {
+  color: var(--color-readable-grey);
+}
+
+/* A light ancestor can contain a nested dark card; restore the brighter accent there. */
+.bg-near-black .text-teal {
+  color: var(--color-teal);
+}
+
+/* Low-opacity body copy on dark surfaces was below 4.5:1 in the axe audit. */
+.text-white\/20:not(:disabled),
+.text-white\/30:not(:disabled),
+.text-white\/35:not(:disabled),
+.text-white\/40:not(:disabled),
+.text-white\/45:not(:disabled) {
+  color: rgb(255 255 255 / 0.55);
+}

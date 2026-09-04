@@ -53,15 +53,15 @@ export default function TodayTab(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
-      if (saved) setEnergy(parseInt(saved))
-    }
+    const savedEnergy = typeof window === 'undefined'
+      ? null
+      : localStorage.getItem('yos-energy-' + new Date().toDateString())
     Promise.all([
       fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/api/tasks-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(([d, i, t]: [DashData | null, IntelData | null, TasksData | null]) => {
+      if (savedEnergy) setEnergy(parseInt(savedEnergy, 10))
       setData(d)
       setIntel(i)
       setTasks(t)

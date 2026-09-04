@@ -12,11 +12,21 @@ export default function InnovationTab() {
   const [loading, setLoading] = useState(true)
 
   const [refreshing, setRefreshing] = useState(false)
+  const requestData = useCallback(() =>
+    fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null), [])
+
   const load = useCallback(() => {
     setRefreshing(true)
-    fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false); setRefreshing(false) }).catch(() => { setLoading(false); setRefreshing(false) })
-  }, [])
-  useEffect(() => { load() }, [load])
+    requestData().then(d => { setData(d); setLoading(false) }).catch(() => { setLoading(false) }).finally(() => setRefreshing(false))
+  }, [requestData])
+
+  useEffect(() => {
+    let cancelled = false
+    requestData()
+      .then(d => { if (!cancelled) { setData(d); setLoading(false) } })
+      .catch(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [requestData])
 
   if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
     <div>Loading innovation data...</div>

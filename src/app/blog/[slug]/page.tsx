@@ -85,7 +85,7 @@ function applyInternalLinks(text: string, currentSlug: string): React.ReactNode[
         // Skip if this would link to the current post
         if (!href.includes(currentSlug)) {
           parts.push(
-            <Link key={key++} href={href} className="text-teal font-medium no-underline hover:text-dark-teal transition-colors border-b border-teal/30 hover:border-teal">
+            <Link key={key++} href={href} className="text-action-teal font-medium no-underline hover:text-dark-teal transition-colors border-b border-teal/30 hover:border-teal">
               {remaining.slice(0, keyword.length)}
             </Link>
           )
@@ -253,7 +253,7 @@ function renderBody(body: string, slug: string) {
       if (match) {
         elements.push(
           <Link key={key++} href={match[2]}
-            className="inline-block text-teal font-semibold no-underline hover:text-dark-teal transition-colors"
+            className="inline-block text-action-teal font-semibold no-underline hover:text-dark-teal transition-colors"
             style={{ margin: '0.5rem 0', fontSize: '0.95rem' }}>
             {match[1]} →
           </Link>
@@ -315,6 +315,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
 
       {/* ── HERO ─────────────────────────────────── */}
       <section className="relative bg-near-black overflow-hidden" style={{ minHeight: 'clamp(24rem,48vw,38rem)' }}>
@@ -405,7 +407,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Back link */}
               <div style={{ marginTop: '2.5rem' }}>
-                <Link href="/blog" style={{ color: '#00B5A5', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.05em' }}
+                <Link href="/blog" style={{ color: '#00796F', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.05em' }}
                   className="hover:text-dark-teal transition-colors">
                   ← All articles
                 </Link>
@@ -416,9 +418,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <aside style={{ position: 'sticky', top: '6rem' }}>
               {/* About the author */}
               <div style={{ background: '#F9FAFB', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem', border: '1px solid #E5E7EB' }}>
-                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9CA3AF', marginBottom: '1rem' }}>About the author</p>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666666', marginBottom: '1rem' }}>About the author</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginBottom: '0.875rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#00796F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>JK</span>
                   </div>
                   <div>
@@ -444,7 +446,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <Link key={s.href} href={s.href} style={{ display: 'block', marginBottom: '0.875rem', textDecoration: 'none' }}
                     className="group">
                     <p style={{ color: 'white', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.2rem' }} className="group-hover:text-teal transition-colors">{s.label}</p>
-                    <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.75rem', fontWeight: 300 }}>{s.desc}</p>
+                    <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.75rem', fontWeight: 300 }}>{s.desc}</p>
                   </Link>
                 ))}
               </div>
@@ -452,7 +454,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* Related articles */}
               {relatedPosts.length > 0 && (
                 <div style={{ border: '1px solid #E5E7EB', borderRadius: '0.875rem', padding: '1.75rem' }}>
-                  <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#9CA3AF', marginBottom: '1.25rem' }}>Related articles</p>
+                  <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666666', marginBottom: '1.25rem' }}>Related articles</p>
                   {relatedPosts.map((rp, i) => (
                     <Link key={rp.slug} href={`/blog/${rp.slug}`} style={{ display: 'block', textDecoration: 'none', paddingBottom: i < relatedPosts.length - 1 ? '1rem' : 0, marginBottom: i < relatedPosts.length - 1 ? '1rem' : 0, borderBottom: i < relatedPosts.length - 1 ? '1px solid #F3F4F6' : 'none' }}
                       className="group">
@@ -469,7 +471,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Tools CTA */}
               <div style={{ marginTop: '1.5rem', background: '#F0FDFB', border: '1px solid #00B5A520', borderRadius: '0.875rem', padding: '1.75rem' }}>
-                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '0.875rem' }}>Free tools</p>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00796F', marginBottom: '0.875rem' }}>Free tools</p>
                 {[
                   { label: 'Lease Risk Checker', href: '/resources/lease-review' },
                   { label: 'Lease Comparison Tool', href: '/resources/lease-comparison' },
@@ -487,6 +489,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

@@ -658,7 +658,7 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
   const internalStageRef = useRef<Konva.Stage>(null);
   const stageRef = externalStageRef ?? internalStageRef;
 
-  const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
+  const handleWheel = (e: Konva.KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
     const scaleBy = 1.06;
     const stage = stageRef.current;
@@ -677,14 +677,14 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
       x: pointer.x - mousePointTo.x * clampedScale,
       y: pointer.y - mousePointTo.y * clampedScale,
     });
-  }, [stageScale, stagePos, stageRef]);
+  };
 
-  const handleStageClick = useCallback((e: Konva.KonvaEventObject<MouseEvent>) => {
+  const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     if (e.target === stageRef.current) {
       setSelected(null);
       setSelectedRoom(null);
     }
-  }, [setSelected, setSelectedRoom, stageRef]);
+  };
 
   const handleRoomDragEnd = useCallback((id: string, xM: number, yM: number) => {
     updateRoom(id, { xM, yM });

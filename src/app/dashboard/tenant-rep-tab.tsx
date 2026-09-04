@@ -166,7 +166,10 @@ export default function TenantRepTab() {
     } catch { /* silent */ } finally { setLoading(false) }
   }, [])
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    const timer = window.setTimeout(load, 0)
+    return () => window.clearTimeout(timer)
+  }, [load])
 
   const selProps = selProp ? properties : properties
   const updateStage = async (id: string, stage: Stage) => {

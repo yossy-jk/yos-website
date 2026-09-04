@@ -72,6 +72,8 @@ export default function SalesPartnersPage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{
         background: '#0A0A0A',
@@ -194,6 +196,8 @@ export default function SalesPartnersPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

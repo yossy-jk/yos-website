@@ -127,10 +127,6 @@ export default function Search() {
     el?.scrollIntoView({ block: 'nearest' })
   }, [active])
 
-  useEffect(() => {
-    setActive(0)
-  }, [query])
-
   // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -177,12 +173,12 @@ export default function Search() {
                 type="text"
                 placeholder="Search services, tools, articles..."
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={e => { setQuery(e.target.value); setActive(0) }}
                 className="flex-1 bg-transparent border-none outline-none text-white placeholder-white/25 font-light"
                 style={{ fontSize: '0.95rem' }}
               />
               {query && (
-                <button onClick={() => setQuery('')} className="text-white/30 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0">
+                <button onClick={() => { setQuery(''); setActive(0) }} className="text-white/30 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0">
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                   </svg>

@@ -1,6 +1,5 @@
 import { requireAuth } from '@/lib/auth'
-import { NextRequest, NextResponse } from 'next/server'
-import { getCurrentUser } from '@/lib/auth-v2'
+import { NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
 
@@ -146,7 +145,7 @@ function calcDaysRemaining(targetDate: string): number {
   return Math.max(0, Math.ceil((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const auth = await requireAuth()
   if (!auth.ok) return auth.response
 
@@ -200,7 +199,7 @@ export async function GET(req: NextRequest) {
     } catch { /* file may not exist */ }
 
     // Read training log
-    let aiCompliance = { tracesThisWeek: 0, qualityPassRate: null as number | null, lastAudit: null as string | null }
+    const aiCompliance = { tracesThisWeek: 0, qualityPassRate: null as number | null, lastAudit: null as string | null }
     try {
       const trainingContent = await fs.readFile(TRAINING_LOG, 'utf8')
       const { total, pass } = parseTrainingLog(trainingContent)
@@ -215,24 +214,29 @@ export async function GET(req: NextRequest) {
       }
     } catch { /* ignore */ }
 
-    // Try Langfuse for trace count
-    try {
-      const langfuseRes = await fetch('http://100.80.229.101:3000/api/public/traces?limit=50', {
-        headers: {
-          Authorization: 'Basic ' + Buffer.from('pk-lf-9a11f899-5a57-4d4b-97f2-99cbb0da48d2:sk-lf-3c0f27e9-17ee-49a8-b35c-53fdfe2ebd9e').toString('base64'),
-        },
-        signal: AbortSignal.timeout(5000),
-      })
-      if (langfuseRes.ok) {
-        const langfuseData = await langfuseRes.json()
-        const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
-        const recentTraces = (langfuseData.data || []).filter((t: { timestamp?: string }) => {
-          if (!t.timestamp) return false
-          return new Date(t.timestamp).getTime() >= sevenDaysAgo
+    // Try Langfuse for trace count only when secret-backed configuration is complete.
+    const langfuseBaseUrl = process.env.LANGFUSE_BASE_URL
+    const langfusePublicKey = process.env.LANGFUSE_PUBLIC_KEY
+    const langfuseSecretKey = process.env.LANGFUSE_SECRET_KEY
+    if (langfuseBaseUrl && langfusePublicKey && langfuseSecretKey) {
+      try {
+        const langfuseRes = await fetch(`${langfuseBaseUrl.replace(/\/$/, '')}/api/public/traces?limit=50`, {
+          headers: {
+            Authorization: 'Basic ' + Buffer.from(`${langfusePublicKey}:${langfuseSecretKey}`).toString('base64'),
+          },
+          signal: AbortSignal.timeout(5000),
         })
-        aiCompliance.tracesThisWeek = recentTraces.length
-      }
-    } catch { /* Langfuse unreachable */ }
+        if (langfuseRes.ok) {
+          const langfuseData = await langfuseRes.json() as { data?: Array<{ timestamp?: string }> }
+          const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000
+          const recentTraces = (langfuseData.data || []).filter((trace) => {
+            if (!trace.timestamp) return false
+            return new Date(trace.timestamp).getTime() >= sevenDaysAgo
+          })
+          aiCompliance.tracesThisWeek = recentTraces.length
+        }
+      } catch { /* Langfuse unreachable */ }
+    }
 
     const targetDate = '2026-06-03'
     const daysRemaining = calcDaysRemaining(targetDate)

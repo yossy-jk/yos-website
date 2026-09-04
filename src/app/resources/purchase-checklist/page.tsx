@@ -96,6 +96,8 @@ export default function PurchaseChecklistPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
@@ -180,6 +182,8 @@ export default function PurchaseChecklistPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

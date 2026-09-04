@@ -16,9 +16,9 @@ export default function Footer() {
             <p className="text-white font-black uppercase tracking-[0.2em] mb-4" style={{ fontSize: '0.72rem' }}>
               Your Office Space
             </p>
-            <p className="text-white/35 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
+            <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
               Australia&apos;s tenant-side commercial property team. Lease, fitout, furniture, cleaning.
-            <span className="block mt-3 text-teal/70 italic" style={{ fontSize: '0.8rem' }}>We pick up the phone.</span>
+            <span className="block mt-3 text-teal italic" style={{ fontSize: '0.8rem' }}>We pick up the phone.</span>
             </p>
           </div>
 
@@ -34,7 +34,7 @@ export default function Footer() {
                 { label: 'Lease Review', href: '/lease-review' },
               ].map(link => (
                 <Link key={link.href} href={link.href}
-                  className="text-white/35 font-light no-underline hover:text-white transition-colors"
+                  className="text-white/55 font-light no-underline hover:text-white transition-colors"
                   style={{ fontSize: '0.875rem' }}>
                   {link.label}
                 </Link>
@@ -54,7 +54,7 @@ export default function Footer() {
                 { label: 'Contact', href: '/contact' },
               ].map(link => (
                 <Link key={link.href} href={link.href}
-                  className="text-white/35 font-light no-underline hover:text-white transition-colors"
+                  className="text-white/55 font-light no-underline hover:text-white transition-colors"
                   style={{ fontSize: '0.875rem' }}>
                   {link.label}
                 </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.phone}
               </a>
-              <p className="text-white/35 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
+              <p className="text-white/55 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
                 Newcastle · Sydney · Central Coast<br />Illawarra · Mid North Coast · Regional NSW
               </p>
             </div>
@@ -87,28 +87,28 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
           style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: '2rem' }}>
           <div className="flex flex-col gap-1">
-            <p className="text-white/35 font-light" style={{ fontSize: '0.78rem' }}>
+            <p className="text-white/55 font-light" style={{ fontSize: '0.78rem' }}>
               © {new Date().getFullYear()} Your Office Space Pty Ltd. All rights reserved.
             </p>
-            <p className="text-white/30 font-light" style={{ fontSize: '0.72rem' }}>
+            <p className="text-white/55 font-light" style={{ fontSize: '0.72rem' }}>
               NSW Real Estate Licence 20565455
             </p>
           </div>
           <div className="flex items-center gap-6">
             <Link href="/privacy"
-              className="text-white/40 font-light no-underline hover:text-teal transition-colors"
+              className="text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Privacy Policy
             </Link>
             <Link href="/terms"
-              className="text-white/40 font-light no-underline hover:text-teal transition-colors"
+              className="text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Terms
             </Link>
             <a
               href="https://www.linkedin.com/company/your-office-space-au"
               target="_blank" rel="noopener noreferrer"
-              className="text-white/40 font-light no-underline hover:text-teal transition-colors"
+              className="text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               LinkedIn →
             </a>

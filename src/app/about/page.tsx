@@ -33,6 +33,8 @@ export default function AboutPage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="bg-near-black relative overflow-hidden" style={SEC_SM}>
         <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -414,6 +416,8 @@ export default function AboutPage() {
           </FadeIn>
         </div>
       </section>
+
+      </main>
 
       <Footer />
       <BookingCTA label="Book a Free Consultation" />

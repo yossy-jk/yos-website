@@ -6,7 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links",
+    "test:credential-scan": "node --test scripts/scan-source-credentials.test.mjs",
+    "test:download-token": "node --test src/lib/download-token.test.mjs",
+    "test:fitout-estimate": "node --no-warnings --experimental-strip-types --test src/lib/fitout-estimate.test.ts",
+    "test:auth-v2-session": "node --no-warnings --experimental-strip-types --test src/lib/auth-v2-session.test.ts",
+    "test:deployment-scope": "node --no-warnings --experimental-strip-types --test src/lib/deployment-scope.test.ts",
+    "test:nav-accessibility": "node --test scripts/nav-accessibility.test.mjs",
+    "test:form-accessibility": "node --test scripts/form-accessibility.test.mjs",
+    "test:color-contrast": "node --test scripts/color-contrast.test.mjs",
+    "test:audit-dependencies": "node --test scripts/audit-dependencies.test.mjs",
+    "test:main-landmark": "node --test scripts/main-landmark.test.mjs",
+    "test:internal-links": "node --test scripts/internal-link-routes.test.mjs",
+    "scan:credentials": "node scripts/scan-source-credentials.mjs",
+    "audit:dependencies": "node scripts/audit-dependencies.mjs",
+    "check": "npm test && npm run scan:credentials && npm run lint && npm run audit:dependencies && npm run build"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",
@@ -19,7 +34,7 @@
     "konva": "^10.2.5",
     "lucide-react": "^1.8.0",
     "nanoid": "^5.1.9",
-    "next": "^16.2.4",
+    "next": "^16.3.4",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hot-toast": "^2.6.0",
@@ -34,8 +49,8 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.4",
-    "puppeteer": "^24.41.0",
+    "eslint-config-next": "^16.3.4",
+    "puppeteer": "^25.9.0",
     "tailwindcss": "^4.2.3",
     "typescript": "5.9.3"
   }

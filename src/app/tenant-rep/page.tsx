@@ -33,6 +33,9 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 export default function TenantRepPage() {
   return (
     <>
+      <Nav />
+
+      <main id="main-content" tabIndex={-1}>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
         {
                 "@context": "https://schema.org",
@@ -106,7 +109,7 @@ export default function TenantRepPage() {
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
-              Every lease negotiation has two sides. The landlord's agent is an expert at protecting their client.
+              Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
               We exist to make sure you have the same. Independent representation across Australia —
               negotiating rent, terms, incentives, and every clause that matters.
             </p>
@@ -128,7 +131,7 @@ export default function TenantRepPage() {
       </section>
 
       {/* ─── STATS BAR ────────────────────────────────────── */}
-      <section className="bg-teal" style={SEC_SM}>
+      <section className="bg-teal text-white" style={SEC_SM}>
         <div className={WRAP} style={PAD}>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
@@ -139,7 +142,7 @@ export default function TenantRepPage() {
             ].map((item) => (
               <div key={item.label}>
                 <p className="text-white font-black leading-none mb-2" style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>{item.stat}</p>
-                <p className="text-white/80 font-light leading-snug" style={{ fontSize: '0.85rem' }}>{item.label}</p>
+                <p className="text-white font-light leading-snug" style={{ fontSize: '0.85rem' }}>{item.label}</p>
               </div>
             ))}
           </div>
@@ -568,6 +571,8 @@ export default function TenantRepPage() {
           })
         }}
       />
+
+      </main>
 
       <Footer />
     </>

@@ -260,8 +260,6 @@ function calcTAS(value: number, ownerType: OwnerType): LandTaxResult {
 function calcACT(value: number, ownerType: OwnerType): LandTaxResult {
   // ACT: all investment property pays, no threshold
   const threshold = 0
-  let tax = 0
-  let calcNote: string | undefined
 
   // ACT: Fixed $1,326 + progressive rates
   // Rate 1: 0.54% on first $150k
@@ -273,9 +271,8 @@ function calcACT(value: number, ownerType: OwnerType): LandTaxResult {
   const r2 = Math.max(0, Math.min(value, 275000) - 150000) * 0.0064
   const r3 = Math.max(0, Math.min(value, 2000000) - 275000) * 0.0109
   const r4 = Math.max(0, value - 2000000) * 0.0112
-  tax = base + r1 + r2 + r3 + r4
-
-  calcNote = `$1,326 fixed + progressive rates on ${fmt(value)}`
+  const tax = base + r1 + r2 + r3 + r4
+  const calcNote = `$1,326 fixed + progressive rates on ${fmt(value)}`
 
   void ownerType
   return buildResult(
@@ -389,6 +386,8 @@ export default function LandTaxCalculatorPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
 
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(6rem,14vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ ...WRAP, paddingTop: 'clamp(4rem,8vw,6rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
@@ -646,6 +645,8 @@ export default function LandTaxCalculatorPage() {
           </p>
         </div>
       </div>
+      </main>
+
       <Footer />
     </>
   )

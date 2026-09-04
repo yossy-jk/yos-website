@@ -13,6 +13,7 @@ import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 
 import HubSpotForm from '@/components/HubSpotForm'
+import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
@@ -131,6 +132,8 @@ export default function FurniturePage() {
         ]
       }) }} />
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black"
@@ -291,7 +294,7 @@ export default function FurniturePage() {
           <FadeIn>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
               <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: 'clamp(0.9rem,1.5vw,1.05rem)' }}>
-                Not sure what you need? Tell us your headcount and we'll put together options.
+                Not sure what you need? Tell us your headcount and we&apos;ll put together options.
               </p>
               <Button href="/resources/furniture-quote" variant="primary" size="md">
                 Request a Quote →
@@ -434,7 +437,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-white/30 font-light text-xs tracking-widest uppercase text-center mb-8">Trusted by organisations across NSW</p>
-            <div className="flex flex-wrap justify-center gap-8 items-center opacity-40">
+            <div className="flex flex-wrap justify-center gap-8 items-center opacity-60">
               {['Local Councils', 'Schools & Universities', 'Health Facilities', 'Professional Services', 'Government Bodies'].map(name => (
                 <span key={name} className="text-white font-bold text-sm tracking-wide uppercase" style={{ fontSize: '0.8rem' }}>{name}</span>
               ))}
@@ -536,6 +539,8 @@ export default function FurniturePage() {
         </FadeIn>
       </section>
 
+      <FurnitureVoucherSection />
+
       {/* INLINE QUOTE FORM */}
       <section className="bg-near-black" style={SEC}>
         <FadeIn>
@@ -571,6 +576,8 @@ export default function FurniturePage() {
       </section>
 
 <BookingCTA label="Book a Free Consultation" />
+      </main>
+
       <Footer />
     </>
   )

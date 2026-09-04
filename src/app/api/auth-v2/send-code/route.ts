@@ -7,7 +7,9 @@
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { randomInt } from 'crypto'
 import { redisGet, redisSet, redisDel, redisIncr } from '@/lib/auth-v2'
+import { hashOneTimeCode } from '@/lib/auth-session'
 
 export const runtime = 'nodejs'
 
@@ -19,6 +21,15 @@ const SEND_WINDOW_SEC = 900 // 15 minutes — rate limit window
 const ALLOWED_EMAILS = ['jk@yourofficespace.au']
 // Security: alert recipient for suspicious access
 const SECURITY_ALERT_EMAIL = 'jk@yourofficespace.au'
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+}
 
 function getIp(req: NextRequest): string {
   const fwd = req.headers.get('x-forwarded-for')
@@ -33,8 +44,12 @@ async function getSendCount(ip: string): Promise<number> {
   const raw = await redisGet(key)
   if (!raw) return 0
   if (typeof raw === 'string') {
-    try { return parseInt(raw, 10) } catch { /* fall through */ }
-    try { return parseInt(JSON.parse(raw) as string, 10) } catch { return 0 }
+    const parsed = Number.parseInt(raw, 10)
+    if (Number.isFinite(parsed)) return parsed
+    try {
+      const decoded = Number.parseInt(JSON.parse(raw) as string, 10)
+      return Number.isFinite(decoded) ? decoded : 0
+    } catch { return 0 }
   }
   if (typeof raw === 'object' && raw !== null) {
     const obj = raw as Record<string, unknown>
@@ -55,6 +70,9 @@ async function sendAlertEmail(ip: string, email: string, attemptCount: number): 
   if (!apiKey) return
   const resend = new Resend(apiKey)
   const time = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' })
+  const safeEmail = escapeHtml(email)
+  const safeIp = escapeHtml(ip)
+  const safeTime = escapeHtml(time)
   await resend.emails.send({
     from: 'YOS Dashboard <notifications@yourofficespace.au>',
     to: SECURITY_ALERT_EMAIL,
@@ -71,11 +89,11 @@ async function sendAlertEmail(ip: string, email: string, attemptCount: number): 
           <table style="width:100%;border-collapse:collapse;font-size:13px">
             <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
               <td style="padding:10px 0;color:rgba(255,255,255,0.4)">Email attempted</td>
-              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${email}</td>
+              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${safeEmail}</td>
             </tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
               <td style="padding:10px 0;color:rgba(255,255,255,0.4)">IP address</td>
-              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${ip}</td>
+              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${safeIp}</td>
             </tr>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.06)">
               <td style="padding:10px 0;color:rgba(255,255,255,0.4)">Failed attempts</td>
@@ -83,7 +101,7 @@ async function sendAlertEmail(ip: string, email: string, attemptCount: number): 
             </tr>
             <tr>
               <td style="padding:10px 0;color:rgba(255,255,255,0.4)">Time (AEST)</td>
-              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${time}</td>
+              <td style="padding:10px 0;color:white;font-weight:600;text-align:right">${safeTime}</td>
             </tr>
           </table>
           <p style="color:rgba(255,255,255,0.35);font-size:12px;margin-top:20px">If this wasn't you, consider changing your password or contacting your IT support.</p>
@@ -97,7 +115,7 @@ async function sendCodeEmail(email: string, code: string): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) throw new Error('RESEND_API_KEY not configured')
   const resend = new Resend(apiKey)
-  await resend.emails.send({
+  const result = await resend.emails.send({
     from: 'YOS Dashboard <notifications@yourofficespace.au>',
     to: email,
     subject: 'Your YOS Dashboard sign-in code',
@@ -119,6 +137,7 @@ async function sendCodeEmail(email: string, code: string): Promise<void> {
     `,
     text: `Your YOS Dashboard sign-in code: ${code}\n\nThis code expires in 5 minutes.\nyourofficespace.au/dashboard`,
   })
+  if (result.error) throw new Error('Email provider rejected the sign-in code')
 }
 
 export async function POST(req: NextRequest) {
@@ -132,7 +151,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }
 
-  if (!email || !email.includes('@')) {
+  if (!email || email.length > 200 || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: 'Valid email required' }, { status: 400 })
   }
 
@@ -160,21 +179,30 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const code = Math.floor(100000 + Math.random() * 900000).toString()
+  const code = randomInt(100000, 1000000).toString()
+  const authSecret = process.env.AUTH_COOKIE_SECRET
+  if (!authSecret || authSecret.length < 32) {
+    return NextResponse.json({ error: 'Sign-in service is temporarily unavailable.' }, { status: 503 })
+  }
+  const codeHash = hashOneTimeCode(code, authSecret)
 
   // Delete any existing code first — prevents old code being used if new code was sent
   // then old code was accidentally copy-pasted from email
   await redisDel(`2fa:code:${email}`)
 
-  await redisSet(
+  const stored = await redisSet(
     `2fa:code:${email}`,
-    JSON.stringify({ hash: code, attempts: 0, maxed: false }),
+    JSON.stringify({ hash: codeHash, attempts: 0, maxed: false }),
     CODE_TTL_SEC
   )
+  if (!stored) {
+    return NextResponse.json({ error: 'Sign-in service is temporarily unavailable.' }, { status: 503 })
+  }
 
   try {
     await sendCodeEmail(email, code)
   } catch (err) {
+    await redisDel(`2fa:code:${email}`)
     console.error('[auth-v2/send-code] Failed to send email:', err)
     return NextResponse.json({ error: 'Failed to send email. Try again shortly.' }, { status: 500 })
   }

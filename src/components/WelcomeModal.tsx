@@ -147,7 +147,7 @@ export default function WelcomeModal() {
           <button
             onClick={() => navigate('/')}
             style={{
-              color: '#666', fontWeight: 400, fontSize: '0.78rem',
+              color: '#9B9B9B', fontWeight: 400, fontSize: '0.78rem',
               background: 'none', border: 'none', cursor: 'pointer',
               textDecoration: 'underline', textDecorationColor: '#444',
               textUnderlineOffset: '3px',

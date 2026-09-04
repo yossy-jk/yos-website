@@ -355,6 +355,8 @@ export default function WorkspaceBuilderPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       <div className="min-h-screen bg-near-black" style={SEC_SM}>
 
         {/* Progress bar */}
@@ -829,6 +831,8 @@ export default function WorkspaceBuilderPage() {
 
         </div>
       </div>
+
+      </main>
 
       <Footer />
 

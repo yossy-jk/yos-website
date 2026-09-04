@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -126,16 +126,27 @@ export default function LeaseRiskCheckerPage() {
   const [captureError, setCaptureError] = useState<string | null>(null)
   const [captureLoading, setCaptureLoading] = useState(false)
   const [alreadyCaptured, setAlreadyCaptured] = useState(false)
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null)
+  const previousStepRef = useRef<Step>(step)
 
   // Check localStorage on mount
   useEffect(() => {
+    let timer: number | undefined
     try {
       const stored = localStorage.getItem(LS_KEY)
-      if (stored) setAlreadyCaptured(true)
+      if (stored) timer = window.setTimeout(() => setAlreadyCaptured(true), 0)
     } catch {
       // localStorage unavailable — continue without it
     }
+    return () => { if (timer !== undefined) window.clearTimeout(timer) }
   }, [])
+
+  useEffect(() => {
+    if (previousStepRef.current !== step) {
+      stepHeadingRef.current?.focus()
+      previousStepRef.current = step
+    }
+  }, [step])
 
   const currentQ = typeof step === 'number' ? QUESTIONS[step] : null
   const progress = typeof step === 'number'
@@ -227,6 +238,8 @@ export default function LeaseRiskCheckerPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       <div className="min-h-screen bg-near-black" style={{ paddingTop: 'clamp(5rem,12vw,9rem)' }}>
 
         {/* Progress bar */}
@@ -250,7 +263,7 @@ export default function LeaseRiskCheckerPage() {
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free — No document required</span>
               </div>
-              <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+              <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
                 Free Lease Risk Review
               </h1>
@@ -293,7 +306,7 @@ export default function LeaseRiskCheckerPage() {
               </p>
 
               {/* Question */}
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+              <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
                 {currentQ.label}
               </h2>
@@ -309,6 +322,7 @@ export default function LeaseRiskCheckerPage() {
                   <button
                     key={option}
                     onClick={() => handleSelect(option)}
+                    aria-pressed={selected === option}
                     className={`text-left font-medium transition-all duration-150 border ${
                       selected === option
                         ? 'border-teal bg-teal/10 text-white'
@@ -356,7 +370,7 @@ export default function LeaseRiskCheckerPage() {
                 Almost there
               </p>
 
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+              <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
                 Where should we send your risk rating?
               </h2>
@@ -445,7 +459,7 @@ export default function LeaseRiskCheckerPage() {
                 </span>
               </div>
 
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+              <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
                 {risk.level === 'high' ? 'This lease needs attention.' : risk.level === 'medium' ? 'Some things to watch.' : 'Looking reasonable.'}
               </h2>
@@ -478,7 +492,7 @@ export default function LeaseRiskCheckerPage() {
                 <p className="text-white/40 font-light uppercase mb-5" style={{ fontSize: '0.7rem', letterSpacing: '0.15em' }}>Three things to act on</p>
                 <ul className="flex flex-col" style={{ gap: '1.25rem', listStyle: 'none', padding: 0, margin: 0 }}>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                    Get the full clause-by-clause breakdown before you sign or renew anything. Most lease risk is invisible until it isn't.
+                    Get the full clause-by-clause breakdown before you sign or renew anything. Most lease risk is invisible until it isn&apos;t.
                   </li>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
                     Make-good and outgoings clauses are the two most expensive surprises in commercial leases. Know what yours say.
@@ -518,6 +532,8 @@ export default function LeaseRiskCheckerPage() {
           )}
         </div>
       </div>
+
+      </main>
 
       <Footer />
     </>

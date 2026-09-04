@@ -11,8 +11,8 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
-import FurniturePopup from '@/components/FurniturePopup'
 import HubSpotForm from '@/components/HubSpotForm'
+import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Fit Out | Your Office Space',
@@ -91,6 +91,8 @@ export default function OfficeFitoutPage() {
         ]
       }) }} />
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section className="relative min-h-screen flex items-center bg-near-black"
@@ -195,7 +197,7 @@ export default function OfficeFitoutPage() {
                   Fast-track your fitout.
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,1.8vw,1.1rem)', lineHeight: 1.8 }}>
-                  In-stock items dispatched within days. Made-to-order typically 3–6 weeks. If you're up against a lease end or a hard opening date, tell us — we'll map out what's possible and what it'll cost. No guesswork.
+                  In-stock items dispatched within days. Made-to-order typically 3–6 weeks. If you&apos;re up against a lease end or a hard opening date, tell us — we&apos;ll map out what&apos;s possible and what it&apos;ll cost. No guesswork.
                 </p>
               </div>
               <div className="flex-shrink-0">
@@ -220,7 +222,7 @@ export default function OfficeFitoutPage() {
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.85 }}>
-              Send us your floor plan and headcount. We design the layout in 3D before you commit to anything — so you can see how the space works, test different workstation configurations, and know exactly what you're getting before installation day.
+              Send us your floor plan and headcount. We design the layout in 3D before you commit to anything — so you can see how the space works, test different workstation configurations, and know exactly what you&apos;re getting before installation day.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -496,6 +498,8 @@ export default function OfficeFitoutPage() {
         </FadeIn>
       </section>
 
+      <FurnitureVoucherSection />
+
       {/* INLINE QUOTE FORM */}
       <section className="bg-near-black" style={SEC}>
         <FadeIn>
@@ -530,8 +534,9 @@ export default function OfficeFitoutPage() {
         </FadeIn>
       </section>
 
-      <FurniturePopup />
       <BookingCTA label="Book a Free Consultation" />
+      </main>
+
       <Footer />
     </>
   )

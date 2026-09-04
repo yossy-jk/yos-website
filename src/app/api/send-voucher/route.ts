@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { readFileSync } from 'fs'
 import { join } from 'path'
+import { getIp, voucherLimiter } from '@/lib/ratelimit'
+import { isPreviewDeployment } from '@/lib/deployment-scope'
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -109,23 +111,37 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
 
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.RESEND_API_KEY
-    if (!apiKey) {
-      return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
+    const limiter = voucherLimiter()
+    if (limiter) {
+      const { success } = await limiter.limit(getIp(req))
+      if (!success) return NextResponse.json({ error: 'Too many voucher requests. Please try again in 30 minutes.' }, { status: 429 })
     }
+  } catch (error) {
+    console.warn('[send-voucher] Rate limiter unavailable:', error)
+  }
 
+  try {
     const body = await req.json()
     if (body._honey) return NextResponse.json({ ok: true })
 
     const { email, name } = body
 
-    if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : ''
+    if (!normalizedEmail || normalizedEmail.length > 200 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       return NextResponse.json({ error: 'Valid email required' }, { status: 400 })
     }
 
-    const safeName = name ? esc(String(name).slice(0, 200)) : 'there'
-    const safeEmail = email.slice(0, 200)
+    if (name !== undefined && typeof name !== 'string') {
+      return NextResponse.json({ error: 'Invalid name' }, { status: 400 })
+    }
 
+    const safeName = name ? esc(name.trim().slice(0, 100)) : 'there'
+    const safeEmail = normalizedEmail
+
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
+    }
     const resend = new Resend(apiKey)
 
     // Wrap voucher in a personalised email shell
@@ -157,7 +173,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Failed to send' }, { status: 500 })
     }
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true, preview: isPreviewDeployment() })
   } catch (err) {
     console.error('send-voucher crash:', err)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })

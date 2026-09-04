@@ -6,9 +6,12 @@
  * Default URL: https://yos-website-greylh67y-joe-kelleys-projects-8f5ee275.vercel.app
  */
 
-const puppeteer = require('puppeteer')
-const path = require('path')
-const fs = require('fs')
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import puppeteer from 'puppeteer'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const URL = process.argv[2] || 'https://yos-website-greylh67y-joe-kelleys-projects-8f5ee275.vercel.app'
 const OUT_DIR = path.join(__dirname, '..', 'screenshots')
