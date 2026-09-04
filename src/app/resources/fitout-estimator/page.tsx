@@ -67,7 +67,9 @@ export default function FitoutEstimatorPage() {
 
   useEffect(() => {
     if (!previousHasResultRef.current && hasResult) {
-      resultHeadingRef.current?.focus()
+      const heading = resultHeadingRef.current
+      heading?.focus()
+      heading?.scrollIntoView({ block: 'center' })
     }
     previousHasResultRef.current = hasResult
   }, [hasResult])
@@ -547,7 +549,7 @@ export default function FitoutEstimatorPage() {
                 tabIndex={-1}
                 aria-label={`Your estimated fitout cost: ${fmt(storedEstimate!.totalLow)} to ${fmt(storedEstimate!.totalHigh)}`}
                 className="text-white font-black uppercase leading-none tracking-tight mb-3 outline-none"
-                style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}
+                style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1, scrollMarginTop: '7rem' }}
               >
                 {fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}
               </h2>

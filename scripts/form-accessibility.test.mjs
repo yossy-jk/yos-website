@@ -36,7 +36,8 @@ test('multi-step tools move focus to the new step heading', () => {
     assert.match(source, /stepHeadingRef\.current\?\.focus\(\)/)
     assert.match(source, /ref=\{stepHeadingRef\} tabIndex=\{-1\}/)
   }
-  assert.match(fitoutEstimatorSource, /resultHeadingRef\.current\?\.focus\(\)/)
+  assert.match(fitoutEstimatorSource, /heading\?\.focus\(\)/)
+  assert.match(fitoutEstimatorSource, /heading\?\.scrollIntoView\(\{ block: 'center' \}\)/)
   assert.match(fitoutEstimatorSource, /ref=\{resultHeadingRef\}[\s\S]{0,160}aria-label=\{`Your estimated fitout cost:/)
 })
 
