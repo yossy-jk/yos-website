@@ -54,7 +54,9 @@ export default function FitoutEstimatorPage() {
   })
   const [lastShellStep, setLastShellStep] = useState(1)
   const stepHeadingRef = useRef<HTMLHeadingElement>(null)
+  const resultHeadingRef = useRef<HTMLHeadingElement>(null)
   const previousStepRef = useRef(step)
+  const previousHasResultRef = useRef(hasResult)
 
   useEffect(() => {
     if (previousStepRef.current !== step) {
@@ -62,6 +64,13 @@ export default function FitoutEstimatorPage() {
       previousStepRef.current = step
     }
   }, [step])
+
+  useEffect(() => {
+    if (!previousHasResultRef.current && hasResult) {
+      resultHeadingRef.current?.focus({ preventScroll: true })
+    }
+    previousHasResultRef.current = hasResult
+  }, [hasResult])
 
   const set = (k: keyof Inputs, v: string | boolean) => setInputs(prev => ({ ...prev, [k]: v }))
   const isFurnitureOnly = inputs.fitoutType === 'furniture-only'
@@ -533,7 +542,13 @@ export default function FitoutEstimatorPage() {
               <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.65rem' }}>
                 {inputs.sqm}m2 &nbsp;·&nbsp; {RATES['turnkey-warm'][inputs.tier as Tier]?.label ?? inputs.tier} &nbsp;·&nbsp; {isFurnitureOnly ? 'Furniture only' : (inputs.shellCondition === 'cold' ? 'Cold shell' : 'Warm shell')}
               </p>
-              <h2 className="text-white font-black uppercase leading-none tracking-tight mb-3" style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}>
+              <h2
+                ref={resultHeadingRef}
+                tabIndex={-1}
+                aria-label={`Your estimated fitout cost: ${fmt(storedEstimate!.totalLow)} to ${fmt(storedEstimate!.totalHigh)}`}
+                className="text-white font-black uppercase leading-none tracking-tight mb-3 outline-none"
+                style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1 }}
+              >
                 {fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}
               </h2>
               <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>

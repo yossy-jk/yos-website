@@ -36,6 +36,8 @@ test('multi-step tools move focus to the new step heading', () => {
     assert.match(source, /stepHeadingRef\.current\?\.focus\(\{ preventScroll: true \}\)/)
     assert.match(source, /ref=\{stepHeadingRef\} tabIndex=\{-1\}/)
   }
+  assert.match(fitoutEstimatorSource, /resultHeadingRef\.current\?\.focus\(\{ preventScroll: true \}\)/)
+  assert.match(fitoutEstimatorSource, /ref=\{resultHeadingRef\}[\s\S]{0,160}aria-label=\{`Your estimated fitout cost:/)
 })
 
 test('lease upload remains keyboard reachable and exposes its validation error', () => {
