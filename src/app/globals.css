@@ -4,6 +4,8 @@
 @theme inline {
   --color-teal: rgb(0 181 165);
   --color-dark-teal: rgb(0 143 130);
+  --color-action-teal: rgb(0 121 111);
+  --color-action-teal-hover: rgb(0 109 99);
   --color-light-teal: rgb(224 245 243);
   --color-near-black: #1A1A1A;
   --color-warm-grey: #F5F5F5;
@@ -449,3 +451,11 @@ input[type='range']::-moz-range-thumb {
 .bg-teal-5  { background-color: rgba(0, 181, 165, 0.05); }
 .bg-teal-10 { background-color: rgba(0, 181, 165, 0.10); }
 .bg-teal-50 { background-color: rgba(0, 181, 165, 0.50); }
+
+/* White copy needs a darker teal surface to meet WCAG AA at small sizes. */
+.bg-teal.text-white {
+  background-color: var(--color-action-teal);
+}
+.bg-teal.text-white:hover {
+  background-color: var(--color-action-teal-hover);
+}

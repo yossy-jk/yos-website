@@ -150,7 +150,7 @@ export default function Nav() {
                             style={{ fontSize: '0.72rem', letterSpacing: '0.12em', marginBottom: '0.625rem' }}>
                             {link.label}
                           </span>
-                          <span className="text-white/35 font-light block" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
+                          <span className="text-white/55 font-light block" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
                             {link.tagline}
                           </span>
                           <span className="text-teal/0 group-hover:text-teal/70 transition-colors block mt-auto pt-3" style={{ fontSize: '0.65rem', fontWeight: 600 }}>→</span>
@@ -198,7 +198,7 @@ export default function Nav() {
                                 style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
                                 {tool.label}
                               </span>
-                              <span className="text-white/30 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
+                              <span className="text-white/55 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
                                 {tool.tagline}
                               </span>
                             </Link>
@@ -206,7 +206,7 @@ export default function Nav() {
                         </div>
                         <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                           <Link href="/resources" onClick={closeAll}
-                            className="no-underline text-teal/70 hover:text-teal font-semibold transition-colors"
+                            className="no-underline text-teal hover:text-teal font-semibold transition-colors"
                             style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                             All tools →
                           </Link>
@@ -225,7 +225,7 @@ export default function Nav() {
                                 style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
                                 {tool.label}
                               </span>
-                              <span className="text-white/30 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
+                              <span className="text-white/55 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
                                 {tool.tagline}
                               </span>
                             </Link>
@@ -251,7 +251,7 @@ export default function Nav() {
                         </div>
                         <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                           <Link href="/blog" onClick={closeAll}
-                            className="no-underline text-teal/70 hover:text-teal font-semibold transition-colors"
+                            className="no-underline text-teal hover:text-teal font-semibold transition-colors"
                             style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                             View all articles →
                           </Link>

@@ -170,7 +170,7 @@ export default function FitoutEstimatorPage() {
                   style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1.25rem' }}>
                   Fitout Cost Estimator
                 </h1>
-                <p className="text-white/40 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.85, maxWidth: '36rem' }}>
+                <p className="text-white/55 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.85, maxWidth: '36rem' }}>
                   Real market rates. NSW & Australia. April 2026. All figures ex GST.
                 </p>
               </>
@@ -736,7 +736,7 @@ export default function FitoutEstimatorPage() {
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '0.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
                 Recent projects
               </h2>
-              <p style={{ color: 'rgba(255,255,255,0.45)', fontWeight: 300, fontSize: '0.9rem', marginBottom: '3rem', lineHeight: 1.7 }}>
+              <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '0.9rem', marginBottom: '3rem', lineHeight: 1.7 }}>
                 Selected fitouts delivered by YOS across NSW
               </p>
               {/* 2×3 project card grid */}
@@ -774,7 +774,7 @@ export default function FitoutEstimatorPage() {
                       <p style={{ color: '#ffffff', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '0.375rem' }}>
                         {img.label}
                       </p>
-                      <p style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 300, fontSize: '0.8rem' }}>
+                      <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '0.8rem' }}>
                         {img.mood}
                       </p>
                     </div>
