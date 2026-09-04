@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -126,6 +126,8 @@ export default function LeaseRiskCheckerPage() {
   const [captureError, setCaptureError] = useState<string | null>(null)
   const [captureLoading, setCaptureLoading] = useState(false)
   const [alreadyCaptured, setAlreadyCaptured] = useState(false)
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null)
+  const previousStepRef = useRef<Step>(step)
 
   // Check localStorage on mount
   useEffect(() => {
@@ -138,6 +140,13 @@ export default function LeaseRiskCheckerPage() {
     }
     return () => { if (timer !== undefined) window.clearTimeout(timer) }
   }, [])
+
+  useEffect(() => {
+    if (previousStepRef.current !== step) {
+      stepHeadingRef.current?.focus({ preventScroll: true })
+      previousStepRef.current = step
+    }
+  }, [step])
 
   const currentQ = typeof step === 'number' ? QUESTIONS[step] : null
   const progress = typeof step === 'number'
@@ -254,7 +263,7 @@ export default function LeaseRiskCheckerPage() {
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free — No document required</span>
               </div>
-              <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+              <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
                 Free Lease Risk Review
               </h1>
@@ -297,7 +306,7 @@ export default function LeaseRiskCheckerPage() {
               </p>
 
               {/* Question */}
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+              <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
                 {currentQ.label}
               </h2>
@@ -313,6 +322,7 @@ export default function LeaseRiskCheckerPage() {
                   <button
                     key={option}
                     onClick={() => handleSelect(option)}
+                    aria-pressed={selected === option}
                     className={`text-left font-medium transition-all duration-150 border ${
                       selected === option
                         ? 'border-teal bg-teal/10 text-white'
@@ -360,7 +370,7 @@ export default function LeaseRiskCheckerPage() {
                 Almost there
               </p>
 
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight"
+              <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
                 Where should we send your risk rating?
               </h2>
@@ -449,7 +459,7 @@ export default function LeaseRiskCheckerPage() {
                 </span>
               </div>
 
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+              <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
                 {risk.level === 'high' ? 'This lease needs attention.' : risk.level === 'medium' ? 'Some things to watch.' : 'Looking reasonable.'}
               </h2>

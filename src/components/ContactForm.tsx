@@ -26,7 +26,14 @@ export default function ContactForm() {
     if (!fields.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) e.email = 'Valid email required'
     if (!fields.message.trim()) e.message = 'Required'
     setErrors(e)
-    return Object.keys(e).length === 0
+    const valid = Object.keys(e).length === 0
+    if (!valid) {
+      const firstInvalid = (['name', 'email', 'message'] as const).find(key => e[key])
+      window.requestAnimationFrame(() => {
+        if (firstInvalid) document.getElementById(`contact-${firstInvalid}`)?.focus()
+      })
+    }
+    return valid
   }
 
   const handleSubmit = async (e: React.FormEvent) => {

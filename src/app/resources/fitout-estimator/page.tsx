@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -53,6 +53,16 @@ export default function FitoutEstimatorPage() {
     buildingType: '', timeframe: '',
   })
   const [lastShellStep, setLastShellStep] = useState(1)
+  const stepHeadingRef = useRef<HTMLHeadingElement>(null)
+  const previousStepRef = useRef(step)
+
+  useEffect(() => {
+    if (previousStepRef.current !== step) {
+      stepHeadingRef.current?.focus({ preventScroll: true })
+      previousStepRef.current = step
+    }
+  }, [step])
+
   const set = (k: keyof Inputs, v: string | boolean) => setInputs(prev => ({ ...prev, [k]: v }))
   const isFurnitureOnly = inputs.fitoutType === 'furniture-only'
   // Furniture path: 0→1→2→3(Quality)→4(Wkstype)→5(WksQty)→6(Spaces)→7(Result)
@@ -145,7 +155,7 @@ export default function FitoutEstimatorPage() {
                   <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
                   <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
                 </div>
-                <h1 className="text-white font-black uppercase leading-tight tracking-tight"
+                <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                   style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1.25rem' }}>
                   Fitout Cost Estimator
                 </h1>
@@ -158,7 +168,7 @@ export default function FitoutEstimatorPage() {
                 <p className="text-white/30 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.15em', marginBottom: '1rem' }}>
                   Step <span className="text-teal font-semibold">{step}</span> <span className="text-white/20">/</span> {stepCount}
                 </p>
-                <h1 className="text-white font-black uppercase leading-tight tracking-tight"
+                <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                   style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '0.75rem' }}>
                   {step < STEPS.length ? STEPS[step].title : 'Your Estimate'}
                 </h1>
@@ -225,6 +235,7 @@ export default function FitoutEstimatorPage() {
                   },
                 ].map(opt => (
                   <button key={opt.key} onClick={() => set('fitoutType', opt.key)}
+                    aria-pressed={inputs.fitoutType === opt.key}
                     className={`text-left border transition-all duration-150 ${inputs.fitoutType === opt.key ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                     style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1rem' }}>
@@ -473,6 +484,7 @@ export default function FitoutEstimatorPage() {
                   { key: 'hasAV' as const, label: 'AV & integrated technology', desc: 'Screens, conferencing, cabling and control' },
                 ].map(item => (
                   <button key={item.key} onClick={() => set(item.key, !inputs[item.key])}
+                    aria-pressed={Boolean(inputs[item.key])}
                     className={`text-left flex items-center justify-between border transition-all ${inputs[item.key] ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                     style={{ padding: '1.5rem 1.75rem', borderRadius: '0.75rem' }}>
                     <div className="flex items-center" style={{ gap: '1.5rem' }}>
