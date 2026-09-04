@@ -6,6 +6,7 @@
   --color-dark-teal: rgb(0 143 130);
   --color-action-teal: rgb(0 121 111);
   --color-action-teal-hover: rgb(0 109 99);
+  --color-readable-grey: rgb(102 102 102);
   --color-light-teal: rgb(224 245 243);
   --color-near-black: #1A1A1A;
   --color-warm-grey: #F5F5F5;
@@ -458,4 +459,27 @@ input[type='range']::-moz-range-thumb {
 }
 .bg-teal.text-white:hover {
   background-color: var(--color-action-teal-hover);
+}
+
+/* Preserve the bright brand teal on dark surfaces; darken it on light ones. */
+.bg-white .text-teal,
+.bg-white.text-teal,
+.bg-warm-grey .text-teal,
+.bg-warm-grey.text-teal {
+  color: var(--color-action-teal);
+}
+
+.bg-white .text-mid-grey,
+.bg-white.text-mid-grey,
+.bg-warm-grey .text-mid-grey,
+.bg-warm-grey.text-mid-grey {
+  color: var(--color-readable-grey);
+}
+
+/* Low-opacity body copy on dark surfaces was below 4.5:1 in the axe audit. */
+.text-white\/30:not(:disabled),
+.text-white\/35:not(:disabled),
+.text-white\/40:not(:disabled),
+.text-white\/45:not(:disabled) {
+  color: rgb(255 255 255 / 0.55);
 }

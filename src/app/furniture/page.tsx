@@ -437,7 +437,7 @@ export default function FurniturePage() {
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-white/30 font-light text-xs tracking-widest uppercase text-center mb-8">Trusted by organisations across NSW</p>
-            <div className="flex flex-wrap justify-center gap-8 items-center opacity-40">
+            <div className="flex flex-wrap justify-center gap-8 items-center opacity-60">
               {['Local Councils', 'Schools & Universities', 'Health Facilities', 'Professional Services', 'Government Bodies'].map(name => (
                 <span key={name} className="text-white font-bold text-sm tracking-wide uppercase" style={{ fontSize: '0.8rem' }}>{name}</span>
               ))}

@@ -34,6 +34,14 @@ test('shared footer muted copy stays above the audited dark-surface threshold', 
   assert.doesNotMatch(footerSource, /text-teal\/70/)
 })
 
+test('brand accents and supporting copy switch to accessible colours on light surfaces', () => {
+  assert.ok(contrastRatio('00796f', 'f5f5f5') >= 4.5)
+  assert.ok(contrastRatio('666666', 'f5f5f5') >= 4.5)
+  assert.match(globalsSource, /\.bg-warm-grey \.text-teal[\s\S]*var\(--color-action-teal\)/)
+  assert.match(globalsSource, /\.bg-warm-grey \.text-mid-grey[\s\S]*var\(--color-readable-grey\)/)
+  assert.match(globalsSource, /\.text-white\\\/30:not\(:disabled\)[\s\S]*0\.55/)
+})
+
 test('fitout estimator audited intro and project captions use accessible contrast', () => {
   assert.match(fitoutEstimatorSource, /text-white\/55[\s\S]{0,180}Real market rates/)
   assert.doesNotMatch(fitoutEstimatorSource, /rgba\(255,255,255,0\.(?:4|45)\)/)
