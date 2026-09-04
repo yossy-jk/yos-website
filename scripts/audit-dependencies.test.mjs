@@ -22,6 +22,14 @@ test('classifies an npm registry service error as transient', () => {
   assert.equal(result.kind, 'transient');
 });
 
+test('classifies a hard process timeout as transient', () => {
+  const result = classifyAuditFailure({
+    error: Object.assign(new Error('audit command timed out'), { code: 'ETIMEDOUT' }),
+  });
+
+  assert.equal(result.kind, 'transient');
+});
+
 test('retries a transient service error and succeeds only on a clean audit', () => {
   const results = [
     {

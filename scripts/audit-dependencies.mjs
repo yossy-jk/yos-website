@@ -13,6 +13,8 @@ const TRANSIENT_AUDIT_PATTERNS = [
   /fetch failed/i,
 ];
 
+const AUDIT_PROCESS_TIMEOUT_MS = 75_000;
+
 export function parseAuditReport(stdout) {
   try {
     return JSON.parse(stdout);
@@ -21,7 +23,7 @@ export function parseAuditReport(stdout) {
   }
 }
 
-export function classifyAuditFailure({ stdout = '', stderr = '' }) {
+export function classifyAuditFailure({ stdout = '', stderr = '', error = null }) {
   const report = parseAuditReport(stdout);
   const vulnerabilities = report?.metadata?.vulnerabilities;
 
@@ -29,7 +31,7 @@ export function classifyAuditFailure({ stdout = '', stderr = '' }) {
     return { kind: 'vulnerabilities', report };
   }
 
-  const diagnostic = `${stdout}\n${stderr}`;
+  const diagnostic = `${stdout}\n${stderr}\n${error?.code ?? ''}\n${error?.message ?? ''}`;
   if (report?.error || TRANSIENT_AUDIT_PATTERNS.some((pattern) => pattern.test(diagnostic))) {
     return { kind: 'transient', report };
   }
@@ -53,7 +55,10 @@ export function runAudit({
         '--fetch-retries=0',
         '--fetch-timeout=60000',
       ],
-      { encoding: 'utf8' },
+      {
+        encoding: 'utf8',
+        timeout: AUDIT_PROCESS_TIMEOUT_MS,
+      },
     );
 
     if (result.stdout) stdout.write(result.stdout);
