@@ -14,6 +14,9 @@ const blogSource = await readFile(new URL('../src/app/blog/page.tsx', import.met
 const blogLibrarySource = await readFile(new URL('../src/lib/blog.ts', import.meta.url), 'utf8')
 const blogArticleSource = await readFile(new URL('../src/app/blog/[slug]/page.tsx', import.meta.url), 'utf8')
 const contactFormSource = await readFile(new URL('../src/components/ContactForm.tsx', import.meta.url), 'utf8')
+const searchSource = await readFile(new URL('../src/components/Search.tsx', import.meta.url), 'utf8')
+const aboutSource = await readFile(new URL('../src/app/about/page.tsx', import.meta.url), 'utf8')
+const newcastleSource = await readFile(new URL('../src/app/newcastle-commercial-property/page.tsx', import.meta.url), 'utf8')
 
 function relativeLuminance(hex) {
   const channels = hex.match(/[0-9a-f]{2}/gi).map((value) => parseInt(value, 16) / 255)
@@ -41,6 +44,15 @@ test('white text on YOS action teal meets WCAG AA in default and hover states', 
 test('shared footer muted copy stays above the audited dark-surface threshold', () => {
   assert.doesNotMatch(footerSource, /text-white\/(?:30|35|40)/)
   assert.doesNotMatch(footerSource, /text-teal\/70/)
+  assert.doesNotMatch(footerSource, /className="text-white\/50[^\"]*py-1"/)
+  assert.match(footerSource, /className="text-white\/80[^\"]*py-1"/)
+})
+
+test('shared search trigger text meets the audited dark-surface threshold', () => {
+  assert.doesNotMatch(searchSource, /text-white\/50 hover:text-white/)
+  assert.doesNotMatch(searchSource, /color: 'rgba\(255,255,255,0\.35\)'/)
+  assert.match(searchSource, /text-white\/80 hover:text-white/)
+  assert.match(searchSource, /color: 'rgba\(255,255,255,0\.8\)'/)
 })
 
 test('homepage supporting copy does not use low-opacity white on dark surfaces', () => {
@@ -69,6 +81,14 @@ test('full-width teal panels use the accessible action surface and opaque white 
   assert.match(leaseReviewSource, /text-white text-xs font-medium tracking-wide/)
   assert.doesNotMatch(resourcesSource, /#9CA3AF/)
   assert.match(resourcesSource, /section className="bg-teal text-white"/)
+  assert.match(aboutSource, /section className="bg-teal text-white"/)
+  assert.doesNotMatch(aboutSource, /text-white\/80 font-light text-lg/)
+})
+
+test('Newcastle hub uses accessible accent and supporting-copy colours', () => {
+  assert.match(newcastleSource, /text-action-teal font-bold text-xs tracking-widest/)
+  assert.doesNotMatch(newcastleSource, /text-white\/50 font-light leading-relaxed text-sm/)
+  assert.match(newcastleSource, /text-white\/80 font-light leading-relaxed text-sm/)
 })
 
 test('blog cards use readable metadata, action links, and category badges', () => {

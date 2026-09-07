@@ -397,7 +397,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────────────────── */}
-      <section className="bg-teal" style={SEC}>
+      <section className="bg-teal text-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
@@ -405,7 +405,7 @@ export default function AboutPage() {
                 style={{ fontSize: 'clamp(1.8rem,4vw,3rem)' }}>
                 Ready to have someone genuinely on your side?
               </h2>
-              <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
+              <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
                 20 minutes. No pitch. Just a straight conversation about your space and what you&apos;re trying to achieve.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">

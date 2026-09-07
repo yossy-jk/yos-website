@@ -140,7 +140,7 @@ export default function NewcastleCommercialPropertyHub() {
       <section className="bg-teal/10 border-y border-teal/20">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
+            <p className="text-action-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {SERVICES.map(s => (
                 <Link key={s.href} href={s.href}
@@ -203,7 +203,7 @@ export default function NewcastleCommercialPropertyHub() {
               <FadeIn key={item.heading} delay={i * 70} direction="up">
                 <div className="border-l-4 border-teal pl-6 py-1">
                   <p className="text-white font-bold text-base mb-2">{item.heading}</p>
-                  <p className="text-white/50 font-light leading-relaxed text-sm">{item.body}</p>
+                  <p className="text-white/80 font-light leading-relaxed text-sm">{item.body}</p>
                 </div>
               </FadeIn>
             ))}

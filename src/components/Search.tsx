@@ -133,7 +133,7 @@ export default function Search() {
       <button
         onClick={openSearch}
         aria-label="Search"
-        className="flex items-center gap-2 text-white/50 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
+        className="flex items-center gap-2 text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
         style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
       >
         <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -142,7 +142,7 @@ export default function Search() {
         <span className="hidden lg:inline">Search</span>
         <kbd className="hidden lg:inline" style={{
           fontSize: '0.55rem', padding: '0.15rem 0.4rem', border: '1px solid rgba(255,255,255,0.2)',
-          borderRadius: '3px', color: 'rgba(255,255,255,0.35)', fontFamily: 'inherit', letterSpacing: '0.05em'
+          borderRadius: '3px', color: 'rgba(255,255,255,0.8)', fontFamily: 'inherit', letterSpacing: '0.05em'
         }}>⌘K</kbd>
       </button>
 
