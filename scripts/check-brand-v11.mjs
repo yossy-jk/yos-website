@@ -33,7 +33,7 @@ const capabilityStatementPath = path.join(root, 'public/YOS-Capability-Statement
 const capabilityStatementHash = createHash('sha256')
   .update(fs.readFileSync(capabilityStatementPath))
   .digest('hex')
-const approvedCapabilityStatementHash = '5bc99bfd0ee60cd29de791c9da10066aaff471852168d9e13272563017f6940a'
+const approvedCapabilityStatementHash = '30c10bc67f61bd2b1fe3e8ddc986bcc5a8bed4060c3051355c393e7793fd6898'
 if (capabilityStatementHash !== approvedCapabilityStatementHash) {
   failures.push('public/YOS-Capability-Statement.pdf: does not match the approved Brand v1.1 capability statement')
 }
@@ -46,7 +46,7 @@ requireText('src/app/layout.tsx', 'Fraunces', 'Fraunces heading font')
 requireText('src/app/layout.tsx', 'Inter', 'Inter body font')
 requireText('src/app/globals.css', 'var(--font-fraunces)', 'Fraunces heading variable')
 requireText('src/app/globals.css', 'var(--font-inter)', 'Inter body variable')
-requireText('src/app/page.tsx', 'Your space, sorted.', 'primary tagline')
+requireText('src/app/page.tsx', 'One team. Clear direction. No guesswork.', 'primary tagline')
 requireText('src/app/page.tsx', 'One accountable partner', 'one accountable partner message')
 requireText('src/app/page.tsx', 'Book a Clarity Call', 'primary call to action')
 requireText('src/components/BookingCTA.tsx', '20 minutes, no pitch.', 'approved Clarity Call format')

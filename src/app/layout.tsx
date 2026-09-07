@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "Your space, sorted. Newcastle-based, tenant-side commercial property advisory across Australia.",
+    description: "One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.",
     url: "https://www.yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "Your space, sorted. Newcastle-based, tenant-side commercial property advisory across Australia.",
+    description: "One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.",
     images: ["/og-default.png"],
   },
 };

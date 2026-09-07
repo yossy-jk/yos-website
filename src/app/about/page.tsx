@@ -10,7 +10,7 @@ export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory Newcastle',
   description: 'Newcastle-based, tenant-side commercial property advisory. Hunter home territory, with services available across Australia.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
-  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'Your space, sorted. Tenant-side commercial property advisory and workplace services.' },
+  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
   openGraph: {
     title: 'About | Your Office Space Newcastle',
     description: 'Newcastle-based, tenant-side commercial property advisory. Hunter home territory, with services available across Australia.',

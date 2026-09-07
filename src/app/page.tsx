@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   title: 'Commercial Office Space Newcastle | Tenant Rep, Fitout, Furniture | YOS',
   description: 'Newcastle-based, tenant-side commercial property advisory across Australia. One accountable partner for tenant representation, fit out, furniture and cleaning.',
   alternates: { canonical: 'https://www.yourofficespace.au' },
-  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory', description: 'Your space, sorted. One accountable partner from lease decisions through fit out, furniture and ongoing cleaning.' },
+  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory', description: 'One team. Clear direction. No guesswork. One accountable partner from lease decisions through fit out, furniture and ongoing cleaning.' },
   openGraph: {
     title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
-    description: 'Your space, sorted. Newcastle-based, tenant-side commercial property advisory across Australia.',
+    description: 'One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.',
     url: 'https://www.yourofficespace.au',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -155,7 +155,7 @@ export default function Home() {
           <FadeIn delay={80}>
             <h1 className="text-white leading-[1.02] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem,6.5vw,7rem)', maxWidth: '14ch', marginBottom: '1.75rem' }}>
-              Your space, sorted.
+              One team. Clear direction. No guesswork.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
