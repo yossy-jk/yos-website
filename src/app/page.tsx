@@ -159,7 +159,7 @@ export default function Home() {
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-white/70 font-light leading-relaxed"
+            <p className="text-white/90 font-light leading-relaxed"
               style={{ fontSize: 'clamp(1rem,2.5vw,1.15rem)', maxWidth: '34rem', lineHeight: 1.9, marginBottom: '2.25rem' }}>
               One accountable partner from lease decisions through fit out, furniture and ongoing commercial cleaning — built around what your business needs.
             </p>
@@ -167,7 +167,7 @@ export default function Home() {
           <FadeIn delay={240}>
             <div className="flex flex-col items-start gap-3">
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
-              <span className="text-white/55 text-sm">20 minutes. No pitch.</span>
+              <span className="text-white/80 text-sm">20 minutes. No pitch.</span>
             </div>
           </FadeIn>
         </div>
@@ -181,7 +181,7 @@ export default function Home() {
               <p className="text-teal leading-none" style={{ fontFamily: 'var(--font-fraunces), Fraunces, Georgia, serif', fontWeight: 600, fontSize: 'clamp(2rem,5vw,4.5rem)', marginBottom: '2rem', lineHeight: 1.05 }}>
                 The landlord has an expert. You should too.
               </p>
-              <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', lineHeight: 1.9 }}>
+              <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', lineHeight: 1.9 }}>
                 Commercial lease terms, fit out decisions and ongoing workplace services all carry trade-offs. We make them clear, coordinate the moving parts and stay accountable for the outcome.
               </p>
             </div>
@@ -430,12 +430,12 @@ export default function Home() {
                 style={{ fontSize: 'clamp(2rem,5vw,5rem)', marginBottom: '1.25rem' }}>
                 Let&apos;s talk<br />about your space.
               </h2>
-              <p className="text-white/50 font-light leading-relaxed w-full"
+              <p className="text-white/80 font-light leading-relaxed w-full"
                 style={{ fontSize: '1rem', lineHeight: 1.8, marginBottom: '2rem' }}>
                 No obligation. No pitch. Tell us what you&apos;re working with and we&apos;ll give you a straight answer.
               </p>
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
-              <p className="text-white/55 font-light mt-5" style={{ fontSize: '0.8rem' }}>
+              <p className="text-white/80 font-light mt-5" style={{ fontSize: '0.8rem' }}>
                 We respond within one business day.
               </p>
             </div>

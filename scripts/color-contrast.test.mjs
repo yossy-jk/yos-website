@@ -43,6 +43,12 @@ test('shared footer muted copy stays above the audited dark-surface threshold', 
   assert.doesNotMatch(footerSource, /text-teal\/70/)
 })
 
+test('homepage supporting copy does not use low-opacity white on dark surfaces', () => {
+  assert.doesNotMatch(homeSource, /text-white\/(?:30|35|40|45|50|55)/)
+  assert.match(homeSource, /text-white\/90 font-light leading-relaxed/)
+  assert.ok(contrastRatio('ced8d7', '0a3b38') >= 4.5)
+})
+
 test('brand accents and supporting copy switch to accessible colours on light surfaces', () => {
   assert.ok(contrastRatio('0c7a70', 'fafaf8') >= 4.5)
   assert.ok(contrastRatio('5a6b68', 'fafaf8') >= 4.5)
