@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 
-const C = { teal: '#00B5A5', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', purple: '#8b5cf6', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
+const C = { teal: '#01A7A3', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', purple: '#8b5cf6', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
 
 function Label({ children, c }: { children: React.ReactNode; c?: string }) {
   return <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: c || 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>{children}</p>
@@ -118,7 +118,7 @@ export default function InnovationTab() {
               <p style={{ margin: 0, fontWeight: 600, fontSize: '0.78rem' }}>{u.item}</p>
               <p style={{ margin: '0.15rem 0 0', fontSize: '0.65rem', color: 'rgba(255,255,255,0.4)' }}>{u.impact}</p>
             </div>
-            <span style={{ fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.1em', padding: '0.15rem 0.4rem', borderRadius: 3, background: u.tag === 'CRITICAL' ? 'rgba(239,68,68,0.15)' : u.tag === 'HIGH' ? 'rgba(245,158,11,0.15)' : 'rgba(0,181,165,0.15)', color: u.tag === 'CRITICAL' ? C.red : u.tag === 'HIGH' ? C.amber : C.teal, flexShrink: 0, alignSelf: 'flex-start' }}>{u.tag}</span>
+            <span style={{ fontSize: '0.55rem', fontWeight: 700, letterSpacing: '0.1em', padding: '0.15rem 0.4rem', borderRadius: 3, background: u.tag === 'CRITICAL' ? 'rgba(239,68,68,0.15)' : u.tag === 'HIGH' ? 'rgba(245,158,11,0.15)' : 'rgba(1,167,163,0.15)', color: u.tag === 'CRITICAL' ? C.red : u.tag === 'HIGH' ? C.amber : C.teal, flexShrink: 0, alignSelf: 'flex-start' }}>{u.tag}</span>
           </div>
         ))}
       </div>

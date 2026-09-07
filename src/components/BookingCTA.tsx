@@ -41,7 +41,7 @@ export default function BookingCTA({
             name,
             phone,
             source: 'Clarity Call — Booking Request',
-            context: `Name: ${name}\nPhone: ${phone}\nProceding to calendar booking.`,
+            context: `Name: ${name}\nPhone: ${phone}\nProceeding to calendar booking.`,
           }),
         }),
       ])
@@ -59,8 +59,7 @@ export default function BookingCTA({
     padding: size === 'lg' ? '1.1rem 3rem' : '0.9rem 2.25rem',
     fontSize: '0.72rem',
     borderRadius: '0.5rem',
-    letterSpacing: '0.14em',
-    textTransform: 'uppercase' as const,
+    letterSpacing: '0.02em',
     fontWeight: 700,
     cursor: 'pointer',
     border: 'none',
@@ -107,14 +106,14 @@ export default function BookingCTA({
 
             {step === 'form' ? (
               <div style={{ padding: '2rem 2.25rem 2.25rem' }}>
-                <p className="text-teal font-semibold uppercase tracking-widest mb-3" style={{ fontSize: '0.65rem' }}>
-                  Free — No obligation
+                <p className="text-teal font-semibold mb-3" style={{ fontSize: '0.72rem' }}>
+                  Free · No obligation
                 </p>
                 <h2 className="text-near-black font-bold leading-tight mb-2" style={{ fontSize: '1.4rem', paddingRight: '1.5rem' }}>
                   Book your Clarity Call.
                 </h2>
                 <p className="text-mid-grey font-light mb-6" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>
-                  30 minutes. We&apos;ll look at your situation — lease, space, fitout or otherwise — and tell you exactly what we&apos;d do.
+                  20 minutes, no pitch. We&apos;ll look at your lease, space, fit out or cleaning needs and give you a straight view of the next step.
                 </p>
 
                 <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '0.875rem' }}>
@@ -139,7 +138,7 @@ export default function BookingCTA({
                   <button
                     type="submit"
                     disabled={submitting || !name.trim() || !phone.trim()}
-                    className="w-full bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40"
+                    className="w-full bg-teal text-white font-bold tracking-[0.02em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40"
                     style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', marginTop: '0.25rem' }}
                   >
                     {submitting ? 'One moment…' : 'Pick a time →'}
@@ -154,7 +153,7 @@ export default function BookingCTA({
               <div className="text-center" style={{ padding: '2.5rem 2.25rem' }}>
                 <div className="w-12 h-12 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-4">
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-                    <path d="M4 11l5 5 9-10" stroke="#00B5A5" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M4 11l5 5 9-10" stroke="#01A7A3" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
                 </div>
                 <h3 className="text-near-black font-bold text-lg mb-2">Opening your calendar…</h3>

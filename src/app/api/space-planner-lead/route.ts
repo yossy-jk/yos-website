@@ -172,24 +172,24 @@ export async function POST(req: NextRequest) {
         html: `
           <div style="font-family:-apple-system,sans-serif;max-width:600px;margin:0 auto;padding:24px">
             <div style="background:#0A0A0A;padding:20px 24px;margin-bottom:24px">
-              <p style="color:#00B5A5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 4px">Space Planner</p>
+              <p style="color:#01A7A3;font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 4px">Space Planner</p>
               <p style="color:white;font-weight:700;font-size:18px;margin:0">New Quote Lead — ${name}</p>
             </div>
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px">
               <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px;width:120px">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:600">${name}</td></tr>
               ${company ? `<tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px">Company</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px">${company}</td></tr>` : ''}
-              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px">Email</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px"><a href="mailto:${email}" style="color:#00B5A5">${email}</a></td></tr>
-              ${phone ? `<tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px">Phone</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px"><a href="tel:${phone}" style="color:#00B5A5">${phone}</a></td></tr>` : ''}
+              <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px">Email</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px"><a href="mailto:${email}" style="color:#01A7A3">${email}</a></td></tr>
+              ${phone ? `<tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px">Phone</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px"><a href="tel:${phone}" style="color:#01A7A3">${phone}</a></td></tr>` : ''}
               <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px">Items</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px">${items.length} furniture items</td></tr>
               <tr><td style="padding:10px 0;color:#888;font-size:13px">Layout</td><td style="padding:10px 0;font-size:14px">${walls?.length ?? 0} walls · ${doors ?? 0} doors · ${windows ?? 0} windows</td></tr>
             </table>
-            <div style="background:#f9f9f9;border-left:3px solid #00B5A5;padding:16px 20px;margin-bottom:24px">
+            <div style="background:#f9f9f9;border-left:3px solid #01A7A3;padding:16px 20px;margin-bottom:24px">
               <p style="color:#555;font-size:13px;margin:0 0 6px;text-transform:uppercase;letter-spacing:0.1em">Layout Summary</p>
-              <p style="color:#1A1A1A;font-size:14px;line-height:1.7;margin:0;white-space:pre-wrap">${itemSummary}</p>
+              <p style="color:#0A3B38;font-size:14px;line-height:1.7;margin:0;white-space:pre-wrap">${itemSummary}</p>
               ${recommendations.length > 0 ? `<p style="color:#555;font-size:12px;margin:12px 0 0">Recommendations: ${recommendations.join(', ')}</p>` : ''}
               ${notes ? `<p style="color:#555;font-size:12px;margin:8px 0 0">Notes: ${notes}</p>` : ''}
             </div>
-            <a href="https://app-ap1.hubspot.com/contacts/442709765" style="display:inline-block;background:#00B5A5;color:white;font-weight:700;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:12px 24px;text-decoration:none">View in HubSpot →</a>
+            <a href="https://app-ap1.hubspot.com/contacts/442709765" style="display:inline-block;background:#01A7A3;color:white;font-weight:700;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:12px 24px;text-decoration:none">View in HubSpot →</a>
             <p style="color:#aaa;font-size:11px;margin-top:24px">yourofficespace.au/tools/space-planner</p>
           </div>
         `,

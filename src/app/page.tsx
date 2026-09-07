@@ -6,23 +6,19 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
-import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import CapabilityDownload from '@/components/CapabilityDownload'
-import AgentNetworkBanner from '@/components/AgentNetworkBanner'
-import FeeGuarantee from '@/components/FeeGuarantee'
 import TenantProcess from '@/components/TenantProcess'
-import WelcomeModal from '@/components/WelcomeModal'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
   title: 'Commercial Office Space Newcastle | Tenant Rep, Fitout, Furniture | YOS',
-  description: 'Newcastle and NSW commercial tenant advisory. One team working exclusively for tenants. Tenant rep, office fitout and furniture. No landlord conflicts. Better terms.',
+  description: 'Newcastle-based, tenant-side commercial property advisory across Australia. One accountable partner for tenant representation, fit out, furniture and cleaning.',
   alternates: { canonical: 'https://www.yourofficespace.au' },
-  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle', description: 'One team working only for you. Tenant rep, furniture, fitout and cleaning — Newcastle NSW.' },
+  twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory', description: 'Your space, sorted. One accountable partner from lease decisions through fit out, furniture and ongoing cleaning.' },
   openGraph: {
     title: 'Your Office Space | Tenant-Side Commercial Property Advisory Newcastle',
-    description: 'One team working only for you — from the first conversation to the day your space is running. Based in Newcastle, working across NSW.',
+    description: 'Your space, sorted. Newcastle-based, tenant-side commercial property advisory across Australia.',
     url: 'https://www.yourofficespace.au',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -33,13 +29,13 @@ export const metadata: Metadata = {
 
 const WRAP = 'max-w-screen-xl mx-auto'
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
-const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 const SERVICES = [
-  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'The landlord has an agent. You should too. We negotiate exclusively for tenants — rent, incentives, make-good, every clause — so you never sign a deal that costs you more than it should.', href: '/tenant-rep' },
-  { num: '02', title: 'Furniture & Fitout',    tagline: 'Brief to delivered.', body: 'From brief to fully fitted workspace. Specified, coordinated and installed end to end. One team, no gaps, no surprises on delivery day.', href: '/furniture' },
-  { num: '03', title: 'Commercial Cleaning',   tagline: 'Shows up. Every time.', body: "Healthcare-grade commercial cleaning for offices that can't afford inconsistency. Locally managed, accountable, and built around your standards.", href: '/cleaning' },
+  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
+  { num: '02', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
+  { num: '03', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
+  { num: '04', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
 ]
 
 const TESTIMONIALS = [
@@ -75,7 +71,7 @@ export default function Home() {
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
             "logo": "https://www.yourofficespace.au/logo.png",
-            "description": "Tenant-side commercial property advisory in Newcastle, NSW. Tenant representation, office furniture, fitout and commercial cleaning.",
+            "description": "Newcastle-based, tenant-side commercial property advisory across Australia. Tenant representation, commercial fit out and project management, office and commercial furniture, and commercial cleaning.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -92,12 +88,11 @@ export default function Home() {
             "email": "jk@yourofficespace.au",
             "areaServed": [
               { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
-              { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" }
+              { "@type": "AdministrativeArea", "name": "Hunter Region" },
+              { "@type": "Country", "name": "Australia" }
             ],
-            "serviceType": ["Tenant Representation", "Office Furniture", "Office Fitout", "Commercial Cleaning"],
-            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property Investment", "Office Fitout", "Workplace Design"],
+            "serviceType": ["Tenant Representation", "Commercial Fit Out & Project Management", "Office & Commercial Furniture", "Commercial Cleaning"],
+            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Fit Out", "Workplace Furniture", "Commercial Cleaning"],
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+61434655511",
@@ -125,23 +120,20 @@ export default function Home() {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "What is tenant representation in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is a service where a licensed agent works exclusively for the tenant — not the landlord — in negotiating a commercial lease. They help secure better rent, favourable terms, rent-free periods and incentives. Your Office Space only ever represents tenants." } },
-              { "@type": "Question", "name": "How much does commercial tenant representation cost?", "acceptedAnswer": { "@type": "Answer", "text": "In most cases, tenant representation is paid by the landlord as part of the leasing transaction. The tenant pays nothing directly. Your Office Space will confirm the fee structure upfront before any engagement begins." } },
-              { "@type": "Question", "name": "What is a make-good clause in a commercial lease?", "acceptedAnswer": { "@type": "Answer", "text": "A make-good clause requires the tenant to restore the premises to its original condition at the end of the lease. Full reinstatement clauses can cost tens of thousands of dollars. Negotiating a fair wear and tear standard — or capping the obligation — is one of the most valuable things a tenant representative can do." } },
-              { "@type": "Question", "name": "How does a commercial office fitout work from start to finish?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space manages the full fitout process — design and brief, authority approvals, contractor procurement, programme management, services coordination, joinery, and furniture installation — through to practical completion and post-handover. One team, one fixed price, from the first conversation to the day your workspace is ready." } },
-              { "@type": "Question", "name": "What areas of NSW does Your Office Space service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and primarily serve the Hunter Valley, Lake Macquarie, Maitland, and broader NSW. For commercial property and furniture supply, we work with clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
-              { "@type": "Question", "name": "What is the difference between a tenant representative and a normal commercial real estate agent?", "acceptedAnswer": { "@type": "Answer", "text": "Most commercial agents represent the landlord — they are paid to get the highest rent and best terms for the owner. A tenant representative works exclusively for the tenant and is paid to get the best outcome for the business occupying the space. That conflict of interest is why most tenants never get genuine advice about their lease." } }
+              { "@type": "Question", "name": "How much does commercial tenant representation cost?", "acceptedAnswer": { "@type": "Answer", "text": "The fee structure depends on the scope and transaction. Your Office Space confirms fees and any third-party arrangements before an engagement begins." } },
+              { "@type": "Question", "name": "What is a make-good clause in a commercial lease?", "acceptedAnswer": { "@type": "Answer", "text": "A make-good clause sets out what a tenant must do to the premises at the end of the lease. The obligation can vary significantly, so it should be understood and negotiated before the lease is signed." } },
+              { "@type": "Question", "name": "How does a commercial office fitout work from start to finish?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space coordinates the fit out process from design and brief through procurement, programme management, services coordination, furniture installation, practical completion and handover." } },
+              { "@type": "Question", "name": "Where does Your Office Space work?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is Newcastle-based, with the Hunter as its home territory, and provides tenant-side commercial property advisory across Australia." } },
+              { "@type": "Question", "name": "What is the difference between a tenant representative and a commercial real estate agent acting for a landlord?", "acceptedAnswer": { "@type": "Answer", "text": "A commercial agent engaged by the landlord acts for the property owner. A tenant representative acts for the tenant, helping the occupying business assess options and negotiate its lease." } }
             ]
           }
         ]
       })}} />
 
       {/* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */}
-      <div className="bg-teal" style={{ padding: '0.65rem clamp(1.5rem,8vw,10rem)' }}>
-        <div className="max-w-screen-xl mx-auto flex items-center justify-center gap-3 text-center flex-wrap">
-          <span className="text-near-black font-bold text-xs tracking-widest uppercase">Free for Newcastle businesses</span>
-          <span className="text-near-black/60 text-xs hidden sm:inline">—</span>
-          <span className="text-near-black font-light text-xs">Get a professional lease review in 24 hours. Spots limited.</span>
-          <Link href="/contact" className="text-near-black font-bold text-xs underline underline-offset-2 hover:opacity-70 transition-opacity no-underline" style={{ textDecoration: 'underline' }}>Now Working With New Clients →</Link>
+      <div className="bg-light-teal" style={{ padding: '0.65rem clamp(1.5rem,8vw,10rem)' }}>
+        <div className="max-w-screen-xl mx-auto text-center">
+          <span className="text-near-black font-semibold text-xs">Newcastle-based · Hunter home territory · Australia-wide tenant advisory</span>
         </div>
       </div>
 
@@ -158,44 +150,24 @@ export default function Home() {
           style={PAD}
         >
           <FadeIn>
-            <SectionLabel>Newcastle · NSW · Australia</SectionLabel>
+            <SectionLabel>Tenant-side commercial property advisory</SectionLabel>
           </FadeIn>
           <FadeIn delay={80}>
-            <h1 className="text-white font-black uppercase leading-[1.02] tracking-tight"
+            <h1 className="text-white leading-[1.02] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem,6.5vw,7rem)', maxWidth: '14ch', marginBottom: '1.75rem' }}>
-              Your space.<br />Your terms.<br />Your team.
+              Your space, sorted.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/70 font-light leading-relaxed"
               style={{ fontSize: 'clamp(1rem,2.5vw,1.15rem)', maxWidth: '34rem', lineHeight: 1.9, marginBottom: '2.25rem' }}>
-              Most business owners spend more on their lease than they should, sign terms they don&apos;t understand, and manage
-              three or four different contractors just to keep the lights on. We fix that — one team, completely on your side.
+              One accountable partner from lease decisions through fit out, furniture and ongoing commercial cleaning — built around what your business needs.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a href="/resources/fitout-estimator" className="inline-flex items-center justify-center gap-2 bg-teal text-white font-black text-sm tracking-widest uppercase px-10 py-[1.1rem] hover:bg-dark-teal transition-colors duration-200 min-h-[60px] w-full sm:w-auto" style={{ borderRadius: "0.375rem", textDecoration: "none" }}>
-                  Fit Out Cost Calculator →
-                </a>
-              <Button href="/lease-review" variant="secondary" size="lg">
-                Free Lease Review
-              </Button>
-            </div>
-          </FadeIn>
-          <FadeIn delay={340}>
-            <div className="hidden md:grid grid-cols-4 gap-10 border-t border-white/10" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)', marginTop: 'clamp(2.5rem,6vw,5rem)' }}>
-              {[
-                { stat: '100+', label: 'Projects delivered' },
-                { stat: 'Tenant-side only', label: 'We never represent landlords' },
-                { stat: '12+ years', label: 'Commercial property experience' },
-                { stat: 'Newcastle born', label: 'Local knowledge, national reach' },
-              ].map(item => (
-                <div key={item.stat}>
-                  <p className="text-white font-black mb-2" style={{ fontSize: 'clamp(0.9rem,1.6vw,1.1rem)' }}>{item.stat}</p>
-                  <p className="text-white/35 font-light" style={{ fontSize: '0.7rem', letterSpacing: '0.05em' }}>{item.label}</p>
-                </div>
-              ))}
+            <div className="flex flex-col items-start gap-3">
+              <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
+              <span className="text-white/55 text-sm">20 minutes. No pitch.</span>
             </div>
           </FadeIn>
         </div>
@@ -206,21 +178,16 @@ export default function Home() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div style={{ maxWidth: '54rem' }}>
-              <p className="text-teal font-black uppercase leading-none" style={{ fontSize: 'clamp(2rem,5vw,4.5rem)', marginBottom: '2rem', lineHeight: 1.05 }}>
-                &ldquo;I had no idea the lease I signed was costing me that much.&rdquo;
+              <p className="text-teal leading-none" style={{ fontFamily: 'var(--font-fraunces), Fraunces, Georgia, serif', fontWeight: 600, fontSize: 'clamp(2rem,5vw,4.5rem)', marginBottom: '2rem', lineHeight: 1.05 }}>
+                The landlord has an expert. You should too.
               </p>
               <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', lineHeight: 1.9 }}>
-                We hear this every week. A business owner signs what the landlord puts in front of them. Five years later
-                they&apos;re paying above-market rent, facing a $180,000 make-good bill, and wondering how it got to this.
-                It doesn&apos;t have to go that way.
+                Commercial lease terms, fit out decisions and ongoing workplace services all carry trade-offs. We make them clear, coordinate the moving parts and stay accountable for the outcome.
               </p>
             </div>
           </FadeIn>
         </div>
       </section>
-
-      {/* ─── FEE GUARANTEE ──────────────────────────────── dark teal gradient */}
-      <FeeGuarantee />
 
       {/* ─── TESTIMONIALS ───────────────────────── warm grey */}
       <section className="bg-warm-grey" style={SEC}>
@@ -253,9 +220,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── AGENT NETWORK BANNER ───────────────────────────── */}
-      <AgentNetworkBanner />
-
       {/* ─── IMAGE BREAK 1 ─────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(24rem,40vw,34rem)' }}>
         <Image
@@ -263,12 +227,12 @@ export default function Home() {
           alt="Business owners meeting with advisor"
           fill className="object-cover object-center"
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.55)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.55)' }} />
         <div className="absolute inset-0 flex items-center" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch' }}>
               The landlord has an expert working for them.<br />
-              <span style={{ color: '#00B5A5' }}>Now you do too.</span>
+              <span style={{ color: '#01A7A3' }}>Now you do too.</span>
             </p>
           </FadeIn>
         </div>
@@ -279,13 +243,12 @@ export default function Home() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>What we do</SectionLabel>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
+            <h2 className="text-near-black leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Three services.<br />One relationship.
+              Four services.<br />One accountable partner.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1.05rem', maxWidth: '40rem', lineHeight: 1.85 }}>
-              Most businesses deal with five different advisors on a single office move. That&apos;s five invoices,
-              five phone calls, five people pointing at each other when something goes wrong. We do it differently.
+              A commercial workplace brings together lease, fit out, furniture and cleaning decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
             </p>
           </FadeIn>
 
@@ -299,7 +262,7 @@ export default function Home() {
                       <div className="flex items-baseline gap-6 mb-3">
                         <span className="text-teal font-bold flex-shrink-0" style={{ fontSize: '0.65rem', letterSpacing: '0.25em', minWidth: '2rem' }}>{s.num}</span>
                         <div>
-                          <h3 className="text-near-black font-black uppercase leading-tight tracking-tight group-hover:text-teal transition-colors duration-200"
+                          <h3 className="text-near-black leading-tight tracking-tight group-hover:text-teal transition-colors duration-200"
                             style={{ fontSize: 'clamp(1.25rem,2.5vw,2.25rem)', marginBottom: '0.2rem' }}>
                             {s.title}
                           </h3>
@@ -326,7 +289,7 @@ export default function Home() {
           alt="Professional Newcastle commercial office interior"
           fill className="object-cover object-top"
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.5)' }} />
         <div className="absolute inset-0 flex items-center justify-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '22ch' }}>
@@ -341,21 +304,21 @@ export default function Home() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>Why us</SectionLabel>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mt-2 mb-10"
+            <h2 className="text-white leading-tight tracking-tight mt-2 mb-10"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '22ch' }}>
-              Someone who actually<br />gives a damn.
+              Advice that stays<br />on your side.
             </h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation — we are answering to you. Not the building owner, not a referral fee.' },
-              { title: 'We have seen what goes wrong', body: '100+ projects. We know the traps in commercial leases, the gaps in fitout contracts, and what to push back on.' },
+              { title: 'We make the risks clear', body: 'Commercial leases and fit out contracts can hide costly gaps. We surface the obligations, trade-offs and decisions before they become surprises.' },
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
               <FadeIn key={p.title} delay={i * 80}>
                 <div className="whyus-card">
-                  <h3 className="text-white font-black uppercase tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
+                  <h3 className="text-white tracking-tight mb-4" style={{ fontSize: '1rem' }}>{p.title}</h3>
                   <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: 'clamp(0.95rem,1.5vw,1rem)', lineHeight: 1.8 }}>{p.body}</p>
                 </div>
               </FadeIn>
@@ -371,18 +334,16 @@ export default function Home() {
             <FadeIn>
               <div>
                 <SectionLabel>Our credentials</SectionLabel>
-                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2 mb-5"
+                <h2 className="text-near-black leading-tight tracking-tight mt-2 mb-5"
                   style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
-                  See what we have done for businesses like yours.
+                  Review our capability before we talk.
                 </h2>
                 <p className="text-charcoal font-light leading-relaxed mb-6"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  The capability statement covers our experience, track record, client outcomes,
-                  and the sectors we work in. Download it before our first call so we can skip the intro
-                  and get straight to your situation.
+                  The capability statement covers our services, approach, selected work and the sectors we support. Download it before our first call so we can get straight to your situation.
                 </p>
                 <p className="text-charcoal/60 font-light" style={{ fontSize: '0.85rem' }}>
-                  Includes: completed projects, client case studies, sector coverage, and contact details.
+                  Includes selected work, sector coverage and contact details.
                 </p>
               </div>
             </FadeIn>
@@ -390,7 +351,7 @@ export default function Home() {
               <div className="border border-gray-200 p-8 sm:p-10 flex flex-col gap-6">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 bg-teal/10 rounded-full flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#01A7A3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
                     </svg>
@@ -414,10 +375,10 @@ export default function Home() {
       {/* ─── IMAGE BREAK 3 ────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(24rem,40vw,34rem)' }}>
         <Image src={IMAGES.boardroom} alt="Modern Newcastle boardroom" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.45)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.45)' }} />
         <div className="absolute inset-0 flex items-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2rem,5vw,4rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', maxWidth: '44rem', lineHeight: 1.8, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', maxWidth: '44rem', lineHeight: 1.8, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
               &ldquo;Joe was instrumental in building out our boardroom — high quality, practical advice, excellent detail.&rdquo;
               <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
             </p>
@@ -434,24 +395,21 @@ export default function Home() {
                 <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
                 <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>New — LeaseIntel™</span>
               </div>
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
+              <h2 className="text-white leading-tight tracking-tight w-full"
                 style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.25rem' }}>
                 Does your lease have a trap you haven&apos;t found yet?
               </h2>
               <p className="text-white font-light leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '0.75rem' }}>
-                Most business owners don&apos;t read every clause. Most landlords know that.
+                Commercial lease obligations are not always obvious from the headline rent.
               </p>
               <p className="text-white font-light leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '2.5rem' }}>
                 Answer 10 questions. Get a plain-English risk rating — Red, Amber, or Green — and the top issues to deal with. Free, instant, no document needed.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div>
                 <Button href="/resources/lease-review" variant="dark" size="lg">
-                  Get Free Risk Check
-                </Button>
-                <Button href="/resources/lease-review#full-report" variant="secondary" size="lg">
-                  Full Report — $297
+                  Start the lease risk check
                 </Button>
               </div>
             </div>
@@ -468,7 +426,7 @@ export default function Home() {
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
               <SectionLabel>Get started</SectionLabel>
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
+              <h2 className="text-white leading-tight tracking-tight w-full"
                 style={{ fontSize: 'clamp(2rem,5vw,5rem)', marginBottom: '1.25rem' }}>
                 Let&apos;s talk<br />about your space.
               </h2>
@@ -476,18 +434,9 @@ export default function Home() {
                 style={{ fontSize: '1rem', lineHeight: 1.8, marginBottom: '2rem' }}>
                 No obligation. No pitch. Tell us what you&apos;re working with and we&apos;ll give you a straight answer.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button href="/resources/fitout-estimator" variant="primary" size="lg" external>
-                  Fit Out Cost Calculator
-                </Button>
-                <Button href="/contact" variant="outline" size="lg">
-                  Get in Touch
-                </Button>
-              </div>
-              <p className="text-white/20 font-light mt-8" style={{ fontSize: '0.78rem' }}>
-                <a href={`tel:${CONTACT.phone.replace(/\s/g,'')}`} className="text-white/30 no-underline hover:text-white/60 transition-colors">{CONTACT.phone}</a>
-                {' · '}
-                <a href="mailto:hello@yourofficespace.au" className="text-white/30 no-underline hover:text-white/60 transition-colors">hello@yourofficespace.au</a>
+              <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
+              <p className="text-white/55 font-light mt-5" style={{ fontSize: '0.8rem' }}>
+                We respond within one business day.
               </p>
             </div>
           </FadeIn>
@@ -497,7 +446,6 @@ export default function Home() {
       </main>
 
       <Footer />
-      <WelcomeModal />
     </>
   )
 }

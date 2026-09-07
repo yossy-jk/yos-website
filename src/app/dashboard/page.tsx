@@ -254,7 +254,7 @@ export default function Dashboard() {
               {sel.length > 0 && (
                 <div style={{ position: 'sticky', top: 0, zIndex: 5, display: 'flex', gap: 8, alignItems: 'center',
                   flexWrap: 'wrap', padding: '10px 12px', marginBottom: 8, borderRadius: 10,
-                  background: '#00B5A5', color: '#fff', fontSize: 13 }}>
+                  background: '#01A7A3', color: '#fff', fontSize: 13 }}>
                   <strong>{sel.length} selected</strong>
                   <button onClick={() => bulkAct('complete')} style={{ padding: '5px 10px', borderRadius: 7, cursor: 'pointer', border: 'none' }}>Complete</button>
                   <input type="date" onChange={e => e.target.value && bulkAct('due', e.target.value)}

@@ -81,7 +81,7 @@ export default function SalesPartnersPage() {
         paddingBottom: 'clamp(4rem,8vw,6rem)',
       }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+          <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
             Sales Partnership — Newcastle &amp; Hunter Valley
           </p>
           <h1 style={{
@@ -89,14 +89,14 @@ export default function SalesPartnersPage() {
             textTransform: 'uppercase', fontSize: 'clamp(2.5rem,7vw,6rem)', marginBottom: '1.5rem',
           }}>
             Uncapped commission.<br />
-            <span style={{ color: '#00B5A5' }}>Zero base.</span>
+            <span style={{ color: '#01A7A3' }}>Zero base.</span>
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, lineHeight: 1.75, maxWidth: '42rem', fontSize: 'clamp(1rem,2vw,1.2rem)', marginBottom: '2rem' }}>
             We&apos;re looking for sales people who want to earn serious money bringing commercial cleaning and furniture opportunities to YOS. You find the client. We do everything else. Commission-only, no cap, no strings.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <a href="#apply"
-              style={{ background: '#00B5A5', color: 'white', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2rem', textDecoration: 'none', display: 'inline-block' }}>
+              style={{ background: '#01A7A3', color: 'white', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2rem', textDecoration: 'none', display: 'inline-block' }}>
               Apply to partner
             </a>
             <a href="#what-you-sell"
@@ -113,7 +113,7 @@ export default function SalesPartnersPage() {
       {/* ── WHAT YOU SELL ─────────────────────────────────────── */}
       <section id="what-you-sell" style={{ background: '#111', padding: 'clamp(4rem,8vw,7rem) 0' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>What you sell</p>
+          <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>What you sell</p>
           <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: 'clamp(2.5rem,5vw,4rem)', maxWidth: '36rem' }}>
             Three revenue streams.<br />One relationship.
           </h2>
@@ -121,7 +121,7 @@ export default function SalesPartnersPage() {
             {WHAT_YOU_SELL.map((s, i) => (
               <div key={i} style={{
                 background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-                padding: '1.75rem', borderTop: '2px solid #00B5A5',
+                padding: '1.75rem', borderTop: '2px solid #01A7A3',
               }}>
                 <BroomIcon size={28} />
                 <p style={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', marginBottom: '0.75rem', lineHeight: 1.3 }}>{s.heading}</p>
@@ -135,14 +135,14 @@ export default function SalesPartnersPage() {
       {/* ── HOW IT WORKS ──────────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', padding: 'clamp(4rem,8vw,7rem) 0' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>How it works</p>
+          <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>How it works</p>
           <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: 'clamp(2.5rem,5vw,4rem)', maxWidth: '40rem' }}>
             Simple. No drama.
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '2rem' }}>
             {HOW_IT_WORKS.map((h, i) => (
               <div key={i}>
-                <p style={{ color: '#00B5A5', fontSize: 'clamp(3rem,5vw,4.5rem)', fontWeight: 900, lineHeight: 1, marginBottom: '1rem', letterSpacing: '-0.03em' }}>{h.step}</p>
+                <p style={{ color: '#01A7A3', fontSize: 'clamp(3rem,5vw,4.5rem)', fontWeight: 900, lineHeight: 1, marginBottom: '1rem', letterSpacing: '-0.03em' }}>{h.step}</p>
                 <p style={{ color: 'white', fontWeight: 800, fontSize: '1rem', marginBottom: '0.6rem', lineHeight: 1.3 }}>{h.heading}</p>
                 <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', lineHeight: 1.75, margin: 0 }}>{h.body}</p>
               </div>
@@ -156,7 +156,7 @@ export default function SalesPartnersPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(2rem,5vw,5rem)', alignItems: 'start' }}>
             <div>
-              <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Who this is for</p>
+              <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Who this is for</p>
               <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
                 If you&apos;ve got the relationships,<br />we&apos;ve got the product.
               </h2>
@@ -169,7 +169,7 @@ export default function SalesPartnersPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {WHO_THIS_FITS.map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
-                    <div style={{ width: '20px', height: '20px', background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' }}>
+                    <div style={{ width: '20px', height: '20px', background: 'rgba(1,167,163,0.15)', border: '1px solid rgba(1,167,163,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' }}>
                       <CheckIcon />
                     </div>
                     <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>{item}</p>
@@ -185,7 +185,7 @@ export default function SalesPartnersPage() {
       <section id="apply" style={{ background: '#0A0A0A', padding: 'clamp(4rem,8vw,7rem) 0' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div style={{ maxWidth: '680px' }}>
-            <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Apply to partner</p>
+            <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Apply to partner</p>
             <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
               Tell us about yourself.
             </h2>

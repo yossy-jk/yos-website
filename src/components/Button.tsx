@@ -27,7 +27,7 @@ export default function Button({
   const baseStyles = [
     'inline-flex items-center justify-center',
     'rounded-[4px]',
-    'font-semibold uppercase tracking-[0.1em] text-center no-underline',
+    'font-semibold tracking-[0.02em] text-center no-underline',
     'transition-colors duration-200',
     'min-h-[60px]',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2',
@@ -35,7 +35,7 @@ export default function Button({
   ].join(' ')
 
   const variantStyles = {
-    primary:       'bg-teal text-white hover:bg-[#009688] active:opacity-90',
+    primary:       'bg-teal text-white hover:bg-dark-teal active:opacity-90',
     secondary:   'border border-white text-white hover:bg-white hover:text-near-black',
     dark:        'bg-near-black text-white hover:bg-charcoal',
     outline:     'border border-teal text-teal hover:bg-teal hover:text-white',

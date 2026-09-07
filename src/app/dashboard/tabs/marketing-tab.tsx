@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 const C = {
-  teal:    '#00B5A5',
+  teal:    '#01A7A3',
   red:     '#ef4444',
   green:   '#22c55e',
   amber:   '#f59e0b',
@@ -68,7 +68,7 @@ interface BlogSuggestion {
 
 function SuggestionCard({ s, onSuggest }: { s: BlogSuggestion; onSuggest: (s: BlogSuggestion) => void }) {
   const divCol = {
-    'tenant-rep':    '#00B5A5',
+    'tenant-rep':    '#01A7A3',
     'buyers-agency': '#10b981',
     'furniture':     '#8b5cf6',
     'cleaning':      '#f59e0b',
@@ -110,7 +110,7 @@ function SuggestionCard({ s, onSuggest }: { s: BlogSuggestion; onSuggest: (s: Bl
         </span>
         <button
           onClick={() => onSuggest(s)}
-          style={{ background: 'rgba(0,181,165,0.1)', border: `1px solid rgba(0,181,165,0.25)`, borderRadius: 4, padding: '0.3rem 0.7rem', color: C.teal, fontSize: '0.6rem', fontWeight: 700, cursor: 'pointer', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+          style={{ background: 'rgba(1,167,163,0.1)', border: `1px solid rgba(1,167,163,0.25)`, borderRadius: 4, padding: '0.3rem 0.7rem', color: C.teal, fontSize: '0.6rem', fontWeight: 700, cursor: 'pointer', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
           Request
         </button>
       </div>
@@ -310,8 +310,8 @@ export default function MarketingTab() {
             key={t}
             onClick={() => setTab(t)}
             style={{
-              background: tab === t ? 'rgba(0,181,165,0.12)' : 'rgba(255,255,255,0.04)',
-              border:    tab === t ? `1px solid rgba(0,181,165,0.3)` : `1px solid ${C.border}`,
+              background: tab === t ? 'rgba(1,167,163,0.12)' : 'rgba(255,255,255,0.04)',
+              border:    tab === t ? `1px solid rgba(1,167,163,0.3)` : `1px solid ${C.border}`,
               color:     tab === t ? C.teal : 'rgba(255,255,255,0.4)',
               padding: '0.4rem 1rem',
               borderRadius: 4,

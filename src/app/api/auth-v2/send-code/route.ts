@@ -122,13 +122,13 @@ async function sendCodeEmail(email: string, code: string): Promise<void> {
     html: `
       <div style="font-family:-apple-system,sans-serif;max-width:480px;margin:0 auto;padding:32px 24px">
         <div style="background:#0A0A0A;padding:24px;border-radius:12px 12px 0 0">
-          <p style="color:#00B5A5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 8px">Your Office Space</p>
+          <p style="color:#01A7A3;font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 8px">Your Office Space</p>
           <h1 style="color:white;font-size:22px;font-weight:800;margin:0">Sign-in code</h1>
         </div>
         <div style="background:#111;padding:24px;border-radius:0 0 12px 12px;border:1px solid rgba(255,255,255,0.08);border-top:none">
           <p style="color:rgba(255,255,255,0.5);font-size:14px;margin:0 0 24px">Enter this code to access your dashboard:</p>
           <div style="background:#1a1a1a;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:24px;text-align:center;margin-bottom:24px">
-            <span style="font-family:monospace;font-size:32px;font-weight:800;color:#00B5A5;letter-spacing:.3em">${code}</span>
+            <span style="font-family:monospace;font-size:32px;font-weight:800;color:#01A7A3;letter-spacing:.3em">${code}</span>
           </div>
           <p style="color:rgba(255,255,255,0.35);font-size:12px;margin:0">This code expires in 5 minutes. If you didn't request this, you can safely ignore this email.</p>
         </div>

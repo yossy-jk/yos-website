@@ -6,7 +6,7 @@ const STEPS = [
     num: '01',
     title: 'Free consultation',
     value: 'You know where you stand before spending a cent',
-    body: 'We start with a straight conversation about your situation — your current lease, your space needs, your timeline, and what you are actually trying to achieve. No forms. No sales pitch. You get a honest view of where you stand and whether we can genuinely help.',
+    body: 'We start with a straight conversation about your situation — your current lease, your space needs, your timeline, and what you are actually trying to achieve. No forms. No sales pitch. You get an honest view of where you stand and whether we can genuinely help.',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -16,8 +16,8 @@ const STEPS = [
   {
     num: '02',
     title: 'Market search',
-    value: 'Off-market stock your current agent will never show you',
-    body: 'We run a full search — on-market, off-market, and pre-release. In Newcastle, over half of commercial property is leased before it is ever listed. We know where that stock is and how to access it. You see more options than any self-directed search would find.',
+    value: 'A broader view of the available market',
+    body: 'We search on-market, off-market and pre-release opportunities against your brief. We then present the options that fit, with the trade-offs made clear.',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -50,7 +50,7 @@ const STEPS = [
     num: '05',
     title: 'Lease review',
     value: 'Every clause read — traps identified before you sign',
-    body: 'Your solicitor reviews the lease. We brief them on what to look for and what to push back on. Most tenants read nothing. We make sure nothing is signed without full clarity on what you are agreeing to — including the clauses that only matter at lease end.',
+    body: 'Your solicitor reviews the lease. We brief them on the commercial terms and issues identified during negotiation so the legal review has the right context before anything is signed.',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
@@ -120,7 +120,7 @@ export default function TenantProcess({ dark = true, compact = false }: Props) {
                     {step.icon}
                   </div>
                   <span className={`${dark ? 'text-white/15' : 'text-black/10'} font-black leading-none`}
-                    style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', fontFamily: 'Montserrat, sans-serif', lineHeight: 1 }}>
+                    style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', lineHeight: 1 }}>
                     {step.num}
                   </span>
                 </div>

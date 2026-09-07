@@ -29,7 +29,7 @@ interface Interaction {
 const STAGES: Stage[] = ['Evaluation', 'Shortlisted', 'Inspection', 'Negotiations', 'Disqualified']
 
 const SC: Record<Stage, { dot: string; lbl: string; bg: string; sel: string }> = {
-  Evaluation:   { dot: '#00B5A5', lbl: '#00B5A5', bg: 'rgba(0,181,165,0.06)',  sel: 'rgba(0,181,165,0.15)' },
+  Evaluation:   { dot: '#01A7A3', lbl: '#01A7A3', bg: 'rgba(1,167,163,0.06)',  sel: 'rgba(1,167,163,0.15)' },
   Shortlisted:  { dot: '#6366f1', lbl: '#6366f1', bg: 'rgba(99,102,241,0.06)', sel: 'rgba(99,102,241,0.15)' },
   Inspection:   { dot: '#f59e0b', lbl: '#f59e0b', bg: 'rgba(245,158,11,0.06)',  sel: 'rgba(245,158,11,0.15)' },
   Negotiations: { dot: '#a78bfa', lbl: '#a78bfa', bg: 'rgba(167,139,250,0.06)', sel: 'rgba(167,139,250,0.15)' },
@@ -117,7 +117,7 @@ function PropertyCard({ property: p, interactions, stageColour: c, selProp, prop
               fontFamily: 'inherit',
             }} />
             <button onClick={onAddNote} style={{
-              background: '#00B5A5',
+              background: '#01A7A3',
               border: 'none',
               padding: '0.4rem 0.8rem',
               cursor: 'pointer',
@@ -259,9 +259,9 @@ export default function TenantRepTab() {
           <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.68rem', margin: '0.2rem 0 0' }}>{properties.length} properties tracked</p>
         </div>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
-          {msg && <span style={{ color: '#00B5A5', fontSize: '0.72rem', padding: '0.4rem 0.75rem', background: 'rgba(0,181,165,0.1)', borderRadius: 4 }}>{msg}</span>}
+          {msg && <span style={{ color: '#01A7A3', fontSize: '0.72rem', padding: '0.4rem 0.75rem', background: 'rgba(1,167,163,0.1)', borderRadius: 4 }}>{msg}</span>}
           <button onClick={() => setAddingProp(!addingProp)} style={{
-            background: addingProp ? 'rgba(239,68,68,0.1)' : '#00B5A5',
+            background: addingProp ? 'rgba(239,68,68,0.1)' : '#01A7A3',
             border: addingProp ? '1px solid rgba(239,68,68,0.3)' : 'none',
             color: addingProp ? '#ef4444' : 'white',
             padding: '0.5rem 1rem',
@@ -307,7 +307,7 @@ export default function TenantRepTab() {
             <select value={propForm.stage} onChange={e => setPropForm(f => ({ ...f, stage: e.target.value as Stage }))} style={{ ...inputStyle, width: 'auto' }}>
               {STAGES.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
-            <button type="submit" style={{ background: '#00B5A5', border: 'none', padding: '0.5rem 1.25rem', cursor: 'pointer', color: 'white', fontFamily: 'inherit', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', borderRadius: '4px' }}>Save Property</button>
+            <button type="submit" style={{ background: '#01A7A3', border: 'none', padding: '0.5rem 1.25rem', cursor: 'pointer', color: 'white', fontFamily: 'inherit', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', borderRadius: '4px' }}>Save Property</button>
             <button type="button" onClick={() => setAddingProp(false)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', padding: '0.5rem 1rem', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', fontFamily: 'inherit', fontSize: '0.65rem' }}>Cancel</button>
           </div>
         </form>
@@ -319,7 +319,7 @@ export default function TenantRepTab() {
           borderRadius: '8px',
           padding: '1rem',
           marginBottom: '1rem',
-          border: '1px solid rgba(0,181,165,0.3)',
+          border: '1px solid rgba(1,167,163,0.3)',
         }}>
           <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '0.75rem', alignItems: 'center' }}>
             <select value={intForm.interaction_type} onChange={e => setIntForm(f => ({ ...f, interaction_type: e.target.value }))} style={{ ...inputStyle, width: 'auto' }}>
@@ -330,7 +330,7 @@ export default function TenantRepTab() {
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
             <textarea value={intForm.note} onChange={e => setIntForm(f => ({ ...f, note: e.target.value }))} placeholder="What happened?" rows={3} style={{ ...inputStyle, flex: 1 }} />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', justifyContent: 'flex-end' }}>
-              <button type="submit" style={{ background: '#00B5A5', border: 'none', padding: '0.5rem 1.25rem', cursor: 'pointer', color: 'white', fontFamily: 'inherit', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', borderRadius: '4px' }}>Log</button>
+              <button type="submit" style={{ background: '#01A7A3', border: 'none', padding: '0.5rem 1.25rem', cursor: 'pointer', color: 'white', fontFamily: 'inherit', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase', borderRadius: '4px' }}>Log</button>
               <button type="button" onClick={() => setShowInt(false)} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', padding: '0.5rem 1rem', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', fontFamily: 'inherit', fontSize: '0.65rem' }}>Cancel</button>
             </div>
           </div>

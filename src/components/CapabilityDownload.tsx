@@ -129,7 +129,7 @@ export default function CapabilityDownload({
         <div
           ref={modalRef}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(26,26,26,0.75)', backdropFilter: 'blur(4px)' }}
+          style={{ background: 'rgba(10,59,56,0.75)', backdropFilter: 'blur(4px)' }}
           onClick={handleBackdrop}
           onKeyDown={handleKeyDown}
           role="dialog"

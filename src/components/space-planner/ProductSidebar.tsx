@@ -85,7 +85,7 @@ function ProductImage({ product, imageUrl }: { product: EOFProduct | ShopifyProd
       color: "#FFFFFF",
       fontSize: "0.6rem",
       fontWeight: 700,
-      fontFamily: "Montserrat, sans-serif",
+      fontFamily: "var(--font-inter), Inter, Arial, sans-serif",
       textAlign: "center",
       padding: "4px",
     }}>
@@ -193,13 +193,13 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
     }}>
       {/* Header */}
       <div style={{ padding: "1rem 1rem 0.75rem", borderBottom: "1px solid #E5E5E5" }}>
-        <h2 style={{ fontSize: "0.8rem", fontWeight: 700, color: "#1A1A1A", fontFamily: "Montserrat, sans-serif", marginBottom: "0.75rem" }}>
+        <h2 style={{ fontSize: "0.8rem", fontWeight: 700, color: "#0A3B38", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", marginBottom: "0.75rem" }}>
           Furniture Catalogue
         </h2>
 
         {/* Search */}
         <div style={{ position: "relative", marginBottom: "0.65rem" }}>
-          <Search size={13} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#9B9B9B" }} />
+          <Search size={13} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", color: "#5A6B68" }} />
           <input
             type="text"
             placeholder="Search..."
@@ -208,7 +208,7 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
             style={{
               width: "100%", fontSize: "0.78rem", padding: "0.45rem 0.5rem 0.45rem 2rem",
               borderRadius: 8, border: "1px solid #E5E5E5", outline: "none",
-              fontFamily: "Montserrat, sans-serif", color: "#1A1A1A",
+              fontFamily: "var(--font-inter), Inter, Arial, sans-serif", color: "#0A3B38",
               background: "#FFFFFF", boxSizing: "border-box",
             }}
           />
@@ -222,10 +222,10 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
               onClick={() => setActiveCategory(cat)}
               style={{
                 fontSize: "0.68rem", padding: "0.22rem 0.55rem", borderRadius: 6,
-                border: `1px solid ${activeCategory === cat ? "#00B5A5" : "#E5E5E5"}`,
-                background: activeCategory === cat ? "#00B5A5" : "#FFFFFF",
+                border: `1px solid ${activeCategory === cat ? "#01A7A3" : "#E5E5E5"}`,
+                background: activeCategory === cat ? "#01A7A3" : "#FFFFFF",
                 color: activeCategory === cat ? "#FFFFFF" : "#3D3D3D",
-                fontFamily: "Montserrat, sans-serif", fontWeight: activeCategory === cat ? 700 : 400,
+                fontFamily: "var(--font-inter), Inter, Arial, sans-serif", fontWeight: activeCategory === cat ? 700 : 400,
                 cursor: "pointer", flexShrink: 0,
               }}
             >
@@ -236,7 +236,7 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
       </div>
 
       {/* Drag hint */}
-      <div style={{ padding: "0.4rem 1rem", fontSize: "0.68rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", borderBottom: "1px solid #E5E5E5", background: "#F2F2F2" }}>
+      <div style={{ padding: "0.4rem 1rem", fontSize: "0.68rem", color: "#5A6B68", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", borderBottom: "1px solid #E5E5E5", background: "#F2F2F2" }}>
         Drag items onto the canvas
       </div>
 
@@ -252,7 +252,7 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
         )}
 
         {!loading && filtered.length === 0 && (
-          <p style={{ fontSize: "0.78rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", textAlign: "center", paddingTop: "2rem" }}>
+          <p style={{ fontSize: "0.78rem", color: "#5A6B68", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", textAlign: "center", paddingTop: "2rem" }}>
             No products found
           </p>
         )}
@@ -276,10 +276,10 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
               imageUrl={product.imageUrl}
             />
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#1A1A1A", fontFamily: "Montserrat, sans-serif", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              <p style={{ fontSize: "0.75rem", fontWeight: 600, color: "#0A3B38", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", margin: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                 {product.name}
               </p>
-              <p style={{ fontSize: "0.65rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", margin: 0 }}>
+              <p style={{ fontSize: "0.65rem", color: "#5A6B68", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", margin: 0 }}>
                 {product.widthCm} × {product.depthCm}cm
               </p>
             </div>
@@ -289,7 +289,7 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
 
       {/* Keyboard shortcuts hint */}
       <div style={{ padding: "0.5rem 0.75rem", borderTop: "1px solid #E5E5E5", background: "#F8F8F8" }}>
-        <p style={{ fontSize: "0.65rem", color: "#9B9B9B", fontFamily: "Montserrat, sans-serif", margin: 0, lineHeight: 1.7 }}>
+        <p style={{ fontSize: "0.65rem", color: "#5A6B68", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", margin: 0, lineHeight: 1.7 }}>
           <strong style={{ color: "#6B6B6B" }}>R</strong> rotate · <strong style={{ color: "#6B6B6B" }}>D</strong> duplicate<br />
           <strong style={{ color: "#6B6B6B" }}>Del</strong> delete · <strong style={{ color: "#6B6B6B" }}>Ctrl+Z</strong> undo
         </p>

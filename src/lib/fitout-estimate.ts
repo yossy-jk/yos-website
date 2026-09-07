@@ -31,19 +31,19 @@ export interface FitoutInputs {
 
 export const FITOUT_RATES: Record<FitoutTypeKey, Record<FitoutTier, FitoutRate>> = {
   'furniture-only': {
-    basic: { label: 'Basic', color: '#9B9B9B', desk: { low: 550, high: 715 }, meetingRoom: { low: 2000, high: 3000 }, contingency: 0.10 },
-    mid: { label: 'Mid-Range', color: '#00B5A5', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 2000, high: 3000 }, contingency: 0.10 },
-    premium: { label: 'Premium', color: '#1A1A1A', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 2000, high: 3000 }, contingency: 0.15 },
+    basic: { label: 'Basic', color: '#5A6B68', desk: { low: 550, high: 715 }, meetingRoom: { low: 2000, high: 3000 }, contingency: 0.10 },
+    mid: { label: 'Mid-Range', color: '#01A7A3', desk: { low: 1050, high: 1365 }, meetingRoom: { low: 2000, high: 3000 }, contingency: 0.10 },
+    premium: { label: 'Premium', color: '#0A3B38', desk: { low: 2500, high: 3250 }, meetingRoom: { low: 2000, high: 3000 }, contingency: 0.15 },
   },
   'turnkey-warm': {
-    basic: { label: 'Basic', color: '#9B9B9B', sqm: { low: 600, high: 780 }, desk: { low: 550, high: 715 }, meetingRoom: { low: 8000, high: 10400 }, kitchen: { low: 5000, high: 6500 }, reception: { low: 6000, high: 7800 }, av: { low: 2500, high: 3250 }, contingency: 0.10 },
-    mid: { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 900, high: 1170 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000, high: 10400 }, contingency: 0.10 },
-    premium: { label: 'Premium', color: '#1A1A1A', sqm: { low: 1200, high: 1560 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
+    basic: { label: 'Basic', color: '#5A6B68', sqm: { low: 600, high: 780 }, desk: { low: 550, high: 715 }, meetingRoom: { low: 8000, high: 10400 }, kitchen: { low: 5000, high: 6500 }, reception: { low: 6000, high: 7800 }, av: { low: 2500, high: 3250 }, contingency: 0.10 },
+    mid: { label: 'Mid-Range', color: '#01A7A3', sqm: { low: 900, high: 1170 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000, high: 10400 }, contingency: 0.10 },
+    premium: { label: 'Premium', color: '#0A3B38', sqm: { low: 1200, high: 1560 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
   },
   'turnkey-cold': {
-    basic: { label: 'Basic', color: '#9B9B9B', sqm: { low: 800, high: 1040 }, desk: { low: 550, high: 715 }, meetingRoom: { low: 8000, high: 10400 }, kitchen: { low: 5000, high: 6500 }, reception: { low: 6000, high: 7800 }, av: { low: 2500, high: 3250 }, contingency: 0.10 },
-    mid: { label: 'Mid-Range', color: '#00B5A5', sqm: { low: 1000, high: 1300 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000, high: 10400 }, contingency: 0.10 },
-    premium: { label: 'Premium', color: '#1A1A1A', sqm: { low: 1400, high: 1820 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
+    basic: { label: 'Basic', color: '#5A6B68', sqm: { low: 800, high: 1040 }, desk: { low: 550, high: 715 }, meetingRoom: { low: 8000, high: 10400 }, kitchen: { low: 5000, high: 6500 }, reception: { low: 6000, high: 7800 }, av: { low: 2500, high: 3250 }, contingency: 0.10 },
+    mid: { label: 'Mid-Range', color: '#01A7A3', sqm: { low: 1000, high: 1300 }, desk: { low: 1050, high: 1365 }, meetingRoom: { low: 18000, high: 23400 }, kitchen: { low: 15000, high: 19500 }, reception: { low: 20000, high: 26000 }, av: { low: 8000, high: 10400 }, contingency: 0.10 },
+    premium: { label: 'Premium', color: '#0A3B38', sqm: { low: 1400, high: 1820 }, desk: { low: 2500, high: 3250 }, meetingRoom: { low: 40000, high: 52000 }, kitchen: { low: 35000, high: 45500 }, reception: { low: 50000, high: 65000 }, av: { low: 25000, high: 32500 }, contingency: 0.15 },
   },
 }
 

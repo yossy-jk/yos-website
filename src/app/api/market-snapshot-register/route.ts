@@ -89,9 +89,9 @@ export async function POST(req: Request) {
           replyTo: 'jk@yourofficespace.au',
           subject: `You're on the list — Newcastle Office Market Snapshot`,
           html: `
-<div style="font-family:-apple-system,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1A1A1A">
-  <div style="background:#1A1A1A;padding:24px 28px;margin-bottom:28px;border-radius:4px">
-    <p style="color:#00B5A5;font-size:10px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 6px;font-weight:700">Your Office Space</p>
+<div style="font-family:-apple-system,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#0A3B38">
+  <div style="background:#0A3B38;padding:24px 28px;margin-bottom:28px;border-radius:4px">
+    <p style="color:#01A7A3;font-size:10px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 6px;font-weight:700">Your Office Space</p>
     <p style="color:white;font-weight:800;font-size:20px;margin:0;letter-spacing:-0.02em">Newcastle Office Market Snapshot</p>
   </div>
 
@@ -109,16 +109,16 @@ export async function POST(req: Request) {
     If your lease is coming up, or you just want to know whether your current rent is market — feel free to reply to this email or call me directly.
   </p>
 
-  <div style="margin:32px 0;padding:20px 24px;background:#F5F5F5;border-left:3px solid #00B5A5;border-radius:0 4px 4px 0">
-    <p style="font-size:13px;font-weight:700;color:#1A1A1A;margin:0 0 4px">Joe Kelley</p>
-    <p style="font-size:13px;font-weight:300;color:#9B9B9B;margin:0">Your Office Space | Newcastle</p>
-    <p style="font-size:13px;font-weight:300;color:#9B9B9B;margin:4px 0 0">
-      <a href="mailto:jk@yourofficespace.au" style="color:#00B5A5;text-decoration:none">jk@yourofficespace.au</a>
+  <div style="margin:32px 0;padding:20px 24px;background:#FAFAF8;border-left:3px solid #01A7A3;border-radius:0 4px 4px 0">
+    <p style="font-size:13px;font-weight:700;color:#0A3B38;margin:0 0 4px">Joe Kelley</p>
+    <p style="font-size:13px;font-weight:300;color:#5A6B68;margin:0">Your Office Space | Newcastle</p>
+    <p style="font-size:13px;font-weight:300;color:#5A6B68;margin:4px 0 0">
+      <a href="mailto:jk@yourofficespace.au" style="color:#01A7A3;text-decoration:none">jk@yourofficespace.au</a>
       &nbsp;&nbsp;|&nbsp;&nbsp;0434 655 511
     </p>
   </div>
 
-  <p style="font-size:11px;color:#9B9B9B;font-weight:300;line-height:1.6;margin-top:24px">
+  <p style="font-size:11px;color:#5A6B68;font-weight:300;line-height:1.6;margin-top:24px">
     You&apos;re receiving this because you registered at yourofficespace.au/market-snapshot.
     Region: ${safeRegion}. To unsubscribe, reply with &apos;unsubscribe&apos;.
   </p>

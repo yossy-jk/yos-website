@@ -180,7 +180,7 @@ export default function NewcastlePage() {
                 {
                   name: 'Tenant Representation',
                   href: '/eof-group/tenant-representation',
-                  colour: '#00B5A5',
+                  colour: '#01A7A3',
                   desc: 'We negotiate leases exclusively for tenants. We know the Newcastle CBD and Hunter market landlords, and we know where the leverage is in a negotiation.',
                 },
                 {

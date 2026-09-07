@@ -113,14 +113,14 @@ function buildEmailHtml(data: ReportData): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:2rem 1rem">
 <tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
-<tr><td style="padding-bottom:1.5rem;border-bottom:1px solid #00B5A533">
-<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#00B5A5;font-weight:700">Your Office Space</p>
+<tr><td style="padding-bottom:1.5rem;border-bottom:1px solid #01A7A333">
+<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#01A7A3;font-weight:700">Your Office Space</p>
 <h1 style="margin:0;font-size:1.5rem;font-weight:900;color:#ffffff;letter-spacing:-0.02em">Your Fitout Cost Estimate</h1>
 <p style="margin:0.5rem 0 0;font-size:0.8rem;color:#ffffff60">${data.sqm}m2 · ${tierLabel}${shellLabel}</p>
 </td></tr>
 <tr><td style="padding:2rem 0 1rem">
-<div style="background:rgba(0,181,165,0.1);border:1px solid #00B5A533;border-radius:0.75rem;padding:1.5rem;text-align:center">
-<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#00B5A5;font-weight:700">Estimated Cost Range (ex GST)</p>
+<div style="background:rgba(1,167,163,0.1);border:1px solid #01A7A333;border-radius:0.75rem;padding:1.5rem;text-align:center">
+<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#01A7A3;font-weight:700">Estimated Cost Range (ex GST)</p>
 <p style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff;letter-spacing:-0.03em;line-height:1">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</p>
 <p style="margin:0.5rem 0 0;font-size:0.75rem;color:#ffffff60">${fmt(data.perSqmLow)} – ${fmt(data.perSqmHigh)} per m² · Ex GST · Incl. contingency</p>
 </div>
@@ -128,9 +128,9 @@ function buildEmailHtml(data: ReportData): string {
 <tr><td style="padding:0 0 1.5rem">
 <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ffffff14;border-radius:0.5rem;overflow:hidden">
 ${rows}
-<tr style="background:rgba(0,181,165,0.08)">
-<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5">Estimated Total (ex GST)</td>
-<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5;text-align:right">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</td>
+<tr style="background:rgba(1,167,163,0.08)">
+<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#01A7A3">Estimated Total (ex GST)</td>
+<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#01A7A3;text-align:right">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</td>
 </tr>
 </table>
 </td></tr>
@@ -151,7 +151,7 @@ ${data.fitoutType !== 'furniture-only' ? `<tr><td style="padding:0.5rem 0;font-s
 <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1.5rem;text-align:center">
 <p style="margin:0 0 0.5rem;font-size:1rem;font-weight:700;color:#ffffff">Ready to get an accurate quote?</p>
 <p style="margin:0 0 1.25rem;font-size:0.8rem;color:#ffffff60;line-height:1.6">A site visit and detailed brief will refine this estimate significantly. We'll walk through your space and give you a fixed-price proposal — no obligation.</p>
-<a href="${HUBSPOT.bookingUrl}" style="display:inline-block;background:#00B5A5;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Book a Free Consultation →</a>
+<a href="${HUBSPOT.bookingUrl}" style="display:inline-block;background:#01A7A3;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Book a Free Consultation →</a>
 </div>
 </td></tr>
 <tr><td style="padding:0;border-top:1px solid #ffffff14;text-align:center">

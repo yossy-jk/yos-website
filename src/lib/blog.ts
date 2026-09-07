@@ -61,6 +61,12 @@ export function getAllPosts(): BlogPost[] {
   return posts
 }
 
+// Buyers Agency content is retained for controlled referral use, but it is not
+// part of the approved public service offer in Brand Standard v1.1.
+export function getPublicPosts(): BlogPost[] {
+  return getAllPosts().filter(post => post.division !== 'buyers-agency')
+}
+
 export function getPostBySlug(slug: string): BlogPost | null {
   const filePath = path.join(BLOG_DIR, `${slug}.json`)
   if (!fs.existsSync(filePath)) return null
@@ -111,6 +117,11 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
   const slugSet = new Set(fsPosts.map(p => p.slug))
   const merged = [...fsPosts, ...redisPosts.filter(p => !slugSet.has(p.slug))]
   return merged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+export async function getAllPublicPostsAsync(): Promise<BlogPost[]> {
+  const posts = await getAllPostsAsync()
+  return posts.filter(post => post.division !== 'buyers-agency')
 }
 
 export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null> {

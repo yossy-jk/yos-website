@@ -35,7 +35,7 @@ export default function RankingsPanel({ rankings, baseline }: { rankings: Rk[]; 
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center', marginBottom: 8 }}>
         <input value={q} onChange={e => sQ(e.target.value)} placeholder="Search keyword or page..." style={{ flex: '1 1 170px', minWidth: 140, padding: '7px 10px', borderRadius: 8, border: '1px solid rgba(128,128,128,.28)', background: 'transparent', color: 'inherit', fontSize: 13 }} />
         {B.map(([key, lb]) => (
-          <button key={key} onClick={() => sB(key)} style={{ padding: '5px 10px', borderRadius: 999, fontSize: 12, cursor: 'pointer', border: '1px solid ' + (b === key ? 'transparent' : 'rgba(128,128,128,.28)'), background: b === key ? '#00B5A5' : 'transparent', color: b === key ? '#fff' : 'inherit' }}>{lb}</button>
+          <button key={key} onClick={() => sB(key)} style={{ padding: '5px 10px', borderRadius: 999, fontSize: 12, cursor: 'pointer', border: '1px solid ' + (b === key ? 'transparent' : 'rgba(128,128,128,.28)'), background: b === key ? '#01A7A3' : 'transparent', color: b === key ? '#fff' : 'inherit' }}>{lb}</button>
         ))}
       </div>
       {baseline && <div style={{ fontSize: 11, opacity: .55, marginBottom: 6 }}>Change measured against {baseline}</div>}

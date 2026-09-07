@@ -97,8 +97,8 @@ export default function PrivacyPage() {
             <PrivacySection title="Who we are">
               <p>
                 Your Office Space is operated by Joe Kelley, Managing Director, NSW Real Estate Licence 20565455.
-                We provide tenant representation, commercial buyers agency, office furniture and fitout, commercial cleaning,
-                and the LeaseIntel™ lease review service.
+                We provide tenant representation, commercial fit out and project management, office and commercial furniture,
+                commercial cleaning, and supporting workplace resources.
               </p>
               <p>
                 This policy applies to all services offered at <strong>yourofficespace.au</strong> and is governed by the{' '}

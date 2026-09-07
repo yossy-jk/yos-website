@@ -253,11 +253,11 @@ export default function OfficeFitoutPage() {
       {/* ─── IMAGE BREAK 1 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
         <Image src="/images/furniture/space-cogc-wide.jpg" alt="YOS project — contemporary commercial office fitout" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.45)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.45)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch', marginBottom: '0.75rem' }}>
-              Your workspace should feel like<br /><span style={{ color: '#00B5A5' }}>it was built for you.</span>
+              Your workspace should feel like<br /><span style={{ color: '#01A7A3' }}>it was built for you.</span>
             </p>
             <p className="text-white/50 font-light" style={{ fontSize: '0.8rem', letterSpacing: '0.15em' }}>COMMERCIAL OFFICES — COGC — INSTALLED BY YOS</p>
           </FadeIn>
@@ -311,11 +311,11 @@ export default function OfficeFitoutPage() {
                   {/* Product image */}
                   <div className="relative overflow-hidden" style={{ height: '17rem' }}>
                     <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
-                    <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.18)' }} />
+                    <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.18)' }} />
                     <div className="absolute bottom-0 left-0 right-0 p-5">
                       <span className="text-white font-black text-lg tracking-tight" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{cat.category}</span>
                     </div>
-                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#00B5A5' }} />
+                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#01A7A3' }} />
                   </div>
                   {/* Content */}
                   <div className="p-7 flex flex-col flex-1">
@@ -387,10 +387,10 @@ export default function OfficeFitoutPage() {
       {/* ─── IMAGE BREAK 2 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
         <Image src="/images/furniture/dbt-boardroom.jpg" alt="DBT boardroom — oval table, dark feature wall, installed by YOS" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.4)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.4)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
               &ldquo;Joe was instrumental in building out our boardroom — high quality table, chairs, acoustic panelling. Practical advice, excellent detail.&rdquo;
               <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
             </p>

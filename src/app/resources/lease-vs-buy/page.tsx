@@ -285,21 +285,16 @@ export default function LeaseVsBuyPage() {
         </p>
       </div>
 
-      {/* CTAs */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      {/* CTA */}
+      <div className="mb-6">
         <a
-          href="/buyers-agency"
+          href={HUBSPOT.bookingUrl}
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
           style={{ padding: '1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem' }}
         >
-          Talk to a Buyers Agent →
-        </a>
-        <a
-          href="/tenant-rep"
-          className="inline-flex items-center gap-2 text-white font-bold no-underline hover:text-teal transition-colors border border-white/20 hover:border-teal/50"
-          style={{ padding: '1rem 2rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem' }}
-        >
-          Find the Right Lease →
+          Book a Clarity Call
         </a>
       </div>
 
@@ -349,7 +344,7 @@ export default function LeaseVsBuyPage() {
 
                 <div className="flex flex-col" style={{ gap: '1.75rem' }}>
                   <div>
-                    <label style={LABEL_STYLE}>Annual rent ($/sqm/yr) <span style={{ color: '#00B5A5' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Annual rent ($/sqm/yr) <span style={{ color: '#01A7A3' }}>*</span></label>
                     <input
                       type="number"
                       value={annualRentPerSqm}
@@ -361,7 +356,7 @@ export default function LeaseVsBuyPage() {
                   </div>
 
                   <div>
-                    <label style={LABEL_STYLE}>Sqm required <span style={{ color: '#00B5A5' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Sqm required <span style={{ color: '#01A7A3' }}>*</span></label>
                     <input
                       type="number"
                       value={sqm}
@@ -373,7 +368,7 @@ export default function LeaseVsBuyPage() {
                   </div>
 
                   <div>
-                    <label style={LABEL_STYLE}>Lease term (years) <span style={{ color: '#00B5A5' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Lease term (years) <span style={{ color: '#01A7A3' }}>*</span></label>
                     <div className="grid grid-cols-6 gap-2">
                       {LEASE_TERMS.map(t => (
                         <button
@@ -431,7 +426,7 @@ export default function LeaseVsBuyPage() {
 
                 <div className="flex flex-col" style={{ gap: '1.75rem' }}>
                   <div>
-                    <label style={LABEL_STYLE}>Purchase price ($) <span style={{ color: '#00B5A5' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Purchase price ($) <span style={{ color: '#01A7A3' }}>*</span></label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem' }}>$</span>
                       <input

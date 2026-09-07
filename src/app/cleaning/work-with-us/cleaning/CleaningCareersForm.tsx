@@ -27,14 +27,14 @@ const LABEL = {
 }
 
 const SECTION_HEAD = {
-  color: '#00B5A5',
+  color: '#01A7A3',
   fontSize: '0.62rem',
   fontWeight: 700,
   letterSpacing: '0.25em',
   textTransform: 'uppercase' as const,
   marginBottom: '1.25rem',
   paddingBottom: '0.5rem',
-  borderBottom: '1px solid rgba(0,181,165,0.2)',
+  borderBottom: '1px solid rgba(1,167,163,0.2)',
 }
 
 const EXPERIENCE_OPTIONS = [
@@ -116,8 +116,8 @@ export default function CleaningCareersForm() {
 
   if (submitted) {
     return (
-      <div style={{ background: 'rgba(0,181,165,0.08)', border: '1px solid rgba(0,181,165,0.25)', padding: '2.5rem', textAlign: 'center' }}>
-        <div style={{ width: '48px', height: '48px', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}><CheckIcon size={28} /></div>
+      <div style={{ background: 'rgba(1,167,163,0.08)', border: '1px solid rgba(1,167,163,0.25)', padding: '2.5rem', textAlign: 'center' }}>
+        <div style={{ width: '48px', height: '48px', background: '#01A7A3', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}><CheckIcon size={28} /></div>
         <h3 style={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.75rem' }}>We&apos;ve got your application.</h3>
         <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.9rem', lineHeight: 1.7, margin: 0 }}>
           Sarah will be in touch within 2 business days.
@@ -139,12 +139,12 @@ export default function CleaningCareersForm() {
               onClick={() => setAppType(t)}
               style={{
                 padding: '1rem',
-                border: appType === t ? `2px solid ${t === 'contractor' ? '#a78bfa' : '#00B5A5'}` : '1px solid rgba(255,255,255,0.12)',
+                border: appType === t ? `2px solid ${t === 'contractor' ? '#a78bfa' : '#01A7A3'}` : '1px solid rgba(255,255,255,0.12)',
                 background: appType === t
-                  ? (t === 'contractor' ? 'rgba(124,58,237,0.1)' : 'rgba(0,181,165,0.08)')
+                  ? (t === 'contractor' ? 'rgba(124,58,237,0.1)' : 'rgba(1,167,163,0.08)')
                   : 'rgba(255,255,255,0.02)',
                 color: appType === t
-                  ? (t === 'contractor' ? '#a78bfa' : '#00B5A5')
+                  ? (t === 'contractor' ? '#a78bfa' : '#01A7A3')
                   : 'rgba(255,255,255,0.45)',
                 fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.12em',
                 textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit',
@@ -200,9 +200,9 @@ export default function CleaningCareersForm() {
                 onClick={() => toggleExp(opt.value)}
                 style={{
                   padding: '0.65rem 0.875rem',
-                  border: experience.includes(opt.value) ? '1px solid rgba(0,181,165,0.5)' : '1px solid rgba(255,255,255,0.1)',
-                  background: experience.includes(opt.value) ? 'rgba(0,181,165,0.1)' : 'rgba(255,255,255,0.02)',
-                  color: experience.includes(opt.value) ? '#00B5A5' : 'rgba(255,255,255,0.5)',
+                  border: experience.includes(opt.value) ? '1px solid rgba(1,167,163,0.5)' : '1px solid rgba(255,255,255,0.1)',
+                  background: experience.includes(opt.value) ? 'rgba(1,167,163,0.1)' : 'rgba(255,255,255,0.02)',
+                  color: experience.includes(opt.value) ? '#01A7A3' : 'rgba(255,255,255,0.5)',
                   fontSize: '0.8rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit',
                   textAlign: 'left', transition: 'all 0.1s',
                 }}
@@ -239,9 +239,9 @@ export default function CleaningCareersForm() {
               onClick={() => toggleAvail(opt.value)}
               style={{
                 padding: '0.65rem 1rem',
-                border: availability.includes(opt.value) ? '1px solid rgba(0,181,165,0.5)' : '1px solid rgba(255,255,255,0.1)',
-                background: availability.includes(opt.value) ? 'rgba(0,181,165,0.08)' : 'rgba(255,255,255,0.02)',
-                color: availability.includes(opt.value) ? '#00B5A5' : 'rgba(255,255,255,0.5)',
+                border: availability.includes(opt.value) ? '1px solid rgba(1,167,163,0.5)' : '1px solid rgba(255,255,255,0.1)',
+                background: availability.includes(opt.value) ? 'rgba(1,167,163,0.08)' : 'rgba(255,255,255,0.02)',
+                color: availability.includes(opt.value) ? '#01A7A3' : 'rgba(255,255,255,0.5)',
                 fontSize: '0.82rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit',
                 textAlign: 'left', transition: 'all 0.1s',
               }}
@@ -377,7 +377,7 @@ export default function CleaningCareersForm() {
         type="submit"
         disabled={submitting}
         style={{
-          background: submitting ? 'rgba(0,181,165,0.5)' : '#00B5A5',
+          background: submitting ? 'rgba(1,167,163,0.5)' : '#01A7A3',
           color: 'white', border: 'none',
           padding: '1rem 2.5rem',
           fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em',

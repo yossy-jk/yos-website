@@ -12,20 +12,11 @@ const TOOLS_LEASING = [
   { label: 'Fitout Estimator', href: '/resources/fitout-estimator', tagline: 'Budget your office fitout accurately.' },
 ]
 
-const TOOLS_INVESTMENT = [
-  { label: 'Lease vs Buy', href: '/resources/lease-vs-buy', tagline: '5-year cost comparison.' },
-  { label: 'Stamp Duty Calculator', href: '/resources/stamp-duty-calculator', tagline: 'NSW commercial stamp duty estimate.' },
-  { label: 'Rental Yield Calculator', href: '/resources/rental-yield-calculator', tagline: 'Gross and net yield in seconds.' },
-  { label: 'Cap Rate Calculator', href: '/resources/cap-rate-calculator', tagline: 'Valuation metric for investors.' },
-  { label: 'Land Tax Calculator', href: '/resources/land-tax-calculator', tagline: 'Estimate your land tax liability.' },
-]
-
 const BLOG_HIGHLIGHTS = [
   { label: 'Newcastle Commercial Property Hub', href: '/newcastle-commercial-property' },
   { label: 'What Is Tenant Representation?', href: '/blog/what-is-tenant-representation-newcastle' },
   { label: 'Fitout Costs in Newcastle 2026', href: '/blog/commercial-fitout-cost-newcastle-2026' },
   { label: 'Make Good: What It Really Means', href: '/blog/what-is-make-good' },
-  { label: 'Buying Commercial Property in 2026', href: '/blog/buying-commercial-property-newcastle-2026' },
 ]
 
 const NAV_LINKS_SIMPLE = [
@@ -107,8 +98,8 @@ export default function Nav() {
           style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
           <Link href="/" onClick={() => setOpen(false)}
-            className="text-white font-black no-underline z-50 relative uppercase"
-            style={{ fontSize: 'clamp(0.8rem,2.5vw,0.72rem)', letterSpacing: '0.2em' }}>
+            className="text-white font-bold no-underline z-50 relative"
+            style={{ fontSize: 'clamp(0.8rem,2.5vw,0.9rem)', letterSpacing: '0.08em' }}>
             Your Office Space
           </Link>
 
@@ -146,8 +137,8 @@ export default function Nav() {
                             borderRight: i < SERVICE_LINKS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
                             minWidth: 0,
                           }}>
-                          <span className="text-white font-black uppercase block whitespace-nowrap group-hover:text-teal transition-colors"
-                            style={{ fontSize: '0.72rem', letterSpacing: '0.12em', marginBottom: '0.625rem' }}>
+                          <span className="text-white font-bold block group-hover:text-teal transition-colors"
+                            style={{ fontSize: '0.72rem', letterSpacing: '0.02em', marginBottom: '0.625rem' }}>
                             {link.label}
                           </span>
                           <span className="text-white/55 font-light block" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
@@ -213,27 +204,7 @@ export default function Nav() {
                         </div>
                       </div>
 
-                      {/* Col 2 — Investment Tools */}
-                      <div style={{ flex: '1 1 0', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '1.75rem 1.75rem 1.75rem 1.75rem' }}>
-                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Investment Tools</p>
-                        <div className="flex flex-col" style={{ gap: '0.1rem' }}>
-                          {TOOLS_INVESTMENT.map(tool => (
-                            <Link key={tool.href} href={tool.href} onClick={closeAll}
-                              className="no-underline group flex flex-col hover:bg-white/[0.04] transition-colors"
-                              style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem' }}>
-                              <span className="text-white font-semibold block group-hover:text-teal transition-colors"
-                                style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
-                                {tool.label}
-                              </span>
-                              <span className="text-white/55 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
-                                {tool.tagline}
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Col 3 — Blog */}
+                      {/* Col 2 — Blog */}
                       <div style={{ flex: '1 1 0', padding: '1.75rem 0 1.75rem 1.75rem' }}>
                         <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Latest Articles</p>
                         <div className="flex flex-col" style={{ gap: '0.1rem' }}>
@@ -284,8 +255,8 @@ export default function Nav() {
 
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
               className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors no-underline"
-              style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', padding: '0.75rem 1.5rem' }}>
-              Book a Call
+              style={{ fontSize: '0.72rem', letterSpacing: '0.02em', padding: '0.75rem 1.5rem' }}>
+              Book a Clarity Call
             </a>
           </div>
 
@@ -365,7 +336,7 @@ export default function Nav() {
           <div className="flex flex-col gap-3 pb-4" style={{ marginTop: 'auto' }}>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}
               className="bg-teal text-white font-bold text-center no-underline block"
-              style={{ padding: '1.1rem', fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              style={{ padding: '1.1rem', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
               Book a Clarity Call →
             </a>
             <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} onClick={() => setOpen(false)}
@@ -380,7 +351,7 @@ export default function Nav() {
       <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-teal border-t border-dark-teal">
         <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center text-white font-bold no-underline w-full"
-          style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '1rem' }}>
+          style={{ fontSize: '0.75rem', letterSpacing: '0.02em', padding: '1rem' }}>
           Book a Clarity Call →
         </a>
       </div>

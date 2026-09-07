@@ -3,8 +3,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BlogEmailCapture from '@/components/BlogEmailCapture'
-import { getAllPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES, SAFE_DIVISION } from '@/lib/blog'
-import type { Division } from '@/lib/blog'
+import { getAllPublicPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES, SAFE_DIVISION } from '@/lib/blog'
 
 export const metadata = {
   title: 'Blog | Your Office Space',
@@ -25,7 +24,7 @@ export const metadata = {
 export const revalidate = 3600 // re-check Redis every hour
 
 export default async function BlogPage() {
-  const raw = await getAllPostsAsync()
+  const raw = await getAllPublicPostsAsync()
   const posts = (raw || []).filter(Boolean).map((x) => {
     const o = x as unknown as Record<string, unknown>
     return { ...o,
@@ -50,7 +49,7 @@ export default async function BlogPage() {
       {/* ─── HERO ─────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,11rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Insights</p>
+          <p style={{ color: '#01A7A3', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Insights</p>
           <h1 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(2.5rem,6vw,5rem)', lineHeight: 1.0, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
             The YOS Blog
           </h1>
@@ -98,8 +97,8 @@ export default async function BlogPage() {
                     {featured.excerpt}
                   </p>
                   <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Read article</span>
-                    <span style={{ color: '#00B5A5' }}>→</span>
+                    <span style={{ color: '#01A7A3', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.18em', textTransform: 'uppercase' }}>Read article</span>
+                    <span style={{ color: '#01A7A3' }}>→</span>
                   </div>
                 </div>
               </div>
@@ -112,7 +111,7 @@ export default async function BlogPage() {
       {rest.length > 0 && (
         <section style={{ background: 'white', paddingTop: 'clamp(4rem,8vw,6rem)', paddingBottom: 'clamp(5rem,10vw,9rem)' }}>
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)' }}>
-            <p style={{ color: '#00796F', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '2.5rem' }}>All articles</p>
+            <p style={{ color: '#0C7A70', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '2.5rem' }}>All articles</p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: '2rem' }}>
               {rest.map(post => {
@@ -157,7 +156,7 @@ export default async function BlogPage() {
                           </p>
                           <p style={{ color: '#666666', fontSize: '0.72rem', fontWeight: 300, lineHeight: 1.5 }}>{readTime} min read</p>
                         </div>
-                        <span style={{ color: '#00796F', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}
+                        <span style={{ color: '#0C7A70', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase' }}
                           className="group-hover:text-dark-teal transition-colors">
                           Read →
                         </span>
@@ -174,7 +173,7 @@ export default async function BlogPage() {
       {/* ─── EMAIL CAPTURE ────────────────────────── */}
       <section style={{ background: '#F9FAFB', paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-          <p style={{ color: '#00796F', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Stay sharp</p>
+          <p style={{ color: '#0C7A70', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Stay sharp</p>
           <h2 style={{ color: '#0A0A0A', fontWeight: 900, fontSize: 'clamp(1.5rem,3vw,2.25rem)', textTransform: 'uppercase', letterSpacing: '-0.01em', marginBottom: '1rem', maxWidth: '28rem' }}>
             Get new articles when they land.
           </h2>

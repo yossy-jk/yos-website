@@ -48,9 +48,9 @@ export default function SpacePlannerPage() {
       <section style={{ background: '#0A0A0A', ...SEC }}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', border: '1px solid rgba(0,181,165,0.3)', padding: '0.4rem 1rem', borderRadius: 100, marginBottom: '2rem' }}>
-              <span style={{ width: '0.35rem', height: '0.35rem', background: '#00B5A5', borderRadius: '50%', display: 'block' }} />
-              <span style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase' }}>Coming Soon</span>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', border: '1px solid rgba(1,167,163,0.3)', padding: '0.4rem 1rem', borderRadius: 100, marginBottom: '2rem' }}>
+              <span style={{ width: '0.35rem', height: '0.35rem', background: '#01A7A3', borderRadius: '50%', display: 'block' }} />
+              <span style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase' }}>Coming Soon</span>
             </div>
             <h1 style={{ color: '#ffffff', fontWeight: 900, fontSize: 'clamp(2.5rem,6vw,5rem)', letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: '1.5rem', maxWidth: '16ch' }}>
               Space Planner
@@ -79,8 +79,8 @@ export default function SpacePlannerPage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-              <span style={{ width: '0.35rem', height: '0.35rem', background: '#00B5A5', borderRadius: '50%', display: 'block' }} />
-              <span style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase' }}>How it works</span>
+              <span style={{ width: '0.35rem', height: '0.35rem', background: '#01A7A3', borderRadius: '50%', display: 'block' }} />
+              <span style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase' }}>How it works</span>
             </div>
             <h2 style={{ color: '#ffffff', fontWeight: 800, fontSize: 'clamp(1.75rem,3.5vw,3rem)', letterSpacing: '-0.01em', marginBottom: '4rem' }}>
               Three steps to your layout
@@ -92,7 +92,7 @@ export default function SpacePlannerPage() {
                 { n: '03', title: 'Get your quote', body: 'Instant estimate based on your specific layout. Take it or refine it — no pressure.' },
               ].map(step => (
                 <div key={step.n}>
-                  <p style={{ color: '#00B5A5', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{step.n}</p>
+                  <p style={{ color: '#01A7A3', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{step.n}</p>
                   <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.875rem' }}>{step.title}</h3>
                   <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.8 }}>{step.body}</p>
                 </div>
@@ -106,8 +106,8 @@ export default function SpacePlannerPage() {
       <section style={{ background: '#131313', paddingTop: 'clamp(5rem,10vw,8rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
-            <div style={{ background: 'rgba(0,181,165,0.06)', border: '1px solid rgba(0,181,165,0.2)', borderRadius: '1rem', padding: 'clamp(2rem,5vw,3.5rem)', textAlign: 'center', maxWidth: '36rem', margin: '0 auto' }}>
-              <p style={{ color: '#00B5A5', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+            <div style={{ background: 'rgba(1,167,163,0.06)', border: '1px solid rgba(1,167,163,0.2)', borderRadius: '1rem', padding: 'clamp(2rem,5vw,3.5rem)', textAlign: 'center', maxWidth: '36rem', margin: '0 auto' }}>
+              <p style={{ color: '#01A7A3', fontWeight: 700, fontSize: '0.65rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 Ready to start now?
               </p>
               <h2 style={{ color: '#ffffff', fontWeight: 900, fontSize: 'clamp(1.5rem,3vw,2.5rem)', letterSpacing: '-0.01em', marginBottom: '1rem', lineHeight: 1.2 }}>
