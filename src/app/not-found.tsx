@@ -37,10 +37,10 @@ export default function NotFound() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
             {[
-              { label: 'Tenant Rep', href: '/tenant-rep' },
-              { label: 'Buyers Agency', href: '/buyers-agency' },
-              { label: 'Furniture', href: '/furniture' },
-              { label: 'Cleaning', href: '/cleaning' },
+              { label: 'Tenant Representation', href: '/tenant-rep' },
+              { label: 'Fit Out & Project Management', href: '/office-fitout' },
+              { label: 'Office & Commercial Furniture', href: '/furniture' },
+              { label: 'Commercial Cleaning', href: '/cleaning' },
               { label: 'Lease Review', href: '/lease-review' },
               { label: 'Resources', href: '/resources' },
               { label: 'About', href: '/about' },

@@ -19,9 +19,11 @@
     "test:audit-dependencies": "node --test scripts/audit-dependencies.test.mjs",
     "test:main-landmark": "node --test scripts/main-landmark.test.mjs",
     "test:internal-links": "node --test scripts/internal-link-routes.test.mjs",
+    "test:axe": "node scripts/axe-accessibility.mjs",
     "scan:credentials": "node scripts/scan-source-credentials.mjs",
+    "check:brand": "node scripts/check-brand-v11.mjs",
     "audit:dependencies": "node scripts/audit-dependencies.mjs",
-    "check": "npm test && npm run scan:credentials && npm run lint && npm run audit:dependencies && npm run build"
+    "check": "npm test && npm run scan:credentials && npm run check:brand && npm run lint && npm run audit:dependencies && npm run build && npm run test:axe"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",
@@ -44,6 +46,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.2.3",
+    "axe-core": "^4.13.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.19.41",
     "@types/react": "^19",

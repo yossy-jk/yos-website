@@ -98,7 +98,7 @@ export default function NotForProfitPage() {
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-6"
               style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
               Your office lease.<br />
-              <span style={{ color: '#00B5A5' }}>Our expertise.</span><br />
+              <span style={{ color: '#01A7A3' }}>Our expertise.</span><br />
               No cost to you.
             </h1>
             <p className="text-white/60 font-light leading-relaxed mb-8"

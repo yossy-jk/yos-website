@@ -28,12 +28,12 @@ export default function SaveProgressPrompt({ onSave, onDismiss }: SaveProgressPr
       zIndex: 40,
       width: '100%',
       maxWidth: '440px',
-      background: '#1A1A1A',
+      background: '#0A3B38',
       border: '1px solid #2a2a2a',
       borderRadius: '12px',
       padding: '1.1rem 1.25rem',
       boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
-      fontFamily: 'Montserrat, sans-serif',
+      fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
       animation: 'slideUp 0.3s ease-out',
     }}>
       <style>{`
@@ -46,7 +46,7 @@ export default function SaveProgressPrompt({ onSave, onDismiss }: SaveProgressPr
       <p style={{ fontSize: '0.85rem', fontWeight: 700, color: '#F7F6F4', marginBottom: '0.3rem' }}>
         Save your progress
       </p>
-      <p style={{ fontSize: '0.75rem', color: '#9B9B9B', marginBottom: '0.85rem' }}>
+      <p style={{ fontSize: '0.75rem', color: '#5A6B68', marginBottom: '0.85rem' }}>
         Enter your email and we will keep your work safe if you lose connection.
       </p>
 
@@ -65,7 +65,7 @@ export default function SaveProgressPrompt({ onSave, onDismiss }: SaveProgressPr
             padding: '0.55rem 0.75rem',
             fontSize: '0.82rem',
             color: '#F7F6F4',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             outline: 'none',
           }}
         />
@@ -73,7 +73,7 @@ export default function SaveProgressPrompt({ onSave, onDismiss }: SaveProgressPr
           type="submit"
           disabled={saving}
           style={{
-            background: '#00B5A5',
+            background: '#01A7A3',
             color: '#FFFFFF',
             border: 'none',
             borderRadius: '8px',
@@ -81,7 +81,7 @@ export default function SaveProgressPrompt({ onSave, onDismiss }: SaveProgressPr
             fontSize: '0.82rem',
             fontWeight: 700,
             cursor: 'pointer',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             whiteSpace: 'nowrap',
           }}
         >
@@ -98,7 +98,7 @@ export default function SaveProgressPrompt({ onSave, onDismiss }: SaveProgressPr
             fontSize: '0.78rem',
             color: '#6B6B6B',
             cursor: 'pointer',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             whiteSpace: 'nowrap',
           }}
         >

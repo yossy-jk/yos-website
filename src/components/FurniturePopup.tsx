@@ -160,7 +160,7 @@ export default function FurniturePopup() {
           <div className="text-center" style={{ padding: '3rem 2.75rem' }}>
             <div className="w-14 h-14 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-5">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M6 14l6 6 10-12" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M6 14l6 6 10-12" stroke="#01A7A3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <h3 className="text-near-black font-bold text-xl mb-3">Done. We&apos;ll be in touch.</h3>

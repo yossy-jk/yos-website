@@ -626,7 +626,7 @@ export default function LandTaxCalculatorPage() {
           </h2>
           <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
             style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
-            Our buyers agency team models acquisition costs, holding costs, and exit scenarios so you walk in with your eyes open.
+            Use this as an indicative starting point, then confirm acquisition, holding and exit assumptions with appropriately qualified advisers before committing.
           </p>
           <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
             className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"

@@ -559,7 +559,7 @@ export default function FitoutEstimatorPage() {
             </div>
             {/* Inputs summary */}
             <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: '0.75rem', overflow: 'hidden', marginBottom: '1.25rem' }}>
-              <div style={{ padding: '0.875rem 1.75rem', background: 'rgba(0,181,165,0.06)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ padding: '0.875rem 1.75rem', background: 'rgba(1,167,163,0.06)', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
                 <p className="text-teal font-semibold uppercase tracking-[0.2em]" style={{ fontSize: '0.6rem' }}>Your brief</p>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0' }}>
@@ -586,7 +586,7 @@ export default function FitoutEstimatorPage() {
               {storedEstimate!.breakdown.map((row, i) => (
                 <div key={i}
                   className={`flex justify-between items-center ${i < storedEstimate!.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
-                  style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(0,181,165,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
+                  style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(1,167,163,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
                   <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
                   <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
                     {fmt(row.low)} &ndash; {fmt(row.high)}
@@ -612,7 +612,7 @@ export default function FitoutEstimatorPage() {
             </p>
             {/* Email capture — teaser summary, then email ask */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
-              <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
+              <div style={{ width: '2.5rem', height: '3px', background: '#01A7A3', borderRadius: '2px', marginBottom: '1.25rem' }} />
               <h3 className="text-white font-black uppercase mb-4" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
                 Here&apos;s the picture so far
               </h3>
@@ -657,7 +657,7 @@ export default function FitoutEstimatorPage() {
                   style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
                 />
                 <button type="submit" disabled={reportState === 'sending' || reportState === 'sent'}
-                  style={{ background: reportState === 'sent' ? 'rgba(0,181,165,0.4)' : '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
+                  style={{ background: reportState === 'sent' ? 'rgba(1,167,163,0.4)' : '#01A7A3', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
                   {reportState === 'sending' ? 'Sending…' : reportState === 'sent' ? 'Report sent' : 'Send me the full report →'}
                 </button>
                 {reportMessage && (
@@ -715,9 +715,9 @@ export default function FitoutEstimatorPage() {
                 ].map((s, i) => (
                   <div key={s.step} style={{ position: 'relative' }}>
                     {i < 3 && (
-                      <div style={{ position: 'absolute', top: '1.8rem', right: '-1.5rem', width: '2.5rem', height: '1px', background: 'linear-gradient(to right, rgba(0,181,165,0.5), rgba(0,181,165,0.15))', zIndex: 1 }} aria-hidden="true" />
+                      <div style={{ position: 'absolute', top: '1.8rem', right: '-1.5rem', width: '2.5rem', height: '1px', background: 'linear-gradient(to right, rgba(1,167,163,0.5), rgba(1,167,163,0.15))', zIndex: 1 }} aria-hidden="true" />
                     )}
-                    <p style={{ color: '#00B5A5', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{s.step}</p>
+                    <p style={{ color: '#01A7A3', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{s.step}</p>
                     <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.875rem' }}>{s.title}</h3>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.8 }}>{s.body}</p>
                   </div>
@@ -756,7 +756,7 @@ export default function FitoutEstimatorPage() {
                       transition: 'border-color 0.3s ease',
                       cursor: 'default',
                     }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#00B5A5' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#01A7A3' }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#2A2A2A' }}
                   >
                     {/* Image */}
@@ -792,7 +792,7 @@ export default function FitoutEstimatorPage() {
                     'Delivery, install and on-site management',
                   ].map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <span style={{ color: '#00B5A5', fontSize: '1.1rem', lineHeight: 1, flexShrink: 0 }}>→</span>
+                      <span style={{ color: '#01A7A3', fontSize: '1.1rem', lineHeight: 1, flexShrink: 0 }}>→</span>
                       <span style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 300, fontSize: '0.875rem', lineHeight: 1.5 }}>{item}</span>
                     </div>
                   ))}
@@ -822,7 +822,7 @@ export default function FitoutEstimatorPage() {
                     a: "Furniture-only fitout: 2-4 weeks. Full commercial fitout: 6-16 weeks depending on scope. The biggest delay is decisions - not construction. Our process compresses that phase so you move faster."
                   },
                 ].map((item, i) => (
-                  <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #00B5A5' }}>
+                  <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #01A7A3' }}>
                     <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.875rem', lineHeight: 1.4 }}>{item.q}</h3>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.85 }}>{item.a}</p>
                   </div>

@@ -51,7 +51,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
       style={{
         position: 'fixed',
         inset: 0,
-        background: '#1A1A1A',
+        background: '#0A3B38',
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
@@ -76,8 +76,8 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
               fontSize: '1.1rem',
               fontWeight: 800,
               letterSpacing: '-0.03em',
-              fontFamily: 'Montserrat, sans-serif',
-              color: '#00B5A5',
+              fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
+              color: '#01A7A3',
             }}
           >
             Space Planner
@@ -88,7 +88,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
               marginLeft: '0.5rem',
               fontSize: '0.65rem',
               color: '#6B6B6B',
-              fontFamily: 'Montserrat, sans-serif',
+              fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
               verticalAlign: 'middle',
             }}
           >
@@ -104,7 +104,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
             lineHeight: 1.2,
             letterSpacing: '-0.03em',
             color: '#F7F6F4',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             marginBottom: '0.65rem',
             textAlign: 'center',
           }}
@@ -119,7 +119,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
           style={{
             fontSize: '0.82rem',
             color: 'rgba(247,246,244,0.55)',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             lineHeight: 1.65,
             textAlign: 'center',
             marginBottom: '2rem',
@@ -148,8 +148,8 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
                   display: 'block',
                   fontSize: '0.72rem',
                   fontWeight: 600,
-                  color: '#9B9B9B',
-                  fontFamily: 'Montserrat, sans-serif',
+                  color: '#5A6B68',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                   marginBottom: '0.3rem',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
@@ -168,18 +168,18 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
                 autoComplete="given-name"
                 style={{
                   width: '100%',
-                  background: '#1A1A1A',
+                  background: '#0A3B38',
                   border: '1px solid #333',
                   borderRadius: '8px',
                   padding: '0.65rem 0.85rem',
                   fontSize: '0.9rem',
                   color: '#F7F6F4',
-                  fontFamily: 'Montserrat, sans-serif',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                   outline: 'none',
                   boxSizing: 'border-box',
                   transition: 'border-color 0.15s',
                 }}
-                onFocus={(e) => { e.currentTarget.style.borderColor = '#00B5A5' }}
+                onFocus={(e) => { e.currentTarget.style.borderColor = '#01A7A3' }}
                 onBlur={(e) => { e.currentTarget.style.borderColor = '#333' }}
               />
             </div>
@@ -192,8 +192,8 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
                   display: 'block',
                   fontSize: '0.72rem',
                   fontWeight: 600,
-                  color: '#9B9B9B',
-                  fontFamily: 'Montserrat, sans-serif',
+                  color: '#5A6B68',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                   marginBottom: '0.3rem',
                   letterSpacing: '0.04em',
                   textTransform: 'uppercase',
@@ -211,18 +211,18 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
                 autoComplete="email"
                 style={{
                   width: '100%',
-                  background: '#1A1A1A',
+                  background: '#0A3B38',
                   border: '1px solid #333',
                   borderRadius: '8px',
                   padding: '0.65rem 0.85rem',
                   fontSize: '0.9rem',
                   color: '#F7F6F4',
-                  fontFamily: 'Montserrat, sans-serif',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                   outline: 'none',
                   boxSizing: 'border-box',
                   transition: 'border-color 0.15s',
                 }}
-                onFocus={(e) => { e.currentTarget.style.borderColor = '#00B5A5' }}
+                onFocus={(e) => { e.currentTarget.style.borderColor = '#01A7A3' }}
                 onBlur={(e) => { e.currentTarget.style.borderColor = '#333' }}
               />
             </div>
@@ -240,9 +240,9 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
                 borderRadius: '8px',
                 border: 'none',
                 cursor: canSubmit && !loading ? 'pointer' : 'not-allowed',
-                background: canSubmit && !loading ? '#00B5A5' : '#2a2a2a',
+                background: canSubmit && !loading ? '#01A7A3' : '#2a2a2a',
                 color: canSubmit && !loading ? '#FFFFFF' : '#555',
-                fontFamily: 'Montserrat, sans-serif',
+                fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                 letterSpacing: '-0.01em',
                 transition: 'background 0.15s, color 0.15s',
               }}
@@ -258,7 +258,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
             marginTop: '1rem',
             fontSize: '0.68rem',
             color: 'rgba(247,246,244,0.25)',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             textAlign: 'center',
             lineHeight: 1.5,
           }}

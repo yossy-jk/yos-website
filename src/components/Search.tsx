@@ -11,28 +11,22 @@ type SearchResult = {
 
 const ALL_ITEMS: SearchResult[] = [
   // Services
-  { title: 'Tenant Representation', description: 'We negotiate your office lease on your side. Newcastle and Hunter Region.', href: '/tenant-rep', category: 'Service' },
-  { title: 'Commercial Cleaning', description: 'Healthcare, aged care and government-grade cleaning contracts from $2k/month.', href: '/cleaning', category: 'Service' },
-  { title: 'Furniture & Fitout', description: 'Commercial furniture supply and project-managed fitouts across NSW.', href: '/furniture', category: 'Service' },
-  { title: 'Buyers Agency', description: 'Commercial property buyers agent for Newcastle and Hunter.', href: '/buyers-agency', category: 'Service' },
+  { title: 'Tenant Representation', description: 'Tenant-side commercial lease advice and negotiation.', href: '/tenant-rep', category: 'Service' },
+  { title: 'Commercial Fit Out & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },
+  { title: 'Office & Commercial Furniture', description: 'Furniture selected, supplied and installed for your workplace.', href: '/furniture', category: 'Service' },
+  { title: 'Commercial Cleaning', description: 'Accountable commercial cleaning built around your workplace standards.', href: '/cleaning', category: 'Service' },
   // Tools
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk rating on your commercial lease.', href: '/resources/lease-review', category: 'Tool' },
   { title: 'Fitout Cost Estimator', description: 'Estimate your office fitout cost using 2026 Newcastle market rates.', href: '/resources/fitout-estimator', category: 'Tool' },
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost.', href: '/resources/lease-comparison', category: 'Tool' },
   { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs.', href: '/resources/office-size-calculator', category: 'Tool' },
   { title: 'Should I Relocate?', description: 'Six-question quiz gives you a Red, Amber or Green verdict on moving offices.', href: '/resources/relocate-quiz', category: 'Tool' },
-  { title: 'Lease vs Buy Calculator', description: 'Model the true cost of leasing versus buying over 5, 10 and 15 years.', href: '/resources/lease-vs-buy', category: 'Tool' },
-  { title: 'Stamp Duty Calculator', description: 'NSW commercial property transfer duty estimate. 2025-26 rates.', href: '/resources/stamp-duty-calculator', category: 'Tool' },
-  { title: 'Rental Yield Calculator', description: 'Gross and net yield on commercial property, including outgoings and vacancy.', href: '/resources/rental-yield-calculator', category: 'Tool' },
-  { title: 'Cap Rate Calculator', description: 'Capitalisation rate and implied valuation for commercial investment property.', href: '/resources/cap-rate-calculator', category: 'Tool' },
-  { title: 'Land Tax Calculator', description: 'Annual land tax liability across all Australian states.', href: '/resources/land-tax-calculator', category: 'Tool' },
-  { title: 'Purchase Checklist', description: '25-point due diligence checklist for NSW commercial property buyers.', href: '/resources/purchase-checklist', category: 'Tool' },
   { title: 'Workspace Builder', description: 'Plan your office layout — rooms, desks, and space requirements.', href: '/resources/workspace-builder', category: 'Tool' },
-  { title: 'LeaseIntel Report', description: 'Full professional lease review. Free for Newcastle businesses until July 2026.', href: '/leaseintel', category: 'Tool' },
+  { title: 'LeaseIntel Report', description: 'A structured commercial lease review in plain English.', href: '/leaseintel', category: 'Tool' },
   // Pages
   { title: 'About Your Office Space', description: 'Who we are, what we do, and how we work with Newcastle businesses.', href: '/about', category: 'Page' },
   { title: 'Contact', description: 'Get in touch with the YOS team in Newcastle.', href: '/contact', category: 'Page' },
-  { title: 'Case Studies', description: 'Real projects across tenant rep, furniture, cleaning and buyers agency.', href: '/case-studies', category: 'Page' },
+  { title: 'Case Studies', description: 'Real projects across tenant representation, fit out, furniture and cleaning.', href: '/case-studies', category: 'Page' },
   { title: 'Blog & Articles', description: 'Commercial property guides, market insights and practical advice.', href: '/blog', category: 'Page' },
   { title: 'Resources & Tools', description: 'All free tools, calculators and market resources in one place.', href: '/resources', category: 'Page' },
   { title: 'Newcastle Office Market Snapshot', description: 'Monthly tenant-side market report. Vacancy, rents and trends.', href: '/market-snapshot', category: 'Page' },
@@ -40,7 +34,6 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'What Is Tenant Representation?', description: 'How a tenant rep works, what it costs, and why you need one.', href: '/blog/what-is-tenant-representation-newcastle', category: 'Article' },
   { title: 'Fitout Costs in Newcastle 2026', description: 'What a commercial fitout actually costs per sqm in Newcastle this year.', href: '/blog/commercial-fitout-cost-newcastle-2026', category: 'Article' },
   { title: 'Make Good: What It Really Means', description: 'Your make-good obligations at lease end — and how to negotiate them.', href: '/blog/what-is-make-good', category: 'Article' },
-  { title: 'Buying Commercial Property in 2026', description: 'A guide to purchasing commercial property in Newcastle and the Hunter.', href: '/blog/buying-commercial-property-newcastle-2026', category: 'Article' },
 ]
 
 const CATEGORY_COLOURS: Record<string, string> = {
@@ -57,7 +50,7 @@ function highlight(text: string, query: string) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark style={{ background: 'rgba(0,181,165,0.25)', color: '#00B5A5', borderRadius: '2px', padding: '0 1px' }}>
+      <mark style={{ background: 'rgba(1,167,163,0.25)', color: '#01A7A3', borderRadius: '2px', padding: '0 1px' }}>
         {text.slice(idx, idx + query.length)}
       </mark>
       {text.slice(idx + query.length)}
@@ -97,7 +90,8 @@ export default function Search() {
     function handler(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault()
-        open ? closeSearch() : openSearch()
+        if (open) closeSearch()
+        else openSearch()
       }
       if (e.key === 'Escape' && open) closeSearch()
     }
@@ -139,7 +133,7 @@ export default function Search() {
       <button
         onClick={openSearch}
         aria-label="Search"
-        className="flex items-center gap-2 text-white/50 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
+        className="flex items-center gap-2 text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
         style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
       >
         <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
@@ -148,7 +142,7 @@ export default function Search() {
         <span className="hidden lg:inline">Search</span>
         <kbd className="hidden lg:inline" style={{
           fontSize: '0.55rem', padding: '0.15rem 0.4rem', border: '1px solid rgba(255,255,255,0.2)',
-          borderRadius: '3px', color: 'rgba(255,255,255,0.35)', fontFamily: 'inherit', letterSpacing: '0.05em'
+          borderRadius: '3px', color: 'rgba(255,255,255,0.8)', fontFamily: 'inherit', letterSpacing: '0.05em'
         }}>⌘K</kbd>
       </button>
 
@@ -213,12 +207,12 @@ export default function Search() {
                     {/* Icon */}
                     <span className="flex-shrink-0 mt-0.5" style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       {item.category === 'Tool' && (
-                        <svg width="12" height="12" fill="none" stroke="#00B5A5" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg width="12" height="12" fill="none" stroke="#01A7A3" strokeWidth="2" viewBox="0 0 24 24">
                           <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 9h6M9 12h6M9 15h4" />
                         </svg>
                       )}
                       {item.category === 'Service' && (
-                        <svg width="12" height="12" fill="none" stroke="#00B5A5" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg width="12" height="12" fill="none" stroke="#01A7A3" strokeWidth="2" viewBox="0 0 24 24">
                           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                         </svg>
                       )}

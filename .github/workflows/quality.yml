@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   verify:
-    name: Credential scan, lint, audit and build
+    name: Security, accessibility, brand, lint, audit and build
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -39,6 +39,9 @@ jobs:
       - name: Scan source for credentials
         run: npm run scan:credentials
 
+      - name: Enforce Brand Standard v1.1
+        run: npm run check:brand
+
       - name: Lint
         run: npm run lint
 
@@ -47,3 +50,6 @@ jobs:
 
       - name: Build production bundle
         run: npm run build
+
+      - name: Run axe accessibility gate
+        run: npm run test:axe

@@ -53,7 +53,7 @@ export default function ContactPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Tenant-side commercial property advisory. Tenant rep, buyers agency, furniture, fitout and commercial cleaning across Newcastle and NSW.",
+            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -191,10 +191,9 @@ export default function ContactPage() {
                     >
                       <option value="">Select a service...</option>
                       <option value="Tenant Representation">Tenant Representation</option>
-                      <option value="Buyers Agency">Buyers Agency</option>
-                      <option value="Furniture & Fitout">Furniture &amp; Fitout</option>
+                      <option value="Commercial Fit Out & Project Management">Commercial Fit Out &amp; Project Management</option>
+                      <option value="Office & Commercial Furniture">Office &amp; Commercial Furniture</option>
                       <option value="Commercial Cleaning">Commercial Cleaning</option>
-                      <option value="Lease Review">Lease Review</option>
                       <option value="General Enquiry">General Enquiry</option>
                     </select>
                   </div>
@@ -301,7 +300,7 @@ export default function ContactPage() {
               { num: '04', title: 'Your call', body: 'No pressure. Take your time. Good relationships start with honesty, not a hard close.' },
             ].map((item, i) => (
               <FadeIn key={item.num} delay={i * 60}>
-                <div style={{ paddingTop: '1.5rem', borderTop: '2px solid #00B5A5' }}>
+                <div style={{ paddingTop: '1.5rem', borderTop: '2px solid #01A7A3' }}>
                   <p className="text-teal font-bold mb-3" style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}>{item.num}</p>
                   <p className="text-near-black font-black uppercase tracking-tight mb-3" style={{ fontSize: '1rem' }}>{item.title}</p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>{item.body}</p>

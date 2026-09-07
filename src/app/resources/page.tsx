@@ -5,24 +5,21 @@ import Footer from '@/components/Footer'
 import Button from '@/components/Button'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
-const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
-const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
-import BookingCTA from '@/components/BookingCTA'
-import { getAllPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
+import { getPublicPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 import { getAllCaseStudies } from '@/lib/case-studies'
 
 export const metadata = {
   title: 'Resources & Insights | Your Office Space',
-  description: 'Free commercial property tools for Australian businesses. Lease risk checker, fitout estimator, stamp duty and yield calculators, market insights.',
-  twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Free lease checker, fitout estimator, stamp duty and yield calculators for Australian business owners.' },
+  description: 'Practical tenant-side commercial property tools for Australian businesses, including lease risk, fit out cost, lease comparison and office size tools.',
+  twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Practical lease, fit out and workplace planning tools for Australian business owners.' },
   alternates: { canonical: 'https://www.yourofficespace.au/resources' },
   openGraph: {
     title: 'Resources & Insights | Your Office Space',
-    description: 'Free tools, calculators and market insights for Australian business owners. Lease checker, fitout estimator, stamp duty calculator and more.',
+    description: 'Practical lease, fit out and workplace planning tools for Australian business owners.',
     url: 'https://www.yourofficespace.au/resources',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -37,30 +34,18 @@ const LEASING_TOOLS = [
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost — not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
   { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs. Based on headcount, work style, and growth plans.', href: '/resources/office-size-calculator', features: ['Headcount-based', 'Growth buffer included', 'Instant result'] },
   { title: 'Should I Relocate?', description: 'Answer 6 questions about your lease, space, and team. Get an instant Red, Amber, or Green verdict on whether your business should move offices.', href: '/resources/relocate-quiz', features: ['6-question assessment', 'RAG verdict', 'Specific next steps'] },
-  { title: 'Lease vs Buy Calculator', description: 'Model the true cost of leasing versus buying your commercial premises over 5, 10 and 15 years.', href: '/resources/lease-vs-buy', features: ['5, 10 & 15 year view', 'Equity build included', 'Side-by-side comparison'] },
 ]
-
-const INVESTMENT_TOOLS = [
-  { title: 'Stamp Duty Calculator', description: 'Transfer duty on commercial property across all Australian states. 2025-26 verified rates.', href: '/resources/stamp-duty-calculator', features: ['All states covered', '2025-26 verified rates', 'Bracket breakdown'] },
-  { title: 'Rental Yield Calculator', description: 'Gross and net yield on commercial property. Factor in outgoings, vacancy, and management fees.', href: '/resources/rental-yield-calculator', features: ['Gross + net yield', 'Vacancy & outgoings', 'Break-even rent'] },
-  { title: 'Cap Rate Calculator', description: 'Calculate the cap rate on any commercial property. Understand yield, net income and implied value at multiple scenarios.', href: '/resources/cap-rate-calculator', features: ['Net income calculation', 'Multiple cap rate scenarios', 'Vacancy + outgoings'] },
-  { title: 'Land Tax Calculator', description: 'Annual land tax liability across all states. Know your holding costs before you buy.', href: '/resources/land-tax-calculator', features: ['All states covered', '2025-26 thresholds', 'Trusts vs individuals'] },
-  { title: 'Purchase Checklist', description: 'A 25-point due diligence checklist for commercial property buyers in NSW. Tick off as you go.', href: '/resources/purchase-checklist', features: ['25 due diligence checks', 'Zoning, title, building', 'NSW-specific'] },
-]
-
-const tools = [...LEASING_TOOLS, ...INVESTMENT_TOOLS]
 
 const FILTERS = [
   { id: 'all', label: 'All' },
   { id: 'tenant-rep', label: 'Tenant Rep' },
   { id: 'furniture', label: 'Furniture & Fitout' },
-  { id: 'buyers-agency', label: 'Buyers Agency' },
   { id: 'cleaning', label: 'Cleaning' },
   { id: 'general', label: 'General' },
 ]
 
 export default function ResourcesPage() {
-  const posts = getAllPosts()
+  const posts = getPublicPosts()
   const caseStudies = getAllCaseStudies()
 
   return (
@@ -78,7 +63,7 @@ export default function ResourcesPage() {
             "@id": "https://www.yourofficespace.au/#organization",
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "description": "Tenant-side commercial property advisory in Newcastle. Free tools, calculators and market insights for commercial property decisions.",
+            "description": "Newcastle-based, tenant-side commercial property advisory across Australia. Practical tools and guidance for lease, fit out and workplace decisions.",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
             "address": {
@@ -92,14 +77,14 @@ export default function ResourcesPage() {
           {
             "@type": "WebPage",
             "name": "Resources & Tools — Your Office Space",
-            "description": "Free commercial property tools including lease risk checker, fitout estimator, stamp duty calculator, and yield calculators for Australian business owners.",
+            "description": "Practical tools including a lease risk checker, fit out estimator, lease comparison and office size calculator for Australian business owners.",
             "url": "https://www.yourofficespace.au/resources"
           },
           {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "Are the tools on Your Office Space really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All tools on the Your Office Space website are completely free to use. No sign-up, no email capture, no catch. We built them to help business owners make better property decisions." } },
-              { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "Our calculators use 2025-26 verified market data and are built for indicative planning purposes. For exact figures on stamp duty, land tax, or yield, confirm with a qualified property accountant or the relevant state revenue office." } },
+              { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "The tools are for indicative planning and do not replace project-specific professional advice. Inputs, assumptions and market conditions should be checked before a decision is made." } },
               { "@type": "Question", "name": "What should I use the Lease Risk Checker for?", "acceptedAnswer": { "@type": "Answer", "text": "The LeaseIntel risk checker is designed for business owners who want a quick read on whether their current lease has clauses that need attention — particularly make-good obligations, rent review structures, and assignment restrictions." } }
             ]
           },
@@ -143,46 +128,6 @@ export default function ResourcesPage() {
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free office relocation assessment" },
             "url": "https://www.yourofficespace.au/resources/relocate-quiz"
           },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Lease vs Buy Calculator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free lease vs buy comparison" },
-            "url": "https://www.yourofficespace.au/resources/lease-vs-buy"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Stamp Duty Calculator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free stamp duty calculation" },
-            "url": "https://www.yourofficespace.au/resources/stamp-duty-calculator"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Rental Yield Calculator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free rental yield calculator" },
-            "url": "https://www.yourofficespace.au/resources/rental-yield-calculator"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Cap Rate Calculator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free cap rate calculator" },
-            "url": "https://www.yourofficespace.au/resources/cap-rate-calculator"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Land Tax Calculator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free land tax calculator" },
-            "url": "https://www.yourofficespace.au/resources/land-tax-calculator"
-          }
         ]
       }) }} />
 
@@ -218,46 +163,6 @@ export default function ResourcesPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" style={{ marginBottom: 'clamp(5rem,10vw,10rem)' }}>
             {LEASING_TOOLS.map((tool, i) => (
-              <FadeIn key={tool.title} delay={i * 60}>
-                <Link href={tool.href} className="group no-underline flex flex-col h-full bg-white border border-gray-100 hover:border-teal transition-colors duration-200"
-                  style={{ padding: '2.5rem 2.25rem' }}>
-                  <div className="flex items-start justify-between mb-4">
-                    <h3 className="text-near-black font-black uppercase tracking-tight group-hover:text-teal transition-colors"
-                      style={{ fontSize: '1.05rem', maxWidth: '16ch' }}>{tool.title}</h3>
-                    <span className="bg-teal text-white font-bold flex-shrink-0 ml-3"
-                      style={{ fontSize: '0.58rem', letterSpacing: '0.15em', padding: '0.3rem 0.65rem', textTransform: 'uppercase' }}>Free</span>
-                  </div>
-                  <p className="text-charcoal font-light leading-relaxed flex-1"
-                    style={{ fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1.75rem' }}>{tool.description}</p>
-                  <div className="flex flex-wrap gap-2" style={{ marginBottom: '2rem' }}>
-                    {tool.features.map((f) => (
-                      <span key={f}
-                        className="text-charcoal font-medium border border-gray-200 bg-gray-50"
-                        style={{ fontSize: '0.72rem', letterSpacing: '0.02em', padding: '0.25rem 0.65rem' }}>
-                        {f}
-                      </span>
-                    ))}
-                  </div>
-                  <div style={{ paddingTop: '1.5rem', borderTop: '1px solid #F3F4F6', marginTop: 'auto' }}>
-                    <span className="text-teal font-bold uppercase tracking-widest group-hover:text-dark-teal transition-colors"
-                      style={{ fontSize: '0.65rem', letterSpacing: '0.18em' }}>Open tool →</span>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
-          </div>
-
-          {/* Investment Tools */}
-          <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Investment tools</p>
-            <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10 md:mb-16"
-              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Buying commercial?<br />Run the numbers first.
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {INVESTMENT_TOOLS.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 60}>
                 <Link href={tool.href} className="group no-underline flex flex-col h-full bg-white border border-gray-100 hover:border-teal transition-colors duration-200"
                   style={{ padding: '2.5rem 2.25rem' }}>
@@ -455,7 +360,6 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <BookingCTA label="Book a Clarity Call" />
       </main>
 
       <Footer />

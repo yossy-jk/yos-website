@@ -5,16 +5,15 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
-import BookingCTA from '@/components/BookingCTA'
 
 export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory Newcastle',
-  description: "Joe Kelley founded Your Office Space after a decade in commercial property. Australia's tenant-side advisor. Licensed, experienced, and genuinely on your side.",
+  description: 'Newcastle-based, tenant-side commercial property advisory. Hunter home territory, with services available across Australia.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
-  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: "Licensed. Experienced. On your side. Founded by Joe Kelley after a decade in commercial property." },
+  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
   openGraph: {
     title: 'About | Your Office Space Newcastle',
-    description: "Joe Kelley founded Your Office Space after a decade in commercial property. Australia's tenant-side advisor. Licensed, experienced, and genuinely on your side.",
+    description: 'Newcastle-based, tenant-side commercial property advisory. Hunter home territory, with services available across Australia.',
     url: 'https://www.yourofficespace.au/about',
     images: [{ url: '/og/og-about.png', width: 1200, height: 630, alt: 'About Your Office Space | Newcastle NSW | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -75,7 +74,7 @@ export default function AboutPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Tenant-side commercial property advisory in Newcastle, NSW. Tenant rep, buyers agency, furniture, fitout and commercial cleaning.",
+            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -99,7 +98,7 @@ export default function AboutPage() {
             "jobTitle": "Founder & Managing Director",
             "worksFor": { "@id": "https://www.yourofficespace.au/#organization" },
             "url": "https://www.yourofficespace.au/about",
-            "description": "Commercial property professional with over a decade of experience in office fitouts, tenant representation and workplace strategy.",
+            "description": "Commercial property professional working across office fit outs, tenant representation and workplace strategy.",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
             "knowsAbout": ["Commercial Leases", "Tenant Representation", "Office Fitout", "Commercial Property Negotiation"],
@@ -116,11 +115,11 @@ export default function AboutPage() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "How does Your Office Space make money?", "acceptedAnswer": { "@type": "Answer", "text": "For tenant representation, landlords typically pay our fees as part of the leasing deal — so tenants pay nothing. For buyers agency, fees are agreed upfront. We disclose everything before you commit to anything." } },
-              { "@type": "Question", "name": "Why do you only work for tenants and buyers?", "acceptedAnswer": { "@type": "Answer", "text": "Because representing both sides of a deal creates a conflict of interest. The moment you represent a landlord, your advice is compromised. We eliminated that conflict entirely by only working for one side." } },
-              { "@type": "Question", "name": "How long have you been operating in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space was founded by Joe Kelley after over a decade in commercial fitouts and property. We have been operating in the Newcastle and Hunter market for over 12 years." } },
+              { "@type": "Question", "name": "How does Your Office Space charge?", "acceptedAnswer": { "@type": "Answer", "text": "Scope, fees and any relevant payment arrangements are explained before an engagement begins." } },
+              { "@type": "Question", "name": "Why does Your Office Space take a tenant-side position?", "acceptedAnswer": { "@type": "Answer", "text": "A tenant-side position keeps advice and negotiation focused on the priorities of the business occupying the space." } },
+              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is Newcastle-based, with the Hunter as its home territory and tenant-side advisory available across Australia." } },
               { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
-              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Start with a no-obligation conversation. Tell us what you are dealing with — a lease expiring, a fitout needed, a property to buy. We will tell you exactly what we can do, how we charge, and what the process looks like. If it makes sense to work together, we will say so." } },
+              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Book a 20-minute Clarity Call. Bring the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
               { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier — many of our best client relationships are conducted entirely online." } }
             ]
           },
@@ -169,14 +168,14 @@ export default function AboutPage() {
               <div className="flex flex-col gap-6 text-charcoal font-light leading-relaxed"
                 style={{ fontSize: 'clamp(0.95rem,1.5vw,1.1rem)' }}>
                 <p>
-                  I spent over a decade in commercial office fitouts, furniture and workplace strategy.
-                  In that time I watched too many good businesses get taken advantage of during one of the
+                  I have worked across commercial office fit outs, furniture and workplace strategy.
+                  In that work I watched good businesses carry avoidable risk during one of the
                   most expensive and distracting moments in their journey — the office move, the fitout,
                   the lease negotiation.
                 </p>
                 <p>
                   Here&apos;s what most people don&apos;t see: an office project has a fixed budget.
-                  Think of it as a pie. From the moment the project kicks off, up to 30 contractors,
+                  Think of it as a pie. From the moment the project kicks off, multiple contractors,
                   suppliers and agents all need to eat from it. Some are fair. Some are not.
                   The greedy ones take more than their share early — and the business owner doesn&apos;t
                   notice until quality drops at the back end and the budget is gone.
@@ -240,7 +239,7 @@ export default function AboutPage() {
                 {/* Body */}
                 <div className="p-7 sm:p-8">
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
-                    Over a decade in commercial property, fitout and workplace strategy. Joe started Your Office Space because he believed business owners deserved someone genuinely on their side — not another agent working for the landlord. He is still personally involved in every major engagement.
+                    Experience across commercial property, fit out and workplace strategy. Joe started Your Office Space because he believed business owners deserved clear advice and accountable coordination on their side of the table.
                   </p>
                 </div>
 
@@ -318,10 +317,10 @@ export default function AboutPage() {
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {[
-                { stat: '100+', label: 'Projects delivered' },
-                { stat: '12+ years', label: 'Commercial property experience' },
-                { stat: 'Newcastle born', label: 'Hunter Valley locals' },
-                { stat: 'Tenant-side only', label: 'We never represent landlords' },
+                { stat: 'Newcastle-based', label: 'Hunter home territory' },
+                { stat: 'Australia-wide', label: 'Tenant-side advisory' },
+                { stat: 'Four services', label: 'One accountable partner' },
+                { stat: 'NSW licensed', label: 'Tenant representation' },
               ].map(item => (
                 <div key={item.stat} className="border-t border-white/10 pt-6">
                   <p className="text-teal font-black mb-2" style={{ fontSize: 'clamp(1.2rem,2.5vw,1.75rem)' }}>{item.stat}</p>
@@ -376,15 +375,15 @@ export default function AboutPage() {
             <SectionLabel>Our position</SectionLabel>
             <h2 className="text-white font-black leading-tight tracking-tight mt-3 mb-12"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>
-              Why we only work for tenants and buyers.
+              Why we take the tenant side.
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
-              { heading: 'No landlord work. Ever.', body: "Most commercial property advisors represent both sides of the same deal. We don't. The moment you represent a landlord, your loyalty is split. We chose to eliminate that conflict entirely." },
-              { heading: 'Local knowledge. Real relationships.', body: "We know which landlords negotiate in good faith, which agents play fair, and where the real opportunities are right now. That intelligence comes from a decade of doing real deals in real markets." },
-              { heading: 'End-to-end accountability.', body: "Lease to clean. One team, one relationship, one point of contact from your first property decision through to the day your space is fully operational. Nothing falls through the cracks." },
-              { heading: 'Skin in the game.', body: "Our reputation is everything. Every market we operate in, we're accountable to the businesses in it. Every outcome matters to us personally." },
+              { heading: 'A clear client position.', body: "Tenant representation is framed around the occupying business's brief, risks and commercial priorities." },
+              { heading: 'Local knowledge. Wider reach.', body: "Newcastle is our base and the Hunter is our home territory, with tenant-side advisory available across Australia." },
+              { heading: 'End-to-end accountability.', body: "Lease decisions, fit out, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
+              { heading: 'Visible decisions.', body: "Recommendations identify the evidence, trade-offs and approvals needed before the team proceeds." },
             ].map((item, i) => (
               <FadeIn key={item.heading} delay={i * 70} direction="up">
                 <div className="pl-6 border-l-4 border-teal py-1">
@@ -398,7 +397,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─── CTA ──────────────────────────────────────────── */}
-      <section className="bg-teal" style={SEC}>
+      <section className="bg-teal text-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
@@ -406,11 +405,11 @@ export default function AboutPage() {
                 style={{ fontSize: 'clamp(1.8rem,4vw,3rem)' }}>
                 Ready to have someone genuinely on your side?
               </h2>
-              <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
+              <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
                 20 minutes. No pitch. Just a straight conversation about your space and what you&apos;re trying to achieve.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Clarity Call with Joe
+                Book a Clarity Call
               </Button>
             </div>
           </FadeIn>
@@ -420,7 +419,6 @@ export default function AboutPage() {
       </main>
 
       <Footer />
-      <BookingCTA label="Book a Free Consultation" />
     </>
   )
 }

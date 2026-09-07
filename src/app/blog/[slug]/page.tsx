@@ -5,12 +5,11 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
-import { getAllPosts, getAllPostsAsync, getPostBySlug, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
-import { HUBSPOT } from '@/lib/constants'
+import { getPublicPosts, getAllPublicPostsAsync, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
 export async function generateStaticParams() {
-  return getAllPosts().map(post => ({ slug: post.slug }))
+  return getPublicPosts().map(post => ({ slug: post.slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -20,13 +19,14 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.metaTitle || `${post.title} | Your Office Space`,
     description: post.metaDescription || post.excerpt,
-    alternates: { canonical: `https://yourofficespace.au/blog/${post.slug}` },
+    alternates: { canonical: `https://www.yourofficespace.au/blog/${post.slug}` },
+    robots: post.division === 'buyers-agency' ? { index: false, follow: false } : undefined,
     openGraph: {
       
   images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
 title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
-      url: `https://yourofficespace.au/blog/${post.slug}`,
+      url: `https://www.yourofficespace.au/blog/${post.slug}`,
       siteName: 'Your Office Space',
       locale: 'en_AU',
       type: 'article',
@@ -44,25 +44,18 @@ const INTERNAL_LINKS: Record<string, string> = {
   'tenant representation': '/tenant-rep',
   'tenant rep': '/tenant-rep',
   'tenant representative': '/tenant-rep',
-  'buyers agency': '/buyers-agency',
-  "buyer's agent": '/buyers-agency',
-  'buyers agent': '/buyers-agency',
   'commercial cleaning': '/cleaning',
   'office cleaning': '/cleaning',
   'furniture and fitout': '/furniture',
   'furniture & fitout': '/furniture',
-  'office fitout': '/furniture',
-  'fitout': '/furniture',
+  'office fitout': '/office-fitout',
+  'fitout': '/office-fitout',
   'leaseintel': '/leaseintel',
   'lease review': '/leaseintel',
   'lease risk': '/resources/lease-review',
   'lease comparison': '/resources/lease-comparison',
   'fitout estimator': '/resources/fitout-estimator',
   'fitout cost estimator': '/resources/fitout-estimator',
-  'stamp duty': '/resources/stamp-duty-calculator',
-  'land tax': '/resources/land-tax-calculator',
-  'rental yield': '/resources/rental-yield-calculator',
-  'cap rate': '/resources/cap-rate-calculator',
   'make-good': '/blog/what-is-make-good',
   'make good': '/blog/what-is-make-good',
 }
@@ -145,7 +138,7 @@ function renderBody(body: string, slug: string) {
       <ul key={key++} style={{ margin: '1.5rem 0 2rem', padding: 0, listStyle: 'none' }}>
         {listBuffer.map((item, i) => (
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.875rem' }}>
-            <span style={{ flexShrink: 0, width: '3px', height: '1.4em', background: '#00B5A5', borderRadius: '2px', marginTop: '0.2em', display: 'block' }} />
+            <span style={{ flexShrink: 0, width: '3px', height: '1.4em', background: '#01A7A3', borderRadius: '2px', marginTop: '0.2em', display: 'block' }} />
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300 }}>
               {inlineRender(item, slug)}
             </span>
@@ -162,7 +155,7 @@ function renderBody(body: string, slug: string) {
       <ol key={key++} style={{ margin: '1.5rem 0 2rem', padding: 0, listStyle: 'none', counterReset: 'yos-counter' }}>
         {numberedBuffer.map((item, i) => (
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1rem', counterIncrement: 'yos-counter' }}>
-            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: '#00B5A5', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
+            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: '#01A7A3', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
               {i + 1}
             </span>
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300, flex: 1 }}>
@@ -283,7 +276,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound()
 
   // Related posts — same division, exclude current
-  const allPosts = await getAllPostsAsync()
+  const allPosts = await getAllPublicPostsAsync()
   const related = allPosts
     .filter(p => p.slug !== slug && p.division === post.division)
     .slice(0, 3)
@@ -386,7 +379,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* CTA block */}
               <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
-                  <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
+                  <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                     Free — No obligation
                   </p>
                   <p style={{ color: 'white', fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '0.875rem' }}>
@@ -407,7 +400,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Back link */}
               <div style={{ marginTop: '2.5rem' }}>
-                <Link href="/blog" style={{ color: '#00796F', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.05em' }}
+                <Link href="/blog" style={{ color: '#0C7A70', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.05em' }}
                   className="hover:text-dark-teal transition-colors">
                   ← All articles
                 </Link>
@@ -420,7 +413,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div style={{ background: '#F9FAFB', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem', border: '1px solid #E5E7EB' }}>
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666666', marginBottom: '1rem' }}>About the author</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginBottom: '0.875rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#00796F', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#0C7A70', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>JK</span>
                   </div>
                   <div>
@@ -435,13 +428,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Service links relevant to division */}
               <div style={{ background: '#0A0A0A', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem' }}>
-                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '1.25rem' }}>Our services</p>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#01A7A3', marginBottom: '1.25rem' }}>Our services</p>
                 {[
                   { label: 'Tenant Representation', href: '/tenant-rep', desc: 'Lease negotiation on your side' },
-                  { label: 'Buyers Agency', href: '/buyers-agency', desc: 'Buy without getting burned' },
-                  { label: 'Furniture & Fitout', href: '/furniture', desc: 'Brief to delivered workspace' },
-                  { label: 'Commercial Cleaning', href: '/cleaning', desc: 'Reliable. Every time.' },
-                  { label: 'LeaseIntel™', href: '/leaseintel', desc: '$97 professional lease review' },
+                  { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', desc: 'Workplace brief through handover' },
+                  { label: 'Office & Commercial Furniture', href: '/furniture', desc: 'Selected, supplied and installed' },
+                  { label: 'Commercial Cleaning', href: '/cleaning', desc: 'Accountable workplace cleaning' },
                 ].map(s => (
                   <Link key={s.href} href={s.href} style={{ display: 'block', marginBottom: '0.875rem', textDecoration: 'none' }}
                     className="group">
@@ -470,8 +462,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               )}
 
               {/* Tools CTA */}
-              <div style={{ marginTop: '1.5rem', background: '#F0FDFB', border: '1px solid #00B5A520', borderRadius: '0.875rem', padding: '1.75rem' }}>
-                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00796F', marginBottom: '0.875rem' }}>Free tools</p>
+              <div style={{ marginTop: '1.5rem', background: '#F0FDFB', border: '1px solid #01A7A320', borderRadius: '0.875rem', padding: '1.75rem' }}>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#0C7A70', marginBottom: '0.875rem' }}>Free tools</p>
                 {[
                   { label: 'Lease Risk Checker', href: '/resources/lease-review' },
                   { label: 'Lease Comparison Tool', href: '/resources/lease-comparison' },

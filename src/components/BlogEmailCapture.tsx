@@ -26,7 +26,7 @@ export default function BlogEmailCapture() {
       <div className="flex items-center gap-3 text-teal font-semibold" style={{ fontSize: '0.95rem' }}>
         <div className="w-5 h-5 rounded-full bg-teal/15 flex items-center justify-center">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M2 6l3 3 5-6" stroke="#00B5A5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M2 6l3 3 5-6" stroke="#01A7A3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
         Done — we&apos;ll be in touch.

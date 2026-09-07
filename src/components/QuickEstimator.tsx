@@ -50,7 +50,7 @@ export default function QuickEstimator() {
           aria-valuenow={sqm}
           className="w-full cursor-pointer"
           style={{
-            background: `linear-gradient(to right, #00B5A5 ${pct}%, #E0F5F3 ${pct}%)`,
+            background: `linear-gradient(to right, #01A7A3 ${pct}%, #E0F5F3 ${pct}%)`,
           }}
         />
         <div className="flex justify-between text-xs text-mid-grey mt-2.5 font-light">

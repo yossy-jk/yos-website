@@ -1,7 +1,20 @@
 import type { Metadata } from "next";
-import FloatingCTA from "@/components/FloatingCTA";
+import { Fraunces, Inter } from "next/font/google";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+  weight: ["600"],
+});
 
 export const metadata: Metadata = {
   verification: {
@@ -16,16 +29,16 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   title: "Your Office Space | Commercial Property Advisory Australia",
-  description: "Tenant-side commercial property advisory across Australia. Tenant rep, buyers agency, office furniture, fitout and cleaning. NSW focus.",
-  keywords: "commercial tenant rep Australia, commercial buyers agent, office furniture fitout, commercial cleaning NSW, tenant representation Sydney Newcastle",
+  description: "Newcastle-based, tenant-side commercial property advisory across Australia. Tenant representation, commercial fit out and project management, office and commercial furniture, and commercial cleaning.",
+  keywords: "commercial tenant representation Australia, commercial fit out project management, office commercial furniture, commercial cleaning, Newcastle tenant advisory",
   metadataBase: new URL("https://www.yourofficespace.au"),
   alternates: {
     canonical: "https://www.yourofficespace.au",
   },
   openGraph: {
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "Tenant-side commercial property advisory across Australia. Tenant rep, buyers agency, office furniture, fitout and cleaning.",
-    url: "https://yourofficespace.au",
+    description: "One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.",
+    url: "https://www.yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",
     type: "website",
@@ -34,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "Tenant-side commercial property advisory across Australia. Tenant rep, buyers agency, furniture, fitout and cleaning.",
+    description: "One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.",
     images: ["/og-default.png"],
   },
 };
@@ -45,12 +58,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-AU" className="scroll-smooth">
+    <html lang="en-AU" className={`scroll-smooth ${inter.variable} ${fraunces.variable}`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
-      <body>{children}<FloatingCTA /><AnalyticsConsent /></body>
+      <body>{children}<AnalyticsConsent /></body>
     </html>
   );
 }

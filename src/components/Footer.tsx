@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CONTACT } from '@/lib/constants'
+import { CONTACT, SERVICE_LINKS } from '@/lib/constants'
 
 export default function Footer() {
   return (
@@ -13,12 +13,12 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-1 sm:col-span-2 md:col-span-1">
-            <p className="text-white font-black uppercase tracking-[0.2em] mb-4" style={{ fontSize: '0.72rem' }}>
+            <p className="text-white font-bold tracking-[0.08em] mb-4" style={{ fontSize: '0.8rem' }}>
               Your Office Space
             </p>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Australia&apos;s tenant-side commercial property team. Lease, fitout, furniture, cleaning.
-            <span className="block mt-3 text-teal italic" style={{ fontSize: '0.8rem' }}>We pick up the phone.</span>
+              Newcastle-based, tenant-side commercial property advisory across Australia.
+            <span className="block mt-3 text-teal italic" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
             </p>
           </div>
 
@@ -26,13 +26,7 @@ export default function Footer() {
           <div>
             <p className="text-white/60 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Services</p>
             <nav className="flex flex-col gap-3">
-              {[
-                { label: 'Tenant Rep', href: '/tenant-rep' },
-                { label: 'Buyers Agency', href: '/buyers-agency' },
-                { label: 'Furniture & Fitout', href: '/furniture' },
-                { label: 'Cleaning', href: '/cleaning' },
-                { label: 'Lease Review', href: '/lease-review' },
-              ].map(link => (
+              {SERVICE_LINKS.map(link => (
                 <Link key={link.href} href={link.href}
                   className="text-white/55 font-light no-underline hover:text-white transition-colors"
                   style={{ fontSize: '0.875rem' }}>
@@ -67,17 +61,17 @@ export default function Footer() {
             <p className="text-white/60 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Get in touch</p>
             <div className="flex flex-col gap-3">
               <a href={`mailto:${CONTACT.email}`}
-                className="text-white/50 font-light no-underline hover:text-white transition-colors py-1"
+                className="text-white/80 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.email}
               </a>
               <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                className="text-white/50 font-light no-underline hover:text-white transition-colors py-1"
+                className="text-white/80 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.phone}
               </a>
               <p className="text-white/55 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
-                Newcastle · Sydney · Central Coast<br />Illawarra · Mid North Coast · Regional NSW
+                Newcastle-based · Hunter home territory<br />Australia-wide tenant advisory
               </p>
             </div>
           </div>

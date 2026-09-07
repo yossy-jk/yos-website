@@ -218,7 +218,7 @@ export default function RelocateQuizPage() {
       padding: 'clamp(2rem,4vw,3rem)',
       marginBottom: '0.5rem',
     }}>
-      <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+      <p style={{ color: '#01A7A3', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
         Your result
       </p>
 
@@ -270,7 +270,7 @@ export default function RelocateQuizPage() {
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
         <div style={{ maxWidth: '80rem', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+          <p style={{ color: '#01A7A3', fontWeight: 700, fontSize: '0.72rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
             Free tool
           </p>
           <h1 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(2.25rem,5vw,5rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
@@ -285,7 +285,7 @@ export default function RelocateQuizPage() {
               { stat: 'RAG verdict', desc: 'Red, Amber or Green recommendation' },
               { stat: 'Specific guidance', desc: 'Tailored to your situation' },
             ].map(item => (
-              <div key={item.stat} style={{ borderLeft: '2px solid #00B5A5', paddingLeft: '1.25rem' }}>
+              <div key={item.stat} style={{ borderLeft: '2px solid #01A7A3', paddingLeft: '1.25rem' }}>
                 <p style={{ color: 'white', fontWeight: 700, fontSize: '0.85rem', marginBottom: '0.25rem' }}>{item.stat}</p>
                 <p style={{ color: 'rgba(255,255,255,0.4)', fontWeight: 300, fontSize: '0.75rem' }}>{item.desc}</p>
               </div>
@@ -312,7 +312,7 @@ export default function RelocateQuizPage() {
               <div style={{
                 height: '100%',
                 width: `${progressPct}%`,
-                background: '#00B5A5',
+                background: '#01A7A3',
                 borderRadius: '2px',
                 transition: 'width 0.35s ease',
               }} />
@@ -340,8 +340,8 @@ export default function RelocateQuizPage() {
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1.5rem' }}>
                     <div style={{
                       width: '2rem', height: '2rem', borderRadius: '50%', flexShrink: 0,
-                      background: isAnswered ? '#00B5A5' : isActive ? 'rgba(0,181,165,0.15)' : 'rgba(255,255,255,0.07)',
-                      border: `2px solid ${isAnswered ? '#00B5A5' : isActive ? '#00B5A5' : 'rgba(255,255,255,0.1)'}`,
+                      background: isAnswered ? '#01A7A3' : isActive ? 'rgba(1,167,163,0.15)' : 'rgba(255,255,255,0.07)',
+                      border: `2px solid ${isAnswered ? '#01A7A3' : isActive ? '#01A7A3' : 'rgba(255,255,255,0.1)'}`,
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       transition: 'all 0.2s',
                     }}>
@@ -350,7 +350,7 @@ export default function RelocateQuizPage() {
                           <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       ) : (
-                        <span style={{ color: isActive ? '#00B5A5' : 'rgba(255,255,255,0.4)', fontSize: '0.7rem', fontWeight: 700 }}>
+                        <span style={{ color: isActive ? '#01A7A3' : 'rgba(255,255,255,0.4)', fontSize: '0.7rem', fontWeight: 700 }}>
                           {q.id}
                         </span>
                       )}
@@ -384,8 +384,8 @@ export default function RelocateQuizPage() {
                           key={opt.label}
                           onClick={e => { e.stopPropagation(); selectOption(qi, optIdx) }}
                           style={{
-                            background: isSelectedByLabel ? 'rgba(0,181,165,0.15)' : 'rgba(255,255,255,0.04)',
-                            border: `1px solid ${isSelectedByLabel ? '#00B5A5' : 'rgba(255,255,255,0.1)'}`,
+                            background: isSelectedByLabel ? 'rgba(1,167,163,0.15)' : 'rgba(255,255,255,0.04)',
+                            border: `1px solid ${isSelectedByLabel ? '#01A7A3' : 'rgba(255,255,255,0.1)'}`,
                             borderRadius: '0.625rem',
                             padding: '0.875rem 1.25rem',
                             cursor: 'pointer',
@@ -411,8 +411,8 @@ export default function RelocateQuizPage() {
                           {/* Radio dot */}
                           <div style={{
                             width: '1rem', height: '1rem', borderRadius: '50%', flexShrink: 0,
-                            border: `2px solid ${isSelectedByLabel ? '#00B5A5' : 'rgba(255,255,255,0.25)'}`,
-                            background: isSelectedByLabel ? '#00B5A5' : 'transparent',
+                            border: `2px solid ${isSelectedByLabel ? '#01A7A3' : 'rgba(255,255,255,0.25)'}`,
+                            background: isSelectedByLabel ? '#01A7A3' : 'transparent',
                             transition: 'all 0.15s',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                           }}>
@@ -446,7 +446,7 @@ export default function RelocateQuizPage() {
                 disabled={!allAnswered}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                  background: allAnswered ? '#00B5A5' : 'rgba(0,181,165,0.3)',
+                  background: allAnswered ? '#01A7A3' : 'rgba(1,167,163,0.3)',
                   color: 'white', fontWeight: 800, fontSize: '0.72rem',
                   letterSpacing: '0.18em', textTransform: 'uppercase',
                   padding: '1.1rem 3rem', borderRadius: '0.5rem', border: 'none',
@@ -559,14 +559,14 @@ export default function RelocateQuizPage() {
                     rel="noopener noreferrer"
                     style={{
                       display: 'inline-flex', alignItems: 'center',
-                      background: '#00B5A5', color: 'white',
+                      background: '#01A7A3', color: 'white',
                       fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.18em',
                       textTransform: 'uppercase', textDecoration: 'none',
                       padding: '1rem 2.5rem', borderRadius: '0.5rem',
                       minHeight: '52px', transition: 'background 0.15s',
                     }}
                     onMouseEnter={e => (e.currentTarget.style.background = '#009e90')}
-                    onMouseLeave={e => (e.currentTarget.style.background = '#00B5A5')}
+                    onMouseLeave={e => (e.currentTarget.style.background = '#01A7A3')}
                   >
                     Book a Free Consultation →
                   </a>
@@ -678,7 +678,7 @@ export default function RelocateQuizPage() {
                 rel="noopener noreferrer"
                 style={{
                   display: 'inline-block',
-                  background: '#00B5A5', color: 'white',
+                  background: '#01A7A3', color: 'white',
                   fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.2em',
                   textTransform: 'uppercase', textDecoration: 'none',
                   padding: '1.1rem 2.5rem',
