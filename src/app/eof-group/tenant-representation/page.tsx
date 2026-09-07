@@ -31,12 +31,14 @@ export default function TenantRepPage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #001a17 100%)' }}>
         <FadeIn>
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
-              <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+              <p style={{ color: '#01A7A3', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
                 EOF Group — Tenant Representation
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
@@ -64,7 +66,7 @@ export default function TenantRepPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', alignItems: 'start' }}>
               <div>
-                <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                   Why this matters
                 </p>
                 <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2, marginBottom: '1.25rem' }}>
@@ -82,8 +84,8 @@ export default function TenantRepPage() {
                   { label: 'Typical agency model', body: 'Agent represents landlord. Tenant is the customer of the agent\'s product — the building.', side: false },
                   { label: 'EOF Group model', body: 'We represent the tenant. We find the right space, negotiate terms, and are accountable to you throughout.', side: true },
                 ].map(item => (
-                  <div key={item.label} style={{ background: item.side ? 'rgba(0,181,165,0.06)' : 'rgba(255,255,255,0.03)', border: `1px solid ${item.side ? 'rgba(0,181,165,0.2)' : 'rgba(255,255,255,0.07)'}`, borderRadius: '12px', padding: '1.5rem' }}>
-                    <p style={{ color: item.side ? '#00B5A5' : 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.82rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{item.label}</p>
+                  <div key={item.label} style={{ background: item.side ? 'rgba(1,167,163,0.06)' : 'rgba(255,255,255,0.03)', border: `1px solid ${item.side ? 'rgba(1,167,163,0.2)' : 'rgba(255,255,255,0.07)'}`, borderRadius: '12px', padding: '1.5rem' }}>
+                    <p style={{ color: item.side ? '#01A7A3' : 'rgba(255,255,255,0.5)', fontWeight: 700, fontSize: '0.82rem', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{item.label}</p>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem', lineHeight: 1.65 }}>{item.body}</p>
                   </div>
                 ))}
@@ -98,7 +100,7 @@ export default function TenantRepPage() {
         <FadeIn>
           <div className={WRAP} style={PAD}>
             <div style={{ marginBottom: '3rem' }}>
-              <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 What we do
               </p>
               <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2 }}>
@@ -115,8 +117,8 @@ export default function TenantRepPage() {
                 { title: 'Lease renewal management', body: 'When your lease is expiring, we manage the renewal process from a position of knowledge — knowing the current market, your options, and what you\'re entitled to push for.' },
                 { title: 'Make-good negotiation', body: 'Make-good obligations at lease end can be expensive if negotiated poorly. We advise on what is reasonable in the market and negotiate outcomes that don\'t cost you unnecessarily.' },
               ].map(item => (
-                <div key={item.title} style={{ background: 'rgba(0,181,165,0.03)', border: '1px solid rgba(0,181,165,0.12)', borderRadius: '12px', padding: '1.5rem' }}>
-                  <p style={{ color: '#00B5A5', fontWeight: 700, fontSize: '0.92rem', marginBottom: '0.5rem' }}>{item.title}</p>
+                <div key={item.title} style={{ background: 'rgba(1,167,163,0.03)', border: '1px solid rgba(1,167,163,0.12)', borderRadius: '12px', padding: '1.5rem' }}>
+                  <p style={{ color: '#01A7A3', fontWeight: 700, fontSize: '0.92rem', marginBottom: '0.5rem' }}>{item.title}</p>
                   <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.82rem', lineHeight: 1.65 }}>{item.body}</p>
                 </div>
               ))}
@@ -130,7 +132,7 @@ export default function TenantRepPage() {
         <FadeIn>
           <div className={WRAP} style={PAD}>
             <div style={{ marginBottom: '3rem' }}>
-              <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 The process
               </p>
               <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2 }}>
@@ -147,7 +149,7 @@ export default function TenantRepPage() {
                 { step: '05', title: 'Lease completion', body: 'We review the lease document against what was agreed, negotiate any variations, and manage completion through to occupation. You have one point of contact throughout.' },
               ].map((s, i) => (
                 <div key={s.step} style={{ display: 'grid', gridTemplateColumns: '60px 1fr', alignItems: 'start', paddingBottom: '2rem', marginBottom: '2rem', borderBottom: i < 4 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
-                  <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', paddingTop: '0.15rem' }}>{s.step}</p>
+                  <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', paddingTop: '0.15rem' }}>{s.step}</p>
                   <div>
                     <p style={{ color: 'white', fontWeight: 700, fontSize: '1rem', marginBottom: '0.5rem' }}>{s.title}</p>
                     <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.85rem', lineHeight: 1.7 }}>{s.body}</p>
@@ -165,7 +167,7 @@ export default function TenantRepPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', alignItems: 'start' }}>
               <div>
-                <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                   Coverage
                 </p>
                 <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2, marginBottom: '1.25rem' }}>
@@ -190,7 +192,7 @@ export default function TenantRepPage() {
                   'Regional NSW (project basis)',
                 ].map(area => (
                   <div key={area} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00B5A5', flexShrink: 0 }} />
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#01A7A3', flexShrink: 0 }} />
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.85rem' }}>{area}</p>
                   </div>
                 ))}
@@ -206,7 +208,7 @@ export default function TenantRepPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ display: 'grid', gap: '3rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', alignItems: 'start' }}>
               <div>
-                <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                   Get started
                 </p>
                 <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2, marginBottom: '1.25rem' }}>
@@ -223,7 +225,7 @@ export default function TenantRepPage() {
                     'Any specific requirements or constraints',
                   ].map(s => (
                     <span key={s} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>
-                      <span style={{ color: '#00B5A5', fontWeight: 700, flexShrink: 0 }}>—</span> {s}
+                      <span style={{ color: '#01A7A3', fontWeight: 700, flexShrink: 0 }}>—</span> {s}
                     </span>
                   ))}
                 </div>
@@ -248,7 +250,7 @@ export default function TenantRepPage() {
                 { label: 'EOF Group overview', href: '/eof-group' },
                 { label: 'Lease Review & Advisory', href: '/eof-group/lease-review' },
                 { label: 'Newcastle & Hunter', href: '/eof-group/newcastle' },
-                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide' },
+                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
               ].map(link => (
                 <Button key={link.href} href={link.href} variant="outline" size="sm">
                   {link.label}
@@ -260,6 +262,8 @@ export default function TenantRepPage() {
       </section>
 
       <BookingCTA label="Talk to EOF Tenant Rep" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

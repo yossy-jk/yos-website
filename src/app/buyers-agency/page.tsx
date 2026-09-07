@@ -1,329 +1,107 @@
-import Image from 'next/image'
+import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
-import SectionLabel from '@/components/SectionLabel'
-import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
+import SectionLabel from '@/components/SectionLabel'
 import BookingCTA from '@/components/BookingCTA'
 
-export const metadata = {
-  title: 'Commercial Buyers Agency Newcastle | Off-Market Property Access | Your Office Space',
-  description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
+export const metadata: Metadata = {
+  title: 'Commercial purchase advisory by referral | Your Office Space',
+  description: 'Case-by-case commercial property purchase support for referred clients.',
   alternates: { canonical: 'https://www.yourofficespace.au/buyers-agency' },
-  twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agency Newcastle | Your Office Space', description: 'Off-market commercial property. We find it, analyse it, and negotiate it — before it hits the portals.' },
-  openGraph: {
-    title: 'Commercial Buyers Agency Newcastle | Your Office Space',
-    description: 'Off-market access, rigorous due diligence, and hard negotiations for commercial property buyers across Australia.',
-    url: 'https://www.yourofficespace.au/buyers-agency',
-    images: [{ url: '/og/og-buyers-agency.png', width: 1200, height: 630, alt: 'Commercial Buyers Agency Newcastle | Your Office Space' }],
-    siteName: 'Your Office Space',
-    locale: 'en_AU',
-    type: 'website',
-  },
+  robots: { index: false, follow: false },
 }
 
+const SEC = { paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }
+const WRAP = 'max-w-screen-xl mx-auto'
+const PAD = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
-const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
-const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
-const WRAP   = 'max-w-screen-xl mx-auto'
-const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
-export default function BuyersAgencyPage() {
+const SCOPE = [
+  {
+    title: 'Brief and decision criteria',
+    body: 'Clarify the commercial objective, property requirements, timing, stakeholders and decision boundaries.',
+  },
+  {
+    title: 'Opportunity assessment',
+    body: 'Assess suitable opportunities against the same brief and make the evidence, assumptions and trade-offs visible.',
+  },
+  {
+    title: 'Due diligence coordination',
+    body: 'Coordinate the commercial workstream with the client’s legal, finance, tax, building and environmental advisers.',
+  },
+  {
+    title: 'Negotiation and handover',
+    body: 'Support the commercial negotiation, action register and transition through the agreed transaction milestones.',
+  },
+]
+
+export default function ReferralPurchaseAdvisoryPage() {
   return (
     <>
       <Nav />
-      {/* ─── SCHEMA ────────────────────────────────────────── */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "Service",
-            "name": "Commercial Property Buyers Agency",
-            "provider": { "@type": "ProfessionalService", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
-            "description": "Off-market commercial property sourcing, due diligence and purchase negotiation across Australia. We find, analyse and secure commercial property on behalf of buyers.",
-            "areaServed": [{ "@type": "State", "name": "New South Wales" }, { "@type": "Country", "name": "Australia" }],
-            "serviceType": "Buyers Agency",
-            "offers": { "@type": "Offer", "description": "First consultation free. No obligation.", "url": "https://www.yourofficespace.au/contact" }
-          },
-          {
-            "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/logo.png",
-            "telephone": "+61434655511",
-            "email": "jk@yourofficespace.au",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
-              { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
-            ]
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "What does a buyers agent do in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "A commercial buyers agent works exclusively for the buyer — not the vendor. They source off-market properties, conduct due diligence, negotiate the price and terms, and manage the transaction through to settlement. Their loyalty is 100% to you." } },
-              { "@type": "Question", "name": "How much does a commercial buyers agent cost in Australia?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial buyers agents in Australia typically charge 1–2% of the purchase price or a fixed fee. Some also receive a portion of the selling agent's commission. Your Office Space discloses all fee arrangements upfront before any engagement." } },
-              { "@type": "Question", "name": "What is off-market commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Off-market properties are not advertised publicly. They are sold quietly through agent networks, direct approaches, or off-market campaigns. Some of the best commercial deals in Newcastle never appear on realestate.com.au or Domain. A buyers agent with established relationships accesses these opportunities." } },
-              { "@type": "Question", "name": "What is due diligence in commercial property buying?", "acceptedAnswer": { "@type": "Answer", "text": "Due diligence is the investigation phase before settlement — covering title, zoning, building condition, environmental reports, lease agreements, and financial performance. Skipping this step is how buyers end up with a property that costs them significantly more than the purchase price." } },
-              { "@type": "Question", "name": "How long does commercial property due diligence take in NSW?", "acceptedAnswer": { "@type": "Answer", "text": "A thorough commercial property due diligence typically takes 4–6 weeks from the time you go under contract. It includes title searches, zoning verification, building and pest inspections, lease reviews, environmental reports, and financial analysis. Rushing this process is where buyers get caught." } },
-              { "@type": "Question", "name": "What is the process for buying commercial property in NSW?", "acceptedAnswer": { "@type": "Answer", "text": "The process: brief and strategy — off-market and market search — offer and negotiation — contract exchange — due diligence period — finance approval — pre-settlement inspection — settlement. A buyers agent manages every step and coordinates your legal and financial advisors throughout." } }
-            ]
-          }
-        ]
-      }) }} />
+      <main id="main-content" tabIndex={-1}>
+        <section className="bg-near-black" style={SEC}>
+          <div className={WRAP} style={{ ...PAD, paddingTop: 'clamp(6rem,10vw,10rem)' }}>
+            <FadeIn>
+              <SectionLabel>Referral-only capability</SectionLabel>
+              <h1 className="text-white leading-tight mt-3 mb-7 max-w-4xl"
+                style={{ fontSize: 'clamp(2rem,5vw,4.75rem)' }}>
+                Commercial purchase advisory,<br />considered case by case.
+              </h1>
+              <p className="text-white/80 font-light leading-relaxed max-w-2xl"
+                style={{ fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.85 }}>
+                This capability is not part of the current public service offer. Referred commercial property
+                purchase briefs may be considered after a conflict, capability and scope review.
+              </p>
+            </FadeIn>
+          </div>
+        </section>
 
-      {/* HERO */}
-      <section className="relative min-h-screen flex items-center pt-0 bg-near-black"
-        style={SEC}>
-        <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
-          alt="Modern commercial building"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        <div className="absolute inset-0 bg-near-black/70" />
-        <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
-          <FadeIn delay={0}>
-            <SectionLabel>Commercial Buyers Agency</SectionLabel>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
-              style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Buy commercial property{' '}
-              <span className="text-teal">without getting burned.</span>
-            </h1>
-          </FadeIn>
-          <FadeIn delay={200}>
-            <p className="text-white/80 font-light leading-relaxed max-w-2xl"
-              style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              Off-market access, rigorous due diligence, and hard negotiations — handled by someone who does this every day.
-            </p>
-            <p className="text-white/30 font-light mb-8 sm:mb-12" style={{ fontSize: '0.8rem' }}>
-              NSW Real Estate Licence 20565455
-            </p>
-          </FadeIn>
-          <FadeIn delay={300}>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-              Book a Buyer Consultation
-            </Button>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* STATS BAR */}
-      <section className="bg-teal"
-        style={SEC_SM}>
-        <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
-              {[
-                { stat: '$0', label: 'Vendor-side fees — ever' },
-                { stat: '60%+', label: 'Of our deals are off-market' },
-                { stat: '12+', label: 'Years of commercial market experience' },
-                { stat: '100%', label: 'Buyer-only representation' }
-              ].map((item) => (
-                <div key={item.label}>
-                  <p className="text-white font-black text-3xl sm:text-4xl lg:text-5xl mb-2 leading-none">{item.stat}</p>
-                  <p className="text-white/75 font-light text-sm leading-snug">{item.label}</p>
-                </div>
+        <section className="bg-warm-grey" style={SEC}>
+          <div className={WRAP} style={PAD}>
+            <FadeIn>
+              <SectionLabel>Possible engagement scope</SectionLabel>
+              <h2 className="text-near-black leading-tight mt-3 mb-12 max-w-3xl"
+                style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
+                A controlled commercial workstream.
+              </h2>
+            </FadeIn>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {SCOPE.map((item, index) => (
+                <FadeIn key={item.title} delay={index * 60} direction="up">
+                  <div className="bg-white border border-teal/20 rounded-xl h-full p-8">
+                    <p className="text-action-teal font-semibold text-sm mb-3">{String(index + 1).padStart(2, '0')}</p>
+                    <h3 className="text-near-black text-xl mb-3">{item.title}</h3>
+                    <p className="text-readable-grey font-light leading-relaxed">{item.body}</p>
+                  </div>
+                </FadeIn>
               ))}
             </div>
           </div>
-        </FadeIn>
-      </section>
+        </section>
 
-      {/* WHO WE HELP */}
-      {/* ─── IMAGE BREAK ─────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(18rem,35vw,28rem)' }}>
-        <Image src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80" alt="Commercial property" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
-        <div className="absolute inset-0 flex items-center max-w-screen-xl mx-auto" style={PAD}>
-          <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.5rem,3vw,2.75rem)', maxWidth: '22ch' }}>
-            Buy with confidence. Buy without risk.
-          </p>
-        </div>
-      </section>
-
-      <section className="bg-white"
-        style={SEC}>
-        <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <FadeIn>
-            <SectionLabel>Who we help</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
-              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              First-time commercial buyers to seasoned investors.
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {[
-              {
-                title: 'Business owners',
-                body: "Buying your own premises is one of the best moves a business can make. We help you find the right property, at the right price, in the right location — and structure the deal to protect you long-term.",
-                tag: 'Own your space'
-              },
-              {
-                title: 'Property investors',
-                body: "Commercial yields beat residential in most Newcastle submarkets right now. We find the properties that don't make it to the listing portals and negotiate from a position of genuine market knowledge.",
-                tag: 'Build wealth'
-              },
-              {
-                title: 'SMSF buyers',
-                body: "Buying commercial property inside a self-managed super fund is increasingly popular in the Hunter. We work alongside your accountant to source and acquire the right asset within the right structure.",
-                tag: 'Structure it right'
-              }
-            ].map((item) => (
-              <FadeIn key={item.title} direction="up">
-                <div className="border-t-4 border-teal pt-6 p-7 h-full flex flex-col hover:shadow-md transition-shadow duration-300">
-                  <span className="inline-block text-teal text-xs font-bold tracking-widest uppercase mb-3">{item.tag}</span>
-                  <h3 className="text-near-black font-bold text-2xl mb-4">{item.title}</h3>
-                  <p className="text-charcoal font-light leading-relaxed flex-1" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
+        <section className="bg-white" style={SEC}>
+          <div className={WRAP} style={PAD}>
+            <FadeIn>
+              <SectionLabel>Engagement controls</SectionLabel>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-3">
+                <h2 className="text-near-black leading-tight"
+                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
+                  Clear scope before any work begins.
+                </h2>
+                <div className="space-y-5 text-readable-grey font-light leading-relaxed">
+                  <p>A written proposal confirms scope, responsibilities, exclusions, fees and approval points.</p>
+                  <p>Legal, finance, tax, valuation, building and environmental advice remains with appropriately qualified advisers.</p>
+                  <p>Your Office Space is Newcastle-based, with the Hunter as its home territory. The viability and geography of each referred brief are assessed individually.</p>
                 </div>
-              </FadeIn>
-            ))}
+              </div>
+            </FadeIn>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* WHAT WE DO */}
-      <section className="bg-near-black"
-        style={SEC}>
-        <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <FadeIn>
-            <SectionLabel>What we do</SectionLabel>
-            <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-12 max-w-2xl"
-              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              Every step of the acquisition. Done properly.
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {[
-              { label: 'Market analysis', body: 'We map the Newcastle and Hunter Valley commercial market — active listings, recent sales, off-market opportunities, and emerging precincts you should know about.' },
-              { label: 'Off-market sourcing', body: "Most good commercial properties never hit the portals. Our network of local agents, owners, and developers gives us access to stock that other buyers don't see." },
-              { label: 'Due diligence', body: 'Zoning, DA history, tenancy review, building condition, contamination risk — we go through every layer before you commit a dollar.' },
-              { label: 'Price negotiation', body: "We know what things are worth in this market. We negotiate hard on price, terms, and conditions — without emotion, without ego, without compromise." },
-              { label: 'Contract review coordination', body: 'We coordinate with your solicitor and conveyancer to ensure the contract protects your interests and that nothing slips through.' },
-              { label: 'Settlement support', body: "We stay involved through to settlement. If issues arise — and they sometimes do — we're in your corner to resolve them quickly." }
-            ].map((item, i) => (
-              <FadeIn key={item.label} delay={i * 60} direction={i % 2 === 0 ? 'left' : 'right'}>
-                <div className="pl-6 border-l-4 border-teal py-2">
-                  <p className="text-white font-bold text-lg mb-2">{item.label}</p>
-                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* MARKET SNAPSHOT */}
-      <section className="bg-warm-grey"
-        style={SEC}>
-        <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <FadeIn>
-            <SectionLabel>Newcastle market right now</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight mt-3 mb-12 max-w-2xl"
-              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              Why commercial in the Hunter is the move.
-            </h2>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                figure: '5.5–7.5%',
-                label: 'Commercial yields',
-                context: 'vs. 3–4% in Sydney. Quality assets with strong tenants are still achievable at numbers that make sense.'
-              },
-              {
-                figure: '$420–$680',
-                label: 'CBD office rent per sqm/pa',
-                context: 'Still well below Sydney metro, with improving tenant demand and constrained new supply in the pipeline.'
-              },
-              {
-                figure: '92%+',
-                label: 'Industrial occupancy Hunter',
-                context: 'Industrial vacancy is near historic lows. Well-located sheds and warehouses continue to see strong rental growth.'
-              },
-              {
-                figure: '60%+',
-                label: 'Off-market deal share',
-                context: 'The best properties in Newcastle rarely make it to listing portals. Network access is everything.'
-              }
-            ].map((item, i) => (
-              <FadeIn key={item.label} delay={i * 70} direction="up">
-                <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow duration-300">
-                  <p className="text-teal font-black text-4xl mb-1 leading-none">{item.figure}</p>
-                  <p className="text-near-black font-bold text-base mb-3">{item.label}</p>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.context}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHY YOS */}
-      <section className="bg-near-black"
-        style={SEC}>
-        <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <FadeIn>
-            <SectionLabel>Why YOS</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mt-3 mb-8"
-              style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              Local knowledge. No conflicts.
-            </h2>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <p className="text-white/60 font-light leading-relaxed mb-12 max-w-3xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              Most buyers agents claim to know your market. We actually live and operate in it. We&apos;ve done deals across the Newcastle CBD, Broadmeadow, Kotara, Maitland, and the broader Hunter Valley. We know which vendors are motivated, which agents play fair, and where the real opportunities sit right now.
-            </p>
-          </FadeIn>
-          <FadeIn delay={150}>
-            <div className="border-l-4 border-teal pl-8 py-4">
-              <p className="text-white font-light text-xl leading-relaxed">
-                We are never paid by vendors. Never paid by agents. Our fee comes from you, which means our job — our only job — is to get you the best possible outcome.
-              </p>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-teal"
-        style={SEC}>
-        <FadeIn>
-          <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <h2 className="text-white font-bold leading-tight mb-5 w-full"
-                style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
-                Ready to buy smart?
-              </h2>
-              <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
-                Tell us what you&apos;re looking for. We&apos;ll tell you what&apos;s out there and what it would take to get it.
-              </p>
-              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Buyer Consultation
-              </Button>
-            </div>
-          </div>
-        </FadeIn>
-      </section>
-
+        <BookingCTA />
+      </main>
       <Footer />
-      <BookingCTA label="Book a Free Consultation" />
     </>
   )
 }

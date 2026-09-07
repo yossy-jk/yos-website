@@ -355,6 +355,8 @@ export default function WorkspaceBuilderPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       <div className="min-h-screen bg-near-black" style={SEC_SM}>
 
         {/* Progress bar */}
@@ -504,7 +506,7 @@ export default function WorkspaceBuilderPage() {
                     </label>
                     <span style={{
                       fontSize: '0.78rem', fontWeight: 700,
-                      color: workStyleTotal === 100 ? '#00B5A5' : '#ef4444',
+                      color: workStyleTotal === 100 ? '#01A7A3' : '#ef4444',
                       letterSpacing: '0.05em',
                     }}>
                       Total: {workStyleTotal}%{workStyleTotal !== 100 ? ' ← must equal 100' : ' OK '}
@@ -512,7 +514,7 @@ export default function WorkspaceBuilderPage() {
                   </div>
 
                   {[
-                    { key: 'alwaysIn' as const, label: 'Always in office', desc: '5 days/wk', color: '#00B5A5' },
+                    { key: 'alwaysIn' as const, label: 'Always in office', desc: '5 days/wk', color: '#01A7A3' },
                     { key: 'hybrid'   as const, label: 'Hybrid',           desc: '3+ days/wk', color: '#4DC3BA' },
                     { key: 'flexi'    as const, label: 'Flexi',            desc: '1–2 days/wk', color: '#80D4CD' },
                     { key: 'remote'   as const, label: 'Remote',           desc: 'Occasionally in', color: '#B3E6E3' },
@@ -830,6 +832,8 @@ export default function WorkspaceBuilderPage() {
         </div>
       </div>
 
+      </main>
+
       <Footer />
 
       {/* Print styles */}
@@ -909,14 +913,14 @@ function ResultsContent({
         <div style={{ marginBottom: '2.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {spec.callouts.map((c, i) => (
             <div key={i} style={{
-              background: 'rgba(0,181,165,0.08)',
-              border: '1px solid rgba(0,181,165,0.25)',
-              borderLeft: '3px solid #00B5A5',
+              background: 'rgba(1,167,163,0.08)',
+              border: '1px solid rgba(1,167,163,0.25)',
+              borderLeft: '3px solid #01A7A3',
               borderRadius: '0.5rem',
               padding: '1rem 1.25rem',
               display: 'flex', alignItems: 'flex-start', gap: '0.75rem',
             }}>
-              <span style={{ color: '#00B5A5', fontSize: '1rem', flexShrink: 0, marginTop: '0.05rem' }}>TIP:</span>
+              <span style={{ color: '#01A7A3', fontSize: '1rem', flexShrink: 0, marginTop: '0.05rem' }}>TIP:</span>
               <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.875rem', lineHeight: 1.65, fontWeight: 400 }}>{c}</p>
             </div>
           ))}
@@ -962,8 +966,8 @@ function ResultsContent({
           <div className="grid" style={{
             gridTemplateColumns: '2fr 2fr 1fr 1.5fr 1.5fr',
             padding: '1.25rem 1.5rem',
-            background: 'rgba(0,181,165,0.1)',
-            borderTop: '1px solid rgba(0,181,165,0.3)',
+            background: 'rgba(1,167,163,0.1)',
+            borderTop: '1px solid rgba(1,167,163,0.3)',
             alignItems: 'center',
           }}>
             <span className="text-white font-black uppercase" style={{ fontSize: '0.85rem', letterSpacing: '0.05em' }}>Total</span>

@@ -44,7 +44,7 @@ export default function CleaningPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Tenant-side commercial property advisory. Commercial cleaning, tenant rep, buyers agency, furniture and fitout across Newcastle and NSW.",
+            "description": "Newcastle-based tenant-side commercial property advisory across Australia, including accountable commercial cleaning for workplaces.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -101,6 +101,8 @@ export default function CleaningPage() {
         ]
       }) }} />
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden"
         style={SEC}>
         <div className="absolute inset-0 opacity-[0.04]" style={{
@@ -165,10 +167,10 @@ export default function CleaningPage() {
       {/* ─── IMAGE BREAK 1 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80" alt="Immaculately clean modern commercial office" fill className="object-cover object-center" />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.52)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.52)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
               &ldquo;We are very happy with the service provided by Sarah and Joe. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.&rdquo;
               <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Sophie, Jirsch Sutherland</span>
             </p>
@@ -363,7 +365,7 @@ export default function CleaningPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-teal"
+      <section className="bg-teal text-white"
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
@@ -372,7 +374,7 @@ export default function CleaningPage() {
                 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 3.75rem)' }}>
                 Ready to move to a better standard?
               </h2>
-              <p className="text-white/80 font-light text-lg leading-relaxed mb-10 w-full">
+              <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
                 We&apos;ll visit your site, understand your needs, and give you a clear proposal. No pressure. No surprises.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center">
@@ -397,7 +399,7 @@ export default function CleaningPage() {
       <section style={{ background: '#111', paddingTop: 'clamp(3rem,6vw,4.5rem)', paddingBottom: 'clamp(3rem,6vw,4.5rem)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
-            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
+            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
             <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or the Hunter Valley?</p>
           </div>
           <Button href="/cleaning/work-with-us" variant="primary" size="lg">
@@ -405,6 +407,8 @@ export default function CleaningPage() {
           </Button>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

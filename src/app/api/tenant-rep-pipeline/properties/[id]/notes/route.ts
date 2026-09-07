@@ -5,6 +5,12 @@ const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 const KEY = 'tr:properties'
 
+interface PropertyRecord {
+  id: string
+  notes?: string
+  updated_at?: string
+}
+
 async function redisGet(key: string): Promise<string | null> {
   if (!UPSTASH_URL || !UPSTASH_TOKEN) return null
   const r = await fetch(`${UPSTASH_URL}/get/${encodeURIComponent(key)}`, { headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` } })
@@ -28,7 +34,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
   try {
     const { note } = await req.json()
     const raw = await redisGet(KEY)
-    const properties: any[] = raw ? JSON.parse(raw) : []
+    const properties: PropertyRecord[] = raw ? JSON.parse(raw) : []
     const idx = properties.findIndex(p => p.id === id)
     if (idx === -1) return NextResponse.json({ error: 'Not found' }, { status: 404 })
     const now = new Date().toISOString()
@@ -37,7 +43,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
     properties[idx].updated_at = now
     await redisSet(KEY, JSON.stringify(properties))
     return NextResponse.json(properties[idx])
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }

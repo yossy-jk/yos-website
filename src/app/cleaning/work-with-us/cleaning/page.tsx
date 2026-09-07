@@ -55,6 +55,8 @@ export default function CleaningWorkWithUsPage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* ── HERO ─────────────────────────────────────────────── */}
       <section style={{
         background: '#0A0A0A',
@@ -62,7 +64,7 @@ export default function CleaningWorkWithUsPage() {
         paddingBottom: 'clamp(4rem,8vw,6rem)',
       }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+          <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
             YOS Cleaning — Newcastle &amp; Hunter Valley
           </p>
           <h1 style={{
@@ -70,7 +72,7 @@ export default function CleaningWorkWithUsPage() {
             textTransform: 'uppercase', fontSize: 'clamp(2.5rem,7vw,6rem)', marginBottom: '1.5rem',
           }}>
             Work that&apos;s worth<br />
-            <span style={{ color: '#00B5A5' }}>showing up for.</span>
+            <span style={{ color: '#01A7A3' }}>showing up for.</span>
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, lineHeight: 1.75, maxWidth: '38rem', fontSize: 'clamp(1rem,2vw,1.2rem)', marginBottom: '2rem' }}>
             We&apos;re a Newcastle-based commercial cleaning business growing across the Hunter Valley.
@@ -78,7 +80,7 @@ export default function CleaningWorkWithUsPage() {
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <a href="#apply"
-              style={{ background: '#00B5A5', color: 'white', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2rem', textDecoration: 'none', display: 'inline-block' }}>
+              style={{ background: '#01A7A3', color: 'white', fontWeight: 700, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2rem', textDecoration: 'none', display: 'inline-block' }}>
               Apply now
             </a>
             <a href="#why-yos"
@@ -103,7 +105,7 @@ export default function CleaningWorkWithUsPage() {
       {/* ── WHY YOS ──────────────────────────────────────────── */}
       <section id="why-yos" style={{ background: '#111', padding: 'clamp(4rem,8vw,7rem) 0' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Why work with us</p>
+          <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Why work with us</p>
           <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: 'clamp(2.5rem,5vw,4rem)', maxWidth: '36rem' }}>
             We run a tight operation.<br />And we look after our people.
           </h2>
@@ -111,7 +113,7 @@ export default function CleaningWorkWithUsPage() {
             {REASONS.map((r, i) => (
               <div key={i} style={{
                 background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
-                padding: '1.75rem', borderTop: '2px solid #00B5A5',
+                padding: '1.75rem', borderTop: '2px solid #01A7A3',
               }}>
                 <p style={{ color: 'white', fontWeight: 800, fontSize: '0.95rem', marginBottom: '0.75rem', lineHeight: 1.3 }}>{r.heading}</p>
                 <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.875rem', lineHeight: 1.75, margin: 0 }}>{r.body}</p>
@@ -126,7 +128,7 @@ export default function CleaningWorkWithUsPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(2rem,5vw,5rem)', alignItems: 'start' }}>
             <div>
-              <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Who we&apos;re looking for</p>
+              <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Who we&apos;re looking for</p>
               <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
                 Reliable people<br />who take pride<br />in their work.
               </h2>
@@ -142,7 +144,7 @@ export default function CleaningWorkWithUsPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                 {WHO_WE_WANT.map((item, i) => (
                   <div key={i} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start' }}>
-                    <div style={{ width: '20px', height: '20px', background: 'rgba(0,181,165,0.15)', border: '1px solid rgba(0,181,165,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' }}>
+                    <div style={{ width: '20px', height: '20px', background: 'rgba(1,167,163,0.15)', border: '1px solid rgba(1,167,163,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: '0.1rem' }}>
                       <CheckIcon />
                     </div>
                     <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', lineHeight: 1.6, margin: 0 }}>{item}</p>
@@ -157,10 +159,10 @@ export default function CleaningWorkWithUsPage() {
       {/* ── EMPLOYEE VS CONTRACTOR ────────────────────────────── */}
       <section style={{ background: '#111', padding: 'clamp(3rem,6vw,5rem) 0' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Two ways to work with us</p>
+          <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Two ways to work with us</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-            <div style={{ background: 'rgba(0,181,165,0.06)', border: '1px solid rgba(0,181,165,0.2)', padding: '2rem' }}>
-              <p style={{ color: '#00B5A5', fontWeight: 800, fontSize: '1rem', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Employee</p>
+            <div style={{ background: 'rgba(1,167,163,0.06)', border: '1px solid rgba(1,167,163,0.2)', padding: '2rem' }}>
+              <p style={{ color: '#01A7A3', fontWeight: 800, fontSize: '1rem', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Employee</p>
               <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.875rem', lineHeight: 1.75, marginBottom: '1.25rem' }}>
                 You join the YOS team directly. We handle scheduling, pay, super and all the admin. You show up, do great work, and get paid weekly.
               </p>
@@ -189,7 +191,7 @@ export default function CleaningWorkWithUsPage() {
       <section id="apply" style={{ background: '#0A0A0A', padding: 'clamp(4rem,8vw,7rem) 0' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div style={{ maxWidth: '680px' }}>
-            <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Express your interest</p>
+            <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1rem' }}>Express your interest</p>
             <h2 style={{ color: 'white', fontWeight: 900, fontSize: 'clamp(1.75rem,4vw,3rem)', lineHeight: 1.05, letterSpacing: '-0.02em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>
               Tell us about yourself.
             </h2>
@@ -200,6 +202,8 @@ export default function CleaningWorkWithUsPage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

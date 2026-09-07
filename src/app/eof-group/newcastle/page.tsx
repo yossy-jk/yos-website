@@ -31,6 +31,8 @@ export default function NewcastlePage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #001500 100%)' }}>
         <FadeIn>
@@ -178,7 +180,7 @@ export default function NewcastlePage() {
                 {
                   name: 'Tenant Representation',
                   href: '/eof-group/tenant-representation',
-                  colour: '#00B5A5',
+                  colour: '#01A7A3',
                   desc: 'We negotiate leases exclusively for tenants. We know the Newcastle CBD and Hunter market landlords, and we know where the leverage is in a negotiation.',
                 },
                 {
@@ -259,6 +261,8 @@ export default function NewcastlePage() {
 
       {/* CTA */}
       <BookingCTA label="Talk to EOF Group in Newcastle" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

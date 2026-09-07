@@ -203,7 +203,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
           <div className="text-center" style={{ padding: '3rem 2.75rem' }}>
             <div className="w-14 h-14 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-5">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M6 14l6 6 10-12" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 14l6 6 10-12" stroke="#01A7A3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <h3 className="text-near-black font-bold text-xl mb-3">Done. First edition coming your way.</h3>
@@ -277,6 +277,8 @@ export default function MarketSnapshotPageContent({
   return (
     <>
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section
@@ -436,7 +438,7 @@ export default function MarketSnapshotPageContent({
       <section
         style={{
           ...SEC_SM,
-          background: '#F5F5F5',
+          background: '#FAFAF8',
           borderTop: '1px solid rgba(0,0,0,0.06)',
         }}
       >
@@ -454,6 +456,8 @@ export default function MarketSnapshotPageContent({
         </div>
       </section>
 
+      </main>
+
       <Footer />
 
       <BookingCTA label="Get Monthly Market Updates" />
@@ -466,16 +470,16 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-h1 {
           font-size: clamp(1.1rem, 2.5vw, 1.4rem);
           font-weight: 800;
-          color: #1A1A1A;
+          color: #0A3B38;
           letter-spacing: -0.02em;
           margin: 2.5rem 0 1rem;
           padding-bottom: 0.75rem;
-          border-bottom: 2px solid #00B5A5;
+          border-bottom: 2px solid #01A7A3;
         }
         .snapshot-content .snap-h2 {
           font-size: clamp(1rem, 2vw, 1.2rem);
           font-weight: 800;
-          color: #1A1A1A;
+          color: #0A3B38;
           letter-spacing: -0.01em;
           margin: 2rem 0 0.875rem;
           text-transform: uppercase;
@@ -484,7 +488,7 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-h3 {
           font-size: 0.85rem;
           font-weight: 700;
-          color: #444444;
+          color: #0A3B38;
           margin: 1.5rem 0 0.5rem;
           text-transform: uppercase;
           letter-spacing: 0.15em;
@@ -492,14 +496,14 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-p {
           font-size: clamp(0.9rem, 1.8vw, 1rem);
           font-weight: 300;
-          color: #1A1A1A;
+          color: #0A3B38;
           line-height: 1.85;
           margin: 0 0 1rem;
         }
         .snapshot-content .snap-source {
           font-size: 0.82rem;
           font-weight: 300;
-          color: #9B9B9B;
+          color: #5A6B68;
           font-style: italic;
           line-height: 1.7;
           margin: 0.5rem 0 1.25rem;
@@ -520,14 +524,14 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-list li {
           font-size: clamp(0.9rem, 1.8vw, 1rem);
           font-weight: 300;
-          color: #1A1A1A;
+          color: #0A3B38;
           line-height: 1.85;
           margin-bottom: 0.5rem;
           padding-left: 0.25rem;
         }
         .snapshot-content strong {
           font-weight: 700;
-          color: #1A1A1A;
+          color: #0A3B38;
         }
         .snapshot-content em {
           font-style: italic;

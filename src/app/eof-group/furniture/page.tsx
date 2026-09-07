@@ -32,6 +32,8 @@ export default function EOFFurniturePage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* HERO */}
       <section style={{ ...SEC, background: 'linear-gradient(135deg, #0a0a0a 0%, #111 50%, #1a1200 100%)' }}>
         <FadeIn>
@@ -268,9 +270,9 @@ export default function EOFFurniturePage() {
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               {[
-                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide' },
-                { label: 'Commercial Furniture Supplier', href: '/blog/commercial-furniture-supplier' },
-                { label: 'Office Fitout Costs', href: '/blog/office-fitout-costs' },
+                { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
+                { label: 'Commercial Furniture Supplier', href: '/blog/commercial-furniture-supplier-guide-australia' },
+                { label: 'Office Fitout Costs', href: '/blog/newcastle-office-fitout-costs-2026' },
                 { label: 'Lease Review', href: '/eof-group/lease-review' },
                 { label: 'Tenant Representation', href: '/eof-group/tenant-representation' },
               ].map(link => (
@@ -284,6 +286,8 @@ export default function EOFFurniturePage() {
       </section>
 
       <BookingCTA label="Talk to EOF Furniture" />
+      </main>
+
       <Footer />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({

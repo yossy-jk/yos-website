@@ -263,50 +263,6 @@ export const KEYWORDS: Keyword[] = [
     notes: 'Product-level keyword. Shopify store is better target long-term.'
   },
 
-  // ── BUYERS AGENCY ───────────────────────────────────────────────────────────
-  {
-    id: 'ba-01',
-    keyword: 'commercial buyers agent Newcastle',
-    division: 'buyers-agency',
-    monthlyVolume: 110,
-    difficulty: 22,
-    intent: 'commercial',
-    priority: 'immediate',
-    currentRank: null,
-    targetPage: '/buyers-agency',
-    contentGap: null,
-    aeoFit: true,
-    notes: 'Emerging category in Newcastle. Very low competition. First mover advantage available.'
-  },
-  {
-    id: 'ba-02',
-    keyword: 'how to buy commercial property Australia',
-    division: 'buyers-agency',
-    monthlyVolume: 880,
-    difficulty: 52,
-    intent: 'informational',
-    priority: 'medium',
-    currentRank: null,
-    targetPage: '/blog/how-to-buy-commercial-property-australia',
-    contentGap: null,
-    aeoFit: true,
-    notes: 'High national volume. AEO very strong — AI frequently answers this. Blog exists.'
-  },
-  {
-    id: 'ba-03',
-    keyword: 'buying vs leasing commercial property Newcastle',
-    division: 'buyers-agency',
-    monthlyVolume: 90,
-    difficulty: 20,
-    intent: 'informational',
-    priority: 'immediate',
-    currentRank: null,
-    targetPage: '/blog/buying-vs-leasing-commercial-newcastle',
-    contentGap: null,
-    aeoFit: true,
-    notes: 'Low difficulty, decision-stage intent. Blog exists. Should rank quickly.'
-  },
-
   // ── LEASEINTEL ──────────────────────────────────────────────────────────────
   {
     id: 'li-01',

@@ -16,7 +16,7 @@
  */
 import { NextResponse } from 'next/server'
 
-const AGENT_TOKEN = process.env.EOS_AGENT_TOKEN || 'yos-eos-agent-2026'
+const AGENT_TOKEN = process.env.EOS_AGENT_TOKEN
 const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 const EOS_KEY       = 'yos:eos:data'

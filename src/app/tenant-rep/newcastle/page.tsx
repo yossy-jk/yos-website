@@ -59,6 +59,8 @@ export default function TenantRepNewcastlePage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden" style={SEC}>
         <div className="absolute inset-0 opacity-[0.04]" style={{
@@ -439,6 +441,8 @@ export default function TenantRepNewcastlePage() {
           </FadeIn>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

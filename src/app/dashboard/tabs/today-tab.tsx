@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback, JSX } from 'react'
 
-const TEAL = '#00B5A5'
+const TEAL = '#01A7A3'
 const RED = '#ef4444'
 const GREEN = '#22c55e'
 const AMBER = '#f59e0b'
@@ -53,15 +53,15 @@ export default function TodayTab(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('yos-energy-' + new Date().toDateString())
-      if (saved) setEnergy(parseInt(saved))
-    }
+    const savedEnergy = typeof window === 'undefined'
+      ? null
+      : localStorage.getItem('yos-energy-' + new Date().toDateString())
     Promise.all([
       fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/api/agent-intel', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
       fetch('/api/tasks-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).catch(() => null),
     ]).then(([d, i, t]: [DashData | null, IntelData | null, TasksData | null]) => {
+      if (savedEnergy) setEnergy(parseInt(savedEnergy, 10))
       setData(d)
       setIntel(i)
       setTasks(t)
@@ -167,13 +167,13 @@ export default function TodayTab(): JSX.Element {
         {todayTasks.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {todayTasks.map((t: TaskItem, i: number) => (
-              <div key={t.id} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start', padding: '0.875rem', background: 'rgba(0,181,165,0.05)', borderRadius: 6, border: `1px solid rgba(0,181,165,0.12)` }}>
-                <div style={{ width: 28, height: 28, borderRadius: '50%', background: i === 0 ? TEAL : 'rgba(0,181,165,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900, color: 'white', flexShrink: 0 }}>{i + 1}</div>
+              <div key={t.id} style={{ display: 'flex', gap: '0.875rem', alignItems: 'flex-start', padding: '0.875rem', background: 'rgba(1,167,163,0.05)', borderRadius: 6, border: `1px solid rgba(1,167,163,0.12)` }}>
+                <div style={{ width: 28, height: 28, borderRadius: '50%', background: i === 0 ? TEAL : 'rgba(1,167,163,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900, color: 'white', flexShrink: 0 }}>{i + 1}</div>
                 <div style={{ flex: 1 }}>
                   <p style={{ margin: 0, fontWeight: 600, fontSize: '0.85rem' }}>{t.title}</p>
                   {t.raw_commitment && <p style={{ margin: '0.2rem 0 0', fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', fontStyle: 'italic' }}>&quot;{t.raw_commitment.slice(0, 80)}&quot;</p>}
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.3rem' }}>
-                    {t.source && <span style={{ fontSize: '0.58rem', background: 'rgba(0,181,165,0.15)', color: TEAL, padding: '0.1rem 0.4rem', borderRadius: 3, textTransform: 'uppercase', fontWeight: 700 }}>{t.source}</span>}
+                    {t.source && <span style={{ fontSize: '0.58rem', background: 'rgba(1,167,163,0.15)', color: TEAL, padding: '0.1rem 0.4rem', borderRadius: 3, textTransform: 'uppercase', fontWeight: 700 }}>{t.source}</span>}
                     {t.client_name && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.3)' }}>{t.client_name}</span>}
                   </div>
                 </div>

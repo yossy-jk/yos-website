@@ -27,7 +27,9 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
 
   // Hide if quote modal opens while popup is visible
   useEffect(() => {
-    if (quoteModalOpen && visible) setVisible(false)
+    if (!quoteModalOpen || !visible) return
+    const timer = window.setTimeout(() => setVisible(false), 0)
+    return () => window.clearTimeout(timer)
   }, [quoteModalOpen, visible])
 
   const dismiss = () => {
@@ -45,12 +47,12 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
       right: '1.5rem',
       zIndex: 40,
       width: '320px',
-      background: '#1A1A1A',
+      background: '#0A3B38',
       border: '1px solid #2a2a2a',
       borderRadius: '12px',
       padding: '1.25rem',
       boxShadow: '0 8px 40px rgba(0,0,0,0.5)',
-      fontFamily: 'Montserrat, sans-serif',
+      fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
       animation: 'slideUp 0.3s ease-out',
     }}>
       <style>{`
@@ -69,12 +71,12 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
       </button>
 
       {/* Teal accent bar */}
-      <div style={{ width: '32px', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '0.85rem' }} />
+      <div style={{ width: '32px', height: '3px', background: '#01A7A3', borderRadius: '2px', marginBottom: '0.85rem' }} />
 
       <p style={{ fontSize: '0.9rem', fontWeight: 700, color: '#F7F6F4', marginBottom: '0.5rem', lineHeight: 1.4, paddingRight: '1rem' }}>
         Prefer someone to do this for you?
       </p>
-      <p style={{ fontSize: '0.8rem', color: '#9B9B9B', lineHeight: 1.6, marginBottom: '1.1rem' }}>
+      <p style={{ fontSize: '0.8rem', color: '#5A6B68', lineHeight: 1.6, marginBottom: '1.1rem' }}>
         Our project consultants complete a full measure, discovery and scope as part of the service. Same outcome, zero effort on your end.
       </p>
 
@@ -84,14 +86,14 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
           style={{
             flex: 1,
             textAlign: 'center',
-            background: '#00B5A5',
+            background: '#01A7A3',
             color: '#FFFFFF',
             padding: '0.6rem 0.75rem',
             borderRadius: '8px',
             fontSize: '0.78rem',
             fontWeight: 700,
             textDecoration: 'none',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
           }}
         >
           Book a consultant call
@@ -101,13 +103,13 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
           style={{
             background: 'transparent',
             border: '1px solid #333',
-            color: '#9B9B9B',
+            color: '#5A6B68',
             padding: '0.6rem 0.75rem',
             borderRadius: '8px',
             fontSize: '0.78rem',
             fontWeight: 600,
             cursor: 'pointer',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             whiteSpace: 'nowrap',
           }}
         >

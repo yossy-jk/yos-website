@@ -21,8 +21,8 @@ export function generateQuotePDF({
   const pageW = 210;
   const margin = 20;
   const contentW = pageW - margin * 2;
-  const teal = "#00B5A5";
-  const nearBlack = "#1A1A1A";
+  const teal = "#01A7A3";
+  const nearBlack = "#0A3B38";
   const midGrey = "#6B6B6B";
 
   // Aggregate items by productId

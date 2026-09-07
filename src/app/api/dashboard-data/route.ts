@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'
 
 const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN || ''
-const MATON_KEY   = process.env.MATON_API_KEY || 'GT9qpes_m-iYf4YpPdPBjBIkFyMO9HtAHM9mGAqyBb53wIvAhJ836ehgHmtJz71WTprCYyBjJo1fWbBIMJBh17wv_SQ2ddeRl4I'
+const MATON_KEY   = process.env.MATON_API_KEY
 const XERO_CONN   = '662c9b82-dff0-49ed-a3a4-292368e3328b'  // Joe confirmed 2026-06-08
 const OUTLOOK_CONN = '6521bbc6-e73e-4e30-b648-f240b62a8d2a'
 

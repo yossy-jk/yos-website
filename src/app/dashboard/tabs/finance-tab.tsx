@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 
-const C = { teal: '#00B5A5', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
+const C = { teal: '#01A7A3', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>{children}</p>
@@ -17,12 +17,21 @@ export default function FinanceTab() {
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
 
+  const requestData = useCallback(() =>
+    fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null), [])
+
   const load = useCallback(() => {
     setRefreshing(true)
-    fetch('/api/dashboard-data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false); setRefreshing(false) }).catch(() => { setLoading(false); setRefreshing(false) })
-  }, [])
+    requestData().then(d => { setData(d); setLoading(false) }).catch(() => { setLoading(false) }).finally(() => setRefreshing(false))
+  }, [requestData])
 
-  useEffect(() => { load() }, [load])
+  useEffect(() => {
+    let cancelled = false
+    requestData()
+      .then(d => { if (!cancelled) { setData(d); setLoading(false) } })
+      .catch(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [requestData])
 
   const cashflow = (data as Record<string,unknown>)?.cashflow as Record<string,number>|null
   const xero = (data as Record<string,unknown>)?.xero as Record<string,unknown>|null

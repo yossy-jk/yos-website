@@ -4,15 +4,14 @@
  * Requires valid 2FA code (from /send-code) + password.
  * Sets session cookie on success.
  *
- * GET /api/auth-v2/login?secret=<CRON_STATE_SECRET>&email=<email>
- * Returns the current code in Redis (for debugging only).
  */
 import { NextRequest, NextResponse } from 'next/server'
 import {
-  getUser, getUserById, createSession, setSessionCookie, saveUser,
+  getUser, createSession, setSessionCookie, saveUser,
   checkRateLimit, getIp, clearRateLimit, verifyPasswordHash,
   redisGet, redisSet, redisDel, redisTtl, hashPassword,
 } from '@/lib/auth-v2'
+import { verifyOneTimeCode } from '@/lib/auth-session'
 
 export const runtime = 'nodejs'
 
@@ -20,7 +19,7 @@ const CODE_TTL_SEC = 300 // must match send-code route
 
 /** Normalise the stored hash to a plain string.
  * Upstash SDK may return a parsed JSON object (not a raw JSON string).
- * The hash field in Redis is always a plain 6-digit string, but due to
+ * The hash field in Redis is an HMAC digest of the 6-digit code, but due to
  * nested-object writes during wrong-code retries it may arrive here as
  * an object. We extract it safely either way.
  */
@@ -41,17 +40,6 @@ function extractCode(raw: unknown): string {
     }
   }
   return ''
-}
-
-// GET — debug endpoint
-export async function GET(req: NextRequest) {
-  if (req.nextUrl.searchParams.get('secret') !== process.env.CRON_STATE_SECRET) {
-    return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
-  }
-  const email = req.nextUrl.searchParams.get('email') || 'jk@yourofficespace.au'
-  const raw = await redisGet(`2fa:code:${email}`)
-  if (!raw) return NextResponse.json({ email, found: false })
-  return NextResponse.json({ email, found: true, code: extractCode(raw) })
 }
 
 export async function POST(req: NextRequest) {
@@ -100,37 +88,48 @@ export async function POST(req: NextRequest) {
   }
 
   // Extract the actual code string from whatever shape it arrived in
-  const storedCode = extractCode(raw)
+  const storedHash = extractCode(raw)
 
   // Parse attempt counter (may be at top level or nested)
   let attempts = 0
+  let maxed = false
   try {
     if (typeof raw === 'object' && raw !== null) {
       const obj = raw as Record<string, unknown>
       if (typeof obj.attempts === 'number') attempts = obj.attempts
+      if (obj.maxed === true) maxed = true
       else if (typeof obj.hash === 'object' && obj.hash !== null) {
         const inner = obj.hash as Record<string, unknown>
         if (typeof inner.attempts === 'number') attempts = inner.attempts
+        if (inner.maxed === true) maxed = true
       }
     }
   } catch { /* ignore */ }
 
-  const isMaxed = storedCode === '' ? true : false // fallback: no code = treat as maxed
+  if (maxed || attempts >= 5) {
+    await redisDel(codeKey)
+    return NextResponse.json(
+      { error: 'Too many wrong attempts. Please request a new code.', code_required: true, go_to_email: true },
+      { status: 401 }
+    )
+  }
 
-  if (code !== storedCode) {
+  const authSecret = process.env.AUTH_COOKIE_SECRET || ''
+  if (!verifyOneTimeCode(code, storedHash, authSecret)) {
     attempts++
     const ttlRemaining = await redisTtl(codeKey)
     const ttl = ttlRemaining > 0 ? ttlRemaining : CODE_TTL_SEC
 
-    // Write back with updated attempts — preserve the nested structure by only updating attempts
-    await redisSet(codeKey, JSON.stringify({ hash: storedCode, attempts, maxed: attempts >= 5 }), ttl)
-
     if (attempts >= 5) {
+      await redisDel(codeKey)
       return NextResponse.json(
         { error: 'Too many wrong attempts. Please request a new code.', code_required: true, go_to_email: true },
         { status: 401 }
       )
     }
+
+    const saved = await redisSet(codeKey, JSON.stringify({ hash: storedHash, attempts, maxed: false }), ttl)
+    if (!saved) return NextResponse.json({ error: 'Sign-in service is temporarily unavailable.' }, { status: 503 })
 
     return NextResponse.json(
       { error: 'Incorrect code — check the latest code in your inbox.', code_required: true },
@@ -138,13 +137,13 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  // Code valid — proceed
-  await redisDel(codeKey)
-
   // ── Password Verification ─────────────────────────────────────────────
   let user = await getUser(email)
 
   if (!user) {
+    if (password.length < 12) {
+      return NextResponse.json({ error: 'Password must be at least 12 characters' }, { status: 400 })
+    }
     const id = `user_${Date.now()}_${Math.random().toString(36).slice(2)}`
     const password_hash = await hashPassword(password)
     user = {
@@ -159,8 +158,8 @@ export async function POST(req: NextRequest) {
       last_login: null,
       active: true,
     }
-    await saveUser(user)
   } else {
+    if (!user.active) return NextResponse.json({ error: 'Account is disabled' }, { status: 403 })
     const valid = await verifyPasswordHash(password, user.password_hash)
     if (!valid) {
       return NextResponse.json({ error: 'Incorrect email or password' }, { status: 401 })
@@ -170,6 +169,7 @@ export async function POST(req: NextRequest) {
   // ── Success ────────────────────────────────────────────────────────────
   const updated = { ...user, last_login: new Date().toISOString(), updated_at: new Date().toISOString() }
   await saveUser(updated)
+  await redisDel(codeKey)
   clearRateLimit(ip)
 
   const session = await createSession(updated)

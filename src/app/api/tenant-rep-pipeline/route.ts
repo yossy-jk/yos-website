@@ -37,8 +37,8 @@ export async function GET() {
     const raw = await redisGet(KEY)
     const clients: Client[] = raw ? JSON.parse(raw) : []
     return NextResponse.json(clients)
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }
 
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     clients.unshift(client)
     await redisSet(KEY, JSON.stringify(clients))
     return NextResponse.json(client, { status: 201 })
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }

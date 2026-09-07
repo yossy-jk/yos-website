@@ -1,18 +1,28 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 
-const C = { teal: '#00B5A5', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
+const C = { teal: '#01A7A3', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
 
 export default function TractionTab() {
   const [data, setData] = useState<Record<string, unknown> | null>(null)
   const [loading, setLoading] = useState(true)
 
   const [refreshing, setRefreshing] = useState(false)
+  const requestData = useCallback(() =>
+    fetch('/api/eos/data', {credentials: 'include'}).then(r => r.ok ? r.json() : null), [])
+
   const load = useCallback(() => {
     setRefreshing(true)
-    fetch('/api/eos/data', {credentials: 'include'}).then(r => r.ok ? r.json() : null).then(d => { setData(d); setLoading(false); setRefreshing(false) }).catch(() => { setLoading(false); setRefreshing(false) })
-  }, [])
-  useEffect(() => { load() }, [load])
+    requestData().then(d => { setData(d); setLoading(false) }).catch(() => { setLoading(false) }).finally(() => setRefreshing(false))
+  }, [requestData])
+
+  useEffect(() => {
+    let cancelled = false
+    requestData()
+      .then(d => { if (!cancelled) { setData(d); setLoading(false) } })
+      .catch(() => { if (!cancelled) setLoading(false) })
+    return () => { cancelled = true }
+  }, [requestData])
 
   if (loading) return <div style={{ color: 'rgba(255,255,255,0.3)', padding: '4rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
     <div>Loading traction data...</div>

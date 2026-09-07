@@ -47,14 +47,14 @@ export async function GET(req: Request) {
 <head><meta charset="UTF-8"><title>GSC Connected</title>
 <style>
   body { background: #0a0a0a; color: white; font-family: system-ui, sans-serif; padding: 3rem; max-width: 640px; margin: 0 auto; }
-  h1 { color: #00B5A5; font-size: 1.5rem; margin-bottom: 0.5rem; }
+  h1 { color: #01A7A3; font-size: 1.5rem; margin-bottom: 0.5rem; }
   p { color: rgba(255,255,255,0.7); line-height: 1.7; }
   code { background: rgba(255,255,255,0.08); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.9rem; word-break: break-all; }
-  .token-box { background: rgba(0,181,165,0.08); border: 1px solid rgba(0,181,165,0.3); padding: 1.25rem; margin: 1.5rem 0; border-radius: 6px; }
+  .token-box { background: rgba(1,167,163,0.08); border: 1px solid rgba(1,167,163,0.3); padding: 1.25rem; margin: 1.5rem 0; border-radius: 6px; }
   .steps { background: rgba(255,255,255,0.04); padding: 1.25rem; border-radius: 6px; }
   .steps ol { margin: 0.5rem 0 0; padding-left: 1.25rem; }
   .steps li { margin-bottom: 0.5rem; color: rgba(255,255,255,0.8); font-size: 0.9rem; }
-  button { background: #00B5A5; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-top: 0.75rem; }
+  button { background: #01A7A3; color: white; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin-top: 0.75rem; }
 </style>
 </head>
 <body>
@@ -62,7 +62,7 @@ export async function GET(req: Request) {
   <p>Copy the refresh token below and send it to YOS (your OpenClaw assistant) — it will save it as <code>GSC_REFRESH_TOKEN</code> in Vercel automatically.</p>
 
   <div class="token-box">
-    <p style="margin:0 0 0.5rem; color: #00B5A5; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Refresh Token</p>
+    <p style="margin:0 0 0.5rem; color: #01A7A3; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Refresh Token</p>
     <code id="token">${data.refresh_token}</code>
     <br>
     <button onclick="navigator.clipboard.writeText(document.getElementById('token').textContent); this.textContent='Copied!'">Copy to clipboard</button>

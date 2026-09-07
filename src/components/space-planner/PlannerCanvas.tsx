@@ -37,7 +37,7 @@ function ChairSilhouette({ item, isSelected }: SilhouetteProps) {
   const h = item.height;
   const backH = Math.max(6, h * 0.25);
   const seatH = h - backH;
-  const fill = "#00B5A5";
+  const fill = "#01A7A3";
   const darkFill = "#007A70";
   return (
     <Group>
@@ -170,7 +170,7 @@ function RoundTableSilhouette({ item, isSelected }: SilhouetteProps) {
 function StorageSilhouette({ item, isSelected }: SilhouetteProps) {
   const w = item.width;
   const h = item.height;
-  const fill = "#9B9B9B";
+  const fill = "#5A6B68";
   const lineColor = "#6B6B6B";
   const drawerH = h / 3;
   return (
@@ -248,7 +248,7 @@ function ItemLabel({ item }: { item: PlannerItem }) {
       verticalAlign="middle"
       fontSize={Math.max(6, fontSize)}
       fill="#FFFFFF"
-      fontFamily="Montserrat, sans-serif"
+      fontFamily="var(--font-inter), Inter, Arial, sans-serif"
       fontStyle="bold"
       padding={3}
       listening={false}
@@ -460,8 +460,8 @@ function CanvasItem({
           ref={trRef}
           enabledAnchors={["top-left", "top-right", "bottom-left", "bottom-right", "middle-right", "middle-left"]}
           rotateEnabled={true}
-          borderStroke="#00B5A5"
-          anchorStroke="#00B5A5"
+          borderStroke="#01A7A3"
+          anchorStroke="#01A7A3"
           anchorFill="#FFFFFF"
           anchorSize={8}
           boundBoxFunc={(oldBox, newBox) => {
@@ -499,12 +499,12 @@ function RulerH({ width, height, stageScale, stageX }: { width: number; height: 
     const px = (m * PIXELS_PER_METRE * stageScale) + stageX;
     if (px < RULER_SIZE || px > width) continue;
     ticks.push(
-      <Line key={`hm${m}`} points={[px, height - 8, px, height]} stroke="#9B9B9B" strokeWidth={1} listening={false} />,
-      <Text key={`hmt${m}`} x={px + 2} y={height - 14} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} />
+      <Line key={`hm${m}`} points={[px, height - 8, px, height]} stroke="#5A6B68" strokeWidth={1} listening={false} />,
+      <Text key={`hmt${m}`} x={px + 2} y={height - 14} text={`${m}m`} fontSize={9} fill="#5A6B68" fontFamily="var(--font-inter), Inter, Arial, sans-serif" listening={false} />
     );
     const hpx = ((m + 0.5) * PIXELS_PER_METRE * stageScale) + stageX;
     if (hpx > RULER_SIZE && hpx < width) {
-      ticks.push(<Line key={`hh${m}`} points={[hpx, height - 5, hpx, height]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />);
+      ticks.push(<Line key={`hh${m}`} points={[hpx, height - 5, hpx, height]} stroke="#5A6B68" strokeWidth={0.5} listening={false} />);
     }
   }
   return (
@@ -523,12 +523,12 @@ function RulerV({ width, height, stageScale, stageY }: { width: number; height: 
     const py = (m * PIXELS_PER_METRE * stageScale) + stageY;
     if (py < RULER_SIZE || py > height) continue;
     ticks.push(
-      <Line key={`vm${m}`} points={[width - 8, py, width, py]} stroke="#9B9B9B" strokeWidth={1} listening={false} />,
-      <Text key={`vmt${m}`} x={0} y={py + 2} text={`${m}m`} fontSize={9} fill="#9B9B9B" fontFamily="Montserrat, sans-serif" listening={false} />
+      <Line key={`vm${m}`} points={[width - 8, py, width, py]} stroke="#5A6B68" strokeWidth={1} listening={false} />,
+      <Text key={`vmt${m}`} x={0} y={py + 2} text={`${m}m`} fontSize={9} fill="#5A6B68" fontFamily="var(--font-inter), Inter, Arial, sans-serif" listening={false} />
     );
     const hpy = ((m + 0.5) * PIXELS_PER_METRE * stageScale) + stageY;
     if (hpy > RULER_SIZE && hpy < height) {
-      ticks.push(<Line key={`vh${m}`} points={[width - 5, hpy, width, hpy]} stroke="#9B9B9B" strokeWidth={0.5} listening={false} />);
+      ticks.push(<Line key={`vh${m}`} points={[width - 5, hpy, width, hpy]} stroke="#5A6B68" strokeWidth={0.5} listening={false} />);
     }
   }
   return (
@@ -596,7 +596,7 @@ function FloorPlate({ canvasWidthM, canvasDepthM, rooms, selectedRoomId, onSelec
               width={rw}
               height={rh}
               fill="transparent"
-              stroke={isSelected ? "#00B5A5" : "#2A2A2A"}
+              stroke={isSelected ? "#01A7A3" : "#2A2A2A"}
               strokeWidth={isSelected ? 2.5 : 2}
             />
             {/* Room label */}
@@ -606,7 +606,7 @@ function FloorPlate({ canvasWidthM, canvasDepthM, rooms, selectedRoomId, onSelec
               y={6}
               fontSize={11}
               fill="#4B4B4B"
-              fontFamily="Montserrat, sans-serif"
+              fontFamily="var(--font-inter), Inter, Arial, sans-serif"
               fontStyle="bold"
               listening={false}
             />
@@ -616,8 +616,8 @@ function FloorPlate({ canvasWidthM, canvasDepthM, rooms, selectedRoomId, onSelec
               x={6}
               y={20}
               fontSize={9}
-              fill="#9B9B9B"
-              fontFamily="Montserrat, sans-serif"
+              fill="#5A6B68"
+              fontFamily="var(--font-inter), Inter, Arial, sans-serif"
               listening={false}
             />
           </Group>
@@ -658,7 +658,7 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
   const internalStageRef = useRef<Konva.Stage>(null);
   const stageRef = externalStageRef ?? internalStageRef;
 
-  const handleWheel = useCallback((e: Konva.KonvaEventObject<WheelEvent>) => {
+  const handleWheel = (e: Konva.KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
     const scaleBy = 1.06;
     const stage = stageRef.current;
@@ -677,14 +677,14 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
       x: pointer.x - mousePointTo.x * clampedScale,
       y: pointer.y - mousePointTo.y * clampedScale,
     });
-  }, [stageScale, stagePos, stageRef]);
+  };
 
-  const handleStageClick = useCallback((e: Konva.KonvaEventObject<MouseEvent>) => {
+  const handleStageClick = (e: Konva.KonvaEventObject<MouseEvent>) => {
     if (e.target === stageRef.current) {
       setSelected(null);
       setSelectedRoom(null);
     }
-  }, [setSelected, setSelectedRoom, stageRef]);
+  };
 
   const handleRoomDragEnd = useCallback((id: string, xM: number, yM: number) => {
     updateRoom(id, { xM, yM });
@@ -753,9 +753,9 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
         <Layer listening={false}>
           {guides.map((guide, i) =>
             guide.type === "vertical" ? (
-              <Line key={i} points={[guide.pos, -stagePos.y / stageScale, guide.pos, (-stagePos.y + height) / stageScale]} stroke="#00B5A5" strokeWidth={1} dash={[4, 4]} opacity={0.8} />
+              <Line key={i} points={[guide.pos, -stagePos.y / stageScale, guide.pos, (-stagePos.y + height) / stageScale]} stroke="#01A7A3" strokeWidth={1} dash={[4, 4]} opacity={0.8} />
             ) : (
-              <Line key={i} points={[-stagePos.x / stageScale, guide.pos, (-stagePos.x + width) / stageScale, guide.pos]} stroke="#00B5A5" strokeWidth={1} dash={[4, 4]} opacity={0.8} />
+              <Line key={i} points={[-stagePos.x / stageScale, guide.pos, (-stagePos.x + width) / stageScale, guide.pos]} stroke="#01A7A3" strokeWidth={1} dash={[4, 4]} opacity={0.8} />
             )
           )}
         </Layer>
@@ -783,8 +783,8 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
       {/* Canvas size label */}
       <div style={{
         position: "absolute", top: "2rem", right: "1rem",
-        background: "rgba(26,26,26,0.85)", padding: "4px 10px", borderRadius: 6,
-        fontSize: 11, color: "#9B9B9B", fontFamily: "Montserrat, sans-serif",
+        background: "rgba(10,59,56,0.85)", padding: "4px 10px", borderRadius: 6,
+        fontSize: 11, color: "#5A6B68", fontFamily: "var(--font-inter), Inter, Arial, sans-serif",
         border: "1px solid #2A2A2A", pointerEvents: "none",
       }}>
         {canvasWidthM}×{canvasDepthM}m canvas
@@ -794,11 +794,11 @@ export default function PlannerCanvas({ width, height, onDrop, stageRef: externa
       <div style={{ position: "absolute", bottom: "1rem", right: "1rem", display: "flex", flexDirection: "column", gap: "4px", zIndex: 10 }}>
         <button onClick={() => setStageScale((s) => Math.min(4, s * 1.2))} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}>+</button>
         <button onClick={() => setStageScale((s) => Math.max(0.2, s / 1.2))} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 18, fontWeight: "bold", display: "flex", alignItems: "center", justifyContent: "center" }}>−</button>
-        <button onClick={() => { setStageScale(1); setStagePos({ x: RULER_SIZE, y: RULER_SIZE }); }} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 10, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Montserrat, sans-serif" }} title="Reset zoom">1:1</button>
+        <button onClick={() => { setStageScale(1); setStagePos({ x: RULER_SIZE, y: RULER_SIZE }); }} style={{ width: 32, height: 32, background: "rgba(255,255,255,0.9)", border: "1px solid #DDD", borderRadius: 6, cursor: "pointer", fontSize: 10, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-inter), Inter, Arial, sans-serif" }} title="Reset zoom">1:1</button>
       </div>
 
       {/* Scale hint */}
-      <div style={{ position: "absolute", bottom: "1rem", left: "2rem", background: "rgba(255,255,255,0.85)", padding: "4px 8px", borderRadius: 6, fontSize: 11, color: "#6B6B6B", fontFamily: "Montserrat, sans-serif", border: "1px solid #E5E5E5" }}>
+      <div style={{ position: "absolute", bottom: "1rem", left: "2rem", background: "rgba(255,255,255,0.85)", padding: "4px 8px", borderRadius: 6, fontSize: 11, color: "#6B6B6B", fontFamily: "var(--font-inter), Inter, Arial, sans-serif", border: "1px solid #E5E5E5" }}>
         {PIXELS_PER_METRE}px = 1m
       </div>
     </div>

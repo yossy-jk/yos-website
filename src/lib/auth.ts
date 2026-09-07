@@ -22,6 +22,7 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createHmac, timingSafeEqual } from 'crypto'
+import { getCurrentUser as getCurrentV2User } from '@/lib/auth-v2'
 
 const COOKIE_NAME = 'yos_dash_session'
 const SESSION_MAX_AGE_SEC = 60 * 60 * 24 * 7  // 7 days
@@ -145,18 +146,28 @@ export async function requireAuth(): Promise<
 > {
   const cookieStore = await cookies()
   const session = cookieStore.get(COOKIE_NAME)
-  if (!session?.value || !verifyToken(session.value)) {
-    return {
-      ok: false,
-      response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }),
-    }
+  if (session?.value && verifyToken(session.value)) return { ok: true }
+
+  try {
+    if (await getCurrentV2User()) return { ok: true }
+  } catch {
+    // Both authentication paths fail closed below.
   }
-  return { ok: true }
+
+  return {
+    ok: false,
+    response: NextResponse.json({ error: 'Unauthorized' }, { status: 401 }),
+  }
 }
 
 /** For page-level checks (Server Components). Returns boolean. */
 export async function isAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies()
   const session = cookieStore.get(COOKIE_NAME)
-  return !!session?.value && verifyToken(session.value)
+  if (session?.value && verifyToken(session.value)) return true
+  try {
+    return Boolean(await getCurrentV2User())
+  } catch {
+    return false
+  }
 }

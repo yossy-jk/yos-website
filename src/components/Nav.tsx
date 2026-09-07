@@ -12,20 +12,11 @@ const TOOLS_LEASING = [
   { label: 'Fitout Estimator', href: '/resources/fitout-estimator', tagline: 'Budget your office fitout accurately.' },
 ]
 
-const TOOLS_INVESTMENT = [
-  { label: 'Lease vs Buy', href: '/resources/lease-vs-buy', tagline: '5-year cost comparison.' },
-  { label: 'Stamp Duty Calculator', href: '/resources/stamp-duty-calculator', tagline: 'NSW commercial stamp duty estimate.' },
-  { label: 'Rental Yield Calculator', href: '/resources/rental-yield-calculator', tagline: 'Gross and net yield in seconds.' },
-  { label: 'Cap Rate Calculator', href: '/resources/cap-rate-calculator', tagline: 'Valuation metric for investors.' },
-  { label: 'Land Tax Calculator', href: '/resources/land-tax-calculator', tagline: 'Estimate your land tax liability.' },
-]
-
 const BLOG_HIGHLIGHTS = [
   { label: 'Newcastle Commercial Property Hub', href: '/newcastle-commercial-property' },
   { label: 'What Is Tenant Representation?', href: '/blog/what-is-tenant-representation-newcastle' },
   { label: 'Fitout Costs in Newcastle 2026', href: '/blog/commercial-fitout-cost-newcastle-2026' },
   { label: 'Make Good: What It Really Means', href: '/blog/what-is-make-good' },
-  { label: 'Buying Commercial Property in 2026', href: '/blog/buying-commercial-property-newcastle-2026' },
 ]
 
 const NAV_LINKS_SIMPLE = [
@@ -40,6 +31,9 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
   const resourcesRef = useRef<HTMLDivElement>(null)
+  const servicesButtonRef = useRef<HTMLButtonElement>(null)
+  const resourcesButtonRef = useRef<HTMLButtonElement>(null)
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 60)
@@ -65,12 +59,37 @@ export default function Nav() {
     return () => document.removeEventListener('mousedown', handle)
   }, [])
 
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key !== 'Escape') return
+
+      if (open) {
+        setOpen(false)
+        mobileMenuButtonRef.current?.focus()
+        return
+      }
+      if (servicesOpen) {
+        setServicesOpen(false)
+        servicesButtonRef.current?.focus()
+        return
+      }
+      if (resourcesOpen) {
+        setResourcesOpen(false)
+        resourcesButtonRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [open, resourcesOpen, servicesOpen])
+
   const NAV_H = 80
 
   const closeAll = () => { setServicesOpen(false); setResourcesOpen(false) }
 
   return (
     <>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-near-black border-b border-white/10' : 'bg-near-black/95 backdrop-blur-md'
       }`}>
@@ -79,8 +98,8 @@ export default function Nav() {
           style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
           <Link href="/" onClick={() => setOpen(false)}
-            className="text-white font-black no-underline z-50 relative uppercase"
-            style={{ fontSize: 'clamp(0.8rem,2.5vw,0.72rem)', letterSpacing: '0.2em' }}>
+            className="text-white font-bold no-underline z-50 relative"
+            style={{ fontSize: 'clamp(0.8rem,2.5vw,0.9rem)', letterSpacing: '0.08em' }}>
             Your Office Space
           </Link>
 
@@ -89,9 +108,13 @@ export default function Nav() {
             {/* ── Services dropdown ── */}
             <div className="relative" ref={servicesRef}>
               <button
+                ref={servicesButtonRef}
                 onClick={() => { setServicesOpen(v => !v); setResourcesOpen(false) }}
-                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
+                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0"
                 style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
+                aria-expanded={servicesOpen}
+                aria-controls="desktop-services-menu"
+                aria-haspopup="true"
               >
                 Services
                 <svg style={{ width: '0.6rem', height: '0.6rem', transition: 'transform 0.2s', transform: servicesOpen ? 'rotate(180deg)' : 'none', flexShrink: 0 }}
@@ -100,9 +123,9 @@ export default function Nav() {
                 </svg>
               </button>
 
-              {servicesOpen && (
-                <div className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
-                  style={{ top: `${NAV_H}px` }}>
+              <div id="desktop-services-menu" hidden={!servicesOpen} aria-hidden={!servicesOpen}
+                className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
+                style={{ top: `${NAV_H}px` }}>
                   <div className="max-w-screen-xl mx-auto"
                     style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
                     <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
@@ -114,11 +137,11 @@ export default function Nav() {
                             borderRight: i < SERVICE_LINKS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
                             minWidth: 0,
                           }}>
-                          <span className="text-white font-black uppercase block whitespace-nowrap group-hover:text-teal transition-colors"
-                            style={{ fontSize: '0.72rem', letterSpacing: '0.12em', marginBottom: '0.625rem' }}>
+                          <span className="text-white font-bold block group-hover:text-teal transition-colors"
+                            style={{ fontSize: '0.72rem', letterSpacing: '0.02em', marginBottom: '0.625rem' }}>
                             {link.label}
                           </span>
-                          <span className="text-white/35 font-light block" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
+                          <span className="text-white/55 font-light block" style={{ fontSize: '0.72rem', lineHeight: 1.5 }}>
                             {link.tagline}
                           </span>
                           <span className="text-teal/0 group-hover:text-teal/70 transition-colors block mt-auto pt-3" style={{ fontSize: '0.65rem', fontWeight: 600 }}>→</span>
@@ -126,16 +149,19 @@ export default function Nav() {
                       ))}
                     </div>
                   </div>
-                </div>
-              )}
+              </div>
             </div>
 
             {/* ── Resources dropdown ── */}
             <div className="relative" ref={resourcesRef}>
               <button
+                ref={resourcesButtonRef}
                 onClick={() => { setResourcesOpen(v => !v); setServicesOpen(false) }}
-                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
+                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0"
                 style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
+                aria-expanded={resourcesOpen}
+                aria-controls="desktop-resources-menu"
+                aria-haspopup="true"
               >
                 Resources
                 <svg style={{ width: '0.6rem', height: '0.6rem', transition: 'transform 0.2s', transform: resourcesOpen ? 'rotate(180deg)' : 'none', flexShrink: 0 }}
@@ -144,9 +170,9 @@ export default function Nav() {
                 </svg>
               </button>
 
-              {resourcesOpen && (
-                <div className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
-                  style={{ top: `${NAV_H}px` }}>
+              <div id="desktop-resources-menu" hidden={!resourcesOpen} aria-hidden={!resourcesOpen}
+                className="fixed left-0 right-0 bg-near-black border-b border-white/10 shadow-2xl z-50"
+                style={{ top: `${NAV_H}px` }}>
                   <div className="max-w-screen-xl mx-auto"
                     style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
                     <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
@@ -163,7 +189,7 @@ export default function Nav() {
                                 style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
                                 {tool.label}
                               </span>
-                              <span className="text-white/30 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
+                              <span className="text-white/55 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
                                 {tool.tagline}
                               </span>
                             </Link>
@@ -171,34 +197,14 @@ export default function Nav() {
                         </div>
                         <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                           <Link href="/resources" onClick={closeAll}
-                            className="no-underline text-teal/70 hover:text-teal font-semibold transition-colors"
+                            className="no-underline text-teal hover:text-teal font-semibold transition-colors"
                             style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                             All tools →
                           </Link>
                         </div>
                       </div>
 
-                      {/* Col 2 — Investment Tools */}
-                      <div style={{ flex: '1 1 0', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '1.75rem 1.75rem 1.75rem 1.75rem' }}>
-                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Investment Tools</p>
-                        <div className="flex flex-col" style={{ gap: '0.1rem' }}>
-                          {TOOLS_INVESTMENT.map(tool => (
-                            <Link key={tool.href} href={tool.href} onClick={closeAll}
-                              className="no-underline group flex flex-col hover:bg-white/[0.04] transition-colors"
-                              style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem' }}>
-                              <span className="text-white font-semibold block group-hover:text-teal transition-colors"
-                                style={{ fontSize: '0.75rem', marginBottom: '0.15rem' }}>
-                                {tool.label}
-                              </span>
-                              <span className="text-white/30 font-light block" style={{ fontSize: '0.65rem', lineHeight: 1.4 }}>
-                                {tool.tagline}
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Col 3 — Blog */}
+                      {/* Col 2 — Blog */}
                       <div style={{ flex: '1 1 0', padding: '1.75rem 0 1.75rem 1.75rem' }}>
                         <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Latest Articles</p>
                         <div className="flex flex-col" style={{ gap: '0.1rem' }}>
@@ -216,7 +222,7 @@ export default function Nav() {
                         </div>
                         <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
                           <Link href="/blog" onClick={closeAll}
-                            className="no-underline text-teal/70 hover:text-teal font-semibold transition-colors"
+                            className="no-underline text-teal hover:text-teal font-semibold transition-colors"
                             style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                             View all articles →
                           </Link>
@@ -225,8 +231,7 @@ export default function Nav() {
 
                     </div>
                   </div>
-                </div>
-              )}
+              </div>
             </div>
 
             {/* Plain links */}
@@ -250,16 +255,18 @@ export default function Nav() {
 
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
               className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors no-underline"
-              style={{ fontSize: '0.68rem', letterSpacing: '0.15em', textTransform: 'uppercase', padding: '0.75rem 1.5rem' }}>
-              Book a Call
+              style={{ fontSize: '0.72rem', letterSpacing: '0.02em', padding: '0.75rem 1.5rem' }}>
+              Book a Clarity Call
             </a>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
             <Search />
-          <button onClick={() => setOpen(!open)}
+          <button ref={mobileMenuButtonRef} onClick={() => setOpen(!open)}
             className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-none cursor-pointer"
-            aria-label={open ? 'Close menu' : 'Open menu'}>
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            aria-expanded={open}
+            aria-controls="mobile-navigation-menu">
             <span className="block w-6 h-[2px] bg-white transition-all duration-300 origin-center"
               style={{ transform: open ? 'rotate(45deg) translateY(7px)' : 'none' }} />
             <span className="block w-6 h-[2px] bg-white transition-all duration-200"
@@ -280,7 +287,7 @@ export default function Nav() {
       )}
 
       {/* Mobile fullscreen */}
-      <div className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ${
+      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}>
         <div className="flex flex-col h-full overflow-y-auto" style={{ padding: '5rem 1.25rem 2.5rem' }}>
@@ -329,7 +336,7 @@ export default function Nav() {
           <div className="flex flex-col gap-3 pb-4" style={{ marginTop: 'auto' }}>
             <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}
               className="bg-teal text-white font-bold text-center no-underline block"
-              style={{ padding: '1.1rem', fontSize: '0.7rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              style={{ padding: '1.1rem', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
               Book a Clarity Call →
             </a>
             <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} onClick={() => setOpen(false)}
@@ -344,7 +351,7 @@ export default function Nav() {
       <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-teal border-t border-dark-teal">
         <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center text-white font-bold no-underline w-full"
-          style={{ fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '1rem' }}>
+          style={{ fontSize: '0.75rem', letterSpacing: '0.02em', padding: '1rem' }}>
           Book a Clarity Call →
         </a>
       </div>

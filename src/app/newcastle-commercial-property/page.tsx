@@ -8,8 +8,6 @@ const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
 import SectionLabel from '@/components/SectionLabel'
-import Button from '@/components/Button'
-import { HUBSPOT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import type { Metadata } from 'next'
 
@@ -43,30 +41,6 @@ const ARTICLES = [
     desc: 'Vacancy rates, incentives and what\'s actually happening in the Newcastle and Hunter commercial property market right now.',
   },
   {
-    category: 'Buying vs Leasing',
-    slug: 'buying-vs-leasing-commercial-newcastle',
-    title: 'Buying vs Leasing Commercial Space in Newcastle: How to Work Out Which Makes Sense',
-    desc: 'The maths, the risks and the decision framework for Newcastle businesses weighing up purchase vs lease.',
-  },
-  {
-    category: 'Buyers Agency',
-    slug: 'buying-commercial-property-newcastle-2026',
-    title: 'Buying Commercial Property in Newcastle in 2026: What You Need to Know',
-    desc: 'The Newcastle commercial property market, what to look for, where the risks are and how to avoid paying too much.',
-  },
-  {
-    category: 'Due Diligence',
-    slug: 'commercial-property-due-diligence-newcastle',
-    title: 'What Most Newcastle Buyers Miss in Commercial Property Due Diligence',
-    desc: 'The gaps that cost buyers thousands. A practical checklist for commercial property due diligence in Newcastle and the Hunter.',
-  },
-  {
-    category: 'Off-Market',
-    slug: 'off-market-commercial-property-newcastle',
-    title: 'How to Find Off-Market Commercial Property in Newcastle',
-    desc: 'The best Newcastle commercial deals don\'t appear on Domain or realestate.com.au. Here\'s how to access them.',
-  },
-  {
     category: 'Office Fitout',
     slug: 'commercial-fitout-cost-newcastle-2026',
     title: 'What Does a Commercial Office Fitout Cost in Newcastle in 2026?',
@@ -82,10 +56,9 @@ const ARTICLES = [
 
 const SERVICES = [
   { label: 'Tenant Representation', href: '/tenant-rep', desc: 'Lease negotiation on your side, not the landlord\'s.' },
-  { label: 'Buyers Agency', href: '/buyers-agency', desc: 'Buy without getting burned. On and off market.' },
-  { label: 'Office Furniture & Fitout', href: '/furniture', desc: 'Brief to delivered. Newcastle and Hunter Valley.' },
-  { label: 'Commercial Cleaning', href: '/cleaning', desc: 'Consistent. Accountable. Same team every visit.' },
-  { label: 'LeaseIntel™ Lease Review', href: '/lease-review', desc: 'Professional lease review in 24 hours. From $97.' },
+  { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', desc: 'Workplace brief through delivery and handover.' },
+  { label: 'Office & Commercial Furniture', href: '/furniture', desc: 'Furniture selected, supplied and installed.' },
+  { label: 'Commercial Cleaning', href: '/cleaning', desc: 'Accountable cleaning aligned to your workplace standard.' },
 ]
 
 export default function NewcastleCommercialPropertyHub() {
@@ -103,7 +76,7 @@ export default function NewcastleCommercialPropertyHub() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle commercial property advisory. Tenant rep, buyers agency, furniture, fitout and commercial cleaning for Hunter Valley businesses.",
+            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -129,14 +102,15 @@ export default function NewcastleCommercialPropertyHub() {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "What is tenant representation in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is an agent working exclusively for the tenant in a commercial lease negotiation. In Newcastle, tenant reps negotiate rent, incentives, make-good terms and lease conditions on behalf of the tenant — never the landlord." } },
-              { "@type": "Question", "name": "How much does a commercial fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial office fitout costs in Newcastle in 2026 range from $600–$1,200/sqm for a basic fitout, $1,200–$2,000/sqm for mid-range, and $2,000+/sqm for premium. Use the free Your Office Space fitout estimator for a more precise budget." } },
-              { "@type": "Question", "name": "How do I find off-market commercial property in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Off-market commercial properties in Newcastle are not publicly listed. The best access is through a buyers agent with established local relationships — like Your Office Space. Off-market deals typically offer better pricing and fewer competing buyers." } }
+              { "@type": "Question", "name": "How should a Newcastle business plan a commercial fit out?", "acceptedAnswer": { "@type": "Answer", "text": "Start with the workplace brief, budget, programme and lease constraints, then coordinate design, procurement, approvals, construction, furniture and handover around one accountable plan." } }
             ]
           }
         ]
       }) }} />
 
       <Nav />
+
+      <main id="main-content" tabIndex={-1}>
 
       {/* HERO */}
       <section className="bg-near-black" style={SEC_SM}>
@@ -155,7 +129,7 @@ export default function NewcastleCommercialPropertyHub() {
             <p className="text-white/60 font-light leading-relaxed max-w-2xl"
               style={{ fontSize: 'clamp(1rem,2vw,1.2rem)' }}>
               Guides, market intelligence and practical advice for Newcastle and Hunter Valley businesses
-              navigating leases, fitouts, purchases and commercial cleaning. Written by people who do this
+              navigating leases, fit outs, furniture and commercial cleaning. Written by people who do this
               work every day in this market.
             </p>
           </FadeIn>
@@ -163,11 +137,11 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       {/* SERVICES STRIP */}
-      <section className="bg-teal/10 border-y border-teal/20 style={{}}">
+      <section className="bg-teal/10 border-y border-teal/20">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <p className="text-action-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {SERVICES.map(s => (
                 <Link key={s.href} href={s.href}
                   className="no-underline group bg-near-black rounded-xl p-8 border border-white/10 hover:border-teal hover:shadow-md transition-all duration-300">
@@ -229,7 +203,7 @@ export default function NewcastleCommercialPropertyHub() {
               <FadeIn key={item.heading} delay={i * 70} direction="up">
                 <div className="border-l-4 border-teal pl-6 py-1">
                   <p className="text-white font-bold text-base mb-2">{item.heading}</p>
-                  <p className="text-white/50 font-light leading-relaxed text-sm">{item.body}</p>
+                  <p className="text-white/80 font-light leading-relaxed text-sm">{item.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -237,27 +211,9 @@ export default function NewcastleCommercialPropertyHub() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-teal" style={SEC}>
-        <FadeIn>
-          <div className="max-w-screen-xl mx-auto text-center" style={PAD}>
-            <div style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <h2 className="text-white font-black leading-tight mb-5"
-                style={{ fontSize: 'clamp(1.75rem,4.5vw,3.75rem)' }}>
-                Got a Newcastle property question?
-              </h2>
-              <p className="text-white/80 font-light text-lg leading-relaxed mb-10">
-                20 minutes. No pitch. Just a straight conversation about what you&apos;re trying to do.
-              </p>
-              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Free Call with The Team
-              </Button>
-            </div>
-          </div>
-        </FadeIn>
-      </section>
+      <BookingCTA />
+      </main>
 
-      <BookingCTA label="Book a Free Call" />
       <Footer />
     </>
   )

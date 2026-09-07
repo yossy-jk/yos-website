@@ -11,10 +11,12 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { createHmac, timingSafeEqual } from 'crypto'
+import { verifySignedSessionToken } from '@/lib/auth-session'
 
-const COOKIE_NAME = 'yos_dash_session'
+const LEGACY_COOKIE_NAME = 'yos_dash_session'
+const V2_COOKIE_NAME = 'yos_dash_session_v2'
 
-/** Inlined token verification — middleware runs on Edge runtime, no Node modules. */
+/** Verify the legacy HMAC session format retained during the v2 transition. */
 function verifyToken(token: string, secret: string): boolean {
   const parts = token.split('.')
   if (parts.length !== 2) return false
@@ -30,6 +32,12 @@ function verifyToken(token: string, secret: string): boolean {
   }
 }
 
+/** Optimistic verification for the auth-v2 session. API handlers still resolve
+ * the user from Redis before returning protected data. */
+function verifyV2Token(token: string, secret: string): boolean {
+  return Boolean(verifySignedSessionToken(token, secret))
+}
+
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl
 
@@ -38,13 +46,18 @@ export function proxy(req: NextRequest) {
   if (pathname.startsWith('/dashboard/login')) return NextResponse.next()
 
   const secret = process.env.AUTH_COOKIE_SECRET
-  if (!secret) {
+  if (!secret || secret.length < 32) {
     // Misconfigured — fail closed
     return NextResponse.redirect(new URL('/dashboard/login', req.url))
   }
 
-  const session = req.cookies.get(COOKIE_NAME)?.value
-  if (!session || !verifyToken(session, secret)) {
+  const legacySession = req.cookies.get(LEGACY_COOKIE_NAME)?.value
+  const v2Session = req.cookies.get(V2_COOKIE_NAME)?.value
+  const authenticated = Boolean(
+    (legacySession && verifyToken(legacySession, secret)) ||
+    (v2Session && verifyV2Token(v2Session, secret))
+  )
+  if (!authenticated) {
     return NextResponse.redirect(new URL('/dashboard/login', req.url))
   }
 

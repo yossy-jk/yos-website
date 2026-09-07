@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { readFileSync } from 'fs'
 import { join } from 'path'
+import { getIp, voucherLimiter } from '@/lib/ratelimit'
+import { isPreviewDeployment } from '@/lib/deployment-scope'
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -30,29 +32,29 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
   </style>
   <![endif]-->
 </head>
-<body style="margin:0; padding:0; background-color:#F5F5F5; font-family:Arial, Helvetica, sans-serif;">
-  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#F5F5F5;">
+<body style="margin:0; padding:0; background-color:#FAFAF8; font-family:Arial, Helvetica, sans-serif;">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#FAFAF8;">
     <tr>
       <td align="center" style="padding:40px 20px;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px; width:100%; border:1px solid #dddddd; box-shadow:0 4px 16px rgba(0,0,0,0.10);">
           <tr>
-            <td width="220" valign="top" style="width:220px; background-color:#1A1A1A; padding:0; border-right:2px dashed #444444;">
+            <td width="220" valign="top" style="width:220px; background-color:#0A3B38; padding:0; border-right:2px dashed #0A3B38;">
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" height="100%">
                 <tr>
                   <td style="padding:28px 28px 0 28px;">
                     <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:26px; font-weight:700; color:#FFFFFF; letter-spacing:3px; line-height:1;">YOS</p>
-                    <p style="margin:3px 0 0 0; font-family:Arial, Helvetica, sans-serif; font-size:9px; font-weight:700; color:#00B5A5; letter-spacing:1.5px; text-transform:uppercase;">Your Office Space</p>
+                    <p style="margin:3px 0 0 0; font-family:Arial, Helvetica, sans-serif; font-size:9px; font-weight:700; color:#01A7A3; letter-spacing:1.5px; text-transform:uppercase;">Your Office Space</p>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:24px 28px 0 28px;">
-                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:72px; font-weight:700; color:#00B5A5; line-height:1; letter-spacing:-2px;">$100</p>
+                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:72px; font-weight:700; color:#01A7A3; line-height:1; letter-spacing:-2px;">$100</p>
                     <p style="margin:8px 0 0 0; font-family:Arial, Helvetica, sans-serif; font-size:12px; font-weight:700; color:#FFFFFF; letter-spacing:1.5px; text-transform:uppercase; line-height:1.4;">Off Your First<br>Furniture Order</p>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding:20px 28px 28px 28px;">
-                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:9px; font-weight:700; color:#00B5A5; letter-spacing:2px; text-transform:uppercase;">Australia-Wide</p>
+                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:9px; font-weight:700; color:#01A7A3; letter-spacing:2px; text-transform:uppercase;">Australia-Wide</p>
                   </td>
                 </tr>
               </table>
@@ -61,7 +63,7 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                 <tr>
                   <td style="padding-bottom:10px;">
-                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:700; color:#1A1A1A; line-height:1.3;">Commercial furniture,<br><span style="color:#00B5A5;">done properly.</span></p>
+                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:18px; font-weight:700; color:#0A3B38; line-height:1.3;">Commercial furniture,<br><span style="color:#01A7A3;">done properly.</span></p>
                   </td>
                 </tr>
                 <tr>
@@ -74,7 +76,7 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td style="background-color:#E0F5F3; border:1.5px solid #E0F5F3; padding:10px 16px;">
-                          <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:10px; font-weight:700; color:#00B5A5; letter-spacing:1px; text-transform:uppercase;">Mention this voucher when booking</p>
+                          <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:10px; font-weight:700; color:#01A7A3; letter-spacing:1px; text-transform:uppercase;">Mention this voucher when booking</p>
                         </td>
                       </tr>
                     </table>
@@ -84,7 +86,7 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
                   <td style="padding-bottom:20px;">
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                       <tr>
-                        <td style="background-color:#00B5A5;">
+                        <td style="background-color:#01A7A3;">
                           <a href="https://meetings-ap1.hubspot.com/projects1" target="_blank" style="display:inline-block; font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:700; color:#FFFFFF; text-decoration:none; padding:13px 20px; letter-spacing:0.5px;">Book a Discovery Session &#8594;</a>
                         </td>
                       </tr>
@@ -94,7 +96,7 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
                 <tr>
                   <td style="border-top:1px solid #F0F0F0; padding-top:12px; padding-bottom:20px;">
                     <p style="margin:0 0 5px 0; font-family:Arial, Helvetica, sans-serif; font-size:10px; font-weight:400; color:#999999; line-height:1.5;">Valid 30 days. Min. order $1,000. New clients only. One per business. Redeemable on any YOS commercial furniture order through yourofficespace.au</p>
-                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:10px; font-weight:700; color:#1A1A1A;">Joe Kelley &nbsp;&middot;&nbsp; 0434 655 511 &nbsp;&middot;&nbsp; yourofficespace.au</p>
+                    <p style="margin:0; font-family:Arial, Helvetica, sans-serif; font-size:10px; font-weight:700; color:#0A3B38;">Joe Kelley &nbsp;&middot;&nbsp; 0434 655 511 &nbsp;&middot;&nbsp; yourofficespace.au</p>
                   </td>
                 </tr>
               </table>
@@ -109,23 +111,37 @@ const VOUCHER_INLINE = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitiona
 
 export async function POST(req: Request) {
   try {
-    const apiKey = process.env.RESEND_API_KEY
-    if (!apiKey) {
-      return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
+    const limiter = voucherLimiter()
+    if (limiter) {
+      const { success } = await limiter.limit(getIp(req))
+      if (!success) return NextResponse.json({ error: 'Too many voucher requests. Please try again in 30 minutes.' }, { status: 429 })
     }
+  } catch (error) {
+    console.warn('[send-voucher] Rate limiter unavailable:', error)
+  }
 
+  try {
     const body = await req.json()
     if (body._honey) return NextResponse.json({ ok: true })
 
     const { email, name } = body
 
-    if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const normalizedEmail = typeof email === 'string' ? email.trim().toLowerCase() : ''
+    if (!normalizedEmail || normalizedEmail.length > 200 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       return NextResponse.json({ error: 'Valid email required' }, { status: 400 })
     }
 
-    const safeName = name ? esc(String(name).slice(0, 200)) : 'there'
-    const safeEmail = email.slice(0, 200)
+    if (name !== undefined && typeof name !== 'string') {
+      return NextResponse.json({ error: 'Invalid name' }, { status: 400 })
+    }
 
+    const safeName = name ? esc(name.trim().slice(0, 100)) : 'there'
+    const safeEmail = normalizedEmail
+
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return NextResponse.json({ error: 'Service unavailable' }, { status: 503 })
+    }
     const resend = new Resend(apiKey)
 
     // Wrap voucher in a personalised email shell
@@ -133,13 +149,13 @@ export async function POST(req: Request) {
     const emailHtml = `
       <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;padding:0;">
         <div style="padding:28px 0 20px 0;">
-          <p style="margin:0 0 6px 0;font-size:15px;color:#1A1A1A;font-weight:600;">Hi${safeName !== 'there' ? ` ${safeName}` : ''},</p>
+          <p style="margin:0 0 6px 0;font-size:15px;color:#0A3B38;font-weight:600;">Hi${safeName !== 'there' ? ` ${safeName}` : ''},</p>
           <p style="margin:0 0 6px 0;font-size:14px;color:#555555;line-height:1.7;">Here's your $100 furniture voucher — valid for 30 days on any commercial furniture order through Your Office Space.</p>
           <p style="margin:0 0 20px 0;font-size:14px;color:#555555;line-height:1.7;">Just book a discovery session and mention the voucher when we speak.</p>
         </div>
         ${voucherHtml.replace(/^[\s\S]*<body[^>]*>/, '').replace(/<\/body>[\s\S]*$/, '')}
         <div style="padding:20px 0 0 0;">
-          <p style="margin:0;font-size:13px;color:#9B9B9B;">Any questions — call 0434 655 511 or reply to this email.<br>Joe Kelley, Your Office Space</p>
+          <p style="margin:0;font-size:13px;color:#5A6B68;">Any questions — call 0434 655 511 or reply to this email.<br>Joe Kelley, Your Office Space</p>
         </div>
       </div>
     `
@@ -157,7 +173,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Failed to send' }, { status: 500 })
     }
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true, preview: isPreviewDeployment() })
   } catch (err) {
     console.error('send-voucher crash:', err)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })

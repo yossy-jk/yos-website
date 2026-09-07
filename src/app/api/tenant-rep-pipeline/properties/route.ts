@@ -37,8 +37,8 @@ export async function GET() {
     const raw = await redisGet(KEY)
     const properties: Property[] = raw ? JSON.parse(raw) : []
     return NextResponse.json(properties)
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }
 
@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
     properties.unshift(prop)
     await redisSet(KEY, JSON.stringify(properties))
     return NextResponse.json(prop, { status: 201 })
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 })
+  } catch (error: unknown) {
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'failed' }, { status: 500 })
   }
 }

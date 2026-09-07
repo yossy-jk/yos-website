@@ -45,8 +45,8 @@ export const DIVISION_COLORS: Record<Division, string> = {
   'tenant-rep': 'bg-teal text-white',
   'buyers-agency': 'bg-near-black text-white',
   'furniture': 'bg-charcoal text-white',
-  'cleaning': 'bg-dark-teal text-white',
-  'general': 'bg-mid-grey text-white'
+  'cleaning': 'bg-action-teal text-white',
+  'general': 'bg-readable-grey text-white'
 }
 
 export function getAllPosts(): BlogPost[] {
@@ -59,6 +59,12 @@ export function getAllPosts(): BlogPost[] {
     })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
   return posts
+}
+
+// Buyers Agency content is retained for controlled referral use, but it is not
+// part of the approved public service offer in Brand Standard v1.1.
+export function getPublicPosts(): BlogPost[] {
+  return getAllPosts().filter(post => post.division !== 'buyers-agency')
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
@@ -111,6 +117,11 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
   const slugSet = new Set(fsPosts.map(p => p.slug))
   const merged = [...fsPosts, ...redisPosts.filter(p => !slugSet.has(p.slug))]
   return merged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+}
+
+export async function getAllPublicPostsAsync(): Promise<BlogPost[]> {
+  const posts = await getAllPostsAsync()
+  return posts.filter(post => post.division !== 'buyers-agency')
 }
 
 export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null> {

@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 
 const C = {
-  teal:    '#00B5A5',
+  teal:    '#01A7A3',
   red:     '#ef4444',
   green:   '#22c55e',
   amber:   '#f59e0b',
@@ -43,7 +43,7 @@ const DIVISION_LABELS: Record<string, string> = {
 }
 
 const DIVISION_COLOURS: Record<string, string> = {
-  'tenant-rep':    '#00B5A5',
+  'tenant-rep':    '#01A7A3',
   'buyers-agency': '#10b981',
   'furniture':     '#8b5cf6',
   'cleaning':      '#f59e0b',
@@ -134,7 +134,8 @@ export default function ApprovalsTab({
 
   // Mount: load once
   useEffect(() => {
-    loadQueue()
+    const timer = window.setTimeout(loadQueue, 0)
+    return () => window.clearTimeout(timer)
   }, [loadQueue])
 
   // ── Remove item after action (functional update — no stale closure) ─────
@@ -408,7 +409,7 @@ export default function ApprovalsTab({
                 </button>
                 <button
                   onClick={() => openEdit(item)}
-                  style={{ background: 'rgba(0,181,165,0.1)', border: '1px solid rgba(0,181,165,0.25)', borderRadius: 4, padding: '0.35rem 0.75rem', color: C.teal, fontSize: '0.6rem', cursor: 'pointer', fontWeight: 600 }}>
+                  style={{ background: 'rgba(1,167,163,0.1)', border: '1px solid rgba(1,167,163,0.25)', borderRadius: 4, padding: '0.35rem 0.75rem', color: C.teal, fontSize: '0.6rem', cursor: 'pointer', fontWeight: 600 }}>
                   Edit
                 </button>
                 <button
@@ -553,7 +554,7 @@ export default function ApprovalsTab({
                   <button
                     onClick={() => doAction(modal.item, 'edit')}
                     disabled={saving || !editContent.trim() || editContent === modal.item.content}
-                    style={{ background: 'rgba(0,181,165,0.15)', border: `1px solid rgba(0,181,165,0.3)`, borderRadius: 6, padding: '0.5rem 1.25rem', color: C.teal, fontSize: '0.72rem', fontWeight: 600, cursor: 'pointer', opacity: (!editContent.trim() || editContent === modal.item.content) ? 0.4 : 1 }}>
+                    style={{ background: 'rgba(1,167,163,0.15)', border: `1px solid rgba(1,167,163,0.3)`, borderRadius: 6, padding: '0.5rem 1.25rem', color: C.teal, fontSize: '0.72rem', fontWeight: 600, cursor: 'pointer', opacity: (!editContent.trim() || editContent === modal.item.content) ? 0.4 : 1 }}>
                     Save edit
                   </button>
                   <button

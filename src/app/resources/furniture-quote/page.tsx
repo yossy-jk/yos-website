@@ -123,6 +123,8 @@ export default function FurnitureQuotePage() {
     <>
       <Nav />
 
+      <main id="main-content" tabIndex={-1}>
+
       {/* HERO */}
       <section
         className="relative bg-near-black"
@@ -403,6 +405,8 @@ export default function FurnitureQuotePage() {
           </div>
         </div>
       </section>
+
+      </main>
 
       <Footer />
     </>

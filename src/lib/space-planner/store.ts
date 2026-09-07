@@ -325,7 +325,7 @@ function findNextRoomPosition(
   // Try packing rooms left-to-right, wrapping when needed
   // Sort rooms by row then column
   let curX = 0;
-  let curY = 0;
+  const curY = 0;
   let rowMaxDepth = 0;
 
   // Find the right-most extent of rooms on the last row
@@ -559,7 +559,7 @@ export const usePlannerStore = create<PlannerStore>((set, get) => ({
 
 export function getCategoryColor(category: string): string {
   const colors: Record<string, string> = {
-    Seating: "#00B5A5",
+    Seating: "#01A7A3",
     Desks: "#2A4A6B",
     Storage: "#6B6B6B",
     Meeting: "#1A6B4A",

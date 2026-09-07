@@ -9,8 +9,6 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
     {children}
   </p>
 )
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
 import NotForProfitForm from '@/components/NotForProfitForm'
 import FadeIn from '@/components/FadeIn'
 import { CONTACT } from '@/lib/constants'
@@ -90,8 +88,6 @@ export default function NotForProfitPage() {
         ],
       }) }} />
 
-      <Nav />
-
       {/* ─── HERO ─────────────────────────────────── */}
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
@@ -102,7 +98,7 @@ export default function NotForProfitPage() {
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-6"
               style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
               Your office lease.<br />
-              <span style={{ color: '#00B5A5' }}>Our expertise.</span><br />
+              <span style={{ color: '#01A7A3' }}>Our expertise.</span><br />
               No cost to you.
             </h1>
             <p className="text-white/60 font-light leading-relaxed mb-8"
@@ -363,7 +359,6 @@ export default function NotForProfitPage() {
         </div>
       </section>
 
-      <Footer />
     </>
   )
 }

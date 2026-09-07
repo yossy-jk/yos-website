@@ -84,10 +84,10 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
 
       {/* Header */}
       <div style={{ padding: '1rem', borderBottom: '1px solid #E5E5E5' }}>
-        <h2 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1A1A1A', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.2rem' }}>
+        <h2 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0A3B38', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', marginBottom: '0.2rem' }}>
           Your Space
         </h2>
-        <p style={{ fontSize: '0.75rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>
+        <p style={{ fontSize: '0.75rem', color: '#6B6B6B', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif' }}>
           {items.length} item{items.length !== 1 ? 's' : ''} placed
         </p>
       </div>
@@ -95,15 +95,15 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
       {/* Item list */}
       <div style={{ flex: 1, overflowY: 'auto', padding: '0.75rem 1rem' }}>
         {lineItems.length === 0 ? (
-          <p style={{ fontSize: '0.75rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif', textAlign: 'center', paddingTop: '1.5rem' }}>
+          <p style={{ fontSize: '0.75rem', color: '#5A6B68', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', textAlign: 'center', paddingTop: '1.5rem' }}>
             Drag furniture onto the canvas to build your space
           </p>
         ) : (
           <div>
             {/* Column headers */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '8px', paddingBottom: '6px', borderBottom: '1px solid #E5E5E5', marginBottom: '4px' }}>
-              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif' }}>Item</span>
-              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', textAlign: 'right' }}>Qty</span>
+              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#6B6B6B', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif' }}>Item</span>
+              <span style={{ fontSize: '0.7rem', fontWeight: 600, color: '#6B6B6B', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', textAlign: 'right' }}>Qty</span>
             </div>
 
             {lineItems.map((item, i) => (
@@ -115,12 +115,12 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
                   gap: '8px',
                   padding: '6px 0',
                   borderBottom: '1px solid #F0F0F0',
-                  fontFamily: 'Montserrat, sans-serif',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                 }}
               >
                 <div>
-                  <p style={{ fontSize: '0.78rem', fontWeight: 500, color: '#1A1A1A' }}>{item.name}</p>
-                  <p style={{ fontSize: '0.7rem', color: '#9B9B9B' }}>{item.category}</p>
+                  <p style={{ fontSize: '0.78rem', fontWeight: 500, color: '#0A3B38' }}>{item.name}</p>
+                  <p style={{ fontSize: '0.7rem', color: '#5A6B68' }}>{item.category}</p>
                 </div>
                 <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#3D3D3D', alignSelf: 'center', textAlign: 'right' }}>
                   {item.qty}
@@ -133,7 +133,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
         {/* Smart recommendations */}
         {recommendations.length > 0 && (
           <div style={{ marginTop: '1rem' }}>
-            <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#1A1A1A', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0A3B38', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Layout tips
             </p>
             {recommendations.map((rec, i) => (
@@ -143,10 +143,10 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
                   fontSize: '0.75rem',
                   padding: '0.6rem 0.75rem',
                   borderRadius: '6px',
-                  background: 'rgba(0, 181, 165, 0.07)',
-                  border: '1px solid rgba(0, 181, 165, 0.25)',
-                  color: '#1A1A1A',
-                  fontFamily: 'Montserrat, sans-serif',
+                  background: 'rgba(1, 167, 163, 0.07)',
+                  border: '1px solid rgba(1, 167, 163, 0.25)',
+                  color: '#0A3B38',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                   marginBottom: '0.5rem',
                   lineHeight: 1.5,
                 }}
@@ -160,7 +160,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
         {/* Upsell suggestions */}
         {suggestions.length > 0 && (
           <div style={{ marginTop: '1rem' }}>
-            <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#B5740A', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <p style={{ fontSize: '0.72rem', fontWeight: 700, color: '#B5740A', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Suggested additions
             </p>
             {suggestions.map((s, i) => (
@@ -170,10 +170,10 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
                   fontSize: '0.75rem',
                   padding: '0.6rem 0.75rem',
                   borderRadius: '6px',
-                  background: 'rgba(0, 181, 165, 0.07)',
-                  border: '1px solid rgba(0, 181, 165, 0.25)',
-                  color: '#1A1A1A',
-                  fontFamily: 'Montserrat, sans-serif',
+                  background: 'rgba(1, 167, 163, 0.07)',
+                  border: '1px solid rgba(1, 167, 163, 0.25)',
+                  color: '#0A3B38',
+                  fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
                   marginBottom: '0.5rem',
                   lineHeight: 1.5,
                 }}
@@ -188,7 +188,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
       {/* CTA */}
       <div style={{ padding: '1rem', borderTop: '1px solid #E5E5E5' }}>
         {items.length > 0 && (
-          <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'Montserrat, sans-serif', marginBottom: '0.65rem', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', marginBottom: '0.65rem', lineHeight: 1.5 }}>
             Submit your layout and we will come back with a full quote — no obligation.
           </p>
         )}
@@ -203,16 +203,16 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
             borderRadius: '8px',
             border: 'none',
             cursor: items.length > 0 ? 'pointer' : 'not-allowed',
-            background: items.length > 0 ? '#00B5A5' : '#D0D0D0',
+            background: items.length > 0 ? '#01A7A3' : '#D0D0D0',
             color: '#FFFFFF',
-            fontFamily: 'Montserrat, sans-serif',
+            fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
             transition: 'background 0.15s',
           }}
         >
           Submit for quote
         </button>
         {items.length === 0 && (
-          <p style={{ fontSize: '0.72rem', textAlign: 'center', marginTop: '0.5rem', color: '#9B9B9B', fontFamily: 'Montserrat, sans-serif' }}>
+          <p style={{ fontSize: '0.72rem', textAlign: 'center', marginTop: '0.5rem', color: '#5A6B68', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif' }}>
             Place at least one item to continue
           </p>
         )}

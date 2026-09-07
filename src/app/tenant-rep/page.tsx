@@ -5,18 +5,17 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
-import AgentNetworkBanner from '@/components/AgentNetworkBanner'
 import TenantProcess from '@/components/TenantProcess'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Tenant Representation NSW | Your Office Space',
-  description: 'Newcastle and Hunter tenant representation. We negotiate commercial leases exclusively for tenants — no landlord conflicts, no cost to you. Get a free lease review.',
-  twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'We negotiate commercial leases for tenants. Never landlords. Better terms, stronger outcomes.' },
+  description: 'Newcastle-based tenant representation for commercial lease decisions across Australia. Clear advice, option assessment and negotiation from the tenant side.',
+  twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'Tenant-side commercial lease advice, option assessment and negotiation support.' },
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
   openGraph: {
     title: 'Tenant Representation | Your Office Space',
-    description: 'We negotiate leases for tenants. Never landlords. Stronger terms, smarter deals, better outcomes.',
+    description: 'Tenant-side commercial lease advice, option assessment and negotiation support.',
     url: 'https://www.yourofficespace.au/tenant-rep',
     images: [{ url: '/og/og-tenant-rep.png', width: 1200, height: 630, alt: 'Commercial Tenant Representation Newcastle | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -33,6 +32,9 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 export default function TenantRepPage() {
   return (
     <>
+      <Nav />
+
+      <main id="main-content" tabIndex={-1}>
           <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
         {
                 "@context": "https://schema.org",
@@ -73,11 +75,7 @@ export default function TenantRepPage() {
                                         "New South Wales",
                                         "Australia"
                                 ],
-                                "serviceType": "Commercial Tenant Representation",
-                                "offers": {
-                                        "@type": "Offer",
-                                        "description": "First consultation free. Fee typically paid by landlord."
-                                }
+                                "serviceType": "Commercial Tenant Representation"
                         }
                 ]
         }
@@ -106,7 +104,7 @@ export default function TenantRepPage() {
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
-              Every lease negotiation has two sides. The landlord's agent is an expert at protecting their client.
+              Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
               We exist to make sure you have the same. Independent representation across Australia —
               negotiating rent, terms, incentives, and every clause that matters.
             </p>
@@ -115,39 +113,12 @@ export default function TenantRepPage() {
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                Book a Clarity Call
-              </Button>
-              <Button href="/lease-review" variant="outline" size="lg">
-                Free Lease Review
-              </Button>
-            </div>
+            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+              Book a Clarity Call
+            </Button>
           </FadeIn>
         </div>
       </section>
-
-      {/* ─── STATS BAR ────────────────────────────────────── */}
-      <section className="bg-teal" style={SEC_SM}>
-        <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { stat: '100%', label: 'Tenant-only representation' },
-              { stat: '100%', label: 'No landlord conflicts — ever' },
-              { stat: 'Free', label: 'Initial brief and consultation' },
-              { stat: 'Fast', label: 'Initial response to every enquiry' }
-            ].map((item) => (
-              <div key={item.label}>
-                <p className="text-white font-black leading-none mb-2" style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>{item.stat}</p>
-                <p className="text-white/80 font-light leading-snug" style={{ fontSize: '0.85rem' }}>{item.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── AGENT NETWORK BANNER ─────────────────────────── */}
-      <AgentNetworkBanner />
 
       {/* ─── OUR COMMITMENT ───────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
@@ -163,18 +134,18 @@ export default function TenantRepPage() {
               <p className="text-white/80 font-light leading-relaxed mb-8"
                 style={{ fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.85 }}>
                 Every commercial lease has two sides. The landlord has representation. We exist to make sure you do too —
-                with someone whose only job is to get you the best possible deal. Every negotiation, every clause,
-                every conversation is in service of your outcome.
+                with advice focused on your brief, risks and commercial priorities. Every negotiation, clause and
+                recommendation is considered from the tenant side.
               </p>
             </FadeIn>
             <FadeIn delay={100}>
               <div className="border border-teal/40 p-8 sm:p-10 lg:p-12 bg-teal/5">
                 <p className="text-white font-bold leading-relaxed mb-5" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)' }}>
-                  Your interests come first. Every time.
+                  Your brief sets the decision standard.
                 </p>
                 <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  We will never represent a landlord. If we don&apos;t deliver a return, we don&apos;t charge.
-                  This is not a marketing promise — it is a commercial commitment. Your outcome is the only metric that matters.
+                  We do not represent the landlord in the transaction. Scope, fees, evidence and decision responsibilities
+                  are made clear before an engagement begins.
                 </p>
               </div>
             </FadeIn>
@@ -190,11 +161,11 @@ export default function TenantRepPage() {
           alt="Business owner reviewing commercial lease with advisor"
           fill className="object-cover object-center"
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.55)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.55)' }} />
         <div className={`absolute inset-0 flex items-end ${WRAP}`} style={{ ...PAD, paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
-              &ldquo;Most tenants don&apos;t know what they&apos;ve missed until the lease is already signed. By then, the leverage is gone.&rdquo;
+            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
+              &ldquo;The useful time to test lease assumptions is before the business commits.&rdquo;
               <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Joe Kelley, Your Office Space</span>
             </p>
           </FadeIn>
@@ -241,20 +212,20 @@ export default function TenantRepPage() {
                 <div className="border border-gray-200 p-8 sm:p-10 mb-6">
                   <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">The outcome</p>
                   <p className="text-near-black font-bold leading-snug mb-3" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)' }}>
-                    Every deal, clause, and dollar negotiated in your favour.
+                    Commercial terms and lease risks made clear before commitment.
                   </p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    That is the standard we hold ourselves to on every engagement — regardless of deal size.
+                    Recommendations are tied back to the agreed brief, comparable evidence and the business outcome.
                   </p>
                 </div>
                 <div className="border border-gray-200 p-8 sm:p-10">
-                  <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Off-market access</p>
+                  <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Market search</p>
                   <p className="text-near-black font-bold leading-snug mb-3" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)' }}>
-                    Opportunities others don&apos;t see.
+                    A broader view of suitable options.
                   </p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    Through our deep market network, we source off-market leasing options that most businesses never access.
-                    More flexibility, better locations, greater leverage — when it matters most.
+                    We assess advertised, pre-release and relationship-sourced leasing options against the same brief,
+                    then show the trade-offs clearly.
                   </p>
                 </div>
               </div>
@@ -270,11 +241,11 @@ export default function TenantRepPage() {
           alt="Team negotiating commercial lease terms"
           fill className="object-cover object-center"
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.6)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.6)' }} />
         <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch' }}>
-              We negotiate harder<br />because we only answer<br /><span style={{ color: '#00B5A5' }}>to you.</span>
+              We negotiate harder<br />because we only answer<br /><span style={{ color: '#01A7A3' }}>to you.</span>
             </p>
           </FadeIn>
         </div>
@@ -340,11 +311,11 @@ export default function TenantRepPage() {
           alt="Modern commercial office space Newcastle"
           fill className="object-cover object-center"
         />
-        <div className="absolute inset-0" style={{ background: 'rgba(26,26,26,0.5)' }} />
+        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.5)' }} />
         <div className={`absolute inset-0 flex items-center justify-end ${WRAP}`} style={PAD}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '22ch' }}>
-              The right space changes<br />how your business feels<br /><span style={{ color: '#00B5A5' }}>every single day.</span>
+              The right space changes<br />how your business feels<br /><span style={{ color: '#01A7A3' }}>every single day.</span>
             </p>
           </FadeIn>
         </div>
@@ -363,18 +334,18 @@ export default function TenantRepPage() {
             </h2>
             <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
               style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              Most tenants don&apos;t realise how much they&apos;ve overpaid until the lease is up. By then, the leverage is gone.
+              Lease risk often sits outside the headline rent. It is easier to address before terms are agreed.
             </p>
           </FadeIn>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { risk: 'Above-market rent', detail: 'Most landlords open at 10–20% above fair market rate. Without comparable data, most tenants sign without question.' },
-              { risk: 'Uncapped make-good', detail: 'Make-good clauses can cost $200–$400/sqm at lease end. Most standard leases have no cap and no clarity on what that means.' },
-              { risk: 'Missed incentives', detail: 'Fit-out contributions of $50–$150/sqm are standard in this market. Most tenants don\'t ask. Landlords don\'t offer what isn\'t asked.' },
+              { risk: 'Rent without context', detail: 'Headline rent needs to be tested against comparable options, outgoings, incentives and the full lease term.' },
+              { risk: 'Unclear make-good', detail: 'Make-good obligations can create a material end-of-lease cost when the scope, evidence and handover standard are not clear.' },
+              { risk: 'Unexamined incentives', detail: 'Incentives change the effective cost of a lease and should be assessed alongside the base rent and fit out requirements.' },
               { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent — removing all leverage at renewal time.' },
-              { risk: 'Relocation risk', detail: 'Without a proper prohibition on landlord relocation rights, you can be legally moved. We\'ve seen it happen to established businesses.' },
-              { risk: 'Outgoings exposure', detail: 'Gross vs. net leases are not the same. Unexpected outgoings charges have blindsided clients by $30–$60k over a five-year term.' }
+              { risk: 'Relocation risk', detail: 'Relocation rights can affect continuity, fit out value and future operating plans if they are not understood before signing.' },
+              { risk: 'Outgoings exposure', detail: 'Gross and net leases allocate operating costs differently. The comparison needs to include every recurring occupancy cost.' }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
                 <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors h-full" style={{ padding: 'clamp(1.5rem,2.5vw,2rem)' }}>
@@ -400,9 +371,8 @@ export default function TenantRepPage() {
                 </h2>
                 <p className="text-charcoal font-light leading-relaxed mb-6"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  Most commercial advisors work both sides of the table — representing tenants in one deal and landlords in the next.
-                  It&apos;s impossible to be fully in your corner when the same person represents the party across from you.
-                  The incentives are split. The leverage is quietly negotiated away.
+                  A landlord&apos;s appointed agent acts for the property owner. Tenant representation gives the occupying
+                  business its own advice, assessment and negotiation support.
                 </p>
                 <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5 mb-8">
                   <p className="text-near-black font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
@@ -529,7 +499,7 @@ export default function TenantRepPage() {
                 "name": "Who pays for tenant representation?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "In most commercial lease transactions, the tenant representative's fee is negotiated as part of the deal structure — typically paid by the landlord through the agreed lease terms, not as a separate cost to you. Every brief is different, and we discuss the fee structure before any engagement begins.",
+                  "text": "Fee arrangements depend on the engagement and transaction structure. We explain the scope, fee and any relevant payment arrangements before work begins.",
                 },
               },
               {
@@ -537,7 +507,7 @@ export default function TenantRepPage() {
                 "name": "How is a tenant representative different from a commercial agent?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Most commercial agents work for landlords — they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. We have no incentive to soften negotiations, no conflict of interest, and no relationship with the landlord. We read every clause through one lens: does this protect the tenant?",
+                  "text": "A commercial agent appointed by the landlord acts for the property owner. A tenant representative is engaged to advise the tenant, assess the options and negotiate from the occupying business's perspective.",
                 },
               },
               {
@@ -568,6 +538,8 @@ export default function TenantRepPage() {
           })
         }}
       />
+
+      </main>
 
       <Footer />
     </>

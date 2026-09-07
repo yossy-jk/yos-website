@@ -9,7 +9,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
 
-const QUEUE_SECRET  = process.env.QUEUE_SECRET || 'yos-queue-2026'
+const QUEUE_SECRET  = process.env.QUEUE_SECRET
 const QUEUE_KEY_V2 = 'yos:queue:pending:v2'
 export const maxDuration = 180
 
