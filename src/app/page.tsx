@@ -38,7 +38,7 @@ const SERVICES = [
   { num: '04', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
 ]
 
-const TESTIMONIALS = [
+const TESTIMONIALS: Array<{ name: string; company?: string; service: string; quote: string }> = [
   { name: 'Beth Gwalter', service: 'Tenant representation', quote: 'Joe was incredibly helpful through our first tenant rep experience. He made the property search and lease process much easier, explained our rights and options clearly, spotted things we would have missed, and helped with fitout, furniture and cleaners too. Worth it.' },
   { name: 'Olivia Crawford', service: 'Commercial property', quote: 'Highly recommend Your Office Space. Joe was professional, reliable and fantastic to communicate with, and the service was flawless from start to finish. Joe was beyond amazing.' },
   { name: 'Jason Dowdall', service: 'Fitout project support', quote: 'Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.' },
