@@ -39,9 +39,9 @@ const SERVICES = [
 ]
 
 const TESTIMONIALS = [
-  { name: 'Liz Murray', company: 'Edge of Possibilities', service: 'Workplace Strategy', quote: 'Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.' },
-  { name: 'Nathan Franks', company: 'Dynamic Business Technologies', service: 'Furniture & Fitout', quote: 'Joe was instrumental in building out our boardroom — high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.' },
-  { name: 'Sophie', company: 'Jirsch Sutherland', service: 'Commercial Cleaning', quote: 'We are very happy with the service provided by Sarah and Joe. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.' },
+  { name: 'Beth Gwalter', service: 'Tenant representation', quote: 'Joe was incredibly helpful through our first tenant rep experience. He made the property search and lease process much easier, explained our rights and options clearly, spotted things we would have missed, and helped with fitout, furniture and cleaners too. Worth it.' },
+  { name: 'Olivia Crawford', service: 'Commercial property', quote: 'Highly recommend Your Office Space. Joe was professional, reliable and fantastic to communicate with, and the service was flawless from start to finish. Joe was beyond amazing.' },
+  { name: 'Jason Dowdall', service: 'Fitout project support', quote: 'Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.' },
 ]
 
 function Stars() {
@@ -108,9 +108,9 @@ export default function Home() {
               "worstRating": "1"
             },
             "review": [
-              { "@type": "Review", "author": { "@type": "Person", "name": "Liz Murray" }, "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
-              { "@type": "Review", "author": { "@type": "Person", "name": "Nathan Franks" }, "reviewBody": "Joe was instrumental in building out our boardroom — high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
-              { "@type": "Review", "author": { "@type": "Person", "name": "Sophie" }, "reviewBody": "We are very happy with the service provided by Sarah and Joe. They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } }
+              { "@type": "Review", "author": { "@type": "Person", "name": "Beth Gwalter" }, "reviewBody": "Joe was incredibly helpful through our first tenant rep experience. He made the property search and lease process much easier, explained our rights and options clearly, spotted things we would have missed, and helped with fitout, furniture and cleaners too. Worth it.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
+              { "@type": "Review", "author": { "@type": "Person", "name": "Olivia Crawford" }, "reviewBody": "Highly recommend Your Office Space. Joe was professional, reliable and fantastic to communicate with, and the service was flawless from start to finish. Joe was beyond amazing.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
+              { "@type": "Review", "author": { "@type": "Person", "name": "Jason Dowdall" }, "reviewBody": "Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } }
             ],
             "sameAs": [
               "https://www.google.com/maps?cid=00516804211961979706"
@@ -210,7 +210,7 @@ export default function Home() {
                   </p>
                   <div style={{ borderTop: '1px solid #efefef', paddingTop: '1.5rem' }}>
                     <p className="text-near-black font-bold mb-1" style={{ fontSize: '0.9rem' }}>{t.name}</p>
-                    <p className="text-charcoal font-medium mb-2" style={{ fontSize: '0.82rem' }}>{t.company}</p>
+                    {t.company && <p className="text-charcoal font-medium mb-2" style={{ fontSize: '0.82rem' }}>{t.company}</p>}
                     <p className="text-teal font-semibold uppercase tracking-widest" style={{ fontSize: '0.62rem' }}>{t.service}</p>
                   </div>
                 </div>
