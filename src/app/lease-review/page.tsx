@@ -400,7 +400,7 @@ export default function LeaseReviewPage() {
                   <a href="/leaseintel" className="text-teal ml-2 hover:underline" style={{ fontSize: 'inherit' }}>See what&apos;s included →</a>
                 </p>
                 <div className="mb-10 rounded-xl border border-teal bg-teal/10 px-6 py-4" style={{ maxWidth: '44rem' }}>
-                  <p className="text-teal font-bold mb-1" style={{ fontSize: '0.92rem' }}>Newcastle business? This report is free until 21 July 2026.</p>
+                  <p className="text-teal font-bold mb-1" style={{ fontSize: '0.92rem' }}>Newcastle business? Ask about current eligibility for the free report.</p>
                   <p className="text-white/70 font-light" style={{ fontSize: '0.88rem', lineHeight: 1.75 }}>No payment required — just declare your location on the form below.</p>
                 </div>
               </FadeIn>
@@ -674,7 +674,7 @@ export default function LeaseReviewPage() {
               We&apos;ll confirm your submission and deliver your full report within 24 hours. No payment required.
             </p>
             <div className="rounded-xl border border-teal/30 bg-teal/10 px-5 py-4 mb-8">
-              <p className="text-teal font-bold text-xs mb-1">Newcastle business? Free until 21 July 2026.</p>
+              <p className="text-teal font-bold text-xs mb-1">Newcastle business? Ask about current eligibility for the free report.</p>
               <p className="text-white/60 font-light text-xs" style={{ lineHeight: 1.75 }}>No payment required — declare your location below.</p>
             </div>
 
@@ -725,7 +725,7 @@ export default function LeaseReviewPage() {
                 />
                 <span className="text-white/70 text-sm font-light" style={{ lineHeight: 1.7 }}>
                   I am a Newcastle-based business
-                  <span className="text-teal font-semibold ml-1">(free until 21 July 2026)</span>
+                  <span className="text-teal font-semibold ml-1">(ask about current eligibility)</span>
                 </span>
               </label>
               {form.isNewcastle && (

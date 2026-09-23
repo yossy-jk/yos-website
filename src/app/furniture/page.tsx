@@ -18,12 +18,12 @@ import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
   description: 'Office furniture and fitout project management across Australia. Express in-stock range to made-to-order — tailored to your timeline, budget and design intent.',
-  twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'Brief to delivered. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
+  twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'From brief to delivery. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
     title: 'Office Furniture & Fitout | Your Office Space',
     description: 'Brief to delivered. Office furniture and fitout project management — end to end. One team, no gaps.',
-    url: 'https://yourofficespace.au/furniture',
+    url: 'https://www.yourofficespace.au/furniture',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Furniture & Fitout — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -425,8 +425,8 @@ export default function FurniturePage() {
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;Joe was instrumental in building out our boardroom — high quality table, chairs, acoustic panelling. Practical advice, excellent detail.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
+              &ldquo;Highly recommend Joe. Same-day service and gas strut replacement, and the chair was back the same afternoon with extra TLC. Professional, prompt and friendly.&rdquo;
+              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— KK</span>
             </p>
           </FadeIn>
         </div>

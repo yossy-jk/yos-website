@@ -241,7 +241,7 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         Lease review — $297 ex GST, 24-hour turnaround
       </Link>
       <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
-        Newcastle business? The full LeaseIntel report is free until 21 July 2026.
+        Newcastle business? Ask about current eligibility for the full LeaseIntel report.
       </p>
     </div>
   )
@@ -340,7 +340,7 @@ export default function MarketSnapshotPageContent({
                 className="text-near-black font-light leading-relaxed"
                 style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', lineHeight: 1.9 }}
               >
-                Read the current edition below or register to get it delivered to your inbox each month.
+                Read this edition below or register to get it delivered to your inbox each month.
               </p>
             </div>
           </FadeIn>
@@ -374,7 +374,7 @@ export default function MarketSnapshotPageContent({
                 style={{ padding: 'clamp(1.5rem,4vw,2.5rem) clamp(1.5rem,4vw,3rem)' }}
               >
                 <p className="text-teal font-bold uppercase tracking-[0.3em] mb-2" style={{ fontSize: '0.62rem' }}>
-                  Current Edition
+                  May 2026 Edition
                 </p>
                 <h2 className="text-white font-bold" style={{ fontSize: 'clamp(1.1rem,2.5vw,1.5rem)' }}>
                   Newcastle Office Market Snapshot — May 2026
