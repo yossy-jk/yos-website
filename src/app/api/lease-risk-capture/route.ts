@@ -184,12 +184,12 @@ export async function POST(req: Request) {
               <p style="color: #444; font-size: 14px; line-height: 1.7; margin: 0 0 16px;">
                 The full LeaseIntel report gives you every clause rated, your complete financial exposure in one table, and a negotiation roadmap. $297 ex GST. Delivered within 24 hours. Newcastle businesses: free until 21 July 2026.
               </p>
-              <a href="https://yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Submit your lease — $297 →</a>
+              <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Submit your lease — $297 →</a>
             </div>
 
             <p style="color: #aaa; font-size: 11px; margin: 0;">
               Joseph Kelley — Your Office Space, Newcastle NSW<br>
-              <a href="https://yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a>
+              <a href="https://www.yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a>
             </p>
           </div>
         `,

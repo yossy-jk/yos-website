@@ -10,11 +10,11 @@ export const metadata = {
   title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply | Newcastle NSW',
   description: 'EOF Furniture delivers commercial office fitout and furniture supply across Newcastle, the Hunter Valley and regional NSW. From brief to installed — we manage the whole project. Express in-stock to made-to-order solutions.',
   twitter: { card: 'summary_large_image', title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply', description: 'Brief to installed. Commercial office fitout and furniture supply — Newcastle and regional NSW.' },
-  alternates: { canonical: 'https://yourofficespace.au/eof-group/furniture' },
+  alternates: { canonical: 'https://www.yourofficespace.au/eof-group/furniture' },
   openGraph: {
     title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply',
     description: 'Full commercial office fitout project management. Supply, installation, project management. Based in Newcastle, working across NSW.',
-    url: 'https://yourofficespace.au/eof-group/furniture',
+    url: 'https://www.yourofficespace.au/eof-group/furniture',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Furniture — Commercial Office Fitout' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
@@ -295,10 +295,10 @@ export default function EOFFurniturePage() {
         "@graph": [
           {
             "@type": "LocalBusiness",
-            "@id": "https://yourofficespace.au/#business",
+            "@id": "https://www.yourofficespace.au/#business",
             "name": "EOF Furniture — Office Fitout Division",
             "alternateName": "EOF Group Furniture",
-            "parentOrganization": { "@id": "https://yourofficespace.au/#organization" },
+            "parentOrganization": { "@id": "https://www.yourofficespace.au/#organization" },
             "address": { "@type": "PostalAddress", "addressLocality": "Newcastle", "addressRegion": "NSW", "addressCountry": "AU" },
             "areaServed": ["Newcastle NSW", "Hunter Valley NSW", "Regional NSW"],
             "description": "Commercial office fitout and furniture supply. Brief to installed project management across Newcastle and regional NSW.",
@@ -306,7 +306,7 @@ export default function EOFFurniturePage() {
           {
             "@type": "Service",
             "serviceType": "Commercial Office Fitout",
-            "provider": { "@id": "https://yourofficespace.au/#organization" },
+            "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "areaServed": { "@type": "Place", "name": "Newcastle NSW, Regional NSW" },
             "description": "Full commercial office fitout project management — space planning, furniture supply, installation and post-fitout cleaning.",
           },

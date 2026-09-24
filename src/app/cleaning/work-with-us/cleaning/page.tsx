@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Join the Cleaning Team — Your Office Space',
     description: 'Consistent, accountable commercial cleaning for offices, medical and childcare across Newcastle and the Hunter Valley. Join the YOS team.',
-    url: 'https://yourofficespace.au/cleaning/work-with-us/cleaning',
+    url: 'https://www.yourofficespace.au/cleaning/work-with-us/cleaning',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

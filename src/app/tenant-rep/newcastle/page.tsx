@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
 title: 'Tenant Rep Newcastle | Your Office Space',
     description: 'Expert commercial tenant representation in Newcastle. Better terms, no conflicts, always working for tenants.',
-    url: 'https://yourofficespace.au/tenant-rep/newcastle',
+    url: 'https://www.yourofficespace.au/tenant-rep/newcastle',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

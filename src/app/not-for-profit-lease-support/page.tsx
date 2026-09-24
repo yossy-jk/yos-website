@@ -21,7 +21,7 @@ export const metadata = {
   openGraph: {
     title: 'Free Lease Support for Not-for-Profits | Your Office Space',
     description: 'Pro bono lease reviews and relocation search for not-for-profits. No fee, no obligation. Limited spots available in Newcastle and the Hunter.',
-    url: 'https://yourofficespace.au/not-for-profit-lease-support',
+    url: 'https://www.yourofficespace.au/not-for-profit-lease-support',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Free Lease Support for Not-for-Profits — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',

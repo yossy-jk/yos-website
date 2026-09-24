@@ -70,9 +70,9 @@ const DAY2_EMAIL = (name: string, riskLevel: string) => `
   <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 20px 24px; margin-bottom: 28px;">
     <p style="color: #0f766e; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px;">LeaseIntel Full Report — $297 ex GST</p>
     <p style="color: #444; font-size: 14px; line-height: 1.7; margin: 0 0 16px;">Every clause rated. Financial exposure summary. Negotiation roadmap. 24-hour turnaround.<br><strong>Newcastle businesses: free until 21 July 2026.</strong></p>
-    <a href="https://yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Submit your lease →</a>
+    <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Submit your lease →</a>
   </div>
-  <p style="color: #aaa; font-size: 11px; margin: 0;">Joseph Kelley — Your Office Space, Newcastle NSW<br><a href="https://yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
+  <p style="color: #aaa; font-size: 11px; margin: 0;">Joseph Kelley — Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
 </div>`
 
 const DAY7_EMAIL = (name: string, riskLevel: string) => `
@@ -93,11 +93,11 @@ const DAY7_EMAIL = (name: string, riskLevel: string) => `
     <p style="color: #0f766e; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px;">LeaseIntel Full Report</p>
     <p style="color: #444; font-size: 14px; margin: 0 0 4px;">$297 ex GST · 24-hour turnaround</p>
     <p style="color: #10b981; font-size: 14px; font-weight: 700; margin: 0 0 16px;">Newcastle businesses: <strong>FREE until 21 July 2026</strong></p>
-    <a href="https://yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Get the full report →</a>
+    <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Get the full report →</a>
   </div>
   <p style="color: #333; font-size: 13px; line-height: 1.7; margin: 0 0 20px;">If the timing isn't right — no problem. Hit reply and let me know where things are at. Happy to help when you're ready.</p>
   <p style="color: #333; font-size: 14px; margin: 0 0 4px;">Joe Kelley</p>
-  <p style="color: #aaa; font-size: 11px; margin: 0;">Your Office Space, Newcastle NSW<br><a href="https://yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
+  <p style="color: #aaa; font-size: 11px; margin: 0;">Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
 </div>`
 
 export async function POST(req: Request) {

@@ -9,11 +9,11 @@ export const metadata = {
   title: 'EOF Group | Commercial Fitout, Tenant Rep, Lease Review & Property Services',
   description: 'EOF Group delivers commercial office fitout, tenant representation, lease review and property services across Newcastle, the Hunter Valley and regional NSW. Four divisions. One team. We work exclusively for tenants and occupiers.',
   twitter: { card: 'summary_large_image', title: 'EOF Group | Commercial Fitout & Property Services', description: 'Office fitout, tenant rep, lease review and commercial property services. We work for tenants and occupiers — never landlords.' },
-  alternates: { canonical: 'https://yourofficespace.au/eof-group' },
+  alternates: { canonical: 'https://www.yourofficespace.au/eof-group' },
   openGraph: {
     title: 'EOF Group | Commercial Fitout, Tenant Rep & Property Services',
     description: 'Four specialist divisions. One experienced team. EOF Group delivers office fitout, tenant representation, lease review and property services across Newcastle and regional NSW.',
-    url: 'https://yourofficespace.au/eof-group',
+    url: 'https://www.yourofficespace.au/eof-group',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Group — Commercial Fitout & Property Services' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
@@ -286,11 +286,11 @@ export default function EOFGroupPage() {
         "@graph": [
           {
             "@type": "Organization",
-            "@id": "https://yourofficespace.au/#organization",
+            "@id": "https://www.yourofficespace.au/#organization",
             "name": "EOF Group",
             "alternateName": ["EOF Group", "Your Office Space"],
-            "url": "https://yourofficespace.au",
-            "logo": "https://yourofficespace.au/logo.png",
+            "url": "https://www.yourofficespace.au",
+            "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "hello@yourofficespace.au",
             "address": { "@type": "PostalAddress", "addressLocality": "Newcastle", "addressRegion": "NSW", "addressCountry": "AU" },
@@ -299,11 +299,11 @@ export default function EOFGroupPage() {
           },
           {
             "@type": "WebPage",
-            "@id": "https://yourofficespace.au/eof-group/#webpage",
-            "url": "https://yourofficespace.au/eof-group",
+            "@id": "https://www.yourofficespace.au/eof-group/#webpage",
+            "url": "https://www.yourofficespace.au/eof-group",
             "name": "EOF Group | Commercial Fitout, Tenant Rep & Lease Review",
             "description": "Four specialist divisions. One experienced team. EOF Group delivers commercial office fitout, tenant representation, lease review and property services across Newcastle and regional NSW.",
-            "isPartOf": { "@type": "WebSite", "@id": "https://yourofficespace.au/#website" },
+            "isPartOf": { "@type": "WebSite", "@id": "https://www.yourofficespace.au/#website" },
           },
         ],
       }) }} />
