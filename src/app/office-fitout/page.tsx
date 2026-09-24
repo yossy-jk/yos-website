@@ -16,13 +16,13 @@ import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Fit Out | Your Office Space',
-  description: 'Commercial office fit out services across Australia. From cold shell to turnkey — project managed by one team, start to finish. Brief to delivered.',
-  twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'Brief to delivered. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
+  description: 'Commercial office fit out services across Australia. From cold shell to turnkey — project managed by one team, start to finish. From brief to delivery.',
+  twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'From brief to delivery. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
   alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   openGraph: {
     title: 'Office Fit Out | Your Office Space',
     description: 'Commercial office fit out. End-to-end project management — design, procurement, installation. One team, no gaps.',
-    url: 'https://yourofficespace.au/furniture',
+    url: 'https://www.yourofficespace.au/office-fitout',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Fit Out — Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -113,7 +113,7 @@ export default function OfficeFitoutPage() {
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
               Office Fit Out Newcastle —
-              <br /><span className="text-teal">brief to delivered.</span>
+              <br /><span className="text-teal">brief to delivery.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
@@ -391,8 +391,8 @@ export default function OfficeFitoutPage() {
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;Joe was instrumental in building out our boardroom — high quality table, chairs, acoustic panelling. Practical advice, excellent detail.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
+              &ldquo;Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.&rdquo;
+              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Jason Dowdall</span>
             </p>
           </FadeIn>
         </div>

@@ -15,8 +15,8 @@ export const metadata = {
   twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Real outcomes for real clients. Lease negotiations, fitouts, cleaning contracts and commercial property acquisitions.' },
   openGraph: {
     title: 'Case Studies | Your Office Space',
-    description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture',
-    url: 'https://yourofficespace.au/case-studies',
+    description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.',
+    url: 'https://www.yourofficespace.au/case-studies',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -74,7 +74,7 @@ const SCHEMA = {
   "name": "Case Studies | Your Office Space",
   "description": "Real commercial property projects with real outcomes. Tenant representation, fitout, furniture and cleaning across Australia.",
   "url": "https://www.yourofficespace.au/case-studies",
-  "numberOfItems": 999,
+  "numberOfItems": 5,
 }
 
 export default function CaseStudiesPage() {

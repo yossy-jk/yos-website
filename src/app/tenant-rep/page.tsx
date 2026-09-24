@@ -153,6 +153,44 @@ export default function TenantRepPage() {
         </div>
       </section>
 
+      {/* ─── CLIENT REVIEWS ───────────────────────────────── */}
+      <section className="bg-warm-grey" style={SEC}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <SectionLabel>What clients say</SectionLabel>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12"
+              style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
+              Real feedback from tenant-side clients.
+            </h2>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                quote: 'Joe was incredibly helpful through our first tenant rep experience. He made the property search and lease process much easier, explained our rights and options clearly, spotted things we would have missed, and helped with fitout, furniture and cleaners too. Worth it.',
+                name: 'Beth Gwalter',
+              },
+              {
+                quote: 'Highly recommend Your Office Space. Joe was professional, reliable and fantastic to communicate with, and the service was flawless from start to finish. Joe was beyond amazing.',
+                name: 'Olivia Crawford',
+              },
+            ].map((t) => (
+              <FadeIn key={t.name}>
+                <div className="bg-white border border-gray-100 p-8 sm:p-10 h-full">
+                  <p className="text-near-black font-light leading-relaxed mb-10" style={{ fontSize: '1.02rem', lineHeight: 1.9 }}>
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div style={{ borderTop: '1px solid #efefef', paddingTop: '1.25rem' }}>
+                    <p className="text-near-black font-bold" style={{ fontSize: '0.9rem' }}>{t.name}</p>
+                    <p className="text-teal font-semibold uppercase tracking-widest" style={{ fontSize: '0.62rem' }}>Tenant representation</p>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── IMAGE BREAK 1 ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image
