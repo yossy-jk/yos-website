@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Office Space Planner | Your Office Space',
     description: 'Plan your office layout online. Free drag-and-drop space planning tool for Australian businesses.',
-    url: 'https://yourofficespace.au/tools/space-planner',
+    url: 'https://www.yourofficespace.au/tools/space-planner',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
