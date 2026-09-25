@@ -9,11 +9,11 @@ export const metadata = {
   title: 'Tenant Representation | EOF Group — We Only Work for Tenants | Newcastle NSW',
   description: 'EOF Group provides commercial tenant representation across Newcastle, the Hunter Valley and regional NSW. We negotiate leases exclusively for tenants — never landlords. Better terms, no conflicts, stronger outcomes.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | EOF Group — We Only Work for Tenants', description: 'We negotiate commercial leases for tenants. Never landlords. Better terms, no conflicts.' },
-  alternates: { canonical: 'https://yourofficespace.au/eof-group/tenant-representation' },
+  alternates: { canonical: 'https://www.yourofficespace.au/eof-group/tenant-representation' },
   openGraph: {
     title: 'Tenant Representation | EOF Group',
     description: 'Commercial tenant representation across Newcastle and regional NSW. We work exclusively for tenants — never landlords.',
-    url: 'https://yourofficespace.au/eof-group/tenant-representation',
+    url: 'https://www.yourofficespace.au/eof-group/tenant-representation',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Tenant Representation — EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
@@ -271,7 +271,7 @@ export default function TenantRepPage() {
         "@graph": [
           {
             "@type": "ProfessionalService",
-            "@id": "https://yourofficespace.au/#organization",
+            "@id": "https://www.yourofficespace.au/#organization",
             "name": "EOF Group — Tenant Representation",
             "serviceType": "Commercial Tenant Representation",
             "areaServed": ["Newcastle NSW", "Hunter Valley NSW", "Regional NSW"],
@@ -280,7 +280,7 @@ export default function TenantRepPage() {
           {
             "@type": "Service",
             "serviceType": "Tenant Representation",
-            "provider": { "@id": "https://yourofficespace.au/#organization" },
+            "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "areaServed": { "@type": "Place", "name": "Newcastle NSW, Hunter Valley NSW" },
             "description": "Commercial tenant representation across Newcastle and the Hunter Valley. We only act for tenants.",
           },

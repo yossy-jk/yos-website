@@ -26,7 +26,7 @@ export const metadata = {
   openGraph: {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
     description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
-    url: 'https://yourofficespace.au/contact',
+    url: 'https://www.yourofficespace.au/contact',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -126,7 +126,7 @@ export default function ContactPage() {
                   className="flex flex-col gap-4"
                 >
                   <input type="hidden" name="_subject" value="New enquiry — Your Office Space website" />
-                  <input type="hidden" name="_next" value="https://yourofficespace.au/contact?sent=true" />
+                  <input type="hidden" name="_next" value="https://www.yourofficespace.au/contact?sent=true" />
                   <input type="hidden" name="_captcha" value="true" />
                   <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 

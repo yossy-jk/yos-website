@@ -9,11 +9,11 @@ export const metadata = {
   title: 'Commercial Property Newcastle | EOF Group — Fitout, Tenant Rep & Lease Review',
   description: 'EOF Group delivers commercial office fitout, tenant representation and lease review across Newcastle, the Hunter Valley, Lake Macquarie and regional NSW. Deep local knowledge. Four specialist divisions. Based in Newcastle.',
   twitter: { card: 'summary_large_image', title: 'Commercial Property Newcastle | EOF Group', description: 'Commercial office fitout, tenant rep and lease review across Newcastle and the Hunter Valley.' },
-  alternates: { canonical: 'https://yourofficespace.au/eof-group/newcastle' },
+  alternates: { canonical: 'https://www.yourofficespace.au/eof-group/newcastle' },
   openGraph: {
     title: 'Commercial Property Newcastle | EOF Group',
     description: 'Commercial office fitout, tenant representation and lease review. Based in Newcastle. Working across the Hunter Valley and regional NSW.',
-    url: 'https://yourofficespace.au/eof-group/newcastle',
+    url: 'https://www.yourofficespace.au/eof-group/newcastle',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Property Newcastle — EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',

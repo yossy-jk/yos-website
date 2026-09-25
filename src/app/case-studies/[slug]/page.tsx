@@ -19,13 +19,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: cs.metaTitle || `${cs.title} | Your Office Space`,
     description: cs.metaDescription || cs.excerpt,
-    alternates: { canonical: `https://yourofficespace.au/case-studies/${cs.slug}` },
+    alternates: { canonical: `https://www.yourofficespace.au/case-studies/${cs.slug}` },
     openGraph: {
       
   images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
 title: cs.metaTitle || cs.title,
       description: cs.metaDescription || cs.excerpt,
-      url: `https://yourofficespace.au/case-studies/${cs.slug}`,
+      url: `https://www.yourofficespace.au/case-studies/${cs.slug}`,
       siteName: 'Your Office Space',
       locale: 'en_AU',
       type: 'article',
@@ -49,10 +49,10 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
     '@type': 'Article',
     headline: cs.title,
     description: cs.metaDescription || cs.excerpt,
-    author: { '@type': 'Organization', name: 'Your Office Space', url: 'https://yourofficespace.au' },
-    publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://yourofficespace.au' },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://yourofficespace.au/case-studies/${cs.slug}` },
-    ...(cs.heroImage ? { image: `https://yourofficespace.au${cs.heroImage}` } : {}),
+    author: { '@type': 'Organization', name: 'Your Office Space', url: 'https://www.yourofficespace.au' },
+    publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://www.yourofficespace.au' },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/case-studies/${cs.slug}` },
+    ...(cs.heroImage ? { image: `https://www.yourofficespace.au${cs.heroImage}` } : {}),
   }
 
   return (

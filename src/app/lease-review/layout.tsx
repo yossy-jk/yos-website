@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'LeaseIntel™ — Commercial Lease Risk Review | Your Office Space',
     description: 'Full commercial lease review. Every clause rated, every risk quantified. Free for Newcastle businesses. 24-hour turnaround.',
-    url: 'https://yourofficespace.au/lease-review',
+    url: 'https://www.yourofficespace.au/lease-review',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

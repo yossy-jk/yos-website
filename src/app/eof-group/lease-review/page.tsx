@@ -9,11 +9,11 @@ export const metadata = {
   title: 'Commercial Lease Review | EOF Group — Know What You\'re Signing | Newcastle NSW',
   description: 'EOF Group reviews and negotiates commercial lease terms before you commit. Lease review, clause-by-clause negotiation, rent review advocacy and exit strategy for businesses in Newcastle and regional NSW.',
   twitter: { card: 'summary_large_image', title: 'Commercial Lease Review | EOF Group', description: 'We review commercial leases before you sign. Clause-by-clause negotiation, rent reviews, and exit strategy.' },
-  alternates: { canonical: 'https://yourofficespace.au/eof-group/lease-review' },
+  alternates: { canonical: 'https://www.yourofficespace.au/eof-group/lease-review' },
   openGraph: {
     title: 'Commercial Lease Review | EOF Group',
     description: 'Lease review and negotiation for commercial tenants. Know what you\'re signing before you commit.',
-    url: 'https://yourofficespace.au/eof-group/lease-review',
+    url: 'https://www.yourofficespace.au/eof-group/lease-review',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Lease Review — EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',

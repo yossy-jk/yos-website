@@ -1,7 +1,7 @@
 // Site-wide constants for Your Office Space website
 
 export const SITE_NAME = 'Your Office Space'
-export const SITE_URL = 'https://yourofficespace.au'
+export const SITE_URL = 'https://www.yourofficespace.au'
 
 export const CONTACT = {
   email: 'hello@yourofficespace.au',
