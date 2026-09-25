@@ -133,7 +133,7 @@ export default function Home() {
       {/* ─── ANNOUNCEMENT BAR ──────────────────────────────────── */}
       <div className="bg-light-teal" style={{ padding: '0.65rem clamp(1.5rem,8vw,10rem)' }}>
         <div className="max-w-screen-xl mx-auto text-center">
-          <span className="text-near-black font-semibold text-xs">Newcastle-based · Hunter home territory · Australia-wide tenant advisory</span>
+          <span className="text-near-black font-semibold text-xs">Independent tenant-side advice · Newcastle-based · Supporting businesses Australia-wide</span>
         </div>
       </div>
 
