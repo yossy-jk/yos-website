@@ -44,7 +44,7 @@ const TERMS_SCHEMA = {
       "isPartOf": { "@type": "WebSite", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
       "about": {
         "@type": "Service",
-        "name": "Your Office Space — Commercial Property Advisory",
+        "name": "Your Office Space, Commercial Property Advisory",
         "provider": { "@id": "https://www.yourofficespace.au/#organization" }
       }
     }
@@ -107,7 +107,7 @@ export default function TermsPage() {
               className="text-white/60 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1rem,2vw,1.2rem)' }}
             >
-              Plain language. Straight up. These terms apply to everything we do — from your first visit to
+              Plain language. Straight up. These terms apply to everything we do, from your first visit to
               this website through to the completion of any service engagement.
             </p>
           </FadeIn>
@@ -143,7 +143,7 @@ export default function TermsPage() {
             </FadeIn>
 
             <FadeIn delay={60}>
-              <Section title="2. Our services — what we do and what we don't">
+              <Section title="2. Our services, what we do and what we don't">
                 <p>
                   YOS provides the following services. Each one comes with some important clarifications.
                 </p>
@@ -154,7 +154,7 @@ export default function TermsPage() {
                     We act exclusively on behalf of tenants and occupiers to identify suitable commercial
                     premises, negotiate lease terms, and manage the process through to execution. We do not
                     act for landlords. We are not a substitute for independent legal advice on your lease
-                    documentation — we strongly recommend you engage a solicitor before signing any lease.
+                    documentation, we strongly recommend you engage a solicitor before signing any lease.
                   </p>
                 </div>
 
@@ -163,7 +163,7 @@ export default function TermsPage() {
                   <p>
                     We act on behalf of buyers seeking to purchase commercial property. We assist with
                     search, due diligence co-ordination, and negotiation strategy. We are not a financial
-                    planner or investment adviser. Nothing we say constitutes financial advice — engage a
+                    planner or investment adviser. Nothing we say constitutes financial advice, engage a
                     qualified adviser before making any investment decision.
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export default function TermsPage() {
                     We provide project management and procurement services for commercial office fitouts
                     and furniture supply. Scope, specifications, and deliverables are agreed in writing
                     before work commences. Fitout outcomes depend on factors including landlord approvals,
-                    building access, and supply chain conditions — timelines are estimates, not guarantees.
+                    building access, and supply chain conditions, timelines are estimates, not guarantees.
                   </p>
                 </div>
 
@@ -188,7 +188,7 @@ export default function TermsPage() {
                 </div>
 
                 <div className="border-l-4 border-teal pl-6 py-2 space-y-1">
-                  <p className="text-near-black font-semibold">LeaseIntel™ — Commercial Lease Analysis</p>
+                  <p className="text-near-black font-semibold">LeaseIntel™, Commercial Lease Analysis</p>
                   <p>
                     See Section 3 below. This service has specific terms that apply in addition to
                     these general terms.
@@ -198,14 +198,14 @@ export default function TermsPage() {
             </FadeIn>
 
             <FadeIn delay={80}>
-              <Section title="3. LeaseIntel™ — specific terms">
+              <Section title="3. LeaseIntel™, specific terms">
                 <p>
                   LeaseIntel™ is a paid commercial lease analysis service. You submit your lease document,
                   we analyse it and return a written report. The current fee is $97 (ex GST) per report.
                 </p>
 
                 <div className="bg-warm-grey rounded-xl p-6 space-y-3 my-2">
-                  <p className="text-near-black font-semibold">Important — please read this carefully.</p>
+                  <p className="text-near-black font-semibold">Important, please read this carefully.</p>
                   <p>
                     <span className="font-semibold text-near-black">LeaseIntel™ is commercial analysis, not legal advice.</span> The
                     report identifies commercial risks, unusual clauses, market context, and negotiation
@@ -223,7 +223,7 @@ export default function TermsPage() {
                     <span className="font-semibold text-near-black">24-hour turnaround is a target, not a guarantee.</span> We
                     aim to deliver your report within 24 hours of receiving your document and payment. In
                     practice, most reports are delivered within that window. But circumstances outside our
-                    control — document complexity, volume, public holidays — can affect timing. We won&apos;t
+                    control, document complexity, volume, public holidays, can affect timing. We won&apos;t
                     leave you waiting without communication, but we can&apos;t contractually guarantee the
                     24-hour window.
                   </p>
@@ -239,7 +239,7 @@ export default function TermsPage() {
               <Section title="4. No guarantee of outcomes">
                 <p>
                   We work hard for every client and we&apos;re proud of our track record. But we can&apos;t
-                  guarantee specific outcomes — and anyone who tells you otherwise is selling you something.
+                  guarantee specific outcomes, and anyone who tells you otherwise is selling you something.
                 </p>
                 <p>
                   In particular, YOS makes no representation or warranty that our services will result in
@@ -249,7 +249,7 @@ export default function TermsPage() {
                 </p>
                 <p>
                   Our obligation is to bring our genuine experience, local knowledge, and best professional
-                  effort to your engagement. That&apos;s what we commit to — every time.
+                  effort to your engagement. That&apos;s what we commit to, every time.
                 </p>
               </Section>
             </FadeIn>
@@ -264,7 +264,7 @@ export default function TermsPage() {
                 </p>
                 <p>
                   We exclude all liability for indirect, consequential, or special loss, including loss of
-                  profits, loss of anticipated savings, loss of opportunity, or loss of data — to the extent
+                  profits, loss of anticipated savings, loss of opportunity, or loss of data, to the extent
                   permitted by law.
                 </p>
                 <p>
@@ -278,7 +278,7 @@ export default function TermsPage() {
             <FadeIn delay={120}>
               <Section title="6. Intellectual property">
                 <p>
-                  All content on this website — including text, graphics, data, tools, and design — is the
+                  All content on this website, including text, graphics, data, tools, and design, is the
                   intellectual property of Your Office Space or its licensors. You may view and use it for
                   your own personal, non-commercial reference only.
                 </p>
@@ -297,13 +297,13 @@ export default function TermsPage() {
                 <p>By using our website or engaging our services, you agree that:</p>
                 <ul className="list-none space-y-3 mt-2">
                   {[
-                    'You will provide accurate, complete, and current information when requested — including when submitting documents for LeaseIntel™ or completing onboarding for any service engagement.',
+                    'You will provide accurate, complete, and current information when requested, including when submitting documents for LeaseIntel™ or completing onboarding for any service engagement.',
                     'You will not use this website or our services for any unlawful purpose, or in any way that could damage, disable, or impair the website or interfere with any other party\'s use of it.',
                     'You will not attempt to gain unauthorised access to any part of this website or its underlying systems.',
-                    'Any information you provide to us is yours to share — you hold the necessary rights and permissions to provide it.',
+                    'Any information you provide to us is yours to share, you hold the necessary rights and permissions to provide it.',
                   ].map((item, i) => (
                     <li key={i} className="flex gap-3 items-start">
-                      <span className="text-teal font-black mt-1 flex-shrink-0">—</span>
+                      <span className="text-teal font-black mt-1 flex-shrink-0">, </span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -373,7 +373,7 @@ export default function TermsPage() {
                   For any questions about these terms, or anything else, get in touch directly.
                 </p>
                 <div className="mt-4 pl-6 border-l-4 border-teal py-1 space-y-1">
-                  <p className="text-near-black font-semibold">Joe Kelley — Managing Director</p>
+                  <p className="text-near-black font-semibold">Joe Kelley, Managing Director</p>
                   <p>Your Office Space</p>
                   <p>
                     <a href="mailto:jk@yourofficespace.au" className="text-teal font-medium hover:underline">

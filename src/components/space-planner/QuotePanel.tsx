@@ -12,7 +12,7 @@ export function getSmartRecommendations(items: ReturnType<typeof usePlannerStore
   const breakout = items.filter((i) => i.category === "Breakout");
 
   if (desks.length > 0 && chairs.length === 0) {
-    recs.push(`You have ${desks.length} desk${desks.length > 1 ? "s" : ""} but no seating — add chairs`);
+    recs.push(`You have ${desks.length} desk${desks.length > 1 ? "s" : ""} but no seating, add chairs`);
   }
 
   if (meetingTables.length > 0 && chairs.length < 4) {
@@ -20,7 +20,7 @@ export function getSmartRecommendations(items: ReturnType<typeof usePlannerStore
   }
 
   if (desks.length >= 8 && storage.length === 0) {
-    recs.push("Consider adding storage — 1 pedestal per workstation is standard");
+    recs.push("Consider adding storage, 1 pedestal per workstation is standard");
   }
 
   const totalPeople = chairs.length + desks.length;
@@ -51,22 +51,22 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
     suggestions.push('A team of this size typically needs at least one meeting room');
   }
   if (deskCount >= 6 && breakoutCount === 0) {
-    suggestions.push('Add a breakout zone — standard for offices with 6+ workstations');
+    suggestions.push('Add a breakout zone, standard for offices with 6+ workstations');
   }
   if (deskCount >= 4 && storageCount === 0) {
-    suggestions.push('Storage is often overlooked — 1 pedestal per desk is the standard spec');
+    suggestions.push('Storage is often overlooked, 1 pedestal per desk is the standard spec');
   }
   if (deskCount >= 8 && screenCount === 0) {
     suggestions.push('Privacy screens between workstations improve focus in open plan layouts');
   }
   if (meetingCount >= 1 && chairCount < meetingCount * 4) {
-    suggestions.push('Meeting rooms need seating — aim for 1 chair per person at the table');
+    suggestions.push('Meeting rooms need seating, aim for 1 chair per person at the table');
   }
   if (deskCount >= 10 && items.filter(i => i.name.toLowerCase().includes('height') || i.name.toLowerCase().includes('sit-stand') || i.name.toLowerCase().includes('adjustable')).length === 0) {
-    suggestions.push('Sit-stand desks improve ergonomics — recommend 20–30% of total workstations');
+    suggestions.push('Sit-stand desks improve ergonomics, recommend 20–30% of total workstations');
   }
 
-  // Aggregate items by productId — qty only, no pricing
+  // Aggregate items by productId, qty only, no pricing
   const aggregated = new Map<string, { name: string; category: string; qty: number }>();
   for (const item of items) {
     const existing = aggregated.get(item.productId);
@@ -189,7 +189,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
       <div style={{ padding: '1rem', borderTop: '1px solid #E5E5E5' }}>
         {items.length > 0 && (
           <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', marginBottom: '0.65rem', lineHeight: 1.5 }}>
-            Submit your layout and we will come back with a full quote — no obligation.
+            Submit your layout and we will come back with a full quote, no obligation.
           </p>
         )}
         <button

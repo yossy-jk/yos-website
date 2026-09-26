@@ -128,6 +128,29 @@ try {
   if (error?.status !== 1) throw error
 }
 
+try {
+  const matches = execFileSync(
+    'git',
+    [
+      'grep', '-n', '-I', '-E',
+      '—|no pitch|one business day',
+      '--',
+      'src/app/**/*.ts', 'src/app/**/*.tsx',
+      'src/components/**/*.ts', 'src/components/**/*.tsx',
+      'src/content/blog/*.json',
+    ],
+    { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
+  )
+  const publicMatches = matches
+    .split('\n')
+    .filter(Boolean)
+    .filter(line => !line.startsWith('src/app/api/'))
+    .filter(line => !line.startsWith('src/app/dashboard/'))
+  if (publicMatches.length) failures.push(`public website copy contains retired language:\n${publicMatches.join('\n')}`)
+} catch (error) {
+  if (error?.status !== 1) throw error
+}
+
 if (failures.length > 0) {
   console.error('Brand Standard v1.1 check failed:')
   for (const failure of failures) console.error(`- ${failure}`)
@@ -139,5 +162,5 @@ console.log('- Approved palette and typography are wired globally.')
 console.log('- Homepage positioning, services and CTA match the standard.')
 console.log('- Buyers Agency remains referral-only and is not publicly promoted.')
 console.log('- Legacy brand tokens are absent from application source.')
-console.log('- Core public discovery surfaces are free of retired promise and sales-language phrases.')
+console.log('- Public copy is free of em dashes, no-pitch language and one-business-day promises.')
 console.log('- The public capability statement matches the approved Brand v1.1 asset.')

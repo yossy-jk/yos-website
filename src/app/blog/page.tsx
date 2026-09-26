@@ -17,7 +17,7 @@ export const metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-blog.png', width: 1200, height: 630, alt: 'Blog — Your Office Space' }],
+    images: [{ url: '/og-blog.png', width: 1200, height: 630, alt: 'Blog, Your Office Space' }],
   },
 }
 
@@ -66,7 +66,7 @@ export default async function BlogPage() {
             <Link href={`/blog/${featured.slug}`} style={{ textDecoration: 'none', display: 'block' }} className="group">
               {/* Two-col on lg+, stacked on mobile */}
               <div className="flex flex-col lg:flex-row" style={{ borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                {/* Image — fixed height on mobile, auto on desktop */}
+                {/* Image, fixed height on mobile, auto on desktop */}
                 <div className="relative w-full lg:w-1/2 flex-shrink-0" style={{ minHeight: '18rem' }}>
                   <Image
                     src={featured.heroImage || DIVISION_HERO_IMAGES[SAFE_DIVISION(featured.division)]}
@@ -178,7 +178,7 @@ export default async function BlogPage() {
             Get new articles when they land.
           </h2>
           <p style={{ color: '#6B7280', fontWeight: 300, fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '2.5rem', maxWidth: '32rem' }}>
-            Commercial property insights for Australian business owners. No noise, no pitch — just useful.
+            Commercial property insights for Australian business owners. Practical guidance for better commercial property decisions.
           </p>
           <BlogEmailCapture />
         </div>

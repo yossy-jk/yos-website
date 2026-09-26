@@ -1,8 +1,8 @@
 /**
- * /tenant-rep/brief/[token] — Client-facing brief viewer
+ * /tenant-rep/brief/[token], Client-facing brief viewer
  * 
  * Clean, professional. Shows client their brief and pipeline.
- * No YOS branding — branded as "Your Office Space Advisory"
+ * No YOS branding, branded as "Your Office Space Advisory"
  * Password protected if token requires it.
  */
 
@@ -251,7 +251,7 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
 
         {/* Footer */}
         <div className="mt-8 text-center text-xs text-gray-400">
-          <p>Managed by Your Office Space — Newcastle</p>
+          <p>Managed by Your Office Space, Newcastle</p>
           <p className="mt-1">Questions? Contact your advisor directly.</p>
         </div>
       </div>

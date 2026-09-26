@@ -24,7 +24,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
   const recommendations = getSmartRecommendations(items);
 
-  // Aggregate items — qty only, no pricing
+  // Aggregate items, qty only, no pricing
   const aggregated = new Map<string, { name: string; category: string; qty: number }>();
   for (const item of items) {
     const existing = aggregated.get(item.productId);
@@ -71,7 +71,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       });
       setSubmitted(true);
     } catch {
-      // Non-fatal — still show success to user
+      // Non-fatal, still show success to user
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -124,7 +124,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               We have your layout.
             </p>
             <p style={{ fontSize: '0.875rem', color: '#6B6B6B', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-              We will review your space plan and come back to you with a full itemised quote. Expect to hear from us within one business day.
+              We will review your space plan and come back to you with a full itemised quote. We will contact you after reviewing the plan.
             </p>
             <button
               onClick={onClose}
@@ -142,7 +142,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               <span style={{ fontWeight: 600 }}>{items.length} furniture item{items.length !== 1 ? 's' : ''}</span> in your layout
               {lineItems.length > 0 && (
                 <span>
-                  {' '}—{lineItems.slice(0, 3).map((i, idx) => (
+                  {' '}, {lineItems.slice(0, 3).map((i, idx) => (
                     <span key={idx}> {i.qty}x {i.name}{idx < Math.min(lineItems.length, 3) - 1 ? ',' : ''}</span>
                   ))}
                   {lineItems.length > 3 && <span> and {lineItems.length - 3} more</span>}
@@ -189,7 +189,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             </div>
 
             <p style={{ fontSize: '0.72rem', color: '#5A6B68', lineHeight: 1.5 }}>
-              We will review your space plan and come back with a full quote — no obligation, no sales pressure.
+              We will review your space plan and come back with a full quote, no obligation, no sales pressure.
             </p>
 
             <button

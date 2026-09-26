@@ -9,7 +9,7 @@ const SECTIONS = [
   {
     title: 'Title & Ownership',
     items: [
-      'Obtain a copy of the title search — confirm ownership, encumbrances and caveats',
+      'Obtain a copy of the title search, confirm ownership, encumbrances and caveats',
       'Check for easements, covenants or restrictions on the title',
       'Confirm no mortgages or charges will remain at settlement',
       'Verify the vendor has authority to sell (trustee, company director, executor)',
@@ -32,7 +32,7 @@ const SECTIONS = [
       'Commission an independent building and pest inspection',
       'Obtain a copy of the current building certificate or occupation certificate',
       'Check for any unapproved structures or additions',
-      'Review council DA history — identify any outstanding compliance matters',
+      'Review council DA history, identify any outstanding compliance matters',
       'Inspect roof, structure, cladding and façade for visible defects'
     ]
   },
@@ -124,7 +124,7 @@ export default function PurchaseChecklistPage() {
               />
             </div>
             {done === total && (
-              <p className="text-teal font-semibold text-sm mt-3">All checks complete — you&apos;re ready to proceed with confidence.</p>
+              <p className="text-teal font-semibold text-sm mt-3">All checks complete, you&apos;re ready to proceed with confidence.</p>
             )}
           </div>
 
@@ -174,7 +174,7 @@ export default function PurchaseChecklistPage() {
           </div>
 
           <div className="mt-12 bg-near-black rounded-xl p-8">
-            <p className="text-white font-semibold text-base mb-3">This checklist covers the essentials — but every commercial deal is different.</p>
+            <p className="text-white font-semibold text-base mb-3">This checklist covers the essentials, but every commercial deal is different.</p>
             <p className="text-white/60 font-light text-sm leading-relaxed mb-6">
               Additional due diligence may be required depending on property type, use, age, and location. Always engage a commercial solicitor and a qualified buyers agent before exchanging contracts.
             </p>

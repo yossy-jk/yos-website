@@ -6,11 +6,11 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Space Planner | Your Office Space',
-  description: 'Draw your floor plan, drag furniture in, get an instant quote. The YOS Space Planner is coming soon — book a call to get started now.',
+  description: 'Draw your floor plan, drag furniture in, get an instant quote. The YOS Space Planner is coming soon, book a call to get started now.',
   alternates: { canonical: 'https://www.yourofficespace.au/tools/space-planner' },
   openGraph: {
     title: 'Space Planner | Your Office Space',
-    description: 'Draw your floor plan, drag furniture in, get an instant quote. Coming soon — but you can start now.',
+    description: 'Draw your floor plan, drag furniture in, get an instant quote. Coming soon, but you can start now.',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
     url: 'https://www.yourofficespace.au/tools/space-planner',
     siteName: 'Your Office Space',
@@ -87,9 +87,9 @@ export default function SpacePlannerPage() {
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2.5rem' }}>
               {[
-                { n: '01', title: 'Draw your space', body: 'Enter your floor area and shape. No CAD skills needed — just numbers and clicks.' },
+                { n: '01', title: 'Draw your space', body: 'Enter your floor area and shape. No CAD skills needed, just numbers and clicks.' },
                 { n: '02', title: 'Drag furniture in', body: 'Pick workstations, meeting rooms, breakout zones. See the layout update in real time.' },
-                { n: '03', title: 'Get your quote', body: 'Instant estimate based on your specific layout. Take it or refine it — no pressure.' },
+                { n: '03', title: 'Get your quote', body: 'Instant estimate based on your specific layout. Take it or refine it, no pressure.' },
               ].map(step => (
                 <div key={step.n}>
                   <p style={{ color: '#01A7A3', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{step.n}</p>
@@ -114,7 +114,7 @@ export default function SpacePlannerPage() {
                 Talk to The Team instead
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '2rem' }}>
-                The Space Planner is coming. In the meantime, we can walk you through furniture options over a 30-minute call — no obligation.
+                The Space Planner is coming. In the meantime, we can walk you through furniture options over a 30-minute call, no obligation.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', alignItems: 'center' }}>
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"

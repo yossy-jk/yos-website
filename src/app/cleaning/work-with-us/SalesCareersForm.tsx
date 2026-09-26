@@ -178,7 +178,7 @@ export default function SalesCareersForm() {
                 <option value="$30–50k">$30,000–$50,000</option>
                 <option value="$50–80k">$50,000–$80,000</option>
                 <option value="$80k+">$80,000+</option>
-                <option value="Open">Open — let&apos;s talk</option>
+                <option value="Open">Open, let&apos;s talk</option>
               </select>
             </div>
           </div>
