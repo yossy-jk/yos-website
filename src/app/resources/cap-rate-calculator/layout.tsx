@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Cap Rate Calculator for Commercial Property | Your Office Space',
     description: 'Calculate capitalisation rate (cap rate) for commercial property valuation. Free tool for Australian commercial property investors.',
-    url: 'https://yourofficespace.au/resources/cap-rate-calculator',
+    url: 'https://www.yourofficespace.au/resources/cap-rate-calculator',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

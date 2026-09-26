@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Lease vs Buy Calculator — Commercial Property Cost Comparison | Your Office Space',
     description: 'Compare the true cost of leasing vs buying commercial property over your chosen term. Includes mortgage, capital growth, and equity modelling. Free tool.',
-    url: 'https://yourofficespace.au/resources/lease-vs-buy',
+    url: 'https://www.yourofficespace.au/resources/lease-vs-buy',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

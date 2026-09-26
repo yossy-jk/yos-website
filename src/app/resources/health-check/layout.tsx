@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Commercial Property Health Check | Free Diagnostic | Your Office Space',
     description: '12 questions. 4 domains. A clear picture of where your business is exposed — and what it\'s costing you. Free commercial property diagnostic from Your Office Space.',
-    url: 'https://yourofficespace.au/resources/health-check',
+    url: 'https://www.yourofficespace.au/resources/health-check',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

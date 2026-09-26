@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Commercial Property Purchase Checklist | Your Office Space',
     description: 'Interactive due diligence checklist for buying commercial property in Australia. 40+ items covering legal, financial, physical and compliance checks.',
-    url: 'https://yourofficespace.au/resources/purchase-checklist',
+    url: 'https://www.yourofficespace.au/resources/purchase-checklist',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Compare Commercial Leases Side by Side | Your Office Space',
     description: 'Compare two commercial lease options on true cost, incentives, and net effective rent. Free lease comparison calculator for Australian businesses.',
-    url: 'https://yourofficespace.au/resources/lease-comparison',
+    url: 'https://www.yourofficespace.au/resources/lease-comparison',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
