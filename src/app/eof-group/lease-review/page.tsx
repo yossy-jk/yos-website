@@ -6,7 +6,7 @@ import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Commercial Lease Review | EOF Group — Know What You\'re Signing | Newcastle NSW',
+  title: 'Commercial Lease Review | EOF Group, Know What You\'re Signing | Newcastle NSW',
   description: 'EOF Group reviews and negotiates commercial lease terms before you commit. Lease review, clause-by-clause negotiation, rent review advocacy and exit strategy for businesses in Newcastle and regional NSW.',
   twitter: { card: 'summary_large_image', title: 'Commercial Lease Review | EOF Group', description: 'We review commercial leases before you sign. Clause-by-clause negotiation, rent reviews, and exit strategy.' },
   alternates: { canonical: 'https://www.yourofficespace.au/eof-group/lease-review' },
@@ -14,7 +14,7 @@ export const metadata = {
     title: 'Commercial Lease Review | EOF Group',
     description: 'Lease review and negotiation for commercial tenants. Know what you\'re signing before you commit.',
     url: 'https://www.yourofficespace.au/eof-group/lease-review',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Lease Review — EOF Group' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Lease Review, EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
@@ -39,13 +39,13 @@ export default function LeaseReviewPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
               <p style={{ color: '#6366f1', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-                EOF Group — Lease Review
+                EOF Group, Lease Review
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
                 Know what you&apos;re<br />signing. Before you sign.
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.7, marginBottom: '2.5rem', maxWidth: '600px' }}>
-                Commercial leases are complex documents with clauses that can cost you significantly down the track. We review, negotiate and advise on lease terms before you commit — so you know exactly what you&apos;re agreeing to.
+                Commercial leases are complex documents with clauses that can cost you significantly down the track. We review, negotiate and advise on lease terms before you commit, so you know exactly what you&apos;re agreeing to.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Button href="#get-a-review" variant="primary" size="lg">
@@ -151,12 +151,12 @@ export default function LeaseReviewPage() {
 
             <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
               {[
-                { label: 'New lease negotiation', desc: 'You\'re being offered a new lease — get independent review before you sign' },
-                { label: 'Lease renewal approaching', desc: 'Your current lease is expiring — understand your position before you negotiate' },
-                { label: 'Rent review notice received', desc: 'The landlord has proposed a rent increase — we assess whether it\'s fair' },
-                { label: 'Assignment or subletting', desc: 'You\'re selling or restructuring — review the assignment clause first' },
-                { label: 'Make-good dispute', desc: 'The landlord is claiming for make-good — get independent advice on what\'s reasonable' },
-                { label: 'Lease for new premises', desc: 'You\'re moving — review the lease before committing to a new space' },
+                { label: 'New lease negotiation', desc: 'You\'re being offered a new lease, get independent review before you sign' },
+                { label: 'Lease renewal approaching', desc: 'Your current lease is expiring, understand your position before you negotiate' },
+                { label: 'Rent review notice received', desc: 'The landlord has proposed a rent increase, we assess whether it\'s fair' },
+                { label: 'Assignment or subletting', desc: 'You\'re selling or restructuring, review the assignment clause first' },
+                { label: 'Make-good dispute', desc: 'The landlord is claiming for make-good, get independent advice on what\'s reasonable' },
+                { label: 'Lease for new premises', desc: 'You\'re moving, review the lease before committing to a new space' },
               ].map(item => (
                 <div key={item.label} style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px', padding: '1.25rem' }}>
                   <p style={{ color: '#6366f1', fontWeight: 700, fontSize: '0.8rem', marginBottom: '0.5rem' }}>{item.label}</p>
@@ -191,7 +191,7 @@ export default function LeaseReviewPage() {
                 {[
                   { step: '01', title: 'Send us the lease', body: 'Upload or email the lease document. If you only have a summary from the agent, that\'s enough to start.' },
                   { step: '02', title: 'Clause-by-clause review', body: 'We review every material clause, identify the risks, and benchmark terms against market standards.' },
-                  { step: '03', title: 'Written advice', body: 'You receive a written report — every clause that needs attention, what\'s negotiable, and our recommended position.' },
+                  { step: '03', title: 'Written advice', body: 'You receive a written report, every clause that needs attention, what\'s negotiable, and our recommended position.' },
                   { step: '04', title: 'Negotiation support', body: 'We help you negotiate directly with the landlord or their solicitor on the clauses that matter most to your business.' },
                 ].map((s, i) => (
                   <div key={s.step} style={{ display: 'grid', gridTemplateColumns: '50px 1fr', alignItems: 'start', paddingBottom: '1.5rem', marginBottom: '1.5rem', borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.06)' : 'none' }}>
@@ -225,13 +225,13 @@ export default function LeaseReviewPage() {
                 </p>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                   {[
-                    'Confidential — your details are never shared',
+                    'Confidential, your details are never shared',
                     'Clause-by-clause written advice',
                     'Recommended negotiating positions',
                     'No obligation to proceed',
                   ].map(s => (
                     <span key={s} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>
-                      <span style={{ color: '#6366f1', fontWeight: 700 }}>—</span> {s}
+                      <span style={{ color: '#6366f1', fontWeight: 700 }}>, </span> {s}
                     </span>
                   ))}
                 </div>
@@ -277,7 +277,7 @@ export default function LeaseReviewPage() {
         "@graph": [
           {
             "@type": "ProfessionalService",
-            "name": "EOF Group — Lease Review",
+            "name": "EOF Group, Lease Review",
             "serviceType": "Commercial Lease Review",
             "areaServed": ["Newcastle NSW", "Hunter Valley NSW", "Regional NSW"],
             "description": "Commercial lease review and negotiation. Clause-by-clause analysis, rent review advocacy, and make-good negotiation for commercial tenants.",

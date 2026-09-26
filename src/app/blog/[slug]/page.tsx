@@ -39,7 +39,7 @@ title: post.metaTitle || post.title,
   }
 }
 
-// Internal link map — keyword → href
+// Internal link map. keyword → href
 const INTERNAL_LINKS: Record<string, string> = {
   'tenant representation': '/tenant-rep',
   'tenant rep': '/tenant-rep',
@@ -170,7 +170,7 @@ function renderBody(body: string, slug: string) {
 
   const flushTable = () => {
     if (tableBuffer.length === 0) return
-    // Parse markdown table — first row = headers, second row = separator, rest = data
+    // Parse markdown table. first row = headers, second row = separator, rest = data
     const rows = tableBuffer.map(r =>
       r.split('|').map(c => c.trim()).filter((_, i, a) => i > 0 && i < a.length - 1)
     )
@@ -215,7 +215,7 @@ function renderBody(body: string, slug: string) {
       continue
     }
 
-    // Separator row for table (---|---) — already buffered above
+    // Separator row for table (---|---). already buffered above
     // Headings
     if (line.startsWith('## ')) {
       flushAll()
@@ -275,7 +275,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = await getPostBySlugAsync(slug)
   if (!post) notFound()
 
-  // Related posts — same division, exclude current
+  // Related posts. same division, exclude current
   const allPosts = await getAllPublicPostsAsync()
   const related = allPosts
     .filter(p => p.slug !== slug && p.division === post.division)
@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           className="object-cover object-center"
           priority
         />
-        {/* Dark gradient overlay — heavier at bottom */}
+        {/* Dark gradient overlay. heavier at bottom */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.96) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
 
         <div className="absolute inset-0 flex items-end">
@@ -380,13 +380,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
                   <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
-                    Free — No obligation
+                    Free. No obligation
                   </p>
                   <p style={{ color: 'white', fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '0.875rem' }}>
                     Want to talk about your situation?
                   </p>
                   <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.95rem', lineHeight: 1.75, fontWeight: 300, maxWidth: '36rem' }}>
-                    First conversation is always free. No pitch — just an honest assessment of what you&apos;re dealing with and whether we can help.
+                    First conversation is always free. clear advice. just an honest assessment of what you&apos;re dealing with and whether we can help.
                   </p>
                 </div>
                 <div>
