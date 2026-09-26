@@ -21,7 +21,6 @@ export const NAV_LINKS = [
 ]
 
 export const SERVICE_LINKS = [
-  { label: 'Commercial Purchase Advisory', href: '/buyers-agency', tagline: 'Referral-only purchase support.' },
   { label: 'Tenant Representation', href: '/tenant-rep', tagline: 'Your lease. Your terms.' },
   { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', tagline: 'From brief to delivered workspace.' },
   { label: 'Office & Commercial Furniture', href: '/furniture', tagline: 'Furniture selected, supplied and installed.' },

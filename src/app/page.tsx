@@ -32,11 +32,10 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 const SERVICES = [
-  { num: '01', title: 'Commercial Purchase Advisory', tagline: 'Buy with a clear brief.', body: 'Referral-only support for commercial property purchase decisions, coordinated with your legal, finance and specialist advisers.', href: '/buyers-agency' },
-  { num: '02', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
-  { num: '03', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
-  { num: '04', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
-  { num: '05', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
+  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
+  { num: '02', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
+  { num: '03', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
+  { num: '04', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
 ]
 
 const TESTIMONIALS: Array<{ name: string; company?: string; service: string; quote: string }> = [
@@ -266,10 +265,10 @@ export default function Home() {
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-near-black leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Five services.<br />One accountable partner.
+              Four services.<br />One accountable partner.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1.05rem', maxWidth: '40rem', lineHeight: 1.85 }}>
-              Finding or buying a commercial property brings together property, lease, fit out, furniture and cleaning decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
+              A commercial workplace brings together lease, fit out, furniture and cleaning decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
             </p>
           </FadeIn>
 
