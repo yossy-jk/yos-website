@@ -10,18 +10,16 @@ const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3re
 const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT, CONTACT } from '@/lib/constants'
-import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
-  description: 'Consistent, accountable commercial cleaning for offices, medical and childcare across Newcastle and the Hunter Valley. Same team every visit.',
-  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space', description: 'Consistent. Accountable. Same team every visit. Monthly site audits on every contract.' },
+  title: 'Commercial Cleaning Newcastle | Offices and Workplaces | Your Office Space',
+  description: 'Commercial cleaning for Newcastle offices and workplaces, with a clear scope, a consistent team and monthly quality checks.',
+  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope. Consistent team. Monthly quality checks.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
     title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
-    description: 'Consistent. Accountable. Same team every visit. Commercial cleaning for offices, medical and childcare across Newcastle.',
+    description: 'Commercial cleaning for Newcastle offices and workplaces, with a clear scope, a consistent team and monthly quality checks.',
     url: 'https://www.yourofficespace.au/cleaning',
     images: [{ url: '/og/og-cleaning.png', width: 1200, height: 630, alt: 'Commercial Office Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -44,7 +42,7 @@ export default function CleaningPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based tenant-side commercial property advisory across Australia, including accountable commercial cleaning for workplaces.",
+            "description": "Newcastle-based commercial cleaning and workplace services.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -65,7 +63,7 @@ export default function CleaningPage() {
             "@id": "https://www.yourofficespace.au/cleaning#service",
             "name": "Commercial Cleaning Newcastle",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
-            "description": "Consistent, accountable commercial cleaning for offices, medical practices and childcare centres across Newcastle and the Hunter Valley.",
+            "description": "Commercial cleaning for offices and workplaces across Newcastle and the Hunter, based on an agreed Scope of Works.",
             "areaServed": [
               { "@type": "City", "name": "Newcastle" },
               { "@type": "City", "name": "Maitland" },
@@ -86,16 +84,12 @@ export default function CleaningPage() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "How much does commercial cleaning cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial cleaning costs in Newcastle typically range from $30–$55 per hour depending on the type of facility, frequency and scope. Medical and childcare facilities requiring infection control protocols are priced higher. Your Office Space provides tailored quotes after a free site visit." } },
+              { "@type": "Question", "name": "How is commercial cleaning priced?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal." } },
               { "@type": "Question", "name": "Do you use the same cleaning team every visit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Your Office Space cleaning contract is serviced by the same team on every visit. We do not rotate staff. You know who is coming and so do we." } },
-              { "@type": "Question", "name": "Do you clean medical practices and healthcare facilities?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We clean medical practices, allied health clinics and childcare centres across Newcastle using infection control protocols and appropriate products. We understand the compliance obligations specific to healthcare environments." } },
               { "@type": "Question", "name": "What areas of Newcastle do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We service Newcastle, Maitland, Lake Macquarie, Charlestown, Merewether, Adamstown, Kotara, Wallsend and surrounding Hunter Valley suburbs. We are based locally and do not use out-of-area contractors." } },
               { "@type": "Question", "name": "How often should a commercial office be cleaned?", "acceptedAnswer": { "@type": "Answer", "text": "Most offices benefit from daily or every-second-day cleaning for high-traffic environments, and weekly for lower-use spaces. We work with each client to determine the right frequency for their space, team size and usage patterns." } },
               { "@type": "Question", "name": "What is included in a standard commercial office clean?", "acceptedAnswer": { "@type": "Answer", "text": "Standard commercial office cleaning includes rubbish removal, kitchen and breakroom cleaning, bathroom sanitation, desk and surface wiping, floor care (vacuum/mop), and bin replacement. Deep cleans, infection control cleans and carpet extraction are charged separately." } },
-              { "@type": "Question", "name": "Are your cleaners insured and vetted?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All Your Office Space cleaning staff are employed directly — not subcontracted. Every team member is vetted, trained and covered under our business insurance and workers compensation policy." } },
-              { "@type": "Question", "name": "What happens if I am not happy with a clean?", "acceptedAnswer": { "@type": "Answer", "text": "We back our work completely. If you are not satisfied with any visit, contact us on the day and we will send the team back at no charge. Your satisfaction is how we measure success — not excuses." } },
-              { "@type": "Question", "name": "Do you offer a free trial or first week free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We offer the first week of commercial cleaning free for new client locations. We also provide a $200 Visa gift card per new location. See the current offer on this page." } },
-              { "@type": "Question", "name": "Can I change or cancel the cleaning schedule?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. You can adjust frequency, timing or pause the schedule at any time with reasonable notice. There are no lock-in contracts — our commitment to quality is how we retain clients, not fine print." } }
+              { "@type": "Question", "name": "Can the cleaning happen after hours?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Access, timing and security requirements are agreed during the site inspection and documented in the Scope of Works." } }
             ]
           }
         ]
@@ -116,26 +110,25 @@ export default function CleaningPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Commercial Cleaning Newcastle —<br />
+              Commercial cleaning that follows the scope.<br />
               <span className="text-teal">consistent, accountable, local.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              Consistent. Accountable. Managed locally. We clean offices that can&apos;t afford a bad first impression — and neither can yours.
+              A clear Scope of Works, a consistent cleaning team and monthly quality checks for Newcastle offices and workplaces.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
             <div className="flex flex-row flex-wrap gap-4 items-center">
-              <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                Book a Site Visit
+              <Button href="#cleaning-quote-form" variant="primary" size="lg">
+                Book a Site Quote
               </Button>
-              <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+              <a href="/contact?service=cleaning"
                 className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
                 style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
-                <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                {CONTACT.phone}
+                Enquire Now
               </a>
             </div>
           </FadeIn>
@@ -151,8 +144,8 @@ export default function CleaningPage() {
               {[
                 { stat: 'Same team', label: 'Every visit — no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
-                { stat: 'Direct line', label: 'To our team, not a call centre' },
-                { stat: '100%', label: 'Locally owned and operated' },
+                { stat: 'After hours', label: 'Timing agreed around your workplace' },
+                { stat: 'Clear scope', label: 'Tasks and standards documented' },
               ].map(item => (
                 <div key={item.label} className="bg-near-black text-center" style={{ padding: 'clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem)' }}>
                   <p className="text-teal font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
@@ -185,52 +178,52 @@ export default function CleaningPage() {
             <SectionLabel>What we clean</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              Every property type. Same standard.
+              Practical services for working spaces.
             </h2>
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                type: 'Commercial Offices',
+                type: 'Regular Office Cleaning',
                 services: [
                   'Daily office cleaning',
                   'Kitchen and break room',
                   'Washroom maintenance',
                   'Carpet and hard floor care',
-                  'Glass and window cleaning',
+                  'Glass and internal touchpoints',
                 ],
                 note: 'Professional environments demand professional cleaning.'
               },
               {
-                type: 'Medical Practices',
+                type: 'Full Detail Cleaning',
                 services: [
-                  'Clinical-grade disinfection',
-                  'Infection control protocols',
-                  'Medical waste handling',
-                  'Biohazard-compliant procedures',
-                  'NDIS and privacy compliance',
+                  'Detailed surfaces and edges',
+                  'Skirtings and internal glass',
+                  'Kitchen and washroom detail',
+                  'Carpet and hard-floor attention',
+                  'Agreed periodic tasks',
                 ],
-                note: 'We understand the standards medical facilities must meet.'
+                note: 'A deeper scheduled clean beyond the regular service.'
               },
               {
-                type: 'Childcare Centres',
+                type: 'Mini Detail Cleaning',
                 services: [
-                  'Child-safe cleaning protocols',
-                  'Toy and equipment sanitising',
-                  'Play area deep cleaning',
-                  'Cot and bedding care',
-                  'Non-toxic product use',
+                  'High-touch point attention',
+                  'Kitchen and washroom refresh',
+                  'Targeted dust and marks',
+                  'Selected floor areas',
+                  'Tasks agreed for the site',
                 ],
-                note: 'Safety and health come first, every single time.'
+                note: 'A focused reset between larger detail cleans.'
               },
               {
-                type: 'Post-Construction',
+                type: 'Hygiene and Post-Construction',
                 services: [
                   'Deep site cleanup',
                   'Dust removal and disposal',
                   'Debris extraction',
-                  'Equipment and surface cleaning',
+                  'Hygiene-bin servicing by arrangement',
                   'Final readiness preparation',
                 ],
                 note: 'We coordinate closely with your fitout and building teams.'
@@ -266,7 +259,7 @@ export default function CleaningPage() {
             <SectionLabel>The YOS difference</SectionLabel>
             <h2 className="text-white font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              Why clients don&apos;t leave.
+              How we keep the standard visible.
             </h2>
           </FadeIn>
 
@@ -284,7 +277,7 @@ export default function CleaningPage() {
               },
               {
                 title: 'Direct line to management',
-                body: "If something's wrong, you call our management team directly. Not a call centre. Not an email queue. The people who run the division — accountable for your result.",
+                body: 'If something is not right, the issue goes to the team responsible for the service. The response stays connected to your Scope of Works.',
                 aside: 'Real problems, real solutions.'
               },
             ].map((item, i) => (
@@ -317,13 +310,12 @@ export default function CleaningPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
-                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">One coordinated handover</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
                   Moving into a new fitout?
                 </h3>
                 <p className="text-white/60 font-light text-base leading-relaxed">
-                  Our furniture and fitout division works hand-in-hand with our cleaning team. We handle
-                  the post-construction deep clean after every fitout — one team, zero gaps, one call.
+                  If your workplace is being fitted out or refurbished, cleaning can be scoped alongside furniture and handover planning so responsibilities stay clear.
                 </p>
               </div>
               <div className="flex-shrink-0">
@@ -348,7 +340,7 @@ export default function CleaningPage() {
                 </h2>
                 <p className="text-white/60 font-light leading-relaxed mb-8" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
                   We cover Newcastle, Maitland, Lake Macquarie, Cessnock, Singleton, Murrurundi and the broader Hunter Valley.
-                  We&apos;ll visit your site, understand your requirements and give you a clear proposal — no pressure, no surprises.
+                  Book a site quote so we can inspect the space, understand access and timing, and prepare a clear Scope of Works.
                 </p>
                 <div className="flex flex-col gap-2 text-white/40 text-sm">
                   {["Newcastle CBD & surrounds","Maitland & Hunter Valley","Lake Macquarie","Cessnock & Singleton","Port Stephens"].map(s => (
@@ -375,25 +367,22 @@ export default function CleaningPage() {
                 Ready to move to a better standard?
               </h2>
               <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
-                We&apos;ll visit your site, understand your needs, and give you a clear proposal. No pressure. No surprises.
+                Start with a site quote or send an enquiry. We&apos;ll confirm the scope before any service begins.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center">
-                <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                  Book a Site Visit
+                <Button href="#cleaning-quote-form" variant="dark" size="lg">
+                  Book a Site Quote
                 </Button>
-                <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+                <a href="/contact?service=cleaning"
                   className="inline-flex items-center gap-2 text-white font-bold border border-white/30 rounded-none px-6 py-3 no-underline hover:border-white transition-colors"
                   style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
-                  <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  Call us now
+                  Enquire Now
                 </a>
               </div>
             </div>
           </div>
         </FadeIn>
       </section>
-
-      <BookingCTA label="Book a Free Site Visit" />
 
       {/* Join the team */}
       <section style={{ background: '#111', paddingTop: 'clamp(3rem,6vw,4.5rem)', paddingBottom: 'clamp(3rem,6vw,4.5rem)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
