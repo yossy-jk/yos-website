@@ -315,11 +315,6 @@ export default function Nav() {
               style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
               Articles &amp; Guides
             </Link>
-            <Link href="/case-studies" onClick={() => setOpen(false)}
-              className="text-white no-underline font-bold hover:text-teal transition-colors"
-              style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
-              Case Studies
-            </Link>
           </div>
 
           <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>More</p>

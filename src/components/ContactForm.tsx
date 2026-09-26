@@ -74,7 +74,7 @@ export default function ContactForm() {
     return (
       <div className="bg-teal/5 border border-teal/20 rounded-xl p-8 text-center">
         <p className="text-teal font-black text-lg mb-2">Message received.</p>
-        <p className="text-charcoal font-light text-sm">We&apos;ll come back to you within one business day.</p>
+        <p className="text-charcoal font-light text-sm">Your enquiry is with our team.</p>
       </div>
     )
   }

@@ -113,7 +113,7 @@ export default function BookingCTA({
                   Book your Clarity Call.
                 </h2>
                 <p className="text-mid-grey font-light mb-6" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>
-                  20 minutes, no pitch. We&apos;ll look at your lease, space, fit out or cleaning needs and give you a straight view of the next step.
+                  Tell us what decision you are working through. We&apos;ll listen, ask the useful questions and explain the next step.
                 </p>
 
                 <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '0.875rem' }}>

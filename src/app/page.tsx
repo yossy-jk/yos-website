@@ -32,10 +32,11 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 const SERVICES = [
-  { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
-  { num: '02', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
-  { num: '03', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
-  { num: '04', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
+  { num: '01', title: 'Commercial Purchase Advisory', tagline: 'Buy with a clear brief.', body: 'Referral-only support for commercial property purchase decisions, coordinated with your legal, finance and specialist advisers.', href: '/buyers-agency' },
+  { num: '02', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
+  { num: '03', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
+  { num: '04', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
+  { num: '05', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
 ]
 
 const TESTIMONIALS: Array<{ name: string; company?: string; service: string; quote: string }> = [
@@ -155,19 +156,39 @@ export default function Home() {
           <FadeIn delay={80}>
             <h1 className="text-white leading-[1.02] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem,6.5vw,7rem)', maxWidth: '14ch', marginBottom: '1.75rem' }}>
-              One team. Clear direction. No guesswork.
+              We help businesses find their next commercial building. Lease or buy.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/90 font-light leading-relaxed"
               style={{ fontSize: 'clamp(1rem,2.5vw,1.15rem)', maxWidth: '34rem', lineHeight: 1.9, marginBottom: '2.25rem' }}>
-              One accountable partner from lease decisions through fit out, furniture and ongoing commercial cleaning — built around what your business needs.
+              The landlord has an expert. You should too. We bring the property, fit out, furniture and cleaning decisions into one clear plan.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col items-start gap-3">
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
-              <span className="text-white/80 text-sm">20 minutes. No pitch.</span>
+              <span className="text-white/80 text-sm">Start with the decision you need to make.</span>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── THE PIE ─────────────────────────────── */}
+      <section className="bg-light-teal" style={SEC}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <SectionLabel>Protect the project budget</SectionLabel>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mt-3">
+              <h2 className="text-near-black font-black leading-tight tracking-tight"
+                style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
+                One budget. A lot of hands reaching for it.
+              </h2>
+              <div className="text-readable-grey font-light leading-relaxed space-y-5" style={{ fontSize: '1.05rem' }}>
+                <p>Your workplace project starts with a fixed budget. Property costs, consultants, contractors, furniture suppliers and programme changes all take a share.</p>
+                <p>When nobody is protecting the whole picture, early decisions can leave too little for the space your team actually needs.</p>
+                <p className="text-near-black font-semibold">We get involved early, make the trade-offs visible and keep every decision tied to the same outcome.</p>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -245,10 +266,10 @@ export default function Home() {
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-near-black leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Four services.<br />One accountable partner.
+              Five services.<br />One accountable partner.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1.05rem', maxWidth: '40rem', lineHeight: 1.85 }}>
-              A commercial workplace brings together lease, fit out, furniture and cleaning decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
+              Finding or buying a commercial property brings together property, lease, fit out, furniture and cleaning decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
             </p>
           </FadeIn>
 
@@ -436,7 +457,7 @@ export default function Home() {
               </p>
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
               <p className="text-white/80 font-light mt-5" style={{ fontSize: '0.8rem' }}>
-                We respond within one business day.
+                Send the details and our team will be in touch.
               </p>
             </div>
           </FadeIn>

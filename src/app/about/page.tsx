@@ -299,7 +299,7 @@ export default function AboutPage() {
 
                 {/* Tags */}
                 <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-                  {['Commercial Offices', 'Medical & Childcare', 'Quality Assurance'].map(tag => (
+                  {['Commercial Offices', 'Workplace Cleaning', 'Quality Assurance'].map(tag => (
                     <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
                 </div>
@@ -339,7 +339,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <p className="text-white font-bold mb-1">Service Area</p>
-                  <p className="text-white/45 font-light text-sm leading-relaxed">Newcastle CBD, Maitland, Lake Macquarie, Cessnock, Singleton, Port Stephens and the Hunter Valley. National capability for multi-site clients.</p>
+                  <p className="text-white/45 font-light text-sm leading-relaxed">Newcastle CBD, Maitland, Lake Macquarie, Cessnock, Singleton, Port Stephens and the Hunter Valley. Selected briefs elsewhere are assessed case by case.</p>
                 </div>
                 <div>
                   <p className="text-white font-bold mb-1">Industries Served</p>
@@ -406,7 +406,7 @@ export default function AboutPage() {
                 Ready to have someone genuinely on your side?
               </h2>
               <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
-                20 minutes. No pitch. Just a straight conversation about your space and what you&apos;re trying to achieve.
+                Start with the decision you need to make. We&apos;ll listen and give you a clear view of the next step.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
                 Book a Clarity Call
