@@ -32,7 +32,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
       sessionStorage.setItem('yos_planner_user', JSON.stringify(payload))
     }
 
-    // Fire HubSpot contact in background — non-blocking
+    // Fire HubSpot contact in background, non-blocking
     fetch('/api/space-planner-gate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -125,7 +125,7 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
             marginBottom: '2rem',
           }}
         >
-          Drop your name and email — just in case we lose
+          Drop your name and email, just in case we lose
           <br />
           connection while you&apos;re building.
         </p>

@@ -7,13 +7,13 @@ import { BroomIcon, ChairIcon, HandshakeIcon, CheckIcon } from '@/components/Ico
 
 export const metadata: Metadata = {
   title: 'Commission Sales Partners | Your Office Space',
-  description: 'Earn serious commission selling commercial cleaning and office furniture in Newcastle and the Hunter Valley. No base, no cap — just results.',
+  description: 'Earn serious commission selling commercial cleaning and office furniture in Newcastle and the Hunter Valley. No base, no cap, just results.',
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning/work-with-us' },
   robots: { index: true, follow: true },
   openGraph: {
     
   images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
-title: 'Commission Sales Partners — Your Office Space',
+title: 'Commission Sales Partners, Your Office Space',
     description: 'Earn serious commission selling commercial cleaning and office furniture in Newcastle and the Hunter Valley. No base, no cap.',
     url: 'https://www.yourofficespace.au/cleaning/work-with-us',
     siteName: 'Your Office Space',
@@ -26,7 +26,7 @@ const WHAT_YOU_SELL = [
   {
     icon: 'broom',
     heading: 'Commercial Cleaning',
-    body: 'Ongoing office, medical and childcare cleaning contracts. Clients want consistency — you bring the opportunity, we deliver the service.',
+    body: 'Ongoing office, medical and childcare cleaning contracts. Clients want consistency, you bring the opportunity, we deliver the service.',
   },
   {
     icon: 'chair',
@@ -49,7 +49,7 @@ const HOW_IT_WORKS = [
   {
     step: '02',
     heading: 'We do the rest',
-    body: 'YOS takes over from there — scoping, quoting, delivering. You stay in the loop but carry none of the operational weight.',
+    body: 'YOS takes over from there, scoping, quoting, delivering. You stay in the loop but carry none of the operational weight.',
   },
   {
     step: '03',
@@ -61,7 +61,7 @@ const HOW_IT_WORKS = [
 const WHO_THIS_FITS = [
   'You have existing relationships with Newcastle businesses',
   'You understand commercial property or facilities management',
-  'You\'re motivated by uncapped earnings — not a guaranteed wage',
+  'You\'re motivated by uncapped earnings, not a guaranteed wage',
   'You prefer working autonomously without a boss looking over your shoulder',
   'You can hold a conversation with a GM or property manager without a script',
   'You want to be part of a business that actually delivers what it promises',
@@ -82,7 +82,7 @@ export default function SalesPartnersPage() {
       }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-            Sales Partnership — Newcastle &amp; Hunter Valley
+            Sales Partnership, Newcastle &amp; Hunter Valley
           </p>
           <h1 style={{
             color: 'white', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.02em',

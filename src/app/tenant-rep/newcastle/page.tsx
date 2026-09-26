@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Tenant Rep Newcastle | Tenant Representation Newcastle NSW',
-  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants — never landlords. Free initial consultation. Call 0434 655 511.',
+  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Free initial consultation. Call 0434 655 511.',
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep/newcastle' },
   openGraph: {
     
@@ -30,27 +30,27 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 const FAQ_SCHEMA = [
   {
     q: 'What does a tenant representative do in Newcastle?',
-    a: 'A tenant representative advocates exclusively for businesses looking to lease commercial space. Unlike a landlord\'s agent, we work only for you — negotiating rent, lease terms, incentives, and every clause on your behalf. In Newcastle, that means understanding the local market: Hunter Valley office and industrial dynamics, owner-occupier vs investor landlord incentives, and what comparable tenants are paying across the region.',
+    a: 'A tenant representative advocates exclusively for businesses looking to lease commercial space. Unlike a landlord\'s agent, we work only for you, negotiating rent, lease terms, incentives, and every clause on your behalf. In Newcastle, that means understanding the local market: Hunter Valley office and industrial dynamics, owner-occupier vs investor landlord incentives, and what comparable tenants are paying across the region.',
   },
   {
     q: 'Who pays the tenant representative fee?',
-    a: 'In most commercial lease transactions across Newcastle and the Hunter Valley, the landlord pays the tenant representative\'s fee — either directly or through the agreed lease terms. The fee is typically negotiated as part of the deal structure and is not paid by you as a separate cost. Every brief is different, and we discuss the fee structure before any engagement begins.',
+    a: 'In most commercial lease transactions across Newcastle and the Hunter Valley, the landlord pays the tenant representative\'s fee, either directly or through the agreed lease terms. The fee is typically negotiated as part of the deal structure and is not paid by you as a separate cost. Every brief is different, and we discuss the fee structure before any engagement begins.',
   },
   {
     q: 'How is tenant representation different from using a commercial agent?',
-    a: 'Most commercial agents in Newcastle work for landlords — they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. We have no relationship with the landlord, no incentive to soften negotiations, and no conflict of interest. We read every clause through one lens: does this protect the tenant? That independence is the entire point.',
+    a: 'Most commercial agents in Newcastle work for landlords, they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. We have no relationship with the landlord, no incentive to soften negotiations, and no conflict of interest. We read every clause through one lens: does this protect the tenant? That independence is the entire point.',
   },
   {
     q: 'Can you help with an existing lease, not just a new one?',
-    a: 'Yes. Our LeaseIntel review covers existing leases — we run your current agreement through a 12-category risk framework covering rent, make-good, relocation rights, option clauses, and outgoings. Each clause is rated Red / Amber / Green. If you are mid-lease or facing a renewal, we can identify leverage you didn\'t know you had.',
+    a: 'Yes. Our LeaseIntel review covers existing leases, we run your current agreement through a 12-category risk framework covering rent, make-good, relocation rights, option clauses, and outgoings. Each clause is rated Red / Amber / Green. If you are mid-lease or facing a renewal, we can identify leverage you didn\'t know you had.',
   },
   {
     q: 'Do you cover areas outside Newcastle?',
-    a: 'Yes. We are Newcastle-based but cover the broader Hunter Valley — including Maitland, Charlestown, Wallsend, Cardiff, Tomago, Beresfield, Rutherford, and the Central Coast. For NSW-wide requirements, we work with a network of trusted tenant representation advisors in Sydney, Melbourne, and Brisbane.',
+    a: 'Yes. We are Newcastle-based but cover the broader Hunter Valley, including Maitland, Charlestown, Wallsend, Cardiff, Tomago, Beresfield, Rutherford, and the Central Coast. For NSW-wide requirements, we work with a network of trusted tenant representation advisors in Sydney, Melbourne, and Brisbane.',
   },
   {
     q: 'What types of commercial property do you cover?',
-    a: 'Office, industrial, retail, and specialised use — including childcare centres, medical suites, and hospitality fitouts. Each sector has its own lease dynamics, and we tailor the representation accordingly. If it\'s a commercial lease in NSW, we can help.',
+    a: 'Office, industrial, retail, and specialised use, including childcare centres, medical suites, and hospitality fitouts. Each sector has its own lease dynamics, and we tailor the representation accordingly. If it\'s a commercial lease in NSW, we can help.',
   },
 ]
 
@@ -69,7 +69,7 @@ export default function TenantRepNewcastlePage() {
         }} />
         <div className={`relative z-10 w-full ${WRAP}`} style={{ ...PAD, paddingTop: 'clamp(8rem,15vw,14rem)', paddingBottom: 'clamp(6rem,10vw,10rem)' }}>
           <FadeIn delay={0}>
-            <SectionLabel>Tenant Representation — Newcastle &amp; Hunter</SectionLabel>
+            <SectionLabel>Tenant Representation, Newcastle &amp; Hunter</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mt-3 mb-8"
@@ -82,7 +82,7 @@ export default function TenantRepNewcastlePage() {
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-4"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Independent tenant representation for Newcastle and Hunter businesses.
-              We negotiate rent, terms, incentives, and every lease clause — exclusively on your side of the table.
+              We negotiate rent, terms, incentives, and every lease clause, exclusively on your side of the table.
             </p>
             <p className="text-white/50 font-light mb-10" style={{ fontSize: '0.8rem' }}>
               NSW Real Estate Licence 20565455 &nbsp;|&nbsp; Serving Newcastle, Hunter Valley, and Central Coast
@@ -114,7 +114,7 @@ export default function TenantRepNewcastlePage() {
                 </h2>
                 <p className="text-charcoal font-light leading-relaxed mb-7"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  The Newcastle and Hunter commercial market behaves differently to Sydney. Owner-occupiers, institutional investors, and family trust landlords operate under different pressures — and that creates both risk and opportunity for tenants who know how to negotiate.
+                  The Newcastle and Hunter commercial market behaves differently to Sydney. Owner-occupiers, institutional investors, and family trust landlords operate under different pressures, and that creates both risk and opportunity for tenants who know how to negotiate.
                 </p>
                 <p className="text-charcoal font-light leading-relaxed mb-12"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
@@ -122,7 +122,7 @@ export default function TenantRepNewcastlePage() {
                 </p>
                 <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5">
                   <p className="text-near-black font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                    We have represented tenants across Newcastle CBD, Hamilton, Broadmeadow, New Lambton, Edgeworth, Maitland, Charlestown, and the Port of Newcastle industrial corridor. Every market has its own dynamics — we know ours.
+                    We have represented tenants across Newcastle CBD, Hamilton, Broadmeadow, New Lambton, Edgeworth, Maitland, Charlestown, and the Port of Newcastle industrial corridor. Every market has its own dynamics, we know ours.
                   </p>
                 </div>
               </div>
@@ -179,17 +179,17 @@ export default function TenantRepNewcastlePage() {
               {
                 step: '01',
                 title: 'Brief',
-                body: 'We understand your business — space requirements, location, timeline, non-negotiables. Nothing goes to market until the brief is right.',
+                body: 'We understand your business, space requirements, location, timeline, non-negotiables. Nothing goes to market until the brief is right.',
               },
               {
                 step: '02',
                 title: 'Search',
-                body: 'On-market, off-market, pre-release. We find options your broker missed — including properties that never reach the listing portals.',
+                body: 'On-market, off-market, pre-release. We find options your broker missed, including properties that never reach the listing portals.',
               },
               {
                 step: '03',
                 title: 'Negotiate',
-                body: 'Every clause, every rate, every timeline — pushed hard. We work alongside your solicitors to lock in the right deal.',
+                body: 'Every clause, every rate, every timeline, pushed hard. We work alongside your solicitors to lock in the right deal.',
               },
               {
                 step: '04',
@@ -210,7 +210,7 @@ export default function TenantRepNewcastlePage() {
           <FadeIn delay={150}>
             <div className="border-l-4 border-teal pl-8 py-6 bg-teal/5">
               <p className="text-white font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-                The landlord&apos;s agent has one job — get the best outcome for their client. We believe you deserve the same.
+                The landlord&apos;s agent has one job, get the best outcome for their client. We believe you deserve the same.
                 That is why we exist.
               </p>
             </div>
@@ -238,7 +238,7 @@ export default function TenantRepNewcastlePage() {
               { risk: 'Above-market rent', detail: 'Landlords open at 10–20% above fair market rate. Without comparable data, most tenants sign without question. We know what fair looks like in the Hunter.' },
               { risk: 'Uncapped make-good', detail: 'Make-good clauses can cost $200–$400/sqm at lease end. Most standard leases have no cap and no clarity on what that means for your business.' },
               { risk: 'Missed incentives', detail: 'Fit-out contributions of $50–$150/sqm are standard in this market. Most tenants don\'t ask. Landlords don\'t offer what isn\'t asked for.' },
-              { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent at renewal — removing all leverage at the moment you have the most.' },
+              { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent at renewal, removing all leverage at the moment you have the most.' },
               { risk: 'Relocation risk', detail: 'Without a proper prohibition on landlord relocation rights, you can be legally moved mid-lease. We\'ve seen it happen to established Newcastle businesses.' },
               { risk: 'Outgoings exposure', detail: 'Gross vs. net leases are not the same. Unexpected outgoings charges have blindsided clients by $30–$60k over a five-year term.' },
             ].map((item, i) => (
@@ -258,7 +258,7 @@ export default function TenantRepNewcastlePage() {
         <div className={WRAP} style={PAD}>
           <div className="max-w-3xl">
             <FadeIn>
-              <SectionLabel>Tenant Rep — Frequently Asked Questions</SectionLabel>
+              <SectionLabel>Tenant Rep, Frequently Asked Questions</SectionLabel>
               <h2 className="text-near-black font-bold leading-tight mt-3 mb-12"
                 style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
                 Common questions about tenant representation in Newcastle.
@@ -295,7 +295,7 @@ export default function TenantRepNewcastlePage() {
                         "@id": "https://www.yourofficespace.au/#service-tenant-rep-newcastle",
                         "name": "Tenant Representation Newcastle",
                         "provider": { "@id": "https://www.yourofficespace.au/#organization" },
-                        "description": "Expert commercial tenant representation in Newcastle and the Hunter Valley. We negotiate better lease terms for tenants — never landlords.",
+                        "description": "Expert commercial tenant representation in Newcastle and the Hunter Valley. We negotiate better lease terms for tenants, never landlords.",
                         "areaServed": ["Newcastle", "NSW", "Australia"],
                         "serviceType": "Tenant Representation",
                         "offers": { "@type": "Offer", "description": "First consultation free. Fee typically paid by landlord." }
@@ -351,7 +351,7 @@ export default function TenantRepNewcastlePage() {
                 <p className="text-white/60 font-light leading-relaxed mb-6"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
                   The same firm that represents you as a tenant in one deal will represent the landlord in the next.
-                  It&apos;s not unusual in commercial real estate — and it means the advice you receive is always slightly compromised.
+                  It&apos;s not unusual in commercial real estate, and it means the advice you receive is always slightly compromised.
                 </p>
                 <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5 mb-10">
                   <p className="text-white font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
@@ -370,10 +370,10 @@ export default function TenantRepNewcastlePage() {
                 <p className="text-white/50 font-light text-sm mb-6 tracking-widest uppercase">What you get working with us</p>
                 <ul className="space-y-5">
                   {[
-                    { title: 'Harder negotiation', body: 'Rent, fit-out contributions, lease length — pushed harder than a split-incentive advisor ever will.' },
+                    { title: 'Harder negotiation', body: 'Rent, fit-out contributions, lease length, pushed harder than a split-incentive advisor ever will.' },
                     { title: 'Protective clauses', body: 'The clauses that limit your liability, cap your make-good, and preserve your leverage at renewal.' },
                     { title: 'Hunter market intelligence', body: 'We know which Newcastle and Hunter landlords negotiate in good faith and which ones don\'t. That knowledge is leverage.' },
-                    { title: 'Off-market access', body: 'Properties that never appear on listing portals — sourced through our network of owner relationships.' },
+                    { title: 'Off-market access', body: 'Properties that never appear on listing portals, sourced through our network of owner relationships.' },
                     { title: 'A second set of eyes on the fine print', body: 'Someone whose job is to stop you signing a deal you\'ll regret in year three of your lease.' },
                   ].map((item, i) => (
                     <li key={i} className="flex gap-5 items-start pb-5 border-b border-white/10 last:border-0">
@@ -405,7 +405,7 @@ export default function TenantRepNewcastlePage() {
                 <p className="text-white/60 font-light leading-relaxed"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
                   Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation,
-                  options — every clause rated Red / Amber / Green. Free summary returned shortly.
+                  options, every clause rated Red / Amber / Green. Free summary returned shortly.
                 </p>
               </div>
               <div className="flex-shrink-0">

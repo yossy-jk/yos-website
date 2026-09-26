@@ -183,7 +183,7 @@ function calcSpec(
   if (isHybridMajority && spaces.workstations && wsQtyRaw > adjustedDeskCount) {
     const saving = (wsQtyRaw - adjustedDeskCount) * WS_PRICE[tier].low
     callouts.push(
-      `Based on your work style mix (${hybridPercent}% hybrid/flexi/remote), you need ${adjustedDeskCount} desks not ${wsQtyRaw} — saving approx ${fmt(saving)}.`
+      `Based on your work style mix (${hybridPercent}% hybrid/flexi/remote), you need ${adjustedDeskCount} desks not ${wsQtyRaw}, saving approx ${fmt(saving)}.`
     )
   }
 
@@ -327,7 +327,7 @@ export default function WorkspaceBuilderPage() {
   }))
   const setPrio = (k: keyof PrioritiesInput, v: string) => setPrioritiesData(p => ({ ...p, [k]: v }))
 
-  // Slider helper — clamp value and keep total ≤ 100 loosely
+  // Slider helper, clamp value and keep total ≤ 100 loosely
   function setSlider(key: keyof TeamInput, raw: number) {
     setTeam(key, Math.max(0, Math.min(100, raw)))
   }
@@ -396,7 +396,7 @@ export default function WorkspaceBuilderPage() {
           {step === 0 && (
             <div className="max-w-2xl">
               <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '3rem' }}>
-                Most businesses buy what they think they need. This tool helps you figure out what you actually need — based on how your team works, how many people visit, and how your space will be used.
+                Most businesses buy what they think they need. This tool helps you figure out what you actually need, based on how your team works, how many people visit, and how your space will be used.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
@@ -568,7 +568,7 @@ export default function WorkspaceBuilderPage() {
           {step === 3 && (
             <div className="max-w-2xl">
               <p className="text-white/40 font-light" style={{ fontSize: '0.85rem', marginBottom: '2rem' }}>
-                Select everything that applies — tick at least one.
+                Select everything that applies, tick at least one.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginBottom: '3.5rem' }}>
 
@@ -746,7 +746,7 @@ export default function WorkspaceBuilderPage() {
                   `Headcount: ${teamData.headcount} | Building: ${spaceData.buildingType} | Budget: ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}–${fmt(spec.totalHigh)}`
                 }
                 heading="Where should we send your specification?"
-                subheading="Enter your details — we'll email you a full workspace spec instantly."
+                subheading="Enter your details, we'll email you a full workspace spec instantly."
                 onUnlock={(name, email) => {
                   setUnlockedName(name)
                   setUnlockedEmail(email)
@@ -758,7 +758,7 @@ export default function WorkspaceBuilderPage() {
                       firstname: name,
                       email,
                       source: 'Workspace Builder',
-                      context: `Workspace Builder — ${ctx}`,
+                      context: `Workspace Builder, ${ctx}`,
                     }),
                   }).catch(() => {})
                   // Notify Joe via email
@@ -790,7 +790,7 @@ export default function WorkspaceBuilderPage() {
                     <div className="border border-white/10" style={{ borderRadius: '0.75rem', overflow: 'hidden' }}>
                       <div className="border-b border-white/10" style={{ padding: '0.875rem 1.5rem' }}>
                         <p className="text-white/40 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>
-                          Full specification — unlock to view
+                          Full specification, unlock to view
                         </p>
                       </div>
                       {[1, 2, 3, 4].map(i => (

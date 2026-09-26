@@ -45,35 +45,35 @@ const QUESTIONS = [
     id: 'assignment',
     label: 'Can you assign or sublet the lease?',
     hint: 'Restrictions here can trap you if you sell your business or need to exit.',
-    options: ['Yes, with landlord consent', 'No — not permitted', 'Not mentioned / not sure'],
-    risk: { 'No — not permitted': 'high', 'Not mentioned / not sure': 'medium' }
+    options: ['Yes, with landlord consent', 'No, not permitted', 'Not mentioned / not sure'],
+    risk: { 'No, not permitted': 'high', 'Not mentioned / not sure': 'medium' }
   },
   {
     id: 'guarantee',
     label: 'Does the lease require a personal guarantee?',
     hint: 'Unlimited personal guarantees put your personal assets at risk.',
-    options: ['No personal guarantee', 'Yes — limited guarantee', 'Yes — unlimited guarantee', 'Not sure'],
-    risk: { 'Yes — unlimited guarantee': 'high', 'Not sure': 'medium' }
+    options: ['No personal guarantee', 'Yes, limited guarantee', 'Yes, unlimited guarantee', 'Not sure'],
+    risk: { 'Yes, unlimited guarantee': 'high', 'Not sure': 'medium' }
   },
   {
     id: 'demolition',
     label: 'Does the landlord have a demolition or redevelopment clause?',
     hint: 'This clause can allow the landlord to terminate your lease early.',
-    options: ['No such clause', 'Yes — with notice period', 'Yes — without adequate notice', 'Not sure'],
-    risk: { 'Yes — without adequate notice': 'high', 'Not sure': 'medium' }
+    options: ['No such clause', 'Yes, with notice period', 'Yes, without adequate notice', 'Not sure'],
+    risk: { 'Yes, without adequate notice': 'high', 'Not sure': 'medium' }
   },
   {
     id: 'fitout',
     label: 'Have you negotiated a fitout contribution or rent-free period?',
-    hint: 'Most landlords offer these — if you haven\'t asked, you\'ve likely left money on the table.',
-    options: ['Yes — documented in lease', 'Agreed verbally but not in lease', 'No incentive offered', 'Not requested'],
+    hint: 'Most landlords offer these, if you haven\'t asked, you\'ve likely left money on the table.',
+    options: ['Yes, documented in lease', 'Agreed verbally but not in lease', 'No incentive offered', 'Not requested'],
     risk: { 'Agreed verbally but not in lease': 'high', 'No incentive offered': 'medium', 'Not requested': 'medium' }
   },
   {
     id: 'solicitor',
     label: 'Has a solicitor reviewed this lease?',
     hint: 'A lease review by a property solicitor can identify clauses that cost you significantly.',
-    options: ['Yes — fully reviewed', 'Skimmed it myself', 'No review yet'],
+    options: ['Yes, fully reviewed', 'Skimmed it myself', 'No review yet'],
     risk: { 'No review yet': 'high', 'Skimmed it myself': 'medium' }
   },
 ]
@@ -136,7 +136,7 @@ export default function LeaseRiskCheckerPage() {
       const stored = localStorage.getItem(LS_KEY)
       if (stored) timer = window.setTimeout(() => setAlreadyCaptured(true), 0)
     } catch {
-      // localStorage unavailable — continue without it
+      // localStorage unavailable, continue without it
     }
     return () => { if (timer !== undefined) window.clearTimeout(timer) }
   }, [])
@@ -165,7 +165,7 @@ export default function LeaseRiskCheckerPage() {
     if (typeof step === 'number' && step < QUESTIONS.length - 1) {
       setStep(step + 1)
     } else {
-      // Last question answered — go to capture unless already done
+      // Last question answered, go to capture unless already done
       if (alreadyCaptured) {
         setStep('result')
       } else {
@@ -261,7 +261,7 @@ export default function LeaseRiskCheckerPage() {
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-8"
                 style={{ padding: '0.4rem 1rem' }}>
                 <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
-                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free — No document required</span>
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free, No document required</span>
               </div>
               <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
@@ -277,7 +277,7 @@ export default function LeaseRiskCheckerPage() {
               <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Free — always</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Free, always</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
@@ -508,9 +508,9 @@ export default function LeaseRiskCheckerPage() {
                 This is a commercial risk assessment, not legal advice. Always engage a qualified commercial solicitor before signing, varying, or exiting any commercial lease.
               </p>
 
-              {/* CTA — $297 LeaseIntel report */}
+              {/* CTA, $297 LeaseIntel report */}
               <div className="mb-8 rounded-xl p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
-                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report — Free. No obligation.</p>
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report, Free. No obligation.</p>
                 <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Newcastle business owners: free until 21 July 2026.</p>
                 <p className="text-white/70 font-light mb-5" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
                   A complete clause-by-clause analysis of your actual lease. Every risk rated. Your financial exposure calculated. A specific roadmap for what to negotiate. 24-hour turnaround.

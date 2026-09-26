@@ -381,7 +381,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation. we are answering to you. Not the building owner, not a referral fee.' },
+              { title: 'We never work for landlords', body: 'For every negotiation, every clause and every conversation, we answer to you. Not the building owner, and not a referral fee.' },
               { title: 'We make the risks clear', body: 'Commercial leases and fit out contracts can hide costly gaps. We surface the obligations, trade-offs and decisions before they become surprises.' },
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
@@ -448,7 +448,7 @@ export default function Home() {
         <div className="absolute inset-0 flex items-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2rem,5vw,4rem)' }}>
           <FadeIn>
             <p className="text-white font-light italic" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', maxWidth: '44rem', lineHeight: 1.8, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;Joe was instrumental in building out our boardroom. high quality, practical advice, excellent detail.&rdquo;
+              &ldquo;Joe was instrumental in building out our boardroom, with high-quality, practical advice and excellent attention to detail.&rdquo;
               <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>- Nathan Franks, Dynamic Business Technologies</span>
             </p>
           </FadeIn>
@@ -474,7 +474,7 @@ export default function Home() {
               </p>
               <p className="text-white font-light leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '2.5rem' }}>
-                Answer 10 questions. Get a plain-English risk rating. Red, Amber, or Green. and the top issues to deal with. Free, instant, no document needed.
+                Answer 10 questions. Get a plain-English Red, Amber or Green risk rating, plus the top issues to address. Free, instant, no document needed.
               </p>
               <div>
                 <Button href="/resources/lease-review" variant="dark" size="lg">

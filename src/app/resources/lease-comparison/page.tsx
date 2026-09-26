@@ -103,12 +103,12 @@ function calcLease(l: LeaseInput, idx: number): LeaseResult | null {
 
   // Flags
   const flags: string[] = []
-  if (incentiveMths < term * 1.5 && term >= 3) flags.push(`Rent-free of ${incentiveMths} months is below market for a ${term}-year lease — push for more`)
-  if (outgoings > 120) flags.push(`Outgoings at $${outgoings}/m² are high — verify what's included`)
-  if (outgoings === 0 && term >= 2) flags.push('No outgoings entered — confirm if gross or net lease')
-  if (makegood > grossPa * 0.5) flags.push('Make-good estimate is significant — get a contractor quote before signing')
-  if (reviewPct > 0.05) flags.push(`${pct(reviewPct * 100)} rent reviews will add up — model a longer term carefully`)
-  if (term >= 5 && incentiveMths === 0) flags.push('No incentive on a long lease — there is almost always room to negotiate one')
+  if (incentiveMths < term * 1.5 && term >= 3) flags.push(`Rent-free of ${incentiveMths} months is below market for a ${term}-year lease, push for more`)
+  if (outgoings > 120) flags.push(`Outgoings at $${outgoings}/m² are high, verify what's included`)
+  if (outgoings === 0 && term >= 2) flags.push('No outgoings entered, confirm if gross or net lease')
+  if (makegood > grossPa * 0.5) flags.push('Make-good estimate is significant, get a contractor quote before signing')
+  if (reviewPct > 0.05) flags.push(`${pct(reviewPct * 100)} rent reviews will add up, model a longer term carefully`)
+  if (term >= 5 && incentiveMths === 0) flags.push('No incentive on a long lease, there is almost always room to negotiate one')
 
   return {
     name: l.name || `Option ${idx + 1}`,
@@ -251,13 +251,13 @@ export default function LeaseComparisonPage() {
           <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">Free tool</p>
           <h1 className="text-white font-bold leading-tight mb-4" style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>Lease Comparison Tool</h1>
           <p className="text-white/60 font-light text-lg max-w-2xl">
-            Enter up to three lease options. We calculate the true cost — factoring in rent-free periods, outgoings, make-good, and annual rent reviews — then tell you which deal is actually cheaper.
+            Enter up to three lease options. We calculate the true cost, factoring in rent-free periods, outgoings, make-good, and annual rent reviews, then tell you which deal is actually cheaper.
           </p>
           <div className="mt-10 flex flex-wrap gap-8">
             {[
               { stat: 'Accounts for rent reviews', desc: 'Year-by-year cost escalation' },
               { stat: 'Net present value', desc: 'Discounts future costs to today' },
-              { stat: 'Plain-English verdict', desc: 'Not just numbers — a recommendation' },
+              { stat: 'Plain-English verdict', desc: 'Not just numbers, a recommendation' },
             ].map(item => (
               <div key={item.stat} className="border-l-2 border-teal pl-5">
                 <p className="text-white font-semibold text-sm mb-1">{item.stat}</p>
@@ -338,7 +338,7 @@ export default function LeaseComparisonPage() {
 
           <p className="text-mid-grey font-light text-xs mt-8 max-w-2xl leading-relaxed">
             Rent reviews compound annually at the rate you enter. Outgoings escalate at 3% per year. Make-good is added at end of term.
-            NPV discounts all future costs to today&apos;s dollars at 7%. This is a guide — not financial advice. Get proper advice before you sign anything.
+            NPV discounts all future costs to today&apos;s dollars at 7%. This is a guide, not financial advice. Get proper advice before you sign anything.
           </p>
         </div>
       </section>
@@ -368,7 +368,7 @@ export default function LeaseComparisonPage() {
                 </div>
                 <div className="mt-6 border-t border-white/10 pt-4">
                   {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded-lg" /><span className="w-20 h-3 bg-white/10 rounded-lg" /></div>)}
-                  <p className="text-white/25 text-xs mt-3">Year-by-year breakdown — unlock to view</p>
+                  <p className="text-white/25 text-xs mt-3">Year-by-year breakdown, unlock to view</p>
                 </div>
               </div>
             }
@@ -381,7 +381,7 @@ export default function LeaseComparisonPage() {
                 <>
                   <h2 className="text-white font-bold mb-3" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>{validResults[0].name}</h2>
                   <p className="text-white/60 font-light text-lg">
-                    One option entered. True occupancy cost is {fmt(validResults[0].trueCostPa)} per year — {fmt(validResults[0].effectiveRentSqm.toFixed(2) as unknown as number)}/m²/yr effective.
+                    One option entered. True occupancy cost is {fmt(validResults[0].trueCostPa)} per year, {fmt(validResults[0].effectiveRentSqm.toFixed(2) as unknown as number)}/m²/yr effective.
                     Add a second option to compare.
                   </p>
                 </>
@@ -393,7 +393,7 @@ export default function LeaseComparisonPage() {
                   <p className="text-white/60 font-light text-lg mb-4">
                     {validResults[bestIdx].totalSavingVsWorst && validResults[bestIdx].totalSavingVsWorst! > 0
                       ? `It saves you ${fmt(validResults[bestIdx].totalSavingVsWorst!)} in net present cost compared to the most expensive option.`
-                      : 'All options are close in net present value — negotiate hard on incentives before deciding.'}
+                      : 'All options are close in net present value, negotiate hard on incentives before deciding.'}
                     {' '}The effective rent works out to ${validResults[bestIdx].effectiveRentSqm.toFixed(2)}/m²/yr, or ${validResults[bestIdx].effectiveRentDay.toFixed(2)}/m² per day.
                   </p>
                   <BarChart results={validResults} bestIdx={bestIdx} />
@@ -487,7 +487,7 @@ export default function LeaseComparisonPage() {
 
             <p className="text-mid-grey font-light text-xs mt-8 max-w-2xl">
               Outgoings are estimated to escalate at 3% per year. Rent reviews compound at your entered rate.
-              Make-good is added as a lump sum at end of term. NPV at 7%. These figures are indicative — lease terms vary significantly and professional advice matters before you sign.
+              Make-good is added as a lump sum at end of term. NPV at 7%. These figures are indicative, lease terms vary significantly and professional advice matters before you sign.
             </p>
             </ToolGate>
           </div>
@@ -500,7 +500,7 @@ export default function LeaseComparisonPage() {
           <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
             <h2 className="text-white font-bold leading-tight mb-4 w-full" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>Want us to run the numbers for real?</h2>
             <p className="text-white/60 font-light text-lg mb-8 w-full">
-              We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better — and what to negotiate.
+              We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better, and what to negotiate.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Lease Review Call</Button>
           </div>

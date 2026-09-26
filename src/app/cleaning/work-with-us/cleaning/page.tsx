@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning/work-with-us/cleaning' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Join the Cleaning Team — Your Office Space',
+    title: 'Join the Cleaning Team, Your Office Space',
     description: 'Consistent, accountable commercial cleaning for offices, medical and childcare across Newcastle and the Hunter Valley. Join the YOS team.',
     url: 'https://www.yourofficespace.au/cleaning/work-with-us/cleaning',
     siteName: 'Your Office Space',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 const REASONS = [
   {
     heading: 'Consistent work',
-    body: "We don't send you out once and never call again. Our clients are on ongoing contracts — monthly, weekly, sometimes nightly. If you're reliable, there's always work.",
+    body: "We don't send you out once and never call again. Our clients are on ongoing contracts, monthly, weekly, sometimes nightly. If you're reliable, there's always work.",
   },
   {
     heading: 'Paid on time. Every time.',
@@ -34,7 +34,7 @@ const REASONS = [
   },
   {
     heading: 'Real communication',
-    body: 'If something changes — we tell you. If there\'s a problem — we sort it together. No surprises, no ghosting.',
+    body: 'If something changes, we tell you. If there\'s a problem, we sort it together. No surprises, no ghosting.',
   },
   {
     heading: 'Room to grow',
@@ -44,7 +44,7 @@ const REASONS = [
 
 const WHO_WE_WANT = [
   "You show up on time and do what you said you'd do",
-  "You take pride in your work — a clean space matters to you",
+  "You take pride in your work, a clean space matters to you",
   "You can work independently without someone watching over your shoulder",
   "You communicate when something comes up instead of going quiet",
   "You treat clients' spaces like your own",
@@ -65,7 +65,7 @@ export default function CleaningWorkWithUsPage() {
       }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-            YOS Cleaning — Newcastle &amp; Hunter Valley
+            YOS Cleaning, Newcastle &amp; Hunter Valley
           </p>
           <h1 style={{
             color: 'white', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.02em',
@@ -76,7 +76,7 @@ export default function CleaningWorkWithUsPage() {
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, lineHeight: 1.75, maxWidth: '38rem', fontSize: 'clamp(1rem,2vw,1.2rem)', marginBottom: '2rem' }}>
             We&apos;re a Newcastle-based commercial cleaning business growing across the Hunter Valley.
-            We&apos;re looking for cleaners who take their work seriously — employees and contractors alike.
+            We&apos;re looking for cleaners who take their work seriously, employees and contractors alike.
           </p>
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <a href="#apply"
@@ -133,7 +133,7 @@ export default function CleaningWorkWithUsPage() {
                 Reliable people<br />who take pride<br />in their work.
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', lineHeight: 1.75, marginBottom: '1.5rem' }}>
-                We don&apos;t care if you&apos;ve been cleaning for 20 years or 2. What matters is your attitude. We can teach technique — we can&apos;t teach reliability.
+                We don&apos;t care if you&apos;ve been cleaning for 20 years or 2. What matters is your attitude. We can teach technique, we can&apos;t teach reliability.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', lineHeight: 1.75 }}>
                 We clean commercial offices, medical practices and childcare centres. Experience in any of these is a bonus but not a barrier to applying.
@@ -196,7 +196,7 @@ export default function CleaningWorkWithUsPage() {
               Tell us about yourself.
             </h2>
             <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem', lineHeight: 1.7, marginBottom: 'clamp(2rem,4vw,3rem)' }}>
-              Fill this in and Sarah will be in touch within 2 business days. No lengthy interview process upfront — just a conversation.
+              Fill this in and Sarah will be in touch within 2 business days. No lengthy interview process upfront, just a conversation.
             </p>
             <CleaningCareersForm />
           </div>

@@ -50,28 +50,28 @@ const DOMAINS: DomainConfig[] = [
     ],
     verdicts: {
       GREEN: {
-        summary: 'Your lease position is stable — no immediate pressure to act.',
+        summary: 'Your lease position is stable, no immediate pressure to act.',
         recs: [
           'You\'re in a solid lease position right now. Use this window to understand your renewal options before market conditions shift.',
           'Review your rent review clauses and negotiate rent-free periods or incentives at your next opportunity.',
-          'An independent lease review once a year keeps you informed — and gives you leverage you wouldn\'t otherwise have.',
+          'An independent lease review once a year keeps you informed, and gives you leverage you wouldn\'t otherwise have.',
         ],
       },
       AMBER: {
         summary: 'There are signals your lease deserves a closer look.',
         recs: [
-          'A market rent comparison is overdue. Your current rate may not reflect what\'s achievable today — either above or below.',
+          'A market rent comparison is overdue. Your current rate may not reflect what\'s achievable today, either above or below.',
           'If you haven\'t had an independent advisor review your lease in the past 2 years, now is the time to do it.',
-          'Identify all rent review clauses in your lease and understand how they\'re calculated — CPI, fixed, or market.',
+          'Identify all rent review clauses in your lease and understand how they\'re calculated, CPI, fixed, or market.',
           'Engaging a tenant rep now, ahead of any lease event, puts you in the strongest negotiating position.',
         ],
       },
       RED: {
-        summary: 'Your lease situation carries real risk — act before it forces your hand.',
+        summary: 'Your lease situation carries real risk, act before it forces your hand.',
         recs: [
           'Multiple lease indicators are pointing red. Waiting for a lease event to act will cost you negotiating leverage.',
           'Get an independent review of your current rent against the market immediately. The gap may be significant.',
-          'If your lease expires in under 12 months, begin exploring your options now — renewal, relocation, or renegotiation.',
+          'If your lease expires in under 12 months, begin exploring your options now, renewal, relocation, or renegotiation.',
           'A tenant representative costs you nothing and can recover multiples of their effort in rent savings and incentives.',
         ],
       },
@@ -89,7 +89,7 @@ const DOMAINS: DomainConfig[] = [
         summary: 'Your space is working well for your team right now.',
         recs: [
           'Your workspace is in good shape. Keep an eye on headcount changes that may shift your space requirements in the next 12–24 months.',
-          'Consider a minor refresh to keep the space feeling current — amenity areas and meeting rooms age quickly.',
+          'Consider a minor refresh to keep the space feeling current, amenity areas and meeting rooms age quickly.',
           'Document what\'s working well now so you can replicate it if you relocate or expand.',
         ],
       },
@@ -97,7 +97,7 @@ const DOMAINS: DomainConfig[] = [
         summary: 'Your space may be holding your team back in subtle ways.',
         recs: [
           'A workspace that doesn\'t match how people actually work is one of the top reasons for poor office attendance.',
-          'Conduct a space utilisation review — you may be under-using or mis-using significant square meterage.',
+          'Conduct a space utilisation review, you may be under-using or mis-using significant square meterage.',
           'Even modest changes to layout, collaboration zones, or quiet areas can meaningfully lift team satisfaction.',
           'If your fitout is more than 5 years old, a formal assessment will likely uncover easy wins.',
         ],
@@ -106,8 +106,8 @@ const DOMAINS: DomainConfig[] = [
         summary: 'Your space is actively working against your business.',
         recs: [
           'A poor or outdated fitout is a direct drag on team performance, retention, and your ability to win new business.',
-          'Begin with a professional space assessment — understand what you have, what\'s missing, and what it would cost to fix it.',
-          'If the space fundamentally doesn\'t work, relocation may be more cost-effective than refitting — compare both options.',
+          'Begin with a professional space assessment, understand what you have, what\'s missing, and what it would cost to fix it.',
+          'If the space fundamentally doesn\'t work, relocation may be more cost-effective than refitting, compare both options.',
           'Engage a tenant representative to evaluate your options before your lease forces the decision.',
         ],
       },
@@ -124,25 +124,25 @@ const DOMAINS: DomainConfig[] = [
       GREEN: {
         summary: 'Your furniture is in good shape and supports how your team works.',
         recs: [
-          'Your furniture is doing its job. Schedule a periodic review to catch ergonomic gaps — especially as your team evolves.',
-          'Consider whether your furniture supports hybrid work patterns — dedicated desks vs. flexible zones vs. collaboration areas.',
+          'Your furniture is doing its job. Schedule a periodic review to catch ergonomic gaps, especially as your team evolves.',
+          'Consider whether your furniture supports hybrid work patterns, dedicated desks vs. flexible zones vs. collaboration areas.',
           'When specifying new furniture, always compare commercial-grade vs. consumer-grade warranties and durability.',
         ],
       },
       AMBER: {
         summary: 'Your furniture is functional, but likely not doing enough.',
         recs: [
-          'Furniture that doesn\'t match your work style is a silent drag on productivity — people work around it rather than with it.',
-          'A proper furniture assessment will identify what to keep, what to refresh, and what to replace — without guessing.',
+          'Furniture that doesn\'t match your work style is a silent drag on productivity, people work around it rather than with it.',
+          'A proper furniture assessment will identify what to keep, what to refresh, and what to replace, without guessing.',
           'If you\'ve bought consumer-grade furniture in the past, factor in the hidden costs: shorter lifespan, warranty gaps, and ergonomic risk.',
-          'New furniture doesn\'t require a full fitout — targeted investment in key zones often delivers outsized impact.',
+          'New furniture doesn\'t require a full fitout, targeted investment in key zones often delivers outsized impact.',
         ],
       },
       RED: {
-        summary: 'Your furniture needs attention — this is a visible, fixable problem.',
+        summary: 'Your furniture needs attention, this is a visible, fixable problem.',
         recs: [
           'Old or misaligned furniture is one of the easiest wins available to you. The investment is lower than most expect.',
-          'Book a furniture assessment — it\'s typically free, and gives you a specification and budget before you commit to anything.',
+          'Book a furniture assessment, it\'s typically free, and gives you a specification and budget before you commit to anything.',
           'Prioritise sit-stand desks and ergonomic seating if you haven\'t updated these in the last 5 years.',
           'Commercial-grade furniture, bought right, lasts 10+ years and transforms how your space is perceived by staff and clients.',
         ],
@@ -158,11 +158,11 @@ const DOMAINS: DomainConfig[] = [
     ],
     verdicts: {
       GREEN: {
-        summary: 'Your cleaning is consistent and accountable — exactly what you want.',
+        summary: 'Your cleaning is consistent and accountable, exactly what you want.',
         recs: [
           'You\'re in a good position. Make sure your next contract renewal includes a benchmark against current market rates.',
-          'Maintain a direct accountability relationship with your cleaning provider — don\'t let it become a set-and-forget arrangement.',
-          'Review your cleaning schedule seasonally — frequency needs can shift with office attendance patterns.',
+          'Maintain a direct accountability relationship with your cleaning provider, don\'t let it become a set-and-forget arrangement.',
+          'Review your cleaning schedule seasonally, frequency needs can shift with office attendance patterns.',
         ],
       },
       AMBER: {
@@ -171,15 +171,15 @@ const DOMAINS: DomainConfig[] = [
           'Inconsistent cleaning quality is often a contract or accountability problem, not just a service quality one.',
           'Ensure you have a direct contact at your cleaning company who is personally accountable for your site.',
           'A market comparison on your current contract may reveal you\'re paying above-market rates for a below-market service.',
-          'Set a formal standard checklist and review it quarterly — most cleaning issues are caught early when you\'re looking.',
+          'Set a formal standard checklist and review it quarterly, most cleaning issues are caught early when you\'re looking.',
         ],
       },
       RED: {
         summary: 'Poor cleaning is a risk to your team, your brand, and potentially your compliance obligations.',
         recs: [
-          'Cleaning that has triggered client or staff complaints is a serious business risk — not just an inconvenience.',
-          'Switching commercial cleaning providers is typically straightforward and fast — don\'t stay with a provider out of inertia.',
-          'Get a market comparison immediately — you may be paying a premium for a service that\'s consistently failing you.',
+          'Cleaning that has triggered client or staff complaints is a serious business risk, not just an inconvenience.',
+          'Switching commercial cleaning providers is typically straightforward and fast, don\'t stay with a provider out of inertia.',
+          'Get a market comparison immediately, you may be paying a premium for a service that\'s consistently failing you.',
           'Establish a formal SLA with your next provider, including response times, checklist accountability, and escalation contacts.',
         ],
       },
@@ -190,7 +190,7 @@ const DOMAINS: DomainConfig[] = [
 // ─── Questions ────────────────────────────────────────────────────────────────
 
 const QUESTIONS: Question[] = [
-  // Domain 0 — Lease Health
+  // Domain 0, Lease Health
   {
     id: 1,
     domainIndex: 0,
@@ -233,7 +233,7 @@ const QUESTIONS: Question[] = [
       { label: 'No / unsure', score: 2 },
     ],
   },
-  // Domain 1 — Space & Fitout
+  // Domain 1, Space & Fitout
   {
     id: 5,
     domainIndex: 1,
@@ -279,7 +279,7 @@ const QUESTIONS: Question[] = [
       { label: 'Dissatisfied', score: 2 },
     ],
   },
-  // Domain 2 — Furniture
+  // Domain 2, Furniture
   {
     id: 9,
     domainIndex: 2,
@@ -324,7 +324,7 @@ const QUESTIONS: Question[] = [
       { label: 'Definitely yes', score: 2 },
     ],
   },
-  // Domain 3 — Cleaning
+  // Domain 3, Cleaning
   {
     id: 13,
     domainIndex: 3,
@@ -389,7 +389,7 @@ function getVerdict(score: number): RagVerdict {
 }
 
 function getOverallVerdict(totalScore: number): RagVerdict {
-  // Overall out of 32 — scale thresholds proportionally
+  // Overall out of 32, scale thresholds proportionally
   if (totalScore <= 12) return 'GREEN'
   if (totalScore <= 22) return 'AMBER'
   return 'RED'
@@ -480,7 +480,7 @@ export default function HealthCheckPage() {
     return `Health Check: ${overallVerdict} (score ${totalScore}/32). ${domainParts}.`
   }
 
-  // Teaser — blurred domain cards
+  // Teaser, blurred domain cards
   const teaserContent = (
     <div style={{
       background: 'rgba(255,255,255,0.03)',
@@ -550,7 +550,7 @@ export default function HealthCheckPage() {
       </div>
 
       <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem', marginTop: '0.75rem' }}>
-        Full results and recommendations — unlock to view
+        Full results and recommendations, unlock to view
       </p>
     </div>
   )
@@ -571,7 +571,7 @@ export default function HealthCheckPage() {
             Is Your Commercial<br />Space Working<br />For You?
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 300, fontSize: '1rem', lineHeight: 1.75, maxWidth: '42rem', marginBottom: '3rem' }}>
-            16 questions. 4 domains. A clear picture of where your business stands — and what to do about it.
+            16 questions. 4 domains. A clear picture of where your business stands, and what to do about it.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2.5rem' }}>
             {[
@@ -1063,7 +1063,7 @@ export default function HealthCheckPage() {
                   color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.95rem', lineHeight: 1.75,
                   marginBottom: '2rem', maxWidth: '38rem', margin: '0 auto 2rem',
                 }}>
-                  Joe will walk through every red and amber domain with you — and tell you exactly what to do next. No pitch, no obligation. Just straight answers.
+                  Joe will walk through every red and amber domain with you, and tell you exactly what to do next. No pitch, no obligation. Just straight answers.
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
                   <a

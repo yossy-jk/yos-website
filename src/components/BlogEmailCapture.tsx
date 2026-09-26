@@ -29,7 +29,7 @@ export default function BlogEmailCapture() {
             <path d="M2 6l3 3 5-6" stroke="#01A7A3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
-        Done — we&apos;ll be in touch.
+        Done, we&apos;ll be in touch.
       </div>
     )
   }

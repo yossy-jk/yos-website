@@ -75,7 +75,7 @@ export default function FurnitureQuotePage() {
         data.append('timeline', form.timeline || '')
         data.append('notes', form.notes || '')
         data.append('attachment', file)
-        data.append('_subject', `Furniture Quote Request — ${form.name}${form.company ? ` (${form.company})` : ''}`)
+        data.append('_subject', `Furniture Quote Request, ${form.name}${form.company ? ` (${form.company})` : ''}`)
         data.append('_captcha', 'false')
         data.append('_template', 'table')
 
@@ -97,7 +97,7 @@ export default function FurnitureQuotePage() {
         context: contextParts,
       })
 
-      // Always notify Joe — even when no file attached
+      // Always notify Joe, even when no file attached
       fetch('/api/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -151,7 +151,7 @@ export default function FurnitureQuotePage() {
               className="text-white/60 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1rem,2vw,1.25rem)' }}
             >
-              Tell us about your project. Upload a floor plan if you have one. We&apos;ll come back with a specification and quote within one business day.
+              Tell us about your project. Upload a floor plan if you have one. We&apos;ll come back with a specification and quote after reviewing your enquiry.
             </p>
           </FadeIn>
         </div>
@@ -172,7 +172,7 @@ export default function FurnitureQuotePage() {
                     We have your brief.
                   </h2>
                   <p className="text-charcoal font-light text-lg leading-relaxed mb-8">
-                    You&apos;ll hear from us within one business day.
+                    You&apos;ll hear from us after reviewing your enquiry.
                   </p>
                   <p className="text-mid-grey font-light text-sm">
                     Prefer to talk?{' '}
@@ -345,7 +345,7 @@ export default function FurnitureQuotePage() {
                       rows={4}
                       value={form.notes}
                       onChange={handleChange}
-                      placeholder="Anything else we should know — existing furniture, brand requirements, specific products..."
+                      placeholder="Anything else we should know, existing furniture, brand requirements, specific products..."
                       className={`${inputClass} resize-none`}
                     />
                   </div>
@@ -354,7 +354,7 @@ export default function FurnitureQuotePage() {
                   <div>
                     <label htmlFor="file" className={labelClass}>
                       Floor plan or design brief{' '}
-                      <span className="text-mid-grey font-light text-xs">(optional — .pdf, .jpg, .png, .dwg, max 20MB)</span>
+                      <span className="text-mid-grey font-light text-xs">(optional, .pdf, .jpg, .png, .dwg, max 20MB)</span>
                     </label>
                     <input
                       id="file"

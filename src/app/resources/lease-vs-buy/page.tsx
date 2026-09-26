@@ -330,7 +330,7 @@ export default function LeaseVsBuyPage() {
             </div>
           </FadeIn>
 
-          {/* Inputs — two columns on desktop */}
+          {/* Inputs, two columns on desktop */}
           <FadeIn delay={60}>
             <div className="grid grid-cols-1 md:grid-cols-2 items-start" style={{ gap: 'clamp(2rem,5vw,4rem)', marginBottom: 'clamp(3rem,6vw,5rem)' }}>
 
