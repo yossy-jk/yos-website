@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Furniture & Fitout Quote | Your Office Space',
     description: 'Get a furniture and fitout quote for your Newcastle commercial space. Tell us about your project and we will provide a tailored estimate.',
-    url: 'https://yourofficespace.au/resources/furniture-quote',
+    url: 'https://www.yourofficespace.au/resources/furniture-quote',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
