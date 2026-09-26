@@ -20,7 +20,7 @@ export const metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-case-studies.png', width: 1200, height: 630, alt: 'Case Studies — Your Office Space' }],
+    images: [{ url: '/og-case-studies.png', width: 1200, height: 630, alt: 'Case Studies, Your Office Space' }],
   },
 }
 
@@ -98,7 +98,7 @@ export default function CaseStudiesPage() {
           </h1>
           <p className="text-white/60 font-light leading-relaxed max-w-2xl"
             style={{ fontSize: 'clamp(1rem,2vw,1.25rem)' }}>
-            Our next clients come from our past work. Here&apos;s the evidence — what we were asked to do, what we did, and what it delivered.
+            Our next clients come from our past work. Here&apos;s the evidence, what we were asked to do, what we did, and what it delivered.
           </p>
         </div>
       </section>

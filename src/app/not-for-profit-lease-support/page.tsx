@@ -22,7 +22,7 @@ export const metadata = {
     title: 'Free Lease Support for Not-for-Profits | Your Office Space',
     description: 'Pro bono lease reviews and relocation search for not-for-profits. No fee, no obligation. Limited spots available in Newcastle and the Hunter.',
     url: 'https://www.yourofficespace.au/not-for-profit-lease-support',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Free Lease Support for Not-for-Profits — Your Office Space' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Free Lease Support for Not-for-Profits, Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -93,7 +93,7 @@ export default function NotForProfitPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>
-              Pro Bono Programme — Newcastle &amp; Hunter
+              Pro Bono Programme, Newcastle &amp; Hunter
             </p>
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-6"
               style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
@@ -126,7 +126,7 @@ export default function NotForProfitPage() {
           </FadeIn>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Card 1 — Lease Review */}
+            {/* Card 1, Lease Review */}
             <FadeIn delay={0}>
               <div style={{ border: '1px solid rgba(0,0,0,0.08)', borderRadius: '0.75rem', padding: 'clamp(2rem,4vw,3.5rem)', }}>
                 <div className="bg-near-black text-teal font-bold uppercase tracking-widest px-3 py-1.5 inline-block mb-6"
@@ -139,16 +139,16 @@ export default function NotForProfitPage() {
                 </h3>
                 <p className="text-mid-grey font-light leading-relaxed mb-8"
                   style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                  Already in a lease? We will review it properly — identifying your highest-risk clauses, financial exposure, and whether you are getting a fair deal. Same professional standard as our paying clients.
+                  Already in a lease? We will review it properly, identifying your highest-risk clauses, financial exposure, and whether you are getting a fair deal. Same professional standard as our paying clients.
                 </p>
                 <ul className="flex flex-col gap-3 mb-8">
                   {[
-                    'Full risk analysis — Red / Amber / Green ratings',
+                    'Full risk analysis, Red / Amber / Green ratings',
                     'Financial exposure headline figure',
                     'Top 3 clauses to address',
                     'Make-good cost estimate',
                     'Exit scenario overview',
-                    'Plain-English — no legal jargon',
+                    'Plain-English, no legal jargon',
                   ].map(item => (
                     <li key={item} className="flex items-start gap-3 text-charcoal font-light"
                       style={{ fontSize: '0.9rem' }}>
@@ -163,7 +163,7 @@ export default function NotForProfitPage() {
               </div>
             </FadeIn>
 
-            {/* Card 2 — Relocation Search */}
+            {/* Card 2, Relocation Search */}
             <FadeIn delay={100}>
               <div style={{ border: '1px solid rgba(0,0,0,0.08)', borderRadius: '0.75rem', padding: 'clamp(2rem,4vw,3.5rem)', background: '#0A0A0A' }}>
                 <div className="bg-teal text-near-black font-bold uppercase tracking-widest px-3 py-1.5 inline-block mb-6"
@@ -176,7 +176,7 @@ export default function NotForProfitPage() {
                 </h3>
                 <p className="text-white/55 font-light leading-relaxed mb-8"
                   style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                  Need a new space? We will run the full search — identifying options, negotiating terms, and managing the deal through to signing. Tenant representation, done properly.
+                  Need a new space? We will run the full search, identifying options, negotiating terms, and managing the deal through to signing. Tenant representation, done properly.
                 </p>
                 <ul className="flex flex-col gap-3 mb-8">
                   {[
@@ -225,9 +225,9 @@ export default function NotForProfitPage() {
               <div className="flex flex-col gap-5">
                 {[
                   { label: 'Registered charity or not-for-profit', detail: 'ACNC registered or equivalent. We may ask to see your registration.' },
-                  { label: 'Currently in a lease', detail: 'Commercial lease in Newcastle or the Hunter — or about to sign one.' },
+                  { label: 'Currently in a lease', detail: 'Commercial lease in Newcastle or the Hunter, or about to sign one.' },
                   { label: 'Or actively searching for space', detail: 'Actively looking to move, expand, or establish your first commercial premises.' },
-                  { label: 'Small to medium organisation', detail: 'Typically under 50 staff. We make no promises — but that is the general shape.' },
+                  { label: 'Small to medium organisation', detail: 'Typically under 50 staff. We make no promises, but that is the general shape.' },
                   { label: 'No prior Your Office Space engagement', detail: 'This offer is for new clients only.' },
                 ].map((item, i) => (
                   <div key={i} className="border-l-2 border-teal pl-5">
@@ -294,7 +294,7 @@ export default function NotForProfitPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { num: '01', title: 'Apply', desc: 'Fill out the form below or call us. We respond within one business day.' },
+              { num: '01', title: 'Apply', desc: 'Fill out the form below or call us. We review every application and confirm the next step directly.' },
               { num: '02', title: 'Chat', desc: '20-minute call to understand your situation and confirm eligibility.' },
               { num: '03', title: 'We work', desc: 'Lease review within 5 business days. Relocation search starts once we have your brief.' },
               { num: '04', title: 'You decide', desc: 'We deliver our findings. You decide what to do next. No pressure, no obligation.' },
@@ -316,7 +316,7 @@ export default function NotForProfitPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
-            {/* Left — intro */}
+            {/* Left, intro */}
             <FadeIn>
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Apply now</p>
@@ -326,7 +326,7 @@ export default function NotForProfitPage() {
                 </h2>
                 <p className="text-mid-grey font-light leading-relaxed mb-8"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  We respond within one business day. If you qualify, we will book a 20-minute call to get started. No obligation, no pressure — just a conversation.
+                  We review every application and confirm the next step directly. If you qualify, we will book a 20-minute call to get started. No obligation, no pressure, just a conversation.
                 </p>
                 <div className="flex flex-col gap-4">
                   <div>
@@ -351,7 +351,7 @@ export default function NotForProfitPage() {
               </div>
             </FadeIn>
 
-            {/* Right — form */}
+            {/* Right, form */}
             <FadeIn delay={80}>
               <NotForProfitForm />
             </FadeIn>

@@ -17,7 +17,7 @@ export default function Footer() {
               Your Office Space
             </p>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Newcastle-based, tenant-side commercial property advisory across Australia.
+              Based in Newcastle. Working across NSW, with selected national briefs assessed case by case.
             <span className="block mt-3 text-teal italic" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
             </p>
           </div>
@@ -44,7 +44,6 @@ export default function Footer() {
                 { label: 'About', href: '/about' },
                 { label: 'Resources', href: '/resources' },
                 { label: 'Blog', href: '/blog' },
-                { label: 'Case Studies', href: '/case-studies' },
                 { label: 'Contact', href: '/contact' },
               ].map(link => (
                 <Link key={link.href} href={link.href}
@@ -71,7 +70,7 @@ export default function Footer() {
                 {CONTACT.phone}
               </a>
               <p className="text-white/55 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
-                Newcastle-based · Hunter home territory<br />Australia-wide tenant advisory
+                Based in Newcastle<br />Working across NSW
               </p>
             </div>
           </div>

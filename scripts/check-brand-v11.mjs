@@ -49,7 +49,7 @@ requireText('src/app/globals.css', 'var(--font-inter)', 'Inter body variable')
 requireText('src/app/page.tsx', 'One team. Clear direction. No guesswork.', 'primary tagline')
 requireText('src/app/page.tsx', 'One accountable partner', 'one accountable partner message')
 requireText('src/app/page.tsx', 'Book a Clarity Call', 'primary call to action')
-requireText('src/components/BookingCTA.tsx', '20 minutes, no pitch.', 'approved Clarity Call format')
+requireText('src/components/BookingCTA.tsx', 'Tell us about your lease, space, fit out or cleaning needs', 'approved Clarity Call format')
 
 for (const service of approvedServices) {
   requireText('src/lib/constants.ts', service, `approved service ${service}`)
@@ -79,6 +79,7 @@ const publicDiscoverySurfaces = [
 for (const relativePath of publicDiscoverySurfaces) {
   forbidText(relativePath, '/buyers-agency', 'public Buyers Agency link')
   forbidPattern(relativePath, /buyers agency|buyers advocacy/i, 'public Buyers Agency promotion')
+  forbidPattern(relativePath, /no pitch|one business day/i, 'retired promise or sales-language phrase')
 }
 
 requireText('src/app/buyers-agency/page.tsx', 'robots: { index: false, follow: false }', 'referral-only noindex rule')
@@ -138,4 +139,5 @@ console.log('- Approved palette and typography are wired globally.')
 console.log('- Homepage positioning, services and CTA match the standard.')
 console.log('- Buyers Agency remains referral-only and is not publicly promoted.')
 console.log('- Legacy brand tokens are absent from application source.')
+console.log('- Core public discovery surfaces are free of retired promise and sales-language phrases.')
 console.log('- The public capability statement matches the approved Brand v1.1 asset.')

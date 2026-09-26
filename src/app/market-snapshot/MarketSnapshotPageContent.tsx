@@ -208,7 +208,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
             </div>
             <h3 className="text-near-black font-bold text-xl mb-3">Done. First edition coming your way.</h3>
             <p className="text-mid-grey font-light text-sm" style={{ lineHeight: 1.8 }}>
-              Check your inbox — we&apos;ll send you the next edition when it drops.
+              Check your inbox, we&apos;ll send you the next edition when it drops.
             </p>
           </div>
         )}
@@ -238,7 +238,7 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         href={leaseIntelHref}
         className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
       >
-        Lease review — $297 ex GST, 24-hour turnaround
+        Lease review, $297 ex GST, 24-hour turnaround
       </Link>
       <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
         Newcastle business? Ask about current eligibility for the full LeaseIntel report.
@@ -298,7 +298,7 @@ export default function MarketSnapshotPageContent({
               className="text-white font-bold leading-tight mb-6"
               style={{ fontSize: 'clamp(2.2rem,5.5vw,4rem)', maxWidth: '860px' }}
             >
-              The Newcastle Office Market — From the Tenant&apos;s Side
+              The Newcastle Office Market, From the Tenant&apos;s Side
             </h1>
             <p
               className="text-white/55 font-light leading-relaxed mb-12"
@@ -334,7 +334,7 @@ export default function MarketSnapshotPageContent({
                 className="text-near-black font-light leading-relaxed mb-5"
                 style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', lineHeight: 1.9 }}
               >
-                The Newcastle Office Market Snapshot is free. One page. Published the first business day of every month. Written by Your Office Space — the only commercial property firm in Newcastle that works exclusively for tenants.
+                The Newcastle Office Market Snapshot is free. One page. Published the first business day of every month. Written by Your Office Space, the only commercial property firm in Newcastle that works exclusively for tenants.
               </p>
               <p
                 className="text-near-black font-light leading-relaxed"
@@ -377,7 +377,7 @@ export default function MarketSnapshotPageContent({
                   May 2026 Edition
                 </p>
                 <h2 className="text-white font-bold" style={{ fontSize: 'clamp(1.1rem,2.5vw,1.5rem)' }}>
-                  Newcastle Office Market Snapshot — May 2026
+                  Newcastle Office Market Snapshot, May 2026
                 </h2>
                 <p className="text-white/40 font-light mt-2" style={{ fontSize: '0.8rem' }}>
                   Prepared by Your Office Space
@@ -413,7 +413,7 @@ export default function MarketSnapshotPageContent({
                 Get it delivered to your inbox every month.
               </h2>
               <p className="text-white/75 font-light mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
-                One email, once a month. The market data landlords already know — delivered to the tenant&apos;s side.
+                One email, once a month. The market data landlords already know, delivered to the tenant&apos;s side.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
@@ -426,7 +426,7 @@ export default function MarketSnapshotPageContent({
                   href={leaseIntelHref}
                   className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
-                  Lease review — $297 ex GST
+                  Lease review, $297 ex GST
                 </Link>
               </div>
             </div>

@@ -142,7 +142,7 @@ export default function CleaningPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/5">
               {[
-                { stat: 'Same team', label: 'Every visit — no surprises' },
+                { stat: 'Same team', label: 'Every visit, no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
                 { stat: 'After hours', label: 'Timing agreed around your workplace' },
                 { stat: 'Clear scope', label: 'Tasks and standards documented' },
@@ -165,7 +165,7 @@ export default function CleaningPage() {
           <FadeIn>
             <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
               &ldquo;We are very happy with the service from Sarah and Joe. They are reliable and consistent, go above and beyond for our cleaning needs, and we highly recommend them.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Sophie</span>
+              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>, Sophie</span>
             </p>
           </FadeIn>
         </div>
@@ -303,7 +303,7 @@ export default function CleaningPage() {
         </div>
       </section>
 
-      {/* BUNDLE — cross-sell to fitout */}
+      {/* BUNDLE, cross-sell to fitout */}
       <section className="bg-warm-grey"
         style={SEC}>
         <FadeIn>

@@ -20,12 +20,12 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 
 export const metadata = {
   title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-  description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
+  description: 'Talk to the Your Office Space team about commercial property, fit out, furniture or cleaning. Based in Newcastle and working across NSW.',
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
   twitter: { card: 'summary_large_image', title: 'Contact | Your Office Space', description: 'Get in touch with Your Office Space. First conversation is always free.' },
   openGraph: {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-    description: 'Talk to the Your Office Space team. 20 minutes, no pitch. Tenant-side commercial property advice across Australia.',
+    description: 'Talk to the Your Office Space team about commercial property, fit out, furniture or cleaning. Based in Newcastle and working across NSW.',
     url: 'https://www.yourofficespace.au/contact',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
@@ -70,26 +70,25 @@ export default function ContactPage() {
           {
             "@type": "ContactPage",
             "name": "Contact Your Office Space",
-            "description": "Get in touch with Your Office Space — tenant-side commercial property advisory. First conversation is free, no obligation.",
+            "description": "Get in touch with Your Office Space. tenant-side commercial property advisory. First conversation is free, no obligation.",
             "url": "https://www.yourofficespace.au/contact"
           },
           {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "Is the first call really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The first conversation is genuinely free and has no obligation. We will tell you honestly whether we can help and what it would look like to work together." } },
-              { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "We aim to respond to all enquiries within one business day. For urgent lease matters, call us directly on 0434 655 511." } },
               { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } }
             ]
           }
         ]
       }) }} />
 
-      {/* HERO — compact, no dead space */}
+      {/* HERO. compact, no dead space */}
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>
-              Commercial Property Advisory — Australia
+              Commercial Property Advisory · Newcastle and NSW
             </p>
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-5"
               style={{ fontSize: 'clamp(2.25rem,6vw,6rem)' }}>
@@ -97,27 +96,27 @@ export default function ContactPage() {
             </h1>
             <p className="text-white/60 font-light leading-relaxed"
               style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
-              20 minutes. No pitch. Just a conversation about your situation and whether we can help.
+              Start with your situation. We&apos;ll listen, ask the useful questions and tell you clearly whether we can help.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* CONTACT — form + direct details */}
+      {/* CONTACT. form + direct details */}
       <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            {/* Left — contact form */}
+            {/* Left. contact form */}
             <FadeIn>
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Send a message</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
                   style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
-                  We&apos;ll come back to you<br />within one business day.
+                  Tell us what you&apos;re<br />working through.
                 </h2>
 
-                {/* Contact Form — sends to HubSpot CRM + email */}
+                {/* Contact Form. sends to HubSpot CRM + email */}
                 <ContactForm />
                 {false && <form
                   name="contact-legacy"
@@ -125,7 +124,7 @@ export default function ContactPage() {
                   action={`https://formsubmit.co/${CONTACT.email}`}
                   className="flex flex-col gap-4"
                 >
-                  <input type="hidden" name="_subject" value="New enquiry — Your Office Space website" />
+                  <input type="hidden" name="_subject" value="New enquiry. Your Office Space website" />
                   <input type="hidden" name="_next" value="https://www.yourofficespace.au/contact?sent=true" />
                   <input type="hidden" name="_captcha" value="true" />
                   <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
@@ -222,7 +221,7 @@ export default function ContactPage() {
               </div>
             </FadeIn>
 
-            {/* Right — direct contact */}
+            {/* Right. direct contact */}
             <FadeIn delay={120}>
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Or reach us directly</p>
@@ -253,7 +252,7 @@ export default function ContactPage() {
                       {CONTACT.email}
                     </a>
                     <p className="text-charcoal font-light" style={{ fontSize: '0.85rem' }}>
-                      We read everything. You will hear back within one business day.
+                      Your message goes directly to our team.
                     </p>
                   </div>
 
@@ -273,7 +272,7 @@ export default function ContactPage() {
                   {/* Location */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in Newcastle</p>
-                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Partnering with Business Owners Throughout Australia</p>
+                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Working across NSW</p>
                   </div>
                 </div>
               </div>
@@ -289,14 +288,14 @@ export default function ContactPage() {
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>What to expect</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10"
               style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
-              No pressure. No pitch.<br />Just a straight conversation.
+              A useful first conversation.<br />Clear, direct and focused.
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { num: '01', title: 'We listen', body: 'Tell us your situation. Current space, timeline, what\'s driving the decision. Real listening, no sales script.' },
               { num: '02', title: 'We assess', body: 'We\'ll tell you straight whether we can help. If we can\'t, we\'ll say so.' },
-              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain how — timeline, process, and what it looks like to work together.' },
+              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain how. timeline, process, and what it looks like to work together.' },
               { num: '04', title: 'Your call', body: 'No pressure. Take your time. Good relationships start with honesty, not a hard close.' },
             ].map((item, i) => (
               <FadeIn key={item.num} delay={i * 60}>

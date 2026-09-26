@@ -12,11 +12,11 @@ import BookingCTA from '@/components/BookingCTA'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Newcastle Commercial Property — Leases, Fitout, Cleaning & Market Guides',
-  description: 'Everything Newcastle businesses need to know about commercial property. Tenant representation, lease negotiation, office fitout costs, and commercial cleaning — all local, all practical.',
+  title: 'Newcastle Commercial Property, Leases, Fitout, Cleaning & Market Guides',
+  description: 'Everything Newcastle businesses need to know about commercial property. Tenant representation, lease negotiation, office fitout costs, and commercial cleaning, all local, all practical.',
   alternates: { canonical: 'https://www.yourofficespace.au/newcastle-commercial-property' },
   openGraph: {
-    title: 'Newcastle Commercial Property Hub — Your Office Space',
+    title: 'Newcastle Commercial Property Hub, Your Office Space',
     description: 'Local guides, market updates and practical advice for Newcastle businesses navigating commercial property.',
     url: 'https://www.yourofficespace.au/newcastle-commercial-property',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
@@ -30,20 +30,20 @@ const ARTICLES = [
   {
     category: 'Tenant Representation',
     slug: 'what-is-tenant-representation-newcastle',
-    title: 'What Is Tenant Representation — And Why Every Newcastle Business Needs It',
+    title: 'What Is Tenant Representation, And Why Every Newcastle Business Needs It',
     desc: 'Your landlord has a professional negotiator. Most tenants don\'t. Here\'s what tenant representation actually means and why it matters in the Newcastle market.',
   },
   {
     category: 'Market Intelligence',
     slug: 'hunter-valley-commercial-property-market-2026',
-    title: 'Hunter Valley Commercial Property Market Update — Q2 2026',
+    title: 'Hunter Valley Commercial Property Market Update, Q2 2026',
     desc: 'Vacancy rates, incentives and what\'s actually happening in the Newcastle and Hunter commercial property market right now.',
   },
   {
     category: 'Office Fitout',
     slug: 'commercial-fitout-cost-newcastle-2026',
     title: 'What Does a Commercial Office Fitout Cost in Newcastle in 2026?',
-    desc: 'Real cost ranges for Newcastle office fitouts — from cold shell to fully furnished. What drives costs up and how to manage your budget.',
+    desc: 'Real cost ranges for Newcastle office fitouts, from cold shell to fully furnished. What drives costs up and how to manage your budget.',
   },
   {
     category: 'Commercial Cleaning',
@@ -100,7 +100,7 @@ export default function NewcastleCommercialPropertyHub() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "What is tenant representation in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is an agent working exclusively for the tenant in a commercial lease negotiation. In Newcastle, tenant reps negotiate rent, incentives, make-good terms and lease conditions on behalf of the tenant — never the landlord." } },
+              { "@type": "Question", "name": "What is tenant representation in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is an agent working exclusively for the tenant in a commercial lease negotiation. In Newcastle, tenant reps negotiate rent, incentives, make-good terms and lease conditions on behalf of the tenant, never the landlord." } },
               { "@type": "Question", "name": "How should a Newcastle business plan a commercial fit out?", "acceptedAnswer": { "@type": "Answer", "text": "Start with the workplace brief, budget, programme and lease constraints, then coordinate design, procurement, approvals, construction, furniture and handover around one accountable plan." } }
             ]
           }
@@ -139,7 +139,7 @@ export default function NewcastleCommercialPropertyHub() {
       <section className="bg-teal/10 border-y border-teal/20">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingTop: 'clamp(3rem,6vw,5rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-action-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services — Newcastle & Hunter Valley</p>
+            <p className="text-action-teal font-bold text-xs tracking-widest uppercase mb-6">YOS Services, Newcastle & Hunter Valley</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {SERVICES.map(s => (
                 <Link key={s.href} href={s.href}

@@ -8,13 +8,13 @@ import { CONTACT } from '@/lib/constants'
 export const metadata = {
   title: 'EOF Group | Commercial Fitout, Tenant Rep, Lease Review & Property Services',
   description: 'EOF Group delivers commercial office fitout, tenant representation, lease review and property services across Newcastle, the Hunter Valley and regional NSW. Four divisions. One team. We work exclusively for tenants and occupiers.',
-  twitter: { card: 'summary_large_image', title: 'EOF Group | Commercial Fitout & Property Services', description: 'Office fitout, tenant rep, lease review and commercial property services. We work for tenants and occupiers — never landlords.' },
+  twitter: { card: 'summary_large_image', title: 'EOF Group | Commercial Fitout & Property Services', description: 'Office fitout, tenant rep, lease review and commercial property services. We work for tenants and occupiers, never landlords.' },
   alternates: { canonical: 'https://www.yourofficespace.au/eof-group' },
   openGraph: {
     title: 'EOF Group | Commercial Fitout, Tenant Rep & Property Services',
     description: 'Four specialist divisions. One experienced team. EOF Group delivers office fitout, tenant representation, lease review and property services across Newcastle and regional NSW.',
     url: 'https://www.yourofficespace.au/eof-group',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Group — Commercial Fitout & Property Services' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Group, Commercial Fitout & Property Services' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
@@ -32,7 +32,7 @@ const DIVISIONS = [
     label: '01',
     name: 'Office Furniture & Fitout',
     tagline: 'Brief to installed. No gaps.',
-    description: 'Full project management for commercial office fitout — from space planning and specification through to supply, installation and post-fitout cleaning. In-stock express options through to fully custom made-to-order solutions. We manage the whole thing so you don\'t have to.',
+    description: 'Full project management for commercial office fitout, from space planning and specification through to supply, installation and post-fitout cleaning. In-stock express options through to fully custom made-to-order solutions. We manage the whole thing so you don\'t have to.',
     services: ['Space planning & design intent', 'Commercial furniture supply', 'Installation & project management', 'Post-fitout cleaning', 'In-stock express to made-to-order'],
     href: '/eof-group/furniture',
     cta: 'See our fitout work',
@@ -43,7 +43,7 @@ const DIVISIONS = [
     label: '02',
     name: 'Tenant Representation',
     tagline: 'We only work for tenants. Never landlords.',
-    description: 'We negotiate commercial leases on behalf of tenants — not landlords. That means we find the right space, negotiate better terms, and protect your interests at every stage. No conflicts. No divided loyalties.',
+    description: 'We negotiate commercial leases on behalf of tenants, not landlords. That means we find the right space, negotiate better terms, and protect your interests at every stage. No conflicts. No divided loyalties.',
     services: ['Site search & selection', 'Lease negotiation', 'Break clause strategy', 'Rent review advocacy', 'Lease renewal management'],
     href: '/eof-group/tenant-representation',
     cta: 'How tenant rep works',
@@ -54,7 +54,7 @@ const DIVISIONS = [
     label: '03',
     name: 'Lease Review & Advisory',
     tagline: 'Know what you\'re signing before you sign.',
-    description: 'Commercial leases are complex documents with clauses that can cost you significantly down the track. We review, negotiate and advise on lease terms before you commit — saving you from costly mistakes.',
+    description: 'Commercial leases are complex documents with clauses that can cost you significantly down the track. We review, negotiate and advise on lease terms before you commit, saving you from costly mistakes.',
     services: ['Lease document review', 'Clause-by-clause negotiation', 'Make-good obligations', 'Exit strategy planning', 'Rent and outgoings analysis'],
     href: '/eof-group/lease-review',
     cta: 'Get a lease review',
@@ -86,13 +86,13 @@ export default function EOFGroupPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
               <p style={{ color: '#01A7A3', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-                Newcastle, NSW — Est. 2019
+                Newcastle, NSW, Est. 2019
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
                 Four divisions.<br />One team that<br />works for you.
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'clamp(1rem, 1.8vw, 1.2rem)', lineHeight: 1.7, marginBottom: '2.5rem', maxWidth: '640px' }}>
-                EOF Group delivers commercial office fitout, tenant representation, lease review and property services — exclusively for tenants and occupiers. We&apos;ve operated from Newcastle since 2019 and work across the Hunter Valley, regional NSW and nationally.
+                EOF Group delivers commercial office fitout, tenant representation, lease review and property services, exclusively for tenants and occupiers. We&apos;ve operated from Newcastle since 2019 and work across the Hunter Valley, regional NSW and nationally.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Button href="/eof-group/furniture" variant="primary" size="lg">
@@ -110,7 +110,7 @@ export default function EOFGroupPage() {
         </FadeIn>
       </section>
 
-      {/* INTRO — why EOF works differently */}
+      {/* INTRO, why EOF works differently */}
       <section style={{ ...SEC_SM, background: '#0d0d0d' }}>
         <FadeIn>
           <div className={WRAP} style={PAD}>
@@ -127,11 +127,11 @@ export default function EOFGroupPage() {
                 {[
                   {
                     title: 'No conflicts of interest',
-                    body: 'Most commercial property agents work for landlords. We don\'t. When we negotiate, we\'re working entirely for your interests — not trying to fill a landlord\'s vacancy.',
+                    body: 'Most commercial property agents work for landlords. We don\'t. When we negotiate, we\'re working entirely for your interests, not trying to fill a landlord\'s vacancy.',
                   },
                   {
                     title: 'End-to-end project management',
-                    body: 'From brief to installed fitout — we manage the specification, procurement, installation and cleaning. You approve the work. We handle everything else.',
+                    body: 'From brief to installed fitout, we manage the specification, procurement, installation and cleaning. You approve the work. We handle everything else.',
                   },
                   {
                     title: 'Local knowledge, national capability',
@@ -203,7 +203,7 @@ export default function EOFGroupPage() {
         </FadeIn>
       </section>
 
-      {/* HOW WE WORK — process */}
+      {/* HOW WE WORK, process */}
       <section style={{ ...SEC_SM, background: '#0d0d0d' }}>
         <FadeIn>
           <div className={WRAP} style={PAD}>
@@ -218,10 +218,10 @@ export default function EOFGroupPage() {
 
             <div style={{ display: 'grid', gap: '1.25rem', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
               {[
-                { step: '01', title: 'Initial brief', body: 'We start with a conversation — about your space, your team, your timeline and your budget. No floor plan required at this stage.' },
+                { step: '01', title: 'Initial brief', body: 'We start with a conversation, about your space, your team, your timeline and your budget. No floor plan required at this stage.' },
                 { step: '02', title: 'Site assessment', body: 'We survey the space, review your lease if applicable, and put together a specification that actually fits your requirements.' },
                 { step: '03', title: 'Specification & quote', body: 'You receive a clear, itemised specification and quote. No vague estimates. No surprises. You decide what goes ahead.' },
-                { step: '04', title: 'Delivery & install', body: 'We manage procurement, logistics and installation. Your team keeps working — we handle the coordination and quality control.' },
+                { step: '04', title: 'Delivery & install', body: 'We manage procurement, logistics and installation. Your team keeps working, we handle the coordination and quality control.' },
               ].map(s => (
                 <div key={s.step} style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '1.5rem' }}>
                   <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', marginBottom: '1rem' }}>{s.step}</p>

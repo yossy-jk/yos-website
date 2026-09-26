@@ -1,6 +1,5 @@
 import { MetadataRoute } from 'next'
 import { getPublicPosts } from '@/lib/blog'
-import { getAllCaseStudies } from '@/lib/case-studies'
 
 const BASE = 'https://www.yourofficespace.au'
 
@@ -8,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString()
 
   const posts = getPublicPosts()
-  const caseStudies = getAllCaseStudies()
 
   return [
     { url: BASE,                                          lastModified: now, changeFrequency: 'weekly',  priority: 1.0 },
@@ -31,20 +29,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/resources/relocate-quiz`,              lastModified: now, changeFrequency: 'yearly',  priority: 0.5 },
     { url: `${BASE}/resources/health-check`,               lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/blog`,                                lastModified: now, changeFrequency: 'weekly',  priority: 0.8 },
-    { url: `${BASE}/case-studies`,                        lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/tools/space-planner`,                 lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
     { url: `${BASE}/office-fitout`,                       lastModified: now, changeFrequency: 'weekly',  priority: 0.9 },
     // Dynamic blog posts
     ...posts.map(p => ({
       url: `${BASE}/blog/${p.slug}`,
       lastModified: new Date(p.date).toISOString(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.75,
-    })),
-    // Dynamic case studies
-    ...caseStudies.map(cs => ({
-      url: `${BASE}/case-studies/${cs.slug}`,
-      lastModified: now,
       changeFrequency: 'monthly' as const,
       priority: 0.75,
     })),

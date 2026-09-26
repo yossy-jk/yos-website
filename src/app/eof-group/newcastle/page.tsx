@@ -6,7 +6,7 @@ import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
 
 export const metadata = {
-  title: 'Commercial Property Newcastle | EOF Group — Fitout, Tenant Rep & Lease Review',
+  title: 'Commercial Property Newcastle | EOF Group, Fitout, Tenant Rep & Lease Review',
   description: 'EOF Group delivers commercial office fitout, tenant representation and lease review across Newcastle, the Hunter Valley, Lake Macquarie and regional NSW. Deep local knowledge. Four specialist divisions. Based in Newcastle.',
   twitter: { card: 'summary_large_image', title: 'Commercial Property Newcastle | EOF Group', description: 'Commercial office fitout, tenant rep and lease review across Newcastle and the Hunter Valley.' },
   alternates: { canonical: 'https://www.yourofficespace.au/eof-group/newcastle' },
@@ -14,7 +14,7 @@ export const metadata = {
     title: 'Commercial Property Newcastle | EOF Group',
     description: 'Commercial office fitout, tenant representation and lease review. Based in Newcastle. Working across the Hunter Valley and regional NSW.',
     url: 'https://www.yourofficespace.au/eof-group/newcastle',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Property Newcastle — EOF Group' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Property Newcastle, EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
@@ -39,13 +39,13 @@ export default function NewcastlePage() {
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
               <p style={{ color: '#22c55e', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-                EOF Group — Newcastle & Hunter Region
+                EOF Group, Newcastle & Hunter Region
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
                 Newcastle is home.<br />We know this market.
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.7, marginBottom: '2.5rem', maxWidth: '600px' }}>
-                Based in Newcastle. Working across the Hunter Valley, Lake Macquarie, Central Coast and regional NSW. Four specialist divisions — office fitout, tenant rep, lease review and property services — all delivered by one team who know this region.
+                Based in Newcastle. Working across the Hunter Valley, Lake Macquarie, Central Coast and regional NSW. Four specialist divisions, office fitout, tenant rep, lease review and property services, all delivered by one team who know this region.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Button href="/eof-group/furniture" variant="primary" size="lg">
@@ -87,7 +87,7 @@ export default function NewcastlePage() {
                 },
                 {
                   area: 'Lake Macquarie',
-                  desc: 'A significant residential and commercial base. Charlestown, Belmont, Toronto and the Warners Bay precinct — strong for local service businesses and growing professional firms.',
+                  desc: 'A significant residential and commercial base. Charlestown, Belmont, Toronto and the Warners Bay precinct, strong for local service businesses and growing professional firms.',
                   sub: 'Charlestown, Belmont, Warners Bay, Toronto',
                 },
                 {
@@ -102,7 +102,7 @@ export default function NewcastlePage() {
                 },
                 {
                   area: 'Singleton & Upper Hunter',
-                  desc: 'Mining, agribusiness and resources-adjacent commercial demand. Smaller market but active — long-term leases common, fitout requirements often specific to industry.',
+                  desc: 'Mining, agribusiness and resources-adjacent commercial demand. Smaller market but active, long-term leases common, fitout requirements often specific to industry.',
                   sub: 'Singleton, Muswellbrook, Scone',
                 },
               ].map(item => (
@@ -130,10 +130,10 @@ export default function NewcastlePage() {
                   Every postcode has its own market dynamics.
                 </h2>
                 <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.88rem', lineHeight: 1.75, marginBottom: '1rem' }}>
-                  Newcastle is a relationship market. The landlords, the agents, the property managers — we know them. We know which buildings have upcoming vacancies before they&apos;re listed, which landlords are flexible on terms, and which precincts are heating up.
+                  Newcastle is a relationship market. The landlords, the agents, the property managers, we know them. We know which buildings have upcoming vacancies before they&apos;re listed, which landlords are flexible on terms, and which precincts are heating up.
                 </p>
                 <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.88rem', lineHeight: 1.75 }}>
-                  That local knowledge translates directly to better outcomes for you — whether you&apos;re negotiating a rent figure, scoping a fitout, or managing a lease renewal.
+                  That local knowledge translates directly to better outcomes for you, whether you&apos;re negotiating a rent figure, scoping a fitout, or managing a lease renewal.
                 </p>
               </div>
               <div style={{ display: 'grid', gap: '1rem' }}>
@@ -270,7 +270,7 @@ export default function NewcastlePage() {
         "@graph": [
           {
             "@type": "LocalBusiness",
-            "name": "EOF Group — Newcastle & Hunter Region",
+            "name": "EOF Group, Newcastle & Hunter Region",
             "areaServed": {
               "@type": "Place",
               "name": "Newcastle NSW, Hunter Valley NSW, Lake Macquarie NSW, Central Coast NSW",

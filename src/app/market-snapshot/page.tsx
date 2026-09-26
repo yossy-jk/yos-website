@@ -69,7 +69,7 @@ export default function MarketSnapshotPage() {
           },
           {
             "@type": "Article",
-            "headline": "Newcastle Office Market Snapshot — Q2 2026",
+            "headline": "Newcastle Office Market Snapshot, Q2 2026",
             "description": "Monthly market intelligence from the tenant's side. Newcastle office vacancy rates, rent trends, supply pipeline and market analysis.",
             "author": { "@type": "Person", "name": "Joe Kelley", "worksFor": { "@id": "https://www.yourofficespace.au/#organization" } },
             "publisher": { "@id": "https://www.yourofficespace.au/#organization" },
