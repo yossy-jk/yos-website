@@ -40,7 +40,7 @@ export default function BookingCTA({
           body: JSON.stringify({
             name,
             phone,
-            source: 'Clarity Call — Booking Request',
+            source: 'Clarity Call. Booking Request',
             context: `Name: ${name}\nPhone: ${phone}\nProceeding to calendar booking.`,
           }),
         }),
@@ -113,7 +113,7 @@ export default function BookingCTA({
                   Book your Clarity Call.
                 </h2>
                 <p className="text-mid-grey font-light mb-6" style={{ fontSize: '0.9rem', lineHeight: 1.75 }}>
-                  20 minutes, no pitch. We&apos;ll look at your lease, space, fit out or cleaning needs and give you a straight view of the next step.
+                  Tell us about your lease, space, fit out or cleaning needs and we&apos;ll give you a clear view of the next step.
                 </p>
 
                 <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '0.875rem' }}>

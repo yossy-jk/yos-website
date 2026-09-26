@@ -177,7 +177,7 @@ export default function Nav() {
                     style={{ padding: `0 clamp(1.5rem,5vw,4rem)` }}>
                     <div className="flex" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
 
-                      {/* Col 1 — Leasing Tools */}
+                      {/* Col 1. Leasing Tools */}
                       <div style={{ flex: '1 1 0', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '1.75rem 1.75rem 1.75rem 0' }}>
                         <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Leasing Tools</p>
                         <div className="flex flex-col" style={{ gap: '0.1rem' }}>
@@ -204,7 +204,7 @@ export default function Nav() {
                         </div>
                       </div>
 
-                      {/* Col 2 — Blog */}
+                      {/* Col 2. Blog */}
                       <div style={{ flex: '1 1 0', padding: '1.75rem 0 1.75rem 1.75rem' }}>
                         <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Latest Articles</p>
                         <div className="flex flex-col" style={{ gap: '0.1rem' }}>
@@ -314,11 +314,6 @@ export default function Nav() {
               className="text-white no-underline font-bold hover:text-teal transition-colors"
               style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
               Articles &amp; Guides
-            </Link>
-            <Link href="/case-studies" onClick={() => setOpen(false)}
-              className="text-white no-underline font-bold hover:text-teal transition-colors"
-              style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
-              Case Studies
             </Link>
           </div>
 
