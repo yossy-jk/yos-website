@@ -155,19 +155,39 @@ export default function Home() {
           <FadeIn delay={80}>
             <h1 className="text-white leading-[1.02] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem,6.5vw,7rem)', maxWidth: '14ch', marginBottom: '1.75rem' }}>
-              One team. Clear direction. No guesswork.
+              We help businesses find their next commercial building. Lease or buy.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/90 font-light leading-relaxed"
               style={{ fontSize: 'clamp(1rem,2.5vw,1.15rem)', maxWidth: '34rem', lineHeight: 1.9, marginBottom: '2.25rem' }}>
-              One accountable partner from lease decisions through fit out, furniture and ongoing commercial cleaning — built around what your business needs.
+              The landlord has an expert. You should too. We bring the property, fit out, furniture and cleaning decisions into one clear plan.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col items-start gap-3">
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
-              <span className="text-white/80 text-sm">20 minutes. No pitch.</span>
+              <span className="text-white/80 text-sm">Start with the decision you need to make.</span>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── THE PIE ─────────────────────────────── */}
+      <section className="bg-light-teal" style={SEC}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <SectionLabel>Protect the project budget</SectionLabel>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mt-3">
+              <h2 className="text-near-black font-black leading-tight tracking-tight"
+                style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
+                One budget. A lot of hands reaching for it.
+              </h2>
+              <div className="text-readable-grey font-light leading-relaxed space-y-5" style={{ fontSize: '1.05rem' }}>
+                <p>Your workplace project starts with a fixed budget. Property costs, consultants, contractors, furniture suppliers and programme changes all take a share.</p>
+                <p>When nobody is protecting the whole picture, early decisions can leave too little for the space your team actually needs.</p>
+                <p className="text-near-black font-semibold">We get involved early, make the trade-offs visible and keep every decision tied to the same outcome.</p>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -436,7 +456,7 @@ export default function Home() {
               </p>
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
               <p className="text-white/80 font-light mt-5" style={{ fontSize: '0.8rem' }}>
-                We respond within one business day.
+                Send the details and our team will be in touch.
               </p>
             </div>
           </FadeIn>
