@@ -44,6 +44,15 @@ const TESTIMONIALS: Array<{ name: string; company?: string; service: string; quo
   { name: 'Jason Dowdall', service: 'Fitout project support', quote: 'Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.' },
 ]
 
+const CLIENT_LOGOS = [
+  { name: 'Elders Advantage Group', src: '/client-logos/elders-advantage.png', width: 300, height: 300 },
+  { name: 'Dynamic Business Technologies', src: '/client-logos/dynamic-business-technologies.jpg', width: 1000, height: 198 },
+  { name: 'OzChild', src: '/client-logos/ozchild.png', width: 387, height: 130 },
+  { name: 'Australian Aboriginal Child and Family Services', src: '/client-logos/aacafs.png', width: 492, height: 406 },
+  { name: 'Jirsch Sutherland', src: '/client-logos/jirsch-sutherland.jpg', width: 900, height: 460 },
+  { name: 'Total Fitouts', src: '/client-logos/total-fitouts.webp', width: 1000, height: 316 },
+]
+
 function Stars() {
   return (
     <div className="flex gap-1">
@@ -119,7 +128,7 @@ export default function Home() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "What is tenant representation in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is a service where a licensed agent works exclusively for the tenant — not the landlord — in negotiating a commercial lease. They help secure better rent, favourable terms, rent-free periods and incentives. Your Office Space only ever represents tenants." } },
+              { "@type": "Question", "name": "What is tenant representation in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is a service where a licensed agent works exclusively for the tenant. not the landlord. in negotiating a commercial lease. They help secure better rent, favourable terms, rent-free periods and incentives. Your Office Space only ever represents tenants." } },
               { "@type": "Question", "name": "How much does commercial tenant representation cost?", "acceptedAnswer": { "@type": "Answer", "text": "The fee structure depends on the scope and transaction. Your Office Space confirms fees and any third-party arrangements before an engagement begins." } },
               { "@type": "Question", "name": "What is a make-good clause in a commercial lease?", "acceptedAnswer": { "@type": "Answer", "text": "A make-good clause sets out what a tenant must do to the premises at the end of the lease. The obligation can vary significantly, so it should be understood and negotiated before the lease is signed." } },
               { "@type": "Question", "name": "How does a commercial office fitout work from start to finish?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space coordinates the fit out process from design and brief through procurement, programme management, services coordination, furniture installation, practical completion and handover." } },
@@ -155,19 +164,41 @@ export default function Home() {
           <FadeIn delay={80}>
             <h1 className="text-white leading-[1.02] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem,6.5vw,7rem)', maxWidth: '14ch', marginBottom: '1.75rem' }}>
-              One team. Clear direction. No guesswork.
+              We help businesses find their next commercial building. Lease or buy.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/90 font-light leading-relaxed"
               style={{ fontSize: 'clamp(1rem,2.5vw,1.15rem)', maxWidth: '34rem', lineHeight: 1.9, marginBottom: '2.25rem' }}>
-              One accountable partner from lease decisions through fit out, furniture and ongoing commercial cleaning — built around what your business needs.
+              The landlord has an expert. You should too. We bring the property, fit out, furniture and cleaning decisions into one clear plan.
             </p>
           </FadeIn>
           <FadeIn delay={240}>
             <div className="flex flex-col items-start gap-3">
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
-              <span className="text-white/80 text-sm">20 minutes. No pitch.</span>
+              <span className="text-white/80 text-sm">Start with the decision you need to make.</span>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── THE PIE ─────────────────────────────── */}
+      <section className="bg-light-teal" style={SEC}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <p className="text-near-black font-bold text-xs tracking-[0.25em] uppercase mb-5">
+              Protect the project budget
+            </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start mt-3">
+              <h2 className="text-near-black font-black leading-tight tracking-tight"
+                style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
+                One budget. A lot of hands reaching for it.
+              </h2>
+              <div className="text-readable-grey font-light leading-relaxed space-y-5" style={{ fontSize: '1.05rem' }}>
+                <p>Your workplace project starts with a fixed budget. Property costs, consultants, contractors, furniture suppliers and programme changes all take a share.</p>
+                <p>When nobody is protecting the whole picture, early decisions can leave too little for the space your team actually needs.</p>
+                <p className="text-near-black font-semibold">We get involved early, make the trade-offs visible and keep every decision tied to the same outcome.</p>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -186,6 +217,44 @@ export default function Home() {
               </p>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* ─── CLIENT PROOF ───────────────────────── white */}
+      <section className="bg-white" style={{ paddingTop: 'clamp(3rem,6vw,6rem)', paddingBottom: 'clamp(3rem,6vw,6rem)' }}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <div className="text-center mb-10">
+              <SectionLabel>Client experience</SectionLabel>
+              <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mt-2"
+                style={{ fontSize: 'clamp(1.6rem,3vw,2.75rem)' }}>
+                Businesses we have supported.
+              </h2>
+            </div>
+          </FadeIn>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-5">
+            {CLIENT_LOGOS.map((client, index) => (
+              <FadeIn key={client.name} delay={index * 50}>
+                <div
+                  className="relative flex items-center justify-center rounded-xl border border-black/10 bg-white"
+                  style={{ height: '8.5rem', padding: '1.25rem' }}
+                  title={client.name}
+                >
+                  <Image
+                    src={client.src}
+                    alt={`${client.name} logo`}
+                    width={client.width}
+                    height={client.height}
+                    className="max-h-full w-auto object-contain"
+                    sizes="(max-width: 767px) 42vw, (max-width: 1023px) 28vw, 14vw"
+                  />
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+          <p className="text-readable-grey text-center font-light mt-7" style={{ fontSize: '0.78rem' }}>
+            Logos are shown to identify organisations supported by Your Office Space. All trademarks remain the property of their respective owners.
+          </p>
         </div>
       </section>
 
@@ -312,7 +381,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation — we are answering to you. Not the building owner, not a referral fee.' },
+              { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation. we are answering to you. Not the building owner, not a referral fee.' },
               { title: 'We make the risks clear', body: 'Commercial leases and fit out contracts can hide costly gaps. We surface the obligations, trade-offs and decisions before they become surprises.' },
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
@@ -379,8 +448,8 @@ export default function Home() {
         <div className="absolute inset-0 flex items-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2rem,5vw,4rem)' }}>
           <FadeIn>
             <p className="text-white font-light italic" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', maxWidth: '44rem', lineHeight: 1.8, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;Joe was instrumental in building out our boardroom — high quality, practical advice, excellent detail.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Nathan Franks, Dynamic Business Technologies</span>
+              &ldquo;Joe was instrumental in building out our boardroom. high quality, practical advice, excellent detail.&rdquo;
+              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>- Nathan Franks, Dynamic Business Technologies</span>
             </p>
           </FadeIn>
         </div>
@@ -393,7 +462,7 @@ export default function Home() {
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '46rem', margin: '0 auto' }}>
               <div className="inline-flex items-center gap-2 border border-white/30 mb-8" style={{ padding: '0.5rem 1.25rem' }}>
                 <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
-                <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>New — LeaseIntel™</span>
+                <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>New. LeaseIntel™</span>
               </div>
               <h2 className="text-white leading-tight tracking-tight w-full"
                 style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.25rem' }}>
@@ -405,7 +474,7 @@ export default function Home() {
               </p>
               <p className="text-white font-light leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '2.5rem' }}>
-                Answer 10 questions. Get a plain-English risk rating — Red, Amber, or Green — and the top issues to deal with. Free, instant, no document needed.
+                Answer 10 questions. Get a plain-English risk rating. Red, Amber, or Green. and the top issues to deal with. Free, instant, no document needed.
               </p>
               <div>
                 <Button href="/resources/lease-review" variant="dark" size="lg">
@@ -432,11 +501,11 @@ export default function Home() {
               </h2>
               <p className="text-white/80 font-light leading-relaxed w-full"
                 style={{ fontSize: '1rem', lineHeight: 1.8, marginBottom: '2rem' }}>
-                No obligation. No pitch. Tell us what you&apos;re working with and we&apos;ll give you a straight answer.
+                Tell us what you&apos;re working through and we&apos;ll give you a clear view of the next step.
               </p>
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
               <p className="text-white/80 font-light mt-5" style={{ fontSize: '0.8rem' }}>
-                We respond within one business day.
+                Send the details and our team will be in touch.
               </p>
             </div>
           </FadeIn>
