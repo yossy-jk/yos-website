@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Commercial Stamp Duty Calculator NSW & Australia | Your Office Space',
     description: 'Calculate stamp duty on commercial property purchases across NSW, VIC, QLD, WA and SA. 2025-26 rates. Free online calculator.',
-    url: 'https://yourofficespace.au/resources/stamp-duty-calculator',
+    url: 'https://www.yourofficespace.au/resources/stamp-duty-calculator',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

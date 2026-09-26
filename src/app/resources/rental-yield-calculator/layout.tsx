@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Commercial Rental Yield Calculator | Your Office Space',
     description: 'Calculate gross and net rental yield on commercial property investments. Free calculator for Australian investors.',
-    url: 'https://yourofficespace.au/resources/rental-yield-calculator',
+    url: 'https://www.yourofficespace.au/resources/rental-yield-calculator',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
