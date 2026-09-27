@@ -57,7 +57,7 @@ test('shared search trigger text meets the audited dark-surface threshold', () =
 
 test('homepage supporting copy does not use low-opacity white on dark surfaces', () => {
   assert.doesNotMatch(homeSource, /text-white\/(?:30|35|40|45|50|55)/)
-  assert.match(homeSource, /text-white\/90 font-light leading-relaxed/)
+  assert.match(homeSource, /text-white\/90 font-normal leading-relaxed/)
   assert.ok(contrastRatio('ced8d7', '0a3b38') >= 4.5)
 })
 
