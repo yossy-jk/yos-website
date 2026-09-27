@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -33,6 +34,25 @@ const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
   { num: '02', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
   { num: '03', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
+]
+
+const DELIVERY_RELATIONSHIPS = [
+  {
+    organisation: 'Recovery Station',
+    contact: 'Beth Gwalter',
+    context: 'Client relationship',
+    logo: '/images/relationships/recovery-station.jpg',
+    width: 588,
+    height: 330,
+  },
+  {
+    organisation: 'Total Fitouts',
+    contact: 'Jason Dowdall',
+    context: 'Fit out relationship',
+    logo: '/images/relationships/total-fitouts.webp',
+    width: 1000,
+    height: 316,
+  },
 ]
 
 export default function Home() {
@@ -218,6 +238,43 @@ export default function Home() {
               <Link href="/cleaning" className="text-dark-teal font-semibold underline underline-offset-4">Get a cleaning quote</Link>
             </div>
           </FadeIn>
+        </div>
+      </section>
+
+      {/* Relationship claims are limited to owner-confirmed organisation/contact mappings. */}
+      <section className="bg-warm-grey" style={SEC} aria-labelledby="delivery-relationships-heading">
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <SectionLabel>Selected relationships</SectionLabel>
+            <h2 id="delivery-relationships-heading" className="text-near-black leading-tight tracking-tight mt-2 mb-5"
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', maxWidth: '19ch' }}>
+              People and organisations we work with.
+            </h2>
+            <p className="text-charcoal leading-relaxed mb-10" style={{ fontSize: '1.05rem', maxWidth: '44rem', lineHeight: 1.85 }}>
+              Clear relationships help keep the client brief, delivery responsibilities and next decision connected.
+            </p>
+          </FadeIn>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {DELIVERY_RELATIONSHIPS.map((relationship, index) => (
+              <FadeIn key={relationship.organisation} delay={index * 80}>
+                <article className="bg-white border border-gray-200 h-full p-6 sm:p-8" style={{ borderRadius: '4px' }}>
+                  <div className="bg-white flex items-center justify-center mb-6" style={{ minHeight: '9rem' }}>
+                    <Image
+                      src={relationship.logo}
+                      alt={`${relationship.organisation} logo`}
+                      width={relationship.width}
+                      height={relationship.height}
+                      className="max-h-28 w-auto object-contain"
+                    />
+                  </div>
+                  <p className="text-teal font-bold text-xs tracking-[0.16em] uppercase mb-2">{relationship.context}</p>
+                  <h3 className="text-near-black mb-2" style={{ fontSize: '1.35rem' }}>{relationship.organisation}</h3>
+                  <p className="text-charcoal leading-relaxed">Relationship contact: <strong>{relationship.contact}</strong></p>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </section>
 
