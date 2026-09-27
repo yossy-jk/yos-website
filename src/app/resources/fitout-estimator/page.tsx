@@ -13,7 +13,7 @@ import {
 } from '@/lib/fitout-estimate'
 
 const STEPS = [
-  { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
+  { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Indicative planning assumptions only. Confirm current pricing before making a commitment.' },
   { id: 'service',     title: 'What are you after?',     subtitle: 'Furniture only or a full turnkey fitout?' },
   { id: 'space',       title: 'Tell us about the space',  subtitle: 'Floor area and building type' },
   { id: 'shell',       title: 'What is the space now?',  subtitle: 'Cold shell or warm shell - this changes the estimate significantly' },
@@ -788,7 +788,7 @@ export default function FitoutEstimatorPage() {
                   {[
                     'Desk, chair and cable management for 5-50 people',
                     'Meeting room design and configuration',
-                    'Joinery, shelving and storage solutions',
+                    'Joinery, shelving and storage options',
                     'Delivery, install and on-site management',
                   ].map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

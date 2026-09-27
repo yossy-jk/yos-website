@@ -5,11 +5,11 @@ import MarketSnapshotPageContent from './MarketSnapshotPageContent'
 
 export const metadata: Metadata = {
   title: 'Newcastle Office Market Snapshot | Your Office Space',
-  description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
+  description: 'Tenant-side Newcastle office market context, including available evidence on vacancy, rent trends, supply and the decisions facing local occupiers.',
   alternates: { canonical: 'https://www.yourofficespace.au/market-snapshot' },
   openGraph: {
     title: 'Newcastle Office Market Snapshot | Your Office Space',
-    description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
+    description: 'Tenant-side Newcastle office market context, including available evidence on vacancy, rent trends, supply and occupier decisions.',
     url: 'https://www.yourofficespace.au/market-snapshot',
     images: [{ url: '/og/og-market-snapshot.png', width: 1200, height: 630, alt: 'Newcastle Office Market Snapshot | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -81,9 +81,9 @@ export default function MarketSnapshotPage() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "Is the Newcastle office market tenant-friendly in 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Newcastle office market in 2026 is broadly tenant-friendly, with vacancy rates providing negotiating leverage. Incentives remain competitive, particularly for quality A-grade space. Tenants who engage a tenant representative consistently achieve better outcomes than those who negotiate directly." } },
+              { "@type": "Question", "name": "How should I assess the Newcastle office market?", "acceptedAnswer": { "@type": "Answer", "text": "Use current, traceable evidence for the buildings and locations relevant to your brief. Compare vacancy, asking terms, incentives, supply and the obligations in each proposed lease before deciding." } },
               { "@type": "Question", "name": "What are current vacancy rates in Newcastle CBD?", "acceptedAnswer": { "@type": "Answer", "text": "Vacancy rates in the Newcastle CBD have moderated from their 2022-23 highs. The market remains tenant-friendly at the upper end, with landlords offering extended rent-free periods and fitout contributions to attract quality tenants. Speak to Your Office Space for current market data specific to your requirements." } },
-              { "@type": "Question", "name": "Should I renew my lease now or look at alternatives?", "acceptedAnswer": { "@type": "Answer", "text": "Most businesses should explore their options 12 months before lease expiry, regardless of whether they plan to stay. The Newcastle market in 2026 offers real negotiating leverage for tenants willing to use it. A tenant representative can assess your current position and identify whether a renewal, relocation, or renegotiation delivers the best outcome." } }
+              { "@type": "Question", "name": "Should I renew my lease or look at alternatives?", "acceptedAnswer": { "@type": "Answer", "text": "The right path depends on your timing, workplace needs, current obligations and the available alternatives. Start early enough to compare staying, relocating and renegotiating without creating avoidable time pressure." } }
             ]
           }
         ]

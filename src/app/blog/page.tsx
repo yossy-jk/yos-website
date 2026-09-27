@@ -1,9 +1,8 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BlogEmailCapture from '@/components/BlogEmailCapture'
-import { getAllPublicPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES, SAFE_DIVISION } from '@/lib/blog'
+import { getAllPublicPostsAsync, DIVISION_LABELS, SAFE_DIVISION } from '@/lib/blog'
 
 export const metadata = {
   title: 'Blog | Your Office Space',
@@ -22,6 +21,14 @@ export const metadata = {
 }
 
 export const revalidate = 3600 // re-check Redis every hour
+
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Your Office Space commercial property guides',
+  url: 'https://www.yourofficespace.au/blog',
+  publisher: { '@id': 'https://www.yourofficespace.au/#business' },
+}
 
 export default async function BlogPage() {
   const raw = await getAllPublicPostsAsync()
@@ -42,6 +49,7 @@ export default async function BlogPage() {
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }} />
       <Nav />
 
       <main id="main-content" tabIndex={-1}>
@@ -65,27 +73,14 @@ export default async function BlogPage() {
           <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)' }}>
             <Link href={`/blog/${featured.slug}`} style={{ textDecoration: 'none', display: 'block' }} className="group">
               {/* Two-col on lg+, stacked on mobile */}
-              <div className="flex flex-col lg:flex-row" style={{ borderRadius: '1rem', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)' }}>
-                {/* Image, fixed height on mobile, auto on desktop */}
-                <div className="relative w-full lg:w-1/2 flex-shrink-0" style={{ minHeight: '18rem' }}>
-                  <Image
-                    src={featured.heroImage || DIVISION_HERO_IMAGES[SAFE_DIVISION(featured.division)]}
-                    alt={featured.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
-                    priority
-                  />
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(0,0,0,0.3) 0%, transparent 60%)' }} />
-                  <div style={{ position: 'absolute', top: '1.25rem', left: '1.25rem' }}>
-                    <span className={`text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(featured.division)]}`}
-                      style={{ fontSize: '0.58rem' }}>
-                      {DIVISION_LABELS[SAFE_DIVISION(featured.division)]}
-                    </span>
-                  </div>
+              <div className="flex flex-col lg:flex-row" style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.18)' }}>
+                <div className="w-full lg:w-1/3 flex items-center justify-center bg-teal" style={{ minHeight: '12rem', padding: '2rem' }}>
+                  <span className="text-near-black font-semibold tracking-widest uppercase text-center">
+                    {DIVISION_LABELS[SAFE_DIVISION(featured.division)]}
+                  </span>
                 </div>
                 {/* Content */}
-                <div className="lg:w-1/2" style={{ background: '#141414', padding: 'clamp(2rem,5vw,4rem)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <div className="lg:w-2/3" style={{ background: '#1A1A1A', padding: 'clamp(2rem,5vw,4rem)', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                   <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.78rem', fontWeight: 300, marginBottom: '1.25rem' }}>
                     {new Date(featured.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })} · Featured
                   </p>
@@ -116,27 +111,15 @@ export default async function BlogPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: '2rem' }}>
               {rest.map(post => {
                 const readTime = Math.max(2, Math.round(String(post.body || post.excerpt || '').split(' ').length / 200))
-                const imgSrc = post.heroImage || DIVISION_HERO_IMAGES[SAFE_DIVISION(post.division)]
                 return (
                   <Link key={post.slug} href={`/blog/${post.slug}`}
-                    style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', borderRadius: '0.875rem', overflow: 'hidden', border: '1px solid #E5E7EB', background: 'white' }}
-                    className="group hover:border-teal hover:shadow-lg transition-all duration-200">
+                    style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', borderRadius: '4px', overflow: 'hidden', border: '1px solid #E5E5E5', background: 'white' }}
+                    className="group hover:border-teal transition-colors duration-200">
 
-                    {/* Hero image */}
-                    <div className="relative w-full overflow-hidden" style={{ height: '14rem', background: '#F3F4F6', flexShrink: 0 }}>
-                      <Image
-                        src={imgSrc}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
-                        <span className={`font-bold rounded-full tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(post.division)]}`}
-                          style={{ fontSize: '0.58rem', padding: '0.25rem 0.625rem', display: 'inline-block' }}>
-                          {DIVISION_LABELS[SAFE_DIVISION(post.division)]}
-                        </span>
-                      </div>
+                    <div className="bg-light-teal border-b border-line" style={{ padding: '1rem 1.25rem' }}>
+                      <span className="text-near-black font-semibold tracking-widest uppercase" style={{ fontSize: '0.58rem' }}>
+                        {DIVISION_LABELS[SAFE_DIVISION(post.division)]}
+                      </span>
                     </div>
 
                     {/* Content */}

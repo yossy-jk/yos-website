@@ -17,13 +17,13 @@ import HubSpotForm from '@/components/HubSpotForm'
 export const metadata = {
   title: 'Commercial Office Furniture Newcastle | Your Office Space',
   description: 'Commercial office furniture for Newcastle and NSW workplaces. Workstations, seating, meeting, storage and breakout settings selected to suit the brief.',
-  twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'From brief to delivery. Office furniture and fitout. one team, end to end. Express to made-to-order.' },
+  twitter: { card: 'summary_large_image', title: 'Office & Commercial Furniture | Your Office Space', description: 'Commercial furniture planning, specification, supply and installation for Australian workplaces.' },
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
-    title: 'Office Furniture & Fitout | Your Office Space',
-    description: 'Brief to delivered. Office furniture and fitout project management. end to end. One team, no gaps.',
+    title: 'Office & Commercial Furniture | Your Office Space',
+    description: 'Commercial furniture planning, specification, supply and installation for Australian workplaces.',
     url: 'https://www.yourofficespace.au/furniture',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Furniture & Fitout. Your Office Space' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office and Commercial Furniture. Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -61,7 +61,7 @@ export default function FurniturePage() {
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/furniture#service",
-            "name": "Office Furniture & Fitout Newcastle",
+            "name": "Office & Commercial Furniture",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace. workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -70,7 +70,7 @@ export default function FurniturePage() {
               { "@type": "City", "name": "Lake Macquarie" },
               { "@type": "State", "name": "New South Wales" }
             ],
-            "serviceType": "Office Furniture and Fitout",
+            "serviceType": "Office & Commercial Furniture",
             "url": "https://www.yourofficespace.au/furniture"
           },
           {
@@ -79,7 +79,7 @@ export default function FurniturePage() {
               { "@type": "Question", "name": "How is commercial office furniture priced?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on quantities, specification, finishes, delivery, installation and programme. The agreed quote records the selected products and inclusions before order." } },
               { "@type": "Question", "name": "How long does office furniture take to supply?", "acceptedAnswer": { "@type": "Answer", "text": "Lead times vary by product, finish, quantity and supplier availability. Current lead times are confirmed against the approved specification before order." } },
               
-              { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space supplies a wide range of commercial office furniture brands covering workstations, seating, meeting tables, storage, and breakout settings. We match the product to your spec, timeline and budget. not to a limited product list. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
+              { "@type": "Question", "name": "What commercial furniture can you source?", "acceptedAnswer": { "@type": "Answer", "text": "The furniture brief can cover workstations, seating, meeting tables, storage and breakout settings. Available products, suppliers, lead times and pricing are confirmed against the approved specification before order." } },
               { "@type": "Question", "name": "Can you project manage a full fitout including construction and joinery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space project manages full commercial fitouts including partition walls, flooring, joinery, electrical, AV, and IT infrastructure. We are the single point of contact from brief to practical completion." } },
               { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle and works across NSW. Each furniture brief is assessed against product, installation, programme and location requirements." } }
             ]
@@ -183,7 +183,7 @@ export default function FurniturePage() {
                 { stat: 'Workstations', label: 'Layouts and desk settings for focused work' },
                 { stat: 'Seating', label: 'Task, meeting and breakout options' },
                 { stat: 'Meeting', label: 'Tables and settings for the way teams gather' },
-                { stat: 'Storage', label: 'Personal, team and shared storage solutions' }
+                { stat: 'Storage', label: 'Personal, team and shared storage options' }
               ].map((item) => (
                 <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
                   <p className="text-near-black font-black text-3xl lg:text-4xl mb-2 leading-tight">{item.stat}</p>

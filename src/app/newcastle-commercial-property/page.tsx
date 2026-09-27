@@ -12,8 +12,8 @@ import BookingCTA from '@/components/BookingCTA'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Newcastle Commercial Property, Leases, Fitout, Cleaning & Market Guides',
-  description: 'Everything Newcastle businesses need to know about commercial property. Tenant representation, lease negotiation, office fitout costs, and commercial cleaning, all local, all practical.',
+  title: 'Newcastle Commercial Property Guides | Your Office Space',
+  description: 'Practical Newcastle commercial property guides covering tenant representation, lease decisions, workplace fit out, furniture and local cleaning.',
   alternates: { canonical: 'https://www.yourofficespace.au/newcastle-commercial-property' },
   openGraph: {
     title: 'Newcastle Commercial Property Hub, Your Office Space',

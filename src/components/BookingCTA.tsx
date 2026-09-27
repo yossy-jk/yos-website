@@ -58,7 +58,7 @@ export default function BookingCTA({
   const btnStyle: React.CSSProperties = {
     padding: size === 'lg' ? '1.1rem 3rem' : '0.9rem 2.25rem',
     fontSize: '0.72rem',
-    borderRadius: '0.5rem',
+    borderRadius: '4px',
     letterSpacing: '0.02em',
     fontWeight: 700,
     cursor: 'pointer',
@@ -85,18 +85,18 @@ export default function BookingCTA({
       {open && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(6px)' }}
+          style={{ background: 'rgba(10,59,56,0.92)' }}
           onClick={e => { if (e.target === e.currentTarget) close() }}
         >
           <div
-            className="relative w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
-            style={{ maxWidth: '28rem', animation: 'bookingIn 0.3s cubic-bezier(0.34,1.56,0.64,1)' }}
+            className="relative w-full bg-white rounded-[4px] overflow-hidden border border-line"
+            style={{ maxWidth: '28rem', animation: 'bookingIn 0.25s ease-out' }}
           >
             <div className="h-1.5 bg-teal w-full" />
 
             <button
               onClick={close}
-              className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+              className="absolute top-4 right-4 w-11 h-11 rounded-[4px] bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
               aria-label="Close"
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -106,9 +106,6 @@ export default function BookingCTA({
 
             {step === 'form' ? (
               <div style={{ padding: '2rem 2.25rem 2.25rem' }}>
-                <p className="text-teal font-semibold mb-3" style={{ fontSize: '0.72rem' }}>
-                  Free · No obligation
-                </p>
                 <h2 className="text-near-black font-bold leading-tight mb-2" style={{ fontSize: '1.4rem', paddingRight: '1.5rem' }}>
                   Book your Clarity Call.
                 </h2>
@@ -117,28 +114,32 @@ export default function BookingCTA({
                 </p>
 
                 <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '0.875rem' }}>
+                  <label htmlFor="clarity-name" className="text-near-black font-semibold text-sm">Your name</label>
                   <input
+                    id="clarity-name"
                     type="text"
-                    placeholder="Your name"
+                    autoComplete="name"
                     value={name}
                     onChange={e => setName(e.target.value)}
                     required
-                    className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                    className="w-full border border-gray-200 rounded-[4px] text-near-black outline-none focus:border-teal transition-colors"
                     style={{ padding: '1rem 1.1rem', fontSize: '0.95rem' }}
                   />
+                  <label htmlFor="clarity-phone" className="text-near-black font-semibold text-sm">Mobile number</label>
                   <input
+                    id="clarity-phone"
                     type="tel"
-                    placeholder="Mobile number"
+                    autoComplete="tel"
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     required
-                    className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                    className="w-full border border-gray-200 rounded-[4px] text-near-black outline-none focus:border-teal transition-colors"
                     style={{ padding: '1rem 1.1rem', fontSize: '0.95rem' }}
                   />
                   <button
                     type="submit"
                     disabled={submitting || !name.trim() || !phone.trim()}
-                    className="w-full bg-teal text-white font-bold tracking-[0.02em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40"
+                    className="w-full bg-teal text-white font-semibold tracking-[0.02em] rounded-[4px] hover:bg-dark-teal transition-colors disabled:opacity-40"
                     style={{ padding: '1.1rem 2rem', fontSize: '0.72rem', marginTop: '0.25rem' }}
                   >
                     {submitting ? 'One moment…' : 'Pick a time →'}
@@ -151,7 +152,7 @@ export default function BookingCTA({
               </div>
             ) : (
               <div className="text-center" style={{ padding: '2.5rem 2.25rem' }}>
-                <div className="w-12 h-12 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 rounded-[4px] bg-teal/10 flex items-center justify-center mx-auto mb-4">
                   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                     <path d="M4 11l5 5 9-10" stroke="#01A7A3" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -166,8 +167,8 @@ export default function BookingCTA({
 
       <style>{`
         @keyframes bookingIn {
-          from { opacity: 0; transform: scale(0.93) translateY(0.75rem); }
-          to   { opacity: 1; transform: scale(1) translateY(0); }
+          from { opacity: 0; }
+          to   { opacity: 1; }
         }
       `}</style>
     </>

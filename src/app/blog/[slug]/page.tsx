@@ -1,31 +1,38 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
-import { getPublicPosts, getAllPublicPostsAsync, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
+import { getPublicPosts, getAllPublicPostsAsync, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
 export async function generateStaticParams() {
   return getPublicPosts().map(post => ({ slug: post.slug }))
 }
 
+function truncateMeta(value: string, maximum: number) {
+  if (value.length <= maximum) return value
+  const shortened = value.slice(0, maximum - 1).replace(/\s+\S*$/, '').replace(/[,:;.!?\s]+$/, '')
+  return `${shortened}…`
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getPostBySlugAsync(slug)
   if (!post) return {}
+  const title = truncateMeta(post.metaTitle || post.title, 62)
+  const description = truncateMeta(post.metaDescription || post.excerpt, 160)
   return {
-    title: post.metaTitle || `${post.title} | Your Office Space`,
-    description: post.metaDescription || post.excerpt,
+    title,
+    description,
     alternates: { canonical: `https://www.yourofficespace.au/blog/${post.slug}` },
     robots: post.division === 'buyers-agency' ? { index: false, follow: false } : undefined,
     openGraph: {
       
   images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
-title: post.metaTitle || post.title,
-      description: post.metaDescription || post.excerpt,
+title,
+      description,
       url: `https://www.yourofficespace.au/blog/${post.slug}`,
       siteName: 'Your Office Space',
       locale: 'en_AU',
@@ -33,8 +40,8 @@ title: post.metaTitle || post.title,
     },
     twitter: {
       card: 'summary_large_image' as const,
-      title: post.metaTitle || post.title,
-      description: post.metaDescription || post.excerpt,
+      title,
+      description,
     },
   }
 }
@@ -288,7 +295,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
 
 
-  const heroImage = post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -299,7 +305,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     author: { '@type': 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' },
     publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://www.yourofficespace.au' },
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/blog/${post.slug}` },
-    image: `https://www.yourofficespace.au${heroImage}`,
     keywords: post.tags?.join(', '),
     articleSection: DIVISION_LABELS[post.division as Division],
   }
@@ -312,17 +317,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <main id="main-content" tabIndex={-1}>
 
       {/* ── HERO ─────────────────────────────────── */}
-      <section className="relative bg-near-black overflow-hidden" style={{ minHeight: 'clamp(24rem,48vw,38rem)' }}>
-        <Image
-          src={post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]}
-          alt={post.title}
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        {/* Dark gradient overlay. heavier at bottom */}
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.96) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
-
+      <section className="relative bg-near-black overflow-hidden border-b-4 border-teal" style={{ minHeight: 'clamp(24rem,48vw,38rem)' }}>
         <div className="absolute inset-0 flex items-end">
           <div className="w-full" style={{ maxWidth: '52rem', paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)', paddingTop: '8rem' }}>
             {/* Division + meta */}

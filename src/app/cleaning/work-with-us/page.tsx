@@ -30,7 +30,7 @@ const WHAT_YOU_SELL = [
   },
   {
     icon: 'chair',
-    heading: 'Office Furniture & Fitout',
+    heading: 'Office & Commercial Furniture',
     body: 'New offices, refits, expansion projects. We manage the full supply and install so you never have to worry about delivery or execution.',
   },
   {

@@ -220,12 +220,9 @@ export default function TermsPage() {
                     report has been sent to you.
                   </p>
                   <p>
-                    <span className="font-semibold text-near-black">24-hour turnaround is a target, not a guarantee.</span> We
-                    aim to deliver your report within 24 hours of receiving your document and payment. In
-                    practice, most reports are delivered within that window. But circumstances outside our
-                    control, document complexity, volume, public holidays, can affect timing. We won&apos;t
-                    leave you waiting without communication, but we can&apos;t contractually guarantee the
-                    24-hour window.
+                    <span className="font-semibold text-near-black">Timing is confirmed with the scope.</span> Delivery timing
+                    depends on document length, complexity and reviewer availability. We will confirm the proposed
+                    timing before accepting an engagement and notify you if circumstances change.
                   </p>
                   <p>
                     Payment is processed at the time of order. By submitting your lease document and

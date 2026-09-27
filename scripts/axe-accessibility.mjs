@@ -9,20 +9,13 @@ const host = '127.0.0.1'
 const port = process.env.AXE_PORT || '3100'
 const configuredBaseUrl = process.env.AXE_BASE_URL
 const baseUrl = configuredBaseUrl || `http://${host}:${port}`
-const routes = [
-  '/',
-  '/about',
-  '/tenant-rep',
-  '/newcastle-commercial-property',
-  '/buyers-agency',
-  '/resources',
-  '/blog',
-]
+let routes = []
 
 const executableCandidates = [
   process.env.PUPPETEER_EXECUTABLE_PATH,
   process.env.CHROME_PATH,
   process.env.CHROME_BIN,
+  `${process.env.HOME}/.cache/puppeteer/chrome-headless-shell/mac_arm-148.0.7778.97/chrome-headless-shell-mac-arm64/chrome-headless-shell`,
   '/opt/homebrew/bin/chromium',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
   '/usr/bin/google-chrome',
@@ -77,6 +70,15 @@ async function run() {
     server.stderr.on('data', (chunk) => process.stderr.write(chunk))
     await waitForServer(baseUrl)
   }
+
+  const sitemapResponse = await fetch(`${baseUrl}/sitemap.xml`)
+  if (!sitemapResponse.ok) throw new Error(`Sitemap HTTP ${sitemapResponse.status}`)
+  const sitemap = await sitemapResponse.text()
+  routes = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => {
+    const parsed = new URL(match[1])
+    return `${parsed.pathname}${parsed.search}`
+  })
+  if (routes.length === 0) throw new Error('No public routes found in sitemap')
 
   const browser = await puppeteer.launch({
     headless: true,

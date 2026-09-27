@@ -14,12 +14,12 @@ import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Office Fit Out | Your Office Space',
+  title: 'Commercial Fit Out & Project Management | Your Office Space',
   description: 'Commercial office fit out coordination in Newcastle and across NSW. One brief, one programme and clear control from early planning to handover.',
-  twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'From brief to delivery. Office furniture and fitout. one team, end to end. Express to made-to-order.' },
+  twitter: { card: 'summary_large_image', title: 'Commercial Fit Out & Project Management | YOS', description: 'Commercial fit out planning and project management from brief through handover.' },
   alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   openGraph: {
-    title: 'Office Fit Out | Your Office Space',
+    title: 'Commercial Fit Out & Project Management | YOS',
     description: 'Commercial office fit out. End-to-end project management. design, procurement, installation. One team, no gaps.',
     url: 'https://www.yourofficespace.au/office-fitout',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Fit Out. Your Office Space' }],
@@ -60,7 +60,7 @@ export default function OfficeFitoutPage() {
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/office-fitout#service",
-            "name": "Commercial Office Fit Out. Newcastle",
+            "name": "Commercial Fit Out & Project Management",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace. workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -69,7 +69,7 @@ export default function OfficeFitoutPage() {
               { "@type": "City", "name": "Lake Macquarie" },
               { "@type": "State", "name": "New South Wales" }
             ],
-            "serviceType": "Commercial Office Fit Out",
+            "serviceType": "Commercial Fit Out & Project Management",
             "url": "https://www.yourofficespace.au/office-fitout"
           },
           {
@@ -77,7 +77,7 @@ export default function OfficeFitoutPage() {
             "mainEntity": [
               { "@type": "Question", "name": "How much does an office fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Cost depends on the existing space, scope, approvals, services, finishes, furniture and programme. Your Office Space develops the brief and confirms the pricing basis before commitment." } },
               { "@type": "Question", "name": "How long does a commercial office fitout take?", "acceptedAnswer": { "@type": "Answer", "text": "Programme depends on the scope, approvals, building requirements, product availability and access. Key dependencies and target dates are confirmed during planning." } },
-              { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies a wide range of commercial office furniture brands covering workstations, seating, meeting tables, storage, and breakout settings. We match the product to your spec, timeline and budget. not to a limited product list. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
+              { "@type": "Question", "name": "Can furniture be coordinated with the fit out?", "acceptedAnswer": { "@type": "Answer", "text": "Furniture requirements can be coordinated with the workplace brief and project programme. Products, suppliers, lead times and pricing are confirmed before order." } },
               
               { "@type": "Question", "name": "Can you project manage a full fitout including construction and joinery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space project manages full commercial fitouts including partition walls, flooring, joinery, electrical, AV, and IT infrastructure. We are the single point of contact from brief to practical completion." } },
               { "@type": "Question", "name": "Can you work to a fixed opening date?", "acceptedAnswer": { "@type": "Answer", "text": "Tell us the required date at the start. We map the approvals, procurement and site dependencies, then confirm what is achievable before commitment." } },

@@ -24,5 +24,8 @@ export const SERVICE_LINKS = [
   { label: 'Tenant Representation', href: '/tenant-rep', tagline: 'Your lease. Your terms.' },
   { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', tagline: 'From brief to delivered workspace.' },
   { label: 'Office & Commercial Furniture', href: '/furniture', tagline: 'Furniture selected, supplied and installed.' },
-  { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
+]
+
+export const SUPPLEMENTARY_SERVICE_LINKS = [
+  { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Ongoing workplace care for Newcastle and the Hunter.' },
 ]

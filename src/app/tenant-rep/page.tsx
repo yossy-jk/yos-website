@@ -454,7 +454,7 @@ export default function TenantRepPage() {
               { risk: 'Rent without context', detail: 'Headline rent needs to be tested against comparable options, outgoings, incentives and the full lease term.' },
               { risk: 'Unclear make-good', detail: 'Make-good obligations can create a material end-of-lease cost when the scope, evidence and handover standard are not clear.' },
               { risk: 'Unexamined incentives', detail: 'Incentives change the effective cost of a lease and should be assessed alongside the base rent and fit out requirements.' },
-              { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent, removing all leverage at renewal time.' },
+              { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent and weaken your position at renewal time.' },
               { risk: 'Relocation risk', detail: 'Relocation rights can affect continuity, fit out value and future operating plans if they are not understood before signing.' },
               { risk: 'Outgoings exposure', detail: 'Gross and net leases allocate operating costs differently. The comparison needs to include every recurring occupancy cost.' }
             ].map((item, i) => (
@@ -475,10 +475,10 @@ export default function TenantRepPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
             <FadeIn direction="left">
               <div>
-                <SectionLabel>No conflict of interest</SectionLabel>
+                <SectionLabel>Tenant-side engagement</SectionLabel>
                 <h2 className="text-near-black font-bold leading-tight mt-3 mb-8"
                   style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-                  We only ever work for you.
+                  Advice focused on the occupying business.
                 </h2>
                 <p className="text-charcoal font-light leading-relaxed mb-6"
                   style={{ fontSize: '1rem', lineHeight: 1.85 }}>
@@ -487,8 +487,8 @@ export default function TenantRepPage() {
                 </p>
                 <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5 mb-8">
                   <p className="text-near-black font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                    We will never represent a landlord. Every word of every lease is read through one lens:
-                    does this protect the tenant? Every negotiation has one outcome: the best deal for the business signing the lease.
+                    This tenant-representation engagement is designed for the occupying business, not the landlord.
+                    We assess the commercial terms against the tenant&apos;s documented brief and priorities.
                   </p>
                 </div>
                 <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
@@ -504,7 +504,7 @@ export default function TenantRepPage() {
                   {[
                     { title: 'Harder negotiation', body: 'Rent, fit-out contributions, lease length, pushed harder than a split-incentive advisor ever will.' },
                     { title: 'Protective clauses', body: 'The clauses that limit your liability, cap your make-good, and preserve your flexibility at renewal.' },
-                    { title: 'Real market intelligence', body: 'We know which landlords negotiate in good faith and which ones don\'t. That knowledge is leverage.' },
+                    { title: 'Clear market context', body: 'We compare the available evidence and make the trade-offs visible before you decide.' },
                     { title: 'Someone watching the fine print', body: 'A second set of eyes whose job is to stop you signing a deal you\'ll regret in year three.' },
                   ].map((item, i) => (
                     <li key={i} className="flex gap-5 items-start pb-5 border-b border-gray-100 last:border-0">
@@ -594,7 +594,7 @@ export default function TenantRepPage() {
                 "name": "What does a tenant representative do?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "A tenant representative advocates exclusively for businesses looking to lease commercial space. Unlike a landlord's agent, we work only for you, negotiating rent, lease terms, incentives, and every clause on your behalf. We have no relationship with the landlord and no conflict of interest.",
+                  "text": "A tenant representative is engaged by the occupying business to assess options and support commercial lease negotiations. The engagement scope, duties, fees and any relevant relationships should be confirmed in writing before work begins.",
                 },
               },
               {
@@ -626,7 +626,7 @@ export default function TenantRepPage() {
                 "name": "Can you help with an existing lease rather than a new one?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. Our LeaseIntel review covers existing leases, we run your current agreement through a 12-category risk framework covering rent, make-good, relocation rights, option clauses, and outgoings. Each clause is rated Red / Amber / Green. If you are mid-lease or facing a renewal, we can identify leverage you didn't know you had.",
+                  "text": "Yes. Tell us about the current lease and the decision you need to make. We will confirm whether a commercial lease review or tenant representation engagement is the appropriate next step.",
                 },
               },
               {
@@ -642,7 +642,7 @@ export default function TenantRepPage() {
                 "name": "How much can a tenant representative save on a commercial lease?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "It depends on the deal. We consistently negotiate rent-free periods worth tens of thousands of dollars, caps on annual rent increases, make-good obligations reduced or eliminated, and fitout contributions from the landlord. The fee is usually covered by what we negotiate. Most clients see a net positive return on representation within the first year of their lease.",
+                  "text": "It depends on the premises, market evidence, lease structure and the landlord's position. Potential negotiation items can include rent, incentives, review mechanisms, make-good and fitout contributions. No saving or outcome is guaranteed, and fees are confirmed before engagement.",
                 },
               },
             ],

@@ -81,7 +81,7 @@ export default function ResourcesPage() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "Are the tools on Your Office Space really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All tools on the Your Office Space website are completely free to use. No sign-up, no email capture, no catch. We built them to help business owners make better property decisions." } },
+              { "@type": "Question", "name": "Can I use the tools without paying?", "acceptedAnswer": { "@type": "Answer", "text": "The planning tools can be used without a purchase. Some reports or saved results ask for contact details so they can be delivered or followed up. Each tool explains its process before submission." } },
               { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "The tools are for indicative planning and do not replace project-specific professional advice. Inputs, assumptions and market conditions should be checked before a decision is made." } },
               { "@type": "Question", "name": "What should I use the Lease Risk Checker for?", "acceptedAnswer": { "@type": "Answer", "text": "The LeaseIntel risk checker is designed for business owners who want a quick read on whether their current lease has clauses that need attention. particularly make-good obligations, rent review structures, and assignment restrictions." } }
             ]

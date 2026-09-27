@@ -38,7 +38,7 @@ const FAQ_SCHEMA = [
   },
   {
     q: 'How is tenant representation different from using a commercial agent?',
-    a: 'Most commercial agents in Newcastle work for landlords, they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. We have no relationship with the landlord, no incentive to soften negotiations, and no conflict of interest. We read every clause through one lens: does this protect the tenant? That independence is the entire point.',
+    a: 'A landlord-appointed agent acts for the property owner. A tenant representative is engaged by the occupying business to assess options and support its commercial negotiation. The engagement scope, duties, fees and any relevant relationships should be confirmed in writing before work begins.',
   },
   {
     q: 'Can you help with an existing lease, not just a new one?',

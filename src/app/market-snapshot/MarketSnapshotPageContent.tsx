@@ -238,7 +238,7 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         href={leaseIntelHref}
         className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
       >
-        Lease review, $297 ex GST, 24-hour turnaround
+        Request a scoped lease review
       </Link>
       <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
         Newcastle business? Ask about current eligibility for the full LeaseIntel report.
@@ -304,7 +304,7 @@ export default function MarketSnapshotPageContent({
               className="text-white/55 font-light leading-relaxed mb-12"
               style={{ fontSize: 'clamp(1rem,2.2vw,1.25rem)', maxWidth: '620px', lineHeight: 1.85 }}
             >
-              Every month, we publish what landlords already know but tenants don&apos;t. Vacancy rates. Rent trends. What&apos;s in the pipeline. Which way leverage is moving.
+              We bring together available tenant-side market evidence: vacancy, rent trends, supply and the practical decisions facing local occupiers.
             </p>
             <CTASection onOpen={openPopup} leaseIntelHref={leaseIntelHref} />
           </FadeIn>

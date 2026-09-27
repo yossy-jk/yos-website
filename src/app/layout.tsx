@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 import "./globals.css";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fraunces",
-  weight: ["600"],
+  variable: "--font-montserrat",
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -58,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-AU" className={`scroll-smooth ${inter.variable} ${fraunces.variable}`}>
+    <html lang="en-AU" className={`scroll-smooth ${montserrat.variable}`}>
       <head>
       </head>
       <body>{children}<AnalyticsConsent /></body>
