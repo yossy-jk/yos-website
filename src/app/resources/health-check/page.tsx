@@ -1166,14 +1166,14 @@ export default function HealthCheckPage() {
                 rel="noopener noreferrer"
                 style={{
                   display: 'inline-flex', alignItems: 'center',
-                  background: '#01A7A3', color: 'white',
+                  background: '#0C7A70', color: 'white',
                   fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.2em',
                   textTransform: 'uppercase', textDecoration: 'none',
                   padding: '1.1rem 2.5rem', borderRadius: '0.5rem',
                   minHeight: '52px', transition: 'background 0.15s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#009e90'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = '#01A7A3'; e.currentTarget.style.transform = 'translateY(0)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#0A3B38'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#0C7A70'; e.currentTarget.style.transform = 'translateY(0)' }}
               >
                 Book a Free Call →
               </a>
