@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
 import "./globals.css";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
-});
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-fraunces",
-  weight: ["600"],
+  variable: "--font-montserrat",
+  weight: ["400", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -29,7 +23,7 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   title: "Your Office Space | Commercial Property Advisory Australia",
-  description: "Newcastle-based, tenant-side commercial property advisory across Australia. Tenant representation, commercial fit out and project management, office and commercial furniture, and commercial cleaning.",
+  description: "Based in Newcastle and working Australia-wide where capability and licensing permit. One team for property decisions, commercial fit out and workplace furniture.",
   keywords: "commercial tenant representation Australia, commercial fit out project management, office commercial furniture, commercial cleaning, Newcastle tenant advisory",
   metadataBase: new URL("https://www.yourofficespace.au"),
   alternates: {
@@ -37,7 +31,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.",
+    description: "One team. Clear direction. No guesswork. Based in Newcastle and working Australia-wide where capability and licensing permit.",
     url: "https://www.yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",
@@ -47,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "One team. Clear direction. No guesswork. Newcastle-based, tenant-side commercial property advisory across Australia.",
+    description: "One team. Clear direction. No guesswork. Based in Newcastle and working Australia-wide where capability and licensing permit.",
     images: ["/og-default.png"],
   },
 };
@@ -58,7 +52,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-AU" className={`scroll-smooth ${inter.variable} ${fraunces.variable}`}>
+    <html lang="en-AU" className={`scroll-smooth ${montserrat.variable}`}>
       <head>
       </head>
       <body>{children}<AnalyticsConsent /></body>

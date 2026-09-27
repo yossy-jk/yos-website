@@ -11,8 +11,8 @@
   --color-warm-grey: #FAFAF8;
   --color-mid-grey: #5A6B68;
   --color-charcoal: #0A3B38;
-  --font-sans: var(--font-inter), Inter, Arial, sans-serif;
-  --font-display: var(--font-fraunces), Fraunces, Georgia, serif;
+  --font-sans: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
 }
 
 /* ─── Hero overlay positioning ────────────────────────── */
@@ -28,14 +28,13 @@
   flex-direction: column;
   height: 100%;
   padding: clamp(1.75rem, 3vw, 2.25rem);
-  border-radius: 0.75rem;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid #f0f0f0;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 .testimonial-card:hover {
-  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-  transform: translateY(-2px);
+  border-color: #01A7A3;
 }
 
 /* ─── Why Us card polish ──────────────────────────────── */
@@ -43,13 +42,12 @@
   padding: clamp(1.5rem, 3vw, 2.25rem);
   background: rgba(255,255,255,0.04);
   border-left: 4px solid #01A7A3;
-  border-radius: 0.75rem;
-  transition: background 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 4px;
+  transition: background 0.2s ease;
   height: 100%;
 }
 .whyus-card:hover {
   background: rgba(255,255,255,0.07);
-  box-shadow: 0 4px 24px rgba(1,167,163,0.1);
 }
 
 
@@ -66,7 +64,7 @@
 
 /* ─── Fee Guarantee Section ────────────────────────────── */
 .fee-guarantee-section {
-  background: linear-gradient(135deg, #0C7A70 0%, #0A3B38 100%);
+  background: #0A3B38;
   padding-top: clamp(3.5rem, 7vw, 6rem);
   padding-bottom: clamp(3.5rem, 7vw, 6rem);
 }
@@ -107,7 +105,7 @@
 }
 
 .fee-guarantee-seal-mult {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 900;
   font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   line-height: 1;
@@ -116,7 +114,7 @@
 }
 
 .fee-guarantee-seal-label {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
   font-size: clamp(0.55rem, 1.1vw, 0.72rem);
   line-height: 1.25;
@@ -135,7 +133,7 @@
 
 .fee-guarantee-eyebrow {
   color: rgba(255, 255, 255, 0.55);
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 700;
   font-size: 0.65rem;
   letter-spacing: 0.28em;
@@ -144,7 +142,7 @@
 }
 
 .fee-guarantee-heading {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 900;
   font-size: clamp(1.6rem, 4vw, 3.2rem);
   line-height: 1.05;
@@ -154,7 +152,7 @@
 }
 
 .fee-guarantee-body {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 300;
   font-size: clamp(0.95rem, 1.5vw, 1.05rem);
   line-height: 1.8;
@@ -163,7 +161,7 @@
 }
 
 .fee-guarantee-reassure {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 500;
   font-size: 0.85rem;
   letter-spacing: 0.04em;
@@ -179,7 +177,7 @@
   gap: 0.5rem;
   border: 2px solid rgba(255, 255, 255, 0.7);
   color: #ffffff;
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-weight: 800;
   font-size: 0.85rem;
   letter-spacing: 0.1em;
@@ -282,7 +280,7 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   background: #FAFAF8;
   color: #0A3B38;
   -webkit-font-smoothing: antialiased;
@@ -320,10 +318,10 @@ p, li, span, label {
 
 /* ─── Typography ─────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-fraunces), Fraunces, Georgia, serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   text-transform: none !important;
 }
 
@@ -372,7 +370,7 @@ img {
 
 /* ─── Form inputs — base quality ─────────────────────────── */
 input, textarea, select {
-  font-family: var(--font-inter), Inter, Arial, sans-serif;
+  font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
 }
 
