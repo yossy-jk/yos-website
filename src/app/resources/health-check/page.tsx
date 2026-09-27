@@ -35,8 +35,8 @@ interface DomainConfig {
 // ─── Domain config ────────────────────────────────────────────────────────────
 
 
-const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
-const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const SEC    = { background: '#0A0A0A', paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { background: '#0A0A0A', paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
 
 const DOMAINS: DomainConfig[] = [

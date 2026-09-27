@@ -678,7 +678,7 @@ export default function RelocateQuizPage() {
                 rel="noopener noreferrer"
                 style={{
                   display: 'inline-block',
-                  background: '#01A7A3', color: 'white',
+                  background: '#0C7A70', color: 'white',
                   fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.2em',
                   textTransform: 'uppercase', textDecoration: 'none',
                   padding: '1.1rem 2.5rem',

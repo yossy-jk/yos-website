@@ -270,10 +270,10 @@ export default function LeaseIntelPage() {
                style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
               Scope, timing and fees confirmed before you proceed.
             </h2>
-            <p className="text-near-black font-medium mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
+            <p className="text-black font-semibold mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
               Tell us about the lease and the decision. We will confirm fit, scope, timing, fees and document handling before you proceed.
             </p>
-            <a href="/lease-review" className="inline-flex min-h-[48px] items-center justify-center border border-near-black px-8 py-4 text-near-black font-bold uppercase tracking-widest hover:bg-near-black hover:text-white transition-colors">
+            <a href="/lease-review" className="inline-flex min-h-[48px] items-center justify-center border-2 border-black px-8 py-4 text-black font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
               Submit your lease
             </a>
           </div>

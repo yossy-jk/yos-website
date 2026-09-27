@@ -174,7 +174,7 @@ export default function OfficeSizeCalculatorPage() {
             <p className="text-white/40 font-light uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Monthly Rent Estimate</p>
             <p className="text-white font-black" style={{ fontSize: '1.4rem' }}>{fmtAUD(result.monthlyRent)} / mo</p>
           </div>
-          <p className="text-white/25 font-light text-right" style={{ fontSize: '0.72rem', maxWidth: '12rem', lineHeight: 1.5 }}>
+          <p className="text-white/75 font-light text-right" style={{ fontSize: '0.72rem', maxWidth: '12rem', lineHeight: 1.5 }}>
             Indicative Newcastle / Hunter market estimate at $35/sqm/yr
           </p>
         </div>
@@ -336,7 +336,7 @@ export default function OfficeSizeCalculatorPage() {
             <FadeIn delay={120}>
               {!result ? (
                 <div className="border border-white/8 bg-white/3" style={{ padding: '2.5rem 2rem' }}>
-                  <p className="text-white/25 font-light text-center" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
+                  <p className="text-white/75 font-light text-center" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
                     Fill in your team details to get a recommended office size and cost estimate.
                   </p>
                 </div>
@@ -385,7 +385,7 @@ export default function OfficeSizeCalculatorPage() {
             style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
             Getting the right space isn&apos;t just about sqm.
           </h2>
-          <p className="text-near-black font-medium leading-relaxed mb-12 mx-auto"
+          <p className="text-black font-semibold leading-relaxed mb-12 mx-auto"
             style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
             We help tenants negotiate favourable terms, fitout contributions and lease structures that match how you actually work.
           </p>
