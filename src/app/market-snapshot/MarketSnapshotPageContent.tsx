@@ -412,13 +412,13 @@ export default function MarketSnapshotPageContent({
               >
                 Get it delivered to your inbox every month.
               </h2>
-              <p className="text-near-black/80 font-medium mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+              <p className="text-near-black font-medium mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                 One email, once a month. The market data landlords already know, delivered to the tenant&apos;s side.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={openPopup}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-near-black text-near-black hover:bg-near-black hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border-2 border-near-black text-near-black hover:bg-near-black hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
                 >
                   Get it delivered monthly
                 </button>

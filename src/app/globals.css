@@ -24,6 +24,10 @@
 /* Dark interactive tools use many inline opacity states. Keep all rendered
    instructional copy above the WCAG AA contrast floor without changing state
    borders, fills or semantic status indicators. */
+.accessible-dark-tool p,
+.accessible-dark-tool h1,
+.accessible-dark-tool h2,
+.accessible-dark-tool button > span,
 .accessible-dark-tool [style*="color: rgba(255, 255, 255"] {
   color: rgba(255, 255, 255, 0.82) !important;
 }

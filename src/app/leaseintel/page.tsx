@@ -266,16 +266,16 @@ export default function LeaseIntelPage() {
       <section className="bg-teal" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-            <h2 className="text-white font-bold leading-tight mb-5"
+            <h2 className="text-near-black font-bold leading-tight mb-5"
                style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
               Scope, timing and fees confirmed before you proceed.
             </h2>
-            <p className="text-white/80 font-light mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
+            <p className="text-near-black font-medium mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
               Tell us about the lease and the decision. We will confirm fit, scope, timing, fees and document handling before you proceed.
             </p>
-            <Button href="/lease-review" variant="secondary" size="lg">
+            <a href="/lease-review" className="inline-flex min-h-[48px] items-center justify-center border border-near-black px-8 py-4 text-near-black font-bold uppercase tracking-widest hover:bg-near-black hover:text-white transition-colors">
               Submit your lease
-            </Button>
+            </a>
           </div>
         </div>
       </section>

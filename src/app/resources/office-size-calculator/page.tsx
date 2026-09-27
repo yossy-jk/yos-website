@@ -205,7 +205,7 @@ export default function OfficeSizeCalculatorPage() {
       </a>
 
       <div style={{ marginTop: '1.5rem' }}>
-        <button onClick={handleReset} className="text-white/25 hover:text-white/50 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
+        <button onClick={handleReset} className="text-white/75 hover:text-white transition-colors font-light" style={{ fontSize: '0.82rem' }}>
           ← Reset
         </button>
       </div>
@@ -381,16 +381,16 @@ export default function OfficeSizeCalculatorPage() {
       {/* CTA section */}
       <section className="bg-teal" style={SEC}>
         <div className="max-w-screen-xl mx-auto text-center" style={WRAP}>
-          <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+          <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
             style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
             Getting the right space isn&apos;t just about sqm.
           </h2>
-          <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
+          <p className="text-near-black font-medium leading-relaxed mb-12 mx-auto"
             style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
             We help tenants negotiate favourable terms, fitout contributions and lease structures that match how you actually work.
           </p>
           <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-            className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
+            className="inline-block bg-near-black text-white font-bold no-underline hover:bg-near-black/85 transition-colors"
             style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
             Book a Clarity Call
           </a>
