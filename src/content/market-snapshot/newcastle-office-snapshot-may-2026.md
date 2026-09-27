@@ -87,7 +87,7 @@ Landlords in Newcastle's better buildings are aware that nothing new is coming i
 
 ---
 
-**FREE LEASE REVIEW — $97 ex GST. 24-hour turnaround.**
+**Request a scoped lease review. Timing and fees are confirmed before work begins.**
 If your lease is coming up in the next 12 months, get it reviewed before you sign anything.
 yourofficespace.au/lease-intel
 

@@ -1,24 +1,11 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Office Size Calculator, How Much Space Does Your Team Need? | Your Office Space',
-  description: 'Calculate how much office space your team needs based on staff count, work style and room requirements. Free tool for Newcastle and Australian businesses.',
+  title: 'Office Size Calculator | Your Office Space',
+  description: 'Estimate a starting office size range from team size, work style, private offices and meeting-room needs. Use the result as a planning guide.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/office-size-calculator' },
-  openGraph: {
-    title: 'Office Size Calculator, How Much Space Does Your Team Need? | Your Office Space',
-    description: 'Calculate how much office space your team needs based on staff count, work style and room requirements. Free tool for Newcastle and Australian businesses.',
-    url: 'https://www.yourofficespace.au/resources/office-size-calculator',
-    siteName: 'Your Office Space',
-    locale: 'en_AU',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Office Size Calculator | Your Office Space',
-    description: 'How much office space does your team actually need? Find out in seconds.',
-  },
+  openGraph: { title: 'Office Size Calculator | Your Office Space', description: 'Estimate a practical starting office size range for your team.', url: 'https://www.yourofficespace.au/resources/office-size-calculator', images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space office size calculator' }] },
+  twitter: { card: 'summary_large_image', title: 'Office Size Calculator | Your Office Space', description: 'Estimate a practical starting office size range for your team.' },
 }
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return children
-}
+export default function Layout({ children }: Readonly<{ children: React.ReactNode }>) { return children }

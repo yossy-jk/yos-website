@@ -174,7 +174,7 @@ export default function OfficeSizeCalculatorPage() {
             <p className="text-white/40 font-light uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Monthly Rent Estimate</p>
             <p className="text-white font-black" style={{ fontSize: '1.4rem' }}>{fmtAUD(result.monthlyRent)} / mo</p>
           </div>
-          <p className="text-white/25 font-light text-right" style={{ fontSize: '0.72rem', maxWidth: '12rem', lineHeight: 1.5 }}>
+          <p className="text-white/75 font-light text-right" style={{ fontSize: '0.72rem', maxWidth: '12rem', lineHeight: 1.5 }}>
             Indicative Newcastle / Hunter market estimate at $35/sqm/yr
           </p>
         </div>
@@ -205,7 +205,7 @@ export default function OfficeSizeCalculatorPage() {
       </a>
 
       <div style={{ marginTop: '1.5rem' }}>
-        <button onClick={handleReset} className="text-white/25 hover:text-white/50 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
+        <button onClick={handleReset} className="text-white/75 hover:text-white transition-colors font-light" style={{ fontSize: '0.82rem' }}>
           ← Reset
         </button>
       </div>
@@ -274,7 +274,7 @@ export default function OfficeSizeCalculatorPage() {
                       <button
                         key={opt.value}
                         onClick={() => { setWorkStyle(opt.value); setResult(null) }}
-                        className={`text-left font-semibold border transition-colors ${workStyle === opt.value ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
+                        className={`text-left font-semibold border transition-colors ${workStyle === opt.value ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/80 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1rem', fontSize: '0.88rem' }}
                       >
                         {opt.label}
@@ -293,7 +293,7 @@ export default function OfficeSizeCalculatorPage() {
                       <button
                         key={opt}
                         onClick={() => { setPrivateOffices(opt); setResult(null) }}
-                        className={`font-bold border transition-colors text-center ${privateOffices === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
+                        className={`font-bold border transition-colors text-center ${privateOffices === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/80 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.65rem 0.5rem', fontSize: '0.88rem' }}
                       >
                         {opt}
@@ -312,7 +312,7 @@ export default function OfficeSizeCalculatorPage() {
                       <button
                         key={opt}
                         onClick={() => { setMeetingRooms(opt); setResult(null) }}
-                        className={`font-bold border transition-colors text-center ${meetingRooms === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
+                        className={`font-bold border transition-colors text-center ${meetingRooms === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/80 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.65rem 0.5rem', fontSize: '0.88rem' }}
                       >
                         {opt}
@@ -336,7 +336,7 @@ export default function OfficeSizeCalculatorPage() {
             <FadeIn delay={120}>
               {!result ? (
                 <div className="border border-white/8 bg-white/3" style={{ padding: '2.5rem 2rem' }}>
-                  <p className="text-white/25 font-light text-center" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
+                  <p className="text-white/75 font-light text-center" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
                     Fill in your team details to get a recommended office size and cost estimate.
                   </p>
                 </div>
@@ -381,16 +381,16 @@ export default function OfficeSizeCalculatorPage() {
       {/* CTA section */}
       <section className="bg-teal" style={SEC}>
         <div className="max-w-screen-xl mx-auto text-center" style={WRAP}>
-          <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
+          <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
             style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
             Getting the right space isn&apos;t just about sqm.
           </h2>
-          <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
+          <p className="text-black font-semibold leading-relaxed mb-12 mx-auto"
             style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
             We help tenants negotiate favourable terms, fitout contributions and lease structures that match how you actually work.
           </p>
           <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-            className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
+            className="inline-block bg-near-black text-white font-bold no-underline hover:bg-near-black/85 transition-colors"
             style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
             Book a Clarity Call
           </a>

@@ -277,15 +277,15 @@ export default function LeaseRiskCheckerPage() {
               <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Free, always</span>
+                  <span className="text-white/80 font-light" style={{ fontSize: '0.9rem' }}>Free, always</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
+                  <span className="text-white/80 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Instant result</span>
+                  <span className="text-white/80 font-light" style={{ fontSize: '0.9rem' }}>Instant result</span>
                 </div>
               </div>
               <button
@@ -510,10 +510,9 @@ export default function LeaseRiskCheckerPage() {
 
               {/* CTA, $297 LeaseIntel report */}
               <div className="mb-8 rounded-xl p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
-                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report, Free. No obligation.</p>
-                <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Newcastle business owners: free until 21 July 2026.</p>
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Request a full LeaseIntel review</p>
                 <p className="text-white/70 font-light mb-5" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
-                  A complete clause-by-clause analysis of your actual lease. Every risk rated. Your financial exposure calculated. A specific roadmap for what to negotiate. 24-hour turnaround.
+                  Send your lease for an initial scope check. We will confirm suitability, timing, fees and document handling before any review begins.
                 </p>
                 <Link href="/lease-review"
                   className="inline-flex items-center justify-center bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"

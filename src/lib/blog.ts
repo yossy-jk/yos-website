@@ -61,10 +61,21 @@ export function getAllPosts(): BlogPost[] {
   return posts
 }
 
+// Gold v3.1 truth gate. Add a slug here whenever a public article contains
+// unverified figures, expired offers or unsupported outcome claims. A held
+// article is removed from listings, sitemap, static generation and lookup.
+export const PUBLICATION_HOLD_SLUGS = new Set<string>([
+  'commercial-cleaning-newcastle-what-to-expect',
+])
+
+function isApprovedForPublicWeb(post: BlogPost) {
+  return post.division !== 'buyers-agency' && !PUBLICATION_HOLD_SLUGS.has(post.slug)
+}
+
 // Buyers Agency content is retained for controlled referral use, but it is not
-// part of the approved public service offer in Brand Standard v1.1.
+// part of the approved public service offer in Gold Standard v3.1.
 export function getPublicPosts(): BlogPost[] {
-  return getAllPosts().filter(post => post.division !== 'buyers-agency')
+  return getAllPosts().filter(isApprovedForPublicWeb)
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
@@ -121,13 +132,14 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
 
 export async function getAllPublicPostsAsync(): Promise<BlogPost[]> {
   const posts = await getAllPostsAsync()
-  return posts.filter(post => post.division !== 'buyers-agency')
+  return posts.filter(isApprovedForPublicWeb)
 }
 
 export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null> {
+  if (PUBLICATION_HOLD_SLUGS.has(slug)) return null
   // Check filesystem first
   const fsPost = getPostBySlug(slug)
-  if (fsPost) return fsPost
+  if (fsPost) return isApprovedForPublicWeb(fsPost) ? fsPost : null
   // Fall back to Redis
   try {
     const url   = process.env.UPSTASH_REDIS_REST_URL
@@ -139,7 +151,8 @@ export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null>
     })
     const d = await res.json() as { result: string | null }
     if (!d.result) return null
-    return JSON.parse(d.result) as BlogPost
+    const post = JSON.parse(d.result) as BlogPost
+    return isApprovedForPublicWeb(post) ? post : null
   } catch {
     return null
   }

@@ -238,7 +238,7 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         href={leaseIntelHref}
         className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
       >
-        Lease review, $297 ex GST, 24-hour turnaround
+        Request a scoped lease review
       </Link>
       <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
         Newcastle business? Ask about current eligibility for the full LeaseIntel report.
@@ -304,7 +304,7 @@ export default function MarketSnapshotPageContent({
               className="text-white/55 font-light leading-relaxed mb-12"
               style={{ fontSize: 'clamp(1rem,2.2vw,1.25rem)', maxWidth: '620px', lineHeight: 1.85 }}
             >
-              Every month, we publish what landlords already know but tenants don&apos;t. Vacancy rates. Rent trends. What&apos;s in the pipeline. Which way leverage is moving.
+              We bring together available tenant-side market evidence: vacancy, rent trends, supply and the practical decisions facing local occupiers.
             </p>
             <CTASection onOpen={openPopup} leaseIntelHref={leaseIntelHref} />
           </FadeIn>
@@ -407,24 +407,24 @@ export default function MarketSnapshotPageContent({
           <FadeIn>
             <div style={{ maxWidth: '640px' }}>
               <h2
-                className="text-white font-bold leading-tight mb-5"
+                className="text-near-black font-bold leading-tight mb-5"
                 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)' }}
               >
                 Get it delivered to your inbox every month.
               </h2>
-              <p className="text-white/75 font-light mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+              <p className="text-black font-semibold mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                 One email, once a month. The market data landlords already know, delivered to the tenant&apos;s side.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={openPopup}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-white text-white hover:bg-white hover:text-near-black transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border-2 border-black text-black hover:bg-black hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
                 >
                   Get it delivered monthly
                 </button>
                 <Link
                   href={leaseIntelHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-near-black text-white hover:bg-near-black/85 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
                   Lease review, $297 ex GST
                 </Link>
@@ -448,7 +448,7 @@ export default function MarketSnapshotPageContent({
         >
           <p className="text-mid-grey font-light" style={{ fontSize: '0.82rem' }}>
             Published by Your Office Space | Newcastle |{' '}
-            <a href="mailto:jk@yourofficespace.au" className="text-teal no-underline hover:underline">
+            <a href="mailto:jk@yourofficespace.au" className="text-dark-teal font-semibold no-underline hover:underline">
               jk@yourofficespace.au
             </a>{' '}
             | 0434 655 511

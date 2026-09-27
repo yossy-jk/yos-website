@@ -109,7 +109,7 @@ export default function AboutPage() {
             "name": "Sarah Kelley",
             "jobTitle": "Cleaning Division Director",
             "worksFor": { "@id": "https://www.yourofficespace.au/#organization" },
-            "description": "Runs the commercial cleaning division with hands-on site auditing and quality control.",
+            "description": "Leads the commercial cleaning division and coordinates site-specific scopes and service delivery.",
             "telephone": "+61434655511"
           },
           {
@@ -122,20 +122,6 @@ export default function AboutPage() {
               { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Book a 20-minute Clarity Call. Bring the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
               { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier. many of our best client relationships are conducted entirely online." } }
             ]
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Liz Murray" },
-            "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.",
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "itemReviewed": { "@type": "Service", "name": "Tenant Representation", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Nathan Franks", "worksFor": { "@type": "Organization", "name": "Dynamic Business Technologies" } },
-            "reviewBody": "Joe was instrumental in building out our boardroom. high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "itemReviewed": { "@type": "Service", "name": "Furniture & Fitout", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
           }
         ]
       }) }} />

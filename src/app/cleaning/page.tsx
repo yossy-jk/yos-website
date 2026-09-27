@@ -13,13 +13,13 @@ import FadeIn from '@/components/FadeIn'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Commercial Cleaning Newcastle | Offices and Workplaces | Your Office Space',
-  description: 'Commercial cleaning for Newcastle offices and workplaces, with a clear scope, a consistent team and monthly quality checks.',
-  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope. Consistent team. Monthly quality checks.' },
+  title: 'Commercial Cleaning Newcastle | Your Office Space',
+  description: 'Commercial cleaning for Newcastle and Hunter workplaces, built around a clear scope, practical communication and accountable follow-through.',
+  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'A clear cleaning scope for Newcastle and Hunter workplaces.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
-    title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
-    description: 'Commercial cleaning for Newcastle offices and workplaces, with a clear scope, a consistent team and monthly quality checks.',
+    title: 'Commercial Cleaning Newcastle | Your Office Space',
+    description: 'Commercial cleaning for Newcastle and Hunter workplaces, built around a clear scope, practical communication and accountable follow-through.',
     url: 'https://www.yourofficespace.au/cleaning',
     images: [{ url: '/og/og-cleaning.png', width: 1200, height: 630, alt: 'Commercial Office Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -85,8 +85,8 @@ export default function CleaningPage() {
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "How is commercial cleaning priced?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal." } },
-              { "@type": "Question", "name": "Do you use the same cleaning team every visit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Your Office Space cleaning contract is serviced by the same team on every visit. We do not rotate staff. You know who is coming and so do we." } },
-              { "@type": "Question", "name": "What areas of Newcastle do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We service Newcastle, Maitland, Lake Macquarie, Charlestown, Merewether, Adamstown, Kotara, Wallsend and surrounding Hunter Valley suburbs. We are based locally and do not use out-of-area contractors." } },
+              { "@type": "Question", "name": "How is the cleaning team organised?", "acceptedAnswer": { "@type": "Answer", "text": "The proposed team structure, supervision and contingency arrangements are documented in the site Scope of Works before commencement." } },
+              { "@type": "Question", "name": "What areas of Newcastle do you service?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial cleaning enquiries are assessed across Newcastle, Maitland, Lake Macquarie and surrounding Hunter areas. Service availability is confirmed for each site before a proposal is issued." } },
               { "@type": "Question", "name": "How often should a commercial office be cleaned?", "acceptedAnswer": { "@type": "Answer", "text": "Most offices benefit from daily or every-second-day cleaning for high-traffic environments, and weekly for lower-use spaces. We work with each client to determine the right frequency for their space, team size and usage patterns." } },
               { "@type": "Question", "name": "What is included in a standard commercial office clean?", "acceptedAnswer": { "@type": "Answer", "text": "Standard commercial office cleaning includes rubbish removal, kitchen and breakroom cleaning, bathroom sanitation, desk and surface wiping, floor care (vacuum/mop), and bin replacement. Deep cleans, infection control cleans and carpet extraction are charged separately." } },
               { "@type": "Question", "name": "Can the cleaning happen after hours?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Access, timing and security requirements are agreed during the site inspection and documented in the Scope of Works." } }
@@ -117,7 +117,7 @@ export default function CleaningPage() {
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              A clear Scope of Works, a consistent cleaning team and monthly quality checks for Newcastle offices and workplaces.
+              A clear scope built around the workplace, with practical communication and accountable follow-through across Newcastle and the Hunter.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -142,14 +142,14 @@ export default function CleaningPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/5">
               {[
-                { stat: 'Same team', label: 'Every visit, no surprises' },
+                { stat: 'Clear scope', label: 'Team and checks documented' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
                 { stat: 'After hours', label: 'Timing agreed around your workplace' },
                 { stat: 'Clear scope', label: 'Tasks and standards documented' },
               ].map(item => (
                 <div key={item.label} className="bg-near-black text-center" style={{ padding: 'clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem)' }}>
                   <p className="text-teal font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
-                  <p className="text-white/50 font-light text-sm leading-snug">{item.label}</p>
+                  <p className="text-white/80 font-light text-sm leading-snug">{item.label}</p>
                 </div>
               ))}
             </div>
@@ -266,19 +266,19 @@ export default function CleaningPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
             {[
               {
-                title: 'Same team, every time',
-                body: 'No rotating cast of contractors. The same people clean your space every visit. They learn your building. They know what matters. Consistency builds trust.',
-                aside: 'Familiarity = fewer mistakes.'
+                title: 'A documented service team',
+                body: 'The proposed team structure, supervision and contingency arrangements are documented in the service scope before commencement.',
+                aside: 'Clear ownership for each site.'
               },
               {
-                title: 'Monthly quality audits',
-                body: 'Every site is audited monthly by our management team. Standards are checked. Issues are flagged before they become problems. You get a report, not an excuse.',
-                aside: 'Accountability built into the contract.'
+                title: 'Agreed quality checks',
+                body: 'The quality-check method and reporting frequency are agreed for the site and recorded in the Scope of Works.',
+                aside: 'Accountability written into the scope.'
               },
               {
                 title: 'Direct line to management',
                 body: 'If something is not right, the issue goes to the team responsible for the service. The response stays connected to your Scope of Works.',
-                aside: 'Real problems, real solutions.'
+                aside: 'Real problems, practical answers.'
               },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">

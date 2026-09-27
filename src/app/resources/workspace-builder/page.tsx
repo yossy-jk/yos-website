@@ -273,7 +273,7 @@ const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Commercial Office Workspace Builder | Your Office Space",
-  "description": "Plan and price a full commercial office fitout with real Hunter Valley supplier pricing.",
+  "description": "Build an indicative commercial office fitout specification and planning range.",
   "url": "https://www.yourofficespace.au/resources/workspace-builder",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
@@ -904,7 +904,7 @@ function ResultsContent({
           {fmt(spec.totalLow)} – {fmt(spec.totalHigh)}
         </h2>
         <p className="text-white/40 font-light" style={{ fontSize: '0.875rem' }}>
-          Estimated investment range &nbsp;·&nbsp; All figures ex GST &nbsp;·&nbsp; April 2026
+          Indicative planning range &nbsp;·&nbsp; Figures shown ex GST
         </p>
       </div>
 
@@ -1022,7 +1022,7 @@ function ResultsContent({
 
       {/* Disclaimer */}
       <p className="text-white/25 font-light leading-relaxed" style={{ fontSize: '0.82rem', lineHeight: 1.85, marginBottom: '3rem' }}>
-        This specification is based on current market pricing from the YOS Furniture & Fitout cost guide (April 2026). Ranges reflect Newcastle and Hunter Region benchmarks. Actual costs vary with supplier selection, site conditions, and lead times. A site visit and detailed brief will refine this estimate significantly.
+        This is an indicative planning range based on the assumptions entered. It is not a supplier quote or a current market benchmark. Actual costs vary with scope, supplier selection, site conditions, location and lead times. Obtain a site-specific brief and written quotations before making a decision.
       </p>
 
       {/* Actions */}
@@ -1042,7 +1042,7 @@ function ResultsContent({
         <Link href="/furniture"
           className="text-white/40 font-light no-underline hover:text-white/70 transition-colors text-center"
           style={{ padding: '0.75rem', fontSize: '0.82rem', letterSpacing: '0.05em' }}>
-          View Furniture & Fitout Services
+          View Office & Commercial Furniture
         </Link>
       </div>
 

@@ -265,7 +265,7 @@ export default function RelocateQuizPage() {
     <>
       <Nav />
 
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" tabIndex={-1} className="accessible-dark-tool">
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>
@@ -331,7 +331,7 @@ export default function RelocateQuizPage() {
                   key={q.id}
                   onClick={() => setCurrent(qi)}
                   style={{
-                    opacity: isDimmed ? 0.4 : 1,
+                    opacity: isDimmed ? 0.8 : 1,
                     transition: 'opacity 0.2s',
                     cursor: isDimmed ? 'pointer' : 'default',
                   }}
@@ -446,7 +446,7 @@ export default function RelocateQuizPage() {
                 disabled={!allAnswered}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                  background: allAnswered ? '#01A7A3' : 'rgba(1,167,163,0.3)',
+                  background: allAnswered ? '#0C7A70' : '#0C7A70',
                   color: 'white', fontWeight: 800, fontSize: '0.72rem',
                   letterSpacing: '0.18em', textTransform: 'uppercase',
                   padding: '1.1rem 3rem', borderRadius: '0.5rem', border: 'none',
@@ -678,7 +678,7 @@ export default function RelocateQuizPage() {
                 rel="noopener noreferrer"
                 style={{
                   display: 'inline-block',
-                  background: '#01A7A3', color: 'white',
+                  background: '#0C7A70', color: 'white',
                   fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.2em',
                   textTransform: 'uppercase', textDecoration: 'none',
                   padding: '1.1rem 2.5rem',

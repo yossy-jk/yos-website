@@ -12,7 +12,7 @@ import TenantProcess from '@/components/TenantProcess'
 import { IMAGES } from '@/lib/images'
 
 export const metadata: Metadata = {
-  title: 'Commercial Office Space Newcastle | Tenant Rep, Fitout, Furniture | YOS',
+  title: 'Tenant-Side Workplace Partner | Your Office Space',
   description: 'Newcastle-based, tenant-side commercial property advisory across Australia. One accountable partner for tenant representation, fit out, furniture and cleaning.',
   alternates: { canonical: 'https://www.yourofficespace.au' },
   twitter: { card: 'summary_large_image', title: 'Your Office Space | Tenant-Side Commercial Property Advisory', description: 'One team. Clear direction. No guesswork. One accountable partner from lease decisions through fit out, furniture and ongoing cleaning.' },
@@ -35,7 +35,6 @@ const SERVICES = [
   { num: '01', title: 'Tenant Representation', tagline: 'Your lease. Your terms.', body: 'We advise and negotiate exclusively on the tenant side, making the obligations, risks and trade-offs clear before you commit.', href: '/tenant-rep' },
   { num: '02', title: 'Commercial Fit Out & Project Management', tagline: 'From brief to delivered workspace.', body: 'We coordinate the fit out from workplace brief and procurement through delivery, handover and the details between them.', href: '/office-fitout' },
   { num: '03', title: 'Office & Commercial Furniture', tagline: 'Furniture that fits the work.', body: 'We help select, supply and install furniture that suits the space, the team and the way the workplace needs to operate.', href: '/furniture' },
-  { num: '04', title: 'Commercial Cleaning', tagline: 'Shows up. Every time.', body: 'We build a clear cleaning scope around your workplace standards, with practical communication and accountability.', href: '/cleaning' },
 ]
 
 const TESTIMONIALS: Array<{ name: string; company?: string; service: string; quote: string }> = [
@@ -109,18 +108,6 @@ export default function Home() {
               "areaServed": "AU",
               "availableLanguage": "English"
             },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "5",
-              "reviewCount": "3",
-              "bestRating": "5",
-              "worstRating": "1"
-            },
-            "review": [
-              { "@type": "Review", "author": { "@type": "Person", "name": "Beth Gwalter" }, "reviewBody": "Joe was incredibly helpful through our first tenant rep experience. He made the property search and lease process much easier, explained our rights and options clearly, spotted things we would have missed, and helped with fitout, furniture and cleaners too. Worth it.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
-              { "@type": "Review", "author": { "@type": "Person", "name": "Olivia Crawford" }, "reviewBody": "Highly recommend Your Office Space. Joe was professional, reliable and fantastic to communicate with, and the service was flawless from start to finish. Joe was beyond amazing.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } },
-              { "@type": "Review", "author": { "@type": "Person", "name": "Jason Dowdall" }, "reviewBody": "Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.", "reviewRating": { "@type": "Rating", "ratingValue": "5" } }
-            ],
             "sameAs": [
               "https://www.google.com/maps?cid=00516804211961979706"
             ]
@@ -209,7 +196,7 @@ export default function Home() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div style={{ maxWidth: '54rem' }}>
-              <p className="text-teal leading-none" style={{ fontFamily: 'var(--font-fraunces), Fraunces, Georgia, serif', fontWeight: 600, fontSize: 'clamp(2rem,5vw,4.5rem)', marginBottom: '2rem', lineHeight: 1.05 }}>
+              <p className="text-teal leading-none" style={{ fontFamily: 'var(--font-montserrat), "Helvetica Neue", Arial, sans-serif', fontWeight: 700, fontSize: 'clamp(2rem,5vw,4.5rem)', marginBottom: '2rem', lineHeight: 1.05 }}>
                 The landlord has an expert. You should too.
               </p>
               <p className="text-white/80 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', lineHeight: 1.9 }}>
@@ -314,17 +301,17 @@ export default function Home() {
             <SectionLabel>What we do</SectionLabel>
             <h2 className="text-near-black leading-tight tracking-tight mt-2 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-              Four services.<br />One accountable partner.
+              Three core services.<br />One accountable partner.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12" style={{ fontSize: '1.05rem', maxWidth: '40rem', lineHeight: 1.85 }}>
-              A commercial workplace brings together lease, fit out, furniture and cleaning decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
+              A commercial workplace brings together lease, fit out and furniture decisions. We coordinate the work so responsibilities stay clear and gaps do not become your problem.
             </p>
           </FadeIn>
 
           <div>
             {SERVICES.map((s, i) => (
               <FadeIn key={s.href} delay={i * 60}>
-                <Link href={s.href} className="group no-underline block hover:shadow-md transition-shadow duration-300"
+                <Link href={s.href} className="group no-underline block transition-colors duration-200"
                   style={{ borderTop: i === 0 ? '1px solid #e5e7eb' : undefined, borderBottom: '1px solid #e5e7eb', paddingTop: 'clamp(2rem,4vw,3rem)', paddingBottom: 'clamp(2rem,4vw,3rem)' }}>
                   <div className="flex items-start justify-between gap-8">
                     <div className="flex-1">
@@ -348,6 +335,19 @@ export default function Home() {
               </FadeIn>
             ))}
           </div>
+
+          <FadeIn>
+            <div className="bg-light-teal border-l-4 border-teal rounded-[4px] mt-12 p-8">
+              <p className="text-near-black font-semibold text-sm mb-2">Once you&apos;re in</p>
+              <h3 className="text-near-black mb-3" style={{ fontSize: '1.5rem' }}>Commercial cleaning for Newcastle and the Hunter</h3>
+              <p className="text-charcoal leading-relaxed mb-5" style={{ maxWidth: '48rem' }}>
+                Keep the workplace operating with a clear local cleaning scope, practical communication and accountable follow-through.
+              </p>
+              <Link href="/cleaning" className="text-dark-teal font-semibold underline underline-offset-4 min-h-[44px] inline-flex items-center">
+                Explore commercial cleaning
+              </Link>
+            </div>
+          </FadeIn>
         </div>
       </section>
 
@@ -447,9 +447,9 @@ export default function Home() {
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.45)' }} />
         <div className="absolute inset-0 flex items-end" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2rem,5vw,4rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', maxWidth: '44rem', lineHeight: 1.8, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
+            <p className="text-white font-normal" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', maxWidth: '44rem', lineHeight: 1.8, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
               &ldquo;Joe was instrumental in building out our boardroom, with high-quality, practical advice and excellent attention to detail.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>- Nathan Franks, Dynamic Business Technologies</span>
+              <br /><span className="text-teal font-semibold" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>- Nathan Franks, Dynamic Business Technologies</span>
             </p>
           </FadeIn>
         </div>

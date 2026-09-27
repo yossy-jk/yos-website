@@ -35,8 +35,8 @@ interface DomainConfig {
 // ─── Domain config ────────────────────────────────────────────────────────────
 
 
-const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
-const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
+const SEC    = { background: '#0A0A0A', paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
+const SEC_SM = { background: '#0A0A0A', paddingTop: 'clamp(2.5rem,5vw,4rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
 
 const DOMAINS: DomainConfig[] = [
@@ -559,7 +559,7 @@ export default function HealthCheckPage() {
     <>
       <Nav />
 
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" tabIndex={-1} className="accessible-dark-tool">
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={SEC_SM}>
@@ -620,7 +620,7 @@ export default function HealthCheckPage() {
                 return (
                   <div key={domain.name} style={{ flex: 1 }}>
                     <p style={{
-                      color: isComplete ? '#01A7A3' : 'rgba(255,255,255,0.25)',
+                      color: isComplete ? '#01A7A3' : 'rgba(255,255,255,0.82)',
                       fontSize: '0.6rem',
                       fontWeight: isComplete ? 700 : 400,
                       letterSpacing: '0.1em',
@@ -720,7 +720,7 @@ export default function HealthCheckPage() {
                         key={q.id}
                         onClick={() => setCurrent(qi)}
                         style={{
-                          opacity: isDimmed ? 0.4 : 1,
+                    opacity: isDimmed ? 0.8 : 1,
                           transition: 'opacity 0.2s',
                           cursor: isDimmed ? 'pointer' : 'default',
                         }}
@@ -837,7 +837,7 @@ export default function HealthCheckPage() {
                 disabled={!allAnswered}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                  background: allAnswered ? '#01A7A3' : 'rgba(1,167,163,0.3)',
+                  background: allAnswered ? '#0C7A70' : '#0C7A70',
                   color: 'white', fontWeight: 800, fontSize: '0.72rem',
                   letterSpacing: '0.18em', textTransform: 'uppercase',
                   padding: '1.1rem 3rem', borderRadius: '0.5rem', minHeight: '60px', border: 'none',
@@ -1166,14 +1166,14 @@ export default function HealthCheckPage() {
                 rel="noopener noreferrer"
                 style={{
                   display: 'inline-flex', alignItems: 'center',
-                  background: '#01A7A3', color: 'white',
+                  background: '#0C7A70', color: 'white',
                   fontWeight: 800, fontSize: '0.72rem', letterSpacing: '0.2em',
                   textTransform: 'uppercase', textDecoration: 'none',
                   padding: '1.1rem 2.5rem', borderRadius: '0.5rem',
                   minHeight: '52px', transition: 'background 0.15s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = '#009e90'; e.currentTarget.style.transform = 'translateY(-1px)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = '#01A7A3'; e.currentTarget.style.transform = 'translateY(0)' }}
+                onMouseEnter={e => { e.currentTarget.style.background = '#0A3B38'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                onMouseLeave={e => { e.currentTarget.style.background = '#0C7A70'; e.currentTarget.style.transform = 'translateY(0)' }}
               >
                 Book a Free Call →
               </a>

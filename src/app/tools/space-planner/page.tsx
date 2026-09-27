@@ -123,11 +123,11 @@ export default function SpacePlannerPage() {
                   Book a Clarity Call
                 </a>
                 <a href="tel:0434655511"
-                  style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
+                  style={{ color: 'rgba(255,255,255,0.82)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
                   0434 655 511
                 </a>
                 <a href="mailto:hello@yourofficespace.au"
-                  style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
+                  style={{ color: 'rgba(255,255,255,0.82)', fontSize: '0.85rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
                   hello@yourofficespace.au
                 </a>
               </div>

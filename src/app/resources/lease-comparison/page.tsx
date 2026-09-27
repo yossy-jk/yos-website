@@ -303,6 +303,7 @@ export default function LeaseComparisonPage() {
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mid-grey text-sm font-light">{f.prefix}</span>
                           )}
                           <input
+                            aria-label={`${f.label}, option ${i + 1}`}
                             type={f.type || 'text'}
                             inputMode={f.key === 'name' ? 'text' : 'decimal'}
                             value={leases[i][f.key]}

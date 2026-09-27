@@ -23,7 +23,7 @@ const FREE_CHECKS = [
 ]
 
 const PAID_INCLUDES = [
-  { title: 'All 12 risk categories', desc: 'Rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance, special conditions, every clause rated.' },
+  { title: 'Agreed risk categories', desc: 'The scope can cover rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance and special conditions.' },
   { title: 'Full RAG risk table', desc: 'Every clause rated Red / Amber / Green with plain-English explanation of what it means for your business.' },
   { title: 'Financial exposure summary', desc: 'Total rent, outgoings, make good estimate, bank guarantee, and early exit cost, in one table.' },
   { title: 'Negotiation roadmap', desc: 'Which clauses to push back on, in priority order, with market benchmarks and realistic success likelihood.' },
@@ -393,9 +393,9 @@ export default function LeaseReviewPage() {
                 </p>
               </FadeIn>
               <FadeIn delay={200}>
-                <p className="text-white/50 leading-relaxed mb-6 font-light"
+                <p className="text-white/80 leading-relaxed mb-6 font-light"
                   style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', maxWidth: '44rem' }}>
-                  Submit your lease document and receive a complete clause-by-clause analysis within 24 hours.
+                  Tell us about the lease first. We will confirm fit, scope, timing, fees and document handling before the review begins.
                   Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included.
                   <a href="/leaseintel" className="text-teal ml-2 hover:underline" style={{ fontSize: 'inherit' }}>See what&apos;s included →</a>
                 </p>
@@ -483,7 +483,7 @@ export default function LeaseReviewPage() {
                   Everything you need to know<br />before you sign.
                 </h2>
                 <p className="text-white/75 text-sm md:text-base leading-relaxed font-light">
-                  No cost, no obligation. Submit your lease and receive a complete clause-by-clause analysis within 24 hours.
+                  Start with the decision you need to make. We will confirm the appropriate review scope before you submit confidential material.
                 </p>
               </div>
             </FadeIn>
@@ -503,7 +503,7 @@ export default function LeaseReviewPage() {
               <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                 <div>
                   <p className="text-white font-black text-3xl mb-1">Free <span className="text-white/60 font-light text-base">&nbsp;</span></p>
-                  <p className="text-white/75 text-sm">24-hour turnaround · No payment required for Newcastle businesses · Obligation-free</p>
+                  <p className="text-white/75 text-sm">Scope, timing, fees and document handling confirmed before you proceed</p>
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
@@ -528,7 +528,7 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { name: 'Law Firm Review', price: '$1,500–$4,000', time: '3–10 days', plain: false, roadmap: false, highlight: false },
-                { name: 'LeaseIntel™', price: 'Free', time: '24 hours', plain: true, roadmap: true, highlight: true },
+                { name: 'LeaseIntel™', price: 'Confirmed first', time: 'Confirmed first', plain: true, roadmap: true, highlight: true },
                 { name: 'Sign without review', price: 'Free', time: 'Instant', plain: false, roadmap: false, highlight: false },
               ].map((opt, i) => (
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
@@ -670,7 +670,7 @@ export default function LeaseReviewPage() {
               Tell us about yourself
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-6 font-light">
-              We&apos;ll confirm your submission and deliver your full report within 24 hours. No payment required.
+              We&apos;ll review the information and confirm the appropriate next step, timing and fee before an engagement begins.
             </p>
             <div className="rounded-xl border border-teal/30 bg-teal/10 px-5 py-4 mb-8">
               <p className="text-teal font-bold text-xs mb-1">Newcastle business? Ask about current eligibility for the free report.</p>
@@ -729,7 +729,7 @@ export default function LeaseReviewPage() {
               </label>
               {form.isNewcastle && (
                 <div className="rounded-lg bg-teal/10 border border-teal/30 px-4 py-3 -mt-1">
-                  <p className="text-teal text-xs font-semibold">No payment required. We will confirm your submission and deliver your report within 24 hours.</p>
+                  <p className="text-teal text-xs font-semibold">We will confirm fit, scope, timing, fees and document handling before you proceed.</p>
                 </div>
               )}
 
@@ -779,7 +779,7 @@ export default function LeaseReviewPage() {
               Upload your lease
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-8 font-light">
-              PDF or Word document.{form.isNewcastle ? ' Newcastle business confirmed, no payment required. Report delivered within 24 hours.' : ' Full report delivered within 24 hours of payment confirmation.'}
+              PDF or Word document. We will confirm handling and the agreed review scope before work begins.
             </p>
 
             <div className="flex flex-col gap-5">
@@ -885,15 +885,15 @@ export default function LeaseReviewPage() {
           </h2>
           <p className="text-white/55 text-base leading-relaxed mb-10 font-light">
             {form.isNewcastle
-              ? 'Newcastle business confirmed. No payment required. Joe will review your submission and deliver your full report within 24 hours.'
-              : 'Joe will review your submission and deliver your full report within 24 hours. No payment required.'}
+              ? 'Newcastle business confirmed. Joe will review your information and confirm the appropriate next step.'
+              : 'Joe will review your information and confirm the appropriate next step.'}
           </p>
           <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 mb-10 text-left">
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">What happens next</p>
             <div className="flex flex-col gap-4">
               {[
                 form.isNewcastle ? 'Newcastle business confirmed, no payment required' : 'No payment required, obligation-free',
-                'Full LeaseIntel™ report delivered within 24 hours',
+                'Review scope, timing and fee confirmed before work begins',
                 'Every clause rated, financial exposure summarised, negotiation roadmap included',
                 'Book a free Clarity Call with Joe to walk through the findings',
               ].map((s, i) => (
