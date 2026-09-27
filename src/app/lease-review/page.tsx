@@ -393,7 +393,7 @@ export default function LeaseReviewPage() {
                 </p>
               </FadeIn>
               <FadeIn delay={200}>
-                <p className="text-white/50 leading-relaxed mb-6 font-light"
+                <p className="text-white/80 leading-relaxed mb-6 font-light"
                   style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', maxWidth: '44rem' }}>
                   Tell us about the lease first. We will confirm fit, scope, timing, fees and document handling before the review begins.
                   Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included.

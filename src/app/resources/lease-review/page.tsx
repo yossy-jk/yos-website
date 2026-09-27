@@ -277,15 +277,15 @@ export default function LeaseRiskCheckerPage() {
               <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Free, always</span>
+                  <span className="text-white/80 font-light" style={{ fontSize: '0.9rem' }}>Free, always</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
+                  <span className="text-white/80 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Instant result</span>
+                  <span className="text-white/80 font-light" style={{ fontSize: '0.9rem' }}>Instant result</span>
                 </div>
               </div>
               <button

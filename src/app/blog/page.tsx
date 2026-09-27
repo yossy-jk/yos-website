@@ -75,7 +75,7 @@ export default async function BlogPage() {
               {/* Two-col on lg+, stacked on mobile */}
               <div className="flex flex-col lg:flex-row" style={{ borderRadius: '4px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.18)' }}>
                 <div className="w-full lg:w-1/3 flex items-center justify-center bg-teal" style={{ minHeight: '12rem', padding: '2rem' }}>
-                  <span className="text-near-black font-semibold tracking-widest uppercase text-center">
+                  <span className="text-black font-bold tracking-widest uppercase text-center">
                     {DIVISION_LABELS[SAFE_DIVISION(featured.division)]}
                   </span>
                 </div>

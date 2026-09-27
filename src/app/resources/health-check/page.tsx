@@ -559,7 +559,7 @@ export default function HealthCheckPage() {
     <>
       <Nav />
 
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" tabIndex={-1} className="accessible-dark-tool">
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={SEC_SM}>

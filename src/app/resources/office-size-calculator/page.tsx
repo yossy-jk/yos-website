@@ -274,7 +274,7 @@ export default function OfficeSizeCalculatorPage() {
                       <button
                         key={opt.value}
                         onClick={() => { setWorkStyle(opt.value); setResult(null) }}
-                        className={`text-left font-semibold border transition-colors ${workStyle === opt.value ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
+                        className={`text-left font-semibold border transition-colors ${workStyle === opt.value ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/80 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1rem', fontSize: '0.88rem' }}
                       >
                         {opt.label}
@@ -293,7 +293,7 @@ export default function OfficeSizeCalculatorPage() {
                       <button
                         key={opt}
                         onClick={() => { setPrivateOffices(opt); setResult(null) }}
-                        className={`font-bold border transition-colors text-center ${privateOffices === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
+                        className={`font-bold border transition-colors text-center ${privateOffices === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/80 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.65rem 0.5rem', fontSize: '0.88rem' }}
                       >
                         {opt}
@@ -312,7 +312,7 @@ export default function OfficeSizeCalculatorPage() {
                       <button
                         key={opt}
                         onClick={() => { setMeetingRooms(opt); setResult(null) }}
-                        className={`font-bold border transition-colors text-center ${meetingRooms === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
+                        className={`font-bold border transition-colors text-center ${meetingRooms === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/80 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.65rem 0.5rem', fontSize: '0.88rem' }}
                       >
                         {opt}

@@ -152,7 +152,7 @@ export default function LeaseIntelPage() {
             <FadeIn delay={0}>
               <div className="rounded-2xl p-8 h-full hover:shadow-md transition-shadow duration-300 flex flex-col" style={{ background: '#F7F8F8', border: '1px solid rgba(0,0,0,0.07)' }}>
                 <div className="inline-flex items-center gap-2 mb-6">
-                  <span className="text-xs font-black tracking-widest uppercase" style={{ color: '#10b981' }}>FREE</span>
+                  <span className="text-xs font-black tracking-widest uppercase" style={{ color: '#087f5b' }}>FREE</span>
                   <span className="text-mid-grey font-light text-xs">|</span>
                   <span className="text-near-black font-semibold text-sm">Lease Risk Review</span>
                 </div>
@@ -163,7 +163,7 @@ export default function LeaseIntelPage() {
                 <div className="mt-auto">
                   <a href="/resources/lease-review"
                     className="inline-flex items-center justify-center font-bold text-white no-underline transition-colors"
-                    style={{ background: '#10b981', padding: '0.85rem 2rem', fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
+                    style={{ background: '#087f5b', padding: '0.85rem 2rem', fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
                     Start free review →
                   </a>
                 </div>
@@ -211,7 +211,7 @@ export default function LeaseIntelPage() {
       <section style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)', background: '#FAFAFA' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+            <p className="text-dark-teal font-semibold uppercase tracking-widest mb-4"
                     style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>What you receive</p>
             <h2 className="text-near-black font-bold leading-tight mb-6"
                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>Everything you need to decide, and negotiate.</h2>
@@ -239,7 +239,7 @@ export default function LeaseIntelPage() {
       <section style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+            <p className="text-dark-teal font-semibold uppercase tracking-widest mb-4"
                     style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>Document security</p>
             <h2 className="text-near-black font-bold leading-tight mb-10"
                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', maxWidth: '600px' }}>
@@ -284,7 +284,7 @@ export default function LeaseIntelPage() {
       <section style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)', background: '#FAFAFA' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <FadeIn>
-            <p className="text-teal font-semibold uppercase tracking-widest mb-4"
+            <p className="text-dark-teal font-semibold uppercase tracking-widest mb-4"
                     style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>Common questions</p>
             <h2 className="text-near-black font-bold leading-tight mb-10"
                style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)', maxWidth: '600px' }}>

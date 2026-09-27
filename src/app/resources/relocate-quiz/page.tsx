@@ -265,7 +265,7 @@ export default function RelocateQuizPage() {
     <>
       <Nav />
 
-      <main id="main-content" tabIndex={-1}>
+      <main id="main-content" tabIndex={-1} className="accessible-dark-tool">
 
       {/* ─── HERO ──────────────────────────────────────────────────────────── */}
       <section style={{ background: '#0A0A0A', paddingTop: 'clamp(7rem,14vw,13rem)', paddingBottom: 'clamp(5rem,10vw,8rem)' }}>

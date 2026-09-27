@@ -21,6 +21,13 @@
   --font-display: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Dark interactive tools use many inline opacity states. Keep all rendered
+   instructional copy above the WCAG AA contrast floor without changing state
+   borders, fills or semantic status indicators. */
+.accessible-dark-tool [style*="color: rgba(255, 255, 255"] {
+  color: rgba(255, 255, 255, 0.82) !important;
+}
+
 /* ─── Hero overlay positioning ────────────────────────── */
 .hero-overlay-content {
   padding-top: clamp(8rem, 16vw, 14rem);

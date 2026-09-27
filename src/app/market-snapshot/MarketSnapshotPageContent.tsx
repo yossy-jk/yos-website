@@ -407,24 +407,24 @@ export default function MarketSnapshotPageContent({
           <FadeIn>
             <div style={{ maxWidth: '640px' }}>
               <h2
-                className="text-white font-bold leading-tight mb-5"
+                className="text-near-black font-bold leading-tight mb-5"
                 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)' }}
               >
                 Get it delivered to your inbox every month.
               </h2>
-              <p className="text-white/75 font-light mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+              <p className="text-near-black/80 font-medium mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
                 One email, once a month. The market data landlords already know, delivered to the tenant&apos;s side.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
                   onClick={openPopup}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-white text-white hover:bg-white hover:text-near-black transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-near-black text-near-black hover:bg-near-black hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
                 >
                   Get it delivered monthly
                 </button>
                 <Link
                   href={leaseIntelHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-near-black text-white hover:bg-near-black/85 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
                   Lease review, $297 ex GST
                 </Link>
@@ -448,7 +448,7 @@ export default function MarketSnapshotPageContent({
         >
           <p className="text-mid-grey font-light" style={{ fontSize: '0.82rem' }}>
             Published by Your Office Space | Newcastle |{' '}
-            <a href="mailto:jk@yourofficespace.au" className="text-teal no-underline hover:underline">
+            <a href="mailto:jk@yourofficespace.au" className="text-dark-teal font-semibold no-underline hover:underline">
               jk@yourofficespace.au
             </a>{' '}
             | 0434 655 511

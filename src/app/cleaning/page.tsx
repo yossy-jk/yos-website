@@ -149,7 +149,7 @@ export default function CleaningPage() {
               ].map(item => (
                 <div key={item.label} className="bg-near-black text-center" style={{ padding: 'clamp(1.5rem,3vw,2.5rem) clamp(1rem,2vw,1.5rem)' }}>
                   <p className="text-teal font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
-                  <p className="text-white/50 font-light text-sm leading-snug">{item.label}</p>
+                  <p className="text-white/80 font-light text-sm leading-snug">{item.label}</p>
                 </div>
               ))}
             </div>
