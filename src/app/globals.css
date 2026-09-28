@@ -476,7 +476,15 @@ input[type='range']::-moz-range-thumb {
 .bg-white .text-teal,
 .bg-white.text-teal,
 .bg-warm-grey .text-teal,
-.bg-warm-grey.text-teal {
+.bg-warm-grey.text-teal,
+.bg-light-teal .text-teal,
+.bg-light-teal.text-teal,
+.bg-white .text-dark-teal,
+.bg-white.text-dark-teal,
+.bg-warm-grey .text-dark-teal,
+.bg-warm-grey.text-dark-teal,
+.bg-light-teal .text-dark-teal,
+.bg-light-teal.text-dark-teal {
   color: var(--color-action-teal);
 }
 
