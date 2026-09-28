@@ -5,7 +5,7 @@ import ContentTab from './tabs/content-tab'
 import RankingsPanel from './rankings-panel'
 
 /* ────────────────────────────────────────────────────────────────
-   YOS Command Centre v2 — Monday.com × HubSpot design language
+   YOS Command Centre v2 – Monday.com × HubSpot design language
    Light SaaS shell · status-color system · board-group Next 3
 ──────────────────────────────────────────────────────────────── */
 
@@ -28,7 +28,7 @@ type Incident = { id: number; reported_at: string; business: string; severity: s
 type Whs = { score: number; checklists: Checklist[]; documents: WhsDoc[]; docs_current: number; docs_needed: number; incidents: Incident[]; open_incidents: number; overdue_checklists: number; generated: string } | null
 
 const fmtVal = (v: unknown, fmt: string) => {
-  if (v === '—' || v == null || v === '') return '—'
+  if (v === '–' || v == null || v === '') return '–'
   if (fmt === 'money') {
     const n = typeof v === 'number' ? v : parseFloat(String(v).replace(/[$,]/g, ''))
     if (isNaN(n)) return String(v)
@@ -254,7 +254,7 @@ export default function Dashboard() {
               {sel.length > 0 && (
                 <div style={{ position: 'sticky', top: 0, zIndex: 5, display: 'flex', gap: 8, alignItems: 'center',
                   flexWrap: 'wrap', padding: '10px 12px', marginBottom: 8, borderRadius: 10,
-                  background: '#01A7A3', color: '#fff', fontSize: 13 }}>
+                  background: '#00B5A5', color: '#fff', fontSize: 13 }}>
                   <strong>{sel.length} selected</strong>
                   <button onClick={() => bulkAct('complete')} style={{ padding: '5px 10px', borderRadius: 7, cursor: 'pointer', border: 'none' }}>Complete</button>
                   <input type="date" onChange={e => e.target.value && bulkAct('due', e.target.value)}
@@ -328,14 +328,14 @@ export default function Dashboard() {
                     )}
                   </div>
                 ))}
-                {!board?.tasks?.length && <div className="empty">No tasks yet — add one above or they flow in from email capture.</div>}
+                {!board?.tasks?.length && <div className="empty">No tasks yet – add one above or they flow in from email capture.</div>}
               </section>
             </div>
           ) : view === 'seo' ? (
             <div className="deepdive">
               <button className="back" onClick={() => setView('home')}>← Back to Home</button>
               <header className="topbar"><div><h1>SEO / AEO</h1>
-                <p className="date">Rankings, targets, and the content that gets you found — organic + AI search</p></div></header>
+                <p className="date">Rankings, targets, and the content that gets you found – organic + AI search</p></div></header>
               <section className="kpis">
                 <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🔍</span><span className="kpi-label">Clicks 30d</span></div>
                   <div className="kpi-value">{seo?.total_clicks_30d ?? '…'}</div>
@@ -363,20 +363,20 @@ export default function Dashboard() {
                       </span>
                     </div>
                   ))}
-                  {!seo?.targets?.length && <div className="empty">Targets load after the next 4:30am SEO run — or run the engine manually.</div>}
+                  {!seo?.targets?.length && <div className="empty">Targets load after the next 4:30am SEO run – or run the engine manually.</div>}
                 </section>
                 <div>
                   <RankingsPanel rankings={(seo?.rankings || []) as never} baseline={(seo as unknown as { baseline_date?: string | null } | null)?.baseline_date ?? null} />
                   <section className="panel">
                     <div className="panel-head"><h2>Content opportunities</h2>
                       <span className="panel-count">{seo?.briefs?.length ?? 0}</span></div>
-                    <p className="aeo-note">Briefs are drafted in answer-first structure (question headings, direct answers, FAQ blocks) so content ranks in Google <em>and</em> gets cited by AI assistants — that&apos;s the AEO play.</p>
+                    <p className="aeo-note">Briefs are drafted in answer-first structure (question headings, direct answers, FAQ blocks) so content ranks in Google <em>and</em> gets cited by AI assistants – that&apos;s the AEO play.</p>
                     {(seo?.briefs || []).map((b, i) => (
                       <div key={i} className="task clickable" onClick={() => setView('content')}>
                         <span className="rail" style={{ background: 'var(--purple)' }} />
                         <div className="task-body">
                           <div className="task-title">{b.query}</div>
-                          <div className="task-tags">{b.opportunity === 'quick_win' ? 'Quick win — near page 1' : 'Content gap'} · {b.created}</div>
+                          <div className="task-tags">{b.opportunity === 'quick_win' ? 'Quick win – near page 1' : 'Content gap'} · {b.created}</div>
                         </div>
                         <span className="chev">›</span>
                       </div>
@@ -390,7 +390,7 @@ export default function Dashboard() {
             <div className="deepdive">
               <button className="back" onClick={() => setView('home')}>← Back to Home</button>
               <header className="topbar"><div><h1>WHS &amp; Quality Hub</h1>
-                <p className="date">Policies, checklists, incidents — your WHS manager</p></div></header>
+                <p className="date">Policies, checklists, incidents – your WHS manager</p></div></header>
               <section className="kpis">
                 <div className="kpi"><div className="kpi-top"><span className="kpi-ic">🛡️</span><span className="kpi-label">Compliance</span></div>
                   <div className={`kpi-value ${(whs?.score ?? 0) < 60 ? 'neg' : ''}`}>{whs ? `${whs.score}%` : '…'}</div>
@@ -428,9 +428,9 @@ export default function Dashboard() {
                       placeholder="What happened? Where, who was involved, any injury?" />
                     <div className="inc-row">
                       <select className="inc-sev" value={incSev} onChange={e => setIncSev(e.target.value)}>
-                        <option value="low">Low — near miss / hazard</option>
-                        <option value="medium">Medium — minor injury</option>
-                        <option value="high">High — injury / notifiable</option>
+                        <option value="low">Low – near miss / hazard</option>
+                        <option value="medium">Medium – minor injury</option>
+                        <option value="high">High – injury / notifiable</option>
                       </select>
                       <button className="done-btn solid" onClick={reportIncident}>Log incident</button>
                     </div>
@@ -450,7 +450,7 @@ export default function Dashboard() {
                     {(whs?.documents || []).map(doc => (
                       <div key={doc.id} className="task">
                         <div className="task-body">
-                          <div className="task-title">{doc.code} — {doc.title}</div>
+                          <div className="task-title">{doc.code} – {doc.title}</div>
                           <div className="task-tags">{doc.category} · {doc.business}</div>
                         </div>
                         <span className={`pill ${doc.status === 'current' ? 'pill-green' : doc.status === 'draft' ? 'pill-blue' : 'pill-red'}`}>
@@ -502,12 +502,12 @@ export default function Dashboard() {
                   </div>
                 ))}
                 {loaded && !d?.numbers?.length && (
-                  <div className="empty wide">No live numbers yet — the feed engine runs every 10 minutes.</div>
+                  <div className="empty wide">No live numbers yet – the feed engine runs every 10 minutes.</div>
                 )}
               </section>
 
               <div className="cols">
-                {/* NEXT 3 — Monday board group */}
+                {/* NEXT 3 – Monday board group */}
                 <section className="panel">
                   <div className="panel-head">
                     <h2>Next 3 tasks</h2>
@@ -529,7 +529,7 @@ export default function Dashboard() {
                     )
                   })}
                   {loaded && !d?.next3?.length && (
-                    <div className="empty">No open tasks in the queue. Add tasks via Telegram or the task agent — they&apos;ll rank here automatically.</div>
+                    <div className="empty">No open tasks in the queue. Add tasks via Telegram or the task agent – they&apos;ll rank here automatically.</div>
                   )}
                 </section>
 
@@ -558,7 +558,7 @@ export default function Dashboard() {
                     )
                   })}
                   {loaded && !d?.feed?.length && (
-                    <div className="empty ok">✓ All clear — nothing is waiting on you right now.</div>
+                    <div className="empty ok">✓ All clear – nothing is waiting on you right now.</div>
                   )}
                 </section>
               </div>

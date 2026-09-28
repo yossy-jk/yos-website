@@ -13,7 +13,7 @@ const TOKEN       = process.env.HUBSPOT_TOKEN
 const BASE        = 'https://api.hubapi.com'
 const PDF_FILENAME = 'YOS-Capability-Statement.pdf'
 const PDF_ROUTE = `/api/file/${PDF_FILENAME}`
-const DOWNLOAD_TTL = 15 * 60 // 15 minutes — signed URL valid window
+const DOWNLOAD_TTL = 15 * 60 // 15 minutes – signed URL valid window
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -24,7 +24,7 @@ async function upsertContact(email: string, firstname: string): Promise<string |
   const safeEmail = esc(email.trim().toLowerCase().slice(0, 200))
   const safeName  = esc(firstname.trim().slice(0, 100))
 
-  // PATCH existing contact first (upsert — no 409)
+  // PATCH existing contact first (upsert – no 409)
   const patch = await fetch(
     `${BASE}/crm/v3/objects/contacts/${encodeURIComponent(safeEmail)}?idProperty=email`,
     {
@@ -93,7 +93,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Download service not configured' }, { status: 503 })
     }
 
-    // Upsert to HubSpot (fire-and-forget — don't block download on HS errors)
+    // Upsert to HubSpot (fire-and-forget – don't block download on HS errors)
     upsertContact(email, firstname).catch(console.error)
 
     // The token contains only file scope and expiry. Its HMAC is verified server-side.

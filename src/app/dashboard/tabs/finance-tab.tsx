@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 
-const C = { teal: '#01A7A3', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
+const C = { teal: '#00B5A5', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>{children}</p>
@@ -113,7 +113,7 @@ export default function FinanceTab() {
           {cashflow.projectedLow < 0 && (
             <div style={{ marginTop: '1rem', padding: '0.75rem', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: 6 }}>
               <p style={{ fontSize: '0.7rem', color: C.red, margin: 0 }}>
-                Cash trough of {fmt(cashflow.projectedLow)} projected around {cashflow.projectedLowDate} — consider accelerating collections.
+                Cash trough of {fmt(cashflow.projectedLow)} projected around {cashflow.projectedLowDate} – consider accelerating collections.
               </p>
             </div>
           )}
@@ -131,13 +131,13 @@ export default function FinanceTab() {
           <div style={{ background: C.teal, borderRadius: 4, height: 8, width: '0%' }} />
         </div>
         <p style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.25)', margin: '0.5rem 0 0' }}>
-          Finance agent syncs Xero daily — bank feed data will appear here when connected
+          Finance agent syncs Xero daily – bank feed data will appear here when connected
         </p>
       </div>
 
       {!data && (
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '2rem', textAlign: 'center' }}>
-          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', margin: 0 }}>Finance data loading — Finance agent runs at 7am and 5pm daily</p>
+          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', margin: 0 }}>Finance data loading – Finance agent runs at 7am and 5pm daily</p>
           <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.72rem', margin: '0.5rem 0 0' }}>Ensure Xero is connected via Maton credentials</p>
         </div>
       )}

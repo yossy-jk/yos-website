@@ -1,7 +1,7 @@
 /**
- * GET  /api/eos/data — returns full EOS data (auth via cookie)
- * POST /api/eos/data                      — update EOS data (token in body)
- * DELETE /api/eos/data                   — delete a single item by type + id
+ * GET  /api/eos/data – returns full EOS data (auth via cookie)
+ * POST /api/eos/data                      – update EOS data (token in body)
+ * DELETE /api/eos/data                   – delete a single item by type + id
  *
  * Stored in Redis under yos:eos:data (single JSON blob)
  */
@@ -57,7 +57,7 @@ export interface VTO {
 }
 
 export interface ScorecardWeek {
-  weekEnding: string    // ISO date — Friday of that week
+  weekEnding: string    // ISO date – Friday of that week
   actual: number | null
 }
 
@@ -84,14 +84,14 @@ export interface EOSData {
 
 const DEFAULT_VTO: VTO = {
   vision: '',
-  mission: 'Help Newcastle businesses secure better spaces, better cleaning, and better workplaces — without getting taken advantage of.',
+  mission: 'Help Newcastle businesses secure better spaces, better cleaning, and better workplaces – without getting taken advantage of.',
   coreValues: [
-    'On your side — always',
+    'On your side – always',
     'Newcastle first',
     'Plain English, no waffle',
     'We pick up the phone',
   ],
-  tenYearTarget: '$10M revenue — YOS running under management, Joe and Sarah free to travel.',
+  tenYearTarget: '$10M revenue – YOS running under management, Joe and Sarah free to travel.',
   threeYearRevenue: '$3M',
   threeYearPicture: 'Three fully systematised service lines (Tenant Rep, Cleaning, Furniture). Team of 6. YOS recognised as Newcastle\'s go-to commercial property team.',
   oneYearRevenue: '$1M',
@@ -103,13 +103,13 @@ const DEFAULT_VTO: VTO = {
     'LeaseIntel: 50 paid reviews delivered',
   ],
   marketingStrategy: 'Newcastle commercial property owners renewing leases in the next 12-24 months. Business owners moving into new offices. Companies needing commercial cleaning contracts.',
-  niche: 'Tenant-side commercial property advisory — Newcastle and Hunter Valley. We never act for landlords.',
+  niche: 'Tenant-side commercial property advisory – Newcastle and Hunter Valley. We never act for landlords.',
   guarantee: '100% tenant-side. We never act for landlords or developers. If we can\'t add value, we\'ll tell you.',
   differentiators: [
-    'Only tenant-side — no conflict of interest',
-    'Newcastle embedded — we know every building',
+    'Only tenant-side – no conflict of interest',
+    'Newcastle embedded – we know every building',
     'One team across lease, fitout, furniture, cleaning',
-    'Fixed fee or success fee — no surprises',
+    'Fixed fee or success fee – no surprises',
   ],
 }
 
@@ -138,7 +138,7 @@ function defaultWeeks(): ScorecardWeek[] {
   return lastNFridays(13).map(w => ({ weekEnding: w, actual: null }))
 }
 
-// KPI version — bump when replacing all defaults to force Redis migration
+// KPI version – bump when replacing all defaults to force Redis migration
 const SCORECARD_VERSION = 'v2-2026-05'
 
 const DEFAULT_SCORECARD: KPIMetric[] = [
@@ -171,7 +171,7 @@ const DEFAULT_SCORECARD: KPIMetric[] = [
     target: 200,
     unit: 'contacts',
     higherIsBetter: true,
-    notes: 'Cold outreach to furniture/fitout prospects. Joe + Yossy combined — high volume.',
+    notes: 'Cold outreach to furniture/fitout prospects. Joe + Yossy combined – high volume.',
     weeks: defaultWeeks(),
   },
   {
@@ -254,7 +254,7 @@ const DEFAULT_SCORECARD: KPIMetric[] = [
   // ── HEALTH ───────────────────────────────────────────────────────────────
   {
     id: 'kpi-gym-joe',
-    name: 'Exercise sessions — Joe',
+    name: 'Exercise sessions – Joe',
     owner: 'Joe',
     target: 3,
     unit: 'sessions',
@@ -264,7 +264,7 @@ const DEFAULT_SCORECARD: KPIMetric[] = [
   },
   {
     id: 'kpi-gym-sarah',
-    name: 'Exercise sessions — Sarah',
+    name: 'Exercise sessions – Sarah',
     owner: 'Sarah',
     target: 3,
     unit: 'sessions',

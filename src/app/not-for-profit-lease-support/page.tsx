@@ -98,7 +98,7 @@ export default function NotForProfitPage() {
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-6"
               style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
               Your office lease.<br />
-              <span style={{ color: '#01A7A3' }}>Our expertise.</span><br />
+              <span style={{ color: '#00B5A5' }}>Our expertise.</span><br />
               No cost to you.
             </h1>
             <p className="text-white/60 font-light leading-relaxed mb-8"
@@ -157,7 +157,7 @@ export default function NotForProfitPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-charcoal font-light italic" style={{ fontSize: '0.8rem' }}>
+                <p className="text-charcoal font-light font-semibold" style={{ fontSize: '0.8rem' }}>
                   Typical value: $500–$1,500. You are not paying for it.
                 </p>
               </div>
@@ -194,7 +194,7 @@ export default function NotForProfitPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-white/40 font-light italic" style={{ fontSize: '0.8rem' }}>
+                <p className="text-white/40 font-light font-semibold" style={{ fontSize: '0.8rem' }}>
                   Typical value: 3–5% of annual rent. You are not paying for it.
                 </p>
               </div>
@@ -294,7 +294,7 @@ export default function NotForProfitPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { num: '01', title: 'Apply', desc: 'Fill out the form below or call us. We review every application and confirm the next step directly.' },
+              { num: '01', title: 'Apply', desc: 'Fill out the form below or call us. We review the submission and confirm the next step.' },
               { num: '02', title: 'Chat', desc: '20-minute call to understand your situation and confirm eligibility.' },
               { num: '03', title: 'We work', desc: 'Lease review within 5 business days. Relocation search starts once we have your brief.' },
               { num: '04', title: 'You decide', desc: 'We deliver our findings. You decide what to do next. No pressure, no obligation.' },
@@ -326,7 +326,7 @@ export default function NotForProfitPage() {
                 </h2>
                 <p className="text-mid-grey font-light leading-relaxed mb-8"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  We review every application and confirm the next step directly. If you qualify, we will book a 20-minute call to get started. No obligation, no pressure, just a conversation.
+                  We review the submission, confirm eligibility and identify the appropriate next step.
                 </p>
                 <div className="flex flex-col gap-4">
                   <div>

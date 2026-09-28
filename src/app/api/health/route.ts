@@ -13,7 +13,7 @@ export async function GET(req: Request) {
     const result = await resend.emails.send({
       from: 'YOS Website <notifications@yourofficespace.au>',
       to: 'jk@yourofficespace.au',
-      subject: 'Health check test — 22 Apr',
+      subject: 'Health check test – 22 Apr',
       html: '<p>Health check email from /api/health route. Resend is working from production.</p>',
     })
     

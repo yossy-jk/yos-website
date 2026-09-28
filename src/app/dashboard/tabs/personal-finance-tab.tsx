@@ -37,7 +37,7 @@ export default function PersonalFinanceTab() {
   if (loading) return <div style={{ color: '#6b7280', padding: 40 }}>Loading financial position…</div>
   if (!d) return (
     <div style={{ color: '#9ca3af', padding: 40, fontFamily: 'sans-serif' }}>
-      <h3 style={{ color: '#f9fafb', marginBottom: 12 }}>Personal Finance — Setup Required</h3>
+      <h3 style={{ color: '#f9fafb', marginBottom: 12 }}>Personal Finance – Setup Required</h3>
       <p>Drop your bank CSV exports into <code style={{ color: '#60a5fa' }}>~/.openclaw/workspace-personal-finance/inbox/</code> then run:</p>
       <pre style={{ background: '#111827', padding: 16, borderRadius: 8, marginTop: 8, fontSize: 12 }}>
         python3 ~/.openclaw/tools/pf_csv_ingester.py{'\n'}
@@ -50,7 +50,7 @@ export default function PersonalFinanceTab() {
   return (
     <div style={{ fontFamily: 'sans-serif', padding: '4px 0' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-        <h2 style={{ margin: 0, fontSize: 16, color: '#f9fafb' }}>Personal Finance — Joe & Sarah</h2>
+        <h2 style={{ margin: 0, fontSize: 16, color: '#f9fafb' }}>Personal Finance – Joe & Sarah</h2>
         <span style={{ fontSize: 11, color: '#4b5563' }}>Updated {d.generated}</span>
       </div>
 
@@ -96,7 +96,7 @@ export default function PersonalFinanceTab() {
       {/* Spending by category */}
       {d.category_breakdown.length > 0 && (
         <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: 12, padding: 20, marginBottom: 16 }}>
-          <h3 style={{ margin: '0 0 12px', fontSize: 14, color: '#f9fafb' }}>Spending — Last 30 Days</h3>
+          <h3 style={{ margin: '0 0 12px', fontSize: 14, color: '#f9fafb' }}>Spending – Last 30 Days</h3>
           {d.category_breakdown.map((c, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 0', borderTop: i ? '1px solid #1f2937' : 'none', fontSize: 13 }}>
               <span style={{ color: '#9ca3af' }}>{c.category}</span>
@@ -109,7 +109,7 @@ export default function PersonalFinanceTab() {
       {/* Setup prompt */}
       {d.unreviewed_transactions > 0 && (
         <div style={{ background: '#1c1917', border: '1px solid #78350f', borderRadius: 10, padding: 16, fontSize: 13, color: '#fcd34d' }}>
-          {d.unreviewed_transactions} transactions need categorisation — run <code>pf_csv_ingester.py</code> review queue for accuracy.
+          {d.unreviewed_transactions} transactions need categorisation – run <code>pf_csv_ingester.py</code> review queue for accuracy.
         </div>
       )}
     </div>

@@ -2,7 +2,7 @@
  * POST /api/eos/auto-log
  * 
  * Agents call this to auto-log KPI values to the EOS scorecard.
- * Authenticates via X-EOS-AGENT-TOKEN header (not cookie — agents can't use cookies).
+ * Authenticates via X-EOS-AGENT-TOKEN header (not cookie – agents can't use cookies).
  * 
  * Body: {
  *   metricId: string        // e.g. "kpi-blog"

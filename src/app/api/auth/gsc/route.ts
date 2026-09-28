@@ -12,7 +12,7 @@ const REDIRECT_URI  = process.env.VERCEL_URL
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
-  // Auth check — support both auth-v2 and simple auth
+  // Auth check – support both auth-v2 and simple auth
   const { requireAuth } = await import('@/lib/auth')
   const auth = await requireAuth()
   if (!auth.ok) return auth.response

@@ -379,7 +379,7 @@ export default function WorkspaceBuilderPage() {
             )}
             {step === 0 && (
               <div className="inline-flex items-center gap-4 border border-teal/30" style={{ padding: '0.4rem 1rem', marginBottom: '1.75rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
             )}
@@ -404,7 +404,7 @@ export default function WorkspaceBuilderPage() {
                   { num: '02', label: 'Smart utilisation calc' },
                   { num: '03', label: 'Full spec with pricing' },
                 ].map(f => (
-                  <div key={f.label} className="border border-white/10 bg-white/[0.03] hover:shadow-md transition-shadow duration-300" style={{ padding: '1.75rem 1.5rem', borderRadius: '0.75rem' }}>
+                  <div key={f.label} className="border border-white/10 bg-white/[0.03]" style={{ padding: '1.75rem 1.5rem', borderRadius: '4px' }}>
                     <p className="text-teal font-black" style={{ fontSize: '0.65rem', letterSpacing: '0.2em', marginBottom: '0.625rem' }}>{f.num}</p>
                     <p className="text-white/70 font-medium" style={{ fontSize: '0.875rem', lineHeight: 1.5 }}>{f.label}</p>
                   </div>
@@ -506,7 +506,7 @@ export default function WorkspaceBuilderPage() {
                     </label>
                     <span style={{
                       fontSize: '0.78rem', fontWeight: 700,
-                      color: workStyleTotal === 100 ? '#01A7A3' : '#ef4444',
+                      color: workStyleTotal === 100 ? '#00B5A5' : '#ef4444',
                       letterSpacing: '0.05em',
                     }}>
                       Total: {workStyleTotal}%{workStyleTotal !== 100 ? ' ← must equal 100' : ' OK '}
@@ -514,7 +514,7 @@ export default function WorkspaceBuilderPage() {
                   </div>
 
                   {[
-                    { key: 'alwaysIn' as const, label: 'Always in office', desc: '5 days/wk', color: '#01A7A3' },
+                    { key: 'alwaysIn' as const, label: 'Always in office', desc: '5 days/wk', color: '#00B5A5' },
                     { key: 'hybrid'   as const, label: 'Hybrid',           desc: '3+ days/wk', color: '#4DC3BA' },
                     { key: 'flexi'    as const, label: 'Flexi',            desc: '1–2 days/wk', color: '#80D4CD' },
                     { key: 'remote'   as const, label: 'Remote',           desc: 'Occasionally in', color: '#B3E6E3' },
@@ -915,12 +915,12 @@ function ResultsContent({
             <div key={i} style={{
               background: 'rgba(1,167,163,0.08)',
               border: '1px solid rgba(1,167,163,0.25)',
-              borderLeft: '3px solid #01A7A3',
+              borderLeft: '3px solid #00B5A5',
               borderRadius: '0.5rem',
               padding: '1rem 1.25rem',
               display: 'flex', alignItems: 'flex-start', gap: '0.75rem',
             }}>
-              <span style={{ color: '#01A7A3', fontSize: '1rem', flexShrink: 0, marginTop: '0.05rem' }}>TIP:</span>
+              <span style={{ color: '#00B5A5', fontSize: '1rem', flexShrink: 0, marginTop: '0.05rem' }}>TIP:</span>
               <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '0.875rem', lineHeight: 1.65, fontWeight: 400 }}>{c}</p>
             </div>
           ))}
@@ -981,7 +981,7 @@ function ResultsContent({
         {/* Mobile cards */}
         <div className="sm:hidden" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
           {spec.lineItems.map((item, i) => (
-            <div key={i} className="border border-white/10 bg-white/[0.02] hover:shadow-md transition-shadow duration-300" style={{ borderRadius: '0.625rem', padding: '1rem 1.25rem' }}>
+            <div key={i} className="border border-white/10 bg-white/[0.02]" style={{ borderRadius: '4px', padding: '1rem 1.25rem' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                 <span className="text-white font-semibold" style={{ fontSize: '0.875rem' }}>{item.space}</span>
                 <span className="text-white font-bold" style={{ fontSize: '0.875rem' }}>×{item.qty}</span>
@@ -1001,7 +1001,7 @@ function ResultsContent({
       </div>
 
       {/* Spec summary */}
-      <div className="border border-white/10 bg-white/[0.02] hover:shadow-md transition-shadow duration-300" style={{ borderRadius: '0.75rem', padding: '1.5rem', marginBottom: '3rem' }}>
+      <div className="border border-white/10 bg-white/[0.02]" style={{ borderRadius: '4px', padding: '1.5rem', marginBottom: '3rem' }}>
         <p className="text-white/40 font-semibold uppercase" style={{ fontSize: '0.65rem', letterSpacing: '0.15em', marginBottom: '1rem' }}>Spec summary</p>
         <div className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: '1rem' }}>
           {[

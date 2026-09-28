@@ -1,6 +1,6 @@
 /**
- * GET /api/tenant-rep-pipeline — list clients
- * POST /api/tenant-rep-pipeline — create client
+ * GET /api/tenant-rep-pipeline – list clients
+ * POST /api/tenant-rep-pipeline – create client
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'

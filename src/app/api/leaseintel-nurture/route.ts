@@ -48,37 +48,37 @@ function daysAgoRange(days: number): { start: number; end: number } {
 const DAY2_EMAIL = (name: string, riskLevel: string) => `
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #ffffff;">
   <div style="background: #0A0A0A; padding: 24px; margin-bottom: 28px;">
-    <p style="color: #01A7A3; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space — Newcastle</p>
+    <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space – Newcastle</p>
     <p style="color: white; font-weight: 800; font-size: 20px; margin: 0; text-transform: uppercase;">What to do with your risk rating</p>
   </div>
   <p style="color: #333; font-size: 15px; margin: 0 0 20px;">Hi ${name},</p>
   <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">
     You checked your lease risk two days ago. ${
       riskLevel === 'high'
-        ? 'Your rating came back HIGH RISK. That means there are clauses in your lease that could cost you significantly — at signing, during the term, or at exit.'
+        ? 'Your rating came back HIGH RISK. That means there are clauses in your lease that could cost you significantly – at signing, during the term, or at exit.'
         : riskLevel === 'medium'
         ? 'Your rating came back MODERATE RISK. There are a few areas worth pushing on before you sign or renew.'
-        : "Your rating came back LOWER RISK. That said, a lower risk rating on the checker still doesn't mean the lease is clean — it means the headline clauses look reasonable."
+        : "Your rating came back LOWER RISK. That said, a lower risk rating on the checker still doesn't mean the lease is clean – it means the headline clauses look reasonable."
     }
   </p>
   <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">Here is what most tenants in your position miss:</p>
-  <div style="border-left: 3px solid #01A7A3; padding: 0 0 0 20px; margin: 0 0 28px;">
-    <p style="color: #333; font-size: 14px; line-height: 1.7; margin: 0 0 12px;"><strong>Make good</strong> — the cost of restoring the premises at exit is the most commonly underestimated liability in a commercial lease. Estimates typically run $80–$150/sqm. On a 200sqm office, that is $16,000–$30,000 you may owe at the end.</p>
-    <p style="color: #333; font-size: 14px; line-height: 1.7; margin: 0 0 12px;"><strong>Rent reviews</strong> — market rent reviews with no cap can reset your rent significantly above CPI. One market review at the wrong time can undo years of below-market rent.</p>
-    <p style="color: #333; font-size: 14px; line-height: 1.7; margin: 0;"><strong>Outgoings</strong> — some leases cap them, most don't. If outgoings are uncapped, you carry the landlord's maintenance risk on top of your rent.</p>
+  <div style="border-left: 3px solid #00B5A5; padding: 0 0 0 20px; margin: 0 0 28px;">
+    <p style="color: #333; font-size: 14px; line-height: 1.7; margin: 0 0 12px;"><strong>Make good</strong> – the cost of restoring the premises at exit is the most commonly underestimated liability in a commercial lease. Estimates typically run $80–$150/sqm. On a 200sqm office, that is $16,000–$30,000 you may owe at the end.</p>
+    <p style="color: #333; font-size: 14px; line-height: 1.7; margin: 0 0 12px;"><strong>Rent reviews</strong> – market rent reviews with no cap can reset your rent significantly above CPI. One market review at the wrong time can undo years of below-market rent.</p>
+    <p style="color: #333; font-size: 14px; line-height: 1.7; margin: 0;"><strong>Outgoings</strong> – some leases cap them, most don't. If outgoings are uncapped, you carry the landlord's maintenance risk on top of your rent.</p>
   </div>
   <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 20px 24px; margin-bottom: 28px;">
-    <p style="color: #0f766e; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px;">LeaseIntel Full Report — $297 ex GST</p>
-    <p style="color: #444; font-size: 14px; line-height: 1.7; margin: 0 0 16px;">Every clause rated. Financial exposure summary. Negotiation roadmap. 24-hour turnaround.<br><strong>Newcastle businesses: free until 21 July 2026.</strong></p>
-    <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Submit your lease →</a>
+    <p style="color: #0f766e; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px;">LeaseIntel Review Scope Request</p>
+    <p style="color: #444; font-size: 14px; line-height: 1.7; margin: 0 0 16px;">Suitability, deliverables, timing, fees and secure document handling are confirmed before work begins.</p>
+    <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #00B5A5; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Request review scope →</a>
   </div>
-  <p style="color: #aaa; font-size: 11px; margin: 0;">Joseph Kelley — Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
+  <p style="color: #aaa; font-size: 11px; margin: 0;">Joseph Kelley – Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
 </div>`
 
 const DAY7_EMAIL = (name: string, riskLevel: string) => `
 <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #ffffff;">
   <div style="background: #0A0A0A; padding: 24px; margin-bottom: 28px;">
-    <p style="color: #01A7A3; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space — Newcastle</p>
+    <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space – Newcastle</p>
     <p style="color: white; font-weight: 800; font-size: 20px; margin: 0; text-transform: uppercase;">Still thinking about your lease?</p>
   </div>
   <p style="color: #333; font-size: 15px; margin: 0 0 20px;">Hi ${name},</p>
@@ -87,17 +87,16 @@ const DAY7_EMAIL = (name: string, riskLevel: string) => `
       riskLevel === 'high' ? 'HIGH RISK' : riskLevel === 'medium' ? 'MODERATE RISK' : 'LOWER RISK'
     }. Just wanted to make sure you didn't miss this.
   </p>
-  <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">The LeaseIntel report is the full review — your actual lease document analysed clause by clause, every risk explained in plain English, and a specific list of what to negotiate before you sign.</p>
+  <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 20px;">The LeaseIntel report is the full review – your actual lease document analysed clause by clause, every risk explained in plain English, and a specific list of what to negotiate before you sign.</p>
   <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 24px;">If you're still in the lease decision phase, now is the right time. Once you sign, the negotiating window closes.</p>
   <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 20px 24px; margin-bottom: 28px;">
     <p style="color: #0f766e; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px;">LeaseIntel Full Report</p>
-    <p style="color: #444; font-size: 14px; margin: 0 0 4px;">$297 ex GST · 24-hour turnaround</p>
-    <p style="color: #10b981; font-size: 14px; font-weight: 700; margin: 0 0 16px;">Newcastle businesses: <strong>FREE until 21 July 2026</strong></p>
-    <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #01A7A3; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Get the full report →</a>
+    <p style="color: #444; font-size: 14px; margin: 0 0 16px;">Scope, timing and fees confirmed before work begins.</p>
+    <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #00B5A5; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Request review scope →</a>
   </div>
-  <p style="color: #333; font-size: 13px; line-height: 1.7; margin: 0 0 20px;">If the timing isn't right — no problem. Hit reply and let me know where things are at. Happy to help when you're ready.</p>
+  <p style="color: #333; font-size: 13px; line-height: 1.7; margin: 0 0 20px;">If the timing isn't right – no problem. Hit reply and let me know where things are at. Happy to help when you're ready.</p>
   <p style="color: #333; font-size: 14px; margin: 0 0 4px;">Joe Kelley</p>
-  <p style="color: #aaa; font-size: 11px; margin: 0;">Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #01A7A3; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
+  <p style="color: #aaa; font-size: 11px; margin: 0;">Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
 </div>`
 
 export async function POST(req: Request) {
@@ -151,7 +150,7 @@ export async function POST(req: Request) {
           from: 'Joseph Kelley <jk@yourofficespace.au>',
           to: email,
           replyTo: 'jk@yourofficespace.au',
-          subject: 'Your lease risk — what to do next',
+          subject: 'Your lease risk – what to do next',
           html: DAY2_EMAIL(firstname || 'there', leaseintel_risk_level || 'medium'),
         })
         await patchContact(contact.id, { leaseintel_day2_sent: 'true' })

@@ -19,7 +19,7 @@ interface TasksData {
 }
 
 const SOURCE_STYLE: Record<string,{bg:string;color:string;label:string}> = {
-  email:    { bg:'rgba(1,167,163,0.12)',   color:'#01A7A3', label:'Email' },
+  email:    { bg:'rgba(1,167,163,0.12)',   color:'#00B5A5', label:'Email' },
   fireflies:{ bg:'rgba(99,102,241,0.15)',  color:'#a5b4fc', label:'Meeting' },
   plaud:    { bg:'rgba(245,158,11,0.15)',  color:'#fcd34d', label:'Voice' },
   manual:   { bg:'rgba(255,255,255,0.08)', color:'rgba(255,255,255,0.5)', label:'Manual' },
@@ -50,7 +50,7 @@ function formatAEST(iso: string): string {
 
 function CapacityBar({ current, max, onStandby }: { current: number; max: number; onStandby: number }) {
   const pct = Math.min((current / max) * 100, 100)
-  const color = pct >= 100 ? '#ef4444' : pct >= 80 ? '#f59e0b' : '#01A7A3'
+  const color = pct >= 100 ? '#ef4444' : pct >= 80 ? '#f59e0b' : '#00B5A5'
   const remaining = max - current
   return (
     <div style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)', borderRadius:8, padding:'1rem 1.25rem' }}>
@@ -88,7 +88,7 @@ function WaitingModal({ task, onSave, onCancel }: { task: Task; onSave: (reason:
         </div>
         <p style={{ color:'white', fontWeight:600, fontSize:'0.88rem', margin:'0 0 0.5rem', lineHeight:1.4 }}>{task.title}</p>
         <textarea value={reason} onChange={e=>setReason(e.target.value)}
-          placeholder='Who are you waiting on? Eg. "Luke from Colliers — waiting on floor plans"'
+          placeholder='Who are you waiting on? Eg. "Luke from Colliers – waiting on floor plans"'
           rows={3} autoFocus
           style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(245,158,11,0.3)', borderRadius:6, padding:'0.6rem 0.8rem', color:'white', fontSize:'0.78rem', fontFamily:'inherit', width:'100%', resize:'vertical', outline:'none', lineHeight:1.5 }}
         />
@@ -135,7 +135,7 @@ function NotesSection({ task, onSave }: { task: Task; onSave: (notes: string)=>v
       </div>
       <textarea value={value} onChange={e=>handleChange(e.target.value)}
         onBlur={() => { if (!value.trim()) setEditing(false) }}
-        placeholder='Add notes — context, decisions, next steps... (auto-saves after 1.2s)'
+        placeholder='Add notes – context, decisions, next steps... (auto-saves after 1.2s)'
         rows={3} autoFocus
         style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(1,167,163,0.2)', borderRadius:4, padding:'0.5rem 0.6rem', color:'white', fontSize:'0.72rem', fontFamily:'inherit', width:'100%', resize:'vertical', outline:'none', lineHeight:1.55, minHeight:64 }}
       />
@@ -172,15 +172,15 @@ function TaskCard({ task, onComplete, onStandby, onUnstandby, onDelegate, onSave
           </div>
           <div style={{ display:'flex', gap:'0.45rem', marginTop:'0.4rem', flexWrap:'wrap', alignItems:'center' }}>
             <SourceBadge source={task.source} />
-            {hasNotes && <span style={{ fontSize:'0.52rem', fontWeight:700, background:'rgba(1,167,163,0.1)', color:'#01A7A3', padding:'0.15rem 0.4rem', borderRadius:3, letterSpacing:'0.06em', textTransform:'uppercase' }}>Notes</span>}
+            {hasNotes && <span style={{ fontSize:'0.52rem', fontWeight:700, background:'rgba(1,167,163,0.1)', color:'#00B5A5', padding:'0.15rem 0.4rem', borderRadius:3, letterSpacing:'0.06em', textTransform:'uppercase' }}>Notes</span>}
             {isDelegated && <span style={{ fontSize:'0.52rem', fontWeight:700, background:'rgba(99,102,241,0.15)', color:'#a5b4fc', padding:'0.15rem 0.4rem', borderRadius:3, letterSpacing:'0.06em', textTransform:'uppercase' }}>Delegated</span>}
             {dl && <span style={{ fontSize:'0.6rem', color: dl.overdue ? '#ef4444' : 'rgba(255,255,255,0.35)' }}>{dl.text}</span>}
-            {task.meeting_title && <span style={{ fontSize:'0.6rem', color:'rgba(99,102,241,0.6)', fontStyle:'italic' }}>{task.meeting_title}</span>}
+            {task.meeting_title && <span style={{ fontSize:'0.6rem', color:'rgba(99,102,241,0.6)', fontStyle:'font-semibold' }}>{task.meeting_title}</span>}
           </div>
           {expanded && (
             <div style={{ marginTop:'0.75rem', display:'flex', flexDirection:'column', gap:'0.6rem' }}>
               {task.description && <div style={{ fontSize:'0.72rem', color:'rgba(255,255,255,0.4)', lineHeight:1.55, borderLeft:'2px solid rgba(255,255,255,0.1)', paddingLeft:'0.7rem' }}>{task.description.slice(0,350)}{task.description.length > 350 ? '...' : ''}</div>}
-              {task.committed_to && <div style={{ fontSize:'0.7rem', color:'rgba(1,167,163,0.65)', fontStyle:'italic', borderLeft:'2px solid rgba(1,167,163,0.25)', paddingLeft:'0.7rem', lineHeight:1.5 }}>&ldquo;{task.committed_to.slice(0,200)}{task.committed_to.length > 200 ? '...' : ''}&rdquo;</div>}
+              {task.committed_to && <div style={{ fontSize:'0.7rem', color:'rgba(1,167,163,0.65)', fontStyle:'font-semibold', borderLeft:'2px solid rgba(1,167,163,0.25)', paddingLeft:'0.7rem', lineHeight:1.5 }}>&ldquo;{task.committed_to.slice(0,200)}{task.committed_to.length > 200 ? '...' : ''}&rdquo;</div>}
               {isStandby && task.hold_reason && <div style={{ fontSize:'0.7rem', color:'rgba(245,158,11,0.8)', borderLeft:'2px solid rgba(245,158,11,0.4)', paddingLeft:'0.7rem', lineHeight:1.5 }}>Waiting: {task.hold_reason}</div>}
               {task.completion_note && <div style={{ fontSize:'0.68rem', color:'rgba(34,197,94,0.6)', borderLeft:'2px solid rgba(34,197,94,0.3)', paddingLeft:'0.7rem' }}>Done: {task.completion_note}</div>}
               {task.completed_date && <div style={{ fontSize:'0.68rem', color:'rgba(34,197,94,0.5)' }}>Completed {formatAEST(task.completed_date)}</div>}
@@ -192,7 +192,7 @@ function TaskCard({ task, onComplete, onStandby, onUnstandby, onDelegate, onSave
           <div style={{ display:'flex', gap:'0.35rem', flexShrink:0, alignItems:'center' }} onClick={e=>e.stopPropagation()}>
             {onDelegate && task.can_delegate && <button type="button" onClick={onDelegate} style={{ background:'rgba(99,102,241,0.1)', border:'1px solid rgba(99,102,241,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#a5b4fc', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Del</button>}
             {!isStandby && <button type="button" onClick={onStandby} style={{ background:'rgba(245,158,11,0.1)', border:'1px solid rgba(245,158,11,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#f59e0b', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Wait</button>}
-            {isStandby && <button type="button" onClick={onUnstandby} style={{ background:'rgba(1,167,163,0.1)', border:'1px solid rgba(1,167,163,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#01A7A3', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Resume</button>}
+            {isStandby && <button type="button" onClick={onUnstandby} style={{ background:'rgba(1,167,163,0.1)', border:'1px solid rgba(1,167,163,0.25)', borderRadius:3, padding:'0.3rem 0.55rem', color:'#00B5A5', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Resume</button>}
             <button type="button" onClick={onComplete} style={{ background:'#22c55e', border:'none', borderRadius:3, padding:'0.3rem 0.7rem', color:'white', fontSize:'0.55rem', fontWeight:700, cursor:'pointer', letterSpacing:'0.05em', textTransform:'uppercase' }}>Done</button>
           </div>
         )}
@@ -203,7 +203,7 @@ function TaskCard({ task, onComplete, onStandby, onUnstandby, onDelegate, onSave
 
 function StatsBar({ data }: { data: TasksData }) {
   const stats = [
-    { label:'Today',   val: data.todayTasks.length, sub:`of ${data.maxJoeCapacity} cap`, color: data.todayTasks.length > data.maxJoeCapacity ? '#ef4444' : '#01A7A3' },
+    { label:'Today',   val: data.todayTasks.length, sub:`of ${data.maxJoeCapacity} cap`, color: data.todayTasks.length > data.maxJoeCapacity ? '#ef4444' : '#00B5A5' },
     { label:'Overdue', val: data.overdue.length,      sub: data.overdue.length > 0 ? 'act now' : 'all clear', color: data.overdue.length > 0 ? '#ef4444' : '#22c55e' },
     { label:'Waiting', val: data.onHold.length,        sub: data.onHold.length > 0 ? 'paused' : 'none', color: data.onHold.length > 0 ? '#f59e0b' : 'rgba(255,255,255,0.3)' },
     { label:'Done',    val: data.totalCompleted,        sub:`${Math.round(data.completionRate7d)}% 7d rate`, color:'#22c55e' },
@@ -329,10 +329,10 @@ export default function TasksTab() {
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:'0.75rem' }}>
         <div>
           <p style={{ color:'rgba(255,255,255,0.4)', fontSize:'0.58rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.15em', margin:0 }}>Tasks</p>
-          <p style={{ color:'rgba(255,255,255,0.2)', fontSize:'0.65rem', margin:'0.2rem 0 0' }}>Inbox · meetings · voice · AI — sorted by what matters most</p>
+          <p style={{ color:'rgba(255,255,255,0.2)', fontSize:'0.65rem', margin:'0.2rem 0 0' }}>Inbox · meetings · voice · AI – sorted by what matters most</p>
         </div>
         <div style={{ display:'flex', gap:'0.5rem' }}>
-          <button type="button" onClick={()=>setAddingTask(true)} style={{ background:'#01A7A3', border:'none', padding:'0.4rem 0.9rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', color:'white', borderRadius:4 }}>+ Add</button>
+          <button type="button" onClick={()=>setAddingTask(true)} style={{ background:'#00B5A5', border:'none', padding:'0.4rem 0.9rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', color:'white', borderRadius:4 }}>+ Add</button>
           <button type="button" onClick={load} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', padding:'0.4rem 0.8rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', color:'rgba(255,255,255,0.4)', borderRadius:4 }}>Refresh</button>
         </div>
       </div>
@@ -355,7 +355,7 @@ export default function TasksTab() {
           <textarea value={newTask.description} onChange={e=>setNewTask(t=>({...t,description:e.target.value}))} placeholder='Notes (optional)...'
             rows={2} style={{ background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.12)', borderRadius:4, padding:'0.5rem 0.75rem', color:'white', fontSize:'0.75rem', fontFamily:'inherit', width:'100%', resize:'vertical', marginBottom:'0.75rem' }} />
           <div style={{ display:'flex', gap:'0.5rem' }}>
-            <button type='submit' style={{ background:'#01A7A3', border:'none', padding:'0.5rem 1.2rem', cursor:'pointer', color:'white', fontFamily:'inherit', fontWeight:700, fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase', borderRadius:4 }}>Save Task</button>
+            <button type='submit' style={{ background:'#00B5A5', border:'none', padding:'0.5rem 1.2rem', cursor:'pointer', color:'white', fontFamily:'inherit', fontWeight:700, fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase', borderRadius:4 }}>Save Task</button>
             <button type='button' onClick={()=>setAddingTask(false)} style={{ background:'transparent', border:'1px solid rgba(255,255,255,0.1)', padding:'0.5rem 1rem', cursor:'pointer', color:'rgba(255,255,255,0.4)', fontFamily:'inherit', fontSize:'0.65rem', letterSpacing:'0.1em', textTransform:'uppercase', borderRadius:4 }}>Cancel</button>
           </div>
         </form>
@@ -366,7 +366,7 @@ export default function TasksTab() {
           <button type="button" key={t.id} onClick={()=>{ setTab(t.id); setExpanded(null) }} style={{
             background: tab === t.id ? 'rgba(1,167,163,0.15)' : 'rgba(255,255,255,0.04)',
             border: tab === t.id ? '1px solid rgba(1,167,163,0.4)' : '1px solid rgba(255,255,255,0.08)',
-            color: tab === t.id ? '#01A7A3' : 'rgba(255,255,255,0.5)',
+            color: tab === t.id ? '#00B5A5' : 'rgba(255,255,255,0.5)',
             padding:'0.4rem 0.9rem', borderRadius:4, cursor:'pointer', fontFamily:'inherit',
             fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.08em', textTransform:'uppercase'
           }}>{t.id} {t.count !== undefined ? `(${t.count})` : ''}</button>

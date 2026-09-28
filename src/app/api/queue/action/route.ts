@@ -155,7 +155,7 @@ export async function POST(req: NextRequest) {
     queue.splice(itemIndex, 1)
     await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-    // Archive — append to list (publish-scheduled reads it as LRANGE list)
+    // Archive – append to list (publish-scheduled reads it as LRANGE list)
     await redisRpush(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify({
       ...item,
       status: 'approved',
@@ -200,7 +200,7 @@ export async function POST(req: NextRequest) {
     queue.splice(itemIndex, 1)
     await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-    // Archive — append to list
+    // Archive – append to list
     await redisRpush(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify({
       ...item,
       status: 'skipped',

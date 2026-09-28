@@ -68,7 +68,7 @@ export default function ContentTab() {
       body: JSON.stringify({ action: 'suggest', idea: suggestion, channel: sugChannel }),
     })
     setSuggestion('')
-    alert('Idea sent to the pipeline — it will be drafted in the next cycle.')
+    alert('Idea sent to the pipeline – it will be drafted in the next cycle.')
   }
 
   return (
@@ -76,7 +76,7 @@ export default function ContentTab() {
       <div style={{ background: '#111827', border: '1px solid #1f2937', borderRadius: 10, padding: 12, marginBottom: 14, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <input value={suggestion} onChange={e => setSuggestion(e.target.value)}
                onKeyDown={e => e.key === 'Enter' && suggest()}
-               placeholder="Suggest content — e.g. 'Post about the new corner workstation range'"
+               placeholder="Suggest content – e.g. 'Post about the new corner workstation range'"
                style={{ flex: '1 1 240px', background: '#0b0f19', border: '1px solid #1f2937', borderRadius: 8, padding: '10px 12px', color: '#e5e7eb', fontSize: 13, outline: 'none' }} />
         <select value={sugChannel} onChange={e => setSugChannel(e.target.value)}
                 style={{ background: '#0b0f19', border: '1px solid #1f2937', borderRadius: 8, color: '#e5e7eb', fontSize: 12, padding: '0 8px' }}>

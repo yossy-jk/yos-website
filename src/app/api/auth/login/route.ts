@@ -65,7 +65,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  // Success — reset the rate limit for this IP and set cookie
+  // Success – reset the rate limit for this IP and set cookie
   attempts.delete(ip)
   const response = NextResponse.json({ ok: true, username })
   return setSessionCookie(response)

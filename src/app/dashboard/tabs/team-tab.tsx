@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback } from 'react'
 
-const C = { teal: '#01A7A3', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
+const C = { teal: '#00B5A5', red: '#ef4444', green: '#22c55e', amber: '#f59e0b', card: 'rgba(255,255,255,0.03)', border: 'rgba(255,255,255,0.07)' }
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', margin: '0 0 0.75rem' }}>{children}</p>
@@ -73,7 +73,7 @@ export default function TeamTab() {
 
       {/* Agent grid */}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-        <Label>Agent Team — 19 Agents</Label>
+        <Label>Agent Team – 19 Agents</Label>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.5rem' }}>
           {agents.map((a: AgentActivity) => {
             const colour = a.status === 'active' ? C.green : a.status === 'stale' ? C.amber : C.red

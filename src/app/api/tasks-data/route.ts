@@ -5,14 +5,14 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 /**
- * GET  /api/tasks-data  — reads tasks from Upstash Redis
- * POST /api/tasks-data  — create/complete/delegate/standby/unstandby tasks
+ * GET  /api/tasks-data  – reads tasks from Upstash Redis
+ * POST /api/tasks-data  – create/complete/delegate/standby/unstandby tasks
  *
  * Data model:
- *   tasks:v1            — canonical active task list (all non-completed tasks)
- *   tasks:completed:v1  — last 100 completed tasks
- *   tasks:standby:v1    — tasks on hold/standby
- *   yos:tasks:summary   — dashboard reads from here; rebuilt from tasks:v1 on every mutation
+ *   tasks:v1            – canonical active task list (all non-completed tasks)
+ *   tasks:completed:v1  – last 100 completed tasks
+ *   tasks:standby:v1    – tasks on hold/standby
+ *   yos:tasks:summary   – dashboard reads from here; rebuilt from tasks:v1 on every mutation
  *
  * All mutations write to tasks:v1 AND rebuild yos:tasks:summary
  * so the dashboard stays fresh without waiting for Inbox EA's next sync.
@@ -132,7 +132,7 @@ function safeJsonParse<T>(raw: string | null, fallback: T): T {
 }
 
 // ---------------------------------------------------------------------------
-// Summary rebuild — called after every mutation
+// Summary rebuild – called after every mutation
 // Builds todayTasks/overdue/backlog/delegated from tasks:v1
 // then writes both tasks:v1 (normalised) and yos:tasks:summary to Redis.
 //
@@ -188,7 +188,7 @@ async function rebuildSummary(): Promise<void> {
   // Write summary
   await redisSet(SUMMARY_KEY, JSON.stringify(summary))
 
-  // Canonicalise and re-write tasks:v1 — keeps it in sync with summary
+  // Canonicalise and re-write tasks:v1 – keeps it in sync with summary
   // (active + standby, no completed)
   const canonical: Task[] = [
     ...active,
@@ -198,7 +198,7 @@ async function rebuildSummary(): Promise<void> {
 }
 
 // ---------------------------------------------------------------------------
-// GET — read tasks
+// GET – read tasks
 // ---------------------------------------------------------------------------
 export async function GET() {
   const auth = await requireAuth()
@@ -275,7 +275,7 @@ export async function GET() {
 }
 
 // ---------------------------------------------------------------------------
-// POST — mutations
+// POST – mutations
 // ---------------------------------------------------------------------------
 export async function POST(req: NextRequest) {
   const auth = await requireAuth()
@@ -389,7 +389,7 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ ok: true })
       }
 
-      // Task not found anywhere — return ok to avoid UI errors, include warning for debugging
+      // Task not found anywhere – return ok to avoid UI errors, include warning for debugging
       return NextResponse.json({ ok: true, warning: 'task not found' })
     }
 
@@ -483,7 +483,7 @@ export async function POST(req: NextRequest) {
       if (found) {
         await redisSet(TASKS_KEY,   JSON.stringify(tasks))
         await redisSet(STANDBY_KEY, JSON.stringify(standby))
-        // Notes don't need summary rebuild — no structural change
+        // Notes don't need summary rebuild – no structural change
       }
       return NextResponse.json({ ok: true, updated: found })
     }

@@ -1,6 +1,6 @@
 /**
- * GET /api/tenant-rep-pipeline/properties — all properties
- * POST /api/tenant-rep-pipeline/properties — create property
+ * GET /api/tenant-rep-pipeline/properties – all properties
+ * POST /api/tenant-rep-pipeline/properties – create property
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth-v2'

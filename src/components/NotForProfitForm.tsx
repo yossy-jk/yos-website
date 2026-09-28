@@ -96,7 +96,7 @@ export default function NotForProfitForm() {
       <div className="bg-teal/5 border border-teal/20 rounded-sm p-10 text-center">
         <p className="text-teal font-black text-xl mb-3">Application received.</p>
         <p className="text-charcoal font-light text-sm leading-relaxed">
-          We&apos;ll review your application, confirm eligibility and arrange a time to talk.
+          We&apos;ll review the submission, confirm eligibility and identify the appropriate next step.
         </p>
       </div>
     )
@@ -198,7 +198,7 @@ export default function NotForProfitForm() {
         style={{ fontSize: '0.72rem', letterSpacing: '0.15em' }}
       >
         {submitting ? (
-          <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Sending…</>
+          <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-sm animate-spin" />Sending…</>
         ) : 'Submit Application →'}
       </button>
 

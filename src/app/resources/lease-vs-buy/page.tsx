@@ -317,7 +317,7 @@ export default function LeaseVsBuyPage() {
           <FadeIn>
             <div className="max-w-2xl" style={{ marginBottom: 'clamp(3rem,6vw,5rem)' }}>
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-6" style={{ padding: '0.4rem 1rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
               <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
@@ -344,7 +344,7 @@ export default function LeaseVsBuyPage() {
 
                 <div className="flex flex-col" style={{ gap: '1.75rem' }}>
                   <div>
-                    <label style={LABEL_STYLE}>Annual rent ($/sqm/yr) <span style={{ color: '#01A7A3' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Annual rent ($/sqm/yr) <span style={{ color: '#00B5A5' }}>*</span></label>
                     <input
                       type="number"
                       value={annualRentPerSqm}
@@ -356,7 +356,7 @@ export default function LeaseVsBuyPage() {
                   </div>
 
                   <div>
-                    <label style={LABEL_STYLE}>Sqm required <span style={{ color: '#01A7A3' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Sqm required <span style={{ color: '#00B5A5' }}>*</span></label>
                     <input
                       type="number"
                       value={sqm}
@@ -368,7 +368,7 @@ export default function LeaseVsBuyPage() {
                   </div>
 
                   <div>
-                    <label style={LABEL_STYLE}>Lease term (years) <span style={{ color: '#01A7A3' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Lease term (years) <span style={{ color: '#00B5A5' }}>*</span></label>
                     <div className="grid grid-cols-6 gap-2">
                       {LEASE_TERMS.map(t => (
                         <button
@@ -426,7 +426,7 @@ export default function LeaseVsBuyPage() {
 
                 <div className="flex flex-col" style={{ gap: '1.75rem' }}>
                   <div>
-                    <label style={LABEL_STYLE}>Purchase price ($) <span style={{ color: '#01A7A3' }}>*</span></label>
+                    <label style={LABEL_STYLE}>Purchase price ($) <span style={{ color: '#00B5A5' }}>*</span></label>
                     <div className="relative">
                       <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem' }}>$</span>
                       <input

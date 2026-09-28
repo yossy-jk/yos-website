@@ -2,7 +2,7 @@
  * POST /api/blog/delete-from-queue
  *
  * Permanently removes a blog post from the v2 queue.
- * The item is NOT archived — it's a hard delete.
+ * The item is NOT archived – it's a hard delete.
  * Does NOT delete from yos:blog:live (already-published posts).
  *
  * Auth: requireAuth session cookie

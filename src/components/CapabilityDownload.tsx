@@ -137,7 +137,7 @@ export default function CapabilityDownload({
           aria-labelledby="cap-download-title"
         >
           <div
-            className="bg-white w-full max-w-md rounded-xl overflow-hidden shadow-2xl"
+            className="bg-white w-full max-w-md rounded-sm overflow-hidden shadow-2xl"
             style={{ maxHeight: '90vh', overflowY: 'auto' }}
           >
             {/* Header */}

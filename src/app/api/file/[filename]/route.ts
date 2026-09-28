@@ -3,7 +3,7 @@
  *
  * Validates a signed download token and streams the requested file.
  * The token format is: base64url(`${filename}:${expiresAt}`).base64url(HMAC-SHA256)
- * Files are served from /public/ only — path traversal is blocked.
+ * Files are served from /public/ only – path traversal is blocked.
  */
 import { NextRequest, NextResponse } from 'next/server'
 import { readFile } from 'fs/promises'

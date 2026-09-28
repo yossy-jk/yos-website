@@ -20,12 +20,12 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
 
 export const metadata = {
   title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-  description: 'Talk to the Your Office Space team about commercial property, fit out, furniture or cleaning. Based in Newcastle and working across NSW.',
+  description: 'Talk to Your Office Space. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
   twitter: { card: 'summary_large_image', title: 'Contact | Your Office Space', description: 'Get in touch with Your Office Space. First conversation is always free.' },
   openGraph: {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-    description: 'Talk to the Your Office Space team about commercial property, fit out, furniture or cleaning. Based in Newcastle and working across NSW.',
+    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
     url: 'https://www.yourofficespace.au/contact',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
@@ -53,7 +53,7 @@ export default function ContactPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and commercial furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -70,14 +70,15 @@ export default function ContactPage() {
           {
             "@type": "ContactPage",
             "name": "Contact Your Office Space",
-            "description": "Get in touch with Your Office Space. tenant-side commercial property advisory. First conversation is free, no obligation.",
+            "description": "Get in touch with Your Office Space about tenant representation, fit out, furniture or commercial cleaning.",
             "url": "https://www.yourofficespace.au/contact"
           },
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "Is the first call really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The first conversation is genuinely free and has no obligation. We will tell you honestly whether we can help and what it would look like to work together." } },
-              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } }
+              { "@type": "Question", "name": "What happens after I enquire?", "acceptedAnswer": { "@type": "Answer", "text": "We review the situation and confirm the most appropriate next step, service scope or referral." } },
+              { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call 0434 655 511." } },
+              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office fit out and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle and the Hunter." } }
             ]
           }
         ]
@@ -88,7 +89,7 @@ export default function ContactPage() {
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>
-              Commercial Property Advisory · Newcastle and NSW
+              Based in Newcastle. Working Australia-wide.
             </p>
             <h1 className="text-white font-black uppercase leading-none tracking-tight mb-5"
               style={{ fontSize: 'clamp(2.25rem,6vw,6rem)' }}>
@@ -96,7 +97,7 @@ export default function ContactPage() {
             </h1>
             <p className="text-white/60 font-light leading-relaxed"
               style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
-              Start with your situation. We&apos;ll listen, ask the useful questions and tell you clearly whether we can help.
+              A focused conversation about your situation and the decision in front of you.
             </p>
           </FadeIn>
         </div>
@@ -113,7 +114,7 @@ export default function ContactPage() {
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Send a message</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
                   style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
-                  Tell us what you&apos;re<br />working through.
+                  Tell us what you need.<br />We&apos;ll confirm the next step.
                 </h2>
 
                 {/* Contact Form. sends to HubSpot CRM + email */}
@@ -252,7 +253,7 @@ export default function ContactPage() {
                       {CONTACT.email}
                     </a>
                     <p className="text-charcoal font-light" style={{ fontSize: '0.85rem' }}>
-                      Your message goes directly to our team.
+                      We read every enquiry and confirm the appropriate next step.
                     </p>
                   </div>
 
@@ -288,7 +289,7 @@ export default function ContactPage() {
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>What to expect</p>
             <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-10"
               style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
-              A useful first conversation.<br />Clear, direct and focused.
+              A clear first conversation.<br />A practical next step.
             </h2>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -299,7 +300,7 @@ export default function ContactPage() {
               { num: '04', title: 'Your call', body: 'No pressure. Take your time. Good relationships start with honesty, not a hard close.' },
             ].map((item, i) => (
               <FadeIn key={item.num} delay={i * 60}>
-                <div style={{ paddingTop: '1.5rem', borderTop: '2px solid #01A7A3' }}>
+                <div style={{ paddingTop: '1.5rem', borderTop: '2px solid #00B5A5' }}>
                   <p className="text-teal font-bold mb-3" style={{ fontSize: '0.65rem', letterSpacing: '0.2em' }}>{item.num}</p>
                   <p className="text-near-black font-black uppercase tracking-tight mb-3" style={{ fontSize: '1rem' }}>{item.title}</p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>{item.body}</p>

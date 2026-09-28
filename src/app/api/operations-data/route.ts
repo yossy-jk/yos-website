@@ -3,9 +3,9 @@
  * Returns YOS automation system status for the Operations dashboard tab.
  *
  * Data source: Upstash Redis keys written by the Mac Mini automation wrapper:
- *   yos:automation:{job}:state   — last run state (status, timing, failures)
- *   yos:automation:{job}:output  — latest agent output text
- *   yos:automation:{job}:health  — latest health check JSON (compliance-sweep only)
+ *   yos:automation:{job}:state   – last run state (status, timing, failures)
+ *   yos:automation:{job}:output  – latest agent output text
+ *   yos:automation:{job}:health  – latest health check JSON (compliance-sweep only)
  *
  * Falls back gracefully if Redis is unconfigured or keys are missing.
  */

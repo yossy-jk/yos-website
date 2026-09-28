@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 const C = {
-  teal:    '#01A7A3',
+  teal:    '#00B5A5',
   red:     '#ef4444',
   green:   '#22c55e',
   amber:   '#f59e0b',
@@ -36,7 +36,7 @@ interface GSCQuery {
 function TrendArrow({ delta }: { delta: number }) {
   if (delta > 0.5) return <span style={{ color: C.green, fontSize: '0.68rem' }}>{delta > 5 ? '▲▲' : '▲'} {delta.toFixed(1)}</span>
   if (delta < -0.5) return <span style={{ color: C.red,   fontSize: '0.68rem' }}>{delta < -5 ? '▼▼' : '▼'} {Math.abs(delta).toFixed(1)}</span>
-  return <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.68rem' }}>—</span>
+  return <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.68rem' }}>–</span>
 }
 
 function PositionPill({ pos }: { pos: number }) {
@@ -68,7 +68,7 @@ interface BlogSuggestion {
 
 function SuggestionCard({ s, onSuggest }: { s: BlogSuggestion; onSuggest: (s: BlogSuggestion) => void }) {
   const divCol = {
-    'tenant-rep':    '#01A7A3',
+    'tenant-rep':    '#00B5A5',
     'buyers-agency': '#10b981',
     'furniture':     '#8b5cf6',
     'cleaning':      '#f59e0b',
@@ -93,7 +93,7 @@ function SuggestionCard({ s, onSuggest }: { s: BlogSuggestion; onSuggest: (s: Bl
           <span style={{ background: `${divCol}18`, color: divCol, fontSize: '0.52rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '0.1rem 0.4rem', borderRadius: 3 }}>
             {s.division}
           </span>
-          <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'italic' }}>
+          <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'font-semibold' }}>
             {s.keyword}
           </span>
           <span style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.25)' }}>
@@ -195,7 +195,7 @@ export default function MarketingTab() {
         .filter(k => ['P1', 'P2'].includes(k.priority))
         .slice(0, 12)
         .map((k, i) => ({
-          topic:        `${k.keyword.charAt(0).toUpperCase() + k.keyword.slice(1)} — ${k.cluster.replace('-', ' ')} guide`,
+          topic:        `${k.keyword.charAt(0).toUpperCase() + k.keyword.slice(1)} – ${k.cluster.replace('-', ' ')} guide`,
           keyword:      k.keyword,
           division:     k.cluster,
           urgency:      i < 4 ? 'high' : i < 8 ? 'medium' : 'low',
@@ -217,7 +217,7 @@ export default function MarketingTab() {
         body: JSON.stringify({
           type: 'blog-request',
           title: s.topic,
-          content: `${s.keyword} — ${s.reason}`,
+          content: `${s.keyword} – ${s.reason}`,
           metadata: {
             targetKeyword: s.keyword,
             division: s.division,
@@ -280,7 +280,7 @@ export default function MarketingTab() {
               Suggested blog articles
             </p>
             <p style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.35)', margin: 0 }}>
-              Keywords with no strong ranking — blog posts could fill the gap
+              Keywords with no strong ranking – blog posts could fill the gap
             </p>
           </div>
           <span style={{ fontSize: '0.62rem', background: `${C.amber}18`, color: C.amber, border: `1px solid ${C.amber}30`, padding: '0.2rem 0.6rem', borderRadius: 4, fontWeight: 700 }}>
@@ -407,7 +407,7 @@ export default function MarketingTab() {
           ))}
           {gsc.length === 0 && (
             <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem', padding: '2rem' }}>
-              {gscLive === false ? 'GSC is offline — keyword data still available in Keywords tab.' : 'No GSC data available.'}
+              {gscLive === false ? 'GSC is offline – keyword data still available in Keywords tab.' : 'No GSC data available.'}
             </p>
           )}
         </div>

@@ -2,7 +2,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 
 const C = {
-  teal:    '#01A7A3',
+  teal:    '#00B5A5',
   red:     '#ef4444',
   green:   '#22c55e',
   amber:   '#f59e0b',
@@ -43,7 +43,7 @@ const DIVISION_LABELS: Record<string, string> = {
 }
 
 const DIVISION_COLOURS: Record<string, string> = {
-  'tenant-rep':    '#01A7A3',
+  'tenant-rep':    '#00B5A5',
   'buyers-agency': '#10b981',
   'furniture':     '#8b5cf6',
   'cleaning':      '#f59e0b',
@@ -138,7 +138,7 @@ export default function ApprovalsTab({
     return () => window.clearTimeout(timer)
   }, [loadQueue])
 
-  // ── Remove item after action (functional update — no stale closure) ─────
+  // ── Remove item after action (functional update – no stale closure) ─────
 
   const removeItem = useCallback((id: string) => {
     setItems(prev => {
@@ -186,7 +186,7 @@ export default function ApprovalsTab({
           }),
         })
         if (!res.ok) throw new Error('Failed to save edit')
-        showMsg('Edit saved — post stays in queue for re-approval')
+        showMsg('Edit saved – post stays in queue for re-approval')
         removeItem(item.id)
 
       } else if (act === 'revision') {
@@ -202,7 +202,7 @@ export default function ApprovalsTab({
           }),
         })
         if (!res.ok) throw new Error('Failed to request revision')
-        showMsg('Revision sent — team will fix and resubmit')
+        showMsg('Revision sent – team will fix and resubmit')
         removeItem(item.id)
 
       } else if (act === 'delete') {
@@ -213,7 +213,7 @@ export default function ApprovalsTab({
           body: JSON.stringify({ id: item.id }),
         })
         if (!res.ok) throw new Error('Failed to delete')
-        showMsg('Deleted — permanently removed')
+        showMsg('Deleted – permanently removed')
         removeItem(item.id)
       }
 
@@ -375,7 +375,7 @@ export default function ApprovalsTab({
                 </p>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
                   {kw && (
-                    <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'italic' }}>
+                    <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'font-semibold' }}>
                       Target: {kw}
                     </span>
                   )}
@@ -501,7 +501,7 @@ export default function ApprovalsTab({
                     {modal.item.title}
                   </p>
                   {modal.item.metadata?.targetKeyword && (
-                    <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'italic' }}>
+                    <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'font-semibold' }}>
                       Target keyword: {modal.item.metadata.targetKeyword}
                     </span>
                   )}
@@ -587,7 +587,7 @@ export default function ApprovalsTab({
                   <textarea
                     value={feedback}
                     onChange={e => setFeedback(e.target.value)}
-                    placeholder="E.g. The intro is too generic — needs more Newcastle-specific context. The CTA at the end doesn't match our brand voice. Target keyword 'commercial fitout Newcastle' should appear in the first 100 words."
+                    placeholder="E.g. The intro is too generic – needs more Newcastle-specific context. The CTA at the end doesn't match our brand voice. Target keyword 'commercial fitout Newcastle' should appear in the first 100 words."
                     style={{
                       width: '100%',
                       background: '#0a0f1a',

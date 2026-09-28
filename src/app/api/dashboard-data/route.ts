@@ -65,7 +65,7 @@ async function getDeals() {
       const stage  = p.dealstage || '2455891412'
       const benchmark = STAGE_BENCHMARK[stage] ?? 7
       const isStale      = daysSinceTouch >= 5
-      const isQuoteQuiet = daysSinceTouch >= 2   // >48 hrs since last touch — Joe's rule
+      const isQuoteQuiet = daysSinceTouch >= 2   // >48 hrs since last touch – Joe's rule
       const isOverdue   = daysToClose !== null && daysToClose < 0
       const isUrgent    = daysToClose !== null && daysToClose >= 0 && daysToClose <= 3
       const benchmarkDays = benchmark
@@ -191,19 +191,19 @@ function getPriorities(deals: DealItem[], cashflow: ReturnType<typeof buildCashF
   const priorities: {label: string; detail: string; type: 'critical'|'action'|'info'}[] = []
 
   // Overdue Xero invoices
-  const overdueInvoices = deals.length // we don't have invoice count here — use cashflow
+  const overdueInvoices = deals.length // we don't have invoice count here – use cashflow
   if (cashflow.arTotal > 0) {
-    // We'll flag overdue from cashflow — handled separately
+    // We'll flag overdue from cashflow – handled separately
   }
 
-  // Quote touch-point alerts — Joe's 48hr rule
+  // Quote touch-point alerts – Joe's 48hr rule
   const quietQuotes = deals
     .filter(d => d.stageId === '2455891417' && d.isQuoteQuiet && d.amount > 0)
     .sort((a, b) => b.amount - a.amount)
   for (const q of quietQuotes.slice(0, 2)) {
     priorities.push({
-      label: `Quote quiet — ${q.name} (${q.daysSinceTouch}d no touch)`,
-      detail: `$${q.amount.toLocaleString()} — last touched ${q.lastTouchDate ? timeAgo(q.lastTouchDate) : 'unknown'} ago`,
+      label: `Quote quiet – ${q.name} (${q.daysSinceTouch}d no touch)`,
+      detail: `$${q.amount.toLocaleString()} – last touched ${q.lastTouchDate ? timeAgo(q.lastTouchDate) : 'unknown'} ago`,
       type: 'critical',
     })
   }
@@ -212,7 +212,7 @@ function getPriorities(deals: DealItem[], cashflow: ReturnType<typeof buildCashF
   const urgent = deals.filter(d => d.isUrgent && d.amount > 0).sort((a, b) => b.amount - a.amount)
   for (const d of urgent.slice(0, 2)) {
     priorities.push({
-      label: `Close ${d.name} — $${d.amount.toLocaleString()} closes in ${d.daysToClose}d`,
+      label: `Close ${d.name} – $${d.amount.toLocaleString()} closes in ${d.daysToClose}d`,
       detail: `Stage: ${d.stage}`,
       type: 'critical',
     })
@@ -222,8 +222,8 @@ function getPriorities(deals: DealItem[], cashflow: ReturnType<typeof buildCashF
   const overdue = deals.filter(d => d.isOverdue && d.amount > 0).sort((a, b) => b.amount - a.amount)
   for (const d of overdue.slice(0, 1)) {
     priorities.push({
-      label: `Update ${d.name} — overdue close date`,
-      detail: `$${d.amount.toLocaleString()} — move forward or close as lost`,
+      label: `Update ${d.name} – overdue close date`,
+      detail: `$${d.amount.toLocaleString()} – move forward or close as lost`,
       type: 'action',
     })
   }
@@ -233,7 +233,7 @@ function getPriorities(deals: DealItem[], cashflow: ReturnType<typeof buildCashF
     .sort((a, b) => b.daysSinceTouch - a.daysSinceTouch)
   for (const d of overBench.slice(0, 1)) {
     priorities.push({
-      label: `Slow deal — ${d.name} (${d.daysSinceTouch}d in ${d.stage})`,
+      label: `Slow deal – ${d.name} (${d.daysSinceTouch}d in ${d.stage})`,
       detail: `Benchmark for ${d.stage}: ${d.benchmarkDays}d. Consider a call or email.`,
       type: 'action',
     })
@@ -279,7 +279,7 @@ export async function GET(req: Request) {
 
   if (overdueTotal > 0) {
     priorities.unshift({
-      label: `Chase ${overdueInvoices.length} overdue invoice${overdueInvoices.length > 1 ? 's' : ''} — $${overdueTotal.toLocaleString()} owed`,
+      label: `Chase ${overdueInvoices.length} overdue invoice${overdueInvoices.length > 1 ? 's' : ''} – $${overdueTotal.toLocaleString()} owed`,
       detail: 'Revenue already earned, not yet collected.',
       type: 'critical',
     })

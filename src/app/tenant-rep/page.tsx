@@ -10,7 +10,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'Tenant Representation NSW | Your Office Space',
-  description: 'Newcastle-based tenant representation for commercial lease decisions across Australia. Clear advice, option assessment and negotiation from the tenant side.',
+  description: 'Newcastle-based tenant representation for commercial lease decisions in NSW, with broader work only where verified licensing coverage permits.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'Tenant-side commercial lease advice, option assessment and negotiation support.' },
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
   openGraph: {
@@ -68,8 +68,7 @@ export default function TenantRepPage() {
                                         "addressCountry": "AU"
                                 },
                                 "areaServed": [
-                                        "NSW",
-                                        "Australia"
+                                        "New South Wales"
                                 ],
                                 "sameAs": [
                                         "https://www.linkedin.com/company/your-office-space"
@@ -82,10 +81,9 @@ export default function TenantRepPage() {
                                 "provider": {
                                         "@id": "https://www.yourofficespace.au/#organization"
                                 },
-                                "description": "Independent commercial tenant representation across Australia. We negotiate leases, rent-free periods, incentives and make-good terms \u2014 exclusively on behalf of tenants.",
+                                "description": "Tenant-side commercial lease advice, option assessment and negotiation support in New South Wales, with broader work only where verified licensing coverage permits.",
                                 "areaServed": [
-                                        "New South Wales",
-                                        "Australia"
+                                        "New South Wales"
                                 ],
                                 "serviceType": "Commercial Tenant Representation"
                         }
@@ -117,10 +115,11 @@ export default function TenantRepPage() {
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
-              We exist to make sure you have the same. Independent representation across Australia,               negotiating rent, terms, incentives, and every clause that matters.
+              We exist to make sure you have the same. Tenant-side advice in NSW, with broader work only where
+              verified licensing coverage permits – making the rent, terms, incentives and key clauses clear.
             </p>
-            <p className="text-white/30 font-light mb-10" style={{ fontSize: '0.8rem' }}>
-              NSW Real Estate Licence 20565455
+            <p className="text-white/80 font-normal mb-10" style={{ fontSize: '0.8rem' }}>
+              Engagement scope and licensing coverage are confirmed before work begins.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -163,104 +162,19 @@ export default function TenantRepPage() {
         </div>
       </section>
 
-      {/* ─── SCOPE AND FEES ──────────────────────────────── */}
-      <section className="bg-wash" style={SEC_SM}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
-              <div>
-                <p className="text-action-teal font-bold text-xs tracking-[0.25em] uppercase mb-5">Scope and fees</p>
-                <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3"
-                  style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-                  Know the work and the fee before you engage us.
-                </h2>
-              </div>
-              <div className="text-charcoal font-light leading-relaxed space-y-5" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                <p>We start by understanding the property decision, timing and level of support you need.</p>
-                <p>You then receive a written scope that explains what YOS will do, what information we need from you, the fee and the decision points.</p>
-                <p className="text-near-black font-semibold">You decide whether to proceed after the scope and fee are clear.</p>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── COMMERCIAL AGENCY NETWORK ───────────────────── */}
-      <section className="bg-white" style={SEC_SM}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <div className="max-w-3xl mb-10">
-              <SectionLabel>Property search network</SectionLabel>
-              <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-5"
-                style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-                We engage the commercial agency market for your brief.
-              </h2>
-              <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                We work with commercial agents to identify and assess available properties while remaining accountable to you as the tenant. The agencies approached depend on your location, timing and requirements.
-              </p>
-            </div>
-          </FadeIn>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-5">
-            {COMMERCIAL_AGENCIES.map((agency, index) => (
-              <FadeIn key={agency.name} delay={index * 40}>
-                <div
-                  className="relative flex items-center justify-center rounded-xl border border-black/10 bg-white"
-                  style={{ height: '8.5rem', padding: '1.25rem' }}
-                  title={agency.name}
-                >
-                  <Image
-                    src={agency.src}
-                    alt={`${agency.name} logo`}
-                    width={agency.width}
-                    height={agency.height}
-                    className="max-h-full w-auto object-contain"
-                    sizes="(max-width: 639px) 42vw, (max-width: 1023px) 28vw, 18vw"
-                  />
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-          <p className="text-readable-grey font-light mt-7" style={{ fontSize: '0.78rem', lineHeight: 1.7 }}>
-            Agency logos identify organisations in the commercial property market that YOS works with during property searches. They do not imply ownership, exclusivity or endorsement. All trademarks remain the property of their respective owners.
-          </p>
-        </div>
-      </section>
-
-      {/* ─── CLIENT REVIEWS ───────────────────────────────── */}
+      {/* Testimonial publication remains held until permissions are recorded. */}
       <section className="bg-warm-grey" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
-            <SectionLabel>What clients say</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-12"
+            <SectionLabel>Evidence before commitment</SectionLabel>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-5"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-              Real feedback from tenant-side clients.
+              A recommendation you can interrogate.
             </h2>
+            <p className="text-charcoal font-normal leading-relaxed" style={{ maxWidth: '44rem', lineHeight: 1.85 }}>
+              We connect each recommendation to the agreed brief, available market evidence and the commercial trade-offs. Named testimonials will only appear here when publication permission is recorded.
+            </p>
           </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              {
-                quote: 'Joe was incredibly helpful through our first tenant rep experience. He made the property search and lease process much easier, explained our rights and options clearly, spotted things we would have missed, and helped with fitout, furniture and cleaners too. Worth it.',
-                name: 'Beth Gwalter',
-              },
-              {
-                quote: 'Highly recommend Your Office Space. Joe was professional, reliable and fantastic to communicate with, and the service was flawless from start to finish. Joe was beyond amazing.',
-                name: 'Olivia Crawford',
-              },
-            ].map((t) => (
-              <FadeIn key={t.name}>
-                <div className="bg-white border border-gray-100 p-8 sm:p-10 h-full">
-                  <p className="text-near-black font-light leading-relaxed mb-10" style={{ fontSize: '1.02rem', lineHeight: 1.9 }}>
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div style={{ borderTop: '1px solid #efefef', paddingTop: '1.25rem' }}>
-                    <p className="text-near-black font-bold" style={{ fontSize: '0.9rem' }}>{t.name}</p>
-                    <p className="text-teal font-semibold uppercase tracking-widest" style={{ fontSize: '0.62rem' }}>Tenant representation</p>
-                  </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -275,9 +189,9 @@ export default function TenantRepPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.55)' }} />
         <div className={`absolute inset-0 flex items-end ${WRAP}`} style={{ ...PAD, paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
+            <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
               &ldquo;The useful time to test lease assumptions is before the business commits.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>, Joe Kelley, Your Office Space</span>
+              <br /><span className="text-teal font-semibold" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>– Joe Kelley, Your Office Space</span>
             </p>
           </FadeIn>
         </div>
@@ -335,7 +249,7 @@ export default function TenantRepPage() {
                     A broader view of suitable options.
                   </p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    We assess advertised, pre-release and relationship-sourced leasing options against the same brief,
+                    We assess advertised opportunities and verified introductions against the same brief,
                     then show the trade-offs clearly.
                   </p>
                 </div>
@@ -356,7 +270,7 @@ export default function TenantRepPage() {
         <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch' }}>
-              We negotiate harder<br />because we only answer<br /><span style={{ color: '#01A7A3' }}>to you.</span>
+              We negotiate harder<br />because we only answer<br /><span style={{ color: '#00B5A5' }}>to you.</span>
             </p>
           </FadeIn>
         </div>
@@ -373,7 +287,7 @@ export default function TenantRepPage() {
             </h2>
             <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
               style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              We represent tenants across Australia, with a strong NSW focus, with one clear goal: to secure terms that serve your business, not the landlord&apos;s.
+              We represent tenants in NSW, with broader work only where verified licensing coverage permits. The goal is clear: give the occupying business a properly tested commercial position.
             </p>
           </FadeIn>
 
@@ -426,7 +340,7 @@ export default function TenantRepPage() {
         <div className={`absolute inset-0 flex items-center justify-end ${WRAP}`} style={PAD}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '22ch' }}>
-              The right space changes<br />how your business feels<br /><span style={{ color: '#01A7A3' }}>every single day.</span>
+              The right space changes<br />how your business feels<br /><span style={{ color: '#00B5A5' }}>every single day.</span>
             </p>
           </FadeIn>
         </div>
@@ -531,17 +445,17 @@ export default function TenantRepPage() {
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
                 <h3 className="text-white font-bold leading-tight mb-4"
                   style={{ fontSize: 'clamp(1.25rem,2.5vw,2rem)' }}>
-                  Already have a lease? Get a free risk review.
+                  Already have a lease? Start with a structured risk review.
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
                   Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation,
-                  options, every clause rated Red / Amber / Green. Free summary returned shortly.
+                  options – with key clauses organised into a clear Red / Amber / Green summary. Scope and timing are confirmed before review begins.
                 </p>
               </div>
               <div className="flex-shrink-0">
                 <Button href="/lease-review" variant="primary" size="lg">
-                  Start Free Review
+                  Request a Lease Review
                 </Button>
               </div>
             </div>
@@ -561,7 +475,7 @@ export default function TenantRepPage() {
               </h2>
               <p className="text-white/60 font-light leading-relaxed mb-10 w-full"
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
-                20 minutes. No pitch. Just a straight conversation about your space, your situation, and what you&apos;re trying to achieve.
+                A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
@@ -602,7 +516,7 @@ export default function TenantRepPage() {
                 "name": "How does tenant representation work in practice?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "We start with your brief, space requirements, location, timeline, non-negotiables. We then search on-market and off-market options, shortlist based on your criteria, and negotiate the lease directly with the landlord's agent. We work alongside your solicitors through to signing and handover. Every step is in your interest.",
+                  "text": "We start with your brief – space requirements, location, timeline and non-negotiables. We assess available and relationship-sourced options against that brief, shortlist the trade-offs, and support negotiation with the landlord's agent. We coordinate with the tenant's legal and other advisers through the agreed scope.",
                 },
               },
               {
@@ -626,7 +540,7 @@ export default function TenantRepPage() {
                 "name": "Can you help with an existing lease rather than a new one?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes. Our LeaseIntel review covers existing leases, we run your current agreement through a 12-category risk framework covering rent, make-good, relocation rights, option clauses, and outgoings. Each clause is rated Red / Amber / Green. If you are mid-lease or facing a renewal, we can identify leverage you didn't know you had.",
+                  "text": "Yes. A structured lease review can organise issues such as rent, make-good, relocation rights, option clauses and outgoings into a Red / Amber / Green summary. The review supports commercial decision-making and does not replace legal advice.",
                 },
               },
               {
@@ -634,7 +548,7 @@ export default function TenantRepPage() {
                 "name": "What types of commercial property do you cover?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Office, industrial, retail, and specialised use, including childcare centres, medical suites, and hospitality fitouts. Each sector has its own lease dynamics, and we tailor the representation accordingly. If it is a commercial lease in NSW, we can help.",
+                  "text": "We assess office, industrial, retail and specialised-use briefs case by case. The property type, location, engagement scope and licensing coverage are confirmed before work begins.",
                 },
               },
               {
@@ -642,7 +556,7 @@ export default function TenantRepPage() {
                 "name": "How much can a tenant representative save on a commercial lease?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "It depends on the deal. We consistently negotiate rent-free periods worth tens of thousands of dollars, caps on annual rent increases, make-good obligations reduced or eliminated, and fitout contributions from the landlord. The fee is usually covered by what we negotiate. Most clients see a net positive return on representation within the first year of their lease.",
+                  "text": "The outcome depends on the property, market, landlord position, lease structure and the tenant's negotiating leverage. We do not promise a saving. We show the commercial effect of the available terms and explain our scope and fees before the engagement begins.",
                 },
               },
             ],

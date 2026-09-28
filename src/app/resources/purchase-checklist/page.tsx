@@ -112,14 +112,14 @@ export default function PurchaseChecklistPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
 
           {/* Progress */}
-          <div className="mb-10 bg-warm-grey rounded-xl p-6">
+          <div className="mb-10 bg-warm-grey rounded-sm p-6">
             <div className="flex justify-between items-center mb-3">
               <p className="text-near-black font-semibold text-sm">{done} of {total} checks completed</p>
               <p className="text-teal font-bold text-lg">{pct}%</p>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-gray-200 rounded-sm h-2">
               <div
-                className="bg-teal h-2 rounded-full transition-all duration-300"
+                className="bg-teal h-2 rounded-sm transition-all duration-300"
                 style={{ width: `${pct}%` }}
               />
             </div>
@@ -146,7 +146,7 @@ export default function PurchaseChecklistPage() {
                         <button
                           key={key}
                           onClick={() => toggle(key)}
-                          className={`w-full text-left flex gap-6 items-start p-4 rounded-xl border transition-all duration-200 ${
+                          className={`w-full text-left flex gap-6 items-start p-4 rounded-sm border transition-all duration-200 ${
                             isChecked
                               ? 'bg-light-teal border-teal'
                               : 'bg-white border-gray-200 hover:border-gray-300'
@@ -173,8 +173,8 @@ export default function PurchaseChecklistPage() {
             })}
           </div>
 
-          <div className="mt-12 bg-near-black rounded-xl p-8">
-            <p className="text-white font-semibold text-base mb-3">This checklist covers the essentials, but every commercial deal is different.</p>
+          <div className="mt-12 bg-near-black rounded-sm p-8">
+            <p className="text-white font-semibold text-base mb-3">This checklist covers the essentials – but every commercial deal is different.</p>
             <p className="text-white/60 font-light text-sm leading-relaxed mb-6">
               Additional due diligence may be required depending on property type, use, age, and location. Always engage a commercial solicitor and a qualified buyers agent before exchanging contracts.
             </p>

@@ -18,10 +18,10 @@ export default function QuickEstimator() {
   const pct = Math.round(((sqm - 30) / (500 - 30)) * 100)
 
   return (
-    <div className="bg-white border border-gray-100 rounded-xl p-6 md:p-8 shadow-sm">
+    <div className="bg-white border border-gray-100 rounded-sm p-6 md:p-8 shadow-sm">
       <div className="flex items-center justify-between mb-1">
         <p className="text-near-black font-black text-base tracking-tight">Fitout Cost Estimator</p>
-        <span className="bg-teal/10 text-teal font-bold text-[10px] tracking-widest uppercase px-3 py-1 rounded-full">
+        <span className="bg-teal/10 text-teal font-bold text-[10px] tracking-widest uppercase px-3 py-1 rounded-sm">
           Newcastle rates
         </span>
       </div>
@@ -49,7 +49,7 @@ export default function QuickEstimator() {
           aria-valuenow={sqm}
           className="w-full cursor-pointer"
           style={{
-            background: `linear-gradient(to right, #01A7A3 ${pct}%, #E0F5F3 ${pct}%)`,
+            background: `linear-gradient(to right, #00B5A5 ${pct}%, #E0F5F3 ${pct}%)`,
           }}
         />
         <div className="flex justify-between text-xs text-mid-grey mt-2.5 font-light">
@@ -66,7 +66,7 @@ export default function QuickEstimator() {
             <div
               key={tier.label}
               className={[
-                'border-2 p-3 rounded-xl text-center transition-all duration-200',
+                'border-2 p-3 rounded-sm text-center transition-all duration-200',
                 tier.highlight
                   ? 'border-teal bg-teal/5 shadow-sm'
                   : 'border-gray-200',
@@ -89,7 +89,7 @@ export default function QuickEstimator() {
 
       <Link
         href="/resources/fitout-estimator"
-        className="block w-full bg-near-black text-white font-bold text-xs tracking-widest uppercase py-3.5 rounded-xl text-center no-underline hover:bg-teal hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 min-h-[44px] flex items-center justify-center"
+        className="block w-full bg-near-black text-white font-bold text-xs tracking-widest uppercase py-3.5 rounded-sm text-center no-underline hover:bg-teal hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 min-h-[44px] flex items-center justify-center"
       >
         Get Full Breakdown →
       </Link>

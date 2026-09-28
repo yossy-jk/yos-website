@@ -65,7 +65,7 @@ function parseMasterRegister(content: string) {
         // Extract target date from Action column (e.g. "target completion 13 May 2026")
         const actionText = cols[5] || ''
         const targetMatch = actionText.match(/target completion\s+(\d+\s+\w+\s+\d{4})/i)
-        const targetDate = targetMatch ? targetMatch[1] : '—'
+        const targetDate = targetMatch ? targetMatch[1] : '–'
 
         ncrs.push({
           id: cols[0],
@@ -110,9 +110,9 @@ function parseCIRegister(content: string): Array<{ date: string; description: st
 
     if (descMatch) {
       items.push({
-        date: dateMatch ? dateMatch[1].trim() : '—',
+        date: dateMatch ? dateMatch[1].trim() : '–',
         description: descMatch[1].trim().slice(0, 120),
-        status: statusMatch ? (statusMatch[1].includes('COMPLETE') ? 'COMPLETE' : statusMatch[1].includes('IN PROGRESS') ? 'IN PROGRESS' : statusMatch[1].trim().split(' ')[0]) : '—',
+        status: statusMatch ? (statusMatch[1].includes('COMPLETE') ? 'COMPLETE' : statusMatch[1].includes('IN PROGRESS') ? 'IN PROGRESS' : statusMatch[1].trim().split(' ')[0]) : '–',
         owner: ownerMatch ? ownerMatch[1].trim() : 'TBC',
       })
     }
@@ -182,7 +182,7 @@ export async function GET() {
       aiCompliance: { tracesThisWeek: 0, qualityPassRate: null, lastAudit: null },
       continuousImprovement: [],
       isoClauseSummary: {},
-      error: 'Compliance data not synced yet — run compliance-sync job',
+      error: 'Compliance data not synced yet – run compliance-sync job',
     })
   }
 

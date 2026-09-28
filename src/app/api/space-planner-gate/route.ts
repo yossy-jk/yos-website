@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
     }
   } catch (err) {
     console.error('[space-planner-gate] HubSpot contact error:', err)
-    // Non-fatal — return success anyway so the gate doesn't block the user
+    // Non-fatal – return success anyway so the gate doesn't block the user
     return NextResponse.json({ success: true, note: 'hs_error' })
   }
 

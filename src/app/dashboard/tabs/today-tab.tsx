@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useState, useCallback, JSX } from 'react'
 
-const TEAL = '#01A7A3'
+const TEAL = '#00B5A5'
 const RED = '#ef4444'
 const GREEN = '#22c55e'
 const AMBER = '#f59e0b'
@@ -9,11 +9,11 @@ const CARD = 'rgba(255,255,255,0.03)'
 const BORDER = 'rgba(255,255,255,0.07)'
 
 const ENERGY_LABELS: Record<number, string> = {
-  1: 'LOW — delegate everything possible',
-  2: 'BELOW AVERAGE — focus on high-value tasks only',
-  3: 'AVERAGE — normal day',
-  4: 'HIGH — push on big opportunities',
-  5: 'PEAK — tackle your hardest challenges',
+  1: 'LOW – delegate everything possible',
+  2: 'BELOW AVERAGE – focus on high-value tasks only',
+  3: 'AVERAGE – normal day',
+  4: 'HIGH – push on big opportunities',
+  5: 'PEAK – tackle your hardest challenges',
 }
 
 const ENERGY_COLOURS: Record<number, string> = {
@@ -156,14 +156,14 @@ export default function TodayTab(): JSX.Element {
           </div>
         ) : (
           <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>
-            Awaiting COO brief — runs at 5am daily. Send &quot;HEARTBEAT&quot; to the COO bot on Telegram to trigger now.
+            Awaiting COO brief – runs at 5am daily. Send &quot;HEARTBEAT&quot; to the COO bot on Telegram to trigger now.
           </p>
         )}
       </div>
 
       {/* Top 3 Tasks */}
       <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderLeft: `3px solid ${TEAL}`, borderRadius: 8, padding: '1.25rem' }}>
-        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>Win Today — Top 3 Priorities</p>
+        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>Win Today – Top 3 Priorities</p>
         {todayTasks.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {todayTasks.map((t: TaskItem, i: number) => (
@@ -171,7 +171,7 @@ export default function TodayTab(): JSX.Element {
                 <div style={{ width: 28, height: 28, borderRadius: '50%', background: i === 0 ? TEAL : 'rgba(1,167,163,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 900, color: 'white', flexShrink: 0 }}>{i + 1}</div>
                 <div style={{ flex: 1 }}>
                   <p style={{ margin: 0, fontWeight: 600, fontSize: '0.85rem' }}>{t.title}</p>
-                  {t.raw_commitment && <p style={{ margin: '0.2rem 0 0', fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', fontStyle: 'italic' }}>&quot;{t.raw_commitment.slice(0, 80)}&quot;</p>}
+                  {t.raw_commitment && <p style={{ margin: '0.2rem 0 0', fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)', fontStyle: 'font-semibold' }}>&quot;{t.raw_commitment.slice(0, 80)}&quot;</p>}
                   <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.3rem' }}>
                     {t.source && <span style={{ fontSize: '0.58rem', background: 'rgba(1,167,163,0.15)', color: TEAL, padding: '0.1rem 0.4rem', borderRadius: 3, textTransform: 'uppercase', fontWeight: 700 }}>{t.source}</span>}
                     {t.client_name && <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.3)' }}>{t.client_name}</span>}
@@ -189,7 +189,7 @@ export default function TodayTab(): JSX.Element {
             ))}
           </div>
         ) : (
-          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No tasks for today — check the Tasks tab.</p>
+          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No tasks for today – check the Tasks tab.</p>
         )}
       </div>
 

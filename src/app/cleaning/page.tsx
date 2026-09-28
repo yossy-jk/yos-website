@@ -163,9 +163,8 @@ export default function CleaningPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.52)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;We are very happy with the service from Sarah and Joe. They are reliable and consistent, go above and beyond for our cleaning needs, and we highly recommend them.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>, Sophie</span>
+            <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+              Cleaning scopes are documented around the site, access requirements, service frequency and agreed quality checks.
             </p>
           </FadeIn>
         </div>
@@ -230,7 +229,7 @@ export default function CleaningPage() {
               },
             ].map((category, i) => (
               <FadeIn key={category.type} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-xl p-7 sm:p-10 h-full">
+                <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
                   <h3 className="text-near-black font-bold text-base mb-5 border-b-2 border-teal pb-3">
                     {category.type}
                   </h3>
@@ -241,7 +240,7 @@ export default function CleaningPage() {
                       </li>
                     ))}
                   </ul>
-                  <p className="text-mid-grey font-light text-sm italic border-t border-gray-200 pt-4">
+                  <p className="text-mid-grey font-light text-sm font-semibold border-t border-gray-200 pt-4">
                     {category.note}
                   </p>
                 </div>
@@ -282,10 +281,10 @@ export default function CleaningPage() {
               },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">
-                <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
+                <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
                   <h3 className="text-white font-bold text-lg mb-4">{item.title}</h3>
                   <p className="text-white/80 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
-                  <p className="text-white/35 font-light text-xs italic border-t border-white/10 pt-4">{item.aside}</p>
+                  <p className="text-white/35 font-light text-xs font-semibold border-t border-white/10 pt-4">{item.aside}</p>
                 </div>
               </FadeIn>
             ))}
@@ -308,7 +307,7 @@ export default function CleaningPage() {
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">One coordinated handover</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
@@ -348,7 +347,7 @@ export default function CleaningPage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-warm-grey rounded-xl p-7 sm:p-10">
+              <div className="bg-warm-grey rounded-sm p-7 sm:p-10">
                 <HubSpotForm formId="b1a300a1-c032-486e-a04d-308d140da948" targetId="cleaning-quote-form" />
               </div>
             </div>

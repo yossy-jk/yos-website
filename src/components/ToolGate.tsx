@@ -74,7 +74,7 @@ export default function ToolGate({
   const inputBg = dark ? 'rgba(255,255,255,0.06)' : 'white'
   const inputText = dark ? 'white' : '#111827'
   const inputBorder = dark ? 'rgba(255,255,255,0.15)' : '#E5E7EB'
-  const inputFocus = '#01A7A3'
+  const inputFocus = '#00B5A5'
   const noteColor = dark ? 'rgba(255,255,255,0.2)' : '#9CA3AF'
 
   return (
@@ -99,7 +99,7 @@ export default function ToolGate({
         padding: 'clamp(1.5rem,4vw,2.5rem)',
         marginTop: '0.75rem',
       }}>
-        <div style={{ width: '2.5rem', height: '3px', background: '#01A7A3', borderRadius: '2px', marginBottom: '1.5rem' }} />
+        <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.5rem' }} />
 
         <h3 style={{
           color: headingColor,
@@ -121,7 +121,7 @@ export default function ToolGate({
 
             <div>
               <label style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
-                First name <span style={{ color: '#01A7A3' }}>*</span>
+                First name <span style={{ color: '#00B5A5' }}>*</span>
               </label>
               <input
                 type="text"
@@ -145,7 +145,7 @@ export default function ToolGate({
 
             <div>
               <label style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
-                Work email <span style={{ color: '#01A7A3' }}>*</span>
+                Work email <span style={{ color: '#00B5A5' }}>*</span>
               </label>
               <input
                 type="email"
@@ -173,7 +173,7 @@ export default function ToolGate({
             disabled={loading}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              background: loading ? 'rgba(1,167,163,0.5)' : '#01A7A3',
+              background: loading ? 'rgba(1,167,163,0.5)' : '#00B5A5',
               color: 'white', fontWeight: 800, fontSize: '0.7rem',
               letterSpacing: '0.18em', textTransform: 'uppercase',
               padding: '1rem 2.75rem', borderRadius: '0.5rem', border: 'none',
@@ -188,7 +188,7 @@ export default function ToolGate({
           </button>
 
           <p style={{ color: noteColor, fontSize: '0.7rem', marginTop: '1.25rem', lineHeight: 1.6 }}>
-            No spam. No pitch. We use this to send your results and follow up only if it&apos;s relevant.
+            We use this to send your results and follow up only where you have requested it.
           </p>
         </form>
       </div>

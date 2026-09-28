@@ -3,11 +3,11 @@
  *
  * Returns all pending items from the queue (v2 JSON array).
  * Falls back to legacy Redis list only if v2 key is empty (migration path).
- * The legacy list is NOT written to — all writes go through v2.
+ * The legacy list is NOT written to – all writes go through v2.
  *
  * Response: { items: BlogItem[], pending: BlogItem[], archive: BlogItem[] }
  *
- * Auth: requireAuth session cookie (v1 — legacy auth)
+ * Auth: requireAuth session cookie (v1 – legacy auth)
  */
 import { NextResponse } from 'next/server'
 import { requireAuth } from '@/lib/auth'
@@ -42,9 +42,9 @@ async function redisLrange(url: string, token: string, key: string, start: numbe
 
 /**
  * Upstash REST can store values in two formats:
- *   1. { value: "base64-encoded-json" }   — most common
- *   2. plain JSON string                   — when set directly
- * 3. { result: { ... } }                   — when GET wraps it
+ *   1. { value: "base64-encoded-json" }   – most common
+ *   2. plain JSON string                   – when set directly
+ * 3. { result: { ... } }                   – when GET wraps it
  *
  * We normalise all of these to a plain JS value.
  */
@@ -112,7 +112,7 @@ export async function GET() {
 
     // ── Fallback: legacy Redis list (migration path) ─────────────────────
     // Only hit this if v2 key is absent/empty (first run after migration)
-    console.warn('[queue/list] v2 key empty — falling back to legacy list')
+    console.warn('[queue/list] v2 key empty – falling back to legacy list')
     const pendingRaw = await redisLrange(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_LEGACY, 0, -1)
     const pending = pendingRaw.map(parseQueueItem).filter(Boolean) as Record<string, unknown>[]
 

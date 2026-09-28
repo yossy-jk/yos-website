@@ -116,7 +116,7 @@ export default function RentalYieldCalculatorPage() {
           <FadeIn>
             <div className="max-w-2xl" style={{ marginBottom: "clamp(3rem,6vw,5rem)" }}>
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-5" style={{ padding: '0.4rem 1rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
               <h1 className="text-white font-black uppercase leading-tight tracking-tight"
@@ -261,7 +261,7 @@ export default function RentalYieldCalculatorPage() {
                           {['Net yield', 'Annual net income', 'Monthly net income', 'Weekly effective rent', 'Break-even weekly rent'].map((label, i) => (
                             <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
                               <span className="text-white/50 font-light" style={{ fontSize: '0.875rem' }}>{label}</span>
-                              <span className="w-20 h-3 bg-white/10 rounded-lg" />
+                              <span className="w-20 h-3 bg-white/10 rounded-sm" />
                             </div>
                           ))}
                         </div>

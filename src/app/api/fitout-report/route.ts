@@ -99,7 +99,7 @@ function fmt(n: number) {
 function buildEmailHtml(data: ReportData): string {
   const tierLabel = { basic: 'Basic', mid: 'Mid-Range', premium: 'Premium' }[data.tier as string] || data.tier
   const typeLabel = data.fitoutType === 'furniture-only' ? 'Furniture Only' : 'Full Fitout'
-  const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` — ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
+  const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` – ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
   const wkstLabel = data.workstationType === 'eha' ? 'Height-adjustable (EHA)' : 'Fixed workstation'
   const rows = data.breakdown.map(r =>
     `<tr><td style="padding:0.75rem 1rem;font-size:0.85rem;color:#ffffffb3;border-bottom:1px solid #ffffff14">${r.label}</td><td style="padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;color:#ffffff;text-align:right;border-bottom:1px solid #ffffff14">${fmt(r.low)} – ${fmt(r.high)}</td></tr>`
@@ -113,14 +113,14 @@ function buildEmailHtml(data: ReportData): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a0a0a;padding:2rem 1rem">
 <tr><td align="center">
 <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%">
-<tr><td style="padding-bottom:1.5rem;border-bottom:1px solid #01A7A333">
-<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#01A7A3;font-weight:700">Your Office Space</p>
+<tr><td style="padding-bottom:1.5rem;border-bottom:1px solid #00B5A533">
+<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:#00B5A5;font-weight:700">Your Office Space</p>
 <h1 style="margin:0;font-size:1.5rem;font-weight:900;color:#ffffff;letter-spacing:-0.02em">Your Fitout Cost Estimate</h1>
 <p style="margin:0.5rem 0 0;font-size:0.8rem;color:#ffffff60">${data.sqm}m2 · ${tierLabel}${shellLabel}</p>
 </td></tr>
 <tr><td style="padding:2rem 0 1rem">
-<div style="background:rgba(1,167,163,0.1);border:1px solid #01A7A333;border-radius:0.75rem;padding:1.5rem;text-align:center">
-<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#01A7A3;font-weight:700">Estimated Cost Range (ex GST)</p>
+<div style="background:rgba(1,167,163,0.1);border:1px solid #00B5A533;border-radius:0.75rem;padding:1.5rem;text-align:center">
+<p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#00B5A5;font-weight:700">Estimated Cost Range (ex GST)</p>
 <p style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff;letter-spacing:-0.03em;line-height:1">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</p>
 <p style="margin:0.5rem 0 0;font-size:0.75rem;color:#ffffff60">${fmt(data.perSqmLow)} – ${fmt(data.perSqmHigh)} per m² · Ex GST · Incl. contingency</p>
 </div>
@@ -129,12 +129,12 @@ function buildEmailHtml(data: ReportData): string {
 <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #ffffff14;border-radius:0.5rem;overflow:hidden">
 ${rows}
 <tr style="background:rgba(1,167,163,0.08)">
-<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#01A7A3">Estimated Total (ex GST)</td>
-<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#01A7A3;text-align:right">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</td>
+<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5">Estimated Total (ex GST)</td>
+<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5;text-align:right">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</td>
 </tr>
 </table>
 </td></tr>
-${data.coverageNote ? `<tr><td style="padding:0 0 1.5rem"><p style="margin:0;font-size:0.75rem;color:#ffffff50;font-style:italic;line-height:1.6">${data.coverageNote}</p></td></tr>` : ''}
+${data.coverageNote ? `<tr><td style="padding:0 0 1.5rem"><p style="margin:0;font-size:0.75rem;color:#ffffff50;font-style:font-semibold;line-height:1.6">${data.coverageNote}</p></td></tr>` : ''}
 <tr><td style="padding:0 0 1.5rem">
 <p style="margin:0 0 1rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:#ffffff50;font-weight:700">Your inputs</p>
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -150,8 +150,8 @@ ${data.fitoutType !== 'furniture-only' ? `<tr><td style="padding:0.5rem 0;font-s
 <tr><td style="padding:0 0 1.5rem">
 <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1.5rem;text-align:center">
 <p style="margin:0 0 0.5rem;font-size:1rem;font-weight:700;color:#ffffff">Ready to get an accurate quote?</p>
-<p style="margin:0 0 1.25rem;font-size:0.8rem;color:#ffffff60;line-height:1.6">A site visit and detailed brief will refine this estimate significantly. We'll walk through your space and give you a fixed-price proposal — no obligation.</p>
-<a href="${HUBSPOT.bookingUrl}" style="display:inline-block;background:#01A7A3;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Book a Free Consultation →</a>
+<p style="margin:0 0 1.25rem;font-size:0.8rem;color:#ffffff60;line-height:1.6">A site visit and detailed brief will refine this estimate significantly. We'll walk through your space and give you a fixed-price proposal – no obligation.</p>
+<a href="${HUBSPOT.bookingUrl}" style="display:inline-block;background:#00B5A5;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Book a Free Consultation →</a>
 </div>
 </td></tr>
 <tr><td style="padding:0;border-top:1px solid #ffffff14;text-align:center">
@@ -199,7 +199,7 @@ export async function POST(req: NextRequest) {
       from: 'Your Office Space <notifications@yourofficespace.au>',
       to: data.email,
       replyTo: 'jk@yourofficespace.au',
-      subject: `Your Fitout Estimate — ${data.sqm}m² ${data.tier} · Your Office Space`,
+      subject: `Your Fitout Estimate – ${data.sqm}m² ${data.tier} · Your Office Space`,
       html: buildEmailHtml(data),
     })
     if (reportResult.error) {
@@ -224,14 +224,14 @@ export async function POST(req: NextRequest) {
       from: 'YOS Website <notifications@yourofficespace.au>',
       to: 'jk@yourofficespace.au',
       replyTo: data.email,
-      subject: `New fitout estimate lead — ${data.name} (${data.email})`,
+      subject: `New fitout estimate lead – ${data.name} (${data.email})`,
       html: `<p>New fitout estimate submitted.</p><p><strong>${safeName}</strong> · ${safeEmail}${safePhone ? ` · ${safePhone}` : ''}</p><p>${data.sqm}m² · ${data.tier} · ${data.fitoutType === 'furniture-only' ? 'Furniture only' : `Full fitout (${data.shellCondition} shell)`}</p><p>Estimate: ${fmt(data.totalLow)}–${fmt(data.totalHigh)} ex GST</p><p><a href="${HUBSPOT.bookingUrl}">Book follow-up call</a></p>`,
     })
 
     const crmQueue = redisSet('yos:hubspot:actions', JSON.stringify({
       action: 'create-deal',
       data: {
-        title: `Fitout Estimate — ${data.name}`,
+        title: `Fitout Estimate – ${data.name}`,
         email: data.email,
         phone: data.phone || '',
         company: '',

@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'LeaseIntel™, Commercial Lease Risk Review | Your Office Space',
-  description: 'Submit your commercial lease for a full LeaseIntel report. Every clause rated Red, Amber, or Green, rent, make-good, relocation, options. Free for Newcastle businesses. 24-hour turnaround.',
+  title: 'LeaseIntel™ – Commercial Lease Risk Review | Your Office Space',
+  description: 'Request a scoped commercial lease risk review covering rent, make-good, relocation, options and other material obligations. Scope, timing and fees are confirmed before work begins.',
   alternates: { canonical: 'https://www.yourofficespace.au/lease-review' },
-  twitter: { card: 'summary_large_image', title: 'LeaseIntel™, Commercial Lease Risk Review | Your Office Space', description: 'Full commercial lease review. Every clause rated Red, Amber, Green. Free for Newcastle businesses. 24-hour turnaround.' },
+  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ – Commercial Lease Risk Review | Your Office Space', description: 'Request a scoped commercial lease risk review. Scope, timing and fees are confirmed before work begins.' },
   openGraph: {
-    title: 'LeaseIntel™, Commercial Lease Risk Review | Your Office Space',
-    description: 'Full commercial lease review. Every clause rated, every risk quantified. Free for Newcastle businesses. 24-hour turnaround.',
+    title: 'LeaseIntel™ – Commercial Lease Risk Review | Your Office Space',
+    description: 'Request a scoped commercial lease risk review. Scope, timing and fees are confirmed before work begins.',
     url: 'https://www.yourofficespace.au/lease-review',
     siteName: 'Your Office Space',
     locale: 'en_AU',

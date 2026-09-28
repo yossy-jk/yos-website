@@ -1,5 +1,5 @@
 /**
- * GET /api/finance-dashboard — Business finance data (YOS/EOF)
+ * GET /api/finance-dashboard – Business finance data (YOS/EOF)
  * Xero AR, cashflow projections, outstanding invoices
  */
 import { requireAuth } from '@/lib/auth'
@@ -32,7 +32,7 @@ export async function GET() {
   const arTotal = 0
 
   try {
-    // Xero bank summary — everyday account
+    // Xero bank summary – everyday account
     const bankRes = await fetch(
       `https://gateway.maton.ai/xero/api.xro/2.0/BankTransactions?where=Type=="ACCPAYCC"&page=1`,
       { headers, cache: 'no-store' }
@@ -82,7 +82,7 @@ export async function GET() {
     xeroError = 'Could not reach Xero'
   }
 
-  // Cashflow projections — 30/60/90 day forward-looking
+  // Cashflow projections – 30/60/90 day forward-looking
   // Based on YOS monthly burn ~$8-10K and known AR
   const incoming30Days = owedToYOS // AR is the main incoming
   const outgoing30Days = 8000      // conservative monthly burn

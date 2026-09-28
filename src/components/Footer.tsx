@@ -17,8 +17,8 @@ export default function Footer() {
               Your Office Space
             </p>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Based in Newcastle. Working across NSW, with selected national briefs assessed case by case.
-            <span className="block mt-3 text-teal italic" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
+              Based in Newcastle. Working Australia-wide for fit out and furniture, with tenant representation delivered in NSW.
+            <span className="block mt-3 text-teal font-semibold" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
             </p>
           </div>
 
@@ -70,7 +70,7 @@ export default function Footer() {
                 {CONTACT.phone}
               </a>
               <p className="text-white/55 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.8 }}>
-                Based in Newcastle<br />Working across NSW
+                Based in Newcastle<br />Working Australia-wide
               </p>
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function Footer() {
               © {new Date().getFullYear()} Your Office Space Pty Ltd. All rights reserved.
             </p>
             <p className="text-white/55 font-light" style={{ fontSize: '0.72rem' }}>
-              NSW Real Estate Licence 20565455
+              Tenant representation is delivered within verified NSW licensing coverage.
             </p>
           </div>
           <div className="flex items-center gap-6">
