@@ -86,7 +86,7 @@ export default function AnalyticsConsent() {
         <section
           role="region"
           aria-label="Privacy choices"
-          className="fixed inset-x-4 bottom-4 z-[100] mx-auto rounded-xl bg-near-black text-white shadow-2xl"
+          className="fixed inset-x-4 bottom-4 z-[100] mx-auto rounded-sm bg-near-black text-white shadow-2xl"
           style={{ maxWidth: '46rem', border: '1px solid rgba(255,255,255,0.16)', padding: 'clamp(1.25rem,4vw,2rem)' }}
         >
           <h2 className="font-bold mb-2" style={{ fontSize: '1.1rem' }}>Your privacy choices</h2>
@@ -97,7 +97,7 @@ export default function AnalyticsConsent() {
             <button
               type="button"
               onClick={() => saveConsent('accepted')}
-              className="bg-teal text-white font-bold rounded-lg hover:bg-dark-teal transition-colors"
+              className="bg-teal text-white font-bold rounded-sm hover:bg-dark-teal transition-colors"
               style={{ padding: '0.8rem 1.1rem', fontSize: '0.82rem' }}
             >
               Accept analytics
@@ -105,7 +105,7 @@ export default function AnalyticsConsent() {
             <button
               type="button"
               onClick={() => saveConsent('declined')}
-              className="border border-white/25 text-white font-semibold rounded-lg hover:border-white/50 transition-colors"
+              className="border border-white/25 text-white font-semibold rounded-sm hover:border-white/50 transition-colors"
               style={{ padding: '0.8rem 1.1rem', fontSize: '0.82rem' }}
             >
               Essential only
@@ -119,7 +119,7 @@ export default function AnalyticsConsent() {
         <button
           type="button"
           onClick={() => setPreferencesOpen(true)}
-          className="fixed bottom-4 left-4 z-[90] rounded-full bg-near-black text-white/75 shadow-lg hover:text-white"
+          className="fixed bottom-4 left-4 z-[90] rounded-sm bg-near-black text-white/75 shadow-lg hover:text-white"
           style={{ border: '1px solid rgba(255,255,255,0.16)', padding: '0.55rem 0.8rem', fontSize: '0.72rem' }}
         >
           Privacy choices

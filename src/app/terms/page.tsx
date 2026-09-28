@@ -204,7 +204,7 @@ export default function TermsPage() {
                   we analyse it and return a written report. The current fee is $97 (ex GST) per report.
                 </p>
 
-                <div className="bg-warm-grey rounded-xl p-6 space-y-3 my-2">
+                <div className="bg-warm-grey rounded-sm p-6 space-y-3 my-2">
                   <p className="text-near-black font-semibold">Important — please read this carefully.</p>
                   <p>
                     <span className="font-semibold text-near-black">LeaseIntel™ is commercial analysis, not legal advice.</span> The
@@ -220,12 +220,9 @@ export default function TermsPage() {
                     report has been sent to you.
                   </p>
                   <p>
-                    <span className="font-semibold text-near-black">24-hour turnaround is a target, not a guarantee.</span> We
-                    aim to deliver your report within 24 hours of receiving your document and payment. In
-                    practice, most reports are delivered within that window. But circumstances outside our
-                    control — document complexity, volume, public holidays — can affect timing. We won&apos;t
-                    leave you waiting without communication, but we can&apos;t contractually guarantee the
-                    24-hour window.
+                    <span className="font-semibold text-near-black">Timing is confirmed with the agreed scope.</span> Document
+                    complexity, reviewer availability and the requested deliverables affect timing. The expected
+                    delivery date is confirmed before work begins and updated if a material dependency changes.
                   </p>
                   <p>
                     Payment is processed at the time of order. By submitting your lease document and
@@ -380,7 +377,7 @@ export default function TermsPage() {
                       jk@yourofficespace.au
                     </a>
                   </p>
-                  <p className="text-mid-grey text-sm">NSW Real Estate Licence 20565455</p>
+                  <p className="text-mid-grey text-sm">Tenant representation is delivered within verified NSW licensing coverage.</p>
                 </div>
               </Section>
             </FadeIn>

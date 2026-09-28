@@ -194,7 +194,7 @@ export default function StampDutyCalculatorPage() {
           <FadeIn>
             <div className="max-w-2xl" style={{ marginBottom: "clamp(3rem,6vw,5rem)" }}>
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-6" style={{ padding: '0.4rem 1rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
               </div>
               <h1 className="text-white font-black uppercase leading-tight tracking-tight mb-6"

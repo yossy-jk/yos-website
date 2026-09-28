@@ -163,7 +163,7 @@ export default function FitoutEstimatorPage() {
             {step === 0 ? (
               <>
                 <div className="inline-flex items-center gap-2 border border-teal/30" style={{ padding: '0.4rem 1rem', marginBottom: '1.75rem' }}>
-                  <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                  <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                   <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free Tool</span>
                 </div>
                 <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
@@ -251,7 +251,7 @@ export default function FitoutEstimatorPage() {
                     style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1rem' }}>
                       <span className={inputs.fitoutType === opt.key ? 'text-teal' : 'text-white/40'} style={{ transition: 'color 0.15s', display: 'flex' }}>{opt.icon}</span>
-                      <span className={`w-3 h-3 rounded-full flex-shrink-0 mt-0.5 ${inputs.fitoutType === opt.key ? 'bg-teal' : 'bg-white/20'}`} />
+                      <span className={`w-3 h-3 rounded-sm flex-shrink-0 mt-0.5 ${inputs.fitoutType === opt.key ? 'bg-teal' : 'bg-white/20'}`} />
                     </div>
                     <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>{opt.label}</p>
                     <p className="text-white/50 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.65 }}>{opt.body}</p>
@@ -331,7 +331,7 @@ export default function FitoutEstimatorPage() {
                   className={`text-left border transition-all duration-150 ${inputs.shellCondition === 'cold' ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                   style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
-                    <span className={`w-3 h-3 rounded-full flex-shrink-0 mt-0.5 ${inputs.shellCondition === 'cold' ? 'bg-teal' : 'bg-white/20'}`} />
+                    <span className={`w-3 h-3 rounded-sm flex-shrink-0 mt-0.5 ${inputs.shellCondition === 'cold' ? 'bg-teal' : 'bg-white/20'}`} />
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Cold shell</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
@@ -342,7 +342,7 @@ export default function FitoutEstimatorPage() {
                   className={`text-left border transition-all duration-150 ${inputs.shellCondition === 'warm' ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                   style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
-                    <span className={`w-3 h-3 rounded-full flex-shrink-0 mt-0.5 ${inputs.shellCondition === 'warm' ? 'bg-teal' : 'bg-white/20'}`} />
+                    <span className={`w-3 h-3 rounded-sm flex-shrink-0 mt-0.5 ${inputs.shellCondition === 'warm' ? 'bg-teal' : 'bg-white/20'}`} />
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Warm shell</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
@@ -373,7 +373,7 @@ export default function FitoutEstimatorPage() {
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-2">
-                            <span className={`w-3 h-3 rounded-full flex-shrink-0 ${inputs.tier === key ? 'bg-teal' : 'bg-white/20'}`} />
+                            <span className={`w-3 h-3 rounded-sm flex-shrink-0 ${inputs.tier === key ? 'bg-teal' : 'bg-white/20'}`} />
                             <span className="text-white font-black uppercase" style={{ fontSize: '1rem' }}>{r.label}</span>
                           </div>
                           <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
@@ -413,7 +413,7 @@ export default function FitoutEstimatorPage() {
                   className={`text-left border transition-all duration-150 ${inputs.workstationType === 'fixed' ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                   style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
-                    <span className={`w-3 h-3 rounded-full flex-shrink-0 mt-0.5 ${inputs.workstationType === 'fixed' ? 'bg-teal' : 'bg-white/20'}`} />
+                    <span className={`w-3 h-3 rounded-sm flex-shrink-0 mt-0.5 ${inputs.workstationType === 'fixed' ? 'bg-teal' : 'bg-white/20'}`} />
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Fixed height</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
@@ -424,7 +424,7 @@ export default function FitoutEstimatorPage() {
                   className={`text-left border transition-all duration-150 ${inputs.workstationType === 'eha' ? 'border-teal bg-teal/8' : 'border-white/12 bg-white/3 hover:border-white/25'}`}
                   style={{ padding: '1.75rem', borderRadius: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '1rem' }}>
-                    <span className={`w-3 h-3 rounded-full flex-shrink-0 mt-0.5 ${inputs.workstationType === 'eha' ? 'bg-teal' : 'bg-white/20'}`} />
+                    <span className={`w-3 h-3 rounded-sm flex-shrink-0 mt-0.5 ${inputs.workstationType === 'eha' ? 'bg-teal' : 'bg-white/20'}`} />
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Electric height adjustable</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
@@ -587,7 +587,7 @@ export default function FitoutEstimatorPage() {
                 <div key={i}
                   className={`flex justify-between items-center ${i < storedEstimate!.breakdown.length - 1 ? 'border-b border-white/8' : ''}`}
                   style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(1,167,163,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
-                  <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 italic' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
+                  <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 font-semibold' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
                   <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
                     {fmt(row.low)} &ndash; {fmt(row.high)}
                   </span>
@@ -602,7 +602,7 @@ export default function FitoutEstimatorPage() {
             )}
             {/* Joinery note — furniture-only, informational, not included in total */}
             {storedEstimate!.joineryNote && (
-              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7, fontStyle: 'italic' }}>
+              <p className="text-white/40 font-light mb-10" style={{ fontSize: '0.8rem', lineHeight: 1.7, fontStyle: 'font-semibold' }}>
                 {storedEstimate!.joineryNote}
               </p>
             )}
@@ -612,7 +612,7 @@ export default function FitoutEstimatorPage() {
             </p>
             {/* Email capture — teaser summary, then email ask */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
-              <div style={{ width: '2.5rem', height: '3px', background: '#01A7A3', borderRadius: '2px', marginBottom: '1.25rem' }} />
+              <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />
               <h3 className="text-white font-black uppercase mb-4" style={{ fontSize: 'clamp(0.9rem,2vw,1.2rem)', letterSpacing: '-0.01em' }}>
                 Here&apos;s the picture so far
               </h3>
@@ -634,7 +634,7 @@ export default function FitoutEstimatorPage() {
                 </div>
               </div>
               <p className="text-white/50 font-light mb-5" style={{ fontSize: '0.85rem', lineHeight: 1.75, maxWidth: '34rem' }}>
-                Drop your email and we&apos;ll send you a branded one-page report with the full line-by-line breakdown, what&apos;s included, and what comes next — no pitch, no follow-up unless you ask.
+                Add your email to receive a branded one-page report with the line-by-line breakdown, inclusions and next steps. Follow-up occurs only where you request it.
               </p>
               <form
                 onSubmit={submitReport}
@@ -657,7 +657,7 @@ export default function FitoutEstimatorPage() {
                   style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
                 />
                 <button type="submit" disabled={reportState === 'sending' || reportState === 'sent'}
-                  style={{ background: reportState === 'sent' ? 'rgba(1,167,163,0.4)' : '#01A7A3', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
+                  style={{ background: reportState === 'sent' ? 'rgba(1,167,163,0.4)' : '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
                   {reportState === 'sending' ? 'Sending…' : reportState === 'sent' ? 'Report sent' : 'Send me the full report →'}
                 </button>
                 {reportMessage && (
@@ -699,7 +699,7 @@ export default function FitoutEstimatorPage() {
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {/* Section label */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>How it works</span>
               </div>
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '4rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
@@ -717,7 +717,7 @@ export default function FitoutEstimatorPage() {
                     {i < 3 && (
                       <div style={{ position: 'absolute', top: '1.8rem', right: '-1.5rem', width: '2.5rem', height: '1px', background: 'linear-gradient(to right, rgba(1,167,163,0.5), rgba(1,167,163,0.15))', zIndex: 1 }} aria-hidden="true" />
                     )}
-                    <p style={{ color: '#01A7A3', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{s.step}</p>
+                    <p style={{ color: '#00B5A5', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{s.step}</p>
                     <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.875rem' }}>{s.title}</h3>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.8 }}>{s.body}</p>
                   </div>
@@ -730,7 +730,7 @@ export default function FitoutEstimatorPage() {
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {/* Section label */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', paddingTop: '5rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Case Studies</span>
               </div>
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '0.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
@@ -756,7 +756,7 @@ export default function FitoutEstimatorPage() {
                       transition: 'border-color 0.3s ease',
                       cursor: 'default',
                     }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#01A7A3' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#00B5A5' }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = '#2A2A2A' }}
                   >
                     {/* Image */}
@@ -792,7 +792,7 @@ export default function FitoutEstimatorPage() {
                     'Delivery, install and on-site management',
                   ].map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <span style={{ color: '#01A7A3', fontSize: '1.1rem', lineHeight: 1, flexShrink: 0 }}>→</span>
+                      <span style={{ color: '#00B5A5', fontSize: '1.1rem', lineHeight: 1, flexShrink: 0 }}>→</span>
                       <span style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 300, fontSize: '0.875rem', lineHeight: 1.5 }}>{item}</span>
                     </div>
                   ))}
@@ -805,7 +805,7 @@ export default function FitoutEstimatorPage() {
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {/* Section label */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Knowledge</span>
               </div>
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '3.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
@@ -822,7 +822,7 @@ export default function FitoutEstimatorPage() {
                     a: "Furniture-only fitout: 2-4 weeks. Full commercial fitout: 6-16 weeks depending on scope. The biggest delay is decisions - not construction. Our process compresses that phase so you move faster."
                   },
                 ].map((item, i) => (
-                  <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #01A7A3' }}>
+                  <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #00B5A5' }}>
                     <h3 style={{ color: '#ffffff', fontWeight: 700, fontSize: '1.05rem', marginBottom: '0.875rem', lineHeight: 1.4 }}>{item.q}</h3>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 300, fontSize: '0.9rem', lineHeight: 1.85 }}>{item.a}</p>
                   </div>

@@ -90,7 +90,7 @@ export default function FurniturePopup() {
   return (
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 sm:p-6"
       style={{ background: 'rgba(10,10,10,0.65)', backdropFilter: 'blur(4px)' }}>
-      <div className="relative w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
+      <div className="relative w-full bg-white rounded-sm overflow-hidden shadow-2xl"
         style={{ maxWidth: '32rem', animation: 'slideUp 0.3s ease-out' }}>
 
         {/* Teal accent bar */}
@@ -98,7 +98,7 @@ export default function FurniturePopup() {
 
         {/* Close — outside content padding, top-right corner */}
         <button onClick={dismiss}
-          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-mid-grey hover:text-near-black transition-colors"
+          className="absolute top-5 right-5 w-9 h-9 rounded-sm bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-mid-grey hover:text-near-black transition-colors"
           aria-label="Close">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
             <path d="M11 3L3 11M3 3l8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -108,9 +108,9 @@ export default function FurniturePopup() {
         {!submitted ? (
           <div style={{ padding: '2.5rem 2.75rem 2.75rem' }}>
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full mb-6"
+            <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-sm mb-6"
               style={{ padding: '0.5rem 1rem' }}>
-              <span className="w-2 h-2 rounded-full bg-teal flex-shrink-0" />
+              <span className="w-2 h-2 rounded-sm bg-teal flex-shrink-0" />
               <span className="font-semibold text-xs tracking-widest uppercase">Project Pricing Available</span>
             </div>
 
@@ -131,7 +131,7 @@ export default function FurniturePopup() {
                 placeholder="Your name"
                 value={name}
                 onChange={e => setName(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               />
               <input
@@ -140,31 +140,31 @@ export default function FurniturePopup() {
                 value={contact}
                 onChange={e => setContact(e.target.value)}
                 required
-                className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               />
               <button
                 type="submit"
                 disabled={submitting || !contact.trim()}
-                className="w-full bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ padding: '1.25rem 2rem', fontSize: '0.72rem', marginTop: '0.5rem' }}>
                 {submitting ? 'Sending…' : 'Request a consultation →'}
               </button>
             </form>
 
             <p className="text-gray-400 font-light text-center" style={{ fontSize: '0.75rem', marginTop: '1.25rem' }}>
-              We respond within one business day. No sales calls without permission.
+              We review the brief and confirm the next step. No sales calls without permission.
             </p>
           </div>
         ) : (
           <div className="text-center" style={{ padding: '3rem 2.75rem' }}>
-            <div className="w-14 h-14 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-5">
+            <div className="w-14 h-14 rounded-sm bg-teal/10 flex items-center justify-center mx-auto mb-5">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M6 14l6 6 10-12" stroke="#01A7A3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M6 14l6 6 10-12" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </div>
             <h3 className="text-near-black font-bold text-xl mb-3">Done. We&apos;ll be in touch.</h3>
-            <p className="text-mid-grey font-light text-sm">Expect to hear from us within one business day.</p>
+            <p className="text-mid-grey font-light text-sm">We&apos;ll review the brief and confirm the next step.</p>
           </div>
         )}
       </div>

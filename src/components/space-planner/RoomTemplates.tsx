@@ -50,15 +50,15 @@ export function RoomTemplateShape({
         text={`${template.label}`}
         fontSize={12}
         fill="#6B6B6B"
-        fontFamily="var(--font-inter), Inter, Arial, sans-serif"
+        fontFamily="var(--font-montserrat), Montserrat, Arial, sans-serif"
       />
       <Text
         x={8}
         y={22}
         text={`${template.widthM}m × ${template.depthM}m`}
         fontSize={11}
-        fill="#01A7A3"
-        fontFamily="var(--font-inter), Inter, Arial, sans-serif"
+        fill="#00B5A5"
+        fontFamily="var(--font-montserrat), Montserrat, Arial, sans-serif"
       />
     </Group>
   );

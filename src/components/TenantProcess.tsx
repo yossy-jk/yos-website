@@ -17,7 +17,7 @@ const STEPS = [
     num: '02',
     title: 'Market search',
     value: 'A broader view of the available market',
-    body: 'We search on-market, off-market and pre-release opportunities against your brief. We then present the options that fit, with the trade-offs made clear.',
+    body: 'We review available opportunities and verified introductions against your brief. We then present the options that fit, with the trade-offs made clear.',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
@@ -39,7 +39,7 @@ const STEPS = [
     num: '04',
     title: 'Negotiation',
     value: 'An expert in your corner — every clause, every term',
-    body: 'We negotiate rent, incentives, rent-free periods, fit-out contributions, make-good caps, option structures, and every other clause in the lease. You have someone across the table who does this every week. That experience gap is worth real money.',
+    body: 'We negotiate the commercial terms that matter to the brief, including rent, incentives, make-good, options and other material obligations. Recommendations show the evidence and trade-offs without promising a particular outcome.',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
@@ -81,7 +81,7 @@ export default function TenantProcess({ dark = true, compact = false }: Props) {
   const headCol  = dark ? 'text-white' : 'text-near-black'
   const bodyCol  = dark ? 'text-white/70' : 'text-charcoal'
   const valCol   = 'text-teal'
-  const cardBg   = dark ? 'bg-white/5 border-white/10 hover:bg-white/[0.08]' : 'bg-white border-gray-200 hover:shadow-md'
+  const cardBg   = dark ? 'bg-white/5 border-white/10 hover:bg-white/[0.08]' : 'bg-white border-gray-200 hover:border-teal'
 
   return (
     <section className={`${bg} tenant-process-section`}>
@@ -111,7 +111,7 @@ export default function TenantProcess({ dark = true, compact = false }: Props) {
           {STEPS.map((step, i) => (
             <FadeIn key={step.num} delay={i * 70}>
               <div
-                className={`${cardBg} rounded-xl p-7 sm:p-8 border flex flex-col gap-5 transition-colors duration-200 tenant-process-card`}
+                className={`${cardBg} rounded-sm p-7 sm:p-8 border flex flex-col gap-5 transition-colors duration-200 tenant-process-card`}
                 style={{ minHeight: compact ? 'auto' : '18rem' }}
               >
                 {/* Icon + number row */}
@@ -120,7 +120,7 @@ export default function TenantProcess({ dark = true, compact = false }: Props) {
                     {step.icon}
                   </div>
                   <span className={`${dark ? 'text-white/15' : 'text-black/10'} font-black leading-none`}
-                    style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', lineHeight: 1 }}>
+                    style={{ fontSize: 'clamp(2.5rem,4vw,3.5rem)', fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif', lineHeight: 1 }}>
                     {step.num}
                   </span>
                 </div>

@@ -134,7 +134,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading || !canSubmit}
-          style={{ width: '100%', padding: '0.75rem', background: loading || !canSubmit ? 'rgba(1,167,163,0.3)' : '#01A7A3', border: 'none', borderRadius: 4, color: 'white', fontSize: '1rem', fontWeight: 500, cursor: loading || !canSubmit ? 'not-allowed' : 'pointer' }}
+          style={{ width: '100%', padding: '0.75rem', background: loading || !canSubmit ? 'rgba(1,167,163,0.3)' : '#00B5A5', border: 'none', borderRadius: 4, color: 'white', fontSize: '1rem', fontWeight: 500, cursor: loading || !canSubmit ? 'not-allowed' : 'pointer' }}
         >
           {loading ? 'Please wait…' : codeSent ? 'Sign in securely' : 'Email me a sign-in code'}
         </button>

@@ -260,7 +260,7 @@ export default function LeaseRiskCheckerPage() {
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-8"
                 style={{ padding: '0.4rem 1rem' }}>
-                <span className="bg-teal rounded-full" style={{ width: '0.35rem', height: '0.35rem' }} />
+                <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
                 <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free — No document required</span>
               </div>
               <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
@@ -330,7 +330,7 @@ export default function LeaseRiskCheckerPage() {
                     }`}
                     style={{ padding: '1.1rem 1.5rem', fontSize: '0.95rem', lineHeight: 1.6, borderRadius: '0.75rem', display: 'flex', alignItems: 'center' }}
                   >
-                    <span className={`inline-block w-5 h-5 rounded-full border-2 flex-shrink-0 transition-all ${
+                    <span className={`inline-block w-5 h-5 rounded-sm border-2 flex-shrink-0 transition-all ${
                       selected === option ? 'border-teal bg-teal' : 'border-white/30'
                     }`} style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '1rem', marginTop: '-1px' }} />
                     {option}
@@ -508,17 +508,17 @@ export default function LeaseRiskCheckerPage() {
                 This is a commercial risk assessment, not legal advice. Always engage a qualified commercial solicitor before signing, varying, or exiting any commercial lease.
               </p>
 
-              {/* CTA — $297 LeaseIntel report */}
-              <div className="mb-8 rounded-xl p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
-                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>The full LeaseIntel report — Free. No obligation.</p>
-                <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Newcastle business owners: free until 21 July 2026.</p>
+              {/* CTA — scoped LeaseIntel review */}
+              <div className="mb-8 rounded-sm p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Request a scoped LeaseIntel review</p>
+                <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Suitability, timing, fees and deliverables are confirmed first.</p>
                 <p className="text-white/70 font-light mb-5" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
-                  A complete clause-by-clause analysis of your actual lease. Every risk rated. Your financial exposure calculated. A specific roadmap for what to negotiate. 24-hour turnaround.
+                  Submit an intake request for your actual lease. We confirm the proposed review scope, document handling, timing, fees and accountable reviewer before work begins.
                 </p>
                 <Link href="/lease-review"
                   className="inline-flex items-center justify-center bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
                   style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '4px' }}>
-                  Get the full report →
+                  Request review scope →
                 </Link>
               </div>
 

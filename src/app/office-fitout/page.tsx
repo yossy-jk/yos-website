@@ -62,7 +62,7 @@ export default function OfficeFitoutPage() {
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/office-fitout#service",
-            "name": "Commercial Office Fit Out — Newcastle",
+            "name": "Commercial Office Fit Out — Australia",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -78,13 +78,12 @@ export default function OfficeFitoutPage() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "How much does an office fitout cost in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Office fitout costs in Newcastle range from $600–$1,200/sqm for basic, $1,200–$2,000/sqm for mid-range, and $2,000+/sqm for premium. Per workstation, budget $500–$3,500 depending on finish level. Use the free Your Office Space fitout estimator for a detailed budget based on your brief." } },
-              { "@type": "Question", "name": "How long does a commercial office fitout take?", "acceptedAnswer": { "@type": "Answer", "text": "A basic furniture-only fitout delivers in 2–4 weeks. A full commercial fitout including construction, joinery, electrical and AV typically takes 6–16 weeks depending on scope. Your Office Space manages the entire process end-to-end." } },
+              { "@type": "Question", "name": "How much does an office fit out cost?", "acceptedAnswer": { "@type": "Answer", "text": "Cost depends on the site, scope, services, finishes and programme. We prepare a project-specific budget after reviewing your brief and available plans." } },
+              { "@type": "Question", "name": "How long does a commercial office fit out take?", "acceptedAnswer": { "@type": "Answer", "text": "Timing depends on design, approvals, product availability and construction scope. We set out the programme and key dependencies before work is authorised." } },
               { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies a wide range of commercial office furniture brands covering workstations, seating, meeting tables, storage, and breakout settings. We match the product to your spec, timeline and budget — not to a limited product list. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
               
               { "@type": "Question", "name": "Can you project manage a full fitout including construction and joinery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space project manages full commercial fitouts including partition walls, flooring, joinery, electrical, AV, and IT infrastructure. We are the single point of contact from brief to practical completion." } },
-              { "@type": "Question", "name": "Do you offer express or fast-track fitout options?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have an in-stock express range that ships in 1–2 weeks for standard workstations, seating and storage. Made-to-order items typically run 3–6 weeks. Lead times are confirmed before you commit to anything." } },
-              { "@type": "Question", "name": "Can you supply furniture for government and council organisations?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have worked with local government and public sector organisations across Australia. We understand procurement requirements, panel supplier arrangements, and compliance obligations specific to government fitout projects." } },
+              { "@type": "Question", "name": "Do you offer fast-track fit out options?", "acceptedAnswer": { "@type": "Answer", "text": "Where the scope and available products allow it, we can plan a faster programme. Availability and lead times are confirmed in writing before approval." } },
               { "@type": "Question", "name": "What areas of NSW do you deliver fitouts to?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver across Newcastle, the Hunter Valley, Sydney, the Central Coast and regional NSW. We also work with commercial property clients across Australia for product supply regardless of location." } }
             ]
           }
@@ -112,7 +111,7 @@ export default function OfficeFitoutPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Office Fit Out Newcastle —
+              Office Fit Out —
               <br /><span className="text-teal">brief to delivery.</span>
             </h1>
           </FadeIn>
@@ -145,10 +144,10 @@ export default function OfficeFitoutPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
-                { stat: '200+', label: 'Fitouts delivered across Australia' },
-                { stat: '1–2 weeks', label: 'Express delivery on in-stock items' },
-                { stat: 'Fixed quote', label: 'No surprises — you approve before we start' },
-                { stat: '1', label: 'Contact from brief to practical completion' }
+                { stat: 'Brief', label: 'Define scope, priorities and constraints' },
+                { stat: 'Plan', label: 'Coordinate design, budget and programme' },
+                { stat: 'Deliver', label: 'Manage procurement and installation' },
+                { stat: 'Review', label: 'Check completion against the approved scope' }
               ].map((item) => (
                 <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
                   <p className="text-near-black font-black text-2xl lg:text-3xl mb-2 leading-tight">{item.stat}</p>
@@ -166,14 +165,14 @@ export default function OfficeFitoutPage() {
           <FadeIn>
             <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start md:items-center justify-between">
               <div>
-                <p className="text-white/30 font-light text-xs tracking-widest uppercase mb-2">Trusted by</p>
-                <p className="text-white font-bold" style={{ fontSize: 'clamp(1rem,2vw,1.3rem)' }}>Government departments · Architects · Interior designers · Property developers</p>
+                <p className="text-white/80 font-light text-xs tracking-widest uppercase mb-2">Built around your brief</p>
+                <p className="text-white font-bold" style={{ fontSize: 'clamp(1rem,2vw,1.3rem)' }}>Clear scope · documented decisions · one accountable project lead</p>
               </div>
               <div className="flex-shrink-0 flex gap-6">
                 {[
-                  { stat: '200+', label: 'Fitouts delivered' },
-                  { stat: '$0', label: 'Hidden charges' },
-                  { stat: '1', label: 'Contact throughout' }
+                  { stat: '01', label: 'Approved brief' },
+                  { stat: '02', label: 'Agreed budget' },
+                  { stat: '03', label: 'Delivery plan' }
                 ].map(item => (
                   <div key={item.label} className="text-center">
                     <p className="text-teal font-black text-xl">{item.stat}</p>
@@ -197,7 +196,7 @@ export default function OfficeFitoutPage() {
                   Fast-track your fitout.
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,1.8vw,1.1rem)', lineHeight: 1.8 }}>
-                  In-stock items dispatched within days. Made-to-order typically 3–6 weeks. If you&apos;re up against a lease end or a hard opening date, tell us — we&apos;ll map out what&apos;s possible and what it&apos;ll cost. No guesswork.
+                  If you&apos;re working towards a lease end or opening date, tell us early. We&apos;ll confirm the available products, dependencies, programme and cost before you authorise the work.
                 </p>
               </div>
               <div className="flex-shrink-0">
@@ -218,11 +217,11 @@ export default function OfficeFitoutPage() {
             <SectionLabel>Before you commit</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6 max-w-2xl"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
-              3D layout planning included. No extra charge.
+              Plan the layout before procurement.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-12 max-w-2xl"
               style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.85 }}>
-              Send us your floor plan and headcount. We design the layout in 3D before you commit to anything — so you can see how the space works, test different workstation configurations, and know exactly what you&apos;re getting before installation day.
+              Send us your floor plan, headcount and workplace requirements. Where layout planning forms part of the agreed scope, we use it to test workstation configurations and confirm the brief before procurement.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -232,7 +231,7 @@ export default function OfficeFitoutPage() {
               { step: '03', title: 'Fixed quote. No surprises.', body: "Once the layout is locked, you get a fixed price. What you see in the 3D render is what turns up on installation day." }
             ].map((item) => (
               <FadeIn key={item.step} direction="up">
-                <div className="bg-white rounded-xl p-7 border border-gray-100">
+                <div className="bg-white rounded-sm p-7 border border-gray-100">
                   <p className="text-teal font-black text-4xl mb-4 leading-none">{item.step}</p>
                   <h3 className="text-near-black font-bold text-xl mb-3">{item.title}</h3>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>{item.body}</p>
@@ -257,7 +256,7 @@ export default function OfficeFitoutPage() {
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch', marginBottom: '0.75rem' }}>
-              Your workspace should feel like<br /><span style={{ color: '#01A7A3' }}>it was built for you.</span>
+              Your workspace should feel like<br /><span style={{ color: '#00B5A5' }}>it was built for you.</span>
             </p>
             <p className="text-white/50 font-light" style={{ fontSize: '0.8rem', letterSpacing: '0.15em' }}>COMMERCIAL OFFICES — COGC — INSTALLED BY YOS</p>
           </FadeIn>
@@ -307,7 +306,7 @@ export default function OfficeFitoutPage() {
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-xl overflow-hidden h-full flex flex-col">
+                <div className="bg-warm-grey rounded-sm overflow-hidden h-full flex flex-col">
                   {/* Product image */}
                   <div className="relative overflow-hidden" style={{ height: '17rem' }}>
                     <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
@@ -315,7 +314,7 @@ export default function OfficeFitoutPage() {
                     <div className="absolute bottom-0 left-0 right-0 p-5">
                       <span className="text-white font-black text-lg tracking-tight" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{cat.category}</span>
                     </div>
-                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#01A7A3' }} />
+                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#00B5A5' }} />
                   </div>
                   {/* Content */}
                   <div className="p-7 flex flex-col flex-1">
@@ -359,7 +358,7 @@ export default function OfficeFitoutPage() {
               { src: '/images/furniture/space-liverpool-a.jpg',        alt: 'Civic office with collaborative layout',              label: 'Civic & Formal',  mood: 'Structured & Professional' },
             ].map((img, i) => (
               <FadeIn key={i} delay={Math.floor(i / 3) * 80 + (i % 3) * 60} direction="up">
-                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group cursor-pointer">
+                <div className="overflow-hidden rounded-sm aspect-[4/3] relative group cursor-pointer">
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -390,9 +389,8 @@ export default function OfficeFitoutPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.4)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;Joe and the team were incredible. They took the stress out of a stressful time and felt like a one-stop shop.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Jason Dowdall</span>
+            <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+              The approved brief, budget, programme and responsibilities stay visible from planning through delivery and handover.
             </p>
           </FadeIn>
         </div>
@@ -478,7 +476,7 @@ export default function OfficeFitoutPage() {
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
@@ -526,7 +524,7 @@ export default function OfficeFitoutPage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-warm-grey rounded-xl p-7 sm:p-10">
+              <div className="bg-warm-grey rounded-sm p-7 sm:p-10">
                 <HubSpotForm formId="188fd0e9-44a0-4ed1-ab94-da26126fcc9e" targetId="furniture-quote-form" />
               </div>
             </div>

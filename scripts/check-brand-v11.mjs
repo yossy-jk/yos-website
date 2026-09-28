@@ -38,18 +38,20 @@ if (capabilityStatementHash !== approvedCapabilityStatementHash) {
   failures.push('public/YOS-Capability-Statement.pdf: does not match the approved Brand v1.1 capability statement')
 }
 
-for (const token of ['#01A7A3', '#0A3B38', '#0C7A70', '#E8F4F2', '#FAFAF8', '#5A6B68']) {
+for (const token of ['#00B5A5', '#1A1A1A', '#00796D', '#E0F5F3', '#F5F5F5', '#6B6B6B', '#333333']) {
   requireText('src/app/globals.css', token, `approved colour token ${token}`)
 }
 
-requireText('src/app/layout.tsx', 'Fraunces', 'Fraunces heading font')
-requireText('src/app/layout.tsx', 'Inter', 'Inter body font')
-requireText('src/app/globals.css', 'var(--font-fraunces)', 'Fraunces heading variable')
-requireText('src/app/globals.css', 'var(--font-inter)', 'Inter body variable')
+requireText('src/app/layout.tsx', 'Montserrat', 'Montserrat font')
+requireText('src/app/globals.css', 'var(--font-montserrat)', 'Montserrat variable')
+forbidText('src/app/layout.tsx', 'Fraunces', 'superseded Fraunces font')
+forbidText('src/app/layout.tsx', 'Inter', 'superseded Inter font')
 requireText('src/app/page.tsx', 'One team. Clear direction. No guesswork.', 'primary tagline')
 requireText('src/app/page.tsx', 'One accountable partner', 'one accountable partner message')
 requireText('src/app/page.tsx', 'Book a Clarity Call', 'primary call to action')
-requireText('src/components/BookingCTA.tsx', '20 minutes, no pitch.', 'approved Clarity Call format')
+requireText('src/app/page.tsx', 'Three core services.', 'three-core-service hierarchy')
+requireText('src/app/page.tsx', 'Once you&apos;re in', 'supplementary cleaning hierarchy')
+requireText('src/components/BookingCTA.tsx', 'identify the clearest next step', 'approved evidence-safe Clarity Call format')
 
 for (const service of approvedServices) {
   requireText('src/lib/constants.ts', service, `approved service ${service}`)
@@ -119,7 +121,7 @@ forbidPattern('src/app/about/page.tsx', /100\+|12\+ years|over a decade|buyers a
 try {
   const matches = execFileSync(
     'git',
-    ['grep', '-n', '-I', '-E', '#00B5A5|#00b5a5|#009688|#00796F|#006D63|rgb\\(0[[:space:]]+181[[:space:]]+165\\)|rgba\\(0,[[:space:]]*181,[[:space:]]*165|Montserrat', '--', 'src', ':(exclude)src/**/*.bak*'],
+    ['grep', '-n', '-I', '-E', '#01A7A3|#01a7a3|#0A3B38|#0a3b38|#0C7A70|#0c7a70|#E8F4F2|#e8f4f2|#FAFAF8|#fafaf8|#5A6B68|#5a6b68|Fraunces|font-inter', '--', 'src', ':(exclude)src/**/*.bak*'],
     { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] },
   )
   if (matches.trim()) failures.push(`application source contains legacy brand tokens:\n${matches.trim()}`)
@@ -128,14 +130,14 @@ try {
 }
 
 if (failures.length > 0) {
-  console.error('Brand Standard v1.1 check failed:')
+  console.error('Brand & Design System v3.1 check failed:')
   for (const failure of failures) console.error(`- ${failure}`)
   process.exit(1)
 }
 
-console.log('Brand Standard v1.1 check passed.')
+console.log('Brand & Design System v3.1 check passed.')
 console.log('- Approved palette and typography are wired globally.')
-console.log('- Homepage positioning, services and CTA match the standard.')
+console.log('- Homepage positions three core services and supplementary cleaning correctly.')
 console.log('- Buyers Agency remains referral-only and is not publicly promoted.')
 console.log('- Legacy brand tokens are absent from application source.')
 console.log('- The public capability statement matches the approved Brand v1.1 asset.')

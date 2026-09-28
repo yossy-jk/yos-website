@@ -85,8 +85,8 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     borderRadius: '8px',
     border: '1px solid #E5E5E5',
     outline: 'none',
-    fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
-    color: '#0A3B38',
+    fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif',
+    color: '#1A1A1A',
     background: '#FFFFFF',
   };
 
@@ -94,8 +94,8 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
     display: 'block',
     fontSize: '0.75rem',
     fontWeight: 600,
-    color: '#0A3B38',
-    fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
+    color: '#1A1A1A',
+    fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif',
     marginBottom: '0.3rem',
   };
 
@@ -104,11 +104,11 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem', background: 'rgba(10, 59, 56, 0.65)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div style={{ width: '100%', maxWidth: '440px', borderRadius: '12px', background: '#FFFFFF', boxShadow: '0 20px 60px rgba(0,0,0,0.25)', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif', overflow: 'hidden' }}>
+      <div style={{ width: '100%', maxWidth: '440px', borderRadius: '12px', background: '#FFFFFF', boxShadow: '0 20px 60px rgba(0,0,0,0.25)', fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif', overflow: 'hidden' }}>
 
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1.25rem 1.5rem', borderBottom: '1px solid #E5E5E5' }}>
-          <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#0A3B38' }}>
+          <h2 style={{ fontSize: '1rem', fontWeight: 700, color: '#1A1A1A' }}>
             {submitted ? 'Quote request sent' : 'Get your quote'}
           </h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B6B6B', padding: '0.25rem' }}>
@@ -119,16 +119,16 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         {submitted ? (
           /* Success state */
           <div style={{ padding: '2rem 1.5rem', textAlign: 'center' }}>
-            <CheckCircle size={48} style={{ color: '#01A7A3', margin: '0 auto 1rem' }} />
-            <p style={{ fontSize: '1rem', fontWeight: 700, color: '#0A3B38', marginBottom: '0.5rem' }}>
+            <CheckCircle size={48} style={{ color: '#00B5A5', margin: '0 auto 1rem' }} />
+            <p style={{ fontSize: '1rem', fontWeight: 700, color: '#1A1A1A', marginBottom: '0.5rem' }}>
               We have your layout.
             </p>
             <p style={{ fontSize: '0.875rem', color: '#6B6B6B', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-              We will review your space plan and come back to you with a full itemised quote. Expect to hear from us within one business day.
+              We will review your space plan and confirm what is required to prepare an itemised quote.
             </p>
             <button
               onClick={onClose}
-              style={{ background: '#0A3B38', color: '#FFFFFF', border: 'none', borderRadius: '8px', padding: '0.75rem 2rem', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-inter), Inter, Arial, sans-serif' }}
+              style={{ background: '#1A1A1A', color: '#FFFFFF', border: 'none', borderRadius: '8px', padding: '0.75rem 2rem', fontSize: '0.875rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif' }}
             >
               Done
             </button>
@@ -158,12 +158,12 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             </div>
 
             <div>
-              <label style={labelStyle}>Name <span style={{ color: '#01A7A3' }}>*</span></label>
+              <label style={labelStyle}>Name <span style={{ color: '#00B5A5' }}>*</span></label>
               <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required style={inputStyle} />
             </div>
 
             <div>
-              <label style={labelStyle}>Email <span style={{ color: '#01A7A3' }}>*</span></label>
+              <label style={labelStyle}>Email <span style={{ color: '#00B5A5' }}>*</span></label>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="your@email.com" required style={inputStyle} />
             </div>
 
@@ -188,7 +188,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               />
             </div>
 
-            <p style={{ fontSize: '0.72rem', color: '#5A6B68', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.72rem', color: '#6B6B6B', lineHeight: 1.5 }}>
               We will review your space plan and come back with a full quote — no obligation, no sales pressure.
             </p>
 
@@ -203,9 +203,9 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
                 borderRadius: '8px',
                 border: 'none',
                 cursor: loading || !name.trim() || !email.trim() ? 'not-allowed' : 'pointer',
-                background: !name.trim() || !email.trim() ? '#D0D0D0' : '#01A7A3',
+                background: !name.trim() || !email.trim() ? '#D0D0D0' : '#00B5A5',
                 color: '#FFFFFF',
-                fontFamily: 'var(--font-inter), Inter, Arial, sans-serif',
+                fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif',
                 transition: 'background 0.15s',
               }}
             >

@@ -85,7 +85,7 @@ export default function TenantRepNewcastlePage() {
               We negotiate rent, terms, incentives, and every lease clause — exclusively on your side of the table.
             </p>
             <p className="text-white/50 font-light mb-10" style={{ fontSize: '0.8rem' }}>
-              NSW Real Estate Licence 20565455 &nbsp;|&nbsp; Serving Newcastle, Hunter Valley, and Central Coast
+              Tenant representation is delivered within verified NSW licensing coverage.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -94,7 +94,7 @@ export default function TenantRepNewcastlePage() {
                 Book a Clarity Call
               </Button>
               <Button href="/lease-review" variant="outline" size="lg">
-                Free Lease Review
+                Request a Lease Review
               </Button>
             </div>
           </FadeIn>
@@ -164,8 +164,8 @@ export default function TenantRepNewcastlePage() {
             <SectionLabel>How we work</SectionLabel>
             <h2 className="text-white font-black leading-tight mt-3 mb-4"
               style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
-              No costs upfront.<br />
-              <span className="text-teal">No conflicts of interest.</span>
+              Scope before action.<br />
+              <span className="text-teal">A clear tenant-side position.</span>
             </h2>
             <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
               style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
@@ -184,7 +184,7 @@ export default function TenantRepNewcastlePage() {
               {
                 step: '02',
                 title: 'Search',
-                body: 'On-market, off-market, pre-release. We find options your broker missed — including properties that never reach the listing portals.',
+                body: 'We assess advertised opportunities and verified introductions against the agreed brief, then show the trade-offs clearly.',
               },
               {
                 step: '03',
@@ -298,7 +298,7 @@ export default function TenantRepNewcastlePage() {
                         "description": "Expert commercial tenant representation in Newcastle and the Hunter Valley. We negotiate better lease terms for tenants — never landlords.",
                         "areaServed": ["Newcastle", "NSW", "Australia"],
                         "serviceType": "Tenant Representation",
-                        "offers": { "@type": "Offer", "description": "First consultation free. Fee typically paid by landlord." }
+                        "offers": { "@type": "Offer", "description": "Scope, fees and any third-party arrangements are confirmed before engagement." }
                       }
                     ]
                   })
@@ -373,7 +373,7 @@ export default function TenantRepNewcastlePage() {
                     { title: 'Harder negotiation', body: 'Rent, fit-out contributions, lease length — pushed harder than a split-incentive advisor ever will.' },
                     { title: 'Protective clauses', body: 'The clauses that limit your liability, cap your make-good, and preserve your leverage at renewal.' },
                     { title: 'Hunter market intelligence', body: 'We know which Newcastle and Hunter landlords negotiate in good faith and which ones don\'t. That knowledge is leverage.' },
-                    { title: 'Off-market access', body: 'Properties that never appear on listing portals — sourced through our network of owner relationships.' },
+                    { title: 'Verified market inputs', body: 'Available listings and verified introductions assessed against the same documented brief.' },
                     { title: 'A second set of eyes on the fine print', body: 'Someone whose job is to stop you signing a deal you\'ll regret in year three of your lease.' },
                   ].map((item, i) => (
                     <li key={i} className="flex gap-5 items-start pb-5 border-b border-white/10 last:border-0">
@@ -400,7 +400,7 @@ export default function TenantRepNewcastlePage() {
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
                 <h3 className="text-white font-bold leading-tight mb-4"
                   style={{ fontSize: 'clamp(1.25rem,2.5vw,2rem)' }}>
-                  Already have a lease? Get a free risk review.
+                  Already have a lease? Request a scoped risk review.
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
@@ -410,7 +410,7 @@ export default function TenantRepNewcastlePage() {
               </div>
               <div className="flex-shrink-0">
                 <Button href="/lease-review" variant="primary" size="lg">
-                  Start Free Review
+                  Request a Lease Review
                 </Button>
               </div>
             </div>
@@ -429,7 +429,7 @@ export default function TenantRepNewcastlePage() {
               </h2>
               <p className="text-white/80 font-light leading-relaxed mb-14 w-full"
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
-                20 minutes. No pitch. Just a straight conversation about your space, your situation, and what you&apos;re trying to achieve.
+                A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
                 Book a Clarity Call

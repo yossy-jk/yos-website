@@ -34,10 +34,10 @@ function contrastRatio(first, second) {
 }
 
 test('white text on YOS action teal meets WCAG AA in default and hover states', () => {
-  assert.ok(contrastRatio('0c7a70', 'ffffff') >= 4.5)
-  assert.ok(contrastRatio('0a3b38', 'ffffff') >= 4.5)
-  assert.match(globalsSource, /--color-action-teal: #0C7A70/)
-  assert.match(globalsSource, /--color-action-teal-hover: #0A3B38/)
+  assert.ok(contrastRatio('00796d', 'ffffff') >= 4.5)
+  assert.ok(contrastRatio('1a1a1a', 'ffffff') >= 4.5)
+  assert.match(globalsSource, /--color-action-teal: #00796D/)
+  assert.match(globalsSource, /--color-action-teal-hover: #1A1A1A/)
   assert.match(globalsSource, /\.bg-teal\.text-white\s*\{[\s\S]*var\(--color-action-teal\)/)
 })
 
@@ -62,8 +62,8 @@ test('homepage supporting copy does not use low-opacity white on dark surfaces',
 })
 
 test('brand accents and supporting copy switch to accessible colours on light surfaces', () => {
-  assert.ok(contrastRatio('0c7a70', 'fafaf8') >= 4.5)
-  assert.ok(contrastRatio('5a6b68', 'fafaf8') >= 4.5)
+  assert.ok(contrastRatio('00796d', 'f5f5f5') >= 4.5)
+  assert.ok(contrastRatio('6b6b6b', 'f5f5f5') >= 4.5)
   assert.match(globalsSource, /\.bg-warm-grey \.text-teal[\s\S]*var\(--color-action-teal\)/)
   assert.match(globalsSource, /\.bg-warm-grey \.text-mid-grey[\s\S]*var\(--color-readable-grey\)/)
   assert.match(globalsSource, /\.bg-near-black \.text-teal[\s\S]*var\(--color-light-teal\)/)
@@ -94,7 +94,7 @@ test('Newcastle hub uses accessible accent and supporting-copy colours', () => {
 test('blog cards use readable metadata, action links, and category badges', () => {
   assert.doesNotMatch(blogSource, /#9CA3AF/)
   assert.doesNotMatch(blogSource, /rgba\(255,255,255,0\.35\)/)
-  assert.match(blogSource, /color: '#0C7A70'/)
+  assert.match(blogSource, /color: '#00796D'/)
   assert.match(blogLibrarySource, /'cleaning': 'bg-action-teal text-white'/)
   assert.match(blogLibrarySource, /'general': 'bg-readable-grey text-white'/)
   assert.doesNotMatch(blogArticleSource, /#9CA3AF|rgba\(255,255,255,0\.35\)/)

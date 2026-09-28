@@ -69,8 +69,8 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
   if (data && (data as BriefData).requires_password) {
     return (
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
-          <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mb-4 mx-auto">
+        <div className="bg-white rounded-sm shadow-lg p-8 max-w-md w-full">
+          <div className="w-10 h-10 bg-blue-600 rounded-sm flex items-center justify-center mb-4 mx-auto">
             <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
@@ -83,12 +83,12 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-4 text-gray-900"
+              className="w-full border border-gray-300 rounded-sm px-4 py-3 mb-4 text-gray-900"
               autoFocus
             />
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white rounded-lg px-4 py-3 font-medium hover:bg-blue-700 transition"
+              className="w-full bg-blue-600 text-white rounded-sm px-4 py-3 font-medium hover:bg-blue-700 transition"
             >
               View Brief
             </button>
@@ -163,8 +163,8 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
               </p>
             </div>
             <div className="text-right">
-              <div className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 px-3 py-1.5 rounded-full text-xs font-medium">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+              <div className="inline-flex items-center gap-1.5 bg-green-50 text-green-700 px-3 py-1.5 rounded-sm text-xs font-medium">
+                <span className="w-2 h-2 bg-green-500 rounded-sm"></span>
                 Active Search
               </div>
             </div>
@@ -194,15 +194,15 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
                   'Disqualified': 'bg-gray-400',
                 }
                 return (
-                  <div key={stage} className={`rounded-lg border p-4 ${stageColors[stage]}`}>
+                  <div key={stage} className={`rounded-sm border p-4 ${stageColors[stage]}`}>
                     <div className="flex items-center gap-1.5 mb-2">
-                      <span className={`w-2 h-2 rounded-full ${dotColors[stage]}`}></span>
+                      <span className={`w-2 h-2 rounded-sm ${dotColors[stage]}`}></span>
                       <span className="text-xs font-semibold text-gray-600 uppercase tracking-wide">{stage}</span>
                     </div>
                     <div className="text-sm text-gray-700">
                       {stageBlocks[stage] && stageBlocks[stage].length > 0
                         ? stageBlocks[stage].join('\n')
-                        : <span className="text-gray-400 italic">No properties</span>
+                        : <span className="text-gray-400 font-semibold">No properties</span>
                       }
                     </div>
                   </div>
@@ -213,7 +213,7 @@ export default function ClientBriefPage({ params }: { params: Promise<{ token: s
         )}
 
         {/* Brief Content */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden">
           <div className="px-8 py-6 border-b border-gray-100">
             <h2 className="text-xl font-semibold text-gray-900">Your Search Brief</h2>
           </div>

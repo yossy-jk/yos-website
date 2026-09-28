@@ -64,7 +64,7 @@ export default function FurnitureVoucherSection() {
   return (
     <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }} aria-labelledby="furniture-voucher-title">
       <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center rounded-2xl bg-warm-grey" style={{ padding: 'clamp(1.75rem,5vw,4rem)' }}>
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center rounded-sm bg-warm-grey" style={{ padding: 'clamp(1.75rem,5vw,4rem)' }}>
           <div>
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">New client offer</p>
             <h2 id="furniture-voucher-title" className="text-near-black font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
@@ -89,7 +89,7 @@ export default function FurnitureVoucherSection() {
               onChange={(event) => setName(event.target.value)}
               maxLength={100}
               disabled={disabled}
-              className="w-full border border-gray-300 rounded-lg text-near-black bg-white outline-none focus:border-teal"
+              className="w-full border border-gray-300 rounded-sm text-near-black bg-white outline-none focus:border-teal"
               style={{ padding: '0.95rem 1rem' }}
             />
             <label className="text-near-black font-semibold text-sm" htmlFor="voucher-email">Email address</label>
@@ -103,7 +103,7 @@ export default function FurnitureVoucherSection() {
               maxLength={200}
               required
               disabled={disabled}
-              className="w-full border border-gray-300 rounded-lg text-near-black bg-white outline-none focus:border-teal"
+              className="w-full border border-gray-300 rounded-sm text-near-black bg-white outline-none focus:border-teal"
               style={{ padding: '0.95rem 1rem' }}
             />
             <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px' }}>
@@ -113,7 +113,7 @@ export default function FurnitureVoucherSection() {
             <button
               type="submit"
               disabled={disabled || !email.trim()}
-              className="bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-lg hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              className="bg-teal text-white font-bold uppercase tracking-[0.14em] rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               style={{ padding: '1rem 1.5rem', minHeight: '48px', fontSize: '0.72rem' }}
             >
               {state === 'sending' ? 'Sending…' : state === 'sent' ? 'Voucher sent' : 'Email my $100 voucher →'}

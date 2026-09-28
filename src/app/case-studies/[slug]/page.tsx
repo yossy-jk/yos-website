@@ -73,7 +73,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         )}
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 pt-12 pb-16">
           <div className="flex items-center gap-3 mb-6">
-            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${DIVISION_COLORS[cs.division as Division]}`}>
+            <span className={`text-xs font-semibold px-3 py-1 rounded-sm ${DIVISION_COLORS[cs.division as Division]}`}>
               {DIVISION_LABELS[cs.division as Division]}
             </span>
             <span className="text-white/40 text-xs">{cs.location}</span>
@@ -117,19 +117,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 <p className="text-charcoal font-light text-lg leading-relaxed">{cs.outcome}</p>
               </div>
 
-              {cs.quote && (
-                <blockquote className="border-l-4 border-teal pl-8 py-2">
-                  <p className="text-near-black font-light text-xl leading-relaxed mb-4">
-                    &ldquo;{cs.quote.text}&rdquo;
-                  </p>
-                  <p className="text-mid-grey font-semibold text-xs tracking-widest uppercase">{cs.quote.attribution}</p>
-                </blockquote>
-              )}
+              {/* Named quotations remain unpublished until attribution and display permission are recorded. */}
             </div>
 
             {/* SIDEBAR */}
             <div className="space-y-8">
-              <div className="bg-warm-grey rounded-xl p-8">
+              <div className="bg-warm-grey rounded-sm p-8">
                 <p className="text-near-black font-bold text-sm mb-6">Project details</p>
                 <div className="space-y-4">
                   <div>
@@ -149,7 +142,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                       <p className="text-mid-grey font-light text-xs uppercase tracking-widest mb-2">Topics</p>
                       <div className="flex flex-wrap gap-2">
                         {cs.tags.map(tag => (
-                          <span key={tag} className="bg-white border border-gray-200 text-charcoal text-xs px-3 py-1 rounded-full">{tag}</span>
+                          <span key={tag} className="bg-white border border-gray-200 text-charcoal text-xs px-3 py-1 rounded-sm">{tag}</span>
                         ))}
                       </div>
                     </div>
@@ -157,7 +150,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </div>
               </div>
 
-              <div className="bg-near-black rounded-xl p-8">
+              <div className="bg-near-black rounded-sm p-8">
                 <p className="text-white font-bold text-base mb-3">Want a similar outcome?</p>
                 <p className="text-white/60 font-light text-sm mb-6">Talk to us about your situation. First conversation is always free.</p>
                 <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a call</Button>

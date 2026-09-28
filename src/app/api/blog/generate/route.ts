@@ -69,7 +69,7 @@ const TOPICS = [
   { division: 'buyers-agency', topic: 'Buying Commercial Property in Newcastle in 2026: What the Market Signals Say', targetKeyword: 'buy commercial property newcastle' },
   { division: 'buyers-agency', topic: 'Lease vs Buy: A Framework for Newcastle Businesses Deciding on Property',     targetKeyword: 'lease vs buy commercial property' },
   { division: 'buyers-agency', topic: 'What a Buyer\'s Agent Actually Does (And Why You Need One)',                  targetKeyword: 'commercial buyers agent newcastle' },
-  { division: 'buyers-agency', topic: 'Off-Market Deals: How Tenant Buyers Access Properties Nobody Else Can See',  targetKeyword: 'off market commercial property newcastle' },
+  { division: 'buyers-agency', topic: 'How to assess commercial property purchase opportunities',  targetKeyword: 'commercial property opportunities newcastle' },
   { division: 'buyers-agency', topic: 'Due Diligence Checklist for First-Time Commercial Property Buyers',          targetKeyword: 'commercial property due diligence' },
   { division: 'furniture',    topic: 'How Much Does a Full Office Fitout Cost in 2026? Real Newcastle Examples',   targetKeyword: 'office fitout cost newcastle' },
   { division: 'furniture',    topic: 'The Hidden Costs of Cheap Office Furniture (And What to Budget Instead)',     targetKeyword: 'commercial office furniture newcastle' },
@@ -147,7 +147,7 @@ async function generatePost(topic: typeof TOPICS[number]) {
 ## 4. SEMANTIC KEYWORDS
 Weave 3-5 related terms naturally throughout the body.
 ## 5. E-E-A-T SIGNALS
-Reference: Hunter region, Newcastle market, Class 2 real estate licence, commercial tenancy experience, local knowledge. No fabrication.
+Reference: Hunter region, Newcastle market, verified NSW service coverage, commercial tenancy experience, local knowledge. No fabrication.
 ## 6. FAQ SECTION (required)
 End with "## Frequently Asked Questions" + 4-5 questions with 2-3 sentence answers each.
 ## 7. INTERNAL LINKS (required — minimum 3)

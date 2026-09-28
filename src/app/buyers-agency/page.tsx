@@ -69,7 +69,7 @@ export default function ReferralPurchaseAdvisoryPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {SCOPE.map((item, index) => (
                 <FadeIn key={item.title} delay={index * 60} direction="up">
-                  <div className="bg-white border border-teal/20 rounded-xl h-full p-8">
+                  <div className="bg-white border border-teal/20 rounded-sm h-full p-8">
                     <p className="text-action-teal font-semibold text-sm mb-3">{String(index + 1).padStart(2, '0')}</p>
                     <h3 className="text-near-black text-xl mb-3">{item.title}</h3>
                     <p className="text-readable-grey font-light leading-relaxed">{item.body}</p>

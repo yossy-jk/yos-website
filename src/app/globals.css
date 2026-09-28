@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-teal: #01A7A3;
-  --color-dark-teal: #0C7A70;
-  --color-action-teal: #0C7A70;
-  --color-action-teal-hover: #0A3B38;
-  --color-readable-grey: #5A6B68;
-  --color-light-teal: #E8F4F2;
-  --color-near-black: #0A3B38;
-  --color-warm-grey: #FAFAF8;
-  --color-mid-grey: #5A6B68;
-  --color-charcoal: #0A3B38;
+  /* YOS Brand & Design System v3.1 */
+  --color-teal: #00B5A5;
+  --color-dark-teal: #008F82;
+  --color-action-teal: #00796D;
+  --color-action-teal-hover: #1A1A1A;
+  --color-readable-grey: #6B6B6B;
+  --color-light-teal: #E0F5F3;
+  --color-near-black: #1A1A1A;
+  --color-warm-grey: #F5F5F5;
+  --color-mid-grey: #6B6B6B;
+  --color-charcoal: #333333;
   --font-sans: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
   --font-display: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
 }
@@ -34,14 +35,14 @@
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 .testimonial-card:hover {
-  border-color: #01A7A3;
+  border-color: #00B5A5;
 }
 
 /* ─── Why Us card polish ──────────────────────────────── */
 .whyus-card {
   padding: clamp(1.5rem, 3vw, 2.25rem);
   background: rgba(255,255,255,0.04);
-  border-left: 4px solid #01A7A3;
+  border-left: 4px solid #00B5A5;
   border-radius: 4px;
   transition: background 0.2s ease;
   height: 100%;
@@ -64,7 +65,7 @@
 
 /* ─── Fee Guarantee Section ────────────────────────────── */
 .fee-guarantee-section {
-  background: #0A3B38;
+  background: #1A1A1A;
   padding-top: clamp(3.5rem, 7vw, 6rem);
   padding-bottom: clamp(3.5rem, 7vw, 6rem);
 }
@@ -95,7 +96,7 @@
   width: clamp(9rem, 18vw, 14rem);
   height: clamp(9rem, 18vw, 14rem);
   border-radius: 50%;
-  border: 5px solid #01A7A3;
+  border: 5px solid #00B5A5;
   background: #ffffff;
   display: flex;
   flex-direction: column;
@@ -109,7 +110,7 @@
   font-weight: 900;
   font-size: clamp(2.2rem, 4.5vw, 3.4rem);
   line-height: 1;
-  color: #0C7A70;
+  color: #00796D;
   letter-spacing: -0.02em;
 }
 
@@ -120,7 +121,7 @@
   line-height: 1.25;
   letter-spacing: 0.12em;
   text-align: center;
-  color: #0A3B38;
+  color: #1A1A1A;
   text-transform: uppercase;
 }
 
@@ -217,7 +218,7 @@
 
 /* ─── Agent Network Marquee ──────────────────────────────── */
 .agent-network-banner {
-  background: var(--color-near-black, #0A3B38);
+  background: var(--color-near-black, #1A1A1A);
   padding-top: clamp(3.5rem, 7vw, 6rem);
   padding-bottom: clamp(3.5rem, 7vw, 6rem);
 }
@@ -281,13 +282,18 @@ html {
 
 body {
   font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;
-  background: #FAFAF8;
-  color: #0A3B38;
+  background: #FFFFFF;
+  color: #333333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
   overflow-x: hidden;
 }
+
+/* Gold v3.1 permits only Montserrat 400, 600 and 700. Legacy utility names
+   remain in older route components, so normalise their rendered weights here. */
+.font-light { font-weight: 400 !important; }
+.font-black { font-weight: 700 !important; }
 
 /* Mobile padding for sticky CTA bar */
 @media (max-width: 767px) {
@@ -325,14 +331,14 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: none !important;
 }
 
-/* Brand Standard v1.1 uses sentence case across headings, labels and CTAs. */
+/* Brand & Design System v3.1 uses sentence case across headings, labels and CTAs. */
 body * {
   text-transform: none !important;
 }
 
 /* ─── Focus styles (keyboard navigation) ─────────────────── */
 :focus-visible {
-  outline: 2px solid #01A7A3;
+  outline: 2px solid #00B5A5;
   outline-offset: 3px;
   border-radius: 2px;
 }
@@ -357,7 +363,7 @@ body * {
 
 /* ─── Selection ──────────────────────────────────────────── */
 ::selection {
-  background: #01A7A3;
+  background: #00B5A5;
   color: #ffffff;
 }
 
@@ -433,7 +439,7 @@ input[type='range']::-webkit-slider-thumb {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #01A7A3;
+  background: #00B5A5;
   cursor: pointer;
   border: 3px solid #ffffff;
   box-shadow: 0 2px 8px rgba(1, 167, 163, 0.4);
@@ -447,7 +453,7 @@ input[type='range']::-moz-range-thumb {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #01A7A3;
+  background: #00B5A5;
   cursor: pointer;
   border: 3px solid #ffffff;
   box-shadow: 0 2px 8px rgba(1, 167, 163, 0.4);

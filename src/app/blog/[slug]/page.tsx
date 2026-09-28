@@ -138,7 +138,7 @@ function renderBody(body: string, slug: string) {
       <ul key={key++} style={{ margin: '1.5rem 0 2rem', padding: 0, listStyle: 'none' }}>
         {listBuffer.map((item, i) => (
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.875rem' }}>
-            <span style={{ flexShrink: 0, width: '3px', height: '1.4em', background: '#01A7A3', borderRadius: '2px', marginTop: '0.2em', display: 'block' }} />
+            <span style={{ flexShrink: 0, width: '3px', height: '1.4em', background: '#00B5A5', borderRadius: '2px', marginTop: '0.2em', display: 'block' }} />
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300 }}>
               {inlineRender(item, slug)}
             </span>
@@ -155,7 +155,7 @@ function renderBody(body: string, slug: string) {
       <ol key={key++} style={{ margin: '1.5rem 0 2rem', padding: 0, listStyle: 'none', counterReset: 'yos-counter' }}>
         {numberedBuffer.map((item, i) => (
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1rem', counterIncrement: 'yos-counter' }}>
-            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: '#01A7A3', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
+            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: '#00B5A5', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
               {i + 1}
             </span>
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300, flex: 1 }}>
@@ -327,7 +327,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <div className="w-full" style={{ maxWidth: '52rem', paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)', paddingTop: '8rem' }}>
             {/* Division + meta */}
             <div className="flex flex-wrap items-center gap-3 mb-5">
-              <span className={`text-xs font-bold px-3 py-1 rounded-full tracking-widest uppercase ${DIVISION_COLORS[post.division as Division]}`}>
+              <span className={`text-xs font-bold px-3 py-1 rounded-sm tracking-widest uppercase ${DIVISION_COLORS[post.division as Division]}`}>
                 {DIVISION_LABELS[post.division as Division]}
               </span>
               <span className="text-white/40 text-xs">
@@ -379,14 +379,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {/* CTA block */}
               <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
-                  <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
+                  <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                     Free — No obligation
                   </p>
                   <p style={{ color: 'white', fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '0.875rem' }}>
                     Want to talk about your situation?
                   </p>
                   <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.95rem', lineHeight: 1.75, fontWeight: 300, maxWidth: '36rem' }}>
-                    First conversation is always free. No pitch — just an honest assessment of what you&apos;re dealing with and whether we can help.
+                    Book a Clarity Call for an initial assessment of the situation and the most appropriate next step.
                   </p>
                 </div>
                 <div>
@@ -400,7 +400,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Back link */}
               <div style={{ marginTop: '2.5rem' }}>
-                <Link href="/blog" style={{ color: '#0C7A70', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.05em' }}
+                <Link href="/blog" style={{ color: '#00796D', fontSize: '0.85rem', fontWeight: 600, textDecoration: 'none', letterSpacing: '0.05em' }}
                   className="hover:text-dark-teal transition-colors">
                   ← All articles
                 </Link>
@@ -413,7 +413,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div style={{ background: '#F9FAFB', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem', border: '1px solid #E5E7EB' }}>
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666666', marginBottom: '1rem' }}>About the author</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginBottom: '0.875rem' }}>
-                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#0C7A70', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#00796D', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>JK</span>
                   </div>
                   <div>
@@ -428,7 +428,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Service links relevant to division */}
               <div style={{ background: '#0A0A0A', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem' }}>
-                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#01A7A3', marginBottom: '1.25rem' }}>Our services</p>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '1.25rem' }}>Our services</p>
                 {[
                   { label: 'Tenant Representation', href: '/tenant-rep', desc: 'Lease negotiation on your side' },
                   { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', desc: 'Workplace brief through handover' },
@@ -450,7 +450,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   {relatedPosts.map((rp, i) => (
                     <Link key={rp.slug} href={`/blog/${rp.slug}`} style={{ display: 'block', textDecoration: 'none', paddingBottom: i < relatedPosts.length - 1 ? '1rem' : 0, marginBottom: i < relatedPosts.length - 1 ? '1rem' : 0, borderBottom: i < relatedPosts.length - 1 ? '1px solid #F3F4F6' : 'none' }}
                       className="group">
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full tracking-widest uppercase ${DIVISION_COLORS[rp.division as Division]}`} style={{ fontSize: '0.6rem', marginBottom: '0.5rem', display: 'inline-block' }}>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-sm tracking-widest uppercase ${DIVISION_COLORS[rp.division as Division]}`} style={{ fontSize: '0.6rem', marginBottom: '0.5rem', display: 'inline-block' }}>
                         {DIVISION_LABELS[rp.division as Division]}
                       </span>
                       <p style={{ color: '#111827', fontSize: '0.85rem', fontWeight: 700, lineHeight: 1.4, marginTop: '0.375rem' }} className="group-hover:text-teal transition-colors">
@@ -462,8 +462,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               )}
 
               {/* Tools CTA */}
-              <div style={{ marginTop: '1.5rem', background: '#F0FDFB', border: '1px solid #01A7A320', borderRadius: '0.875rem', padding: '1.75rem' }}>
-                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#0C7A70', marginBottom: '0.875rem' }}>Free tools</p>
+              <div style={{ marginTop: '1.5rem', background: '#F0FDFB', border: '1px solid #00B5A520', borderRadius: '0.875rem', padding: '1.75rem' }}>
+                <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00796D', marginBottom: '0.875rem' }}>Free tools</p>
                 {[
                   { label: 'Lease Risk Checker', href: '/resources/lease-review' },
                   { label: 'Lease Comparison Tool', href: '/resources/lease-comparison' },

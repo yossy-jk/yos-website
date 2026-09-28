@@ -159,7 +159,7 @@ function StepBar({ current }: { current: 1 | 2 }) {
         <div key={s.n} className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <div className={[
-              'w-7 h-7 rounded-full flex items-center justify-center text-xs font-black transition-all duration-300',
+              'w-7 h-7 rounded-sm flex items-center justify-center text-xs font-black transition-all duration-300',
               current >= s.n
                 ? 'bg-teal text-white'
                 : 'bg-white/10 text-white/40',
@@ -299,7 +299,7 @@ export default function LeaseReviewPage() {
                 { name: 'email', value: form.email },
                 { name: 'company', value: form.company },
                 { name: 'phone', value: form.phone },
-                { name: 'message', value: `LeaseIntel™ Free Review — ${form.leaseType} lease — ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})\n${scanNote}\nEncryption: ${encryptedFile ? 'AES-256-GCM' : 'none (fallback)'}` },
+                { name: 'message', value: `LeaseIntel™ Scope Request — ${form.leaseType} lease — ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})\n${scanNote}\nEncryption: ${encryptedFile ? 'AES-256-GCM' : 'none (fallback)'}` },
               ],
             }),
           }
@@ -318,7 +318,7 @@ export default function LeaseReviewPage() {
         fd.append('phone', form.phone || '—')
         fd.append('leaseType', form.leaseType)
         fd.append('state', form.state)
-        fd.append('_subject', `LeaseIntel™ Free Review — ${form.name} (${form.company || form.email}) — ENCRYPTED`)
+        fd.append('_subject', `LeaseIntel™ Scope Request — ${form.name} (${form.company || form.email}) — ENCRYPTED`)
         fd.append('_captcha', 'false')
 
         if (encryptedFile) {
@@ -375,8 +375,8 @@ export default function LeaseReviewPage() {
           <div className="relative max-w-screen-xl mx-auto" style={PAD}>
             <div className="max-w-3xl">
               <FadeIn delay={0}>
-                <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-xl mb-8">
-                  <span className="w-2 h-2 bg-teal rounded-full animate-pulse" />
+                <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-sm mb-8">
+                  <span className="w-2 h-2 bg-teal rounded-sm animate-pulse" />
                   <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ by Your Office Space</span>
                 </div>
               </FadeIn>
@@ -395,13 +395,13 @@ export default function LeaseReviewPage() {
               <FadeIn delay={200}>
                 <p className="text-white/50 leading-relaxed mb-6 font-light"
                   style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', maxWidth: '44rem' }}>
-                  Submit your lease document and receive a complete clause-by-clause analysis within 24 hours.
+                  Request a scoped review of your lease document. We confirm suitability, deliverables, timing and fees before work begins.
                   Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included.
                   <a href="/leaseintel" className="text-teal ml-2 hover:underline" style={{ fontSize: 'inherit' }}>See what&apos;s included →</a>
                 </p>
-                <div className="mb-10 rounded-xl border border-teal bg-teal/10 px-6 py-4" style={{ maxWidth: '44rem' }}>
-                  <p className="text-teal font-bold mb-1" style={{ fontSize: '0.92rem' }}>Newcastle business? Ask about current eligibility for the free report.</p>
-                  <p className="text-white/70 font-light" style={{ fontSize: '0.88rem', lineHeight: 1.75 }}>No payment required — just declare your location on the form below.</p>
+                <div className="mb-10 rounded-sm border border-teal bg-teal/10 px-6 py-4" style={{ maxWidth: '44rem' }}>
+                  <p className="text-teal font-bold mb-1" style={{ fontSize: '0.92rem' }}>Request scope confirmation first.</p>
+                  <p className="text-white/70 font-light" style={{ fontSize: '0.88rem', lineHeight: 1.75 }}>We confirm service fit, timing, fees and secure document handling before commencing the review.</p>
                 </div>
               </FadeIn>
               <FadeIn delay={260}>
@@ -440,8 +440,8 @@ export default function LeaseReviewPage() {
           <FadeIn>
             <div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 text-center" style={PAD}>
               {[
-                { stat: 'Free', label: 'Free for Newcastle businesses' },
-                { stat: '24hr', label: 'Turnaround time' },
+                { stat: 'Scoped', label: 'Deliverables confirmed first' },
+                { stat: 'Dated', label: 'Timing confirmed first' },
                 { stat: '12', label: 'Risk categories reviewed' },
               ].map(item => (
                 <div key={item.stat}>
@@ -483,7 +483,7 @@ export default function LeaseReviewPage() {
                   Everything you need to know<br />before you sign.
                 </h2>
                 <p className="text-white/75 text-sm md:text-base leading-relaxed font-light">
-                  No cost, no obligation. Submit your lease and receive a complete clause-by-clause analysis within 24 hours.
+                  Request a review. The proposed scope, timing, fees and deliverables are confirmed before work begins.
                 </p>
               </div>
             </FadeIn>
@@ -491,7 +491,7 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-7 mb-10 md:mb-16">
               {PAID_INCLUDES.map((item, i) => (
                 <FadeIn key={item.title} delay={i * 60} direction="up">
-                  <div className="border border-white/10 p-8 rounded-2xl hover:border-teal hover:bg-white/[0.02] transition-all duration-200">
+                  <div className="border border-white/10 p-8 rounded-sm hover:border-teal hover:bg-white/[0.02] transition-all duration-200">
                     <h3 className="text-white font-black text-base mb-2">{item.title}</h3>
                     <p className="text-white/75 text-sm leading-relaxed font-light">{item.desc}</p>
                   </div>
@@ -502,8 +502,8 @@ export default function LeaseReviewPage() {
             <FadeIn>
               <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                 <div>
-                  <p className="text-white font-black text-3xl mb-1">Free <span className="text-white/60 font-light text-base">&nbsp;</span></p>
-                  <p className="text-white/75 text-sm">24-hour turnaround · No payment required for Newcastle businesses · Obligation-free</p>
+                  <p className="text-white font-black text-3xl mb-1">Scoped <span className="text-white/60 font-light text-base">review request</span></p>
+                  <p className="text-white/75 text-sm">Suitability · deliverables · timing · fees confirmed first</p>
                 </div>
                 <button
                   onClick={() => setStep('form-details')}
@@ -528,16 +528,16 @@ export default function LeaseReviewPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 { name: 'Law Firm Review', price: '$1,500–$4,000', time: '3–10 days', plain: false, roadmap: false, highlight: false },
-                { name: 'LeaseIntel™', price: 'Free', time: '24 hours', plain: true, roadmap: true, highlight: true },
+                { name: 'LeaseIntel™', price: 'Scope confirmed first', time: 'Timing confirmed first', plain: true, roadmap: true, highlight: true },
                 { name: 'Sign without review', price: 'Free', time: 'Instant', plain: false, roadmap: false, highlight: false },
               ].map((opt, i) => (
                 <FadeIn key={opt.name} delay={i * 80} direction="up">
                   <div className={[
-                    'p-10 rounded-xl border-2 h-full',
+                    'p-10 rounded-sm border-2 h-full',
                     opt.highlight ? 'border-teal bg-white' : 'border-gray-200 bg-white',
                   ].join(' ')}>
                     {opt.highlight && (
-                      <div className="bg-teal text-white text-xs font-black tracking-widest uppercase px-3 py-1 rounded-full inline-block mb-4">
+                      <div className="bg-teal text-white text-xs font-black tracking-widest uppercase px-3 py-1 rounded-sm inline-block mb-4">
                         Best value
                       </div>
                     )}
@@ -577,7 +577,7 @@ export default function LeaseReviewPage() {
                   { icon: 'au', label: 'Privacy Act 1988 Compliant' },
                   { icon: 'private', label: 'Never Shared or Sold' },
                 ].map(b => (
-                  <div key={b.label} className="inline-flex items-center gap-2 border border-gray-200 rounded-full px-5 py-3 bg-gray-50">
+                  <div key={b.label} className="inline-flex items-center gap-2 border border-gray-200 rounded-sm px-5 py-3 bg-gray-50">
                     {b.icon === 'lock'    && <LockIcon />}
                     {b.icon === 'shield'  && <ShieldIcon />}
                     {b.icon === 'tls'     && <TLSIcon />}
@@ -659,9 +659,9 @@ export default function LeaseReviewPage() {
               ← Back
             </button>
 
-            <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
-              <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — Free, No Obligation</span>
+            <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-sm mb-8">
+              <span className="w-2 h-2 bg-teal rounded-sm" />
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Review Scope Request</span>
             </div>
 
             <StepBar current={1} />
@@ -671,11 +671,11 @@ export default function LeaseReviewPage() {
               Tell us about yourself
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-6 font-light">
-              We&apos;ll confirm your submission and deliver your full report within 24 hours. No payment required.
+              We&apos;ll assess the request and confirm suitability, scope, timing and fees before work begins.
             </p>
-            <div className="rounded-xl border border-teal/30 bg-teal/10 px-5 py-4 mb-8">
-              <p className="text-teal font-bold text-xs mb-1">Newcastle business? Ask about current eligibility for the free report.</p>
-              <p className="text-white/60 font-light text-xs" style={{ lineHeight: 1.75 }}>No payment required — declare your location below.</p>
+            <div className="rounded-sm border border-teal/30 bg-teal/10 px-5 py-4 mb-8">
+              <p className="text-teal font-bold text-xs mb-1">Scope confirmation comes first.</p>
+              <p className="text-white/60 font-light text-xs" style={{ lineHeight: 1.75 }}>Your location helps us confirm the applicable service and licensing boundary.</p>
             </div>
 
             <div className="flex flex-col gap-5">
@@ -729,8 +729,8 @@ export default function LeaseReviewPage() {
                 </span>
               </label>
               {form.isNewcastle && (
-                <div className="rounded-lg bg-teal/10 border border-teal/30 px-4 py-3 -mt-1">
-                  <p className="text-teal text-xs font-semibold">No payment required. We will confirm your submission and deliver your report within 24 hours.</p>
+                <div className="rounded-sm bg-teal/10 border border-teal/30 px-4 py-3 -mt-1">
+                  <p className="text-teal text-xs font-semibold">We will confirm the applicable scope, timing and fees before work begins.</p>
                 </div>
               )}
 
@@ -768,9 +768,9 @@ export default function LeaseReviewPage() {
               ← Back
             </button>
 
-            <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-full mb-8">
-              <span className="w-2 h-2 bg-teal rounded-full" />
-              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Full Report — Free, No Obligation</span>
+            <div className="inline-flex items-center gap-2 bg-teal/10 border border-teal/25 px-4 py-2 rounded-sm mb-8">
+              <span className="w-2 h-2 bg-teal rounded-sm" />
+              <span className="text-teal font-bold text-xs tracking-widest uppercase">LeaseIntel™ Review Scope Request</span>
             </div>
 
             <StepBar current={2} />
@@ -780,14 +780,14 @@ export default function LeaseReviewPage() {
               Upload your lease
             </h2>
             <p className="text-white/45 text-sm leading-relaxed mb-8 font-light">
-              PDF or Word document.{form.isNewcastle ? ' Newcastle business confirmed — no payment required. Report delivered within 24 hours.' : ' Full report delivered within 24 hours of payment confirmation.'}
+              PDF or Word document. Uploading the file submits a scope request only; it does not authorise paid work.
             </p>
 
             <div className="flex flex-col gap-5">
               {/* Upload zone */}
               <label className={[
                 'relative overflow-hidden focus-within:border-teal focus-within:ring-2 focus-within:ring-teal focus-within:ring-offset-2 focus-within:ring-offset-near-black',
-                'border-2 border-dashed rounded-xl p-10 text-center cursor-pointer transition-all duration-200',
+                'border-2 border-dashed rounded-sm p-10 text-center cursor-pointer transition-all duration-200',
                 'hover:border-teal/60 hover:bg-white/[0.03]',
                 form.file ? 'border-teal/60 bg-teal/[0.04]' : 'border-white/20',
                 errors.file ? 'border-red-400/60' : '',
@@ -808,7 +808,7 @@ export default function LeaseReviewPage() {
                 />
                 {form.file ? (
                   <div>
-                    <div className="w-10 h-10 bg-teal/15 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div className="w-10 h-10 bg-teal/15 rounded-sm flex items-center justify-center mx-auto mb-3">
                       <CheckIcon />
                     </div>
                     <p className="text-teal font-bold text-sm mb-1">{form.file.name}</p>
@@ -818,7 +818,7 @@ export default function LeaseReviewPage() {
                   </div>
                 ) : (
                   <div>
-                    <div className="w-10 h-10 bg-white/8 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <div className="w-10 h-10 bg-white/8 rounded-sm flex items-center justify-center mx-auto mb-3">
                       <span className="text-white/50 text-xl">↑</span>
                     </div>
                     <p className="text-white/70 text-sm font-semibold mb-1">Drop your lease here</p>
@@ -852,7 +852,7 @@ export default function LeaseReviewPage() {
               >
                 {submitting ? (
                   <>
-                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin flex-shrink-0" />
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-sm animate-spin flex-shrink-0" />
                     {securityStep === 'scanning' && 'Scanning for threats…'}
                     {securityStep === 'encrypting' && 'Encrypting document…'}
                     {securityStep === 'sending' && 'Sending securely…'}
@@ -877,7 +877,7 @@ export default function LeaseReviewPage() {
       <main id="main-content" tabIndex={-1}>
       <div className="min-h-screen bg-near-black flex items-center justify-center px-6 md:px-12 lg:px-20">
         <div className="w-full max-w-lg text-center">
-          <div className="w-16 h-16 bg-teal/15 border border-teal/30 rounded-full flex items-center justify-center mx-auto mb-8">
+          <div className="w-16 h-16 bg-teal/15 border border-teal/30 rounded-sm flex items-center justify-center mx-auto mb-8">
             <CheckIcon />
           </div>
           <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black leading-tight tracking-tight mb-5 outline-none"
@@ -885,18 +885,16 @@ export default function LeaseReviewPage() {
             Lease received. Report incoming.
           </h2>
           <p className="text-white/55 text-base leading-relaxed mb-10 font-light">
-            {form.isNewcastle
-              ? 'Newcastle business confirmed. No payment required. Joe will review your submission and deliver your full report within 24 hours.'
-              : 'Joe will review your submission and deliver your full report within 24 hours. No payment required.'}
+            Your request has been received. We will confirm suitability, scope, timing, fees and the accountable reviewer before work begins.
           </p>
-          <div className="bg-white/[0.04] border border-white/10 rounded-xl p-7 mb-10 text-left">
+          <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 mb-10 text-left">
             <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">What happens next</p>
             <div className="flex flex-col gap-4">
               {[
-                form.isNewcastle ? 'Newcastle business confirmed — no payment required' : 'No payment required — obligation-free',
-                'Full LeaseIntel™ report delivered within 24 hours',
+                'Service fit and licensing boundary checked',
+                'Scope, timing and fees confirmed before work begins',
                 'Every clause rated, financial exposure summarised, negotiation roadmap included',
-                'Book a free Clarity Call with Joe to walk through the findings',
+                'Book a Clarity Call if you want to discuss the proposed scope',
               ].map((s, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="text-teal font-black text-sm mt-0.5 flex-shrink-0">{i + 1}.</span>

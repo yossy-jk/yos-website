@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 
 const C = {
-  teal:    '#01A7A3',
+  teal:    '#00B5A5',
   red:     '#ef4444',
   green:   '#22c55e',
   amber:   '#f59e0b',
@@ -68,7 +68,7 @@ interface BlogSuggestion {
 
 function SuggestionCard({ s, onSuggest }: { s: BlogSuggestion; onSuggest: (s: BlogSuggestion) => void }) {
   const divCol = {
-    'tenant-rep':    '#01A7A3',
+    'tenant-rep':    '#00B5A5',
     'buyers-agency': '#10b981',
     'furniture':     '#8b5cf6',
     'cleaning':      '#f59e0b',
@@ -93,7 +93,7 @@ function SuggestionCard({ s, onSuggest }: { s: BlogSuggestion; onSuggest: (s: Bl
           <span style={{ background: `${divCol}18`, color: divCol, fontSize: '0.52rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '0.1rem 0.4rem', borderRadius: 3 }}>
             {s.division}
           </span>
-          <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'italic' }}>
+          <span style={{ fontSize: '0.62rem', color: C.teal, fontStyle: 'font-semibold' }}>
             {s.keyword}
           </span>
           <span style={{ fontSize: '0.62rem', color: 'rgba(255,255,255,0.25)' }}>

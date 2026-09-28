@@ -178,9 +178,9 @@ export default function TenantRepPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.55)' }} />
         <div className={`absolute inset-0 flex items-end ${WRAP}`} style={{ ...PAD, paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
+            <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
               &ldquo;The useful time to test lease assumptions is before the business commits.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Joe Kelley, Your Office Space</span>
+              <br /><span className="text-teal font-semibold" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Joe Kelley, Your Office Space</span>
             </p>
           </FadeIn>
         </div>
@@ -238,7 +238,7 @@ export default function TenantRepPage() {
                     A broader view of suitable options.
                   </p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    We assess advertised, pre-release and relationship-sourced leasing options against the same brief,
+                    We assess advertised opportunities and verified introductions against the same brief,
                     then show the trade-offs clearly.
                   </p>
                 </div>
@@ -259,7 +259,7 @@ export default function TenantRepPage() {
         <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch' }}>
-              We negotiate harder<br />because we only answer<br /><span style={{ color: '#01A7A3' }}>to you.</span>
+              We negotiate harder<br />because we only answer<br /><span style={{ color: '#00B5A5' }}>to you.</span>
             </p>
           </FadeIn>
         </div>
@@ -329,7 +329,7 @@ export default function TenantRepPage() {
         <div className={`absolute inset-0 flex items-center justify-end ${WRAP}`} style={PAD}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '22ch' }}>
-              The right space changes<br />how your business feels<br /><span style={{ color: '#01A7A3' }}>every single day.</span>
+              The right space changes<br />how your business feels<br /><span style={{ color: '#00B5A5' }}>every single day.</span>
             </p>
           </FadeIn>
         </div>
@@ -464,7 +464,7 @@ export default function TenantRepPage() {
               </h2>
               <p className="text-white/60 font-light leading-relaxed mb-10 w-full"
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
-                20 minutes. No pitch. Just a straight conversation about your space, your situation, and what you&apos;re trying to achieve.
+                A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">

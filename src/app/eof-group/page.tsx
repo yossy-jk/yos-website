@@ -47,7 +47,7 @@ const DIVISIONS = [
     services: ['Site search & selection', 'Lease negotiation', 'Break clause strategy', 'Rent review advocacy', 'Lease renewal management'],
     href: '/eof-group/tenant-representation',
     cta: 'How tenant rep works',
-    colour: '#01A7A3',
+    colour: '#00B5A5',
   },
   {
     id: 'lease-review',
@@ -85,7 +85,7 @@ export default function EOFGroupPage() {
         <FadeIn>
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
-              <p style={{ color: '#01A7A3', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+              <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
                 Newcastle, NSW — Est. 2019
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
@@ -116,7 +116,7 @@ export default function EOFGroupPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ display: 'grid', gap: '2rem', maxWidth: '900px' }}>
               <div>
-                <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                   Why EOF Group
                 </p>
                 <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2, marginBottom: '1.25rem' }}>
@@ -134,7 +134,7 @@ export default function EOFGroupPage() {
                     body: 'From brief to installed fitout — we manage the specification, procurement, installation and cleaning. You approve the work. We handle everything else.',
                   },
                   {
-                    title: 'Local knowledge, national capability',
+                    title: 'Local knowledge, defined service coverage',
                     body: 'Based in Newcastle with established supplier relationships across NSW. For national rollouts, we have the networks to deliver wherever you operate.',
                   },
                   {
@@ -158,7 +158,7 @@ export default function EOFGroupPage() {
         <FadeIn>
           <div className={WRAP} style={PAD}>
             <div style={{ marginBottom: '3.5rem' }}>
-              <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 What we do
               </p>
               <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.5rem)', lineHeight: 1.2 }}>
@@ -184,7 +184,7 @@ export default function EOFGroupPage() {
                     <div>
                       <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.15em', marginBottom: '0.4rem' }}>{div.label}</p>
                       <h3 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', marginBottom: '0.35rem' }}>{div.name}</h3>
-                      <p style={{ color: div.colour, fontSize: '0.8rem', fontWeight: 600, fontStyle: 'italic' }}>{div.tagline}</p>
+                      <p style={{ color: div.colour, fontSize: '0.8rem', fontWeight: 600, fontStyle: 'font-semibold' }}>{div.tagline}</p>
                     </div>
                     <Button href={div.href} variant="outline" size="sm">
                       {div.cta}
@@ -208,7 +208,7 @@ export default function EOFGroupPage() {
         <FadeIn>
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '800px', marginBottom: '3rem' }}>
-              <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+              <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                 The process
               </p>
               <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2 }}>
@@ -224,7 +224,7 @@ export default function EOFGroupPage() {
                 { step: '04', title: 'Delivery & install', body: 'We manage procurement, logistics and installation. Your team keeps working — we handle the coordination and quality control.' },
               ].map(s => (
                 <div key={s.step} style={{ background: 'rgba(255,255,255,0.025)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px', padding: '1.5rem' }}>
-                  <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', marginBottom: '1rem' }}>{s.step}</p>
+                  <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', marginBottom: '1rem' }}>{s.step}</p>
                   <p style={{ color: 'white', fontWeight: 700, fontSize: '0.95rem', marginBottom: '0.5rem' }}>{s.title}</p>
                   <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem', lineHeight: 1.65 }}>{s.body}</p>
                 </div>
@@ -240,7 +240,7 @@ export default function EOFGroupPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ display: 'grid', gap: '2rem', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', alignItems: 'center' }}>
               <div>
-                <p style={{ color: '#01A7A3', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                   Where we work
                 </p>
                 <h2 style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', lineHeight: 1.2, marginBottom: '1.25rem' }}>
@@ -265,7 +265,7 @@ export default function EOFGroupPage() {
                   'Regional NSW (project-based)',
                 ].map(area => (
                   <div key={area} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#01A7A3', flexShrink: 0 }} />
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#00B5A5', flexShrink: 0 }} />
                     <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.88rem' }}>{area}</p>
                   </div>
                 ))}

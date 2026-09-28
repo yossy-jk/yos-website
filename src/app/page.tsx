@@ -148,7 +148,7 @@ export default function Home() {
           <FadeIn delay={240}>
             <div className="flex flex-col items-start gap-3">
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
-              <span className="text-white/80 text-sm">20 minutes. No pitch.</span>
+              <span className="text-white/80 text-sm">A focused conversation about the decision in front of you.</span>
             </div>
           </FadeIn>
         </div>
@@ -235,7 +235,7 @@ export default function Home() {
               <p className="text-charcoal leading-relaxed mb-4" style={{ maxWidth: '44rem' }}>
                 Ongoing workplace care for businesses in Newcastle and the Hunter, scoped around the standard your site needs.
               </p>
-              <Link href="/cleaning" className="text-dark-teal font-semibold underline underline-offset-4">Get a cleaning quote</Link>
+              <Link href="/cleaning" className="text-action-teal font-semibold underline underline-offset-4">Get a cleaning quote</Link>
             </div>
           </FadeIn>
         </div>
@@ -340,7 +340,7 @@ export default function Home() {
               <div className="border border-gray-200 p-8 sm:p-10 flex flex-col gap-6">
                 <div className="flex items-start gap-4">
                   <div className="flex-shrink-0 w-10 h-10 bg-teal/10 rounded-[4px] flex items-center justify-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#01A7A3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                       <polyline points="14 2 14 8 20 8" />
                     </svg>
@@ -367,7 +367,7 @@ export default function Home() {
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '46rem', margin: '0 auto' }}>
               <div className="inline-flex items-center gap-2 border border-white/30 mb-8" style={{ padding: '0.5rem 1.25rem' }}>
-                <span className="bg-white rounded-full" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
+                <span className="bg-white rounded-sm" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
                 <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>New — LeaseIntel™</span>
               </div>
               <h2 className="text-white leading-tight tracking-tight w-full"
@@ -407,11 +407,11 @@ export default function Home() {
               </h2>
               <p className="text-white/80 font-normal leading-relaxed w-full"
                 style={{ fontSize: '1rem', lineHeight: 1.8, marginBottom: '2rem' }}>
-                No obligation. No pitch. Tell us what you&apos;re working with and we&apos;ll give you a straight answer.
+                Tell us what you&apos;re working with and we&apos;ll identify the clearest next step.
               </p>
               <BookingCTA label="Book a Clarity Call" variant="primary" size="lg" />
               <p className="text-white/80 font-normal mt-5" style={{ fontSize: '0.8rem' }}>
-                We respond within one business day.
+                Appointment availability is shown when you book.
               </p>
             </div>
           </FadeIn>

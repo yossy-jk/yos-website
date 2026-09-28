@@ -50,7 +50,7 @@ function highlight(text: string, query: string) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark style={{ background: 'rgba(1,167,163,0.25)', color: '#01A7A3', borderRadius: '2px', padding: '0 1px' }}>
+      <mark style={{ background: 'rgba(1,167,163,0.25)', color: '#00B5A5', borderRadius: '2px', padding: '0 1px' }}>
         {text.slice(idx, idx + query.length)}
       </mark>
       {text.slice(idx + query.length)}
@@ -207,12 +207,12 @@ export default function Search() {
                     {/* Icon */}
                     <span className="flex-shrink-0 mt-0.5" style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       {item.category === 'Tool' && (
-                        <svg width="12" height="12" fill="none" stroke="#01A7A3" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg width="12" height="12" fill="none" stroke="#00B5A5" strokeWidth="2" viewBox="0 0 24 24">
                           <rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 9h6M9 12h6M9 15h4" />
                         </svg>
                       )}
                       {item.category === 'Service' && (
-                        <svg width="12" height="12" fill="none" stroke="#01A7A3" strokeWidth="2" viewBox="0 0 24 24">
+                        <svg width="12" height="12" fill="none" stroke="#00B5A5" strokeWidth="2" viewBox="0 0 24 24">
                           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                         </svg>
                       )}

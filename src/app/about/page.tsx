@@ -8,12 +8,12 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
   title: 'About | Your Office Space — Commercial Property Advisory Newcastle',
-  description: 'Newcastle-based, tenant-side commercial property advisory. Hunter home territory, with services available across Australia.',
+  description: 'Based in Newcastle. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
   twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
   openGraph: {
     title: 'About | Your Office Space Newcastle',
-    description: 'Newcastle-based, tenant-side commercial property advisory. Hunter home territory, with services available across Australia.',
+    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
     url: 'https://www.yourofficespace.au/about',
     images: [{ url: '/og/og-about.png', width: 1200, height: 630, alt: 'About Your Office Space | Newcastle NSW | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -74,7 +74,7 @@ export default function AboutPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -117,7 +117,7 @@ export default function AboutPage() {
             "mainEntity": [
               { "@type": "Question", "name": "How does Your Office Space charge?", "acceptedAnswer": { "@type": "Answer", "text": "Scope, fees and any relevant payment arrangements are explained before an engagement begins." } },
               { "@type": "Question", "name": "Why does Your Office Space take a tenant-side position?", "acceptedAnswer": { "@type": "Answer", "text": "A tenant-side position keeps advice and negotiation focused on the priorities of the business occupying the space." } },
-              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is Newcastle-based, with the Hunter as its home territory and tenant-side advisory available across Australia." } },
+              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, fit out and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle and the Hunter." } },
               { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
               { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Book a 20-minute Clarity Call. Bring the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
               { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier — many of our best client relationships are conducted entirely online." } }
@@ -219,7 +219,7 @@ export default function AboutPage() {
 
             {/* Joe */}
             <FadeIn direction="left">
-              <div className="bg-white rounded-2xl overflow-hidden flex flex-col hover:shadow-md transition-shadow duration-300" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
+              <div className="bg-white rounded-sm overflow-hidden flex flex-col border border-gray-200">
 
                 {/* Photo strip */}
                 <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
@@ -246,7 +246,7 @@ export default function AboutPage() {
                 {/* Quote */}
                 <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
                   <blockquote>
-                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
+                    <p className="text-mid-grey font-semibold leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
                       &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing — straight advice, and someone who actually gives a damn about the outcome.&rdquo;
                     </p>
                   </blockquote>
@@ -255,7 +255,7 @@ export default function AboutPage() {
                 {/* Tags */}
                 <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                   {['Commercial Property', 'Tenant Representation', 'Fitout Strategy'].map(tag => (
-                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
+                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-sm border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
                 </div>
 
@@ -264,7 +264,7 @@ export default function AboutPage() {
 
             {/* Sarah */}
             <FadeIn direction="right" delay={100}>
-              <div className="bg-white rounded-2xl overflow-hidden flex flex-col hover:shadow-md transition-shadow duration-300" style={{ boxShadow: '0 2px 24px rgba(0,0,0,0.06)' }}>
+              <div className="bg-white rounded-sm overflow-hidden flex flex-col border border-gray-200">
 
                 {/* Photo strip */}
                 <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
@@ -291,7 +291,7 @@ export default function AboutPage() {
                 {/* Quote */}
                 <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
                   <blockquote>
-                    <p className="text-mid-grey font-light leading-relaxed italic" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
+                    <p className="text-mid-grey font-semibold leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
                       &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple — if I wouldn&apos;t be happy with it, neither should you.&rdquo;
                     </p>
                   </blockquote>
@@ -300,7 +300,7 @@ export default function AboutPage() {
                 {/* Tags */}
                 <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
                   {['Commercial Offices', 'Medical & Childcare', 'Quality Assurance'].map(tag => (
-                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-lg border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
+                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-sm border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
                 </div>
 
@@ -318,9 +318,9 @@ export default function AboutPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
               {[
                 { stat: 'Newcastle-based', label: 'Hunter home territory' },
-                { stat: 'Australia-wide', label: 'Tenant-side advisory' },
+                { stat: 'NSW', label: 'Tenant representation' },
                 { stat: 'Four services', label: 'One accountable partner' },
-                { stat: 'NSW licensed', label: 'Tenant representation' },
+                { stat: 'NSW', label: 'Verified service coverage' },
               ].map(item => (
                 <div key={item.stat} className="border-t border-white/10 pt-6">
                   <p className="text-teal font-black mb-2" style={{ fontSize: 'clamp(1.2rem,2.5vw,1.75rem)' }}>{item.stat}</p>
@@ -330,16 +330,16 @@ export default function AboutPage() {
             </div>
           </FadeIn>
           <FadeIn delay={100}>
-            <div className="border border-white/10 rounded-xl p-8 md:p-10">
+            <div className="border border-white/10 rounded-sm p-8 md:p-10">
               <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">Credentials &amp; Licence</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                  <p className="text-white font-bold mb-1">NSW Real Estate Licence</p>
-                  <p className="text-white/45 font-light text-sm leading-relaxed">Class 2 NSW real estate licence. All property advisory and tenant representation work is conducted under full licence compliance.</p>
+                  <p className="text-white font-bold mb-1">Service boundary</p>
+                  <p className="text-white/70 font-light text-sm leading-relaxed">Tenant representation is undertaken only within verified NSW licensing coverage. The engagement scope and accountable entity are confirmed before work begins.</p>
                 </div>
                 <div>
                   <p className="text-white font-bold mb-1">Service Area</p>
-                  <p className="text-white/45 font-light text-sm leading-relaxed">Newcastle CBD, Maitland, Lake Macquarie, Cessnock, Singleton, Port Stephens and the Hunter Valley. National capability for multi-site clients.</p>
+                  <p className="text-white/70 font-light text-sm leading-relaxed">Tenant representation in NSW. Office fit out and commercial furniture support Australia-wide. Commercial cleaning in Newcastle and the Hunter.</p>
                 </div>
                 <div>
                   <p className="text-white font-bold mb-1">Industries Served</p>
@@ -381,7 +381,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               { heading: 'A clear client position.', body: "Tenant representation is framed around the occupying business's brief, risks and commercial priorities." },
-              { heading: 'Local knowledge. Wider reach.', body: "Newcastle is our base and the Hunter is our home territory, with tenant-side advisory available across Australia." },
+              { heading: 'Local base. Defined reach.', body: "Newcastle is our base. We deliver tenant representation in NSW, fit out and furniture support Australia-wide, and commercial cleaning in Newcastle and the Hunter." },
               { heading: 'End-to-end accountability.', body: "Lease decisions, fit out, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
               { heading: 'Visible decisions.', body: "Recommendations identify the evidence, trade-offs and approvals needed before the team proceeds." },
             ].map((item, i) => (
@@ -406,7 +406,7 @@ export default function AboutPage() {
                 Ready to have someone genuinely on your side?
               </h2>
               <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
-                20 minutes. No pitch. Just a straight conversation about your space and what you&apos;re trying to achieve.
+                A focused conversation about your space and the decision you are trying to make.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
                 Book a Clarity Call

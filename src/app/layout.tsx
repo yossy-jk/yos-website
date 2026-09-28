@@ -23,15 +23,15 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   title: "Your Office Space | Commercial Property Advisory Australia",
-  description: "Based in Newcastle and working Australia-wide where capability and licensing permit. One team for property decisions, commercial fit out and workplace furniture.",
-  keywords: "commercial tenant representation Australia, commercial fit out project management, office commercial furniture, commercial cleaning, Newcastle tenant advisory",
+  description: "One tenant-side team for leasing in NSW, commercial fit out and workplace furniture across Australia. Based in Newcastle.",
+  keywords: "tenant representation NSW, commercial fit out Australia, office furniture Australia, commercial cleaning Newcastle, workplace project management",
   metadataBase: new URL("https://www.yourofficespace.au"),
   alternates: {
     canonical: "https://www.yourofficespace.au",
   },
   openGraph: {
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "One team. Clear direction. No guesswork. Based in Newcastle and working Australia-wide where capability and licensing permit.",
+    description: "One team for leasing in NSW, commercial fit out and workplace furniture across Australia. Based in Newcastle.",
     url: "https://www.yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "One team. Clear direction. No guesswork. Based in Newcastle and working Australia-wide where capability and licensing permit.",
+    description: "One team for leasing in NSW, commercial fit out and workplace furniture across Australia. Based in Newcastle.",
     images: ["/og-default.png"],
   },
 };

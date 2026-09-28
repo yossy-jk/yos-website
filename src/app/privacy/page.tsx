@@ -95,7 +95,7 @@ export default function PrivacyPage() {
 
             <PrivacySection title="Who we are">
               <p>
-                Your Office Space is operated by Joe Kelley, Managing Director, NSW Real Estate Licence 20565455.
+                Your Office Space is operated by Joe Kelley, Managing Director. Tenant representation is delivered within verified NSW licensing coverage.
                 We provide tenant representation, commercial fit out and project management, office and commercial furniture,
                 commercial cleaning, and supporting workplace resources.
               </p>
@@ -240,10 +240,10 @@ export default function PrivacyPage() {
               <p>
                 Privacy questions? Just reach out directly:
               </p>
-              <address className="not-italic mt-3 text-near-black/70 space-y-1" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
+              <address className="font-normal mt-3 text-near-black/70 space-y-1" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
                 <strong className="text-near-black">Joe Kelley</strong><br />
                 Managing Director, Your Office Space<br />
-                NSW Real Estate Licence 20565455<br />
+                Tenant representation is delivered within verified NSW licensing coverage.<br />
                 <a href="mailto:jk@yourofficespace.au" className="text-teal hover:underline">jk@yourofficespace.au</a>
               </address>
             </PrivacySection>

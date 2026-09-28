@@ -17,7 +17,7 @@ import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
-  description: 'Office furniture and fitout project management across Australia. Express in-stock range to made-to-order — tailored to your timeline, budget and design intent.',
+  description: 'Commercial office furniture planning, specification, procurement and installation support across Australia, tailored to the workplace brief.',
   twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'From brief to delivery. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
@@ -63,7 +63,7 @@ export default function FurniturePage() {
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/furniture#service",
-            "name": "Office Furniture & Fitout Newcastle",
+            "name": "Commercial Office Furniture — Australia",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -84,15 +84,14 @@ export default function FurniturePage() {
               
               { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space supplies a wide range of commercial office furniture brands covering workstations, seating, meeting tables, storage, and breakout settings. We match the product to your spec, timeline and budget — not to a limited product list. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
               { "@type": "Question", "name": "Can you project manage a full fitout including construction and joinery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space project manages full commercial fitouts including partition walls, flooring, joinery, electrical, AV, and IT infrastructure. We are the single point of contact from brief to practical completion." } },
-              { "@type": "Question", "name": "Do you offer express or fast-track fitout options?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have an in-stock express range that ships in 1–2 weeks for standard workstations, seating and storage. Made-to-order items typically run 3–6 weeks. Lead times are confirmed before you commit to anything." } },
-              { "@type": "Question", "name": "Can you supply furniture for government and council organisations?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We have worked with local government and public sector organisations across Australia. We understand procurement requirements, panel supplier arrangements, and compliance obligations specific to government fitout projects." } },
-              { "@type": "Question", "name": "What areas of NSW do you deliver fitouts to?", "acceptedAnswer": { "@type": "Answer", "text": "We deliver across Newcastle, the Hunter Valley, Sydney, the Central Coast and regional NSW. We also work with commercial property clients across Australia for product supply regardless of location." } }
+              { "@type": "Question", "name": "Do you offer fast-track furniture options?", "acceptedAnswer": { "@type": "Answer", "text": "Where suitable products are available, we can plan a faster programme. Product availability and lead times are confirmed in writing before approval." } },
+              { "@type": "Question", "name": "Where do you provide commercial furniture support?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and provide commercial furniture support Australia-wide. The available delivery and installation approach is confirmed for each project." } }
             ]
           },
           {
             "@type": "Product",
             "name": "Commercial Workstations",
-            "description": "Commercial workstations and desking systems — fixed and height-adjustable (EHA). Commercial grade. Designed for teams of 2–200+.",
+            "description": "Commercial workstations and desking systems, including fixed and height-adjustable options, specified for the workplace brief.",
             "brand": { "@type": "Brand", "name": "Your Office Space" },
             "url": "https://www.yourofficespace.au/furniture",
             "image": "https://www.yourofficespace.au/images/furniture/space-wsi-openplan.jpg",
@@ -153,7 +152,7 @@ export default function FurniturePage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Office Furniture &amp; Fitout Newcastle —
+              Commercial Office Furniture —
               <br /><span className="text-teal">brief to delivered.</span>
             </h1>
           </FadeIn>
@@ -192,10 +191,10 @@ export default function FurniturePage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-200">
               {[
-                { stat: '200+', label: 'Projects delivered across Australia' },
-                { stat: '1–2 weeks', label: 'Express delivery on in-stock range' },
-                { stat: '3D layout', label: 'Planning service at no extra cost' },
-                { stat: '$0', label: 'Hidden charges or surprises' }
+                { stat: 'Brief', label: 'People, space, budget and programme' },
+                { stat: 'Specify', label: 'Furniture selected for the approved brief' },
+                { stat: 'Plan', label: 'Layout, procurement and delivery coordinated' },
+                { stat: 'Install', label: 'Site delivery and placement managed' }
               ].map((item) => (
                 <div key={item.label} className="py-5 px-4 sm:py-8 sm:px-6 text-center">
                   <p className="text-near-black font-black text-3xl lg:text-4xl mb-2 leading-tight">{item.stat}</p>
@@ -214,7 +213,7 @@ export default function FurniturePage() {
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch', marginBottom: '0.75rem' }}>
-              Your workspace should feel like<br /><span style={{ color: '#01A7A3' }}>it was built for you.</span>
+              Your workspace should feel like<br /><span style={{ color: '#00B5A5' }}>it was built for you.</span>
             </p>
             <p className="text-white/50 font-light" style={{ fontSize: '0.8rem', letterSpacing: '0.15em' }}>COMMERCIAL OFFICES — COGC — INSTALLED BY YOS</p>
           </FadeIn>
@@ -264,7 +263,7 @@ export default function FurniturePage() {
               }
             ].map((cat, i) => (
               <FadeIn key={i} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-xl overflow-hidden h-full flex flex-col shadow-sm hover:shadow-md transition-shadow duration-300">
+                <div className="bg-warm-grey rounded-sm overflow-hidden h-full flex flex-col border border-gray-200">
                   {/* Product image */}
                   <div className="relative overflow-hidden" style={{ height: 'clamp(14rem, 22vw, 20rem)' }}>
                     <Image src={cat.image} alt={cat.imageAlt} fill className="object-cover object-center" />
@@ -272,7 +271,7 @@ export default function FurniturePage() {
                     <div className="absolute bottom-0 left-0 right-0 p-6">
                       <span className="text-white font-black text-lg tracking-tight" style={{ textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>{cat.category}</span>
                     </div>
-                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#01A7A3', width: '6px' }} />
+                    <div className="absolute top-0 left-0 w-1" style={{ height: '100%', background: '#00B5A5', width: '6px' }} />
                   </div>
                   {/* Content */}
                   <div className="p-8 sm:p-10 flex flex-col flex-1">
@@ -327,7 +326,7 @@ export default function FurniturePage() {
               { src: '/images/furniture/space-liverpool-a.jpg',        alt: 'Civic office with collaborative layout',              label: 'Civic & Formal',  mood: 'Structured & Professional' },
             ].map((img, i) => (
               <FadeIn key={i} delay={Math.floor(i / 3) * 80 + (i % 3) * 60} direction="up">
-                <div className="overflow-hidden rounded-xl aspect-[4/3] relative group cursor-pointer group-hover:scale-[1.02] transition-transform duration-500">
+                <div className="overflow-hidden rounded-sm aspect-[4/3] relative group cursor-pointer group-hover:scale-[1.02] transition-transform duration-500">
                   <Image
                     src={img.src}
                     alt={img.alt}
@@ -367,7 +366,7 @@ export default function FurniturePage() {
               {
                 icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
                 title: 'Fast delivery available',
-                body: "In-stock items dispatched in days. Made-to-order typically 3–6 weeks. If you're on a tight timeline, tell us up front — we'll find a way."
+                body: "If you are working to a fixed date, tell us at the start. We will confirm suitable products, availability and the delivery programme before approval."
               },
               {
                 icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>,
@@ -381,7 +380,7 @@ export default function FurniturePage() {
               },
               {
                 icon: <svg style={{ width: '1.5rem', height: '1.5rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
-                title: 'Trusted across NSW',
+                title: 'Delivery support Australia-wide',
                 body: "We've worked with councils, schools, health facilities and businesses of all sizes across New South Wales. References available on request."
               },
               {
@@ -397,7 +396,7 @@ export default function FurniturePage() {
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
                 <div className="flex gap-4 p-7 sm:p-8">
-                  <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: '#01A7A3', color: '#0D1117' }}>
+                  <div className="flex-shrink-0 w-10 h-10 rounded-sm flex items-center justify-center" style={{ background: '#00B5A5', color: '#0D1117' }}>
                     {item.icon}
                   </div>
                   <div>
@@ -424,9 +423,8 @@ export default function FurniturePage() {
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.4)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
-            <p className="text-white font-light italic" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #01A7A3', paddingLeft: '1.5rem' }}>
-              &ldquo;Highly recommend Joe. Same-day service and gas strut replacement, and the chair was back the same afternoon with extra TLC. Professional, prompt and friendly.&rdquo;
-              <br /><span className="text-teal font-semibold not-italic" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— KK</span>
+            <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
+              Product selection, lead times, delivery and installation are confirmed against the approved workplace brief before an order proceeds.
             </p>
           </FadeIn>
         </div>
@@ -436,7 +434,7 @@ export default function FurniturePage() {
       <section style={SEC_SM} className="bg-[#0D1117] border-y border-white/5">
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
-            <p className="text-white/30 font-light text-xs tracking-widest uppercase text-center mb-8">Trusted by organisations across NSW</p>
+            <p className="text-white/80 font-light text-xs tracking-widest uppercase text-center mb-8">Furniture specified around the workplace brief</p>
             <div className="flex flex-wrap justify-center gap-8 items-center opacity-60">
               {['Local Councils', 'Schools & Universities', 'Health Facilities', 'Professional Services', 'Government Bodies'].map(name => (
                 <span key={name} className="text-white font-bold text-sm tracking-wide uppercase" style={{ fontSize: '0.8rem' }}>{name}</span>
@@ -499,7 +497,7 @@ export default function FurniturePage() {
             {[
               { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. New fitout, partial refresh, or just some new chairs — we start with your needs, not a catalogue." },
               { step: '02', title: 'Spec & Quote', body: 'We prepare a specification and quote based on your space, your people, and your budget. No surprises.' },
-              { step: '03', title: 'Source & Deliver', body: 'We match products to your timeline. In-stock express range ships in 1–2 weeks. Made-to-order items typically run 3–6 weeks. Lead times are confirmed before you commit.' },
+              { step: '03', title: 'Source & Deliver', body: 'We match products to the approved brief and programme. Availability and lead times are confirmed before you commit.' },
               { step: '04', title: 'Deliver & Install', body: "We deliver and install. Your team walks in to a ready workspace. We don't leave until it's right." }
             ].map((step, i) => (
               <FadeIn key={step.step} delay={i * 80} direction="up">
@@ -519,7 +517,7 @@ export default function FurniturePage() {
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="bg-near-black rounded-xl p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Bundle &amp; Save</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
@@ -567,7 +565,7 @@ export default function FurniturePage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-warm-grey rounded-xl p-7 sm:p-10">
+              <div className="bg-warm-grey rounded-sm p-7 sm:p-10">
                 <HubSpotForm formId="188fd0e9-44a0-4ed1-ab94-da26126fcc9e" targetId="furniture-quote-form" />
               </div>
             </div>

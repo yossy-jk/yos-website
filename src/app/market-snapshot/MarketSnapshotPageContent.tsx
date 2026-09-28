@@ -54,7 +54,7 @@ function renderSnapshotMarkdown(md: string): string {
       if (inList) { result.push('</ul>'); inList = false }
     } else {
       if (inList) { result.push('</ul>'); inList = false }
-      // Source/italic-only lines (wrapped in single *)
+      // Source/font-semibold-only lines (wrapped in single *)
       if (line.startsWith('*') && line.endsWith('*') && !line.startsWith('**')) {
         result.push(`<p class="snap-source">${processBoldAndItalic(line)}</p>`)
       } else {
@@ -113,7 +113,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
-        className="relative w-full bg-white rounded-2xl overflow-hidden shadow-2xl"
+        className="relative w-full bg-white rounded-sm overflow-hidden shadow-2xl"
         style={{ maxWidth: '34rem', animation: 'popupIn 0.32s cubic-bezier(0.34,1.56,0.64,1)' }}
       >
         {/* Teal top bar */}
@@ -122,7 +122,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
         {/* Close */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-mid-grey hover:text-near-black transition-colors"
+          className="absolute top-5 right-5 w-9 h-9 rounded-sm bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-mid-grey hover:text-near-black transition-colors"
           aria-label="Close"
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -133,10 +133,10 @@ function RegistrationPopup({ onClose }: PopupProps) {
         {!submitted ? (
           <div style={{ padding: '2.5rem 2.75rem 2.75rem' }}>
             <div
-              className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full mb-6"
+              className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-sm mb-6"
               style={{ padding: '0.5rem 1rem' }}
             >
-              <span className="w-2 h-2 rounded-full bg-teal" />
+              <span className="w-2 h-2 rounded-sm bg-teal" />
               <span className="font-bold text-xs tracking-widest uppercase">Free Monthly Report</span>
             </div>
 
@@ -157,7 +157,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
                 value={firstname}
                 onChange={e => setFirstname(e.target.value)}
                 required
-                className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               />
               <input
@@ -166,13 +166,13 @@ function RegistrationPopup({ onClose }: PopupProps) {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full border border-gray-200 rounded-xl text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               />
               <select
                 value={region}
                 onChange={e => setRegion(e.target.value)}
-                className="w-full border border-gray-200 rounded-xl text-near-black font-light outline-none focus:border-teal transition-colors bg-white"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light outline-none focus:border-teal transition-colors bg-white"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               >
                 <option value="Newcastle">Newcastle</option>
@@ -188,7 +188,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
               <button
                 type="submit"
                 disabled={submitting || !email.trim() || !firstname.trim()}
-                className="w-full bg-teal text-white font-bold uppercase tracking-[0.1em] rounded-xl hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full bg-teal text-white font-bold uppercase tracking-[0.1em] rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ padding: '1.25rem 2rem', fontSize: '0.72rem', marginTop: '0.35rem' }}
               >
                 {submitting ? 'Sending…' : 'Send me the snapshot'}
@@ -201,9 +201,9 @@ function RegistrationPopup({ onClose }: PopupProps) {
           </div>
         ) : (
           <div className="text-center" style={{ padding: '3rem 2.75rem' }}>
-            <div className="w-14 h-14 rounded-full bg-teal/10 flex items-center justify-center mx-auto mb-5">
+            <div className="w-14 h-14 rounded-sm bg-teal/10 flex items-center justify-center mx-auto mb-5">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                <path d="M6 14l6 6 10-12" stroke="#01A7A3" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 14l6 6 10-12" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             <h3 className="text-near-black font-bold text-xl mb-3">Done. First edition coming your way.</h3>
@@ -238,7 +238,7 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         href={leaseIntelHref}
         className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
       >
-        Lease review — $297 ex GST, 24-hour turnaround
+        Lease review — scope, timing and fees confirmed first
       </Link>
       <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
         Newcastle business? Ask about current eligibility for the full LeaseIntel report.
@@ -290,8 +290,8 @@ export default function MarketSnapshotPageContent({
           style={PAD}
         >
           <FadeIn>
-            <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full px-4 py-2 mb-8">
-              <span className="w-2 h-2 rounded-full bg-teal" />
+            <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-sm px-4 py-2 mb-8">
+              <span className="w-2 h-2 rounded-sm bg-teal" />
               <span className="font-semibold text-xs tracking-widest uppercase">Newcastle Office Market</span>
             </div>
             <h1
@@ -361,7 +361,7 @@ export default function MarketSnapshotPageContent({
           <FadeIn>
             {/* Report card */}
             <div
-              className="bg-white rounded-2xl hover:shadow-md transition-shadow duration-300"
+              className="bg-white rounded-sm border border-gray-200"
               style={{
                 border: '1px solid rgba(0,0,0,0.08)',
                 boxShadow: '0 4px 40px rgba(0,0,0,0.06)',
@@ -426,7 +426,7 @@ export default function MarketSnapshotPageContent({
                   href={leaseIntelHref}
                   className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
-                  Lease review — $297 ex GST
+                  Lease review — request scope confirmation
                 </Link>
               </div>
             </div>
@@ -438,7 +438,7 @@ export default function MarketSnapshotPageContent({
       <section
         style={{
           ...SEC_SM,
-          background: '#FAFAF8',
+          background: '#F5F5F5',
           borderTop: '1px solid rgba(0,0,0,0.06)',
         }}
       >
@@ -470,16 +470,16 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-h1 {
           font-size: clamp(1.1rem, 2.5vw, 1.4rem);
           font-weight: 800;
-          color: #0A3B38;
+          color: #1A1A1A;
           letter-spacing: -0.02em;
           margin: 2.5rem 0 1rem;
           padding-bottom: 0.75rem;
-          border-bottom: 2px solid #01A7A3;
+          border-bottom: 2px solid #00B5A5;
         }
         .snapshot-content .snap-h2 {
           font-size: clamp(1rem, 2vw, 1.2rem);
           font-weight: 800;
-          color: #0A3B38;
+          color: #1A1A1A;
           letter-spacing: -0.01em;
           margin: 2rem 0 0.875rem;
           text-transform: uppercase;
@@ -488,7 +488,7 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-h3 {
           font-size: 0.85rem;
           font-weight: 700;
-          color: #0A3B38;
+          color: #1A1A1A;
           margin: 1.5rem 0 0.5rem;
           text-transform: uppercase;
           letter-spacing: 0.15em;
@@ -496,15 +496,15 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-p {
           font-size: clamp(0.9rem, 1.8vw, 1rem);
           font-weight: 300;
-          color: #0A3B38;
+          color: #1A1A1A;
           line-height: 1.85;
           margin: 0 0 1rem;
         }
         .snapshot-content .snap-source {
           font-size: 0.82rem;
           font-weight: 300;
-          color: #5A6B68;
-          font-style: italic;
+          color: #6B6B6B;
+          font-style: font-semibold;
           line-height: 1.7;
           margin: 0.5rem 0 1.25rem;
           padding: 0.75rem 1rem;
@@ -524,17 +524,17 @@ export default function MarketSnapshotPageContent({
         .snapshot-content .snap-list li {
           font-size: clamp(0.9rem, 1.8vw, 1rem);
           font-weight: 300;
-          color: #0A3B38;
+          color: #1A1A1A;
           line-height: 1.85;
           margin-bottom: 0.5rem;
           padding-left: 0.25rem;
         }
         .snapshot-content strong {
           font-weight: 700;
-          color: #0A3B38;
+          color: #1A1A1A;
         }
         .snapshot-content em {
-          font-style: italic;
+          font-style: font-semibold;
         }
       `}</style>
     </>

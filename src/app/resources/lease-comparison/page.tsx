@@ -144,7 +144,7 @@ function BarChart({ results, bestIdx }: { results: LeaseResult[]; bestIdx: numbe
                 <span className="text-near-black font-semibold text-sm">{r.name}</span>
                 <span className={`font-bold text-sm ${isBest ? 'text-teal' : 'text-near-black'}`}>{fmtK(r.netPresentCost)}</span>
               </div>
-              <div className="h-8 bg-warm-grey rounded-lg overflow-hidden">
+              <div className="h-8 bg-warm-grey rounded-sm overflow-hidden">
                 <div
                   className={`h-full rounded transition-all duration-500 flex items-center px-3 ${isBest ? 'bg-teal' : 'bg-mid-grey/40'}`}
                   style={{ width: `${w}%` }}
@@ -282,7 +282,7 @@ export default function LeaseComparisonPage() {
                   {[0, 1, 2].map(i => (
                     <th key={i} className="text-left px-5" style={{ paddingBottom: '2rem' }}>
                       <div className="flex items-center gap-2">
-                        <div className={`w-2.5 h-2.5 rounded-full ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
+                        <div className={`w-2.5 h-2.5 rounded-sm ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
                         <span className="text-near-black font-bold" style={{ fontSize: '0.95rem' }}>Option {i + 1}</span>
                       </div>
                     </th>
@@ -308,7 +308,7 @@ export default function LeaseComparisonPage() {
                             value={leases[i][f.key]}
                             onChange={e => update(i, f.key, e.target.value)}
                             placeholder={f.key === 'rentReview' ? '3.5' : f.key === 'name' ? 'e.g. 12 Smith St' : ''}
-                            className={`w-full border border-gray-200 rounded-lg px-4 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-7' : ''} ${f.suffix ? 'pr-10' : ''}`}
+                            className={`w-full border border-gray-200 rounded-sm px-4 text-near-black font-light text-sm focus:outline-none focus:border-teal transition-colors ${f.prefix ? 'pl-7' : ''} ${f.suffix ? 'pr-10' : ''}`}
                             style={{ paddingTop: '0.9rem', paddingBottom: '0.9rem' }}
                           />
                           {f.suffix && (
@@ -353,21 +353,21 @@ export default function LeaseComparisonPage() {
             heading="Where should we send your comparison?"
             subheading="Unlock the full year-by-year breakdown and negotiation flags."
             teaser={
-              <div className="bg-near-black rounded-xl p-8 mb-4">
+              <div className="bg-near-black rounded-sm p-8 mb-4">
                 <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
                 <h2 className="text-white font-bold mb-3" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
                   {validResults.length === 1 ? validResults[0].name : `${validResults[bestIdx]?.name} is the better deal`}
                 </h2>
                 <div className="flex flex-wrap gap-6 mt-4">
                   {validResults.map((r, i) => (
-                    <div key={i} className="bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+                    <div key={i} className="bg-white/5 border border-white/10 rounded-sm px-4 py-3">
                       <p className="text-white/60 text-xs mb-1">{r.name}</p>
                       <p className="text-white font-black">{fmt(r.trueCostPa)}<span className="text-white/40 font-light text-sm">/yr</span></p>
                     </div>
                   ))}
                 </div>
                 <div className="mt-6 border-t border-white/10 pt-4">
-                  {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded-lg" /><span className="w-20 h-3 bg-white/10 rounded-lg" /></div>)}
+                  {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded-sm" /><span className="w-20 h-3 bg-white/10 rounded-sm" /></div>)}
                   <p className="text-white/25 text-xs mt-3">Year-by-year breakdown — unlock to view</p>
                 </div>
               </div>
@@ -375,7 +375,7 @@ export default function LeaseComparisonPage() {
           >
 
             {/* Verdict banner */}
-            <div className="bg-near-black rounded-xl p-8 mb-10">
+            <div className="bg-near-black rounded-sm p-8 mb-10">
               <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-3">Verdict</p>
               {validResults.length === 1 ? (
                 <>
@@ -406,7 +406,7 @@ export default function LeaseComparisonPage() {
               {validResults.map((r, i) => {
                 const isBest = i === bestIdx
                 return (
-                  <div key={r.name} className={`rounded-xl p-8 ${isBest ? 'bg-teal text-white ring-2 ring-teal' : 'bg-white'}`}>
+                  <div key={r.name} className={`rounded-sm p-8 ${isBest ? 'bg-teal text-white ring-2 ring-teal' : 'bg-white'}`}>
                     {isBest && (
                       <p className="text-white/70 font-semibold text-xs tracking-widest uppercase mb-3">Recommended</p>
                     )}
@@ -473,13 +473,13 @@ export default function LeaseComparisonPage() {
             <div className="flex flex-wrap gap-6 items-center">
               <button
                 onClick={() => setShowYearly(v => !v)}
-                className="border border-near-black text-near-black font-semibold text-sm px-6 py-3 rounded-lg hover:bg-near-black hover:text-white transition-colors"
+                className="border border-near-black text-near-black font-semibold text-sm px-6 py-3 rounded-sm hover:bg-near-black hover:text-white transition-colors"
               >
                 {showYearly ? 'Hide' : 'Show'} year-by-year breakdown
               </button>
               <button
                 onClick={copyResults}
-                className="border border-gray-300 text-mid-grey font-semibold text-sm px-6 py-3 rounded-lg hover:border-near-black hover:text-near-black transition-colors"
+                className="border border-gray-300 text-mid-grey font-semibold text-sm px-6 py-3 rounded-sm hover:border-near-black hover:text-near-black transition-colors"
               >
                 {copied ? 'Copied' : 'Copy results'}
               </button>

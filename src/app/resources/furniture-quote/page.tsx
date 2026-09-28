@@ -14,7 +14,7 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5
 
 const WRAP = 'max-w-screen-xl mx-auto'
 
-const inputClass = 'w-full bg-white border border-gray-200 rounded-xl px-4 py-4 text-near-black text-sm font-light placeholder:text-mid-grey/60 focus:outline-none focus:border-teal transition-colors'
+const inputClass = 'w-full bg-white border border-gray-200 rounded-sm px-4 py-4 text-near-black text-sm font-light placeholder:text-mid-grey/60 focus:outline-none focus:border-teal transition-colors'
 const labelClass = 'block text-near-black font-medium text-sm mb-1.5'
 
 export default function FurnitureQuotePage() {
@@ -151,7 +151,7 @@ export default function FurnitureQuotePage() {
               className="text-white/60 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1rem,2vw,1.25rem)' }}
             >
-              Tell us about your project. Upload a floor plan if you have one. We&apos;ll come back with a specification and quote within one business day.
+              Tell us about your project. Upload a floor plan if you have one. We&apos;ll review the brief and confirm what is required for a specification and quote.
             </p>
           </FadeIn>
         </div>
@@ -166,13 +166,13 @@ export default function FurnitureQuotePage() {
           <div className="max-w-2xl">
             {submitted ? (
               <FadeIn>
-                <div className="bg-warm-grey rounded-xl p-10 sm:p-14">
+                <div className="bg-warm-grey rounded-sm p-10 sm:p-14">
                   <div className="w-10 h-1 bg-teal mb-8" />
                   <h2 className="text-near-black font-bold leading-tight mb-4">
                     We have your brief.
                   </h2>
                   <p className="text-charcoal font-light text-lg leading-relaxed mb-8">
-                    You&apos;ll hear from us within one business day.
+                    We&apos;ll review the brief and confirm the next step.
                   </p>
                   <p className="text-mid-grey font-light text-sm">
                     Prefer to talk?{' '}
@@ -383,7 +383,7 @@ export default function FurnitureQuotePage() {
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="inline-flex items-center gap-2 bg-teal text-white font-bold text-sm px-10 py-[1.1rem] rounded-xl min-h-[60px] hover:bg-teal/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                      className="inline-flex items-center gap-2 bg-teal text-white font-bold text-sm px-10 py-[1.1rem] rounded-sm min-h-[60px] hover:bg-teal/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                       {submitting ? 'Sending...' : 'Submit brief'}
                     </button>

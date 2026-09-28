@@ -13,34 +13,34 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 
 export const metadata: Metadata = {
   title: 'LeaseIntel™ — Professional Lease Review | Your Office Space',
-  description: 'Two ways to know your lease risk. Free Lease Risk Review — 10 questions, instant Red/Amber/Green rating, no document required. Or the full LeaseIntel™ report — every clause analysed, $297 ex GST, 24-hour turnaround. Newcastle businesses: free until 21 July 2026.',
+  description: 'Two ways to examine commercial lease risk: an educational self-check and a scoped LeaseIntel™ document review. Review scope, timing and fees are confirmed before work begins.',
   alternates: { canonical: 'https://www.yourofficespace.au/leaseintel' },
   openGraph: {
     title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space',
-    description: 'Professional commercial lease review in Newcastle and NSW. 24-hour turnaround. Every risk clause rated Red/Amber/Green with plain-English explanation.',
+    description: 'Commercial lease risk review in NSW with plain-English explanation. Scope, timing and fees are confirmed before work begins.',
     url: 'https://www.yourofficespace.au/leaseintel',
     images: [{ url: '/og/og-leaseintel.png', width: 1200, height: 630, alt: 'LeaseIntel Commercial Lease Review Newcastle | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space', description: 'Professional commercial lease review in Newcastle and NSW. 24-hour turnaround. Every risk explained.' },
+  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space', description: 'Commercial lease risk review in NSW. Scope, timing and fees are confirmed before work begins.' },
 }
 
 /* ─── FAQ Data ────────────────────────────────────────────── */
 const FAQS = [
-  { q: 'What is LeaseIntel™?', a: 'LeaseIntel™ is a professional commercial lease review service run by Your Office Space. You upload your lease document, we review every clause, and return a full risk report within 24 hours. Every clause is rated Red / Amber / Green with plain-English explanations, a financial exposure summary, and a negotiation roadmap.' },
-  { q: 'How long does a LeaseIntel™ review take?', a: 'Standard turnaround is 24 hours from the time we receive your complete lease document. For complex leases — multiple tenancies, significant special conditions, or industrial leases — we may require up to 48 hours.' },
+  { q: 'What is LeaseIntel™?', a: 'LeaseIntel™ is a scoped commercial lease risk review. The agreed output can identify material obligations, explain commercial risks in plain English and set out questions or negotiation priorities for the next step.' },
+  { q: 'How long does a LeaseIntel™ review take?', a: 'Timing depends on the document, complexity and agreed scope. The expected delivery date is confirmed before the review begins.' },
   { q: 'What does a LeaseIntel™ review cover?', a: 'We review all 12 risk categories in a standard commercial lease: rent and reviews, outgoings, make-good and reinstatement, assignment and subletting, permitted use, security deposit and bank guarantee, repairs and maintenance, relocation rights, default and termination, insurance obligations, special conditions, and options to renew. Every category is rated and explained.' },
-  { q: 'What is the cost?', a: 'LeaseIntel™ is $297 ex GST for a full report. No subscription, no ongoing commitment. Newcastle-based businesses can access the full report free of charge until 21 July 2026 — no credit card required, just declare your location on the submission form. Use the free lease risk checker at yourofficespace.au/resources/lease-review to get a quick headline rating first if you want.' },
+  { q: 'What is the cost?', a: 'Fees depend on the document and agreed scope. Any fee, timing and payment terms are confirmed before the review begins.' },
   { q: 'Is my document secure?', a: 'Yes. Your lease document is encrypted with AES-256-GCM before it leaves your browser. It is scanned for malware before upload, stored in a secure OneDrive folder accessible only to your assigned reviewer, and never shared or retained beyond your engagement.' },
-  { q: 'Who reviews my lease?', a: 'Your lease is reviewed by a licensed commercial property professional with direct experience in NSW commercial tenancy law and lease negotiation. This is a real review by a qualified person — not automated software.' },
+  { q: 'Who reviews my lease?', a: 'The accountable reviewer and scope are confirmed before work begins. LeaseIntel is a commercial risk assessment and does not replace legal advice.' },
   { q: 'Do I need a solicitor as well?', a: 'A LeaseIntel™ review is a commercial risk and negotiation assessment — not legal advice. For complex leases or significant financial commitments, we recommend a commercial solicitor in addition. We can refer you to experienced commercial solicitors in NSW.' },
-  { q: 'What types of leases do you review?', a: 'All Australian commercial leases — office, retail (excluding small business retail under the Retail Leases Act), industrial, warehouse, and mixed-use. We specialise in NSW but review leases in all states and territories.' },
+  { q: 'What types of leases do you review?', a: 'We assess whether the lease type, jurisdiction and requested scope fit the service before accepting the work. Tenant representation is delivered within verified NSW licensing coverage.' },
   { q: 'Can I negotiate after receiving the report?', a: 'Yes — the negotiation roadmap identifies exactly which clauses to push back on, in priority order, with guidance on what landlords will accept in the current market. If you want us to negotiate on your behalf, that is covered under our tenant representation service.' },
-  { q: 'What if I want to engage you for tenant representation after?', a: 'The LeaseIntel™ fee is credited against our tenant representation engagement fee if you proceed. You never pay twice for the same work.' },
-  { q: 'Can I get a free version first?', a: 'Yes. The free Lease Risk Review at yourofficespace.au/resources/lease-review takes 3 minutes. Answer 10 questions about your lease — no document required — and get an instant Red/Amber/Green risk rating plus the top 3 issues to watch. If you want the full picture after that, the complete LeaseIntel™ report is $297 ex GST at yourofficespace.au/lease-review. Newcastle businesses: free until 21 July 2026. Submit your actual lease document and get a full clause-by-clause analysis within 24 hours.' },
-  { q: 'How do I get started?', a: 'Upload your lease at yourofficespace.au/lease-review. Complete the short intake form and upload your document. Newcastle businesses are free until 21 July 2026 — no payment required, just declare your location. All other businesses pay the $297 ex GST review fee. Full report delivered within 24 hours.' },
+  { q: 'What if I want to engage you for tenant representation after?', a: 'Any later tenant-representation engagement has its own documented scope, fee and licensing boundary. Any relationship between fees is confirmed in writing before engagement.' },
+  { q: 'Can I use the educational self-check first?', a: 'Yes. The Lease Risk Review at yourofficespace.au/resources/lease-review is an educational self-check that does not require a document. It is not legal advice and does not replace a review of the actual lease.' },
+  { q: 'How do I get started?', a: 'Submit an intake request at yourofficespace.au/lease-review. We confirm whether the matter fits the service, then confirm scope, reviewer, timing, fees and document handling before work begins.' },
 ]
 
 /* ─── Schema ──────────────────────────────────────────────── */
@@ -67,11 +67,11 @@ const SCHEMA = {
       "@type": "Service",
       "name": "LeaseIntel™ Commercial Lease Review",
       "provider": { "@id": "https://www.yourofficespace.au/#organization" },
-      "description": "Professional commercial lease review. Every clause rated Red/Amber/Green. 24-hour turnaround, $297 ex GST. Newcastle businesses free until 21 July 2026.",
+      "description": "Scoped commercial lease risk review with timing, fees and deliverables confirmed before work begins.",
       "areaServed": [{ "@type": "Country", "name": "Australia" }],
       "serviceType": "Commercial Lease Review",
       "url": "https://www.yourofficespace.au/leaseintel",
-      "offers": { "@type": "Offer", "price": "297", "priceCurrency": "AUD", "description": "Full clause-by-clause lease review", "url": "https://www.yourofficespace.au/lease-review" }
+      "offers": { "@type": "Offer", "description": "Scope, timing and fees confirmed before engagement", "url": "https://www.yourofficespace.au/lease-review" }
     },
     {
       "@type": "FAQPage",
@@ -82,7 +82,7 @@ const SCHEMA = {
       "name": "LeaseIntel™ Lease Review Tool",
       "applicationCategory": "BusinessApplication",
       "operatingSystem": "Web",
-      "offers": { "@type": "Offer", "price": "297", "priceCurrency": "AUD", "description": "Professional lease review — $297 ex GST or free for Newcastle businesses" },
+      "offers": { "@type": "Offer", "description": "Scope, timing and fees confirmed before engagement" },
       "url": "https://www.yourofficespace.au/lease-review"
     }
   ]
@@ -116,18 +116,18 @@ export default function LeaseIntelPage() {
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
-            <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-full px-4 py-2 mb-8">
-              <span className="w-2 h-2 rounded-full bg-teal" />
+            <div className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-sm px-4 py-2 mb-8">
+              <span className="w-2 h-2 rounded-sm bg-teal" />
               <span className="font-semibold text-xs tracking-widest uppercase">Professional Lease Review</span>
             </div>
             <h1 className="text-white font-bold leading-tight mb-6" style={{ fontSize: 'clamp(2.5rem,6vw,4.5rem)', maxWidth: '900px' }}>
               LeaseIntel™
             </h1>
             <p className="text-white/55 font-light leading-relaxed mb-4" style={{ fontSize: 'clamp(1.1rem,2.5vw,1.35rem)', maxWidth: '640px', lineHeight: 1.8 }}>
-              A full commercial lease risk report — delivered within 24 hours.
+              A scoped commercial lease risk review with the next decisions made clear.
             </p>
             <p className="text-white/40 font-light mb-10" style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', maxWidth: '580px', lineHeight: 1.8 }}>
-              Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included. $297 ex GST.
+              Deliverables, timing, reviewer and fees are confirmed before work begins.
             </p>
             <div className="flex flex-wrap gap-6">
               <Button href="/lease-review" variant="primary" size="lg">
@@ -144,15 +144,15 @@ export default function LeaseIntelPage() {
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-mid-grey font-light mb-10" style={{ fontSize: '1rem', maxWidth: '560px', lineHeight: 1.8 }}>
-              Two ways to know where you stand. Start free or go straight to the full report.
+              Start with the educational self-check or request a review of the actual document.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Free tier */}
             <FadeIn delay={0}>
-              <div className="rounded-2xl p-8 h-full hover:shadow-md transition-shadow duration-300 flex flex-col" style={{ background: '#F7F8F8', border: '1px solid rgba(0,0,0,0.07)' }}>
+              <div className="rounded-sm p-8 h-full flex flex-col" style={{ background: '#F7F8F8', border: '1px solid rgba(0,0,0,0.07)' }}>
                 <div className="inline-flex items-center gap-2 mb-6">
-                  <span className="text-xs font-black tracking-widest uppercase" style={{ color: '#10b981' }}>FREE</span>
+                  <span className="text-xs font-black tracking-widest uppercase" style={{ color: '#10b981' }}>SELF-CHECK</span>
                   <span className="text-mid-grey font-light text-xs">|</span>
                   <span className="text-near-black font-semibold text-sm">Lease Risk Review</span>
                 </div>
@@ -164,22 +164,22 @@ export default function LeaseIntelPage() {
                   <a href="/resources/lease-review"
                     className="inline-flex items-center justify-center font-bold text-white no-underline transition-colors"
                     style={{ background: '#10b981', padding: '0.85rem 2rem', fontSize: '0.8rem', letterSpacing: '0.12em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
-                    Start free review →
+                    Start the self-check →
                   </a>
                 </div>
               </div>
             </FadeIn>
             {/* Paid tier */}
             <FadeIn delay={80}>
-              <div className="rounded-2xl p-8 h-full hover:shadow-md transition-shadow duration-300 flex flex-col bg-near-black">
+              <div className="rounded-sm p-8 h-full flex flex-col bg-near-black">
                 <div className="inline-flex items-center gap-2 mb-6">
-                  <span className="text-teal text-xs font-black tracking-widest uppercase">$297 ex GST</span>
+                  <span className="text-teal text-xs font-black tracking-widest uppercase">SCOPED REVIEW</span>
                   <span className="text-white/30 font-light text-xs">|</span>
                   <span className="text-white font-semibold text-sm">Full LeaseIntel™ Report</span>
                 </div>
-                <h3 className="text-white font-bold mb-3" style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>Complete clause-by-clause analysis. 24-hour turnaround.</h3>
+                <h3 className="text-white font-bold mb-3" style={{ fontSize: '1.35rem', lineHeight: 1.3 }}>Document review built around the agreed scope.</h3>
                 <p className="text-white/60 font-light mb-2" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Submit your actual lease document.</p>
-                <p className="text-white/60 font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Every clause rated Red / Amber / Green. Financial exposure summarised. Negotiation roadmap included. Delivered within 24 hours.</p>
+                <p className="text-white/60 font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>We confirm the deliverables, timing, reviewer, fees and document-handling approach before accepting the work.</p>
                 <div className="mt-auto">
                   <a href="/lease-review"
                     className="inline-flex items-center justify-center font-bold text-white no-underline hover:bg-dark-teal transition-colors bg-teal"
@@ -193,14 +193,14 @@ export default function LeaseIntelPage() {
         </div>
       </section>
 
-      {/* Newcastle promo banner */}
+      {/* Scope confirmation banner */}
       <section style={{ ...SEC_SM, background: '#f0fdf9', borderTop: '3px solid #10b981', borderBottom: '3px solid #10b981' }}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <div style={{ maxWidth: '760px' }}>
-              <p className="font-black mb-2" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', color: '#0f766e' }}>Newcastle business owners — free for 12 weeks.</p>
+              <p className="font-black mb-2" style={{ fontSize: 'clamp(1rem,2vw,1.15rem)', color: '#0f766e' }}>Know the scope before sharing the document.</p>
               <p className="font-light" style={{ fontSize: 'clamp(0.9rem,1.8vw,1rem)', color: '#134e4a', lineHeight: 1.8 }}>
-                The full LeaseIntel report is free for any Newcastle-based business until 21 July 2026. No credit card required. Submit your lease and declare your location on the form.
+                Start with an intake request. We confirm suitability, scope, timing, fees and secure document handling before the review begins.
               </p>
             </div>
           </FadeIn>
@@ -222,9 +222,9 @@ export default function LeaseIntelPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {INCLUDED.map((item, i) => (
               <FadeIn key={i} delay={i * 60}>
-                <div className="bg-white rounded-xl p-8 h-full hover:shadow-md transition-shadow duration-300" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
-                  <div className="w-8 h-8 rounded-lg bg-teal/10 flex items-center justify-center mb-5">
-                    <div className="w-3 h-3 rounded-full bg-teal" />
+                <div className="bg-white rounded-sm p-8 h-full" style={{ border: '1px solid rgba(0,0,0,0.06)' }}>
+                  <div className="w-8 h-8 rounded-sm bg-teal/10 flex items-center justify-center mb-5">
+                    <div className="w-3 h-3 rounded-sm bg-teal" />
                   </div>
                   <h3 className="text-near-black font-bold mb-3" style={{ fontSize: '1rem' }}>{item.title}</h3>
                   <p className="text-mid-grey font-light" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>{item.desc}</p>
@@ -268,10 +268,10 @@ export default function LeaseIntelPage() {
           <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
             <h2 className="text-white font-bold leading-tight mb-5"
                style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-              $297 ex GST. 24-hour turnaround. No obligation.
+              Scope, timing and fees confirmed before work begins.
             </h2>
             <p className="text-white/80 font-light mb-8" style={{ fontSize: '1.05rem', lineHeight: 1.8 }}>
-              Upload your lease and receive a complete risk report. If you engage us for tenant representation, the fee is credited.
+              Request a review and receive a written confirmation of the proposed deliverables and next step.
             </p>
             <Button href="/lease-review" variant="secondary" size="lg">
               Submit your lease

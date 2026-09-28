@@ -27,7 +27,7 @@ const LABEL = {
 }
 
 const SECTION_HEAD = {
-  color: '#01A7A3',
+  color: '#00B5A5',
   fontSize: '0.62rem',
   fontWeight: 700,
   letterSpacing: '0.25em',
@@ -118,7 +118,7 @@ export default function CareersForm() {
   if (submitted) {
     return (
       <div style={{ background: 'rgba(1,167,163,0.08)', border: '1px solid rgba(1,167,163,0.25)', padding: '2.5rem', textAlign: 'center' }}>
-        <div style={{ width: '48px', height: '48px', background: '#01A7A3', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem', fontSize: '1.25rem' }}>OK</div>
+        <div style={{ width: '48px', height: '48px', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem', fontSize: '1.25rem' }}>OK</div>
         <h3 style={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.75rem' }}>We&apos;ve got your application.</h3>
         <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.9rem', lineHeight: 1.7, margin: 0 }}>
           Sarah will be in touch within 2 business days.
@@ -140,12 +140,12 @@ export default function CareersForm() {
               onClick={() => setAppType(t)}
               style={{
                 padding: '1rem',
-                border: appType === t ? `2px solid ${t === 'contractor' ? '#a78bfa' : '#01A7A3'}` : '1px solid rgba(255,255,255,0.12)',
+                border: appType === t ? `2px solid ${t === 'contractor' ? '#a78bfa' : '#00B5A5'}` : '1px solid rgba(255,255,255,0.12)',
                 background: appType === t
                   ? (t === 'contractor' ? 'rgba(124,58,237,0.1)' : 'rgba(1,167,163,0.08)')
                   : 'rgba(255,255,255,0.02)',
                 color: appType === t
-                  ? (t === 'contractor' ? '#a78bfa' : '#01A7A3')
+                  ? (t === 'contractor' ? '#a78bfa' : '#00B5A5')
                   : 'rgba(255,255,255,0.45)',
                 fontWeight: 700, fontSize: '0.82rem', letterSpacing: '0.12em',
                 textTransform: 'uppercase', cursor: 'pointer', fontFamily: 'inherit',
@@ -203,7 +203,7 @@ export default function CareersForm() {
                   padding: '0.65rem 0.875rem',
                   border: experience.includes(opt.value) ? '1px solid rgba(1,167,163,0.5)' : '1px solid rgba(255,255,255,0.1)',
                   background: experience.includes(opt.value) ? 'rgba(1,167,163,0.1)' : 'rgba(255,255,255,0.02)',
-                  color: experience.includes(opt.value) ? '#01A7A3' : 'rgba(255,255,255,0.5)',
+                  color: experience.includes(opt.value) ? '#00B5A5' : 'rgba(255,255,255,0.5)',
                   fontSize: '0.8rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit',
                   textAlign: 'left', transition: 'all 0.1s',
                 }}
@@ -242,7 +242,7 @@ export default function CareersForm() {
                 padding: '0.65rem 1rem',
                 border: availability.includes(opt.value) ? '1px solid rgba(1,167,163,0.5)' : '1px solid rgba(255,255,255,0.1)',
                 background: availability.includes(opt.value) ? 'rgba(1,167,163,0.08)' : 'rgba(255,255,255,0.02)',
-                color: availability.includes(opt.value) ? '#01A7A3' : 'rgba(255,255,255,0.5)',
+                color: availability.includes(opt.value) ? '#00B5A5' : 'rgba(255,255,255,0.5)',
                 fontSize: '0.82rem', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit',
                 textAlign: 'left', transition: 'all 0.1s',
               }}
@@ -386,7 +386,7 @@ export default function CareersForm() {
         type="submit"
         disabled={submitting}
         style={{
-          background: submitting ? 'rgba(1,167,163,0.5)' : '#01A7A3',
+          background: submitting ? 'rgba(1,167,163,0.5)' : '#00B5A5',
           color: 'white', border: 'none',
           padding: '1rem 2.5rem',
           fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.18em',
