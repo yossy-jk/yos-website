@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
+import ScrollManager from "@/components/ScrollManager";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -22,16 +23,16 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
-  title: "Your Office Space | Commercial Property Advisory Australia",
-  description: "One tenant-side team for leasing in NSW, commercial fit out and workplace furniture across Australia. Based in Newcastle.",
-  keywords: "tenant representation NSW, commercial fit out Australia, office furniture Australia, commercial cleaning Newcastle, workplace project management",
+  title: "Your Office Space | Find It, Fit It Out and Furnish It",
+  description: "Lease or buy the right commercial space, then coordinate the FitOut, furniture and ongoing workplace services with one team on your side.",
+  keywords: "tenant representation NSW, commercial FitOut Australia, office furniture Australia, commercial cleaning Newcastle, workplace project management",
   metadataBase: new URL("https://www.yourofficespace.au"),
   alternates: {
     canonical: "https://www.yourofficespace.au",
   },
   openGraph: {
-    title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "One team for leasing in NSW, commercial fit out and workplace furniture across Australia. Based in Newcastle.",
+    title: "Your Office Space | One Team for Your Commercial Space",
+    description: "Find it. Fit it out. Furnish it. Look after it. Commercial space support from one accountable team.",
     url: "https://www.yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",
@@ -40,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your Office Space | Commercial Property Advisory Australia",
-    description: "One team for leasing in NSW, commercial fit out and workplace furniture across Australia. Based in Newcastle.",
+    title: "Your Office Space | One Team for Your Commercial Space",
+    description: "Find it. Fit it out. Furnish it. Look after it. Commercial space support from one accountable team.",
     images: ["/og-default.png"],
   },
 };
@@ -55,7 +56,7 @@ export default function RootLayout({
     <html lang="en-AU" className={`scroll-smooth ${montserrat.variable}`}>
       <head>
       </head>
-      <body>{children}<AnalyticsConsent /></body>
+      <body><ScrollManager />{children}<AnalyticsConsent /></body>
     </html>
   );
 }
