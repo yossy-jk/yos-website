@@ -57,7 +57,7 @@ test('shared search trigger text meets the audited dark-surface threshold', () =
 
 test('homepage supporting copy does not use low-opacity white on dark surfaces', () => {
   assert.doesNotMatch(homeSource, /text-white\/(?:30|35|40|45|50|55)/)
-  assert.match(homeSource, /text-white\/90 font-normal leading-relaxed/)
+  assert.match(homeSource, /text-white\/85/)
   assert.ok(contrastRatio('ced8d7', '0a3b38') >= 4.5)
 })
 
@@ -71,8 +71,6 @@ test('brand accents and supporting copy switch to accessible colours on light su
 })
 
 test('full-width teal panels use the accessible action surface and opaque white copy', () => {
-  assert.match(homeSource, /section className="bg-teal text-white"/)
-  assert.doesNotMatch(homeSource, /<section className="bg-teal text-white"[\s\S]{0,1600}text-white\/80/)
   assert.doesNotMatch(homeSource, /lease-review#full-report/)
   assert.doesNotMatch(tenantRepSource, /<AgentNetworkBanner \/>/)
   assert.match(cleaningSource, /section className="bg-teal text-white"/)

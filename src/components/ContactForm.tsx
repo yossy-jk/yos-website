@@ -2,33 +2,75 @@
 import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
 
+const SERVICES = [
+  'Leasing',
+  'Buying',
+  'FitOut',
+  'Furniture',
+  'Cleaning',
+  'Not sure',
+] as const
+
+type Service = typeof SERVICES[number]
+type ContactFields = {
+  name: string
+  company: string
+  email: string
+  phone: string
+  service: Service | ''
+  message: string
+}
+type ContactErrors = Partial<Record<keyof ContactFields, string>>
+
+const SERVICE_ALIASES: Record<string, Service> = {
+  lease: 'Leasing',
+  leasing: 'Leasing',
+  'tenant-representation': 'Leasing',
+  buy: 'Buying',
+  buying: 'Buying',
+  'buyers-agency': 'Buying',
+  fitout: 'FitOut',
+  'fit-out': 'FitOut',
+  furniture: 'Furniture',
+  cleaning: 'Cleaning',
+  unsure: 'Not sure',
+  'not-sure': 'Not sure',
+}
+
+function resolveService(requested?: string): Service | '' {
+  const normalised = requested?.trim().toLowerCase()
+  if (!normalised) return ''
+  return SERVICE_ALIASES[normalised] ?? SERVICES.find(item => item.toLowerCase() === normalised) ?? ''
+}
+
 /**
  * Contact form. sends to FormSubmit (email delivery) + HubSpot CRM (deal creation).
  * Both run in parallel; neither blocks the other.
  */
-export default function ContactForm() {
+export default function ContactForm({ initialService }: { initialService?: string }) {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [honey, setHoney] = useState('')
-  const [fields, setFields] = useState({
-    name: '', company: '', email: '', phone: '', message: '',
+  const [fields, setFields] = useState<ContactFields>({
+    name: '', company: '', email: '', phone: '', service: resolveService(initialService), message: '',
   })
-  const [errors, setErrors] = useState<Partial<typeof fields>>({})
+  const [errors, setErrors] = useState<ContactErrors>({})
 
-  const set = (k: keyof typeof fields) => (v: string) => {
+  const set = <K extends keyof typeof fields>(k: K) => (v: (typeof fields)[K]) => {
     setFields(p => ({ ...p, [k]: v }))
     setErrors(p => ({ ...p, [k]: undefined }))
   }
 
   const validate = () => {
-    const e: Partial<typeof fields> = {}
+    const e: ContactErrors = {}
     if (!fields.name.trim()) e.name = 'Required'
     if (!fields.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) e.email = 'Valid email required'
-    if (!fields.message.trim()) e.message = 'Required'
+    if (!fields.service) e.service = 'Choose the service you need'
     setErrors(e)
     const valid = Object.keys(e).length === 0
     if (!valid) {
-      const firstInvalid = (['name', 'email', 'message'] as const).find(key => e[key])
+      const firstInvalid = (['name', 'email', 'service'] as const).find(key => e[key])
       window.requestAnimationFrame(() => {
         if (firstInvalid) document.getElementById(`contact-${firstInvalid}`)?.focus()
       })
@@ -40,9 +82,11 @@ export default function ContactForm() {
     e.preventDefault()
     if (!validate()) return
     setSubmitting(true)
+    setSubmitError('')
 
-    // Run email + HubSpot in parallel
-    await Promise.allSettled([
+    // Run email + HubSpot in parallel. Only show success when at least one
+    // delivery channel confirms that it accepted the enquiry.
+    const [emailResult, hubspotResult] = await Promise.allSettled([
       // Email delivery via server-side API route
       fetch('/api/contact', {
         method: 'POST',
@@ -53,7 +97,7 @@ export default function ContactForm() {
           email: fields.email,
           phone: fields.phone || '',
           message: fields.message,
-          source: 'Contact Form',
+          source: `Contact Form — ${fields.service}`,
           _honey: honey,
         }),
       }),
@@ -61,20 +105,26 @@ export default function ContactForm() {
       submitLead({
         firstname: fields.name.split(' ')[0],
         email: fields.email,
-        source: 'Contact Form',
-        context: `Company: ${fields.company || '-'}\nPhone: ${fields.phone || '-'}\nMessage: ${fields.message}`,
+        source: `Contact Form — ${fields.service}`,
+        context: `Service: ${fields.service}\nCompany: ${fields.company || '-'}\nPhone: ${fields.phone || '-'}\nMessage: ${fields.message || '-'}`,
       }),
     ])
 
     setSubmitting(false)
-    setSent(true)
+    const emailAccepted = emailResult.status === 'fulfilled' && emailResult.value.ok
+    const hubspotAccepted = hubspotResult.status === 'fulfilled' && hubspotResult.value.ok
+    if (emailAccepted || hubspotAccepted) {
+      setSent(true)
+    } else {
+      setSubmitError('We could not confirm delivery. Please try again or call 0434 655 511.')
+    }
   }
 
   if (sent) {
     return (
       <div className="bg-teal/5 border border-teal/20 rounded-sm p-8 text-center">
         <p className="text-teal font-black text-lg mb-2">Message received.</p>
-        <p className="text-charcoal font-light text-sm">We&apos;ll review the enquiry and confirm the next step.</p>
+        <p className="text-charcoal font-light text-sm">Joe or the relevant service lead will reply within one business day.</p>
       </div>
     )
   }
@@ -127,13 +177,35 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="contact-message" className={labelClass} style={labelStyle}>How can we help? <span className="text-teal">*</span></label>
+        <fieldset id="contact-service" tabIndex={-1} aria-describedby={errors.service ? 'contact-service-error' : undefined} className="outline-none">
+          <legend className={labelClass} style={labelStyle}>What do you need? <span className="text-teal">*</span></legend>
+          <div className="flex flex-wrap gap-2">
+            {SERVICES.map(service => {
+              const selected = fields.service === service
+              return (
+                <button key={service} type="button" aria-pressed={selected}
+                  onClick={() => set('service')(service)}
+                  className={`min-h-[44px] rounded-lg border px-4 py-2 text-sm font-semibold transition-colors ${selected ? 'border-near-black bg-near-black text-white' : 'border-gray-300 bg-white text-near-black hover:border-teal'}`}>
+                  {service}
+                </button>
+              )
+            })}
+          </div>
+          <input type="hidden" name="service" value={fields.service} />
+          {errors.service && <p id="contact-service-error" role="alert" className="text-red-500 text-xs mt-1">{errors.service}</p>}
+        </fieldset>
+      </div>
+
+      <div>
+        <label htmlFor="contact-message" className={labelClass} style={labelStyle}>Anything else we should know? <span className="text-readable-grey font-normal">(optional)</span></label>
         <textarea id="contact-message" name="message" value={fields.message} onChange={e => set('message')(e.target.value)}
           rows={4} placeholder="Tell us what you&apos;re working on..."
-          required aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined}
-          className={inputClass(errors.message)} style={{ ...style, resize: 'vertical' as const }} />
+          aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined}
+          className={inputClass()} style={{ ...style, resize: 'vertical' as const }} />
         {errors.message && <p id="contact-message-error" role="alert" className="text-red-500 text-xs mt-1">{errors.message}</p>}
       </div>
+
+      {submitError && <p role="alert" className="text-red-600 text-sm font-semibold">{submitError}</p>}
 
       <button
         type="submit"
