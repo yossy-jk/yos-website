@@ -67,18 +67,18 @@ function calcOfficeSize(staff: number, workStyle: WorkStyle, privateOffices: Pri
 
 const WORK_STYLE_RECOMMENDATIONS: Record<WorkStyle, string[]> = {
   traditional: [
-    'Allocate dedicated desks for every team member — hot-desking won\'t suit your culture.',
+    'Allocate dedicated desks for every team member, hot-desking won\'t suit your culture.',
     'Plan for a staff kitchen and breakout area; with everyone in daily, shared spaces take more load.',
-    'Consider natural light and acoustic zoning — density matters when everyone is present all week.',
+    'Consider natural light and acoustic zoning, density matters when everyone is present all week.',
   ],
   hybrid: [
-    'A desk-sharing ratio of 0.7:1 works well — not everyone is in on the same day.',
+    'A desk-sharing ratio of 0.7:1 works well, not everyone is in on the same day.',
     'Invest in strong AV for meeting rooms; hybrid teams need reliable video conferencing.',
     'Book-a-desk software pays for itself quickly once you\'re above 20 staff.',
   ],
   agile: [
     'Focus your budget on collaboration zones and quiet focus pods rather than assigned desks.',
-    'A central hub design — open collaboration in the middle, quiet focus at the edges — suits agile teams best.',
+    'A central hub design, open collaboration in the middle, quiet focus at the edges, suits agile teams best.',
     'Review utilisation data every 6 months; agile workplaces often discover they can downsize further over time.',
   ],
 }
@@ -148,7 +148,7 @@ export default function OfficeSizeCalculatorPage() {
   const fullResults = result && (
     <div>
       <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>
-        Your space estimate — {result.staff} staff · {result.workStyle}
+        Your space estimate, {result.staff} staff · {result.workStyle}
       </p>
 
       {/* Key metrics */}

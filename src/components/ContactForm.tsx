@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
 
 /**
- * Contact form — sends to FormSubmit (email delivery) + HubSpot CRM (deal creation).
+ * Contact form. sends to FormSubmit (email delivery) + HubSpot CRM (deal creation).
  * Both run in parallel; neither blocks the other.
  */
 export default function ContactForm() {
@@ -57,12 +57,12 @@ export default function ContactForm() {
           _honey: honey,
         }),
       }),
-      // HubSpot CRM — contact + deal
+      // HubSpot CRM. contact + deal
       submitLead({
         firstname: fields.name.split(' ')[0],
         email: fields.email,
         source: 'Contact Form',
-        context: `Company: ${fields.company || '—'}\nPhone: ${fields.phone || '—'}\nMessage: ${fields.message}`,
+        context: `Company: ${fields.company || '-'}\nPhone: ${fields.phone || '-'}\nMessage: ${fields.message}`,
       }),
     ])
 
@@ -90,7 +90,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
-      {/* Honeypot — hidden from real users, filled by bots */}
+      {/* Honeypot. hidden from real users, filled by bots */}
       <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>

@@ -142,7 +142,7 @@ export default function CleaningPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/5">
               {[
-                { stat: 'Same team', label: 'Every visit — no surprises' },
+                { stat: 'Same team', label: 'Every visit, no surprises' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
                 { stat: 'After hours', label: 'Timing agreed around your workplace' },
                 { stat: 'Clear scope', label: 'Tasks and standards documented' },
@@ -302,7 +302,7 @@ export default function CleaningPage() {
         </div>
       </section>
 
-      {/* BUNDLE — cross-sell to fitout */}
+      {/* BUNDLE, cross-sell to fitout */}
       <section className="bg-warm-grey"
         style={SEC}>
         <FadeIn>

@@ -26,4 +26,3 @@ export const SERVICE_LINKS = [
   { label: 'Office & Commercial Furniture', href: '/furniture', tagline: 'Furniture selected, supplied and installed.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
 ]
-

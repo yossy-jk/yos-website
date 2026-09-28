@@ -40,7 +40,7 @@ export default function BookingCTA({
           body: JSON.stringify({
             name,
             phone,
-            source: 'Clarity Call — Booking Request',
+            source: 'Clarity Call. Booking Request',
             context: `Name: ${name}\nPhone: ${phone}\nProceeding to calendar booking.`,
           }),
         }),

@@ -288,7 +288,7 @@ export default function StampDutyCalculatorPage() {
               ) : (
                 <div>
                   <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>
-                    {selectedState} — {fmt(priceNum)}
+                    {selectedState}, {fmt(priceNum)}
                   </p>
 
                   {/* Key metrics */}
@@ -416,7 +416,7 @@ export default function StampDutyCalculatorPage() {
       <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>
         <div className="max-w-screen-xl mx-auto">
           <p className="text-mid-grey font-light text-center" style={{ fontSize: "0.72rem", lineHeight: 1.7 }}>
-            This calculator provides estimates only. Rates and thresholds change — verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
+            This calculator provides estimates only. Rates and thresholds change, verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
           </p>
         </div>
       </div>

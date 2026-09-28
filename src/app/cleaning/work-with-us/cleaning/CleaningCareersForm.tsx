@@ -51,7 +51,7 @@ const AVAILABILITY_OPTIONS = [
   { value: 'weekday-day',     label: 'Weekday daytime' },
   { value: 'weekday-evening', label: 'Weekday evenings' },
   { value: 'weekends',        label: 'Weekends' },
-  { value: 'flexible',        label: 'Flexible — available anytime' },
+  { value: 'flexible',        label: 'Flexible, available anytime' },
 ]
 
 export default function CleaningCareersForm() {
@@ -323,9 +323,9 @@ export default function CleaningCareersForm() {
             <label style={LABEL}>Police check</label>
             <select style={INPUT} value={form.policeCheck} onChange={e => set('policeCheck', e.target.value)}>
               <option value="">Select...</option>
-              <option value="Yes — within 12 months">Yes — within the last 12 months</option>
-              <option value="Yes — over 12 months ago">Yes — more than 12 months ago</option>
-              <option value="No — willing to obtain">No — willing to obtain one</option>
+              <option value="Yes, within 12 months">Yes, within the last 12 months</option>
+              <option value="Yes, over 12 months ago">Yes, more than 12 months ago</option>
+              <option value="No, willing to obtain">No, willing to obtain one</option>
               <option value="No">No</option>
             </select>
             <p style={{ color: 'rgba(255,255,255,0.25)', fontSize: '0.72rem', marginTop: '0.4rem' }}>

@@ -8,14 +8,14 @@ import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
   title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply | Newcastle NSW',
-  description: 'EOF Furniture delivers commercial office fitout and furniture supply across Newcastle, the Hunter Valley and regional NSW. From brief to installed — we manage the whole project. Express in-stock to made-to-order solutions.',
-  twitter: { card: 'summary_large_image', title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply', description: 'Brief to installed. Commercial office fitout and furniture supply — Newcastle and regional NSW.' },
+  description: 'EOF Furniture delivers commercial office fitout and furniture supply across Newcastle, the Hunter Valley and regional NSW. From brief to installed, we manage the whole project. Express in-stock to made-to-order solutions.',
+  twitter: { card: 'summary_large_image', title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply', description: 'Brief to installed. Commercial office fitout and furniture supply, Newcastle and regional NSW.' },
   alternates: { canonical: 'https://www.yourofficespace.au/eof-group/furniture' },
   openGraph: {
     title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply',
     description: 'Full commercial office fitout project management. Supply, installation, project management. Based in Newcastle, working across NSW.',
     url: 'https://www.yourofficespace.au/eof-group/furniture',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Furniture — Commercial Office Fitout' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Furniture, Commercial Office Fitout' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
@@ -46,7 +46,7 @@ export default function EOFFurniturePage() {
                 Commercial office fitout.<br />Brief to installed.
               </h1>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 'clamp(1rem, 1.8vw, 1.15rem)', lineHeight: 1.7, marginBottom: '2.5rem', maxWidth: '600px' }}>
-                We manage the complete office fitout process — from space planning and furniture specification through to supply, installation and post-fitout cleaning. Based in Newcastle. Working across NSW.
+                We manage the complete office fitout process, from space planning and furniture specification through to supply, installation and post-fitout cleaning. Based in Newcastle. Working across NSW.
               </p>
               <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <Button href="#get-a-quote" variant="primary" size="lg">
@@ -82,11 +82,11 @@ export default function EOFFurniturePage() {
                 },
                 {
                   title: 'Commercial furniture supply',
-                  body: 'We have access to a wide range of commercial-grade furniture — from in-stock express delivery through to fully custom made-to-order pieces. The right solution for your timeline and budget.',
+                  body: 'We have access to a wide range of commercial-grade furniture, from in-stock express delivery through to fully custom made-to-order pieces. The right solution for your timeline and budget.',
                 },
                 {
                   title: 'Installation & project management',
-                  body: 'We coordinate delivery, installation and any trades required. Your team keeps working — we manage the logistics, QC and any issues that come up on site.',
+                  body: 'We coordinate delivery, installation and any trades required. Your team keeps working, we manage the logistics, QC and any issues that come up on site.',
                 },
                 {
                   title: 'Post-fitout cleaning',
@@ -94,7 +94,7 @@ export default function EOFFurniturePage() {
                 },
                 {
                   title: 'Asset management',
-                  body: 'For businesses with multiple sites or ongoing fitout needs, we manage furniture asset registers, relocation logistics and disposal of existing furniture — responsibly and efficiently.',
+                  body: 'For businesses with multiple sites or ongoing fitout needs, we manage furniture asset registers, relocation logistics and disposal of existing furniture, responsibly and efficiently.',
                 },
                 {
                   title: 'National rollout capability',
@@ -123,7 +123,7 @@ export default function EOFFurniturePage() {
                 In-stock express through to fully custom.
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', lineHeight: 1.7, maxWidth: '640px' }}>
-                We work with a broad range of commercial furniture suppliers so we can always match the right product to your project — whether you need something in three weeks or three months.
+                We work with a broad range of commercial furniture suppliers so we can always match the right product to your project, whether you need something in three weeks or three months.
               </p>
             </div>
 
@@ -167,7 +167,7 @@ export default function EOFFurniturePage() {
 
             <div style={{ display: 'grid', gap: '0' }}>
               {[
-                { step: '01', title: 'Brief & space assessment', body: 'We start with your floor plan, headcount and a conversation about how your team actually works. No brief is too rough — a napkin sketch and a number of staff is enough to get going.' },
+                { step: '01', title: 'Brief & space assessment', body: 'We start with your floor plan, headcount and a conversation about how your team actually works. No brief is too rough, a napkin sketch and a number of staff is enough to get going.' },
                 { step: '02', title: 'Specification', body: 'We put together a full furniture specification with options for different price points. You choose what fits your budget. Nothing is committed until you approve.' },
                 { step: '03', title: 'Quote & approval', body: 'You receive an itemised quote covering supply, delivery and installation. We separate these costs so you can see exactly what you\'re paying for at each stage.' },
                 { step: '04', title: 'Installation', body: 'We coordinate delivery and installation on a schedule that suits your business. Most fitouts happen outside business hours so your team isn\'t disrupted.' },
@@ -199,7 +199,7 @@ export default function EOFFurniturePage() {
                   One team. One point of contact. No contractor chaos.
                 </h2>
                 <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.88rem', lineHeight: 1.7, marginBottom: '1.5rem' }}>
-                  Most businesses manage multiple contractors for a fitout — a furniture supplier, an installer, a cleaner, a project manager. We collapse all of that into one team with one point of contact and one accountability.
+                  Most businesses manage multiple contractors for a fitout, a furniture supplier, an installer, a cleaner, a project manager. We collapse all of that into one team with one point of contact and one accountability.
                 </p>
                 <Button href="/eof-group" variant="outline">
                   About EOF Group
@@ -207,9 +207,9 @@ export default function EOFFurniturePage() {
               </div>
               <div style={{ display: 'grid', gap: '1rem' }}>
                 {[
-                  'We\'ve been doing this since 2019 — commercial fitout across Newcastle and regional NSW',
-                  'No undisclosed markups — supply and installation costs are shown separately',
-                  'No off-the-shelf quoting — every specification is built for your space and team',
+                  'We\'ve been doing this since 2019, commercial fitout across Newcastle and regional NSW',
+                  'No undisclosed markups, supply and installation costs are shown separately',
+                  'No off-the-shelf quoting, every specification is built for your space and team',
                   'Post-fitout cleaning included via our own cleaning division',
                   'National coverage through established supplier networks for multi-site rollouts',
                 ].map(point => (
@@ -296,7 +296,7 @@ export default function EOFFurniturePage() {
           {
             "@type": "LocalBusiness",
             "@id": "https://www.yourofficespace.au/#business",
-            "name": "EOF Furniture — Office Fitout Division",
+            "name": "EOF Furniture, Office Fitout Division",
             "alternateName": "EOF Group Furniture",
             "parentOrganization": { "@id": "https://www.yourofficespace.au/#organization" },
             "address": { "@type": "PostalAddress", "addressLocality": "Newcastle", "addressRegion": "NSW", "addressCountry": "AU" },
@@ -308,7 +308,7 @@ export default function EOFFurniturePage() {
             "serviceType": "Commercial Office Fitout",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "areaServed": { "@type": "Place", "name": "Newcastle NSW, Regional NSW" },
-            "description": "Full commercial office fitout project management — space planning, furniture supply, installation and post-fitout cleaning.",
+            "description": "Full commercial office fitout project management, space planning, furniture supply, installation and post-fitout cleaning.",
           },
         ],
       }) }} />

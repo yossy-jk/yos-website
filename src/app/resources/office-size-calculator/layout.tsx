@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Office Size Calculator — How Much Space Does Your Team Need? | Your Office Space',
+  title: 'Office Size Calculator, How Much Space Does Your Team Need? | Your Office Space',
   description: 'Calculate how much office space your team needs based on staff count, work style and room requirements. Free tool for Newcastle and Australian businesses.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/office-size-calculator' },
   openGraph: {
-    title: 'Office Size Calculator — How Much Space Does Your Team Need? | Your Office Space',
+    title: 'Office Size Calculator, How Much Space Does Your Team Need? | Your Office Space',
     description: 'Calculate how much office space your team needs based on staff count, work style and room requirements. Free tool for Newcastle and Australian businesses.',
     url: 'https://www.yourofficespace.au/resources/office-size-calculator',
     siteName: 'Your Office Space',

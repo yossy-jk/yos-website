@@ -120,7 +120,7 @@ export default function AboutPage() {
               { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, fit out and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle and the Hunter." } },
               { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
               { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Book a 20-minute Clarity Call. Bring the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
-              { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier — many of our best client relationships are conducted entirely online." } }
+              { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier. many of our best client relationships are conducted entirely online." } }
             ]
           },
           {
@@ -133,7 +133,7 @@ export default function AboutPage() {
           {
             "@type": "Review",
             "author": { "@type": "Person", "name": "Nathan Franks", "worksFor": { "@type": "Organization", "name": "Dynamic Business Technologies" } },
-            "reviewBody": "Joe was instrumental in building out our boardroom — high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
+            "reviewBody": "Joe was instrumental in building out our boardroom. high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
             "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
             "itemReviewed": { "@type": "Service", "name": "Furniture & Fitout", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
           }
@@ -154,7 +154,7 @@ export default function AboutPage() {
                 <div className="w-full mt-8 overflow-hidden">
                   <Image
                     src="/team/joe-kelley.jpg"
-                    alt="Joe Kelley — Managing Director, Your Office Space"
+                    alt="Joe Kelley. Managing Director, Your Office Space"
                     width={600}
                     height={600}
                     className="object-cover w-full"
@@ -170,14 +170,14 @@ export default function AboutPage() {
                 <p>
                   I have worked across commercial office fit outs, furniture and workplace strategy.
                   In that work I watched good businesses carry avoidable risk during one of the
-                  most expensive and distracting moments in their journey — the office move, the fitout,
+                  most expensive and distracting moments in their journey. the office move, the fitout,
                   the lease negotiation.
                 </p>
                 <p>
                   Here&apos;s what most people don&apos;t see: an office project has a fixed budget.
                   Think of it as a pie. From the moment the project kicks off, multiple contractors,
                   suppliers and agents all need to eat from it. Some are fair. Some are not.
-                  The greedy ones take more than their share early — and the business owner doesn&apos;t
+                  The greedy ones take more than their share early. and the business owner doesn&apos;t
                   notice until quality drops at the back end and the budget is gone.
                 </p>
                 <p>
@@ -187,7 +187,7 @@ export default function AboutPage() {
                 <div className="border-l-4 border-teal pl-6 py-2 my-2">
                   <p className="text-near-black font-medium">
                     I started Your Office Space because I believed business owners deserved someone
-                    genuinely on their side — someone who gets in early, before the pie starts shrinking,
+                    genuinely on their side. someone who gets in early, before the pie starts shrinking,
                     creates a realistic budget, finds the right space on the right terms, and manages the
                     whole thing from a position of trust and experience.
                   </p>
@@ -196,7 +196,7 @@ export default function AboutPage() {
                   One Team. One relationship. One outcome.
                 </p>
                 <p className="text-mid-grey text-xs font-medium tracking-wide">
-                  — Joe Kelley, Founder &amp; Managing Director
+                 . Joe Kelley, Founder &amp; Managing Director
                 </p>
               </div>
             </FadeIn>
@@ -225,7 +225,7 @@ export default function AboutPage() {
                 <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
                   <Image
                     src="/team/joe-kelley.jpg"
-                    alt="Joe Kelley — Founder & Managing Director, Your Office Space"
+                    alt="Joe Kelley. Founder & Managing Director, Your Office Space"
                     fill
                     className="object-cover object-top"
                   />
@@ -270,7 +270,7 @@ export default function AboutPage() {
                 <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
                   <Image
                     src="/team/sarah-kelley.jpg"
-                    alt="Sarah Kelley — Cleaning Division Director, Your Office Space"
+                    alt="Sarah Kelley. Cleaning Division Director, Your Office Space"
                     fill
                     className="object-cover object-top"
                   />
@@ -284,7 +284,7 @@ export default function AboutPage() {
                 {/* Body */}
                 <div className="p-7 sm:p-8">
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
-                    Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month — not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
+                    Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month. not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
                   </p>
                 </div>
 

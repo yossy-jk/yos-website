@@ -1,4 +1,4 @@
-// Inline SVG icons — no emoji, consistent YOS style
+// Inline SVG icons, no emoji, consistent YOS style
 
 export function LockIcon({ size = 24, className = '' }: { size?: number; className?: string }) {
   return (

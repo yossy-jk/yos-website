@@ -12,18 +12,17 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
-import FurnitureVoucherSection from '@/components/FurnitureVoucherSection'
 
 export const metadata = {
   title: 'Office Fit Out | Your Office Space',
-  description: 'Commercial office fit out services across Australia. From cold shell to turnkey — project managed by one team, start to finish. From brief to delivery.',
-  twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'From brief to delivery. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
+  description: 'Commercial office fit out coordination in Newcastle and across NSW. One brief, one programme and clear control from early planning to handover.',
+  twitter: { card: 'summary_large_image', title: 'Office Fit Out | Your Office Space', description: 'From brief to delivery. Office furniture and fitout. one team, end to end. Express to made-to-order.' },
   alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   openGraph: {
     title: 'Office Fit Out | Your Office Space',
-    description: 'Commercial office fit out. End-to-end project management — design, procurement, installation. One team, no gaps.',
+    description: 'Commercial office fit out. End-to-end project management. design, procurement, installation. One team, no gaps.',
     url: 'https://www.yourofficespace.au/office-fitout',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Fit Out — Your Office Space' }],
+    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Office Fit Out. Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -44,7 +43,7 @@ export default function OfficeFitoutPage() {
             "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Office furniture supply and fitout project management. From brief to installed workspace across Australia.",
+            "description": "Commercial office fit out coordination from Newcastle across NSW.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -55,8 +54,7 @@ export default function OfficeFitoutPage() {
             "areaServed": [
               { "@type": "City", "name": "Newcastle" },
               { "@type": "City", "name": "Sydney" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
+              { "@type": "State", "name": "New South Wales" }
             ]
           },
           {
@@ -64,13 +62,12 @@ export default function OfficeFitoutPage() {
             "@id": "https://www.yourofficespace.au/office-fitout#service",
             "name": "Commercial Office Fit Out — Australia",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
-            "description": "Office furniture supply and fitout project management. From brief to installed workspace — workstations, seating, meeting rooms, breakout zones.",
+            "description": "Office furniture supply and fitout project management. From brief to installed workspace. workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
               { "@type": "City", "name": "Newcastle" },
               { "@type": "City", "name": "Maitland" },
               { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
+              { "@type": "State", "name": "New South Wales" }
             ],
             "serviceType": "Commercial Office Fit Out",
             "url": "https://www.yourofficespace.au/office-fitout"
@@ -118,13 +115,13 @@ export default function OfficeFitoutPage() {
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              We manage your furniture and fitout end to end — brief, specification, sourcing, delivery and install. Products are tailored to your timeline, budget and design intent. In-stock to made-to-order. One team, no gaps.
+              We coordinate the workplace brief, design, approvals, procurement, programme and handover. Every decision stays tied to one scope and one project budget.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
             <div className="flex flex-row flex-wrap gap-4 items-center">
               <Button href="/resources/furniture-quote" variant="primary" size="lg">
-                Get a Furniture Quote
+                Get a Fit Out or Furniture Quote
               </Button>
               <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
                 className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
@@ -132,6 +129,26 @@ export default function OfficeFitoutPage() {
                 <svg style={{ width: '1rem', height: '1rem' }} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                 {CONTACT.phone}
               </a>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* THE PROJECT BUDGET */}
+      <section className="bg-light-teal" style={SEC}>
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <FadeIn>
+            <p className="text-near-black font-bold text-xs tracking-[0.25em] uppercase mb-5">Protect the whole budget</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+              <h2 className="text-near-black font-black leading-tight tracking-tight"
+                style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
+                One project budget. Many decisions competing for a share.
+              </h2>
+              <div className="text-readable-grey font-light leading-relaxed space-y-5" style={{ fontSize: '1.05rem' }}>
+                <p>Property costs, consultants, building work, services, furniture and late changes all draw from the same budget.</p>
+                <p>If those decisions are made separately, the money can disappear before the workplace is ready for the people using it.</p>
+                <p className="text-near-black font-semibold">We get involved early, make the trade-offs visible and keep the brief, programme and budget connected.</p>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -226,7 +243,7 @@ export default function OfficeFitoutPage() {
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { step: '01', title: 'Share your brief', body: "Floor plan, headcount, and a description of how your team works — that's all we need to get started." },
+              { step: '01', title: 'Share your brief', body: "Floor plan, headcount, and a description of how your team works. that's all we need to get started." },
               { step: '02', title: 'We design your layout', body: 'We model your space in 3D and show you workstation positions, traffic flow, and common areas. You review and adjust before anything is ordered.' },
               { step: '03', title: 'Fixed quote. No surprises.', body: "Once the layout is locked, you get a fixed price. What you see in the 3D render is what turns up on installation day." }
             ].map((item) => (
@@ -251,14 +268,14 @@ export default function OfficeFitoutPage() {
 
       {/* ─── IMAGE BREAK 1 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
-        <Image src="/images/furniture/space-cogc-wide.jpg" alt="YOS project — contemporary commercial office fitout" fill className="object-cover object-center" />
+        <Image src="/images/furniture/space-cogc-wide.jpg" alt="YOS project. contemporary commercial office fitout" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.45)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch', marginBottom: '0.75rem' }}>
               Your workspace should feel like<br /><span style={{ color: '#00B5A5' }}>it was built for you.</span>
             </p>
-            <p className="text-white/50 font-light" style={{ fontSize: '0.8rem', letterSpacing: '0.15em' }}>COMMERCIAL OFFICES — COGC — INSTALLED BY YOS</p>
+            <p className="text-white/50 font-light" style={{ fontSize: '0.8rem', letterSpacing: '0.15em' }}>COMMERCIAL OFFICES. COGC. INSTALLED BY YOS</p>
           </FadeIn>
         </div>
       </section>
@@ -321,7 +338,7 @@ export default function OfficeFitoutPage() {
                     <ul className="space-y-2 mb-5 flex-1">
                       {cat.items.map((item, j) => (
                         <li key={j} className="text-charcoal font-light text-sm flex items-center gap-2">
-                          <span className="text-teal font-bold" style={{ fontSize: '0.7rem' }}>—</span>
+                          <span className="text-teal font-bold" style={{ fontSize: '0.7rem' }}>-</span>
                           {item}
                         </li>
                       ))}
@@ -348,7 +365,7 @@ export default function OfficeFitoutPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {[
               { src: '/images/furniture/space-wsi-openplan.jpg',       alt: 'Large open plan commercial office fitout',    label: 'Open Plan',       mood: 'Bright & Airy' },
-              { src: '/images/furniture/space-cogc-wide.jpg',          alt: 'Contemporary government office fitout',               label: 'Corporate',       mood: 'Clean & Modern' },
+              { src: '/images/furniture/space-cogc-wide.jpg',          alt: 'Contemporary commercial office fitout',               label: 'Corporate',       mood: 'Clean & Modern' },
               { src: '/images/furniture/space-pillowtalk-a.jpg',       alt: 'Vibrant contemporary office interior',                label: 'Collaborative',   mood: 'Warm & Energetic' },
               { src: '/images/furniture/space-bendigo-wide.jpg',       alt: 'Premium large scale commercial fitout',               label: 'Premium Fitout',  mood: 'Bold & Executive' },
               { src: '/images/furniture/space-liverpool-b.jpg',        alt: 'Civic place office with breakout zones',              label: 'Breakout Zones',  mood: 'Open & Social' },
@@ -378,14 +395,14 @@ export default function OfficeFitoutPage() {
             ))}
           </div>
           <p className="text-mid-grey font-light text-sm mt-6 leading-relaxed">
-            Project photography supplied by our manufacturing and fitout partners. Every space is different — we work to yours.
+            Project photography supplied by our manufacturing and fitout partners. Every space is different. we work to yours.
           </p>
         </div>
       </section>
 
       {/* ─── IMAGE BREAK 2 ─────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(30rem,48vw,44rem)' }}>
-        <Image src="/images/furniture/dbt-boardroom.jpg" alt="DBT boardroom — oval table, dark feature wall, installed by YOS" fill className="object-cover object-center" />
+        <Image src="/images/furniture/dbt-boardroom.jpg" alt="DBT boardroom. oval table, dark feature wall, installed by YOS" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.4)' }} />
         <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
@@ -406,10 +423,10 @@ export default function OfficeFitoutPage() {
               <SectionLabel>Who we work with</SectionLabel>
               <h2 className="text-white font-bold leading-tight mt-3 mb-8"
                 style={{ fontSize: 'clamp(1.6rem,3.5vw,3rem)' }}>
-                Private businesses, councils, schools, and health facilities across Australia.
+                Workplaces with a clear brief and a real delivery deadline.
               </h2>
               <p className="text-white/60 font-light leading-relaxed mb-12 max-w-2xl" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-                We work with organisations of all sizes — from 5-person professional services firms to multi-site government and health sector clients. The spec, the process, and the standard of work is the same regardless of project size.
+                The project structure adapts to the brief. The same controls apply: defined scope, visible decisions, agreed changes and a recorded handover.
               </p>
               <p className="text-white/60 font-light text-lg leading-relaxed max-w-2xl">
                 Every project is managed by us from start to finish. You deal with one person. We coordinate the rest.
@@ -419,10 +436,10 @@ export default function OfficeFitoutPage() {
           <FadeIn direction="right">
             <div className="flex flex-col gap-6">
               {[
-                { label: 'Commercial offices', body: 'Private sector businesses of all sizes — from boutique professional services to multi-site operations.' },
-                { label: 'Councils & government', body: 'Local government and public sector organisations across Australia.' },
-                { label: 'Schools & education', body: 'Student furniture, staff workstations, staffrooms and learning spaces.' },
-                { label: 'Health & community', body: 'Medical practices, NDIS environments, allied health and community facilities.' }
+                { label: 'Commercial offices', body: 'Workplaces being established, expanded, consolidated or refreshed.' },
+                { label: 'Relocations', body: 'Projects that need property, fit out, furniture and move decisions coordinated.' },
+                { label: 'Growing teams', body: 'Spaces that need to support current work and sensible future change.' },
+                { label: 'Existing workplaces', body: 'Targeted upgrades where the business needs to keep operating.' }
               ].map((item) => (
                 <div key={item.label} className="pl-6 border-l-4 border-teal">
                   <p className="text-white font-bold text-base mb-1">{item.label}</p>
@@ -447,7 +464,7 @@ export default function OfficeFitoutPage() {
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. Floor plan, headcount, and how your team works. We start with your needs — not a product catalogue." },
+              { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. Floor plan, headcount, and how your team works. We start with your needs. not a product catalogue." },
               { step: '02', title: '3D Design', body: "We model your layout in 3D. You see exactly where workstations, meeting rooms, and breakout areas sit before anything is ordered. Adjustments are part of the process." },
               { step: '03', title: 'Fixed Quote', body: 'You get a fixed price based on the approved layout. Deposit structure to suit your cash flow. No surprises, no hidden line items.' },
               { step: '04', title: 'Install', body: "We manage delivery and installation. One team on site, one point of contact throughout. Your team walks in to a ready workspace." }
@@ -471,7 +488,7 @@ export default function OfficeFitoutPage() {
         </div>
       </section>
 
-      {/* BUNDLE CALLOUT — cross-sell to cleaning */}
+      {/* BUNDLE CALLOUT. cross-sell to cleaning */}
       <section className="bg-white"
         style={SEC}>
         <FadeIn>
@@ -483,7 +500,7 @@ export default function OfficeFitoutPage() {
                   Fitout + cleaning. One team. Zero gaps.
                 </h3>
                 <p className="text-white/60 font-light text-base leading-relaxed">
-                  Our cleaning division handles the post-construction deep clean and ongoing maintenance after every fitout. You don&apos;t coordinate two contractors — we handle it end to end.
+                  Our cleaning division handles the post-construction deep clean and ongoing maintenance after every fitout. You don&apos;t coordinate two contractors. we handle it end to end.
                 </p>
               </div>
               <div className="flex-shrink-0">
@@ -496,7 +513,6 @@ export default function OfficeFitoutPage() {
         </FadeIn>
       </section>
 
-      <FurnitureVoucherSection />
 
       {/* INLINE QUOTE FORM */}
       <section className="bg-near-black" style={SEC}>

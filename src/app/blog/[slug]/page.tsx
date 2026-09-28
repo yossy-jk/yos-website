@@ -39,7 +39,7 @@ title: post.metaTitle || post.title,
   }
 }
 
-// Internal link map — keyword → href
+// Internal link map. keyword → href
 const INTERNAL_LINKS: Record<string, string> = {
   'tenant representation': '/tenant-rep',
   'tenant rep': '/tenant-rep',
@@ -170,7 +170,7 @@ function renderBody(body: string, slug: string) {
 
   const flushTable = () => {
     if (tableBuffer.length === 0) return
-    // Parse markdown table — first row = headers, second row = separator, rest = data
+    // Parse markdown table. first row = headers, second row = separator, rest = data
     const rows = tableBuffer.map(r =>
       r.split('|').map(c => c.trim()).filter((_, i, a) => i > 0 && i < a.length - 1)
     )
@@ -215,7 +215,7 @@ function renderBody(body: string, slug: string) {
       continue
     }
 
-    // Separator row for table (---|---) — already buffered above
+    // Separator row for table (---|---). already buffered above
     // Headings
     if (line.startsWith('## ')) {
       flushAll()
@@ -275,7 +275,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = await getPostBySlugAsync(slug)
   if (!post) notFound()
 
-  // Related posts — same division, exclude current
+  // Related posts. same division, exclude current
   const allPosts = await getAllPublicPostsAsync()
   const related = allPosts
     .filter(p => p.slug !== slug && p.division === post.division)
@@ -320,7 +320,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           className="object-cover object-center"
           priority
         />
-        {/* Dark gradient overlay — heavier at bottom */}
+        {/* Dark gradient overlay. heavier at bottom */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.96) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
 
         <div className="absolute inset-0 flex items-end">

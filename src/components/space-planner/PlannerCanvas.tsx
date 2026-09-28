@@ -21,7 +21,7 @@ import {
   ROOM_TYPE_COLORS,
 } from "@/lib/space-planner/store";
 
-const GRID_SIZE = 60; // pixels — 1 grid cell = 1 metre at 1:1
+const GRID_SIZE = 60; // pixels, 1 grid cell = 1 metre at 1:1
 const PIXELS_PER_METRE = 60; // 1m = 60px
 const RULER_SIZE = 24; // ruler width/height in px
 

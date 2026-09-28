@@ -106,7 +106,7 @@ export default function Home() {
           {
             "@type": "FAQPage",
             "mainEntity": [
-              { "@type": "Question", "name": "What is tenant representation in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is a service where a licensed agent works exclusively for the tenant — not the landlord — in negotiating a commercial lease. They help secure better rent, favourable terms, rent-free periods and incentives. Your Office Space only ever represents tenants." } },
+              { "@type": "Question", "name": "What is tenant representation in commercial property?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is a service where a licensed agent works exclusively for the tenant. not the landlord. in negotiating a commercial lease. They help secure better rent, favourable terms, rent-free periods and incentives. Your Office Space only ever represents tenants." } },
               { "@type": "Question", "name": "How much does commercial tenant representation cost?", "acceptedAnswer": { "@type": "Answer", "text": "The fee structure depends on the scope and transaction. Your Office Space confirms fees and any third-party arrangements before an engagement begins." } },
               { "@type": "Question", "name": "What is a make-good clause in a commercial lease?", "acceptedAnswer": { "@type": "Answer", "text": "A make-good clause sets out what a tenant must do to the premises at the end of the lease. The obligation can vary significantly, so it should be understood and negotiated before the lease is signed." } },
               { "@type": "Question", "name": "How does a commercial office fitout work from start to finish?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space coordinates the fit out process from design and brief through procurement, programme management, services coordination, furniture installation, practical completion and handover." } },
@@ -136,7 +136,7 @@ export default function Home() {
           <FadeIn delay={80}>
             <h1 className="text-white leading-[1.02] tracking-tight"
               style={{ fontSize: 'clamp(2.5rem,6.5vw,7rem)', maxWidth: '14ch', marginBottom: '1.75rem' }}>
-              One team. Clear direction. No guesswork.
+              We help businesses find their next commercial building. Lease or buy.
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
@@ -301,7 +301,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: 'We never work for landlords', body: 'Every negotiation, every clause, every conversation — we are answering to you. Not the building owner, not a referral fee.' },
+              { title: 'We never work for landlords', body: 'For every negotiation, every clause and every conversation, we answer to you. Not the building owner, and not a referral fee.' },
               { title: 'We make the risks clear', body: 'Commercial leases and fit out contracts can hide costly gaps. We surface the obligations, trade-offs and decisions before they become surprises.' },
               { title: 'One call covers everything', body: 'Lease, fitout, furniture, cleaning. One relationship. We are the last business card you need for your workspace.' },
             ].map((p, i) => (
@@ -380,7 +380,7 @@ export default function Home() {
               </p>
               <p className="text-white font-normal leading-relaxed w-full"
                 style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '2.5rem' }}>
-                Answer 10 questions. Get a plain-English risk rating — Red, Amber, or Green — and the top issues to deal with. Free, instant, no document needed.
+                Answer 10 questions. Get a plain-English Red, Amber or Green risk rating, plus the top issues to address. Free, instant, no document needed.
               </p>
               <div>
                 <Button href="/resources/lease-review" variant="dark" size="lg">

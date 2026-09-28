@@ -4,8 +4,7 @@ import Link from 'next/link'
 
 // Rates mirror fitout-estimator's turnkey-warm sqm bands (see RATES in
 // /resources/fitout-estimator/page.tsx) so the homepage slider and the
-// detailed estimator never diverge. Excludes furniture/FF&E, AV & IT —
-// those are priced separately in the full breakdown.
+// detailed estimator never diverge. Excludes furniture/FF&E, AV & IT, // those are priced separately in the full breakdown.
 const TIERS = [
   { label: 'Basic', min: 600, max: 780, desc: 'Functional, clean finish', highlight: false, contingency: 0.10 },
   { label: 'Midrange', min: 900, max: 1170, desc: 'Professional standard', highlight: true, contingency: 0.10 },
@@ -26,7 +25,7 @@ export default function QuickEstimator() {
           Newcastle rates
         </span>
       </div>
-      <p className="text-mid-grey text-xs mb-7 font-light">Drag to estimate — current NSW market rates</p>
+      <p className="text-mid-grey text-xs mb-7 font-light">Drag to estimate, current NSW market rates</p>
 
       <div className="mb-8">
         <div className="flex justify-between items-baseline mb-4">
@@ -36,7 +35,7 @@ export default function QuickEstimator() {
           </span>
         </div>
 
-        {/* Styled range — global CSS handles thumb; gradient fills the track */}
+        {/* Styled range, global CSS handles thumb; gradient fills the track */}
         <input
           type="range"
           min={30}

@@ -91,7 +91,7 @@ export default function ToolGate({
         }} />
       </div>
 
-      {/* Gate card — tighter for estimator result context */}
+      {/* Gate card, tighter for estimator result context */}
       <div style={{
         background: cardBg,
         border: cardBorder,

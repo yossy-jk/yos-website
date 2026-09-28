@@ -16,19 +16,19 @@ const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.
 
 /* ─── Data ───────────────────────────────────────────────── */
 const FREE_CHECKS = [
-  'Overall lease risk rating — RED / AMBER / GREEN',
+  'Overall lease risk rating, RED / AMBER / GREEN',
   'Your top 3 highest-risk clauses identified',
   'Total financial exposure headline figure',
   'Whether your lease complies with Australian legislation',
 ]
 
 const PAID_INCLUDES = [
-  { title: 'All 12 risk categories', desc: 'Rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance, special conditions — every clause rated.' },
+  { title: 'All 12 risk categories', desc: 'Rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance, special conditions, every clause rated.' },
   { title: 'Full RAG risk table', desc: 'Every clause rated Red / Amber / Green with plain-English explanation of what it means for your business.' },
-  { title: 'Financial exposure summary', desc: 'Total rent, outgoings, make good estimate, bank guarantee, and early exit cost — in one table.' },
+  { title: 'Financial exposure summary', desc: 'Total rent, outgoings, make good estimate, bank guarantee, and early exit cost, in one table.' },
   { title: 'Negotiation roadmap', desc: 'Which clauses to push back on, in priority order, with market benchmarks and realistic success likelihood.' },
   { title: 'Exit scenario analysis', desc: 'How the lease plays out if you exit early, sell the business, sublet, or hold to expiry.' },
-  { title: 'Your next move', desc: 'Three clear paths: sign / negotiate / do not sign — with specific steps for each outcome.' },
+  { title: 'Your next move', desc: 'Three clear paths: sign / negotiate / do not sign, with specific steps for each outcome.' },
 ]
 
 /* ─── Types ──────────────────────────────────────────────── */
@@ -258,13 +258,13 @@ export default function LeaseReviewPage() {
       const scanResult = await virusTotalScan(form.file)
 
       if (scanResult.status === 'malicious') {
-        // Block submission — known malicious file
+        // Block submission, known malicious file
         setErrors({ file: `This file was flagged by ${scanResult.detections} security engines and cannot be uploaded. Please contact us directly if you believe this is an error.` })
         setSubmitting(false)
         setSecurityStep('idle')
         return
       }
-      // 'clean', 'unknown', or 'error' — all proceed (fail open on API errors)
+      // 'clean', 'unknown', or 'error', all proceed (fail open on API errors)
 
       // ── Step 2: AES-256-GCM encryption ─────────────────
       setSecurityStep('encrypting')
@@ -272,7 +272,7 @@ export default function LeaseReviewPage() {
       try {
         encryptedFile = await encryptFile(form.file)
       } catch {
-        // Encryption failed — fall back to unencrypted but still send
+        // Encryption failed, fall back to unencrypted but still send
         encryptedFile = null
       }
 
@@ -314,8 +314,8 @@ export default function LeaseReviewPage() {
         fd.append('name', form.name)
         fd.append('email', form.email)
         fd.append('_replyto', form.email)
-        fd.append('company', form.company || '—')
-        fd.append('phone', form.phone || '—')
+        fd.append('company', form.company || ', ')
+        fd.append('phone', form.phone || ', ')
         fd.append('leaseType', form.leaseType)
         fd.append('state', form.state)
         fd.append('_subject', `LeaseIntel™ Scope Request — ${form.name} (${form.company || form.email}) — ENCRYPTED`)
@@ -328,9 +328,9 @@ export default function LeaseReviewPage() {
           fd.append('decrypt_salt', encryptedFile.saltHex)
           fd.append('encrypt_note', 'AES-256-GCM encrypted. Use the YOS decrypt tool at /tools/decrypt-lease.html')
         } else {
-          // Encryption failed — send original with warning
+          // Encryption failed, send original with warning
           fd.append('attachment', form.file, form.file.name)
-          fd.append('encrypt_note', 'WARNING: Encryption failed — unencrypted file attached')
+          fd.append('encrypt_note', 'WARNING: Encryption failed, unencrypted file attached')
         }
 
         // Email notification via API route
@@ -343,8 +343,8 @@ export default function LeaseReviewPage() {
               name: form.name,
               email: form.email,
               phone: form.phone,
-              source: 'LeaseIntel™ — Lease Review Submission',
-              context: `Company: ${form.company || '—'}\nLease type: ${form.leaseType}\nState: ${form.state}\nFile: ${form.file?.name || 'no file'}`,
+              source: 'LeaseIntel™, Lease Review Submission',
+              context: `Company: ${form.company || ', '}\nLease type: ${form.leaseType}\nState: ${form.state}\nFile: ${form.file?.name || 'no file'}`,
             }),
           }),
         ])
@@ -384,7 +384,7 @@ export default function LeaseReviewPage() {
                 <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black leading-[0.95] tracking-tight mb-4 outline-none"
                   style={{ fontSize: 'clamp(2.25rem,6vw,5.5rem)' }}>
                   Full LeaseIntel™ Report<br />
-                  <span className="text-teal">Free — 100% No Obligation</span>
+                  <span className="text-teal">Free, 100% No Obligation</span>
                 </h1>
               </FadeIn>
               <FadeIn delay={140}>
@@ -594,7 +594,7 @@ export default function LeaseReviewPage() {
                 <div>
                   <p className="text-near-black font-black text-sm mb-3">Bank-grade encryption</p>
                   <p className="text-charcoal text-sm leading-relaxed font-light">
-                    Your lease document is encrypted with AES-256-GCM — the same standard used by banks and governments — <strong>before it leaves your browser</strong>. The file is unreadable in transit and at rest. No third party can access it, even if they intercept the transmission.
+                    Your lease document is encrypted with AES-256-GCM, the same standard used by banks and governments, <strong>before it leaves your browser</strong>. The file is unreadable in transit and at rest. No third party can access it, even if they intercept the transmission.
                   </p>
                 </div>
               </FadeIn>
@@ -610,7 +610,7 @@ export default function LeaseReviewPage() {
                 <div>
                   <p className="text-near-black font-black text-sm mb-3">Commercial expertise, not legal advice</p>
                   <p className="text-charcoal text-sm leading-relaxed font-light">
-                    LeaseIntel™ provides commercially informed analysis. Every report recommends formal legal advice from a qualified solicitor before signing. We identify the risks — your solicitor confirms enforceability.
+                    LeaseIntel™ provides commercially informed analysis. Every report recommends formal legal advice from a qualified solicitor before signing. We identify the risks, your solicitor confirms enforceability.
                   </p>
                 </div>
               </FadeIn>
@@ -626,12 +626,11 @@ export default function LeaseReviewPage() {
               <p className="text-white font-light leading-relaxed mb-12"
                 style={{ fontSize: 'clamp(1rem, 2vw, 1.25rem)' }}>
                 &ldquo;Most business owners sign commercial leases they don&apos;t fully understand.
-                LeaseIntel™ changes that. Submit your lease for a complete plain-English analysis —
-                every risk identified, every opportunity flagged, every number quantified.
+                LeaseIntel™ changes that. Submit your lease for a complete plain-English analysis,                 every risk identified, every opportunity flagged, every number quantified.
                 Before you sign.&rdquo;
               </p>
               <p className="text-teal font-bold text-xs tracking-[0.25em] uppercase">
-                Joe Kelley — Managing Director, Your Office Space
+                Joe Kelley, Managing Director, Your Office Space
               </p>
             </div>
           </FadeIn>
@@ -644,7 +643,7 @@ export default function LeaseReviewPage() {
     )
   }
 
-  /* ── FORM: STEP 1 — Details ──────────────────────────── */
+  /* ── FORM: STEP 1, Details ──────────────────────────── */
   if (step === 'form-details') {
     return (
       <>
@@ -738,7 +737,7 @@ export default function LeaseReviewPage() {
                 onClick={handleDetailsNext}
                 className="inline-flex items-center justify-center bg-teal text-white font-bold text-[0.72rem] tracking-[0.14em] uppercase px-10 py-[1.3rem] hover:bg-dark-teal transition-all duration-200 min-h-[52px] mt-2 w-full sm:w-auto"
               >
-                Continue — Upload Lease →
+                Continue, Upload Lease →
               </button>
 
               <p className="text-white/25 text-xs leading-relaxed text-center">
@@ -752,7 +751,7 @@ export default function LeaseReviewPage() {
     )
   }
 
-  /* ── FORM: STEP 2 — Upload ───────────────────────────── */
+  /* ── FORM: STEP 2, Upload ───────────────────────────── */
   if (step === 'form-upload') {
     return (
       <>
@@ -909,7 +908,7 @@ export default function LeaseReviewPage() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-teal font-bold text-xs tracking-widest uppercase border-b border-teal/50 hover:border-teal hover:text-dark-teal transition-colors no-underline pb-0.5 no-min-height"
           >
-            Skip ahead — book a Clarity Call now →
+            Skip ahead, book a Clarity Call now →
           </a>
         </div>
       </div>

@@ -107,7 +107,7 @@ function getVerdictConfig(score: number): VerdictConfig {
       headline: 'No urgent case to move.',
       summary: 'Renew or extend with better terms.',
       recommendations: [
-        'Your lease economics look favourable — focus on renewing with improved terms rather than uprooting.',
+        'Your lease economics look favourable, focus on renewing with improved terms rather than uprooting.',
         'Explore rent review clauses and rent-free incentives before committing to a renewal.',
         'A lease extension with an abatement period could strengthen your position at minimal cost.',
         "Book a free consultation to lock in favourable terms before market conditions change.",
@@ -126,7 +126,7 @@ function getVerdictConfig(score: number): VerdictConfig {
       headline: 'Worth exploring options.',
       summary: 'A market comparison could reveal savings.',
       recommendations: [
-        'There are signals that a market comparison is overdue — your current rent may not reflect today\'s conditions.',
+        'There are signals that a market comparison is overdue, your current rent may not reflect today\'s conditions.',
         'Running a formal lease comparison could reveal significant savings on a new or renewed agreement.',
         'Consider engaging a tenant representative before your next lease event to maximise leverage.',
         'A relocation feasibility assessment costs nothing upfront and could unlock better alternatives.',
@@ -144,10 +144,10 @@ function getVerdictConfig(score: number): VerdictConfig {
     headline: 'Strong case to act.',
     summary: 'Time to assess your alternatives.',
     recommendations: [
-      'Multiple indicators point to a clear case for relocation — staying put is likely costing you more over time.',
+      'Multiple indicators point to a clear case for relocation, staying put is likely costing you more over time.',
       'Your space fit, lease timing, and team factors all suggest the window to act is now.',
       'Begin assessing alternative premises in your target area to understand what\'s available and at what price.',
-      'Engage a tenant representative before your lease expires — waiting reduces your negotiating leverage significantly.',
+      'Engage a tenant representative before your lease expires, waiting reduces your negotiating leverage significantly.',
     ],
     color: '#ef4444',
     bgColor: 'rgba(239,68,68,0.08)',
@@ -160,7 +160,7 @@ function getVerdictConfig(score: number): VerdictConfig {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function RelocateQuizPage() {
-  // Store selected option INDEX (not score) — avoids false multi-select when options share the same score
+  // Store selected option INDEX (not score), avoids false multi-select when options share the same score
   const [answers, setAnswers] = useState<(number | null)[]>(Array(QUESTIONS.length).fill(null))
   const [submitted, setSubmitted] = useState(false)
   const [current, setCurrent] = useState(0)
@@ -256,7 +256,7 @@ export default function RelocateQuizPage() {
       </div>
 
       <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem', marginTop: '1.25rem' }}>
-        Full recommendations — unlock to view
+        Full recommendations, unlock to view
       </p>
     </div>
   )
@@ -277,7 +277,7 @@ export default function RelocateQuizPage() {
             Should I<br />Relocate?
           </h1>
           <p style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 300, fontSize: '1rem', lineHeight: 1.75, maxWidth: '36rem', marginBottom: '3rem' }}>
-            Answer 6 questions about your current lease, space, and team. Get an instant Red, Amber, or Green verdict — and specific next steps.
+            Answer 6 questions about your current lease, space, and team. Get an instant Red, Amber, or Green verdict, and specific next steps.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2.5rem' }}>
             {[
@@ -617,7 +617,7 @@ export default function RelocateQuizPage() {
                             Q{qi + 1}
                           </p>
                           <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '0.875rem', fontWeight: 400 }}>
-                            {selectedOpt?.label ?? '—'}
+                            {selectedOpt?.label ?? ', '}
                           </p>
                         </div>
                         <div style={{

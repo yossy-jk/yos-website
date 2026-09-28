@@ -47,7 +47,7 @@ function MetricCard({ label, value, sub }: { label: string; value: string; sub?:
   return (
     <div className="bg-white/5 border border-white/10" style={{ padding: '1.5rem 1.5rem' }}>
       <p className="text-white/35 font-light mb-1" style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{label}</p>
-      <p className="text-white font-black" style={{ fontSize: '1.75rem', lineHeight: 1 }}>{value || '—'}</p>
+      <p className="text-white font-black" style={{ fontSize: '1.75rem', lineHeight: 1 }}>{value || ', '}</p>
       {sub && <p className="text-white/30 font-light mt-1" style={{ fontSize: '0.75rem' }}>{sub}</p>}
     </div>
   )
@@ -67,7 +67,7 @@ const SCHEMA = {
 }
 
 export default function CapRateCalculatorPage() {
-  // Net rent section — two modes: derive from gross or enter directly
+  // Net rent section, two modes: derive from gross or enter directly
   const [netRentMode, setNetRentMode] = useState<'derive' | 'direct'>('derive')
   const [grossRent, setGrossRent] = useState('')
   const [vacancy, setVacancy] = useState('5')
@@ -174,15 +174,15 @@ export default function CapRateCalculatorPage() {
             </p>
           </div>
 
-          {/* Main calculator — two columns, always live */}
+          {/* Main calculator, two columns, always live */}
           <div className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: 'clamp(2.5rem,6vw,5rem)' }}>
 
-            {/* LEFT — Inputs */}
+            {/* LEFT, Inputs */}
             <div>
 
               {/* Net Rent Input */}
               <div className="mb-8">
-                <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 1 — Net rent</p>
+                <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 1, Net rent</p>
 
                 {/* Toggle derive vs direct */}
                 <div className="flex gap-0 border border-white/15 mb-5 rounded overflow-hidden" style={{ maxWidth: 420 }}>
@@ -217,7 +217,7 @@ export default function CapRateCalculatorPage() {
                   </div>
                 ) : (
                   <div>
-                    <NumberInput label="Net annual rent (NOI)" value={netRentDirect} onChange={setNetRentDirect} placeholder="90,000" hint="Rent after all landlord costs — no vacancy adjustment" />
+                    <NumberInput label="Net annual rent (NOI)" value={netRentDirect} onChange={setNetRentDirect} placeholder="90,000" hint="Rent after all landlord costs, no vacancy adjustment" />
                   </div>
                 )}
 
@@ -235,7 +235,7 @@ export default function CapRateCalculatorPage() {
 
               {/* Bidirectional Cap Rate / Price / NOI */}
               <div>
-                <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 2 — Fill any two fields</p>
+                <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 2, Fill any two fields</p>
 
                 <div className="flex flex-col" style={{ gap: '1.5rem' }}>
                   {/* Purchase Price */}
@@ -297,7 +297,7 @@ export default function CapRateCalculatorPage() {
                         style={{ padding: '0.9rem 1rem 0.9rem 2rem', fontSize: '1.1rem' }}
                       />
                     </div>
-                    <p className="text-white/20 font-light mt-1" style={{ fontSize: '0.72rem' }}>Or use net rent above — all results update live</p>
+                    <p className="text-white/20 font-light mt-1" style={{ fontSize: '0.72rem' }}>Or use net rent above, all results update live</p>
                   </div>
                 </div>
 
@@ -310,7 +310,7 @@ export default function CapRateCalculatorPage() {
               </div>
             </div>
 
-            {/* RIGHT — Results */}
+            {/* RIGHT, Results */}
             <div>
               <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Your results</p>
 
@@ -326,9 +326,9 @@ export default function CapRateCalculatorPage() {
               {calcRate > 0 || calcPrice > 0 || calcNOI > 0 ? (
                 <div className="flex flex-col" style={{ gap: '0.75rem' }}>
                   <div className="grid grid-cols-3 gap-3 mb-2">
-                    <MetricCard label="Cap rate" value={calcRate > 0 ? fmtPct(calcRate) : '—'} />
-                    <MetricCard label="Property value" value={calcPrice > 0 ? fmt(calcPrice) : '—'} />
-                    <MetricCard label="NOI p.a." value={calcNOI > 0 ? fmt(calcNOI) : '—'} />
+                    <MetricCard label="Cap rate" value={calcRate > 0 ? fmtPct(calcRate) : ', '} />
+                    <MetricCard label="Property value" value={calcPrice > 0 ? fmt(calcPrice) : ', '} />
+                    <MetricCard label="NOI p.a." value={calcNOI > 0 ? fmt(calcNOI) : ', '} />
                   </div>
 
                   {/* Net yield */}
@@ -339,7 +339,7 @@ export default function CapRateCalculatorPage() {
               ) : (
                 <div className="border border-white/8 bg-white/3 mb-5" style={{ padding: '2rem 1.5rem' }}>
                   <p className="text-white/25 font-light text-center" style={{ fontSize: '0.875rem', lineHeight: 1.7 }}>
-                    Enter any two fields — purchase price, cap rate, or NOI — to see your results update in real time.
+                    Enter any two fields, purchase price, cap rate, or NOI, to see your results update in real time.
                   </p>
                 </div>
               )}
@@ -369,7 +369,7 @@ export default function CapRateCalculatorPage() {
               {/* Benchmarks */}
               <div className="border border-white/8 mb-5">
                 <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-4" style={{ fontSize: '0.65rem' }}>
-                  Market benchmarks — Australia (April 2026)
+                  Market benchmarks, Australia (April 2026)
                 </p>
                 {BENCHMARKS.map((b, i) => (
                   <div key={b.type} className={`flex justify-between items-center px-4 py-3 ${i < BENCHMARKS.length - 1 ? 'border-b border-white/6' : ''}`}>
@@ -409,7 +409,7 @@ export default function CapRateCalculatorPage() {
       <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>
         <div className="max-w-screen-xl mx-auto">
           <p className="text-mid-grey font-light text-center" style={{ fontSize: "0.72rem", lineHeight: 1.7 }}>
-            This calculator provides estimates only. Rates and thresholds change — verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
+            This calculator provides estimates only. Rates and thresholds change, verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
           </p>
         </div>
       </div>

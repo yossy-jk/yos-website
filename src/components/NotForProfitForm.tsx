@@ -3,16 +3,16 @@ import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
 
 const LEASE_TYPE_OPTIONS = [
-  { value: 'lease-review', label: 'Lease Review — I\'m already in a lease and want it reviewed' },
-  { value: 'relocation', label: 'Relocation Search — I\'m looking for a new space' },
+  { value: 'lease-review', label: 'Lease Review, I\'m already in a lease and want it reviewed' },
+  { value: 'relocation', label: 'Relocation Search, I\'m looking for a new space' },
 ]
 
 const SITUATION_OPTIONS = [
   { value: 'in-lease', label: 'Currently in a commercial lease' },
   { value: 'about-to-sign', label: 'About to sign a new lease' },
-  { value: 'lease-expiry-soon', label: 'Lease expiring soon — need to act' },
+  { value: 'lease-expiry-soon', label: 'Lease expiring soon, need to act' },
   { value: 'actively-searching', label: 'Actively searching for space' },
-  { value: 'early-stage', label: 'Early stage — exploring options' },
+  { value: 'early-stage', label: 'Early stage, exploring options' },
 ]
 
 export default function NotForProfitForm() {
@@ -78,8 +78,8 @@ export default function NotForProfitForm() {
         source: 'Not-for-Profit Support',
         context: [
           `Organisation: ${fields.organisation}`,
-          `ABN: ${fields.abn || '—'}`,
-          `Phone: ${fields.phone || '—'}`,
+          `ABN: ${fields.abn || ', '}`,
+          `Phone: ${fields.phone || ', '}`,
           `What they need: ${leaseTypeLabel}`,
           `Current situation: ${situationLabel}`,
           `Message: ${fields.message}`,

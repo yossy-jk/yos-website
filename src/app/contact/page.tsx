@@ -84,7 +84,7 @@ export default function ContactPage() {
         ]
       }) }} />
 
-      {/* HERO — compact, no dead space */}
+      {/* HERO. compact, no dead space */}
       <section className="bg-near-black" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
@@ -103,12 +103,12 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* CONTACT — form + direct details */}
+      {/* CONTACT. form + direct details */}
       <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-            {/* Left — contact form */}
+            {/* Left. contact form */}
             <FadeIn>
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Send a message</p>
@@ -117,7 +117,7 @@ export default function ContactPage() {
                   Tell us what you need.<br />We&apos;ll confirm the next step.
                 </h2>
 
-                {/* Contact Form — sends to HubSpot CRM + email */}
+                {/* Contact Form. sends to HubSpot CRM + email */}
                 <ContactForm />
                 {false && <form
                   name="contact-legacy"
@@ -125,7 +125,7 @@ export default function ContactPage() {
                   action={`https://formsubmit.co/${CONTACT.email}`}
                   className="flex flex-col gap-4"
                 >
-                  <input type="hidden" name="_subject" value="New enquiry — Your Office Space website" />
+                  <input type="hidden" name="_subject" value="New enquiry. Your Office Space website" />
                   <input type="hidden" name="_next" value="https://www.yourofficespace.au/contact?sent=true" />
                   <input type="hidden" name="_captcha" value="true" />
                   <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
@@ -222,7 +222,7 @@ export default function ContactPage() {
               </div>
             </FadeIn>
 
-            {/* Right — direct contact */}
+            {/* Right. direct contact */}
             <FadeIn delay={120}>
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Or reach us directly</p>
@@ -273,7 +273,7 @@ export default function ContactPage() {
                   {/* Location */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in Newcastle</p>
-                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Partnering with Business Owners Throughout Australia</p>
+                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Working across NSW</p>
                   </div>
                 </div>
               </div>
@@ -296,7 +296,7 @@ export default function ContactPage() {
             {[
               { num: '01', title: 'We listen', body: 'Tell us your situation. Current space, timeline, what\'s driving the decision. Real listening, no sales script.' },
               { num: '02', title: 'We assess', body: 'We\'ll tell you straight whether we can help. If we can\'t, we\'ll say so.' },
-              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain how — timeline, process, and what it looks like to work together.' },
+              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain how. timeline, process, and what it looks like to work together.' },
               { num: '04', title: 'Your call', body: 'No pressure. Take your time. Good relationships start with honesty, not a hard close.' },
             ].map((item, i) => (
               <FadeIn key={item.num} delay={i * 60}>

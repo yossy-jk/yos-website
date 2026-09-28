@@ -10,7 +10,6 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import { getPublicPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
-import { getAllCaseStudies } from '@/lib/case-studies'
 
 export const metadata = {
   title: 'Resources & Insights | Your Office Space',
@@ -24,14 +23,14 @@ export const metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-resources.png', width: 1200, height: 630, alt: 'Free Commercial Property Tools — Your Office Space' }],
+    images: [{ url: '/og-resources.png', width: 1200, height: 630, alt: 'Free Commercial Property Tools. Your Office Space' }],
   },
 }
 
 const LEASING_TOOLS = [
-  { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention — and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
+  { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention. and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
   { title: 'Fitout Cost Estimator', description: 'Estimate your fitout cost using real market rates. Full breakdown across Basic, Mid-Range and Premium tiers.', href: '/resources/fitout-estimator', features: ['2026 market rates', 'Three quality tiers', 'Contingency included'] },
-  { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost — not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
+  { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost. not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
   { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs. Based on headcount, work style, and growth plans.', href: '/resources/office-size-calculator', features: ['Headcount-based', 'Growth buffer included', 'Instant result'] },
   { title: 'Should I Relocate?', description: 'Answer 6 questions about your lease, space, and team. Get an instant Red, Amber, or Green verdict on whether your business should move offices.', href: '/resources/relocate-quiz', features: ['6-question assessment', 'RAG verdict', 'Specific next steps'] },
 ]
@@ -46,7 +45,6 @@ const FILTERS = [
 
 export default function ResourcesPage() {
   const posts = getPublicPosts()
-  const caseStudies = getAllCaseStudies()
 
   return (
     <>
@@ -76,7 +74,7 @@ export default function ResourcesPage() {
           },
           {
             "@type": "WebPage",
-            "name": "Resources & Tools — Your Office Space",
+            "name": "Resources & Tools. Your Office Space",
             "description": "Practical tools including a lease risk checker, fit out estimator, lease comparison and office size calculator for Australian business owners.",
             "url": "https://www.yourofficespace.au/resources"
           },
@@ -85,7 +83,7 @@ export default function ResourcesPage() {
             "mainEntity": [
               { "@type": "Question", "name": "Are the tools on Your Office Space really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All tools on the Your Office Space website are completely free to use. No sign-up, no email capture, no catch. We built them to help business owners make better property decisions." } },
               { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "The tools are for indicative planning and do not replace project-specific professional advice. Inputs, assumptions and market conditions should be checked before a decision is made." } },
-              { "@type": "Question", "name": "What should I use the Lease Risk Checker for?", "acceptedAnswer": { "@type": "Answer", "text": "The LeaseIntel risk checker is designed for business owners who want a quick read on whether their current lease has clauses that need attention — particularly make-good obligations, rent review structures, and assignment restrictions." } }
+              { "@type": "Question", "name": "What should I use the Lease Risk Checker for?", "acceptedAnswer": { "@type": "Answer", "text": "The LeaseIntel risk checker is designed for business owners who want a quick read on whether their current lease has clauses that need attention. particularly make-good obligations, rent review structures, and assignment restrictions." } }
             ]
           },
           {
@@ -283,61 +281,6 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* ─── CASE STUDIES ────────────────────── */}
-      <section className="bg-near-black" style={SEC}>
-        <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <FadeIn>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 md:mb-16">
-              <div>
-                <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-5" style={{ fontSize: '0.72rem' }}>Case studies</p>
-                <h2 className="text-white font-black uppercase leading-tight tracking-tight"
-                  style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-                  Real projects.<br />Real outcomes.
-                </h2>
-              </div>
-              <Link href="/case-studies"
-                className="text-teal font-bold uppercase tracking-widest no-underline hover:text-dark-teal transition-colors flex-shrink-0"
-                style={{ fontSize: '0.72rem' }}>
-                View all case studies →
-              </Link>
-            </div>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {caseStudies.slice(0, 3).map((cs, i) => (
-              <FadeIn key={cs.slug} delay={i * 60}>
-                <Link href={`/case-studies/${cs.slug}`} className="group no-underline flex flex-col h-full bg-near-black border border-white/8 hover:border-teal transition-colors duration-200">
-                  {cs.heroImage && (
-                    <div className="overflow-hidden" style={{ height: '13rem' }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={cs.heroImage} alt={cs.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy" />
-                    </div>
-                  )}
-                  <div className="flex flex-col flex-1" style={{ padding: '2rem' }}>
-                    <span className="bg-teal text-white font-bold uppercase tracking-widest inline-block mb-4 self-start"
-                      style={{ fontSize: '0.6rem', padding: '0.3rem 0.75rem' }}>
-                      {DIVISION_LABELS[cs.division as keyof typeof DIVISION_LABELS] || 'Project'}
-                    </span>
-                    <h3 className="text-white font-black leading-tight tracking-tight group-hover:text-teal transition-colors flex-1 mb-4"
-                      style={{ fontSize: '1.05rem' }}>
-                      {cs.title}
-                    </h3>
-                    <p className="text-white/45 font-light leading-relaxed mb-6"
-                      style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
-                      {cs.excerpt}
-                    </p>
-                    <span className="text-teal font-bold group-hover:text-dark-teal transition-colors" style={{ fontSize: '0.75rem' }}>
-                      View project →
-                    </span>
-                  </div>
-                </Link>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* ─── CTA ──────────────────────────────── */}
       <section className="bg-teal text-white" style={SEC}>

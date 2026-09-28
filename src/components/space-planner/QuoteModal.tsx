@@ -24,7 +24,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
   const recommendations = getSmartRecommendations(items);
 
-  // Aggregate items — qty only, no pricing
+  // Aggregate items, qty only, no pricing
   const aggregated = new Map<string, { name: string; category: string; qty: number }>();
   for (const item of items) {
     const existing = aggregated.get(item.productId);
@@ -71,7 +71,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
       });
       setSubmitted(true);
     } catch {
-      // Non-fatal — still show success to user
+      // Non-fatal, still show success to user
       setSubmitted(true);
     } finally {
       setLoading(false);
@@ -142,7 +142,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
               <span style={{ fontWeight: 600 }}>{items.length} furniture item{items.length !== 1 ? 's' : ''}</span> in your layout
               {lineItems.length > 0 && (
                 <span>
-                  {' '}—{lineItems.slice(0, 3).map((i, idx) => (
+                  {' '}, {lineItems.slice(0, 3).map((i, idx) => (
                     <span key={idx}> {i.qty}x {i.name}{idx < Math.min(lineItems.length, 3) - 1 ? ',' : ''}</span>
                   ))}
                   {lineItems.length > 3 && <span> and {lineItems.length - 3} more</span>}

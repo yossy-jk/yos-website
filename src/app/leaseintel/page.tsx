@@ -89,12 +89,12 @@ const SCHEMA = {
 }
 
 const INCLUDED = [
-  { title: 'All 12 risk categories', desc: 'Rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance, and special conditions — every clause rated.' },
+  { title: 'All 12 risk categories', desc: 'Rent, make good, assignment, security, permitted use, outgoings, repairs, relocation, default, insurance, and special conditions, every clause rated.' },
   { title: 'Full RAG risk table', desc: 'Every clause rated Red / Amber / Green with plain-English explanation. No legal jargon.' },
   { title: 'Financial exposure summary', desc: 'Total rent, outgoings, make-good estimate, bank guarantee, and early exit cost in one table.' },
   { title: 'Negotiation roadmap', desc: 'Which clauses to push on, in priority order. What to ask for and what landlords will accept.' },
   { title: 'Exit scenario analysis', desc: 'How the lease plays out if you exit early, sell, sublet, or hold to expiry.' },
-  { title: 'Your next move', desc: 'Three clear paths: sign / negotiate / do not sign — with specific steps for each outcome.' },
+  { title: 'Your next move', desc: 'Three clear paths: sign / negotiate / do not sign, with specific steps for each outcome.' },
 ]
 
 const SECURITY_ITEMS = [
@@ -159,7 +159,7 @@ export default function LeaseIntelPage() {
                 <h3 className="text-near-black font-bold mb-3"
                      style={{ fontSize: 'clamp(1rem,2vw,1.35rem)', lineHeight: 1.3 }}>Instant risk rating. No document required.</h3>
                 <p className="text-mid-grey font-light mb-2" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Answer 10 questions about your lease. Takes 3 minutes.</p>
-                <p className="text-mid-grey font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Get your Red / Amber / Green risk rating and the top 3 issues to watch — instantly. No upload, no payment, no waiting.</p>
+                <p className="text-mid-grey font-light mb-8" style={{ fontSize: '0.92rem', lineHeight: 1.8 }}>Get your Red / Amber / Green risk rating and the top 3 issues to watch, instantly. No upload, no payment, no waiting.</p>
                 <div className="mt-auto">
                   <a href="/resources/lease-review"
                     className="inline-flex items-center justify-center font-bold text-white no-underline transition-colors"
@@ -214,7 +214,7 @@ export default function LeaseIntelPage() {
             <p className="text-teal font-semibold uppercase tracking-widest mb-4"
                     style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>What you receive</p>
             <h2 className="text-near-black font-bold leading-tight mb-6"
-               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>Everything you need to decide — and negotiate.</h2>
+               style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>Everything you need to decide, and negotiate.</h2>
             <p className="text-mid-grey font-light mb-14" style={{ fontSize: '1.05rem', lineHeight: 1.8, maxWidth: '600px' }}>
               This is not a checklist. It is a complete clause-by-clause analysis with a clear recommendation at the end.
             </p>

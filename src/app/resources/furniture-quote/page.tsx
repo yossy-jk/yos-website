@@ -75,7 +75,7 @@ export default function FurnitureQuotePage() {
         data.append('timeline', form.timeline || '')
         data.append('notes', form.notes || '')
         data.append('attachment', file)
-        data.append('_subject', `Furniture Quote Request — ${form.name}${form.company ? ` (${form.company})` : ''}`)
+        data.append('_subject', `Furniture Quote Request, ${form.name}${form.company ? ` (${form.company})` : ''}`)
         data.append('_captcha', 'false')
         data.append('_template', 'table')
 
@@ -97,7 +97,7 @@ export default function FurnitureQuotePage() {
         context: contextParts,
       })
 
-      // Always notify Joe — even when no file attached
+      // Always notify Joe, even when no file attached
       fetch('/api/notify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -345,7 +345,7 @@ export default function FurnitureQuotePage() {
                       rows={4}
                       value={form.notes}
                       onChange={handleChange}
-                      placeholder="Anything else we should know — existing furniture, brand requirements, specific products..."
+                      placeholder="Anything else we should know, existing furniture, brand requirements, specific products..."
                       className={`${inputClass} resize-none`}
                     />
                   </div>
@@ -354,7 +354,7 @@ export default function FurnitureQuotePage() {
                   <div>
                     <label htmlFor="file" className={labelClass}>
                       Floor plan or design brief{' '}
-                      <span className="text-mid-grey font-light text-xs">(optional — .pdf, .jpg, .png, .dwg, max 20MB)</span>
+                      <span className="text-mid-grey font-light text-xs">(optional, .pdf, .jpg, .png, .dwg, max 20MB)</span>
                     </label>
                     <input
                       id="file"

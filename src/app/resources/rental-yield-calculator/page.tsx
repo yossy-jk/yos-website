@@ -124,7 +124,7 @@ export default function RentalYieldCalculatorPage() {
                 Rental Yield Calculator
               </h1>
               <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                Enter the property details below to see gross and net yield. Factors in vacancy, outgoings, and management fees — so you get a real number, not just face rent.
+                Enter the property details below to see gross and net yield. Factors in vacancy, outgoings, and management fees, so you get a real number, not just face rent.
               </p>
             </div>
           </FadeIn>
@@ -237,7 +237,7 @@ export default function RentalYieldCalculatorPage() {
                 <div>
                   <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>Your results</p>
 
-                  {/* Gross yield — shown instantly, no gate */}
+                  {/* Gross yield, shown instantly, no gate */}
                   <div className="bg-teal/10 border border-teal/30 mb-6" style={{ padding: '1.75rem 1.5rem' }}>
                     <p className="text-teal/70 font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Gross yield</p>
                     <p className="text-teal font-black leading-none mb-1" style={{ fontSize: '3rem' }}>{grossYieldDisplay}</p>
@@ -246,17 +246,17 @@ export default function RentalYieldCalculatorPage() {
                     </p>
                   </div>
 
-                  {/* Net breakdown — behind ToolGate */}
+                  {/* Net breakdown, behind ToolGate */}
                   <ToolGate
                     tool="Rental Yield Calculator"
                     context={() => `Purchase price: $${priceNum} | Weekly rent: $${rentNum} | Gross yield: ${fmtPct(result!.grossYield)} | Net yield: ${fmtPct(result!.netYield)}`}
                     heading="Unlock the full net breakdown"
-                    subheading="See net yield, monthly income, break-even rent and more — free."
+                    subheading="See net yield, monthly income, break-even rent and more, free."
                     teaser={
                       <div>
                         <div className="border border-white/10">
                           <div className="border-b border-white/10 px-5 py-3">
-                            <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Net breakdown — unlock to view</p>
+                            <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Net breakdown, unlock to view</p>
                           </div>
                           {['Net yield', 'Annual net income', 'Monthly net income', 'Weekly effective rent', 'Break-even weekly rent'].map((label, i) => (
                             <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
@@ -349,7 +349,7 @@ export default function RentalYieldCalculatorPage() {
       <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>
         <div className="max-w-screen-xl mx-auto">
           <p className="text-mid-grey font-light text-center" style={{ fontSize: "0.72rem", lineHeight: 1.7 }}>
-            This calculator provides estimates only. Rates and thresholds change — verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
+            This calculator provides estimates only. Rates and thresholds change, verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
           </p>
         </div>
       </div>

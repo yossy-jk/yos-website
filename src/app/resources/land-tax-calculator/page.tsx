@@ -43,7 +43,7 @@ function calcNSW(value: number, ownerType: OwnerType): LandTaxResult {
     // Revenue NSW: $100 + 1.6% on value over $0 up to $5,605,000; then higher rates
     if (value <= 0) {
       tax = 0
-      thresholdNote = 'No land value — no tax payable.'
+      thresholdNote = 'No land value, no tax payable.'
     } else if (value <= 5605000) {
       tax = 100 + value * 0.016
       thresholdNote = 'No threshold for trusts. Progressive rates apply from $0.'
@@ -142,10 +142,10 @@ function calcQLD(value: number, ownerType: OwnerType): LandTaxResult {
       thresholdNote = `Above the $2,250,000 threshold.`
       calcNote = `$15,000 + (${fmt(value)} − $2,250,000) × 1.75% = ${fmt(tax)}`
     } else if (value <= 10000000) {
-      // Gap $5M–$10M — rates unconfirmed in brief, estimate based on continuation
+      // Gap $5M–$10M, rates unconfirmed in brief, estimate based on continuation
       tax = 63125 + (value - 5000000) * 0.025
       thresholdNote = `Above $5,000,000. Note: QLD rates in the $5M–$10M range should be verified with the Queensland Office of State Revenue.`
-      calcNote = `Estimated: $63,125 + (${fmt(value)} − $5,000,000) × 2.5% = ${fmt(tax)} (unconfirmed — verify with QLD OSR)`
+      calcNote = `Estimated: $63,125 + (${fmt(value)} − $5,000,000) × 2.5% = ${fmt(tax)} (unconfirmed, verify with QLD OSR)`
     } else {
       tax = 125625 + (value - 10000000) * 0.0275
       thresholdNote = `Above the $10,000,000 threshold.`
@@ -183,10 +183,10 @@ function calcWA(value: number, ownerType: OwnerType): LandTaxResult {
     thresholdNote = `Above the $1,800,000 threshold.`
     calcNote = `$16,720 + (${fmt(value)} − $1,800,000) × 1.9% = ${fmt(tax)}`
   } else if (value <= 11000000) {
-    // Gap $5M–$11M — estimate continuation
+    // Gap $5M–$11M, estimate continuation
     tax = 77520 + (value - 5000000) * 0.024
     thresholdNote = `Above $5,000,000. Note: WA rates in the $5M–$11M range should be verified with the WA Office of State Revenue.`
-    calcNote = `Estimated: $77,520 + (${fmt(value)} − $5,000,000) × 2.4% = ${fmt(tax)} (unconfirmed — verify with WA OSR)`
+    calcNote = `Estimated: $77,520 + (${fmt(value)} − $5,000,000) × 2.4% = ${fmt(tax)} (unconfirmed, verify with WA OSR)`
   } else {
     tax = 221520 + (value - 11000000) * 0.0267
     thresholdNote = `Above the $11,000,000 threshold.`
@@ -439,7 +439,7 @@ export default function LandTaxCalculatorPage() {
                 {/* Land value */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
-                    Land value — unimproved ($) <span className="text-teal">*</span>
+                    Land value, unimproved ($) <span className="text-teal">*</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem' }}>$</span>
@@ -472,10 +472,10 @@ export default function LandTaxCalculatorPage() {
                   <p className="text-white/25 font-light mt-2" style={{ fontSize: '0.75rem' }}>Trusts and companies often have lower thresholds and higher rates.</p>
                 </div>
 
-                {/* Weekly rent — optional */}
+                {/* Weekly rent, optional */}
                 <div>
                   <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
-                    Weekly rent ($) <span className="text-white/30 font-light">optional — for context</span>
+                    Weekly rent ($) <span className="text-white/30 font-light">optional, for context</span>
                   </label>
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem' }}>$</span>
@@ -515,34 +515,34 @@ export default function LandTaxCalculatorPage() {
               ) : result ? (
                 <div>
                   <p className="text-white/40 font-semibold uppercase tracking-[0.25em] mb-6" style={{ fontSize: '0.7rem' }}>
-                    {selectedState} — {fmt(valueNum)}
+                    {selectedState}, {fmt(valueNum)}
                   </p>
 
-                  {/* Threshold comparison — shown instantly, no gate */}
+                  {/* Threshold comparison, shown instantly, no gate */}
                   <div className={`border mb-6 ${result.aboveThreshold ? 'border-teal/30 bg-teal/10' : 'border-white/15 bg-white/5'}`} style={{ padding: '1.5rem' }}>
                     <p className={`font-semibold uppercase tracking-widest mb-1 ${result.aboveThreshold ? 'text-teal/70' : 'text-white/40'}`} style={{ fontSize: '0.65rem' }}>
                       Threshold status
                     </p>
                     <p className={`font-black leading-tight mb-2 ${result.aboveThreshold ? 'text-teal' : 'text-white/60'}`} style={{ fontSize: '1.3rem' }}>
-                      {result.aboveThreshold ? 'Above threshold — land tax applies' : 'Below threshold — no land tax'}
+                      {result.aboveThreshold ? 'Above threshold, land tax applies' : 'Below threshold, no land tax'}
                     </p>
                     <p className="text-white/50 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.6 }}>
                       {result.thresholdNote}
                     </p>
                   </div>
 
-                  {/* Full calculation — behind ToolGate */}
+                  {/* Full calculation, behind ToolGate */}
                   {result.aboveThreshold ? (
                     <ToolGate
                       tool="Land Tax Calculator"
                       context={() => `State: ${selectedState} | Land value: $${valueNum} | Owner: ${ownerType} | Annual land tax: $${Math.round(result!.annualTax)}`}
                       heading="Unlock the full land tax calculation"
-                      subheading="See annual tax, effective rate, monthly equivalent and more — free."
+                      subheading="See annual tax, effective rate, monthly equivalent and more, free."
                       teaser={
                         <div>
                           <div className="border border-white/10">
                             <div className="border-b border-white/10 px-5 py-3">
-                              <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Full calculation — unlock to view</p>
+                              <p className="text-white/50 font-semibold uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Full calculation, unlock to view</p>
                             </div>
                             {['Annual land tax', 'Effective rate', 'Monthly equivalent', 'Calculation detail'].map((label, i) => (
                               <div key={i} className="flex justify-between items-center px-5 py-4 border-b border-white/6">
@@ -641,7 +641,7 @@ export default function LandTaxCalculatorPage() {
       <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>
         <div className="max-w-screen-xl mx-auto">
           <p className="text-mid-grey font-light text-center" style={{ fontSize: "0.72rem", lineHeight: 1.7 }}>
-            This calculator provides estimates only. Rates and thresholds change — verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
+            This calculator provides estimates only. Rates and thresholds change, verify with your accountant or solicitor before relying on these figures. This is not financial or legal advice.
           </p>
         </div>
       </div>
