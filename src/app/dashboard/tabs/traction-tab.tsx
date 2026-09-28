@@ -73,7 +73,7 @@ export default function TractionTab() {
 
       {!data && (
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '2rem', textAlign: 'center' }}>
-          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', margin: 0 }}>EOS data not configured — ask the innovation agent to set up your rocks and KPIs</p>
+          <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '0.85rem', margin: 0 }}>EOS data not configured – ask the innovation agent to set up your rocks and KPIs</p>
         </div>
       )}
     </div>

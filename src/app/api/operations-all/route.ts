@@ -5,12 +5,12 @@ import { getCurrentUser } from '@/lib/auth-v2'
 const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL   || ''
 const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
 
-// Real OpenClaw cron jobs — mirrored from ~/.openclaw/cron/jobs.json
+// Real OpenClaw cron jobs – mirrored from ~/.openclaw/cron/jobs.json
 // This is the authoritative list. Script pushes state to Upstash every 15min.
 const REAL_JOBS = [
-  { id: '211728a4-1475-4bff-963f-304f338c240a', name: 'Memory Compaction — 10pm',      schedule: '0 22 * * *',        owner: 'Chief of Staff' },
-  { id: 'a536dc7c-a69f-4b50-9f05-c3eaf39eb5c2', name: 'Day Review — 9pm',              schedule: '0 21 * * *',        owner: 'Chief of Staff' },
-  { id: '0c66dfc0-43b1-482a-840c-4c3b52e00069', name: 'Weekly L10 — Sunday 6pm',      schedule: '0 18 * * 0',        owner: 'Chief of Staff' },
+  { id: '211728a4-1475-4bff-963f-304f338c240a', name: 'Memory Compaction – 10pm',      schedule: '0 22 * * *',        owner: 'Chief of Staff' },
+  { id: 'a536dc7c-a69f-4b50-9f05-c3eaf39eb5c2', name: 'Day Review – 9pm',              schedule: '0 21 * * *',        owner: 'Chief of Staff' },
+  { id: '0c66dfc0-43b1-482a-840c-4c3b52e00069', name: 'Weekly L10 – Sunday 6pm',      schedule: '0 18 * * 0',        owner: 'Chief of Staff' },
   { id: 'a237f43e-262d-41b9-b041-bc8cbae29e80', name: 'Compliance Sweep',              schedule: '0 6 * * *',         owner: 'Chief of Staff' },
   { id: 'eed3a71c-797a-4912-835b-a0cddced5057', name: 'Finance',                       schedule: '5 7,17 * * 1-5',   owner: 'Finance' },
   { id: 'e824758a-0f06-4aa5-af05-1166ca478272', name: 'Inbox EA',                      schedule: '5 4,12 * * *',     owner: 'Inbox EA' },

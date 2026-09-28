@@ -132,7 +132,7 @@ export async function POST(req: NextRequest) {
     if (!saved) return NextResponse.json({ error: 'Sign-in service is temporarily unavailable.' }, { status: 503 })
 
     return NextResponse.json(
-      { error: 'Incorrect code — check the latest code in your inbox.', code_required: true },
+      { error: 'Incorrect code – check the latest code in your inbox.', code_required: true },
       { status: 401 }
     )
   }

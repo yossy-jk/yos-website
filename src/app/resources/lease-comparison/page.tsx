@@ -368,7 +368,7 @@ export default function LeaseComparisonPage() {
                 </div>
                 <div className="mt-6 border-t border-white/10 pt-4">
                   {[1,2,3].map(i => <div key={i} className="flex justify-between py-2"><span className="w-32 h-3 bg-white/10 rounded-sm" /><span className="w-20 h-3 bg-white/10 rounded-sm" /></div>)}
-                  <p className="text-white/25 text-xs mt-3">Year-by-year breakdown — unlock to view</p>
+                  <p className="text-white/25 text-xs mt-3">Year-by-year breakdown – unlock to view</p>
                 </div>
               </div>
             }

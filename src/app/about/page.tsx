@@ -7,7 +7,7 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'About | Your Office Space — Commercial Property Advisory Newcastle',
+  title: 'About | Your Office Space – Commercial Property Advisory Newcastle',
   description: 'Based in Newcastle. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
   twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
@@ -247,7 +247,7 @@ export default function AboutPage() {
                 <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
                   <blockquote>
                     <p className="text-mid-grey font-semibold leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
-                      &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing — straight advice, and someone who actually gives a damn about the outcome.&rdquo;
+                      &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing – straight advice, and someone who actually gives a damn about the outcome.&rdquo;
                     </p>
                   </blockquote>
                 </div>
@@ -292,7 +292,7 @@ export default function AboutPage() {
                 <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
                   <blockquote>
                     <p className="text-mid-grey font-semibold leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
-                      &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple — if I wouldn&apos;t be happy with it, neither should you.&rdquo;
+                      &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple – if I wouldn&apos;t be happy with it, neither should you.&rdquo;
                     </p>
                   </blockquote>
                 </div>

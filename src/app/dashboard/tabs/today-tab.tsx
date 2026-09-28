@@ -9,11 +9,11 @@ const CARD = 'rgba(255,255,255,0.03)'
 const BORDER = 'rgba(255,255,255,0.07)'
 
 const ENERGY_LABELS: Record<number, string> = {
-  1: 'LOW — delegate everything possible',
-  2: 'BELOW AVERAGE — focus on high-value tasks only',
-  3: 'AVERAGE — normal day',
-  4: 'HIGH — push on big opportunities',
-  5: 'PEAK — tackle your hardest challenges',
+  1: 'LOW – delegate everything possible',
+  2: 'BELOW AVERAGE – focus on high-value tasks only',
+  3: 'AVERAGE – normal day',
+  4: 'HIGH – push on big opportunities',
+  5: 'PEAK – tackle your hardest challenges',
 }
 
 const ENERGY_COLOURS: Record<number, string> = {
@@ -156,14 +156,14 @@ export default function TodayTab(): JSX.Element {
           </div>
         ) : (
           <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>
-            Awaiting COO brief — runs at 5am daily. Send &quot;HEARTBEAT&quot; to the COO bot on Telegram to trigger now.
+            Awaiting COO brief – runs at 5am daily. Send &quot;HEARTBEAT&quot; to the COO bot on Telegram to trigger now.
           </p>
         )}
       </div>
 
       {/* Top 3 Tasks */}
       <div style={{ background: CARD, border: `1px solid ${BORDER}`, borderLeft: `3px solid ${TEAL}`, borderRadius: 8, padding: '1.25rem' }}>
-        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>Win Today — Top 3 Priorities</p>
+        <p style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: TEAL, margin: '0 0 0.75rem' }}>Win Today – Top 3 Priorities</p>
         {todayTasks.length > 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {todayTasks.map((t: TaskItem, i: number) => (
@@ -189,7 +189,7 @@ export default function TodayTab(): JSX.Element {
             ))}
           </div>
         ) : (
-          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No tasks for today — check the Tasks tab.</p>
+          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No tasks for today – check the Tasks tab.</p>
         )}
       </div>
 

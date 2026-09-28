@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og/og-home.png', width: 1200, height: 630, alt: 'Your Office Space — one team on your side' }],
+    images: [{ url: '/og/og-home.png', width: 1200, height: 630, alt: 'Your Office Space – one team on your side' }],
   },
 }
 
@@ -368,7 +368,7 @@ export default function Home() {
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '46rem', margin: '0 auto' }}>
               <div className="inline-flex items-center gap-2 border border-white/30 mb-8" style={{ padding: '0.5rem 1.25rem' }}>
                 <span className="bg-white rounded-sm" style={{ width: '0.4rem', height: '0.4rem', flexShrink: 0 }} />
-                <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>New — LeaseIntel™</span>
+                <span className="text-white font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>New – LeaseIntel™</span>
               </div>
               <h2 className="text-white leading-tight tracking-tight w-full"
                 style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)', marginBottom: '1.25rem' }}>

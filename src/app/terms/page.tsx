@@ -205,7 +205,7 @@ export default function TermsPage() {
                 </p>
 
                 <div className="bg-warm-grey rounded-sm p-6 space-y-3 my-2">
-                  <p className="text-near-black font-semibold">Important — please read this carefully.</p>
+                  <p className="text-near-black font-semibold">Important – please read this carefully.</p>
                   <p>
                     <span className="font-semibold text-near-black">LeaseIntel™ is commercial analysis, not legal advice.</span> The
                     report identifies commercial risks, unusual clauses, market context, and negotiation

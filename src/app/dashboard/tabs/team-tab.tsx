@@ -73,7 +73,7 @@ export default function TeamTab() {
 
       {/* Agent grid */}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-        <Label>Agent Team — 19 Agents</Label>
+        <Label>Agent Team – 19 Agents</Label>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '0.5rem' }}>
           {agents.map((a: AgentActivity) => {
             const colour = a.status === 'active' ? C.green : a.status === 'stale' ? C.amber : C.red

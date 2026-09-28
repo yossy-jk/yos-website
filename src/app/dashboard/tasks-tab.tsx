@@ -88,7 +88,7 @@ function WaitingModal({ task, onSave, onCancel }: { task: Task; onSave: (reason:
         </div>
         <p style={{ color:'white', fontWeight:600, fontSize:'0.88rem', margin:'0 0 0.5rem', lineHeight:1.4 }}>{task.title}</p>
         <textarea value={reason} onChange={e=>setReason(e.target.value)}
-          placeholder='Who are you waiting on? Eg. "Luke from Colliers — waiting on floor plans"'
+          placeholder='Who are you waiting on? Eg. "Luke from Colliers – waiting on floor plans"'
           rows={3} autoFocus
           style={{ background:'rgba(255,255,255,0.06)', border:'1px solid rgba(245,158,11,0.3)', borderRadius:6, padding:'0.6rem 0.8rem', color:'white', fontSize:'0.78rem', fontFamily:'inherit', width:'100%', resize:'vertical', outline:'none', lineHeight:1.5 }}
         />
@@ -135,7 +135,7 @@ function NotesSection({ task, onSave }: { task: Task; onSave: (notes: string)=>v
       </div>
       <textarea value={value} onChange={e=>handleChange(e.target.value)}
         onBlur={() => { if (!value.trim()) setEditing(false) }}
-        placeholder='Add notes — context, decisions, next steps... (auto-saves after 1.2s)'
+        placeholder='Add notes – context, decisions, next steps... (auto-saves after 1.2s)'
         rows={3} autoFocus
         style={{ background:'rgba(255,255,255,0.04)', border:'1px solid rgba(1,167,163,0.2)', borderRadius:4, padding:'0.5rem 0.6rem', color:'white', fontSize:'0.72rem', fontFamily:'inherit', width:'100%', resize:'vertical', outline:'none', lineHeight:1.55, minHeight:64 }}
       />
@@ -329,7 +329,7 @@ export default function TasksTab() {
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:'0.75rem' }}>
         <div>
           <p style={{ color:'rgba(255,255,255,0.4)', fontSize:'0.58rem', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.15em', margin:0 }}>Tasks</p>
-          <p style={{ color:'rgba(255,255,255,0.2)', fontSize:'0.65rem', margin:'0.2rem 0 0' }}>Inbox · meetings · voice · AI — sorted by what matters most</p>
+          <p style={{ color:'rgba(255,255,255,0.2)', fontSize:'0.65rem', margin:'0.2rem 0 0' }}>Inbox · meetings · voice · AI – sorted by what matters most</p>
         </div>
         <div style={{ display:'flex', gap:'0.5rem' }}>
           <button type="button" onClick={()=>setAddingTask(true)} style={{ background:'#00B5A5', border:'none', padding:'0.4rem 0.9rem', cursor:'pointer', fontFamily:'inherit', fontSize:'0.62rem', fontWeight:700, letterSpacing:'0.1em', textTransform:'uppercase', color:'white', borderRadius:4 }}>+ Add</button>

@@ -104,7 +104,7 @@ export default function InnovationTab() {
 
       {/* What to do next */}
       <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
-        <Label>Next Level Upgrades — Priority Order</Label>
+        <Label>Next Level Upgrades – Priority Order</Label>
         {[
           { rank: 1, item: 'Sign up fal.ai ($20)', impact: 'Brand-marketing generates LinkedIn graphics overnight', tag: 'CRITICAL' },
           { rank: 2, item: 'Get Google Places API key (free)', impact: 'Agents research client locations, competitor mapping', tag: 'HIGH' },

@@ -17,7 +17,7 @@ import HubSpotForm from '@/components/HubSpotForm'
 export const metadata = {
   title: 'Office Furniture & Fitout | Your Office Space',
   description: 'Commercial office furniture planning, specification, procurement and installation support across Australia, tailored to the workplace brief.',
-  twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'From brief to delivery. Office furniture and fitout — one team, end to end. Express to made-to-order.' },
+  twitter: { card: 'summary_large_image', title: 'Office Furniture & Fitout | Your Office Space', description: 'From brief to delivery. Office furniture and fitout – one team, end to end. Express to made-to-order.' },
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
     title: 'Office Furniture & Fitout | Your Office Space',
@@ -61,7 +61,7 @@ export default function FurniturePage() {
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/furniture#service",
-            "name": "Commercial Office Furniture — Australia",
+            "name": "Commercial Office Furniture – Australia",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace. workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -149,7 +149,7 @@ export default function FurniturePage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Commercial Office Furniture —
+              Commercial Office Furniture –
               <br /><span className="text-teal">brief to delivered.</span>
             </h1>
           </FadeIn>

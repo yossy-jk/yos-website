@@ -102,8 +102,8 @@ const METRIC_COLS = [
 ]
 
 export async function POST(req: NextRequest) {
-  // Optional auth — for now allow webhook calls (IP restriction recommended in production)
-  // auth check removed — using auth-v2
+  // Optional auth – for now allow webhook calls (IP restriction recommended in production)
+  // auth check removed – using auth-v2
   // if (!auth.ok) return auth.response
 
   try {
@@ -214,7 +214,7 @@ export async function POST(req: NextRequest) {
 
 // GET: returns latest health summary (for dashboard health tab)
 export async function GET() {
-  // auth check removed — using auth-v2
+  // auth check removed – using auth-v2
   // if (!auth.ok) return auth.response
 
   if (!UPSTASH_URL || !UPSTASH_TOKEN) {
@@ -229,7 +229,7 @@ export async function GET() {
     if (!res.ok) throw new Error(`Redis error ${res.status}`)
     const d = await res.json() as { result?: string | null }
     if (!d.result) {
-      return NextResponse.json({ error: 'No health data yet — configure the Health Auto Export app webhook first' })
+      return NextResponse.json({ error: 'No health data yet – configure the Health Auto Export app webhook first' })
     }
     const parsed = JSON.parse(d.result)
     return NextResponse.json(parsed)

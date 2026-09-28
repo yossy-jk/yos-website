@@ -70,7 +70,7 @@ export async function POST(req: Request) {
       const data = await patchRes.json()
       contactId = data.id
     } else {
-      // Contact doesn't exist — create
+      // Contact doesn't exist – create
       const createRes = await hs('/crm/v3/objects/contacts', 'POST', {
         properties: { firstname: safeName, email: safeEmail, hs_lead_status: 'NEW', lead_source: 'Website Tool' },
       })
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
     }
 
     // 2. Create deal
-    const dealName = `${safeSource} — ${safeName} (${safeEmail})`
+    const dealName = `${safeSource} – ${safeName} (${safeEmail})`
     const dealRes = await hs('/crm/v3/objects/deals', 'POST', {
       properties: {
         dealname: dealName,

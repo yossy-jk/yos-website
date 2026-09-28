@@ -60,7 +60,7 @@ export default function OfficeFitoutPage() {
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/office-fitout#service",
-            "name": "Commercial Office Fit Out — Australia",
+            "name": "Commercial Office Fit Out – Australia",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
             "description": "Office furniture supply and fitout project management. From brief to installed workspace. workstations, seating, meeting rooms, breakout zones.",
             "areaServed": [
@@ -77,7 +77,7 @@ export default function OfficeFitoutPage() {
             "mainEntity": [
               { "@type": "Question", "name": "How much does an office fit out cost?", "acceptedAnswer": { "@type": "Answer", "text": "Cost depends on the site, scope, services, finishes and programme. We prepare a project-specific budget after reviewing your brief and available plans." } },
               { "@type": "Question", "name": "How long does a commercial office fit out take?", "acceptedAnswer": { "@type": "Answer", "text": "Timing depends on design, approvals, product availability and construction scope. We set out the programme and key dependencies before work is authorised." } },
-              { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies a wide range of commercial office furniture brands covering workstations, seating, meeting tables, storage, and breakout settings. We match the product to your spec, timeline and budget — not to a limited product list. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
+              { "@type": "Question", "name": "What brands of commercial office furniture do you supply?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space supplies a wide range of commercial office furniture brands covering workstations, seating, meeting tables, storage, and breakout settings. We match the product to your spec, timeline and budget – not to a limited product list. We also have an online shop at yos-furniture.myshopify.com for express orders." } },
               
               { "@type": "Question", "name": "Can you project manage a full fitout including construction and joinery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Your Office Space project manages full commercial fitouts including partition walls, flooring, joinery, electrical, AV, and IT infrastructure. We are the single point of contact from brief to practical completion." } },
               { "@type": "Question", "name": "Do you offer fast-track fit out options?", "acceptedAnswer": { "@type": "Answer", "text": "Where the scope and available products allow it, we can plan a faster programme. Availability and lead times are confirmed in writing before approval." } },
@@ -108,7 +108,7 @@ export default function OfficeFitoutPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-6 sm:mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Office Fit Out —
+              Office Fit Out –
               <br /><span className="text-teal">brief to delivery.</span>
             </h1>
           </FadeIn>

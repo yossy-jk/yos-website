@@ -75,7 +75,7 @@ export async function GET() {
   // Return empty state with helpful message
   return NextResponse.json({
     generatedAt: new Date().toISOString(),
-    error: 'Usage data not yet synced — runs daily at 08:00',
+    error: 'Usage data not yet synced – runs daily at 08:00',
     totalCost: 0,
     totalTokens: 0,
     models: [],

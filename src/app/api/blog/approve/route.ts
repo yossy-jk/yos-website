@@ -61,7 +61,7 @@ async function redisSet(url: string, token: string, key: string, value: string):
   })
 }
 
-// Archive is a Redis LIST — use RPUSH (publish-scheduled reads it with LRANGE)
+// Archive is a Redis LIST – use RPUSH (publish-scheduled reads it with LRANGE)
 async function redisRpush(url: string, token: string, key: string, value: string): Promise<void> {
   await fetch(`${url}/rpush/${encodeURIComponent(key)}/${encodeURIComponent(value)}`, {
     method: 'POST',
@@ -142,7 +142,7 @@ export async function POST(req: NextRequest) {
   queue.splice(itemIndex, 1)
   await redisSet(UPSTASH_URL, UPSTASH_TOKEN, QUEUE_KEY_V2, JSON.stringify(queue))
 
-  // ── Archive — append single item to list ────────────────────────────────
+  // ── Archive – append single item to list ────────────────────────────────
   await redisRpush(UPSTASH_URL, UPSTASH_TOKEN, ARCHIVE_KEY, JSON.stringify({
     ...item,
     status:          'approved',

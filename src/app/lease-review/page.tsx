@@ -299,7 +299,7 @@ export default function LeaseReviewPage() {
                 { name: 'email', value: form.email },
                 { name: 'company', value: form.company },
                 { name: 'phone', value: form.phone },
-                { name: 'message', value: `LeaseIntel™ Scope Request — ${form.leaseType} lease — ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})\n${scanNote}\nEncryption: ${encryptedFile ? 'AES-256-GCM' : 'none (fallback)'}` },
+                { name: 'message', value: `LeaseIntel™ Scope Request – ${form.leaseType} lease – ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})\n${scanNote}\nEncryption: ${encryptedFile ? 'AES-256-GCM' : 'none (fallback)'}` },
               ],
             }),
           }
@@ -318,7 +318,7 @@ export default function LeaseReviewPage() {
         fd.append('phone', form.phone || ', ')
         fd.append('leaseType', form.leaseType)
         fd.append('state', form.state)
-        fd.append('_subject', `LeaseIntel™ Scope Request — ${form.name} (${form.company || form.email}) — ENCRYPTED`)
+        fd.append('_subject', `LeaseIntel™ Scope Request – ${form.name} (${form.company || form.email}) – ENCRYPTED`)
         fd.append('_captcha', 'false')
 
         if (encryptedFile) {

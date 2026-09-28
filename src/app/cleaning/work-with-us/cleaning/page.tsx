@@ -65,7 +65,7 @@ export default function CleaningWorkWithUsPage() {
       }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-            YOS Cleaning — Newcastle &amp; Hunter Valley
+            YOS Cleaning – Newcastle &amp; Hunter Valley
           </p>
           <h1 style={{
             color: 'white', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.02em',

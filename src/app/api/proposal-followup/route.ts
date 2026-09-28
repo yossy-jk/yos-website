@@ -35,6 +35,6 @@ export async function GET() {
     needsTouch48h: [],
     items: [],
     generatedAt: new Date().toISOString(),
-    error: 'No proposal data yet — hubspot-revops agent populates this overnight'
+    error: 'No proposal data yet – hubspot-revops agent populates this overnight'
   })
 }

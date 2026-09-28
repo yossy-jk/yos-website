@@ -79,7 +79,7 @@ export default function LoginPage() {
     <main id="main-content" tabIndex={-1} style={{ minHeight: '100vh', background: '#0a0a0a', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', fontFamily: 'system-ui, -apple-system, sans-serif' }}>
       <form onSubmit={handleSubmit} style={{ background: 'rgba(1,167,163,0.06)', border: '1px solid rgba(1,167,163,0.2)', padding: '2.5rem', borderRadius: 8, width: '100%', maxWidth: 390 }}>
         <h1 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontWeight: 600 }}>YOS Dashboard</h1>
-        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>Your Office Space — Agent Command Centre</p>
+        <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', marginBottom: '1.5rem' }}>Your Office Space – Agent Command Centre</p>
 
         <label htmlFor="dashboard-email" style={{ display: 'block', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)', marginBottom: '0.5rem' }}>Authorised email</label>
         <input

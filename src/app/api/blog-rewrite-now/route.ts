@@ -27,7 +27,7 @@ export async function POST() {
     )
     return NextResponse.json({
       ok: true,
-      message: 'Blog rewriter triggered — rewrites will appear in Approvals tab within 5 minutes',
+      message: 'Blog rewriter triggered – rewrites will appear in Approvals tab within 5 minutes',
       output: stdout.trim(),
     })
   } catch (err) {

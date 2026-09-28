@@ -1,11 +1,11 @@
 /**
- * YOS Memory Layer — Clients & Projects
+ * YOS Memory Layer – Clients & Projects
  * GET  /api/memory?token=***&type=clients|projects|all
- * POST /api/memory — create/update/delete clients and projects
+ * POST /api/memory – create/update/delete clients and projects
  *
  * Redis keys:
- *   yos:memory:clients  — JSON array of Client objects
- *   yos:memory:projects — JSON array of Project objects
+ *   yos:memory:clients  – JSON array of Client objects
+ *   yos:memory:projects – JSON array of Project objects
  */
 
 import { requireAuth } from '@/lib/auth'
@@ -28,7 +28,7 @@ export interface Client {
   contactName?: string
   contactEmail?: string
   contactPhone?: string
-  requirements: string[]    // key requirements — bullet list
+  requirements: string[]    // key requirements – bullet list
   constraints: string[]     // hard constraints / gotchas
   notes?: string
   source?: string           // how they came to us

@@ -116,7 +116,7 @@ export async function POST(req: Request) {
         tags: meta.tags || [meta.targetKeyword || '', division].filter(Boolean),
       }
 
-      // Write to Redis live hash — Upstash hset requires field+value in the URL path
+      // Write to Redis live hash – Upstash hset requires field+value in the URL path
       // Format: POST /hset/{key}/{field}/{value} with value URL-encoded
       const postJson = JSON.stringify(post)
       const encodedPost = encodeURIComponent(postJson)

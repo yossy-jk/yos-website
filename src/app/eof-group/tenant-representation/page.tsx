@@ -39,7 +39,7 @@ export default function TenantRepPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
               <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-                EOF Group — Tenant Representation
+                EOF Group – Tenant Representation
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
                 We only represent<br />tenants. Never landlords.
@@ -142,7 +142,7 @@ export default function TenantRepPage() {
 
             <div style={{ display: 'grid', gap: '0' }}>
               {[
-                { step: '01', title: 'Brief & requirements', body: 'We start with a detailed brief — your current lease expiry, space requirements, preferred locations, growth plans and any constraints. The more we understand, the better we can represent you.' },
+                { step: '01', title: 'Brief & requirements', body: 'We start with a detailed brief – your current lease expiry, space requirements, preferred locations, growth plans and any constraints. The more we understand, the better we can represent you.' },
                 { step: '02', title: 'Market search', body: 'We assess advertised opportunities and verified introductions against the agreed brief, then make the trade-offs visible.' },
                 { step: '03', title: 'Shortlist & inspect', body: 'We narrow down to a shortlist of options that genuinely fit your requirements. We inspect together, assess the spaces against your brief, and build a clear picture of the best options.' },
                 { step: '04', title: 'Negotiation', body: 'When you\'ve found the right space, we negotiate on your behalf. We run the process, present the landlord\'s position to you with our recommendation, and work to get you the best outcome.' },
@@ -225,7 +225,7 @@ export default function TenantRepPage() {
                     'Any specific requirements or constraints',
                   ].map(s => (
                     <span key={s} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', color: 'rgba(255,255,255,0.4)', fontSize: '0.82rem' }}>
-                      <span style={{ color: '#00B5A5', fontWeight: 700, flexShrink: 0 }}>—</span> {s}
+                      <span style={{ color: '#00B5A5', fontWeight: 700, flexShrink: 0 }}>–</span> {s}
                     </span>
                   ))}
                 </div>

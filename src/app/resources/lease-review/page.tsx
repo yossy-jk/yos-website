@@ -261,7 +261,7 @@ export default function LeaseRiskCheckerPage() {
               <div className="inline-flex items-center gap-2 border border-teal/30 mb-8"
                 style={{ padding: '0.4rem 1rem' }}>
                 <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
-                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free — No document required</span>
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Free – No document required</span>
               </div>
               <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
@@ -508,7 +508,7 @@ export default function LeaseRiskCheckerPage() {
                 This is a commercial risk assessment, not legal advice. Always engage a qualified commercial solicitor before signing, varying, or exiting any commercial lease.
               </p>
 
-              {/* CTA — scoped LeaseIntel review */}
+              {/* CTA – scoped LeaseIntel review */}
               <div className="mb-8 rounded-sm p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
                 <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Request a scoped LeaseIntel review</p>
                 <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Suitability, timing, fees and deliverables are confirmed first.</p>

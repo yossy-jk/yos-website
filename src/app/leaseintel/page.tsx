@@ -12,11 +12,11 @@ const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3re
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 export const metadata: Metadata = {
-  title: 'LeaseIntel™ — Professional Lease Review | Your Office Space',
+  title: 'LeaseIntel™ – Professional Lease Review | Your Office Space',
   description: 'Two ways to examine commercial lease risk: an educational self-check and a scoped LeaseIntel™ document review. Review scope, timing and fees are confirmed before work begins.',
   alternates: { canonical: 'https://www.yourofficespace.au/leaseintel' },
   openGraph: {
-    title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space',
+    title: 'LeaseIntel™ – Commercial Lease Review Newcastle | Your Office Space',
     description: 'Commercial lease risk review in NSW with plain-English explanation. Scope, timing and fees are confirmed before work begins.',
     url: 'https://www.yourofficespace.au/leaseintel',
     images: [{ url: '/og/og-leaseintel.png', width: 1200, height: 630, alt: 'LeaseIntel Commercial Lease Review Newcastle | Your Office Space' }],
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ — Commercial Lease Review Newcastle | Your Office Space', description: 'Commercial lease risk review in NSW. Scope, timing and fees are confirmed before work begins.' },
+  twitter: { card: 'summary_large_image', title: 'LeaseIntel™ – Commercial Lease Review Newcastle | Your Office Space', description: 'Commercial lease risk review in NSW. Scope, timing and fees are confirmed before work begins.' },
 }
 
 /* ─── FAQ Data ────────────────────────────────────────────── */
@@ -35,9 +35,9 @@ const FAQS = [
   { q: 'What is the cost?', a: 'Fees depend on the document and agreed scope. Any fee, timing and payment terms are confirmed before the review begins.' },
   { q: 'Is my document secure?', a: 'Yes. Your lease document is encrypted with AES-256-GCM before it leaves your browser. It is scanned for malware before upload, stored in a secure OneDrive folder accessible only to your assigned reviewer, and never shared or retained beyond your engagement.' },
   { q: 'Who reviews my lease?', a: 'The accountable reviewer and scope are confirmed before work begins. LeaseIntel is a commercial risk assessment and does not replace legal advice.' },
-  { q: 'Do I need a solicitor as well?', a: 'A LeaseIntel™ review is a commercial risk and negotiation assessment — not legal advice. For complex leases or significant financial commitments, we recommend a commercial solicitor in addition. We can refer you to experienced commercial solicitors in NSW.' },
+  { q: 'Do I need a solicitor as well?', a: 'A LeaseIntel™ review is a commercial risk and negotiation assessment – not legal advice. For complex leases or significant financial commitments, we recommend a commercial solicitor in addition. We can refer you to experienced commercial solicitors in NSW.' },
   { q: 'What types of leases do you review?', a: 'We assess whether the lease type, jurisdiction and requested scope fit the service before accepting the work. Tenant representation is delivered within verified NSW licensing coverage.' },
-  { q: 'Can I negotiate after receiving the report?', a: 'Yes — the negotiation roadmap identifies exactly which clauses to push back on, in priority order, with guidance on what landlords will accept in the current market. If you want us to negotiate on your behalf, that is covered under our tenant representation service.' },
+  { q: 'Can I negotiate after receiving the report?', a: 'Yes – the negotiation roadmap identifies exactly which clauses to push back on, in priority order, with guidance on what landlords will accept in the current market. If you want us to negotiate on your behalf, that is covered under our tenant representation service.' },
   { q: 'What if I want to engage you for tenant representation after?', a: 'Any later tenant-representation engagement has its own documented scope, fee and licensing boundary. Any relationship between fees is confirmed in writing before engagement.' },
   { q: 'Can I use the educational self-check first?', a: 'Yes. The Lease Risk Review at yourofficespace.au/resources/lease-review is an educational self-check that does not require a document. It is not legal advice and does not replace a review of the actual lease.' },
   { q: 'How do I get started?', a: 'Submit an intake request at yourofficespace.au/lease-review. We confirm whether the matter fits the service, then confirm scope, reviewer, timing, fees and document handling before work begins.' },

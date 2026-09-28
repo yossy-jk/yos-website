@@ -4,7 +4,7 @@
  * Checks expiry and optional password.
  * 
  * Query params:
- *   password — required if token is password-protected
+ *   password – required if token is password-protected
  */
 
 import { NextRequest, NextResponse } from 'next/server'

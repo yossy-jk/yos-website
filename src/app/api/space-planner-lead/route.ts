@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
   const [firstName, ...rest] = name.trim().split(' ')
   const lastName = rest.join(' ')
 
-  // Suppress unused var warning — subtotal is passed through for logging
+  // Suppress unused var warning – subtotal is passed through for logging
   void subtotal
 
   // Build a readable item summary
@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
         'POST',
         {
           properties: {
-            dealname: `Space Planner Quote — ${name} (${email})`,
+            dealname: `Space Planner Quote – ${name} (${email})`,
             pipeline: 'default',
             dealstage: '2455891412',
             description: `Source: Space Planner\n\n${contextNote}`,
@@ -168,12 +168,12 @@ export async function POST(req: NextRequest) {
         from: 'YOS Website <notifications@yourofficespace.au>',
         to: 'jk@yourofficespace.au',
         replyTo: email,
-        subject: `New Space Planner Lead — ${name}${company ? ` (${company})` : ''}`,
+        subject: `New Space Planner Lead – ${name}${company ? ` (${company})` : ''}`,
         html: `
           <div style="font-family:-apple-system,sans-serif;max-width:600px;margin:0 auto;padding:24px">
             <div style="background:#0A0A0A;padding:20px 24px;margin-bottom:24px">
               <p style="color:#00B5A5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin:0 0 4px">Space Planner</p>
-              <p style="color:white;font-weight:700;font-size:18px;margin:0">New Quote Lead — ${name}</p>
+              <p style="color:white;font-weight:700;font-size:18px;margin:0">New Quote Lead – ${name}</p>
             </div>
             <table style="width:100%;border-collapse:collapse;margin-bottom:24px">
               <tr><td style="padding:10px 0;border-bottom:1px solid #eee;color:#888;font-size:13px;width:120px">Name</td><td style="padding:10px 0;border-bottom:1px solid #eee;font-size:14px;font-weight:600">${name}</td></tr>
@@ -196,7 +196,7 @@ export async function POST(req: NextRequest) {
       })
     } catch (error) {
       console.error('Email notification error:', error)
-      // Non-blocking — don't fail the response
+      // Non-blocking – don't fail the response
     }
   }
 

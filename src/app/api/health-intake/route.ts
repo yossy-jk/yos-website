@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
   // Health Auto Export v2 format:
   // { data: [ { name, units, data: [{qty, date}] } ] }
-  // or wrapped differently — handle all variants
+  // or wrapped differently – handle all variants
   const metrics = Array.isArray(body.data) ? body.data
     : Array.isArray(body.metrics) ? body.metrics
     : Array.isArray(body) ? body
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
   return NextResponse.json({ ok: true, received: Object.keys(parsed).length - 2 + ' metrics' })
 }
 
-// GET — fetch latest health data (dashboard use)
+// GET – fetch latest health data (dashboard use)
 export async function GET(req: Request) {
   const url = new URL(req.url)
   const token = url.searchParams.get('token')

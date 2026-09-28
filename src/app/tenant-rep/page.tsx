@@ -116,7 +116,7 @@ export default function TenantRepPage() {
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
               We exist to make sure you have the same. Tenant-side advice in NSW, with broader work only where
-              verified licensing coverage permits — making the rent, terms, incentives and key clauses clear.
+              verified licensing coverage permits – making the rent, terms, incentives and key clauses clear.
             </p>
             <p className="text-white/80 font-normal mb-10" style={{ fontSize: '0.8rem' }}>
               Engagement scope and licensing coverage are confirmed before work begins.
@@ -191,7 +191,7 @@ export default function TenantRepPage() {
           <FadeIn>
             <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
               &ldquo;The useful time to test lease assumptions is before the business commits.&rdquo;
-              <br /><span className="text-teal font-semibold" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>— Joe Kelley, Your Office Space</span>
+              <br /><span className="text-teal font-semibold" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>– Joe Kelley, Your Office Space</span>
             </p>
           </FadeIn>
         </div>
@@ -450,7 +450,7 @@ export default function TenantRepPage() {
                 <p className="text-white/60 font-light leading-relaxed"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
                   Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation,
-                  options — with key clauses organised into a clear Red / Amber / Green summary. Scope and timing are confirmed before review begins.
+                  options – with key clauses organised into a clear Red / Amber / Green summary. Scope and timing are confirmed before review begins.
                 </p>
               </div>
               <div className="flex-shrink-0">
@@ -516,7 +516,7 @@ export default function TenantRepPage() {
                 "name": "How does tenant representation work in practice?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "We start with your brief — space requirements, location, timeline and non-negotiables. We assess available and relationship-sourced options against that brief, shortlist the trade-offs, and support negotiation with the landlord's agent. We coordinate with the tenant's legal and other advisers through the agreed scope.",
+                  "text": "We start with your brief – space requirements, location, timeline and non-negotiables. We assess available and relationship-sourced options against that brief, shortlist the trade-offs, and support negotiation with the landlord's agent. We coordinate with the tenant's legal and other advisers through the agreed scope.",
                 },
               },
               {

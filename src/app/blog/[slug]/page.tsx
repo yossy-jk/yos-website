@@ -380,7 +380,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
                   <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
-                    Free — No obligation
+                    Free – No obligation
                   </p>
                   <p style={{ color: 'white', fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '0.875rem' }}>
                     Want to talk about your situation?

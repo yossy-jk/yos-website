@@ -21,9 +21,9 @@ const QUESTIONS: { id: string; label: string; risk: Record<string, string> }[] =
   { id: 'rent_review', label: 'Rent review method', risk: { 'Market review': 'high', 'Combination / not sure': 'medium' } },
   { id: 'outgoings', label: 'Outgoings', risk: { 'Tenant pays all': 'high', 'Not clear in lease': 'high', 'Tenant pays some': 'medium' } },
   { id: 'makegood', label: 'Make-good obligations', risk: { 'Full reinstatement required': 'high', 'Not sure': 'high' } },
-  { id: 'assignment', label: 'Assignment / sublet', risk: { 'No — not permitted': 'high', 'Not mentioned / not sure': 'medium' } },
-  { id: 'guarantee', label: 'Personal guarantee', risk: { 'Yes — unlimited guarantee': 'high', 'Not sure': 'medium' } },
-  { id: 'demolition', label: 'Demolition clause', risk: { 'Yes — without adequate notice': 'high', 'Not sure': 'medium' } },
+  { id: 'assignment', label: 'Assignment / sublet', risk: { 'No – not permitted': 'high', 'Not mentioned / not sure': 'medium' } },
+  { id: 'guarantee', label: 'Personal guarantee', risk: { 'Yes – unlimited guarantee': 'high', 'Not sure': 'medium' } },
+  { id: 'demolition', label: 'Demolition clause', risk: { 'Yes – without adequate notice': 'high', 'Not sure': 'medium' } },
   { id: 'fitout', label: 'Fitout / incentives', risk: { 'Agreed verbally but not in lease': 'high', 'No incentive offered': 'medium', 'Not requested': 'medium' } },
   { id: 'solicitor', label: 'Solicitor review', risk: { 'No review yet': 'high', 'Skimmed it myself': 'medium' } },
 ]
@@ -75,7 +75,7 @@ async function upsertHubSpotContact(firstname: string, email: string, riskLevel?
   if (createRes.ok) return createRes.json()
 
   if (createRes.status === 409) {
-    // Contact exists — find by email then patch
+    // Contact exists – find by email then patch
     const searchRes = await fetch(`${HUBSPOT_BASE}/${encodeURIComponent(email)}?idProperty=email`, {
       headers: { 'Authorization': `Bearer ${HUBSPOT_KEY}` },
     })
@@ -118,7 +118,7 @@ export async function POST(req: Request) {
       await upsertHubSpotContact(String(firstname).slice(0, 200), String(email).slice(0, 200), risk?.level)
     } catch (err) {
       console.error('HubSpot upsert error:', err)
-      // Non-fatal — still send email and return ok
+      // Non-fatal – still send email and return ok
     }
 
     // 2. Send confirmation email via Resend
@@ -143,7 +143,7 @@ export async function POST(req: Request) {
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #ffffff;">
             <div style="background: #0A0A0A; padding: 24px; margin-bottom: 28px;">
-              <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space — LeaseIntel</p>
+              <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space – LeaseIntel</p>
               <p style="color: white; font-weight: 800; font-size: 20px; margin: 0; text-transform: uppercase;">Your Lease Risk Rating</p>
             </div>
 
@@ -188,7 +188,7 @@ export async function POST(req: Request) {
             </div>
 
             <p style="color: #aaa; font-size: 11px; margin: 0;">
-              Joseph Kelley — Your Office Space, Newcastle NSW<br>
+              Joseph Kelley – Your Office Space, Newcastle NSW<br>
               <a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a>
             </p>
           </div>

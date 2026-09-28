@@ -86,7 +86,7 @@ export default function EOFGroupPage() {
           <div className={WRAP} style={PAD}>
             <div style={{ maxWidth: '900px' }}>
               <p style={{ color: '#00B5A5', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-                Newcastle, NSW — Est. 2019
+                Newcastle, NSW – Est. 2019
               </p>
               <h1 style={{ color: 'white', fontWeight: 800, lineHeight: 1.1, marginBottom: '1.5rem', fontSize: 'clamp(2.25rem, 6vw, 4.5rem)' }}>
                 Four divisions.<br />One team that<br />works for you.

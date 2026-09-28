@@ -12,7 +12,7 @@ const GSC_CONN     = '2561bc54-7747-471a-afd7-36ab4e39de47'
 const SITE_URL_RAW = 'sc-domain:yourofficespace.au'   // URL-encoded in path
 const SITE_URL_RAW_ENCODE = encodeURIComponent(SITE_URL_RAW)
 
-// All keywords we track — YOS services and commercial property Newcastle
+// All keywords we track – YOS services and commercial property Newcastle
 const TRACKED_KEYWORDS = [
   'tenant representation Newcastle',
   'commercial tenant representative NSW',

@@ -189,7 +189,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
             </div>
 
             <p style={{ fontSize: '0.72rem', color: '#6B6B6B', lineHeight: 1.5 }}>
-              We will review your space plan and come back with a full quote — no obligation, no sales pressure.
+              We will review your space plan and come back with a full quote – no obligation, no sales pressure.
             </p>
 
             <button

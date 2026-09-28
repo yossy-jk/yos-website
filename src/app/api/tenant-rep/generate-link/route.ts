@@ -4,7 +4,7 @@
  * 
  * Body: {
  *   client_id: string
- *   password?: string        // optional — if set, client needs password to view
+ *   password?: string        // optional – if set, client needs password to view
  *   expires_days?: number    // default 30
  * }
  * 
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
   }
 
-  // Role check — tenant_rep scope or admin/super
+  // Role check – tenant_rep scope or admin/super
   const allowed = ['admin', 'super', 'tenant_rep']
   if (!allowed.includes(user.role)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })

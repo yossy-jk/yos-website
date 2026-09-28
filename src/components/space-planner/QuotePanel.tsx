@@ -189,7 +189,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
       <div style={{ padding: '1rem', borderTop: '1px solid #E5E5E5' }}>
         {items.length > 0 && (
           <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif', marginBottom: '0.65rem', lineHeight: 1.5 }}>
-            Submit your layout and we will come back with a full quote — no obligation.
+            Submit your layout and we will come back with a full quote – no obligation.
           </p>
         )}
         <button

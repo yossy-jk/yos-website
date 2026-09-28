@@ -99,7 +99,7 @@ function fmt(n: number) {
 function buildEmailHtml(data: ReportData): string {
   const tierLabel = { basic: 'Basic', mid: 'Mid-Range', premium: 'Premium' }[data.tier as string] || data.tier
   const typeLabel = data.fitoutType === 'furniture-only' ? 'Furniture Only' : 'Full Fitout'
-  const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` — ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
+  const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` – ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
   const wkstLabel = data.workstationType === 'eha' ? 'Height-adjustable (EHA)' : 'Fixed workstation'
   const rows = data.breakdown.map(r =>
     `<tr><td style="padding:0.75rem 1rem;font-size:0.85rem;color:#ffffffb3;border-bottom:1px solid #ffffff14">${r.label}</td><td style="padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;color:#ffffff;text-align:right;border-bottom:1px solid #ffffff14">${fmt(r.low)} – ${fmt(r.high)}</td></tr>`
@@ -150,7 +150,7 @@ ${data.fitoutType !== 'furniture-only' ? `<tr><td style="padding:0.5rem 0;font-s
 <tr><td style="padding:0 0 1.5rem">
 <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1.5rem;text-align:center">
 <p style="margin:0 0 0.5rem;font-size:1rem;font-weight:700;color:#ffffff">Ready to get an accurate quote?</p>
-<p style="margin:0 0 1.25rem;font-size:0.8rem;color:#ffffff60;line-height:1.6">A site visit and detailed brief will refine this estimate significantly. We'll walk through your space and give you a fixed-price proposal — no obligation.</p>
+<p style="margin:0 0 1.25rem;font-size:0.8rem;color:#ffffff60;line-height:1.6">A site visit and detailed brief will refine this estimate significantly. We'll walk through your space and give you a fixed-price proposal – no obligation.</p>
 <a href="${HUBSPOT.bookingUrl}" style="display:inline-block;background:#00B5A5;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Book a Free Consultation →</a>
 </div>
 </td></tr>
@@ -199,7 +199,7 @@ export async function POST(req: NextRequest) {
       from: 'Your Office Space <notifications@yourofficespace.au>',
       to: data.email,
       replyTo: 'jk@yourofficespace.au',
-      subject: `Your Fitout Estimate — ${data.sqm}m² ${data.tier} · Your Office Space`,
+      subject: `Your Fitout Estimate – ${data.sqm}m² ${data.tier} · Your Office Space`,
       html: buildEmailHtml(data),
     })
     if (reportResult.error) {
@@ -224,14 +224,14 @@ export async function POST(req: NextRequest) {
       from: 'YOS Website <notifications@yourofficespace.au>',
       to: 'jk@yourofficespace.au',
       replyTo: data.email,
-      subject: `New fitout estimate lead — ${data.name} (${data.email})`,
+      subject: `New fitout estimate lead – ${data.name} (${data.email})`,
       html: `<p>New fitout estimate submitted.</p><p><strong>${safeName}</strong> · ${safeEmail}${safePhone ? ` · ${safePhone}` : ''}</p><p>${data.sqm}m² · ${data.tier} · ${data.fitoutType === 'furniture-only' ? 'Furniture only' : `Full fitout (${data.shellCondition} shell)`}</p><p>Estimate: ${fmt(data.totalLow)}–${fmt(data.totalHigh)} ex GST</p><p><a href="${HUBSPOT.bookingUrl}">Book follow-up call</a></p>`,
     })
 
     const crmQueue = redisSet('yos:hubspot:actions', JSON.stringify({
       action: 'create-deal',
       data: {
-        title: `Fitout Estimate — ${data.name}`,
+        title: `Fitout Estimate – ${data.name}`,
         email: data.email,
         phone: data.phone || '',
         company: '',

@@ -174,7 +174,7 @@ export default function PurchaseChecklistPage() {
           </div>
 
           <div className="mt-12 bg-near-black rounded-sm p-8">
-            <p className="text-white font-semibold text-base mb-3">This checklist covers the essentials — but every commercial deal is different.</p>
+            <p className="text-white font-semibold text-base mb-3">This checklist covers the essentials – but every commercial deal is different.</p>
             <p className="text-white/60 font-light text-sm leading-relaxed mb-6">
               Additional due diligence may be required depending on property type, use, age, and location. Always engage a commercial solicitor and a qualified buyers agent before exchanging contracts.
             </p>

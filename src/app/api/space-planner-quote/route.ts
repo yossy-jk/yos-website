@@ -137,7 +137,7 @@ async function createOdooDraft(items: QuoteItem[], room: QuoteRoom, contact: Quo
   // Build order lines
   const itemSummary = items.map((i) => `${i.qty}x ${i.name}`).join(', ')
   const deliveryLabel = contact.deliveryType === 'full-service' ? 'Full Service Installation (delivered, assembled & placed)' : 'Delivery Only (flat-packed to door)'
-  const orderNote = `Space Planner — ${room.type} ${room.width}×${room.depth}m\n${itemSummary}\n\nLocation: ${contact.location || 'Not specified'}\nService: ${deliveryLabel}\nClient notes: ${contact.notes || 'None'}\n\nPRICING TO BE ADDED BEFORE SENDING`
+  const orderNote = `Space Planner – ${room.type} ${room.width}×${room.depth}m\n${itemSummary}\n\nLocation: ${contact.location || 'Not specified'}\nService: ${deliveryLabel}\nClient notes: ${contact.notes || 'None'}\n\nPRICING TO BE ADDED BEFORE SENDING`
 
   type OrderLine = [number, number, Record<string, unknown>]
   const orderLines: OrderLine[] = items.map((item): OrderLine => [0, 0, {
@@ -171,7 +171,7 @@ async function createOdooDraft(items: QuoteItem[], room: QuoteRoom, contact: Quo
           state: 'draft',
           note: orderNote,
           order_line: orderLines,
-          client_order_ref: `Space Planner — ${room.type}`,
+          client_order_ref: `Space Planner – ${room.type}`,
         }],
         kwargs: {},
       },
@@ -206,7 +206,7 @@ async function createOdooDraft(items: QuoteItem[], room: QuoteRoom, contact: Quo
 async function createHubSpotContact(contact: QuoteContact, room: QuoteRoom, items: QuoteItem[]): Promise<void> {
   const itemList = items.map((i) => `${i.qty}× ${i.name}`).join('\n')
   const deliveryLabel = contact.deliveryType === 'full-service' ? 'Full Service Installation' : 'Delivery Only'
-  const noteBody = `Space Planner submission\nRoom: ${room.type} — ${room.width}×${room.depth}m\nLocation: ${contact.location || 'Not specified'}\nService: ${deliveryLabel}\n\nItems:\n${itemList}\n\nNotes: ${contact.notes || 'None'}`
+  const noteBody = `Space Planner submission\nRoom: ${room.type} – ${room.width}×${room.depth}m\nLocation: ${contact.location || 'Not specified'}\nService: ${deliveryLabel}\n\nItems:\n${itemList}\n\nNotes: ${contact.notes || 'None'}`
 
   // Upsert contact
   try {
@@ -234,7 +234,7 @@ async function createHubSpotContact(contact: QuoteContact, room: QuoteRoom, item
       const data = await res.json() as { id?: string }
       contactId = data.id
     } else {
-      // Might exist — try to get by email
+      // Might exist – try to get by email
       const search = await fetch('https://api.hubapi.com/crm/v3/objects/contacts/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${HUBSPOT_TOKEN}` },
@@ -269,8 +269,8 @@ async function createHubSpotContact(contact: QuoteContact, room: QuoteRoom, item
       })
     }
   } catch {
-    // Non-fatal — log but don't throw
-    console.error('HubSpot create failed — non-fatal')
+    // Non-fatal – log but don't throw
+    console.error('HubSpot create failed – non-fatal')
   }
 }
 
@@ -283,7 +283,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    // Run both in parallel where possible — HubSpot is non-fatal, Odoo must succeed
+    // Run both in parallel where possible – HubSpot is non-fatal, Odoo must succeed
     const [odooRef] = await Promise.all([
       createOdooDraft(items, room, contact),
       createHubSpotContact(contact, room, items),

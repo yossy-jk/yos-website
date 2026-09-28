@@ -90,7 +90,7 @@ export default function PipelineTab() {
       {stageVelocity && stageVelocity.some((s: Record<string,unknown>) => (s.avgDaysInStage as number | null) !== null) && (
         <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: '1.25rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <Label>Deal Velocity — Avg Days in Stage vs Benchmark</Label>
+            <Label>Deal Velocity – Avg Days in Stage vs Benchmark</Label>
             <span style={{ fontSize: '0.58rem', color: 'rgba(255,255,255,0.2)', letterSpacing: '0.1em' }}>teal = actual · grey = benchmark</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
@@ -107,7 +107,7 @@ export default function PipelineTab() {
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.3rem' }}>
                     <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.6)', fontWeight: 500 }}>{String(s.stage).split(' / ')[0]}</span>
                     <span style={{ fontSize: '0.65rem', color: over ? C.red : C.teal }}>
-                      {avg !== null ? `${avg}d` : '—'} actual · {bench}d benchmark · {count} deal{count !== 1 ? 's' : ''}
+                      {avg !== null ? `${avg}d` : '–'} actual · {bench}d benchmark · {count} deal{count !== 1 ? 's' : ''}
                     </span>
                   </div>
                   <div style={{ background: 'rgba(255,255,255,0.06)', borderRadius: 3, height: 8, position: 'relative' }}>
@@ -135,7 +135,7 @@ export default function PipelineTab() {
           </button>
         </div>
         {deals.length > 0 ? deals.map(d => <DealRow key={d.id} deal={d} />) : (
-          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No deals found — HubSpot may be loading.</p>
+          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.8rem', margin: 0 }}>No deals found – HubSpot may be loading.</p>
         )}
       </div>
     </div>

@@ -84,28 +84,28 @@ export async function POST(req: Request) {
     // ── Contractor section ───────────────────────────────────────────────
     const contractorSection = isContractor ? `
       <tr><td colspan="2" style="padding:1rem 0 0.5rem;font-weight:700;color:#00B5A5;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;border-top:1px solid #eee">Contractor Details</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem;width:180px">ABN</td><td style="font-size:0.85rem">${esc(String(abn || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Business name</td><td style="font-size:0.85rem">${esc(String(businessName || '—'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem;width:180px">ABN</td><td style="font-size:0.85rem">${esc(String(abn || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Business name</td><td style="font-size:0.85rem">${esc(String(businessName || '–'))}</td></tr>
       <tr><td colspan="2" style="padding:0.75rem 0 0.25rem;color:#999;font-size:0.8rem;font-weight:600">Public Liability Insurance</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Insurer</td><td style="font-size:0.85rem">${esc(String(plInsurer || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Policy number</td><td style="font-size:0.85rem">${esc(String(plPolicyNumber || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Expiry</td><td style="font-size:0.85rem">${esc(String(plExpiry || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Cover amount</td><td style="font-size:0.85rem">${esc(String(plAmount || '—'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Insurer</td><td style="font-size:0.85rem">${esc(String(plInsurer || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Policy number</td><td style="font-size:0.85rem">${esc(String(plPolicyNumber || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Expiry</td><td style="font-size:0.85rem">${esc(String(plExpiry || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Cover amount</td><td style="font-size:0.85rem">${esc(String(plAmount || '–'))}</td></tr>
       <tr><td colspan="2" style="padding:0.75rem 0 0.25rem;color:#999;font-size:0.8rem;font-weight:600">Workers Compensation / Personal Accident</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Insurer</td><td style="font-size:0.85rem">${esc(String(wcInsurer || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Policy number</td><td style="font-size:0.85rem">${esc(String(wcPolicyNumber || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Expiry</td><td style="font-size:0.85rem">${esc(String(wcExpiry || '—'))}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Police check</td><td style="font-size:0.85rem">${esc(String(policeCheck || '—'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Insurer</td><td style="font-size:0.85rem">${esc(String(wcInsurer || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Policy number</td><td style="font-size:0.85rem">${esc(String(wcPolicyNumber || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Expiry</td><td style="font-size:0.85rem">${esc(String(wcExpiry || '–'))}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Police check</td><td style="font-size:0.85rem">${esc(String(policeCheck || '–'))}</td></tr>
     ` : ''
 
     // ── Sales partner section ───────────────────────────────────────────
     const salesPartnerSection = isSalesPartner ? `
       <tr><td colspan="2" style="padding:0.75rem 0 0.5rem;font-weight:700;color:#00B5A5;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;border-top:1px solid #eee">Sales Background</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem;width:180px">Current role</td><td style="font-size:0.85rem">${safeCurrentRole || '—'}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Sales experience</td><td style="font-size:0.85rem">${safeYears || '—'}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Commission expectation</td><td style="font-size:0.85rem">${safeCommissionExp || '—'}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">How they sell</td><td style="font-size:0.85rem">${safeChannels || '—'}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Industry background</td><td style="font-size:0.85rem">${safeIndustries || '—'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem;width:180px">Current role</td><td style="font-size:0.85rem">${safeCurrentRole || '–'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Sales experience</td><td style="font-size:0.85rem">${safeYears || '–'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Commission expectation</td><td style="font-size:0.85rem">${safeCommissionExp || '–'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">How they sell</td><td style="font-size:0.85rem">${safeChannels || '–'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Industry background</td><td style="font-size:0.85rem">${safeIndustries || '–'}</td></tr>
       ${safeSellingApproach ? `
       <tr><td colspan="2" style="padding:0.75rem 0 0.25rem;font-weight:600;color:#999;font-size:0.8rem">Their approach</td></tr>
       <tr><td colspan="2" style="font-size:0.85rem;line-height:1.6;color:#333">${safeSellingApproach}</td></tr>
@@ -118,9 +118,9 @@ export async function POST(req: Request) {
     // ── Cleaning experience rows (hidden for sales-partner) ─────────────
     const cleaningExpRows = !isSalesPartner ? `
       <tr><td colspan="2" style="padding:0.75rem 0 0.5rem;font-weight:700;color:#00B5A5;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;border-top:1px solid #eee">Experience</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Specialisations</td><td style="font-size:0.85rem">${safeExp || '—'}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Years experience</td><td style="font-size:0.85rem">${safeYears || '—'}</td></tr>
-      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Availability</td><td style="font-size:0.85rem">${safeAvail || '—'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Specialisations</td><td style="font-size:0.85rem">${safeExp || '–'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Years experience</td><td style="font-size:0.85rem">${safeYears || '–'}</td></tr>
+      <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Availability</td><td style="font-size:0.85rem">${safeAvail || '–'}</td></tr>
     ` : ''
 
     // ── Assemble HTML ─────────────────────────────────────────────────────
@@ -138,7 +138,7 @@ export async function POST(req: Request) {
             <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem;width:180px">Name</td><td style="font-size:0.85rem;font-weight:600">${safeName}</td></tr>
             <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Email</td><td style="font-size:0.85rem"><a href="mailto:${safeEmail}">${safeEmail}</a></td></tr>
             <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Phone</td><td style="font-size:0.85rem"><a href="tel:${safePhone}">${safePhone}</a></td></tr>
-            <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Suburb</td><td style="font-size:0.85rem">${safeSuburb || '—'}</td></tr>
+            <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Suburb</td><td style="font-size:0.85rem">${safeSuburb || '–'}</td></tr>
             <tr><td style="padding:0.3rem 1rem 0.3rem 0;color:#666;font-size:0.85rem">Application type</td><td style="font-size:0.85rem;font-weight:700;color:${isContractor ? '#7c3aed' : '#00B5A5'}">${safeType}</td></tr>
             ${cleaningExpRows}
             ${contractorSection}
@@ -167,8 +167,8 @@ export async function POST(req: Request) {
         cc: ccEmail,
         replyTo: safeEmail,
         subject: isSalesPartner
-          ? `Sales Partner application — ${safeName}${safeSuburb ? ` (${safeSuburb})` : ''}`
-          : `Cleaning ${safeType} application — ${safeName}${safeSuburb ? ` (${safeSuburb})` : ''}`,
+          ? `Sales Partner application – ${safeName}${safeSuburb ? ` (${safeSuburb})` : ''}`
+          : `Cleaning ${safeType} application – ${safeName}${safeSuburb ? ` (${safeSuburb})` : ''}`,
         html,
       })
     }
@@ -216,9 +216,9 @@ export async function POST(req: Request) {
             `Experience: ${expArray}`,
             `Years: ${safeYears}`,
             `Availability: ${safeAvail}`,
-            isContractor ? `ABN: ${abn || '—'} | Business: ${businessName || '—'}` : '',
-            isContractor ? `PL: ${plInsurer || '—'} #${plPolicyNumber || '—'} exp ${plExpiry || '—'} $${plAmount || '—'}` : '',
-            isContractor ? `WC: ${wcInsurer || '—'} #${wcPolicyNumber || '—'} exp ${wcExpiry || '—'}` : '',
+            isContractor ? `ABN: ${abn || '–'} | Business: ${businessName || '–'}` : '',
+            isContractor ? `PL: ${plInsurer || '–'} #${plPolicyNumber || '–'} exp ${plExpiry || '–'} $${plAmount || '–'}` : '',
+            isContractor ? `WC: ${wcInsurer || '–'} #${wcPolicyNumber || '–'} exp ${wcExpiry || '–'}` : '',
             safeMessage ? `Notes: ${safeMessage}` : '',
           ].filter(Boolean).join('\n')
 
@@ -245,7 +245,7 @@ export async function POST(req: Request) {
         }
       } catch (hsErr) {
         console.warn('HubSpot contact creation failed:', hsErr)
-        // Non-fatal — email already sent
+        // Non-fatal – email already sent
       }
     }
 

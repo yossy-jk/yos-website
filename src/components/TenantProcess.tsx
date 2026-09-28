@@ -36,7 +36,7 @@ const STEPS = [
   {
     num: '04',
     title: 'Negotiation',
-    value: 'An expert in your corner — every clause, every term',
+    value: 'An expert in your corner – every clause, every term',
     body: 'We negotiate the commercial terms that matter to the brief, including rent, incentives, make-good, options and other material obligations. Recommendations show the evidence and trade-offs without promising a particular outcome.',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

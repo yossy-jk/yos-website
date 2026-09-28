@@ -36,12 +36,12 @@ export async function GET(req: Request) {
 
   if (data.error || !data.refresh_token) {
     return new Response(
-      `Token exchange failed: ${data.error} — ${data.error_description}`,
+      `Token exchange failed: ${data.error} – ${data.error_description}`,
       { status: 400, headers: { 'Content-Type': 'text/plain' } }
     )
   }
 
-  // Display refresh token for Joe to save — styled page
+  // Display refresh token for Joe to save – styled page
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>GSC Connected</title>
@@ -59,7 +59,7 @@ export async function GET(req: Request) {
 </head>
 <body>
   <h1>Google Search Console connected</h1>
-  <p>Copy the refresh token below and send it to YOS (your OpenClaw assistant) — it will save it as <code>GSC_REFRESH_TOKEN</code> in Vercel automatically.</p>
+  <p>Copy the refresh token below and send it to YOS (your OpenClaw assistant) – it will save it as <code>GSC_REFRESH_TOKEN</code> in Vercel automatically.</p>
 
   <div class="token-box">
     <p style="margin:0 0 0.5rem; color: #00B5A5; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">Refresh Token</p>

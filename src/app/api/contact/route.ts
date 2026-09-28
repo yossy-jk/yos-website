@@ -22,7 +22,7 @@ export async function POST(req: Request) {
         if (!success) return NextResponse.json({ error: 'Too many requests' }, { status: 429 })
       }
     } catch (rl) {
-      // Rate limiter failure is non-fatal — continue
+      // Rate limiter failure is non-fatal – continue
       console.warn('Rate limiter error:', rl)
     }
 
@@ -56,12 +56,12 @@ export async function POST(req: Request) {
       from: 'YOS Website <notifications@yourofficespace.au>',
       to: TO,
       replyTo: safeEmail,
-      subject: `New enquiry — ${safeName}${safeCompany ? ` (${safeCompany})` : ''} via ${safeSource}`,
+      subject: `New enquiry – ${safeName}${safeCompany ? ` (${safeCompany})` : ''} via ${safeSource}`,
       html: `
         <div style="font-family: -apple-system, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px;">
           <div style="background: #0A0A0A; padding: 20px 24px; margin-bottom: 24px;">
             <p style="color: #00B5A5; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 4px;">Your Office Space</p>
-            <p style="color: white; font-weight: 700; font-size: 18px; margin: 0;">New Enquiry — ${safeSource}</p>
+            <p style="color: white; font-weight: 700; font-size: 18px; margin: 0;">New Enquiry – ${safeSource}</p>
           </div>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
             <tr><td style="padding: 10px 0; border-bottom: 1px solid #eee; color: #888; font-size: 13px; width: 120px;">Name</td><td style="padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; font-weight: 600;">${safeName}</td></tr>

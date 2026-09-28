@@ -61,7 +61,7 @@ async function redisSet(url: string, token: string, key: string, value: string):
 // ── 25-topic rotating library ──────────────────────────────────────────────
 
 const TOPICS = [
-  { division: 'tenant-rep',    topic: 'Why Most Tenants Overpay on Their First Lease — And How to Avoid It',         targetKeyword: 'tenant representation newcastle' },
+  { division: 'tenant-rep',    topic: 'Why Most Tenants Overpay on Their First Lease – And How to Avoid It',         targetKeyword: 'tenant representation newcastle' },
   { division: 'tenant-rep',    topic: 'Make Good Clauses: What Most Commercial Leases Get Wrong',                      targetKeyword: 'make good clause commercial lease' },
   { division: 'tenant-rep',    topic: 'The 12-Month Lease Warning: What to Do Before Your Expiry',                   targetKeyword: 'commercial lease expiry 12 months' },
   { division: 'tenant-rep',    topic: 'Rent Reviews: Fight or Accept? A Tenant\'s Decision Framework',               targetKeyword: 'commercial rent review negotiation' },
@@ -133,7 +133,7 @@ function safeJsonParse(raw: string) {
 async function generatePost(topic: typeof TOPICS[number]) {
   if (!MINIMAX_KEY) throw new Error('MINIMAX_API_KEY not set')
 
-  const prompt = `You are a senior content strategist and SEO writer for Your Office Space — a Newcastle-based commercial property and office services company operating across the Hunter Region, NSW. Write one blog post optimised for search ranking and AI answer engines (Google AI Overviews, People Also Ask, featured snippets).
+  const prompt = `You are a senior content strategist and SEO writer for Your Office Space – a Newcastle-based commercial property and office services company operating across the Hunter Region, NSW. Write one blog post optimised for search ranking and AI answer engines (Google AI Overviews, People Also Ask, featured snippets).
 
 === STRUCTURE ===
 ## 1. TITLE
@@ -142,7 +142,7 @@ async function generatePost(topic: typeof TOPICS[number]) {
 ## 2. INTRO (first 50 words)
 - One direct, authoritative sentence answering the searcher's question immediately
 - Target keyword in first sentence. No preamble.
-## 3. BODY — H2 HEADINGS
+## 3. BODY – H2 HEADINGS
 4-6 ## headings. Most should be question-based. Each H2 contains the target keyword or semantic variant. 2-3 paragraphs per section. Include concrete detail: dollar amounts, timeframes, Newcastle/Hunter suburbs, NSW legal references.
 ## 4. SEMANTIC KEYWORDS
 Weave 3-5 related terms naturally throughout the body.
@@ -150,7 +150,7 @@ Weave 3-5 related terms naturally throughout the body.
 Reference: Hunter region, Newcastle market, verified NSW service coverage, commercial tenancy experience, local knowledge. No fabrication.
 ## 6. FAQ SECTION (required)
 End with "## Frequently Asked Questions" + 4-5 questions with 2-3 sentence answers each.
-## 7. INTERNAL LINKS (required — minimum 3)
+## 7. INTERNAL LINKS (required – minimum 3)
 Include exactly 3 or more HTML anchor links to yourofficespace.au pages, embedded naturally in body text.
 ## 8. CALL TO ACTION (required)
 Short closing paragraph linking to relevant yourofficespace.au pages. Integrated into final paragraph, not a separate box.
@@ -285,7 +285,7 @@ export async function POST(req: NextRequest) {
   })
 }
 
-// GET — preview next topic
+// GET – preview next topic
 export async function GET() {
   const start = new Date(new Date().getFullYear(), 0, 0)
   const dayOfYear = Math.floor((Date.now() - start.getTime()) / 86400000)
