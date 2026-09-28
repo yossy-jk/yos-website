@@ -568,7 +568,7 @@ export default function RelocateQuizPage() {
                     onMouseEnter={e => (e.currentTarget.style.background = '#009e90')}
                     onMouseLeave={e => (e.currentTarget.style.background = '#00B5A5')}
                   >
-                    Book a Free Consultation →
+                    Enquire →
                   </a>
                   <a
                     href="/resources/lease-comparison"

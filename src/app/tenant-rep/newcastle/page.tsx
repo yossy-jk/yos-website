@@ -91,7 +91,7 @@ export default function TenantRepNewcastlePage() {
           <FadeIn delay={300}>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                Book a Clarity Call
+                Enquire
               </Button>
               <Button href="/lease-review" variant="outline" size="lg">
                 Request a Lease Review
@@ -360,7 +360,7 @@ export default function TenantRepNewcastlePage() {
                   </p>
                 </div>
                 <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                  Book a Clarity Call
+                  Enquire
                 </Button>
               </div>
             </FadeIn>
@@ -432,7 +432,7 @@ export default function TenantRepNewcastlePage() {
                 A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Clarity Call
+                Enquire
               </Button>
               <p className="text-white/50 font-light mt-6" style={{ fontSize: '0.8rem' }}>
                 Newcastle &amp; Hunter &nbsp;|&nbsp; 0434 655 511 &nbsp;|&nbsp; jk@yourofficespace.au

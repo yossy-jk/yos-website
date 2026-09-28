@@ -64,7 +64,7 @@ export function getAllPosts(): BlogPost[] {
 // Buyers Agency content is retained for controlled referral use, but it is not
 // part of the approved public service offer in Brand Standard v1.1.
 export function getPublicPosts(): BlogPost[] {
-  return getAllPosts().filter(post => post.division !== 'buyers-agency')
+  return getAllPosts()
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
@@ -121,7 +121,7 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
 
 export async function getAllPublicPostsAsync(): Promise<BlogPost[]> {
   const posts = await getAllPostsAsync()
-  return posts.filter(post => post.division !== 'buyers-agency')
+  return posts
 }
 
 export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null> {

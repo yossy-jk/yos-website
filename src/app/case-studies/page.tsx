@@ -5,7 +5,6 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import { getAllCaseStudies, type CaseStudy } from '@/lib/case-studies'
 import { DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
-import { HUBSPOT } from '@/lib/constants'
 import type { Division } from '@/lib/blog'
 
 export const metadata = {
@@ -126,7 +125,7 @@ export default function CaseStudiesPage() {
             <p className="text-white/60 font-light text-lg mb-10 w-full">
               Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.
             </p>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">Book a Clarity Call</Button>
+            <Button href="/contact" variant="primary" size="lg">Enquire</Button>
           </div>
         </div>
       </section>

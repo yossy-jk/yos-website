@@ -893,7 +893,7 @@ export default function LeaseReviewPage() {
                 'Service fit and licensing boundary checked',
                 'Scope, timing and fees confirmed before work begins',
                 'Every clause rated, financial exposure summarised, negotiation roadmap included',
-                'Book a Clarity Call if you want to discuss the proposed scope',
+                'Enquire if you want to discuss the proposed scope',
               ].map((s, i) => (
                 <div key={i} className="flex items-start gap-3">
                   <span className="text-teal font-black text-sm mt-0.5 flex-shrink-0">{i + 1}.</span>

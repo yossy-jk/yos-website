@@ -12,7 +12,7 @@ type SearchResult = {
 const ALL_ITEMS: SearchResult[] = [
   // Services
   { title: 'Tenant Representation', description: 'Tenant-side commercial lease advice and negotiation.', href: '/tenant-rep', category: 'Service' },
-  { title: 'Commercial Fit Out & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },
+  { title: 'Commercial FitOut & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },
   { title: 'Office & Commercial Furniture', description: 'Furniture selected, supplied and installed for your workplace.', href: '/furniture', category: 'Service' },
   { title: 'Commercial Cleaning', description: 'Accountable commercial cleaning built around your workplace standards.', href: '/cleaning', category: 'Service' },
   // Tools

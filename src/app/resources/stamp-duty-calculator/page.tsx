@@ -406,7 +406,7 @@ export default function StampDutyCalculatorPage() {
           <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
             className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
             style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
-            Book a Clarity Call
+            Enquire
           </a>
         </div>
       </section>

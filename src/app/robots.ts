@@ -8,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: [
           '/api/',
-          '/buyers-agency',
           '/resources/lease-vs-buy',
           '/resources/stamp-duty-calculator',
           '/resources/rental-yield-calculator',

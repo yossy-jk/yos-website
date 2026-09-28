@@ -5,27 +5,20 @@ import { HUBSPOT, CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import FadeIn from '@/components/FadeIn'
 import ContactForm from '@/components/ContactForm'
+import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
-const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
-
-const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-teal font-semibold uppercase tracking-widest mb-4"
-    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>
-    {children}
-  </p>
-)
 
 export const metadata = {
   title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-  description: 'Talk to Your Office Space. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
+  description: 'Talk to Your Office Space. Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
   twitter: { card: 'summary_large_image', title: 'Contact | Your Office Space', description: 'Get in touch with Your Office Space. First conversation is always free.' },
   openGraph: {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
+    description: 'Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
     url: 'https://www.yourofficespace.au/contact',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
@@ -34,7 +27,10 @@ export const metadata = {
   },
 }
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[] }> }) {
+  const params = await searchParams
+  const initialService = Array.isArray(params.service) ? params.service[0] : params.service
+
   return (
     <>
       <Nav />
@@ -47,13 +43,14 @@ export default function ContactPage() {
         "@graph": [
           {
             "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
+            "@id": ORGANIZATION_ID,
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/logo.png",
+            "logo": LOGO_URL,
+            "serviceType": SERVICE_TYPES,
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and commercial furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -78,7 +75,7 @@ export default function ContactPage() {
             "mainEntity": [
               { "@type": "Question", "name": "What happens after I enquire?", "acceptedAnswer": { "@type": "Answer", "text": "We review the situation and confirm the most appropriate next step, service scope or referral." } },
               { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call 0434 655 511." } },
-              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office fit out and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle and the Hunter." } }
+              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office FitOut and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
             ]
           }
         ]
@@ -118,7 +115,7 @@ export default function ContactPage() {
                 </h2>
 
                 {/* Contact Form. sends to HubSpot CRM + email */}
-                <ContactForm />
+                <ContactForm initialService={initialService} />
                 {false && <form
                   name="contact-legacy"
                   method="POST"
@@ -235,7 +232,7 @@ export default function ContactPage() {
                   {/* Book a call */}
                   <div className="border border-gray-100 p-8">
                     <p className="text-teal font-bold uppercase tracking-widest mb-2" style={{ fontSize: '0.65rem' }}>Fastest option</p>
-                    <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Book a Clarity Call</p>
+                    <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Enquire</p>
                     <p className="text-charcoal font-light mb-4" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
                       20 minutes. Pick a time that suits you and we will call.
                     </p>
@@ -311,7 +308,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <BookingCTA label="Book a Clarity Call" />
+      <BookingCTA label="Enquire" />
       </main>
 
       <Footer />
