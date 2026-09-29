@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
-import { SERVICE_LINKS, HUBSPOT, CONTACT } from '@/lib/constants'
+import { SERVICE_LINKS, CONTACT } from '@/lib/constants'
 import Search from '@/components/Search'
 
 const TOOLS_LEASING = [
@@ -97,10 +98,9 @@ export default function Nav() {
           className="max-w-screen-xl mx-auto flex justify-between items-center h-16 md:h-20"
           style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
-          <Link href="/" onClick={() => setOpen(false)}
-            className="text-white font-bold no-underline z-50 relative"
-            style={{ fontSize: 'clamp(0.8rem,2.5vw,0.9rem)', letterSpacing: '0.08em' }}>
-            Your Office Space
+          <Link href="/" onClick={() => setOpen(false)} aria-label="Your Office Space home"
+            className="relative z-50 flex items-center no-underline">
+            <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={180} height={50} className="h-8 w-auto md:h-10" priority />
           </Link>
 
           <div className="hidden md:flex gap-8 items-center">
@@ -253,11 +253,8 @@ export default function Nav() {
               </svg>
             </a>
 
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-              className="bg-teal text-white font-bold hover:bg-dark-teal transition-colors no-underline"
-              style={{ fontSize: '0.72rem', letterSpacing: '0.02em', padding: '0.75rem 1.5rem' }}>
-              Book a Clarity Call
-            </a>
+            <Link href="/contact" className="rounded-lg bg-teal text-near-black font-bold hover:bg-white transition-colors no-underline"
+              style={{ fontSize: '0.8rem', letterSpacing: '0.02em', padding: '0.9rem 1.6rem' }}>Enquire</Link>
           </div>
 
           <div className="md:hidden flex items-center gap-2">
@@ -329,11 +326,11 @@ export default function Nav() {
           </div>
 
           <div className="flex flex-col gap-3 pb-4" style={{ marginTop: 'auto' }}>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}
-              className="bg-teal text-white font-bold text-center no-underline block"
+            <Link href="/contact" onClick={() => setOpen(false)}
+              className="rounded-lg bg-teal text-near-black font-bold text-center no-underline block"
               style={{ padding: '1.1rem', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
-              Book a Clarity Call →
-            </a>
+              Enquire →
+            </Link>
             <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} onClick={() => setOpen(false)}
               className="text-white font-light text-center no-underline block"
               style={{ padding: '0.9rem', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)' }}>
@@ -344,11 +341,11 @@ export default function Nav() {
       </div>
 
       <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-action-teal border-t border-dark-teal">
-        <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
-          className="flex items-center justify-center text-white font-bold no-underline w-full"
+        <Link href="/contact"
+          className="flex items-center justify-center text-near-black font-bold no-underline w-full"
           style={{ fontSize: '0.75rem', letterSpacing: '0.02em', padding: '1rem' }}>
-          Book a Clarity Call →
-        </a>
+          Enquire →
+        </Link>
       </div>
     </>
   )

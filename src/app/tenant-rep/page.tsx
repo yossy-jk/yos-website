@@ -6,11 +6,10 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
 import TenantProcess from '@/components/TenantProcess'
-import { HUBSPOT } from '@/lib/constants'
 
 export const metadata = {
-  title: 'Tenant Representation NSW | Your Office Space',
-  description: 'Newcastle-based tenant representation for commercial lease decisions in NSW, with broader work only where verified licensing coverage permits.',
+  title: 'Commercial Leasing & Tenant Representation NSW | Your Office Space',
+  description: 'Tenant-side commercial leasing support in NSW, from property brief and search through comparison, negotiation and handover.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'Tenant-side commercial lease advice, option assessment and negotiation support.' },
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
   openGraph: {
@@ -28,18 +27,6 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
-
-const COMMERCIAL_AGENCIES = [
-  { name: 'Colliers', src: '/agency-logos/colliers.png', width: 300, height: 300 },
-  { name: 'Knight Frank', src: '/agency-logos/knight-frank.jpeg', width: 516, height: 387 },
-  { name: 'CBRE', src: '/agency-logos/cbre.jpeg', width: 616, height: 324 },
-  { name: 'Raine & Horne Commercial', src: '/agency-logos/raine-and-horne-commercial.png', width: 1400, height: 355 },
-  { name: 'Commercial Collective', src: '/agency-logos/commercial-collective.png', width: 597, height: 250 },
-  { name: 'RWC', src: '/agency-logos/rwc.jpeg', width: 447, height: 447 },
-  { name: 'LJ Hooker Commercial', src: '/agency-logos/lj-hooker-commercial.jpeg', width: 300, height: 145 },
-  { name: 'Movable', src: '/agency-logos/movable.webp', width: 1080, height: 1080 },
-  { name: 'Elders Commercial', src: '/agency-logos/elders-commercial.jpeg', width: 446, height: 448 },
-]
 
 export default function TenantRepPage() {
   return (
@@ -102,29 +89,29 @@ export default function TenantRepPage() {
         }} />
         <div className={`relative z-10 w-full ${WRAP}`} style={{ ...PAD, paddingTop: 'clamp(8rem,15vw,14rem)', paddingBottom: 'clamp(6rem,10vw,10rem)' }}>
           <FadeIn delay={0}>
-            <SectionLabel>Tenant Representation</SectionLabel>
+            <SectionLabel>Commercial Leasing · NSW</SectionLabel>
           </FadeIn>
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mt-3 mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              The landlord has a professional.<br />
-              <span className="text-teal">Now you do too.</span>
+              Lease with someone<br />
+              <span className="text-teal">on your side of the table.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
               style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
               Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
-              We exist to make sure you have the same. Tenant-side advice in NSW, with broader work only where
-              verified licensing coverage permits – making the rent, terms, incentives and key clauses clear.
+              We represent commercial tenants in NSW, from the first property brief through search, comparison,
+              negotiation and handover. Rent, incentives, obligations and trade-offs stay visible before you commit.
             </p>
             <p className="text-white/80 font-normal mb-10" style={{ fontSize: '0.8rem' }}>
               Engagement scope and licensing coverage are confirmed before work begins.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-              Book a Clarity Call
+            <Button href="/contact?service=leasing" variant="primary" size="lg">
+              Enquire
             </Button>
           </FadeIn>
         </div>
@@ -298,8 +285,8 @@ export default function TenantRepPage() {
                 body: 'We negotiate directly with landlords and agents. No middlemen, no softened messages, hard and fair representation on your behalf.'
               },
               {
-                title: 'Rent, fitout support, and flexible clauses',
-                body: 'We push for fair rent, fitout contributions, rent-free periods, and clause structures that give your business room to grow and adapt.'
+                title: 'Rent, FitOut support and flexible clauses',
+                body: 'We test rent, FitOut contributions, rent-free periods and clause structures against the brief and available evidence.'
               },
               {
                 title: 'Clause-by-clause risk review',
@@ -401,12 +388,12 @@ export default function TenantRepPage() {
                 </p>
                 <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5 mb-8">
                   <p className="text-near-black font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                    We will never represent a landlord. Every word of every lease is read through one lens:
-                    does this protect the tenant? Every negotiation has one outcome: the best deal for the business signing the lease.
+                  For each tenant engagement, our advice and negotiation stay focused on the occupying business.
+                  Legal advice remains with the tenant&apos;s solicitor; our role is to keep the commercial position clear.
                   </p>
                 </div>
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                  Book a Clarity Call
+                <Button href="/contact?service=leasing" variant="primary" size="lg">
+                  Enquire
                 </Button>
               </div>
             </FadeIn>
@@ -416,10 +403,10 @@ export default function TenantRepPage() {
                 <h3 className="text-near-black font-bold text-xl mb-8">What you get from this.</h3>
                 <ul className="space-y-5">
                   {[
-                    { title: 'Harder negotiation', body: 'Rent, fit-out contributions, lease length, pushed harder than a split-incentive advisor ever will.' },
-                    { title: 'Protective clauses', body: 'The clauses that limit your liability, cap your make-good, and preserve your flexibility at renewal.' },
-                    { title: 'Real market intelligence', body: 'We know which landlords negotiate in good faith and which ones don\'t. That knowledge is leverage.' },
-                    { title: 'Someone watching the fine print', body: 'A second set of eyes whose job is to stop you signing a deal you\'ll regret in year three.' },
+                    { title: 'Commercial negotiation', body: 'Rent, incentives, lease length and other commercial terms tested against the brief and available evidence.' },
+                    { title: 'Obligations made visible', body: 'Make-good, reviews, options, relocation and other material terms identified for commercial and legal review.' },
+                    { title: 'Comparable options', body: 'Available properties and proposals assessed on a consistent basis, including total occupancy cost.' },
+                    { title: 'A coordinated decision', body: 'Commercial, legal and FitOut questions tracked so the business can decide with fewer gaps.' },
                   ].map((item, i) => (
                     <li key={i} className="flex gap-5 items-start pb-5 border-b border-gray-100 last:border-0">
                       <span className="text-teal font-black flex-shrink-0 leading-none mt-1" style={{ fontSize: '1.1rem' }}>→</span>
@@ -463,6 +450,21 @@ export default function TenantRepPage() {
         </div>
       </section>
 
+      <section className="bg-light-teal" style={SEC_SM}>
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-center">
+              <div className="flex-1">
+                <SectionLabel>Looking to buy?</SectionLabel>
+                <h2 className="text-near-black text-3xl mt-3 mb-3">Commercial Buyers Agent support in NSW.</h2>
+                <p className="text-charcoal leading-relaxed">Buying requires a different brief, professional team and due diligence pathway. Our Commercial Buyers Agent service keeps those workstreams connected.</p>
+              </div>
+              <Button href="/buyers-agency" variant="dark" size="lg">Explore buying</Button>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* ─── CTA ──────────────────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
@@ -478,8 +480,8 @@ export default function TenantRepPage() {
                 A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                  Book a Clarity Call
+                <Button href="/contact?service=leasing" variant="primary" size="lg">
+                  Enquire
                 </Button>
                 <CapabilityDownload
                   label="Download Our Credentials"

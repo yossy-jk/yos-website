@@ -24,17 +24,21 @@ function forbidPattern(relativePath, pattern, label = String(pattern)) {
 
 const approvedServices = [
   'Tenant Representation',
-  'Commercial Fit Out & Project Management',
+  'Commercial FitOut & Project Management',
   'Office & Commercial Furniture',
   'Commercial Cleaning',
+  'Commercial Buyers Agent',
 ]
 
 const capabilityStatementPath = path.join(root, 'public/YOS-Capability-Statement.pdf')
 const capabilityStatementHash = createHash('sha256')
   .update(fs.readFileSync(capabilityStatementPath))
   .digest('hex')
-const approvedCapabilityStatementHash = '30c10bc67f61bd2b1fe3e8ddc986bcc5a8bed4060c3051355c393e7793fd6898'
-if (capabilityStatementHash !== approvedCapabilityStatementHash) {
+const approvedCapabilityStatementHashes = new Set([
+  '30c10bc67f61bd2b1fe3e8ddc986bcc5a8bed4060c3051355c393e7793fd6898',
+  '3ab0b7b070178cc4fa7561576df3d8ee34a4704cce738385d53f2fab36522d01',
+])
+if (!approvedCapabilityStatementHashes.has(capabilityStatementHash)) {
   failures.push('public/YOS-Capability-Statement.pdf: does not match the approved Brand v1.1 capability statement')
 }
 
@@ -46,17 +50,17 @@ requireText('src/app/layout.tsx', 'Montserrat', 'Montserrat font')
 requireText('src/app/globals.css', 'var(--font-montserrat)', 'Montserrat variable')
 forbidText('src/app/layout.tsx', 'Fraunces', 'superseded Fraunces font')
 forbidText('src/app/layout.tsx', 'Inter', 'superseded Inter font')
-requireText('src/app/page.tsx', 'One team. Clear direction. No guesswork.', 'primary tagline')
-requireText('src/app/page.tsx', 'One accountable partner', 'one accountable partner message')
-requireText('src/app/page.tsx', 'Book a Clarity Call', 'primary call to action')
-requireText('src/app/page.tsx', 'Three core services.', 'three-core-service hierarchy')
-requireText('src/app/page.tsx', 'Once you&apos;re in', 'supplementary cleaning hierarchy')
-requireText('src/components/BookingCTA.tsx', 'identify the clearest next step', 'approved evidence-safe Clarity Call format')
+requireText('src/app/page.tsx', 'Find It, Fit It Out and Furnish It', 'approved primary tagline')
+requireText('src/app/page.tsx', 'One team, from the first decision', 'one accountable team message')
+requireText('src/app/page.tsx', '>Enquire</Link>', 'primary Enquire call to action')
+requireText('src/app/page.tsx', "label: 'Look After It'", 'fourth service tile')
+requireText('src/app/page.tsx', "title: 'Commercial Cleaning'", 'commercial cleaning tile')
+requireText('src/components/BookingCTA.tsx', 'Enquire', 'approved Enquire call to action')
 
-for (const service of approvedServices) {
+for (const service of approvedServices.slice(0, 4)) {
   requireText('src/lib/constants.ts', service, `approved service ${service}`)
-  requireText('src/app/page.tsx', service, `homepage service ${service}`)
 }
+requireText('src/app/buyers-agency/page.tsx', approvedServices[4], 'public Commercial Buyers Agent service')
 
 const publicDiscoverySurfaces = [
   'src/app/layout.tsx',
@@ -79,15 +83,12 @@ const publicDiscoverySurfaces = [
 ]
 
 for (const relativePath of publicDiscoverySurfaces) {
-  forbidText(relativePath, '/buyers-agency', 'public Buyers Agency link')
-  forbidPattern(relativePath, /buyers agency|buyers advocacy/i, 'public Buyers Agency promotion')
   forbidPattern(relativePath, /no pitch|one business day/i, 'retired promise or sales-language phrase')
 }
 
-requireText('src/app/buyers-agency/page.tsx', 'robots: { index: false, follow: false }', 'referral-only noindex rule')
-requireText('src/app/buyers-agency/page.tsx', 'This capability is not part of the current public service offer.', 'referral-only capability notice')
-requireText('src/app/robots.ts', "'/buyers-agency'", 'Buyers Agency crawler exclusion')
-requireText('src/lib/blog.ts', "post.division !== 'buyers-agency'", 'public article filter')
+requireText('src/app/buyers-agency/page.tsx', 'Structure Ready, Finance Ready', 'buyer readiness proposition')
+requireText('src/app/buyers-agency/page.tsx', 'YOS does not provide legal, tax, financial, credit or investment advice.', 'professional-advice disclaimer')
+forbidText('src/app/robots.ts', "'/buyers-agency'", 'Buyers Agency crawler exclusion')
 forbidPattern('src/app/buyers-agency/page.tsx', /60%\+|12\+|100%|three times|fee guarantee|best commercial deals/i, 'unverified referral-page claim')
 
 const publicClaimPattern = /more than half|over 50%|74%|\b3x\b|three times (?:the|our|that) fee|fee guarantee|100\+|12\+ years/i
@@ -161,8 +162,8 @@ if (failures.length > 0) {
 
 console.log('Brand & Design System v3.1 check passed.')
 console.log('- Approved palette and typography are wired globally.')
-console.log('- Homepage positions three core services and supplementary cleaning correctly.')
-console.log('- Buyers Agency remains referral-only and is not publicly promoted.')
+console.log('- Homepage uses the approved tagline, Enquire CTA and four-service journey.')
+console.log('- Commercial Buyers Agent is public with readiness language and professional-advice safeguards.')
 console.log('- Legacy brand tokens are absent from application source.')
 console.log('- Public copy is free of em dashes, no-pitch language and one-business-day promises.')
-console.log('- The public capability statement matches the approved Brand v1.1 asset.')
+console.log('- The public capability statement matches the approved Gold-standard asset.')

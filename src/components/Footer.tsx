@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { CONTACT, SERVICE_LINKS } from '@/lib/constants'
 
 export default function Footer() {
@@ -13,11 +14,11 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="col-span-1 sm:col-span-2 md:col-span-1">
-            <p className="text-white font-bold tracking-[0.08em] mb-4" style={{ fontSize: '0.8rem' }}>
-              Your Office Space
-            </p>
+            <Link href="/" aria-label="Your Office Space home" className="inline-flex mb-4">
+              <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={190} height={54} className="h-12 w-auto" />
+            </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Based in Newcastle. Working Australia-wide for fit out and furniture, with tenant representation delivered in NSW.
+              Based in Newcastle. Working Australia-wide for FitOut and furniture, with tenant representation delivered in NSW.
             <span className="block mt-3 text-teal font-semibold" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
             </p>
           </div>

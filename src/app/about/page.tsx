@@ -5,15 +5,16 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
+import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
 export const metadata = {
   title: 'About | Your Office Space – Commercial Property Advisory Newcastle',
-  description: 'Based in Newcastle. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
+  description: 'Based in Newcastle. Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
   twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
   openGraph: {
     title: 'About | Your Office Space Newcastle',
-    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.',
+    description: 'Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
     url: 'https://www.yourofficespace.au/about',
     images: [{ url: '/og/og-about.png', width: 1200, height: 630, alt: 'About Your Office Space | Newcastle NSW | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -26,6 +27,12 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+
+const APPROVED_GOOGLE_REVIEWERS = [
+  { name: 'Beth Gwalter', organisation: 'Recovery Station' },
+  { name: 'Olivia Crawford', organisation: 'AACAFS' },
+  { name: 'Jason Dowdall', organisation: 'Total Fitouts' },
+]
 
 export default function AboutPage() {
   return (
@@ -68,13 +75,13 @@ export default function AboutPage() {
         "@graph": [
           {
             "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
+            "@id": ORGANIZATION_ID,
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/logo.png",
+            "logo": LOGO_URL,
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle and the Hunter.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -89,26 +96,27 @@ export default function AboutPage() {
               { "@type": "State", "name": "New South Wales" },
               { "@type": "Country", "name": "Australia" }
             ],
-            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property", "Office Fitout", "Commercial Cleaning"]
+            "serviceType": SERVICE_TYPES,
+            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property", "Office Fit Out", "Commercial Furniture", "Commercial Cleaning"]
           },
           {
             "@type": "Person",
             "@id": "https://www.yourofficespace.au/#person-joe-kelley",
             "name": "Joe Kelley",
             "jobTitle": "Founder & Managing Director",
-            "worksFor": { "@id": "https://www.yourofficespace.au/#organization" },
+            "worksFor": { "@id": ORGANIZATION_ID },
             "url": "https://www.yourofficespace.au/about",
             "description": "Commercial property professional working across office fit outs, tenant representation and workplace strategy.",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "knowsAbout": ["Commercial Leases", "Tenant Representation", "Office Fitout", "Commercial Property Negotiation"],
+            "knowsAbout": ["Commercial Leases", "Tenant Representation", "Office Fit Out", "Commercial Property Negotiation"],
             "areaServed": [{ "@type": "State", "name": "New South Wales" }, { "@type": "Country", "name": "Australia" }]
           },
           {
             "@type": "Person",
             "name": "Sarah Kelley",
             "jobTitle": "Cleaning Division Director",
-            "worksFor": { "@id": "https://www.yourofficespace.au/#organization" },
+            "worksFor": { "@id": ORGANIZATION_ID },
             "description": "Runs the commercial cleaning division with hands-on site auditing and quality control.",
             "telephone": "+61434655511"
           },
@@ -117,9 +125,9 @@ export default function AboutPage() {
             "mainEntity": [
               { "@type": "Question", "name": "How does Your Office Space charge?", "acceptedAnswer": { "@type": "Answer", "text": "Scope, fees and any relevant payment arrangements are explained before an engagement begins." } },
               { "@type": "Question", "name": "Why does Your Office Space take a tenant-side position?", "acceptedAnswer": { "@type": "Answer", "text": "A tenant-side position keeps advice and negotiation focused on the priorities of the business occupying the space." } },
-              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, fit out and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle and the Hunter." } },
+              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, FitOut and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
               { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
-              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Book a 20-minute Clarity Call. Bring the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
+              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Enquire with the lease, FitOut, furniture or cleaning decision that needs to become clearer." } },
               { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier. many of our best client relationships are conducted entirely online." } }
             ]
           },
@@ -128,14 +136,14 @@ export default function AboutPage() {
             "author": { "@type": "Person", "name": "Liz Murray" },
             "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.",
             "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "itemReviewed": { "@type": "Service", "name": "Tenant Representation", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
+            "itemReviewed": { "@type": "Service", "name": "Tenant Representation", "provider": { "@id": ORGANIZATION_ID } }
           },
           {
             "@type": "Review",
             "author": { "@type": "Person", "name": "Nathan Franks", "worksFor": { "@type": "Organization", "name": "Dynamic Business Technologies" } },
-            "reviewBody": "Joe was instrumental in building out our boardroom. high-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
+            "reviewBody": "Joe was instrumental in building out our boardroom. High-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
             "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "itemReviewed": { "@type": "Service", "name": "Furniture & Fitout", "provider": { "@id": "https://www.yourofficespace.au/#organization" } }
+            "itemReviewed": { "@type": "Service", "name": "Furniture & Fit Out", "provider": { "@id": ORGANIZATION_ID } }
           }
         ]
       }) }} />
@@ -170,7 +178,7 @@ export default function AboutPage() {
                 <p>
                   I have worked across commercial office fit outs, furniture and workplace strategy.
                   In that work I watched good businesses carry avoidable risk during one of the
-                  most expensive and distracting moments in their journey. the office move, the fitout,
+                  most expensive and distracting moments in their journey: the office move, the fit out,
                   the lease negotiation.
                 </p>
                 <p>
@@ -254,7 +262,7 @@ export default function AboutPage() {
 
                 {/* Tags */}
                 <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-                  {['Commercial Property', 'Tenant Representation', 'Fitout Strategy'].map(tag => (
+                  {['Commercial Property', 'Tenant Representation', 'Fit Out Strategy'].map(tag => (
                     <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-sm border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
                   ))}
                 </div>
@@ -311,6 +319,33 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Approved reviewer identities only. Quotes are not paraphrased or invented. */}
+      <section className="bg-white" style={SEC} aria-labelledby="reviews-heading">
+        <div className={WRAP} style={PAD}>
+          <FadeIn>
+            <SectionLabel>Independent feedback</SectionLabel>
+            <h2 id="reviews-heading" className="text-near-black font-black leading-tight tracking-tight mt-3 mb-5"
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
+              People who have reviewed their experience with YOS.
+            </h2>
+            <p className="text-charcoal font-light leading-relaxed mb-10 max-w-3xl">
+              These reviewer identities are approved for publication. Their words are not shortened or paraphrased here without the source text and permission record.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {APPROVED_GOOGLE_REVIEWERS.map((reviewer, index) => (
+              <FadeIn key={reviewer.name} delay={index * 70}>
+                <article className="h-full rounded-2xl border border-gray-200 bg-warm-grey p-7">
+                  <p className="text-dark-teal font-bold uppercase tracking-widest mb-5" style={{ fontSize: '0.65rem' }}>Google reviewer</p>
+                  <h3 className="text-near-black font-bold text-xl">{reviewer.name}</h3>
+                  <p className="text-charcoal mt-2">{reviewer.organisation}</p>
+                </article>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ─── STATS & CREDENTIALS ─────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
@@ -339,7 +374,7 @@ export default function AboutPage() {
                 </div>
                 <div>
                   <p className="text-white font-bold mb-1">Service Area</p>
-                  <p className="text-white/70 font-light text-sm leading-relaxed">Tenant representation in NSW. Office fit out and commercial furniture support Australia-wide. Commercial cleaning in Newcastle and the Hunter.</p>
+                  <p className="text-white/70 font-light text-sm leading-relaxed">Tenant representation in NSW. Office FitOut and commercial furniture support Australia-wide. Commercial cleaning in Newcastle CBD and Lake Macquarie.</p>
                 </div>
                 <div>
                   <p className="text-white font-bold mb-1">Industries Served</p>
@@ -381,8 +416,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               { heading: 'A clear client position.', body: "Tenant representation is framed around the occupying business's brief, risks and commercial priorities." },
-              { heading: 'Local base. Defined reach.', body: "Newcastle is our base. We deliver tenant representation in NSW, fit out and furniture support Australia-wide, and commercial cleaning in Newcastle and the Hunter." },
-              { heading: 'End-to-end accountability.', body: "Lease decisions, fit out, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
+              { heading: 'Local base. Defined reach.', body: "Newcastle is our base. We deliver tenant representation in NSW, FitOut and furniture support Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie." },
+              { heading: 'End-to-end accountability.', body: "Lease decisions, FitOut, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
               { heading: 'Visible decisions.', body: "Recommendations identify the evidence, trade-offs and approvals needed before the team proceeds." },
             ].map((item, i) => (
               <FadeIn key={item.heading} delay={i * 70} direction="up">
@@ -409,7 +444,7 @@ export default function AboutPage() {
                 A focused conversation about your space and the decision you are trying to make.
               </p>
               <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Book a Clarity Call
+                Enquire
               </Button>
             </div>
           </FadeIn>

@@ -7,14 +7,13 @@ import { CheckIcon } from '@/components/Icons'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
-const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
   title: 'Commercial Cleaning Newcastle | Offices and Workplaces | Your Office Space',
-  description: 'Commercial cleaning for Newcastle offices and workplaces, with a clear scope, a consistent team and monthly quality checks.',
+  description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with the same team, monthly QA and a quote within 24 hours of site inspection.',
   twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope. Consistent team. Monthly quality checks.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
@@ -52,10 +51,8 @@ export default function CleaningPage() {
             },
             "areaServed": [
               { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
               { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
+              { "@type": "State", "name": "New South Wales" }
             ]
           },
           {
@@ -63,10 +60,9 @@ export default function CleaningPage() {
             "@id": "https://www.yourofficespace.au/cleaning#service",
             "name": "Commercial Cleaning Newcastle",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
-            "description": "Commercial cleaning for offices and workplaces across Newcastle and the Hunter, based on an agreed Scope of Works.",
+            "description": "Commercial cleaning for workplaces in Newcastle CBD and Lake Macquarie, with a consistent team and monthly quality assurance.",
             "areaServed": [
               { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
               { "@type": "City", "name": "Lake Macquarie" },
               { "@type": "City", "name": "Charlestown" },
               { "@type": "City", "name": "Merewether" },
@@ -75,8 +71,7 @@ export default function CleaningPage() {
               { "@type": "City", "name": "Wallsend" },
               { "@type": "City", "name": "Cardiff" },
               { "@type": "City", "name": "Cameron Park" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
+              { "@type": "State", "name": "New South Wales" }
             ],
             "serviceType": "Commercial Cleaning",
             "url": "https://www.yourofficespace.au/cleaning"
@@ -86,7 +81,7 @@ export default function CleaningPage() {
             "mainEntity": [
               { "@type": "Question", "name": "How is commercial cleaning priced?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal." } },
               { "@type": "Question", "name": "Do you use the same cleaning team every visit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Your Office Space cleaning contract is serviced by the same team on every visit. We do not rotate staff. You know who is coming and so do we." } },
-              { "@type": "Question", "name": "What areas of Newcastle do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We service Newcastle, Maitland, Lake Macquarie, Charlestown, Merewether, Adamstown, Kotara, Wallsend and surrounding Hunter Valley suburbs. We are based locally and do not use out-of-area contractors." } },
+              { "@type": "Question", "name": "Where is commercial cleaning available?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
               { "@type": "Question", "name": "How often should a commercial office be cleaned?", "acceptedAnswer": { "@type": "Answer", "text": "Most offices benefit from daily or every-second-day cleaning for high-traffic environments, and weekly for lower-use spaces. We work with each client to determine the right frequency for their space, team size and usage patterns." } },
               { "@type": "Question", "name": "What is included in a standard commercial office clean?", "acceptedAnswer": { "@type": "Answer", "text": "Standard commercial office cleaning includes rubbish removal, kitchen and breakroom cleaning, bathroom sanitation, desk and surface wiping, floor care (vacuum/mop), and bin replacement. Deep cleans, infection control cleans and carpet extraction are charged separately." } },
               { "@type": "Question", "name": "Can the cleaning happen after hours?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Access, timing and security requirements are agreed during the site inspection and documented in the Scope of Works." } }
@@ -110,25 +105,25 @@ export default function CleaningPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Commercial cleaning that follows the scope.<br />
-              <span className="text-teal">consistent, accountable, local.</span>
+              A clean office, every visit,<br />
+              <span className="text-teal">without chasing anyone.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              A clear Scope of Works, a consistent cleaning team and monthly quality checks for Newcastle offices and workplaces.
+              The same team every visit, monthly quality assurance overseen by Sarah, and a clear Scope of Works for workplaces in Newcastle CBD and Lake Macquarie.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
             <div className="flex flex-row flex-wrap gap-4 items-center">
               <Button href="#cleaning-quote-form" variant="primary" size="lg">
-                Book a Site Quote
+                Get a cleaning quote
               </Button>
               <a href="/contact?service=cleaning"
                 className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
                 style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
-                Enquire Now
+                Enquire
               </a>
             </div>
           </FadeIn>
@@ -225,7 +220,7 @@ export default function CleaningPage() {
                   'Hygiene-bin servicing by arrangement',
                   'Final readiness preparation',
                 ],
-                note: 'We coordinate closely with your fitout and building teams.'
+                note: 'We coordinate closely with your FitOut and building teams.'
               },
             ].map((category, i) => (
               <FadeIn key={category.type} delay={i * 70} direction="up">
@@ -271,7 +266,7 @@ export default function CleaningPage() {
               },
               {
                 title: 'Monthly quality audits',
-                body: 'Every site is audited monthly by our management team. Standards are checked. Issues are flagged before they become problems. You get a report, not an excuse.',
+                body: 'Sarah oversees monthly quality assurance against the agreed Scope of Works, so the service stays connected to the standard promised.',
                 aside: 'Accountability built into the contract.'
               },
               {
@@ -311,15 +306,15 @@ export default function CleaningPage() {
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">One coordinated handover</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
-                  Moving into a new fitout?
+                  Moving into a new FitOut?
                 </h3>
                 <p className="text-white/60 font-light text-base leading-relaxed">
                   If your workplace is being fitted out or refurbished, cleaning can be scoped alongside furniture and handover planning so responsibilities stay clear.
                 </p>
               </div>
               <div className="flex-shrink-0">
-                <Button href="/furniture" variant="primary" size="lg">
-                  View Furniture &amp; Fitout
+                <Button href="/office-fitout" variant="primary" size="lg">
+                  Explore FitOut
                 </Button>
               </div>
             </div>
@@ -338,11 +333,10 @@ export default function CleaningPage() {
                   Tell us about your space.
                 </h2>
                 <p className="text-white/60 font-light leading-relaxed mb-8" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
-                  We cover Newcastle, Maitland, Lake Macquarie, Cessnock, Singleton, Murrurundi and the broader Hunter Valley.
-                  Book a site quote so we can inspect the space, understand access and timing, and prepare a clear Scope of Works.
+                  We cover Newcastle CBD and Lake Macquarie. After the site inspection, we prepare your tailored quote within 24 hours.
                 </p>
                 <div className="flex flex-col gap-2 text-white/40 text-sm">
-                  {["Newcastle CBD & surrounds","Maitland & Hunter Valley","Lake Macquarie","Cessnock & Singleton","Port Stephens"].map(s => (
+                  {["Newcastle CBD", "Lake Macquarie", "Same team every visit", "Monthly QA overseen by Sarah", "Quote within 24 hours of site inspection"].map(s => (
                     <span key={s} className="flex items-center gap-2"><CheckIcon />{s}</span>
                   ))}
                 </div>
@@ -370,12 +364,12 @@ export default function CleaningPage() {
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center">
                 <Button href="#cleaning-quote-form" variant="dark" size="lg">
-                  Book a Site Quote
+                  Get a cleaning quote
                 </Button>
                 <a href="/contact?service=cleaning"
                   className="inline-flex items-center gap-2 text-white font-bold border border-white/30 rounded-none px-6 py-3 no-underline hover:border-white transition-colors"
                   style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
-                  Enquire Now
+                  Enquire
                 </a>
               </div>
             </div>
@@ -388,7 +382,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
             <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
-            <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or the Hunter Valley?</p>
+            <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or Lake Macquarie?</p>
           </div>
           <Button href="/cleaning/work-with-us" variant="primary" size="lg">
             Express interest

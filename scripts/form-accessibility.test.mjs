@@ -16,11 +16,30 @@ test('contact form labels are programmatically associated with their controls', 
   }
 })
 
+test('contact service choices are accessible, required, and captured in HubSpot context', () => {
+  for (const service of ['Leasing', 'Buying', 'FitOut', 'Furniture', 'Cleaning', 'Not sure']) {
+    assert.match(contactSource, new RegExp(`'${service}'`))
+  }
+  assert.match(contactSource, /<fieldset id="contact-service" tabIndex=\{-1\}/)
+  assert.match(contactSource, /aria-pressed=\{selected\}/)
+  assert.match(contactSource, /<input type="hidden" name="service" value=\{fields\.service\}/)
+  assert.match(contactSource, /context: `Service: \$\{fields\.service\}/)
+})
+
+test('contact form supports service query prefill and only confirms accepted delivery', () => {
+  assert.match(contactSource, /resolveService\(initialService\)/)
+  assert.match(contactSource, /emailResult\.value\.ok/)
+  assert.match(contactSource, /hubspotResult\.value\.ok/)
+  assert.match(contactSource, /We could not confirm delivery/)
+})
+
 test('required contact fields expose validation state and error references', () => {
-  for (const field of ['name', 'email', 'message']) {
+  for (const field of ['name', 'email']) {
     assert.match(contactSource, new RegExp(`aria-invalid=\\{Boolean\\(errors\\.${field}\\)\\}`))
     assert.match(contactSource, new RegExp(`contact-${field}-error`))
   }
+  assert.match(contactSource, /errors\.service/)
+  assert.match(contactSource, /contact-service-error/)
   assert.match(contactSource, /document\.getElementById\(`contact-\$\{firstInvalid\}`\)\?\.focus\(\)/)
 })
 
