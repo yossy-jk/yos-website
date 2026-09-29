@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 sm:col-span-2 md:col-span-1">
             <Link href="/" aria-label="Your Office Space home" className="inline-flex mb-4">
-              <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={190} height={54} className="h-12 w-auto" />
+              <Image src="/YOS-favicon.png" alt="Your Office Space" width={142} height={126} sizes="56px" className="h-14 w-auto" />
             </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
               Based in Newcastle. Working Australia-wide for FitOut and furniture, with tenant representation delivered in NSW.
