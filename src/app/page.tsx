@@ -184,7 +184,7 @@ export default function Home() {
       </div></section>
 
       <section className="bg-teal text-white"><div className={`${container} grid items-center gap-8 py-16 md:py-20 lg:grid-cols-[1fr_auto]`}>
-        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-near-black">Fit out estimator</p><h2 className="mt-3 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-white">What could your fit out cost?</h2><p className="mt-4 max-w-2xl text-lg font-normal leading-relaxed text-white">Build an indicative range in about two minutes, see the assumptions and bring the result into a preliminary budget conversation.</p></FadeIn>
+        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-white">Fit out estimator</p><h2 className="mt-3 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-white">What could your fit out cost?</h2><p className="mt-4 max-w-2xl text-lg font-normal leading-relaxed text-white">Build an indicative range in about two minutes, see the assumptions and bring the result into a preliminary budget conversation.</p></FadeIn>
         <Link href="/resources/fitout-estimator" className="inline-flex rounded-lg bg-near-black px-8 py-4 font-bold text-white no-underline transition duration-200 hover:-translate-y-1 hover:bg-white hover:text-near-black motion-reduce:transform-none">Estimate your fit out</Link>
       </div></section>
 
