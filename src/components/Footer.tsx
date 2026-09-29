@@ -18,7 +18,7 @@ export default function Footer() {
               <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={190} height={54} className="h-12 w-auto" />
             </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Based in Newcastle. Working Australia-wide for FitOut and furniture, with tenant representation delivered in NSW.
+              Based in Newcastle. Working Australia-wide for fit out and furniture, with tenant representation delivered in NSW.
             <span className="block mt-3 text-teal font-semibold" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
             </p>
           </div>
@@ -85,7 +85,7 @@ export default function Footer() {
               © {new Date().getFullYear()} Your Office Space Pty Ltd. All rights reserved.
             </p>
             <p className="text-white/55 font-light" style={{ fontSize: '0.72rem' }}>
-              Tenant representation is delivered within verified NSW licensing coverage.
+              Tenant representation is delivered in NSW by Joseph Kelley, Class 2 licensed real estate agent No. 20565455.
             </p>
           </div>
           <div className="flex items-center gap-6">

@@ -5,23 +5,41 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
+import BudgetExplorer from '@/components/BudgetExplorer'
+import ReviewsCarousel from '@/components/ReviewsCarousel'
 
 export const metadata: Metadata = {
-  title: 'Commercial Property, FitOut & Furniture | Your Office Space',
-  description: 'One team to help you find, FitOut, furnish and look after your commercial space.',
+  title: 'Commercial Property, Fit Out & Furniture | Your Office Space',
+  description: 'One team to help you find, fit out, furnish and look after your commercial space.',
+  alternates: { canonical: 'https://www.yourofficespace.au' },
+  openGraph: {
+    title: 'Find it, fit it out and furnish it | Your Office Space',
+    description: 'Commercial property, client-side fit out project management, furniture and ongoing workplace services from one team.',
+    url: 'https://www.yourofficespace.au',
+    siteName: 'Your Office Space',
+    locale: 'en_AU',
+    type: 'website',
+    images: [{ url: '/og/og-home.png', width: 1200, height: 630, alt: 'Your Office Space commercial property and workplace services' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Find it, fit it out and furnish it | Your Office Space',
+    description: 'Commercial property, fit out, furniture and workplace services from one team.',
+    images: ['/og/og-home.png'],
+  },
 }
 
 const services = [
   { label: 'Find', title: 'Lease or buy', copy: 'Tenant-side support for your next commercial property decision.', href: '/tenant-rep', image: '/images/furniture/space-cogc-office.jpg' },
-  { label: 'FitOut', title: 'Plan and deliver', copy: 'A coordinated workplace brief, FitOut and handover.', href: '/office-fitout', image: '/images/furniture/space-wsi-openplan.jpg' },
-  { label: 'Furnish It', title: 'Specify and install', copy: 'Commercial furniture selected around your people and space.', href: '/furniture', image: '/images/furniture/dbt-boardroom.jpg' },
+  { label: 'Fit it out', title: 'Plan and deliver', copy: 'A coordinated workplace brief, fit out and handover.', href: '/office-fitout', image: '/images/furniture/space-wsi-openplan.jpg' },
+  { label: 'Furnish it', title: 'Specify and install', copy: 'Commercial furniture selected around your people and space.', href: '/furniture', image: '/images/furniture/dbt-boardroom.jpg' },
   { label: 'Look After It', title: 'Commercial Cleaning', copy: 'Ongoing commercial cleaning across Newcastle CBD and Lake Macquarie.', href: '/cleaning', image: '/images/furniture/space-liverpool-b.jpg' },
 ]
 
 const journey = [
   ['01', 'Find', 'Clarify the brief and make the property decision with the right evidence.'],
-  ['02', 'FitOut', 'Coordinate the workplace scope, budget, programme and handover.'],
-  ['03', 'Furnish It', 'Select, supply and install furniture that suits the space.'],
+  ['02', 'Fit it out', 'Coordinate the workplace scope, budget, programme and handover.'],
+  ['03', 'Furnish it', 'Select, supply and install furniture that suits the space.'],
   ['04', 'Look After It', 'Keep the workplace ready through ongoing services where available.'],
 ]
 
@@ -32,6 +50,7 @@ const clientLogos = [
   { name: 'OzChild', src: '/client-logos/ozchild.png' },
   { name: 'Jirsch Sutherland', src: '/client-logos/jirsch-sutherland.jpg' },
   { name: 'Total Fitouts', src: '/client-logos/total-fitouts.webp' },
+  { name: 'Recovery Station', src: '/images/relationships/recovery-station.jpg' },
 ]
 
 const serviceShowcases = [
@@ -51,7 +70,7 @@ const serviceShowcases = [
     copy: 'YOS acts as your client-side project manager, coordinating the specialist team while protecting your priorities from brief through handover.',
     points: ['Brief and preliminary budget', 'Design and procurement coordination', 'Programme, risk and handover oversight'],
     href: '/office-fitout',
-    cta: 'See the FitOut process',
+    cta: 'See the fit out process',
     image: '/images/furniture/space-wsi-openplan.jpg',
     alt: 'Completed open-plan commercial workplace',
   },
@@ -90,30 +109,32 @@ const reviews = [
   },
 ]
 
-const container = 'mx-auto w-full max-w-[1280px] px-6 md:px-10'
+const container = 'yos-container'
 
 export default function Home() {
   return <>
     <Nav />
     <main id="main-content" tabIndex={-1}>
-      <section className="relative min-h-[92vh] overflow-hidden bg-near-black pt-20">
+      <section className="relative bg-near-black pt-20">
         <Image src="/images/furniture/space-cogc-wide.jpg" alt="Contemporary commercial workplace interior" fill priority className="object-cover" />
         <div className="absolute inset-0 bg-near-black/75" />
-        <div className={`${container} relative z-10 flex min-h-[calc(92vh-5rem)] flex-col justify-center py-16`}>
+        <div className={`${container} relative z-10 flex min-h-[calc(100svh-5rem)] flex-col justify-center py-12 md:py-16`}>
           <FadeIn>
             <p className="mb-5 text-sm font-semibold uppercase tracking-[0.22em] text-teal">One team for your workplace</p>
-            <h1 className="max-w-[13ch] text-[clamp(2.8rem,7vw,6.5rem)] font-bold leading-[0.98] tracking-[-0.04em] text-white">Find It, Fit It Out and Furnish It</h1>
-            <p className="mt-7 max-w-2xl text-[clamp(1.05rem,2vw,1.3rem)] leading-relaxed text-white/85">We help businesses lease or buy their next commercial space, then coordinate the FitOut, furniture and available ongoing services.</p>
+            <h1 className="max-w-[16ch] text-[clamp(2.75rem,5vw,5rem)] font-bold leading-[1.02] tracking-[-0.035em] text-white">We find it, fit it out and furnish it.</h1>
+            <p className="mt-7 max-w-2xl text-[clamp(1.05rem,2vw,1.3rem)] text-white/85 font-normal leading-relaxed">We help businesses lease or buy their next commercial space, then take care of the fit out, furniture and ongoing services, with one team on your side.</p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link href="/contact" className="rounded-lg bg-teal px-8 py-4 text-base font-bold text-near-black no-underline transition duration-200 hover:-translate-y-1 hover:bg-white motion-reduce:transform-none">Enquire</Link>
-              <Link href="/resources/fitout-estimator" className="rounded-lg border border-white/60 px-8 py-4 text-base font-bold text-white no-underline transition duration-200 hover:-translate-y-1 hover:bg-white/10 motion-reduce:transform-none">Estimate your FitOut</Link>
+              <Link href="/resources/fitout-estimator" className="rounded-lg border border-white/60 px-8 py-4 text-base font-bold text-white no-underline transition duration-200 hover:-translate-y-1 hover:bg-white/10 motion-reduce:transform-none">Estimate your fit out</Link>
             </div>
           </FadeIn>
-          <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, index) => <FadeIn key={service.label} delay={index * 70}>
-              <Link href={service.href} className="group relative flex min-h-48 overflow-hidden rounded-2xl border border-white/20 bg-near-black/75 p-5 text-white no-underline backdrop-blur-sm transition duration-200 hover:-translate-y-1 hover:border-teal motion-reduce:transform-none">
-                <Image src={service.image} alt="" fill className="object-cover opacity-20 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-30 motion-reduce:transform-none" />
-                <span className="relative z-10 mt-auto"><span className="block text-xs font-semibold uppercase tracking-[0.2em] text-teal">{service.label}</span><span className="mt-2 block text-xl font-bold">{service.title}</span><span className="mt-2 block text-sm leading-relaxed text-white/75">{service.copy}</span><span className="mt-4 inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none" aria-hidden="true">→</span></span>
+              <Link href={service.href} className="group flex min-h-44 flex-col justify-end rounded-2xl border border-white/15 bg-white p-6 text-near-black no-underline shadow-lg transition duration-200 hover:-translate-y-1 hover:border-teal motion-reduce:transform-none">
+                <span className="block text-[13px] font-semibold uppercase tracking-[0.12em] text-dark-teal">{service.label}</span>
+                <span className="mt-2 block text-xl font-bold leading-tight">{service.title}</span>
+                <span className="mt-2 block text-sm leading-relaxed text-charcoal">{service.copy}</span>
+                <span className="mt-4 inline-block text-dark-teal transition-transform group-hover:translate-x-1 motion-reduce:transform-none" aria-hidden="true">→</span>
               </Link>
             </FadeIn>)}
           </div>
@@ -126,7 +147,7 @@ export default function Home() {
       </div></section>
 
       <section className="bg-warm-grey py-20 md:py-28"><div className={container}>
-        <FadeIn><div className="mx-auto max-w-3xl text-center"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-dark-teal">One coordinated journey</p><h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-near-black">One team, from the first decision to the working workplace.</h2></div></FadeIn>
+        <FadeIn><div className="mx-auto max-w-3xl text-center"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-dark-teal">One coordinated journey</p><h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-near-black">One team, from the first decision to a workplace that works.</h2></div></FadeIn>
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">{journey.map(([number, title, copy], index) => <FadeIn key={title} delay={index * 70}><article className="h-full rounded-2xl bg-white p-7"><span className="text-sm font-bold text-dark-teal">{number}</span><h3 className="mt-8 text-2xl font-bold text-near-black">{title}</h3><p className="mt-3 leading-relaxed text-charcoal">{copy}</p></article></FadeIn>)}</div>
       </div></section>
 
@@ -146,29 +167,30 @@ export default function Home() {
         </FadeIn>)}</div>
       </div></section>
 
-      <section className="bg-light-teal py-20 md:py-28"><div className={`${container} grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr]`}>
-        <FadeIn><div className="relative mx-auto aspect-square w-full max-w-md rounded-full border-[3rem] border-action-teal bg-white shadow-[inset_0_0_0_1px_rgba(0,0,0,0.08)]"><div className="absolute inset-12 flex items-center justify-center rounded-full bg-near-black p-8 text-center text-xl font-bold leading-tight text-white">Your brief<br />and budget</div></div></FadeIn>
-        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-dark-teal">Protect the whole picture</p><h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-near-black">One budget. A lot of hands reaching for it.</h2><div className="mt-6 space-y-4 text-lg leading-relaxed text-charcoal"><p>Property costs, consultants, contractors, furniture and programme changes all take a share of the same project budget.</p><p>As your client-side project manager, YOS makes the trade-offs visible and keeps every decision tied to the workplace outcome.</p></div><Link href="/office-fitout" className="mt-8 inline-flex rounded-lg border-2 border-near-black px-8 py-4 font-bold text-near-black no-underline transition duration-200 hover:-translate-y-1 hover:bg-near-black hover:text-white motion-reduce:transform-none">How client-side PM works</Link></FadeIn>
+      <section className="bg-light-teal py-20 md:py-28"><div className={container}>
+        <FadeIn><div className="mx-auto mb-12 max-w-3xl text-center"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-dark-teal">Protect the whole picture</p><h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-near-black">One budget. A lot of hands reaching for it.</h2><p className="mt-5 text-lg leading-relaxed text-charcoal">Every part of the workplace competes for the same budget. Explore where pressure appears and how client-side project management keeps decisions connected.</p></div></FadeIn>
+        <BudgetExplorer />
+        <div className="mt-10 text-center"><Link href="/office-fitout" className="inline-flex rounded-lg border-2 border-near-black px-8 py-4 font-bold text-near-black no-underline transition duration-200 hover:-translate-y-1 hover:bg-near-black hover:text-white motion-reduce:transform-none">How client-side PM works</Link></div>
       </div></section>
 
       <section className="bg-white py-16 md:py-20" aria-labelledby="trusted-heading"><div className={container}>
         <FadeIn><p id="trusted-heading" className="text-center text-sm font-semibold uppercase tracking-[0.2em] text-dark-teal">Organisations we have supported and worked alongside</p></FadeIn>
-        <div className="mt-10 grid grid-cols-2 items-center gap-5 md:grid-cols-3 lg:grid-cols-6">{clientLogos.map(logo => <div key={logo.name} className="relative flex h-28 items-center justify-center rounded-2xl border border-black/10 bg-white p-5"><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain p-5" sizes="200px" /></div>)}</div>
+        <div className="mt-10 grid grid-cols-2 items-center gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">{clientLogos.map(logo => <div key={logo.name} className="relative flex h-28 items-center justify-center rounded-2xl border border-black/10 bg-white p-5 transition duration-200 hover:-translate-y-1 hover:border-teal motion-reduce:transform-none"><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain p-5" sizes="200px" /></div>)}</div>
       </div></section>
 
       <section className="bg-warm-grey py-20 md:py-28" aria-labelledby="reviews-heading"><div className={container}>
         <FadeIn><div className="mx-auto max-w-3xl text-center"><p className="text-sm font-semibold uppercase tracking-[0.2em] text-dark-teal">Independent feedback</p><h2 id="reviews-heading" className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-near-black">What clients say about working with Joe.</h2></div></FadeIn>
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">{reviews.map((review, index) => <FadeIn key={review.name} delay={index * 80}><figure className="h-full rounded-3xl bg-white p-8 sm:p-10"><blockquote className="text-xl leading-relaxed text-near-black">“{review.quote}”</blockquote><figcaption className="mt-8 border-t border-black/10 pt-6"><strong className="block text-near-black">{review.name}</strong><span className="mt-1 block text-sm text-charcoal">{review.organisation}</span></figcaption></figure></FadeIn>)}</div>
+        <ReviewsCarousel reviews={reviews} />
       </div></section>
 
-      <section className="bg-near-black py-16 md:py-20"><div className={`${container} grid items-center gap-8 lg:grid-cols-[1fr_auto]`}>
-        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal">FitOut estimator</p><h2 className="mt-3 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-white">What could your FitOut cost?</h2><p className="mt-4 max-w-2xl text-lg leading-relaxed text-white/75">Build an indicative range in about two minutes, see the assumptions and bring the result into a preliminary budget conversation.</p></FadeIn>
-        <Link href="/resources/fitout-estimator" className="inline-flex rounded-lg bg-teal px-8 py-4 font-bold text-near-black no-underline transition duration-200 hover:-translate-y-1 hover:bg-white motion-reduce:transform-none">Estimate your FitOut</Link>
+      <section className="bg-teal text-white"><div className={`${container} grid items-center gap-8 py-16 md:py-20 lg:grid-cols-[1fr_auto]`}>
+        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-near-black">Fit out estimator</p><h2 className="mt-3 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-white">What could your fit out cost?</h2><p className="mt-4 max-w-2xl text-lg font-normal leading-relaxed text-white">Build an indicative range in about two minutes, see the assumptions and bring the result into a preliminary budget conversation.</p></FadeIn>
+        <Link href="/resources/fitout-estimator" className="inline-flex rounded-lg bg-near-black px-8 py-4 font-bold text-white no-underline transition duration-200 hover:-translate-y-1 hover:bg-white hover:text-near-black motion-reduce:transform-none">Estimate your fit out</Link>
       </div></section>
 
       <section className="bg-near-black py-20 md:py-28"><div className={`${container} grid items-center gap-12 lg:grid-cols-2`}>
         <div className="relative aspect-[4/3] overflow-hidden rounded-3xl"><Image src="/images/furniture/dbt-boardroom.jpg" alt="Finished commercial boardroom and furniture installation" fill className="object-cover" /></div>
-        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal">Clear next step</p><h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-white">Tell us what your workplace needs next.</h2><p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">Whether the decision is property, FitOut, furniture or commercial cleaning, start with the outcome you need.</p><Link href="/contact" className="mt-8 inline-flex rounded-lg bg-teal px-8 py-4 font-bold text-near-black no-underline transition duration-200 hover:-translate-y-1 hover:bg-white motion-reduce:transform-none">Enquire</Link></FadeIn>
+        <FadeIn><p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal">Clear next step</p><h2 className="mt-4 text-[clamp(2rem,4vw,3.5rem)] font-bold leading-tight text-white">Tell us what your workplace needs next.</h2><p className="mt-5 max-w-xl text-lg leading-relaxed text-white/75">Whether the decision is property, fit out, furniture or commercial cleaning, start with the outcome you need.</p><Link href="/contact" className="mt-8 inline-flex rounded-lg bg-teal px-8 py-4 font-bold text-near-black no-underline transition duration-200 hover:-translate-y-1 hover:bg-white motion-reduce:transform-none">Enquire</Link></FadeIn>
       </div></section>
     </main>
     <Footer />

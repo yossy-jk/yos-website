@@ -8,13 +8,13 @@ import { HUBSPOT } from '@/lib/constants'
 import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
 export const metadata = {
-  title: 'About | Your Office Space – Commercial Property Advisory Newcastle',
-  description: 'Based in Newcastle. Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+  title: 'About Your Office Space | Newcastle Workplace Team',
+  description: 'Based in Newcastle. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
   twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
   openGraph: {
     title: 'About | Your Office Space Newcastle',
-    description: 'Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
     url: 'https://www.yourofficespace.au/about',
     images: [{ url: '/og/og-about.png', width: 1200, height: 630, alt: 'About Your Office Space | Newcastle NSW | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -26,7 +26,7 @@ export const metadata = {
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
-const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+const PAD  = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
 const APPROVED_GOOGLE_REVIEWERS = [
   { name: 'Beth Gwalter', organisation: 'Recovery Station' },
@@ -42,11 +42,9 @@ export default function AboutPage() {
       <main id="main-content" tabIndex={-1}>
 
       {/* ─── HERO ─────────────────────────────────────────── */}
-      <section className="bg-near-black relative overflow-hidden" style={SEC_SM}>
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
-        }} />
+      <section className="bg-near-black relative min-h-[72vh] flex items-center overflow-hidden" style={{ paddingTop: 'clamp(8rem,12vw,10rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
+        <Image src="/team/joe-kelley.jpg" alt="Joe Kelley, founder of Your Office Space" fill priority sizes="100vw" className="object-cover object-[70%_25%]" />
+        <div className="absolute inset-0 bg-near-black/80" />
         <div className={`relative ${WRAP}`} style={PAD}>
           <FadeIn delay={0}>
             <SectionLabel>About</SectionLabel>
@@ -59,7 +57,7 @@ export default function AboutPage() {
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
-            <p className="text-white/60 font-light leading-relaxed max-w-xl"
+            <p className="text-white/85 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1.05rem,2vw,1.25rem)' }}>
               We built this business because business owners deserve someone genuinely in their corner
               when the stakes are high. Not someone who disappears after the lease is signed.
@@ -81,7 +79,7 @@ export default function AboutPage() {
             "logo": LOGO_URL,
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -125,10 +123,10 @@ export default function AboutPage() {
             "mainEntity": [
               { "@type": "Question", "name": "How does Your Office Space charge?", "acceptedAnswer": { "@type": "Answer", "text": "Scope, fees and any relevant payment arrangements are explained before an engagement begins." } },
               { "@type": "Question", "name": "Why does Your Office Space take a tenant-side position?", "acceptedAnswer": { "@type": "Answer", "text": "A tenant-side position keeps advice and negotiation focused on the priorities of the business occupying the space." } },
-              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, FitOut and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
-              { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "We are based in Newcastle and focus on the Hunter Valley and NSW. We also work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW." } },
-              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Enquire with the lease, FitOut, furniture or cleaning decision that needs to become clearer." } },
-              { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. While we are based in Newcastle and focus on the Hunter region, we work with commercial property clients across Sydney, the Central Coast, Illawarra and regional NSW. Distance is not a barrier. many of our best client relationships are conducted entirely online." } }
+              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, fit out and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
+              { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation and commercial buyers agent services are delivered in NSW. Fit out and furniture support is available Australia-wide. Commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
+              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Enquire with the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
+              { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fit out and furniture support is available Australia-wide, while property representation is delivered in NSW. Commercial cleaning remains focused on Newcastle CBD and Lake Macquarie." } }
             ]
           },
           {
@@ -319,17 +317,17 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Approved reviewer identities only. Quotes are not paraphrased or invented. */}
+      {/* Genuine client feedback. */}
       <section className="bg-white" style={SEC} aria-labelledby="reviews-heading">
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>Independent feedback</SectionLabel>
             <h2 id="reviews-heading" className="text-near-black font-black leading-tight tracking-tight mt-3 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
-              People who have reviewed their experience with YOS.
+              What clients say about working with Joe.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-10 max-w-3xl">
-              These reviewer identities are approved for publication. Their words are not shortened or paraphrased here without the source text and permission record.
+              Independent feedback from people who have worked with Joe and Your Office Space.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -346,58 +344,24 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ─── STATS & CREDENTIALS ─────────────────────────── */}
+      {/* ─── PROOF POINTS ───────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
           <FadeIn>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <SectionLabel>Built around your workplace</SectionLabel>
+            <h2 className="mb-12 max-w-3xl text-white" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>Clear advice, coordinated delivery and people who stay accountable.</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { stat: 'Newcastle-based', label: 'Hunter home territory' },
-                { stat: 'NSW', label: 'Tenant representation' },
-                { stat: 'Four services', label: 'One accountable partner' },
-                { stat: 'NSW', label: 'Verified service coverage' },
+                { stat: 'Newcastle', label: 'Our home base, with fit out and furniture support Australia-wide.' },
+                { stat: 'NSW licensed', label: 'Commercial leasing and buying advice on your side of the table.' },
+                { stat: 'Four connected services', label: 'Property, fit out, furniture and workplace cleaning.' },
+                { stat: 'Real accountability', label: 'One relationship from the first decision to a workplace that works.' },
               ].map(item => (
-                <div key={item.stat} className="border-t border-white/10 pt-6">
+                <article key={item.stat} className="rounded-2xl border border-white/10 bg-white/[0.04] p-7 hover:border-teal">
                   <p className="text-teal font-black mb-2" style={{ fontSize: 'clamp(1.2rem,2.5vw,1.75rem)' }}>{item.stat}</p>
-                  <p className="text-white/40 font-light" style={{ fontSize: '0.75rem', letterSpacing: '0.05em', lineHeight: 1.5 }}>{item.label}</p>
-                </div>
+                  <p className="text-white/75 font-light leading-relaxed">{item.label}</p>
+                </article>
               ))}
-            </div>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <div className="border border-white/10 rounded-sm p-8 md:p-10">
-              <p className="text-teal font-bold text-xs tracking-widest uppercase mb-6">Credentials &amp; Licence</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                  <p className="text-white font-bold mb-1">Service boundary</p>
-                  <p className="text-white/70 font-light text-sm leading-relaxed">Tenant representation is undertaken only within verified NSW licensing coverage. The engagement scope and accountable entity are confirmed before work begins.</p>
-                </div>
-                <div>
-                  <p className="text-white font-bold mb-1">Service Area</p>
-                  <p className="text-white/70 font-light text-sm leading-relaxed">Tenant representation in NSW. Office FitOut and commercial furniture support Australia-wide. Commercial cleaning in Newcastle CBD and Lake Macquarie.</p>
-                </div>
-                <div>
-                  <p className="text-white font-bold mb-1">Industries Served</p>
-                  <p className="text-white/45 font-light text-sm leading-relaxed">Professional services, healthcare, government, education, technology, trades, financial services, not-for-profit.</p>
-                </div>
-              </div>
-              <div className="mt-8 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-5">Contact &amp; Location</p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div>
-                    <p className="text-white/30 font-medium uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Based in</p>
-                    <p className="text-white/70 font-light text-sm leading-relaxed">Newcastle, NSW<br />Hunter Valley &amp; surrounds</p>
-                  </div>
-                  <div>
-                    <p className="text-white/30 font-medium uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Email Joe directly</p>
-                    <a href="mailto:jk@yourofficespace.au" className="text-teal font-light text-sm" style={{ textDecoration: 'none' }}>jk@yourofficespace.au</a>
-                  </div>
-                  <div>
-                    <p className="text-white/30 font-medium uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Phone</p>
-                    <a href="tel:+61434655511" className="text-teal font-light text-sm" style={{ textDecoration: 'none' }}>0434 655 511</a>
-                  </div>
-                </div>
-              </div>
             </div>
           </FadeIn>
         </div>
@@ -416,9 +380,9 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               { heading: 'A clear client position.', body: "Tenant representation is framed around the occupying business's brief, risks and commercial priorities." },
-              { heading: 'Local base. Defined reach.', body: "Newcastle is our base. We deliver tenant representation in NSW, FitOut and furniture support Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie." },
-              { heading: 'End-to-end accountability.', body: "Lease decisions, FitOut, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
-              { heading: 'Visible decisions.', body: "Recommendations identify the evidence, trade-offs and approvals needed before the team proceeds." },
+              { heading: 'Local base. Defined reach.', body: "Newcastle is our base. We deliver tenant representation in NSW, fit out and furniture support Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie." },
+              { heading: 'End-to-end accountability.', body: "Lease decisions, fit out, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
+              { heading: 'Visible decisions.', body: "Recommendations make the evidence and trade-offs clear, so you can make each decision with confidence." },
             ].map((item, i) => (
               <FadeIn key={item.heading} delay={i * 70} direction="up">
                 <div className="pl-6 border-l-4 border-teal py-1">

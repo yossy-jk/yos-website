@@ -8,7 +8,7 @@ import CapabilityDownload from '@/components/CapabilityDownload'
 import TenantProcess from '@/components/TenantProcess'
 
 export const metadata = {
-  title: 'Commercial Leasing & Tenant Representation NSW | Your Office Space',
+  title: 'Tenant Representation & Commercial Leasing NSW | YOS',
   description: 'Tenant-side commercial leasing support in NSW, from property brief and search through comparison, negotiation and handover.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'Tenant-side commercial lease advice, option assessment and negotiation support.' },
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
@@ -26,7 +26,7 @@ export const metadata = {
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const WRAP   = 'max-w-screen-xl mx-auto'
-const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
 export default function TenantRepPage() {
   return (
@@ -68,7 +68,7 @@ export default function TenantRepPage() {
                                 "provider": {
                                         "@id": "https://www.yourofficespace.au/#organization"
                                 },
-                                "description": "Tenant-side commercial lease advice, option assessment and negotiation support in New South Wales, with broader work only where verified licensing coverage permits.",
+                                "description": "Tenant-side commercial lease advice, option assessment and negotiation support in New South Wales.",
                                 "areaServed": [
                                         "New South Wales"
                                 ],
@@ -82,12 +82,10 @@ export default function TenantRepPage() {
 
 
       {/* ─── HERO ─────────────────────────────────────────── */}
-      <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden" style={SEC}>
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
-        }} />
-        <div className={`relative z-10 w-full ${WRAP}`} style={{ ...PAD, paddingTop: 'clamp(8rem,15vw,14rem)', paddingBottom: 'clamp(6rem,10vw,10rem)' }}>
+      <section className="relative flex min-h-[calc(100svh-5rem)] items-center overflow-hidden bg-near-black">
+        <Image src="/images/furniture/space-geelong-a.jpg" alt="Modern commercial building interior ready for inspection" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-near-black/80" />
+        <div className={`relative z-10 w-full ${WRAP}`} style={{ ...PAD, paddingTop: 'clamp(7rem,10vw,9rem)', paddingBottom: 'clamp(4rem,7vw,6rem)' }}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Leasing · NSW</SectionLabel>
           </FadeIn>
@@ -106,7 +104,7 @@ export default function TenantRepPage() {
               negotiation and handover. Rent, incentives, obligations and trade-offs stay visible before you commit.
             </p>
             <p className="text-white/80 font-normal mb-10" style={{ fontSize: '0.8rem' }}>
-              Engagement scope and licensing coverage are confirmed before work begins.
+              Commercial leasing services are provided by Joseph Kelley, licensed in NSW.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -156,7 +154,7 @@ export default function TenantRepPage() {
             <SectionLabel>Evidence before commitment</SectionLabel>
             <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-5"
               style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-              A recommendation you can interrogate.
+              A recommendation you can test.
             </h2>
             <p className="text-charcoal font-normal leading-relaxed" style={{ maxWidth: '44rem', lineHeight: 1.85 }}>
               We connect each recommendation to the agreed brief, available market evidence and the commercial trade-offs. Named testimonials will only appear here when publication permission is recorded.
@@ -168,9 +166,8 @@ export default function TenantRepPage() {
       {/* ─── IMAGE BREAK 1 ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image
-          priority
-          src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80"
-          alt="Business owner reviewing commercial lease with advisor"
+          src="/images/furniture/space-cogc-office.jpg"
+          alt="Contemporary commercial office considered during a property search"
           fill className="object-cover object-center"
         />
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.55)' }} />
@@ -236,7 +233,7 @@ export default function TenantRepPage() {
                     A broader view of suitable options.
                   </p>
                   <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    We assess advertised opportunities and verified introductions against the same brief,
+                    We assess advertised and introduced opportunities against the same brief,
                     then show the trade-offs clearly.
                   </p>
                 </div>
@@ -249,8 +246,8 @@ export default function TenantRepPage() {
       {/* ─── IMAGE BREAK 2 ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image
-          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1920&q=80"
-          alt="Team negotiating commercial lease terms"
+          src="/images/furniture/dbt-boardroom.jpg"
+          alt="Commercial boardroom used for workplace and lease planning"
           fill className="object-cover object-center"
         />
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.6)' }} />
@@ -274,7 +271,7 @@ export default function TenantRepPage() {
             </h2>
             <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
               style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              We represent tenants in NSW, with broader work only where verified licensing coverage permits. The goal is clear: give the occupying business a properly tested commercial position.
+              We represent tenants in NSW. The goal is clear: give the occupying business a properly tested commercial position.
             </p>
           </FadeIn>
 
@@ -285,8 +282,8 @@ export default function TenantRepPage() {
                 body: 'We negotiate directly with landlords and agents. No middlemen, no softened messages, hard and fair representation on your behalf.'
               },
               {
-                title: 'Rent, FitOut support and flexible clauses',
-                body: 'We test rent, FitOut contributions, rent-free periods and clause structures against the brief and available evidence.'
+                title: 'Rent, fit out support and flexible clauses',
+                body: 'We test rent, fit out contributions, rent-free periods and clause structures against the brief and available evidence.'
               },
               {
                 title: 'Clause-by-clause risk review',
@@ -319,7 +316,7 @@ export default function TenantRepPage() {
       {/* ─── IMAGE BREAK 3 ──────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image
-          src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80"
+          src="/images/furniture/space-wsi-openplan.jpg"
           alt="Modern commercial office space Newcastle"
           fill className="object-cover object-center"
         />
@@ -406,7 +403,7 @@ export default function TenantRepPage() {
                     { title: 'Commercial negotiation', body: 'Rent, incentives, lease length and other commercial terms tested against the brief and available evidence.' },
                     { title: 'Obligations made visible', body: 'Make-good, reviews, options, relocation and other material terms identified for commercial and legal review.' },
                     { title: 'Comparable options', body: 'Available properties and proposals assessed on a consistent basis, including total occupancy cost.' },
-                    { title: 'A coordinated decision', body: 'Commercial, legal and FitOut questions tracked so the business can decide with fewer gaps.' },
+                    { title: 'A coordinated decision', body: 'Commercial, legal and fit out questions tracked so the business can decide with fewer gaps.' },
                   ].map((item, i) => (
                     <li key={i} className="flex gap-5 items-start pb-5 border-b border-gray-100 last:border-0">
                       <span className="text-teal font-black flex-shrink-0 leading-none mt-1" style={{ fontSize: '1.1rem' }}>→</span>

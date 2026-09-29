@@ -200,7 +200,9 @@ export default function ContactForm({ initialService }: { initialService?: strin
         <label htmlFor="contact-message" className={labelClass} style={labelStyle}>Anything else we should know? <span className="text-readable-grey font-normal">(optional)</span></label>
         <textarea id="contact-message" name="message" value={fields.message} onChange={e => set('message')(e.target.value)}
           rows={4} placeholder="Tell us what you&apos;re working on..."
+          aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined}
           className={inputClass()} style={{ ...style, resize: 'vertical' as const }} />
+        {errors.message && <p id="contact-message-error" role="alert" className="text-red-500 text-xs mt-1">{errors.message}</p>}
       </div>
 
       {submitError && <p role="alert" className="text-red-600 text-sm font-semibold">{submitError}</p>}
