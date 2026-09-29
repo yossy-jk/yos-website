@@ -10,12 +10,12 @@ export default function Footer() {
         style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
       >
         {/* Top grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-5 md:gap-10 mb-14 md:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-14 md:mb-16">
 
           {/* Brand */}
-          <div className="col-span-1 sm:col-span-2 md:col-span-1">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
             <Link href="/" aria-label="Your Office Space home" className="inline-flex mb-4">
-              <Image src="/YOS-favicon.png" alt="Your Office Space" width={142} height={126} sizes="56px" className="h-14 w-auto" />
+              <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} sizes="210px" className="h-8 w-auto" />
             </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
               Based in Newcastle. Working Australia-wide for FitOut and furniture, with tenant representation delivered in NSW.

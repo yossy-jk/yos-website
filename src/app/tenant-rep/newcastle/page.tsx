@@ -276,7 +276,7 @@ export default function TenantRepNewcastlePage() {
                         "@id": "https://www.yourofficespace.au/#organization",
                         "name": "Your Office Space",
                         "url": "https://www.yourofficespace.au",
-                        "logo": "https://www.yourofficespace.au/favicon-32x32.png",
+                        "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
                         "telephone": "0434 655 511",
                         "email": "jk@yourofficespace.au",
                         "address": {

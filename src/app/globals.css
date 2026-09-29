@@ -277,7 +277,6 @@ html {
   font-size: 16px;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden; /* prevent horizontal bleed on all viewports */
 }
 
 body {
@@ -287,7 +286,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 /* ─── Gold homepage responsive system ─────────────────── */
@@ -453,6 +451,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .safe-reveal { animation: none !important; }
   .home-button, .home-service-shade, .home-card-arrow { transition: none !important; transform: none !important; }
+  .agent-marquee-track, .animate-pulse-dot, .animate-fade-up { animation: none !important; }
 }
 
 /* Gold v3.1 permits only Montserrat 400, 600 and 700. Legacy utility names
@@ -462,12 +461,6 @@ body {
 
 /* Mobile padding for sticky CTA bar */
 @media (max-width: 767px) {
-  body {
-    padding-bottom: calc(56px + env(safe-area-inset-bottom));
-  }
-}
-
-@media (min-width: 768px) and (max-width: 1199px) {
   body {
     padding-bottom: calc(56px + env(safe-area-inset-bottom));
   }
