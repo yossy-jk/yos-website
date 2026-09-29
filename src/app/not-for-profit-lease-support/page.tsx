@@ -60,7 +60,7 @@ export default function NotForProfitPage() {
             "@id": "https://www.yourofficespace.au/#organization",
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/favicon-32x32.png",
+            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
             "contactPoint": {
               "@type": "ContactPoint",
               "telephone": "+61-2-4000-0717",

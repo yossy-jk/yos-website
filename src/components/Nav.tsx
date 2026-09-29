@@ -100,10 +100,10 @@ export default function Nav() {
         >
           <Link href="/" onClick={() => setOpen(false)} aria-label="Your Office Space home"
             className="relative z-50 flex items-center no-underline">
-            <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={180} height={50} className="h-8 w-auto md:h-10" priority />
+            <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} sizes="(min-width: 1200px) 210px, 150px" className="h-[23px] w-auto xl:h-8" priority />
           </Link>
 
-          <div className="hidden md:flex gap-8 items-center">
+          <div className="hidden xl:flex gap-7 items-center">
 
             {/* ── Services dropdown ── */}
             <div className="relative" ref={servicesRef}>
@@ -257,7 +257,9 @@ export default function Nav() {
               style={{ fontSize: '0.8rem', letterSpacing: '0.02em', padding: '0.9rem 1.6rem' }}>Enquire</Link>
           </div>
 
-          <div className="md:hidden flex items-center gap-2">
+          <div className="xl:hidden flex items-center gap-2">
+            <Link href="/contact" className="hidden sm:inline-flex rounded-lg bg-teal text-near-black font-bold no-underline"
+              style={{ fontSize: '0.75rem', padding: '0.75rem 1.1rem' }}>Enquire</Link>
             <Search />
           <button ref={mobileMenuButtonRef} onClick={() => setOpen(!open)}
             className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-none cursor-pointer"
@@ -277,14 +279,14 @@ export default function Nav() {
 
       {/* Desktop backdrop */}
       {(servicesOpen || resourcesOpen) && (
-        <div className="fixed inset-0 z-40 hidden md:block"
+        <div className="fixed inset-0 z-40 hidden xl:block"
           style={{ background: 'rgba(0,0,0,0.5)', top: `${NAV_H}px` }}
           onClick={closeAll}
         />
       )}
 
       {/* Mobile fullscreen */}
-      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ${
+      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} className={`fixed inset-0 z-40 bg-near-black xl:hidden transition-opacity duration-300 ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}>
         <div className="flex flex-col h-full overflow-y-auto" style={{ padding: '5rem 1.25rem 2.5rem' }}>
@@ -340,7 +342,7 @@ export default function Nav() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-action-teal border-t border-dark-teal">
+      <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-action-teal border-t border-dark-teal pb-[env(safe-area-inset-bottom)]">
         <Link href="/contact"
           className="flex items-center justify-center text-near-black font-bold no-underline w-full"
           style={{ fontSize: '0.75rem', letterSpacing: '0.02em', padding: '1rem' }}>

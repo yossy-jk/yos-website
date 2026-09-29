@@ -290,7 +290,7 @@ export default function EOFGroupPage() {
             "name": "EOF Group",
             "alternateName": ["EOF Group", "Your Office Space"],
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/logo.png",
+            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
             "telephone": "+61434655511",
             "email": "hello@yourofficespace.au",
             "address": { "@type": "PostalAddress", "addressLocality": "Newcastle", "addressRegion": "NSW", "addressCountry": "AU" },
