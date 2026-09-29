@@ -72,7 +72,7 @@ export default function NewcastleCommercialPropertyHub() {
             "@id": "https://www.yourofficespace.au/#organization",
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/logo.png",
+            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
             "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",

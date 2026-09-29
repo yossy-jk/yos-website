@@ -7,15 +7,9 @@ interface FadeInProps {
   className?: string
 }
 
-// Animations temporarily disabled, content must be visible at all times.
-// Scroll animations to be re-added once design is finalised.
-export default function FadeIn({
-  children,
-  className = '',
-}: FadeInProps) {
-  return (
-    <div className={className}>
-      {children}
-    </div>
-  )
+// Content remains present at all times. Motion is progressive enhancement and
+// never gates visibility during fast scrolling, printing or screenshot capture.
+export default function FadeIn({ children, delay = 0, direction = 'up', className = '' }: FadeInProps) {
+  const distance = direction === 'left' ? '-14px,0' : direction === 'right' ? '14px,0' : direction === 'none' ? '0,0' : '0,14px'
+  return <div className={`safe-reveal ${className}`} style={{ '--reveal-delay': `${delay}ms`, '--reveal-distance': distance } as React.CSSProperties}>{children}</div>
 }
