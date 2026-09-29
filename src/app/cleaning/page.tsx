@@ -116,12 +116,12 @@ export default function CleaningPage() {
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <div className="flex flex-row flex-wrap gap-4 items-center">
-              <Button href="#cleaning-quote-form" variant="primary" size="lg">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-center">
+              <Button href="#cleaning-quote-form" variant="primary" size="lg" className="w-full sm:w-auto">
                 Get a cleaning quote
               </Button>
               <a href="/contact?service=cleaning"
-                className="inline-flex items-center gap-2 text-white font-bold border border-white/20 rounded-none px-6 py-3 no-underline hover:border-white/60 transition-colors"
+                className="inline-flex min-h-[60px] w-full sm:w-auto items-center justify-center gap-2 text-white font-bold border border-white/20 rounded-lg px-6 py-3 no-underline hover:border-white/60 transition-colors"
                 style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
                 Enquire
               </a>

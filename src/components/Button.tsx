@@ -26,7 +26,7 @@ export default function Button({
 }: ButtonProps) {
   const baseStyles = [
     'inline-flex items-center justify-center',
-    'rounded-[4px]',
+    'rounded-lg',
     'font-semibold tracking-[0.02em] text-center no-underline',
     'transition-colors duration-200',
     'min-h-[60px]',

@@ -110,7 +110,7 @@ export default function TenantRepPage() {
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <Button href="/contact?service=leasing" variant="primary" size="lg">
+            <Button href="/contact?service=leasing" variant="primary" size="lg" className="w-full sm:w-auto">
               Enquire
             </Button>
           </FadeIn>
