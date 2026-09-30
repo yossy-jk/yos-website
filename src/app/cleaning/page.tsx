@@ -300,19 +300,27 @@ export default function CleaningPage() {
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="bg-near-black rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
-              <div className="flex-1">
-                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">One coordinated handover</p>
-                <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
-                  Moving into a new fit out?
-                </h3>
-                <p className="text-white/60 font-light text-base leading-relaxed">
-                  If your workplace is being fitted out or refurbished, cleaning can be scoped alongside furniture and handover planning so responsibilities stay clear.
-                </p>
+            <div className="bg-near-black rounded-3xl overflow-hidden grid lg:grid-cols-[1.05fr_0.95fr] min-h-[28rem]">
+              <div className="relative min-h-[18rem] lg:min-h-full">
+                <Image
+                  src="/images/furniture/space-wsi-openplan.jpg"
+                  alt="Finished commercial workplace ready for handover and ongoing cleaning"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 52vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-near-black/45 via-transparent to-transparent" aria-hidden="true" />
               </div>
-              <div className="flex-shrink-0">
+              <div className="p-8 sm:p-12 lg:p-16 flex flex-col justify-center items-start">
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">One coordinated handover</p>
+                <h2 className="text-white font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.9rem,3.5vw,3.25rem)' }}>
+                  Move into a finished workplace, then keep it that way.
+                </h2>
+                <p className="text-white/70 font-light text-base leading-relaxed mb-8 max-w-xl">
+                  When we manage your FitOut, the final clean and ongoing service can be planned before handover. One scope, clear responsibilities and a workplace ready from day one.
+                </p>
                 <Button href="/office-fitout" variant="primary" size="lg">
-                  Explore fit out
+                  Explore FitOut
                 </Button>
               </div>
             </div>
