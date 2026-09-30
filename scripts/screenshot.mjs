@@ -75,6 +75,11 @@ async function run() {
 
       try {
         await page.goto(`${URL}${pg.path}`, { waitUntil: 'networkidle2', timeout: 20000 })
+        await page.evaluate(() => {
+          const essentialOnly = [...document.querySelectorAll('button')]
+            .find(button => button.textContent?.trim() === 'Essential only')
+          essentialOnly?.click()
+        })
         await new Promise(r => setTimeout(r, 1000))
 
         const file = path.join(vpDir, `${pg.name}.png`)
