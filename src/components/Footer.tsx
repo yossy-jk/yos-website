@@ -7,7 +7,7 @@ export default function Footer() {
     <footer className="bg-near-black" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
       <div
         className="max-w-screen-xl mx-auto"
-        style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}
+        style={{ paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }}
       >
         {/* Top grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-5 md:gap-10 mb-14 md:mb-16">
@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-1 sm:col-span-2 md:col-span-1">
             <Link href="/" aria-label="Your Office Space home" className="inline-flex mb-4">
-              <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={190} height={54} className="h-12 w-auto" />
+              <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} className="h-8 w-auto" />
             </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
               Based in Newcastle. Working Australia-wide for fit out and furniture, with tenant representation delivered in NSW.

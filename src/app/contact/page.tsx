@@ -21,7 +21,7 @@ export const metadata = {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
     description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
     url: 'https://www.yourofficespace.au/contact',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',

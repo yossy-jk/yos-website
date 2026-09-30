@@ -38,7 +38,7 @@ export default function CleaningPage() {
             "@id": "https://www.yourofficespace.au/#organization",
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/logo.png",
+            "logo": "https://www.yourofficespace.au/brand/yos-logo-black.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
             "description": "Newcastle-based commercial cleaning and workplace services.",

@@ -3,19 +3,20 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { SERVICE_LINKS, CONTACT } from '@/lib/constants'
+import Search from '@/components/Search'
 
 const TOOLS_LEASING = [
   { label: 'Lease Risk Checker', href: '/resources/lease-review', tagline: 'Spot hidden obligations before you sign.' },
   { label: 'Lease Comparison', href: '/resources/lease-comparison', tagline: 'Compare two leases side by side.' },
   { label: 'Should I Relocate?', href: '/resources/relocate-quiz', tagline: 'Is it time to move offices?' },
   { label: 'Office Size Calculator', href: '/resources/office-size-calculator', tagline: 'How much space does your team need?' },
-  { label: 'Fit out estimator', href: '/resources/fitout-estimator', tagline: 'Build an indicative commercial fit out budget.' },
+  { label: 'Fitout Estimator', href: '/resources/fitout-estimator', tagline: 'Budget your office fitout accurately.' },
 ]
 
 const BLOG_HIGHLIGHTS = [
   { label: 'Newcastle Commercial Property Hub', href: '/newcastle-commercial-property' },
   { label: 'What Is Tenant Representation?', href: '/blog/what-is-tenant-representation-newcastle' },
-  { label: 'Fit out costs in Newcastle 2026', href: '/blog/commercial-fitout-cost-newcastle-2026' },
+  { label: 'Fitout Costs in Newcastle 2026', href: '/blog/commercial-fitout-cost-newcastle-2026' },
   { label: 'Make Good: What It Really Means', href: '/blog/what-is-make-good' },
 ]
 
@@ -99,10 +100,10 @@ export default function Nav() {
         >
           <Link href="/" onClick={() => setOpen(false)} aria-label="Your Office Space home"
             className="relative z-50 flex items-center no-underline">
-            <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={180} height={50} className="h-8 w-auto md:h-10" priority />
+            <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} sizes="(min-width: 1200px) 210px, 150px" className="h-[23px] w-auto xl:h-8" priority />
           </Link>
 
-          <div className="hidden md:flex gap-8 items-center">
+          <div className="hidden xl:flex gap-7 items-center">
 
             {/* ── Services dropdown ── */}
             <div className="relative" ref={servicesRef}>
@@ -242,11 +243,24 @@ export default function Nav() {
               </Link>
             ))}
 
+            <Search />
+
+            <a href="https://www.linkedin.com/company/your-office-space-au" target="_blank" rel="noopener noreferrer"
+              className="text-white/40 hover:text-white transition-colors no-underline flex items-center"
+              aria-label="YOS on LinkedIn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+
             <Link href="/contact" className="rounded-lg bg-teal text-near-black font-bold hover:bg-white transition-colors no-underline"
               style={{ fontSize: '0.8rem', letterSpacing: '0.02em', padding: '0.9rem 1.6rem' }}>Enquire</Link>
           </div>
 
-          <div className="md:hidden flex items-center gap-2">
+          <div className="xl:hidden flex items-center gap-2">
+            <Link href="/contact" className="hidden sm:inline-flex rounded-lg bg-teal text-near-black font-bold no-underline"
+              style={{ fontSize: '0.75rem', padding: '0.75rem 1.1rem' }}>Enquire</Link>
+            <Search />
           <button ref={mobileMenuButtonRef} onClick={() => setOpen(!open)}
             className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-none cursor-pointer"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -265,14 +279,14 @@ export default function Nav() {
 
       {/* Desktop backdrop */}
       {(servicesOpen || resourcesOpen) && (
-        <div className="fixed inset-0 z-40 hidden md:block"
+        <div className="fixed inset-0 z-40 hidden xl:block"
           style={{ background: 'rgba(0,0,0,0.5)', top: `${NAV_H}px` }}
           onClick={closeAll}
         />
       )}
 
       {/* Mobile fullscreen */}
-      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} className={`fixed inset-0 z-40 bg-near-black md:hidden transition-opacity duration-300 ${
+      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} className={`fixed inset-0 z-40 bg-near-black xl:hidden transition-opacity duration-300 ${
         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}>
         <div className="flex flex-col h-full overflow-y-auto" style={{ padding: '5rem 1.25rem 2.5rem' }}>
@@ -328,7 +342,7 @@ export default function Nav() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-action-teal border-t border-dark-teal">
+      <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-action-teal border-t border-dark-teal pb-[env(safe-area-inset-bottom)]">
         <Link href="/contact"
           className="flex items-center justify-center text-near-black font-bold no-underline w-full"
           style={{ fontSize: '0.75rem', letterSpacing: '0.02em', padding: '1rem' }}>

@@ -13,19 +13,24 @@ import puppeteer from 'puppeteer'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const URL = process.argv[2] || 'https://yos-website-greylh67y-joe-kelleys-projects-8f5ee275.vercel.app'
+const URL = process.argv[2] || 'https://www.yourofficespace.au'
 const OUT_DIR = path.join(__dirname, '..', 'screenshots')
 
 const VIEWPORTS = [
+  { name: 'mobile-320', width: 320, height: 800, dpr: 2 },
   { name: 'mobile-390', width: 390, height: 844, dpr: 2 },
   { name: 'tablet-768', width: 768, height: 1024, dpr: 2 },
+  { name: 'tablet-1024', width: 1024, height: 768, dpr: 2 },
   { name: 'desktop-1440', width: 1440, height: 900, dpr: 1 },
 ]
 
 const PAGES = [
   { path: '/', name: 'homepage' },
   { path: '/tenant-rep', name: 'tenant-rep' },
+  { path: '/office-fitout', name: 'office-fitout' },
   { path: '/furniture', name: 'furniture' },
+  { path: '/cleaning', name: 'cleaning' },
+  { path: '/resources', name: 'resources' },
   { path: '/about', name: 'about' },
   { path: '/contact', name: 'contact' },
 ]
@@ -41,10 +46,24 @@ async function run() {
   console.log(`   URL: ${URL}`)
   console.log(`   Output: ${runDir}\n`)
 
+  const executablePath = [
+    process.env.PUPPETEER_EXECUTABLE_PATH,
+    process.env.CHROME_PATH,
+    process.env.CHROME_BIN,
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser',
+    '/opt/homebrew/bin/chromium',
+    '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  ].filter(Boolean).find(fs.existsSync)
   const browser = await puppeteer.launch({
     headless: 'new',
+    ...(executablePath ? { executablePath } : {}),
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
   })
+
+  const failures = []
 
   for (const vp of VIEWPORTS) {
     const vpDir = path.join(runDir, vp.name)
@@ -63,6 +82,7 @@ async function run() {
         console.log(`   ✓ ${vp.name}/${pg.name}`)
       } catch (e) {
         console.log(`   ✗ ${vp.name}/${pg.name} — ${e.message.slice(0, 80)}`)
+        failures.push(`${vp.name}/${pg.name}: ${e.message}`)
       }
 
       await page.close()
@@ -70,6 +90,7 @@ async function run() {
   }
 
   await browser.close()
+  if (failures.length) throw new Error(`Screenshot capture failed:\n${failures.join('\n')}`)
   console.log(`\n✅ Done — ${runDir}\n`)
   return runDir
 }
