@@ -59,3 +59,12 @@ test('search overlay traps keyboard focus while open', () => {
   assert.match(searchSource, /const focusable =/)
   assert.match(searchSource, /e\.shiftKey/)
 })
+
+test('search combobox exposes active results and a named clear control', () => {
+  assert.match(searchSource, /role="combobox"/)
+  assert.match(searchSource, /aria-controls="site-search-results"/)
+  assert.match(searchSource, /aria-activedescendant=/)
+  assert.match(searchSource, /id="site-search-results"/)
+  assert.match(searchSource, /id={`site-search-result-\$\{i\}`}/)
+  assert.match(searchSource, /aria-label="Clear search"/)
+})

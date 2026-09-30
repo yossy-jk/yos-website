@@ -20,7 +20,7 @@ test('root layout wires deterministic route scrolling', () => {
 
 test('schema uses a real logo and covers all five service types', () => {
   assert.match(schema, /brand\/yos-logo-black\.png/)
-  for (const service of ['Tenant Representation', 'Commercial Property Buying', 'Commercial Fit Out', 'Office and Commercial Furniture', 'Commercial Cleaning']) {
+  for (const service of ['Tenant Representation', 'Commercial Property Buying', 'Commercial FitOut', 'Office and Commercial Furniture', 'Commercial Cleaning']) {
     assert.match(schema, new RegExp(service))
   }
   assert.doesNotMatch(schema, /\/logo\.png/)

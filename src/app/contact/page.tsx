@@ -14,12 +14,12 @@ const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.
 
 export const metadata = {
   title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-  description: 'Talk to Your Office Space about tenant representation in NSW, fit out and furniture Australia-wide, or commercial cleaning in Newcastle and Lake Macquarie.',
+  description: 'Talk to Your Office Space about tenant representation in NSW, FitOut and furniture Australia-wide, or commercial cleaning in Newcastle and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
   twitter: { card: 'summary_large_image', title: 'Contact | Your Office Space', description: 'Get in touch with Your Office Space. First conversation is always free.' },
   openGraph: {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+    description: 'Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
     url: 'https://www.yourofficespace.au/contact',
     images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
@@ -51,7 +51,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             "serviceType": SERVICE_TYPES,
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -68,7 +68,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
           {
             "@type": "ContactPage",
             "name": "Contact Your Office Space",
-            "description": "Get in touch with Your Office Space about tenant representation, fit out, furniture or commercial cleaning.",
+            "description": "Get in touch with Your Office Space about tenant representation, FitOut, furniture or commercial cleaning.",
             "url": "https://www.yourofficespace.au/contact"
           },
           {
@@ -76,7 +76,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             "mainEntity": [
               { "@type": "Question", "name": "What happens after I enquire?", "acceptedAnswer": { "@type": "Answer", "text": "We review the situation and confirm the most appropriate next step, service scope or referral." } },
               { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call 0434 655 511." } },
-              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office fit out and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
+              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office FitOut and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
             ]
           }
         ]
@@ -191,7 +191,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                     >
                       <option value="">Select a service...</option>
                       <option value="Tenant Representation">Tenant Representation</option>
-                      <option value="Commercial Fit Out & Project Management">Commercial Fit Out &amp; Project Management</option>
+                      <option value="Commercial FitOut & Project Management">Commercial FitOut &amp; Project Management</option>
                       <option value="Office & Commercial Furniture">Office &amp; Commercial Furniture</option>
                       <option value="Commercial Cleaning">Commercial Cleaning</option>
                       <option value="General Enquiry">General Enquiry</option>

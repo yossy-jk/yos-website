@@ -18,7 +18,7 @@ export default function Footer() {
               <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} className="h-8 w-auto" />
             </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Based in Newcastle. Working Australia-wide for fit out and furniture, with tenant representation delivered in NSW.
+              Based in Newcastle. Working Australia-wide for FitOut and furniture, with tenant representation delivered in NSW.
             <span className="block mt-3 text-teal font-semibold" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
             </p>
           </div>

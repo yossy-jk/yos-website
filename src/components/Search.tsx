@@ -181,7 +181,12 @@ export default function Search() {
               <input
                 ref={inputRef}
                 type="text"
+                role="combobox"
                 aria-label="Search services, tools and articles"
+                aria-autocomplete="list"
+                aria-controls="site-search-results"
+                aria-expanded="true"
+                aria-activedescendant={results[active] ? `site-search-result-${active}` : undefined}
                 placeholder="Search services, tools, articles..."
                 value={query}
                 onChange={e => { setQuery(e.target.value); setActive(0) }}
@@ -189,7 +194,7 @@ export default function Search() {
                 style={{ fontSize: '0.95rem' }}
               />
               {query && (
-                <button onClick={() => { setQuery(''); setActive(0) }} className="text-white/30 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0">
+                <button aria-label="Clear search" onClick={() => { setQuery(''); setActive(0); inputRef.current?.focus() }} className="text-white/30 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0">
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
@@ -203,13 +208,13 @@ export default function Search() {
             </div>
 
             {/* Results */}
-            <ul ref={listRef} role="listbox" style={{ maxHeight: '420px', overflowY: 'auto', padding: '0.5rem 0', margin: 0, listStyle: 'none' }}>
+            <ul id="site-search-results" ref={listRef} role="listbox" aria-label="Search results" style={{ maxHeight: '420px', overflowY: 'auto', padding: '0.5rem 0', margin: 0, listStyle: 'none' }}>
               {results.length === 0 ? (
                 <li style={{ padding: '2rem', textAlign: 'center', color: 'rgba(255,255,255,0.3)', fontSize: '0.875rem' }}>
                   No results for &ldquo;{query}&rdquo;
                 </li>
               ) : results.map((item, i) => (
-                <li key={item.href} role="option" aria-selected={i === active}>
+                <li id={`site-search-result-${i}`} key={item.href} role="option" aria-selected={i === active}>
                   <Link
                     href={item.href}
                     onClick={closeSearch}

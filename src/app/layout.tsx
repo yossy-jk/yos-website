@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   title: "Your Office Space | Find It, Fit It Out and Furnish It",
-  description: "Lease or buy the right commercial space, then coordinate the fit out, furniture and ongoing workplace services with one team on your side.",
-  keywords: "tenant representation NSW, commercial fit out Australia, office furniture Australia, commercial cleaning Newcastle, workplace project management",
+  description: "Lease or buy the right commercial space, then coordinate the FitOut, furniture and ongoing workplace services with one team on your side.",
+  keywords: "tenant representation NSW, commercial FitOut Australia, office furniture Australia, commercial cleaning Newcastle, workplace project management",
   metadataBase: new URL("https://www.yourofficespace.au"),
   alternates: {
     canonical: "https://www.yourofficespace.au",

@@ -350,6 +350,7 @@ body {
 .home-section-intro h2, .home-budget h2, .home-estimator h2, .home-final h2 { margin-top: .75rem; color: #1A1A1A; font-size: clamp(2rem, 3.6vw, 3.5rem); line-height: 1.08; }
 .home-logo-grid { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: .75rem; margin-top: 2.5rem; }
 .home-logo-card { position: relative; min-height: 7rem; border: 1px solid rgba(26,26,26,.1); border-radius: 1rem; background: #fff; }
+.home-logo-card-dark { background: #1a1a1a; }
 .home-logo-card img { padding: 1.4rem !important; }
 .home-journey-list { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 1px; overflow: hidden; margin-top: 2.5rem; border: 1px solid rgba(26,26,26,.1); border-radius: 1rem; background: rgba(26,26,26,.1); list-style: none; }
 .home-journey-list li { min-height: 11rem; padding: 1.5rem; background: #fff; }
@@ -518,6 +519,11 @@ textarea { min-height: 8rem; }
 @media (max-width: 767px) {
   .analytics-consent-panel {
     max-height: calc(100dvh - env(safe-area-inset-bottom) - 2rem);
+  }
+  .analytics-consent-trigger {
+    position: static !important;
+    margin: 1rem 1rem calc(1rem + env(safe-area-inset-bottom));
+    box-shadow: none;
   }
 }
 
