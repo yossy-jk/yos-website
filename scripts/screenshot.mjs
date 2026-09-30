@@ -80,7 +80,25 @@ async function run() {
             .find(button => button.textContent?.trim() === 'Essential only')
           essentialOnly?.click()
         })
-        await new Promise(r => setTimeout(r, 1000))
+        await page.evaluate(async () => {
+          const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
+          const step = Math.max(window.innerHeight * 0.8, 480)
+          for (let top = 0; top < document.documentElement.scrollHeight; top += step) {
+            window.scrollTo({ top, behavior: 'auto' })
+            await pause(120)
+          }
+
+          await Promise.all([...document.images].map(image => {
+            if (image.complete) return Promise.resolve()
+            return new Promise(resolve => {
+              image.addEventListener('load', resolve, { once: true })
+              image.addEventListener('error', resolve, { once: true })
+            })
+          }))
+
+          window.scrollTo({ top: 0, behavior: 'auto' })
+          await pause(400)
+        })
 
         const file = path.join(vpDir, `${pg.name}.png`)
         await page.screenshot({ path: file, fullPage: true })
