@@ -49,7 +49,7 @@ function highlight(text: string, query: string) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark style={{ background: 'rgba(1,167,163,0.25)', color: '#00B5A5', borderRadius: '2px', padding: '0 1px' }}>
+      <mark style={{ background: 'rgba(0,181,165,0.22)', color: '#9FF3EA', borderRadius: '2px', padding: '0 1px' }}>
         {text.slice(idx, idx + query.length)}
       </mark>
       {text.slice(idx + query.length)}
@@ -201,7 +201,8 @@ export default function Search() {
                 </button>
               )}
               <button onClick={closeSearch}
-                className="text-white/25 hover:text-white transition-colors bg-transparent border-none cursor-pointer"
+                aria-label="Close search"
+                className="text-white/70 hover:text-white transition-colors bg-transparent border-none cursor-pointer"
                 style={{ fontSize: '0.6rem', letterSpacing: '0.1em', padding: '0.25rem 0.5rem', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '3px' }}>
                 ESC
               </button>
@@ -214,8 +215,11 @@ export default function Search() {
                   No results for &ldquo;{query}&rdquo;
                 </li>
               ) : results.map((item, i) => (
-                <li id={`site-search-result-${i}`} key={item.href} role="option" aria-selected={i === active}>
+                <li key={item.href} role="presentation">
                   <Link
+                    id={`site-search-result-${i}`}
+                    role="option"
+                    aria-selected={i === active}
                     href={item.href}
                     onClick={closeSearch}
                     onMouseEnter={() => setActive(i)}
@@ -254,7 +258,7 @@ export default function Search() {
                       <span className="block text-white font-semibold" style={{ fontSize: '0.875rem', lineHeight: 1.3, marginBottom: '0.2rem' }}>
                         {highlight(item.title, query)}
                       </span>
-                      <span className="block text-white/40 font-light" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
+                      <span className="block text-white/70 font-light" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
                         {highlight(item.description, query)}
                       </span>
                     </span>
