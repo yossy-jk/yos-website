@@ -69,7 +69,10 @@ try {
             })(),
             top: window.scrollY,
           }))
-          const overflow = result.pageWidth - result.viewport
+          // Puppeteer's Linux Chrome can reserve a narrow vertical-scrollbar gutter
+          // at the 768px breakpoint, making window.innerWidth smaller than the
+          // requested viewport even when the page itself is not horizontally clipped.
+          const overflow = result.pageWidth - width
           const mobileServiceFailure = route === '/' && width <= 390 && result.homeServiceColumns !== 2
           if (overflow > 1 || result.h1Count !== 1 || !result.logoLoaded || result.top !== 0 || result.brokenImages.length || result.clippedElements.length || mobileServiceFailure) {
             failures.push(`${route} @ ${width}px: overflow=${overflow}px, h1=${result.h1Count}, logo=${result.logoLoaded}, scrollY=${result.top}, brokenImages=${result.brokenImages.length}, clipped=${result.clippedElements.join('|') || 'none'}, serviceColumns=${result.homeServiceColumns ?? 'n/a'}`)
