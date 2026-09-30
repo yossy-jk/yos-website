@@ -55,7 +55,7 @@ const ARTICLES = [
 
 const SERVICES = [
   { label: 'Tenant Representation', href: '/tenant-rep', desc: 'Lease negotiation on your side, not the landlord\'s.' },
-  { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', desc: 'Workplace brief through delivery and handover.' },
+  { label: 'Commercial FitOut & Project Management', href: '/office-fitout', desc: 'Workplace brief through delivery and handover.' },
   { label: 'Office & Commercial Furniture', href: '/furniture', desc: 'Furniture selected, supplied and installed.' },
   { label: 'Commercial Cleaning', href: '/cleaning', desc: 'Accountable cleaning aligned to your workplace standard.' },
 ]

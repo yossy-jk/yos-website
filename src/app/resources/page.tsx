@@ -296,7 +296,7 @@ export default function ResourcesPage() {
               Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
             </p>
             <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-              Book a Clarity Call
+              Enquire
             </Button>
             </div>
           </FadeIn>

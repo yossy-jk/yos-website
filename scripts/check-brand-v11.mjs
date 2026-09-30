@@ -34,11 +34,8 @@ const capabilityStatementPath = path.join(root, 'public/YOS-Capability-Statement
 const capabilityStatementHash = createHash('sha256')
   .update(fs.readFileSync(capabilityStatementPath))
   .digest('hex')
-const approvedCapabilityStatementHashes = new Set([
-  '30c10bc67f61bd2b1fe3e8ddc986bcc5a8bed4060c3051355c393e7793fd6898',
-  '3ab0b7b070178cc4fa7561576df3d8ee34a4704cce738385d53f2fab36522d01',
-])
-if (!approvedCapabilityStatementHashes.has(capabilityStatementHash)) {
+const approvedCapabilityStatementHash = '3ab0b7b070178cc4fa7561576df3d8ee34a4704cce738385d53f2fab36522d01'
+if (capabilityStatementHash !== approvedCapabilityStatementHash) {
   failures.push('public/YOS-Capability-Statement.pdf: does not match the approved Brand v1.1 capability statement')
 }
 
@@ -50,7 +47,7 @@ requireText('src/app/layout.tsx', 'Montserrat', 'Montserrat font')
 requireText('src/app/globals.css', 'var(--font-montserrat)', 'Montserrat variable')
 forbidText('src/app/layout.tsx', 'Fraunces', 'superseded Fraunces font')
 forbidText('src/app/layout.tsx', 'Inter', 'superseded Inter font')
-requireText('src/app/page.tsx', 'Find It, Fit It Out and Furnish It', 'approved primary tagline')
+requireText('src/app/page.tsx', 'We find it, fit it out and furnish it.', 'approved primary tagline')
 requireText('src/app/page.tsx', 'One team, from the first decision', 'one accountable team message')
 requireText('src/app/page.tsx', '>Enquire</Link>', 'primary Enquire call to action')
 requireText('src/app/page.tsx', "label: 'Look After It'", 'fourth service tile')

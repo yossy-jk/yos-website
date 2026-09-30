@@ -386,11 +386,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     Want to talk about your situation?
                   </p>
                   <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.95rem', lineHeight: 1.75, fontWeight: 300, maxWidth: '36rem' }}>
-                    Book a Clarity Call for an initial assessment of the situation and the most appropriate next step.
+                    Enquire for an initial assessment of the situation and the most appropriate next step.
                   </p>
                 </div>
                 <div>
-                  <BookingCTA label="Book a Clarity Call" variant="primary" />
+                  <BookingCTA label="Enquire" variant="primary" />
                 </div>
                 {/* Inline contact form */}
                 <div style={{ marginTop: '1.5rem' }}>
@@ -431,7 +431,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '1.25rem' }}>Our services</p>
                 {[
                   { label: 'Tenant Representation', href: '/tenant-rep', desc: 'Lease negotiation on your side' },
-                  { label: 'Commercial Fit Out & Project Management', href: '/office-fitout', desc: 'Workplace brief through handover' },
+                  { label: 'Commercial FitOut & Project Management', href: '/office-fitout', desc: 'Workplace brief through handover' },
                   { label: 'Office & Commercial Furniture', href: '/furniture', desc: 'Selected, supplied and installed' },
                   { label: 'Commercial Cleaning', href: '/cleaning', desc: 'Accountable workplace cleaning' },
                 ].map(s => (

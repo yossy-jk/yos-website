@@ -32,13 +32,13 @@ export default function NotFound() {
               rel="noopener noreferrer"
               className="border border-white/30 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:border-teal hover:text-teal transition-colors no-underline text-center"
             >
-              Book a Clarity Call
+              Enquire
             </a>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
             {[
               { label: 'Tenant Representation', href: '/tenant-rep' },
-              { label: 'Fit Out & Project Management', href: '/office-fitout' },
+              { label: 'FitOut & Project Management', href: '/office-fitout' },
               { label: 'Office & Commercial Furniture', href: '/furniture' },
               { label: 'Commercial Cleaning', href: '/cleaning' },
               { label: 'Lease Review', href: '/lease-review' },

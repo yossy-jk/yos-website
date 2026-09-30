@@ -27,9 +27,9 @@ export default function Button({
   const baseStyles = [
     'inline-flex items-center justify-center',
     'rounded-lg',
-    'font-semibold tracking-[0.02em] text-center no-underline',
-    'transition-colors duration-200',
-    'min-h-[60px]',
+    'font-semibold text-center no-underline',
+    'transition-all duration-200 hover:-translate-y-0.5 active:scale-[0.98] motion-reduce:transform-none',
+    'min-h-[56px] min-w-[160px]',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2',
     'disabled:opacity-40 disabled:cursor-not-allowed',
   ].join(' ')
@@ -43,9 +43,9 @@ export default function Button({
   }
 
   const sizeStyles = {
-    sm: 'px-5 py-2.5 text-[0.65rem]',
-    md: 'px-8 py-4 text-[0.68rem]',
-    lg: 'px-10 py-[1.1rem] text-[0.7rem]',
+    sm: 'px-6 py-3 text-sm',
+    md: 'px-8 py-4 text-base',
+    lg: 'px-8 py-4 text-[1.0625rem]',
   }
 
   const combinedClassName = [

@@ -1,4 +1,5 @@
 import Nav from '@/components/Nav'
+import Image from 'next/image'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
 import { HUBSPOT, CONTACT } from '@/lib/constants'
@@ -9,16 +10,16 @@ import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
-const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
 export const metadata = {
   title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-  description: 'Talk to Your Office Space. Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+  description: 'Talk to Your Office Space about tenant representation in NSW, fit out and furniture Australia-wide, or commercial cleaning in Newcastle and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
   twitter: { card: 'summary_large_image', title: 'Contact | Your Office Space', description: 'Get in touch with Your Office Space. First conversation is always free.' },
   openGraph: {
     title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
-    description: 'Tenant representation in NSW, office FitOut and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
     url: 'https://www.yourofficespace.au/contact',
     images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Contact Your Office Space' }],
     siteName: 'Your Office Space',
@@ -50,7 +51,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             "serviceType": SERVICE_TYPES,
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
+            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Newcastle",
@@ -75,15 +76,17 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             "mainEntity": [
               { "@type": "Question", "name": "What happens after I enquire?", "acceptedAnswer": { "@type": "Answer", "text": "We review the situation and confirm the most appropriate next step, service scope or referral." } },
               { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call 0434 655 511." } },
-              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office FitOut and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
+              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office fit out and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
             ]
           }
         ]
       }) }} />
 
       {/* HERO. compact, no dead space */}
-      <section className="bg-near-black" style={SEC_SM}>
-        <div className="max-w-screen-xl mx-auto" style={PAD}>
+      <section className="relative overflow-hidden bg-near-black" style={{ paddingTop: 'clamp(8rem,12vw,10rem)', paddingBottom: 'clamp(4rem,8vw,6rem)' }}>
+        <Image src="/images/furniture/space-cogc-wide.jpg" alt="Contemporary commercial workplace" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-near-black/85" />
+        <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>
               Based in Newcastle. Working Australia-wide.
@@ -103,11 +106,11 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       {/* CONTACT. form + direct details */}
       <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
             {/* Left. contact form */}
-            <FadeIn>
-              <div>
+            <FadeIn className="lg:col-span-7">
+              <div className="rounded-3xl border border-black/5 bg-white p-7 shadow-sm sm:p-10">
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Send a message</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
                   style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
@@ -220,7 +223,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             </FadeIn>
 
             {/* Right. direct contact */}
-            <FadeIn delay={120}>
+            <FadeIn delay={120} className="lg:col-span-5">
               <div>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Or reach us directly</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
@@ -270,7 +273,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   {/* Location */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in Newcastle</p>
-                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Working across NSW</p>
+                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Based in Newcastle. Working Australia-wide.</p>
                   </div>
                 </div>
               </div>
@@ -293,7 +296,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             {[
               { num: '01', title: 'We listen', body: 'Tell us your situation. Current space, timeline, what\'s driving the decision. Real listening, no sales script.' },
               { num: '02', title: 'We assess', body: 'We\'ll tell you straight whether we can help. If we can\'t, we\'ll say so.' },
-              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain how. timeline, process, and what it looks like to work together.' },
+              { num: '03', title: 'We advise', body: 'If we can help, we\'ll explain the timeline, process and what it looks like to work together.' },
               { num: '04', title: 'Your call', body: 'No pressure. Take your time. Good relationships start with honesty, not a hard close.' },
             ].map((item, i) => (
               <FadeIn key={item.num} delay={i * 60}>

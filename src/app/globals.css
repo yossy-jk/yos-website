@@ -247,7 +247,7 @@
   --section-lg:  12rem;    /* 192px — desktop spacious */
 
   /* Page inset — generous horizontal padding for premium feel */
-  --page-inset: clamp(1.75rem, 6vw, 6rem);
+  --page-inset: clamp(1.25rem, 3vw, 2rem);
 }
 
 /* ─── Responsive section padding helpers ─────────────────── */
@@ -454,6 +454,49 @@ body {
   .agent-marquee-track, .animate-pulse-dot, .animate-fade-up { animation: none !important; }
 }
 
+.yos-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: var(--page-inset);
+}
+
+/* Gold-standard foundations: readable copy, centred content and generous controls. */
+main p,
+main li {
+  font-size: max(1rem, 17px);
+}
+
+main section > .max-w-screen-xl,
+main section > .max-w-7xl {
+  width: min(100%, 80rem);
+  margin-inline: auto;
+}
+
+main article {
+  text-wrap: pretty;
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+main article:hover {
+  transform: translateY(-4px);
+}
+
+input,
+textarea,
+select {
+  min-height: 52px;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+}
+
+textarea { min-height: 8rem; }
+
+@media (max-width: 767px) {
+  main p,
+  main li { font-size: 1rem; }
+}
+
 /* Gold v3.1 permits only Montserrat 400, 600 and 700. Legacy utility names
    remain in older route components, so normalise their rendered weights here. */
 .font-light { font-weight: 400 !important; }
@@ -468,8 +511,8 @@ body {
 
 /* ─── Touch targets ───────────────────────────────────────── */
 /* Only apply to interactive elements that aren't already inline */
-a:not(.no-min-height),
-button:not(.no-min-height) {
+a:not(.no-min-height):not([class*="min-h-"]),
+button:not(.no-min-height):not([class*="min-h-"]) {
   min-height: 44px;
   display: inline-flex;
   align-items: center;

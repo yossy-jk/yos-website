@@ -62,7 +62,7 @@ export default function SpacePlannerPage() {
               <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
                 style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center' }}>
-                Book a Clarity Call
+                Enquire
               </a>
               <a href="/furniture"
                 className="text-white/50 no-underline hover:text-white transition-colors"
@@ -120,7 +120,7 @@ export default function SpacePlannerPage() {
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                   className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center', width: '100%', maxWidth: '20rem', justifyContent: 'center' }}>
-                  Book a Clarity Call
+                  Enquire
                 </a>
                 <a href="tel:0434655511"
                   style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>

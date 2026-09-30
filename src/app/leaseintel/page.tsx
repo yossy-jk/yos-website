@@ -325,7 +325,7 @@ export default function LeaseIntelPage() {
       </main>
 
       <Footer />
-      <BookingCTA label="Book a Free Consultation" />
+      <BookingCTA label="Enquire" />
     </>
   )
 }

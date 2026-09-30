@@ -7,12 +7,12 @@ import { CheckIcon } from '@/components/Icons'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
-const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
+const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 import FadeIn from '@/components/FadeIn'
 import HubSpotForm from '@/components/HubSpotForm'
 
 export const metadata = {
-  title: 'Commercial Cleaning Newcastle | Offices and Workplaces | Your Office Space',
+  title: 'Commercial Cleaning Newcastle & Lake Macquarie | YOS',
   description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with the same team, monthly QA and a quote within 24 hours of site inspection.',
   twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope. Consistent team. Monthly quality checks.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
@@ -38,7 +38,7 @@ export default function CleaningPage() {
             "@id": "https://www.yourofficespace.au/#organization",
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
+            "logo": "https://www.yourofficespace.au/logo.png",
             "telephone": "+61434655511",
             "email": "jk@yourofficespace.au",
             "description": "Newcastle-based commercial cleaning and workplace services.",
@@ -92,12 +92,10 @@ export default function CleaningPage() {
       <Nav />
 
       <main id="main-content" tabIndex={-1}>
-      <section className="relative min-h-screen flex items-center bg-near-black overflow-hidden"
+      <section className="relative min-h-[86vh] flex items-center bg-near-black overflow-hidden"
         style={SEC}>
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: 'linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
-        }} />
+        <Image src="/images/furniture/space-liverpool-b.jpg" alt="Clean, presentation-ready commercial workplace" fill priority sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-near-black/75" />
         <div className="relative z-10 max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn delay={0}>
             <SectionLabel>Commercial Cleaning</SectionLabel>
@@ -116,12 +114,12 @@ export default function CleaningPage() {
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-stretch sm:items-center">
-              <Button href="#cleaning-quote-form" variant="primary" size="lg" className="w-full sm:w-auto">
+            <div className="flex flex-row flex-wrap gap-4 items-center">
+              <Button href="#cleaning-quote-form" variant="primary" size="lg">
                 Get a cleaning quote
               </Button>
               <a href="/contact?service=cleaning"
-                className="inline-flex min-h-[60px] w-full sm:w-auto items-center justify-center gap-2 text-white font-bold border border-white/20 rounded-lg px-6 py-3 no-underline hover:border-white/60 transition-colors"
+                className="inline-flex min-h-14 min-w-40 items-center justify-center gap-2 rounded-lg border-2 border-white/70 px-8 py-4 text-white font-bold no-underline transition hover:-translate-y-0.5 hover:bg-white/10 hover:border-white motion-reduce:transform-none"
                 style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
                 Enquire
               </a>
@@ -156,7 +154,7 @@ export default function CleaningPage() {
       <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
         <Image src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1920&q=80" alt="Immaculately clean modern commercial office" fill className="object-cover object-center" />
         <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.52)' }} />
-        <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
+        <div className="absolute inset-0 flex items-end max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)', paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
           <FadeIn>
             <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
               Cleaning scopes are documented around the site, access requirements, service frequency and agreed quality checks.
@@ -220,11 +218,11 @@ export default function CleaningPage() {
                   'Hygiene-bin servicing by arrangement',
                   'Final readiness preparation',
                 ],
-                note: 'We coordinate closely with your FitOut and building teams.'
+                note: 'We coordinate closely with your fit out and building teams.'
               },
             ].map((category, i) => (
               <FadeIn key={category.type} delay={i * 70} direction="up">
-                <div className="bg-warm-grey rounded-sm p-7 sm:p-10 h-full">
+                <article className="bg-warm-grey rounded-2xl border border-black/5 p-7 sm:p-10 h-full hover:border-teal">
                   <h3 className="text-near-black font-bold text-base mb-5 border-b-2 border-teal pb-3">
                     {category.type}
                   </h3>
@@ -238,7 +236,7 @@ export default function CleaningPage() {
                   <p className="text-mid-grey font-light text-sm font-semibold border-t border-gray-200 pt-4">
                     {category.note}
                   </p>
-                </div>
+                </article>
               </FadeIn>
             ))}
           </div>
@@ -276,11 +274,11 @@ export default function CleaningPage() {
               },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">
-                <div className="bg-white/[0.04] border border-white/10 rounded-sm p-7 sm:p-10 h-full hover:bg-white/[0.07] transition-colors duration-200">
+                <article className="bg-white/[0.04] border border-white/10 rounded-2xl p-7 sm:p-10 h-full hover:bg-white/[0.07] hover:border-teal transition-colors duration-200">
                   <h3 className="text-white font-bold text-lg mb-4">{item.title}</h3>
                   <p className="text-white/80 font-light leading-relaxed mb-5" style={{ fontSize: "0.95rem", lineHeight: 1.8 }}>{item.body}</p>
                   <p className="text-white/35 font-light text-xs font-semibold border-t border-white/10 pt-4">{item.aside}</p>
-                </div>
+                </article>
               </FadeIn>
             ))}
           </div>
@@ -302,11 +300,11 @@ export default function CleaningPage() {
         style={SEC}>
         <FadeIn>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
-            <div className="bg-near-black rounded-sm p-7 sm:p-10 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
+            <div className="bg-near-black rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 lg:gap-10 items-start lg:items-center">
               <div className="flex-1">
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">One coordinated handover</p>
                 <h3 className="text-white font-bold text-2xl lg:text-3xl leading-tight mb-4">
-                  Moving into a new FitOut?
+                  Moving into a new fit out?
                 </h3>
                 <p className="text-white/60 font-light text-base leading-relaxed">
                   If your workplace is being fitted out or refurbished, cleaning can be scoped alongside furniture and handover planning so responsibilities stay clear.
@@ -314,7 +312,7 @@ export default function CleaningPage() {
               </div>
               <div className="flex-shrink-0">
                 <Button href="/office-fitout" variant="primary" size="lg">
-                  Explore FitOut
+                  Explore fit out
                 </Button>
               </div>
             </div>
@@ -379,7 +377,7 @@ export default function CleaningPage() {
 
       {/* Join the team */}
       <section style={{ background: '#111', paddingTop: 'clamp(3rem,6vw,4.5rem)', paddingBottom: 'clamp(3rem,6vw,4.5rem)', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem' }}>
           <div>
             <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Work with us</p>
             <p style={{ color: 'white', fontWeight: 800, fontSize: 'clamp(1rem,2.5vw,1.4rem)', margin: 0 }}>Looking for cleaning work in Newcastle or Lake Macquarie?</p>
