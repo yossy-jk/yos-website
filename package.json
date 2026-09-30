@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links",
@@ -38,7 +38,7 @@
     "konva": "^10.2.5",
     "lucide-react": "^1.8.0",
     "nanoid": "^5.1.9",
-    "next": "^16.3.4",
+    "next": "16.3.7",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hot-toast": "^2.6.0",
@@ -54,7 +54,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "^16.3.4",
+    "eslint-config-next": "16.3.7",
     "puppeteer": "^25.9.0",
     "tailwindcss": "^4.2.3",
     "typescript": "5.9.3"

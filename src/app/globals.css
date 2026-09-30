@@ -517,6 +517,22 @@ textarea { min-height: 8rem; }
   }
 }
 
+.analytics-consent-panel,
+.analytics-consent-trigger {
+  bottom: 1rem;
+}
+
+@media (max-width: 767px) {
+  .analytics-consent-panel,
+  .analytics-consent-trigger {
+    bottom: calc(56px + env(safe-area-inset-bottom) + .75rem);
+  }
+
+  .analytics-consent-panel {
+    max-height: calc(100dvh - 56px - env(safe-area-inset-bottom) - 2rem);
+  }
+}
+
 /* ─── Touch targets ───────────────────────────────────────── */
 /* Only apply to interactive elements that aren't already inline */
 a:not(.no-min-height):not([class*="min-h-"]),

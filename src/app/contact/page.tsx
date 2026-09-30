@@ -232,7 +232,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                 </h2>
 
                 <div className="flex flex-col gap-6">
-                  {/* Book a call */}
+                  {/* Enquire */}
                   <div className="border border-gray-100 p-8">
                     <p className="text-teal font-bold uppercase tracking-widest mb-2" style={{ fontSize: '0.65rem' }}>Fastest option</p>
                     <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Enquire</p>
@@ -240,7 +240,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                       20 minutes. Pick a time that suits you and we will call.
                     </p>
             <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-              Book a Call
+              Enquire
             </Button>
                   </div>
 

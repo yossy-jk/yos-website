@@ -86,7 +86,7 @@ export default function AnalyticsConsent() {
         <section
           role="region"
           aria-label="Privacy choices"
-          className="fixed inset-x-4 bottom-4 z-[100] mx-auto rounded-sm bg-near-black text-white shadow-2xl"
+          className="analytics-consent-panel fixed inset-x-4 z-[100] mx-auto overflow-y-auto rounded-lg bg-near-black text-white shadow-2xl"
           style={{ maxWidth: '46rem', border: '1px solid rgba(255,255,255,0.16)', padding: 'clamp(1.25rem,4vw,2rem)' }}
         >
           <h2 className="font-bold mb-2" style={{ fontSize: '1.1rem' }}>Your privacy choices</h2>
@@ -119,7 +119,7 @@ export default function AnalyticsConsent() {
         <button
           type="button"
           onClick={() => setPreferencesOpen(true)}
-          className="fixed bottom-4 left-4 z-[90] rounded-sm bg-near-black text-white/75 shadow-lg hover:text-white"
+          className="analytics-consent-trigger fixed left-4 z-[90] rounded-lg bg-near-black text-white/75 shadow-lg hover:text-white"
           style={{ border: '1px solid rgba(255,255,255,0.16)', padding: '0.55rem 0.8rem', fontSize: '0.72rem' }}
         >
           Privacy choices

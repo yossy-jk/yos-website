@@ -99,7 +99,7 @@ export default function Nav() {
           style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
           <Link href="/" onClick={() => setOpen(false)} aria-label="Your Office Space home"
-            className="relative z-50 flex items-center no-underline">
+            className="relative z-50 flex shrink-0 items-center no-underline">
             <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} sizes="(min-width: 1200px) 210px, 150px" className="h-[23px] w-auto xl:h-8" priority />
           </Link>
 

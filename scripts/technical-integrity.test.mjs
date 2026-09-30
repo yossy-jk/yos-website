@@ -13,7 +13,7 @@ const footer = await readFile(new URL('../src/components/Footer.tsx', import.met
 test('root layout wires deterministic route scrolling', () => {
   assert.match(layout, /import ScrollManager/)
   assert.match(layout, /<ScrollManager \/>/)
-  assert.match(scrollManager, /window\.addEventListener\('popstate'/)
+  assert.match(scrollManager, /document\.addEventListener\('click'/)
   assert.match(scrollManager, /window\.addEventListener\('hashchange'/)
   assert.match(scrollManager, /window\.scrollTo\(\{ top: 0, left: 0, behavior: 'auto' \}\)/)
 })
@@ -44,6 +44,7 @@ test('homepage preserves the approved responsive composition', () => {
 test('desktop navigation does not replace the mobile menu before wide screens', () => {
   assert.match(nav, /hidden xl:flex/)
   assert.match(nav, /xl:hidden/)
+  assert.match(nav, /flex shrink-0 items-center/)
   assert.doesNotMatch(nav, /hidden md:flex/)
 })
 

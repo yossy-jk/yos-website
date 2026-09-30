@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { usePathname } from 'next/navigation'
+import { useEffect } from 'react'
 
 function scrollToHash() {
   const hash = window.location.hash
@@ -20,36 +19,29 @@ function scrollToHash() {
  * browser back/forward restoration intact. Real hash destinations always win.
  */
 export default function ScrollManager() {
-  const pathname = usePathname()
-  const isHistoryTraversal = useRef(false)
-  const isFirstRender = useRef(true)
-
   useEffect(() => {
-    const onPopState = () => { isHistoryTraversal.current = true }
-    window.addEventListener('popstate', onPopState)
-    return () => window.removeEventListener('popstate', onPopState)
-  }, [])
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
-
-    if (isHistoryTraversal.current) {
-      isHistoryTraversal.current = false
-      return
-    }
-
-    window.requestAnimationFrame(() => {
-      if (!scrollToHash()) window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    const scrollAfterNavigation = () => window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        if (!scrollToHash()) window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+      })
     })
-  }, [pathname])
 
-  useEffect(() => {
+    const onInternalLink = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      const anchor = (event.target as Element | null)?.closest('a[href]') as HTMLAnchorElement | null
+      if (!anchor || anchor.target === '_blank' || anchor.download) return
+      const next = new URL(anchor.href, window.location.href)
+      if (next.origin !== window.location.origin || next.pathname === window.location.pathname) return
+      scrollAfterNavigation()
+    }
+
     const onHashChange = () => window.requestAnimationFrame(scrollToHash)
+    document.addEventListener('click', onInternalLink)
     window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    return () => {
+      document.removeEventListener('click', onInternalLink)
+      window.removeEventListener('hashchange', onHashChange)
+    }
   }, [])
 
   return null

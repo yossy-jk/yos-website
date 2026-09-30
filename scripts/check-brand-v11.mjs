@@ -53,6 +53,8 @@ requireText('src/app/page.tsx', '>Enquire</Link>', 'primary Enquire call to acti
 requireText('src/app/page.tsx', "label: 'Look After It'", 'fourth service tile')
 requireText('src/app/page.tsx', "title: 'Commercial Cleaning'", 'commercial cleaning tile')
 requireText('src/components/BookingCTA.tsx', 'Enquire', 'approved Enquire call to action')
+requireText('src/app/contact/page.tsx', '              Enquire\n            </Button>', 'contact Enquire call to action')
+forbidPattern('src/app/contact/page.tsx', /book a call/i, 'retired contact call-to-action wording')
 
 for (const service of approvedServices.slice(0, 4)) {
   requireText('src/lib/constants.ts', service, `approved service ${service}`)
