@@ -82,6 +82,7 @@ async function run() {
         })
         await page.evaluate(async () => {
           const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
+          document.documentElement.style.scrollBehavior = 'auto'
           const step = Math.max(window.innerHeight * 0.8, 480)
           for (let top = 0; top < document.documentElement.scrollHeight; top += step) {
             window.scrollTo({ top, behavior: 'auto' })
@@ -97,6 +98,18 @@ async function run() {
           }))
 
           window.scrollTo({ top: 0, behavior: 'auto' })
+          while (window.scrollY !== 0) {
+            await pause(25)
+            window.scrollTo({ top: 0, behavior: 'auto' })
+          }
+
+          if (document.activeElement instanceof HTMLElement) document.activeElement.blur()
+          document.querySelectorAll('.skip-link').forEach(link => {
+            if (link instanceof HTMLElement) link.style.display = 'none'
+          })
+          document.querySelectorAll('nav.fixed.top-0').forEach(nav => {
+            if (nav instanceof HTMLElement) nav.style.position = 'absolute'
+          })
           await pause(400)
         })
 
