@@ -37,13 +37,13 @@ export const metadata: Metadata = {
     siteName: "Your Office Space",
     locale: "en_AU",
     type: "website",
-    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "Your Office Space" }],
+    images: [{ url: "/og/og-default.png", width: 1200, height: 630, alt: "Your Office Space" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Your Office Space | One Team for Your Commercial Space",
     description: "Find it. Fit it out. Furnish it. Look after it. Commercial space support from one accountable team.",
-    images: ["/og-default.png"],
+    images: ["/og/og-default.png"],
   },
 };
 

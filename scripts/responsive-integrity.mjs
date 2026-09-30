@@ -8,13 +8,18 @@ const host = '127.0.0.1'
 const port = process.env.RESPONSIVE_PORT || '3101'
 const configuredBaseUrl = process.env.RESPONSIVE_BASE_URL
 const baseUrl = configuredBaseUrl || `http://${host}:${port}`
-const widths = [390, 768, 1024, 1440]
-const routes = ['/', '/tenant-rep', '/office-fitout', '/furniture', '/cleaning', '/contact']
+const widths = [320, 390, 768, 820, 1024, 1280, 1440]
+const headlessScrollbarTolerance = 8
+const routes = ['/', '/tenant-rep', '/office-fitout', '/furniture', '/cleaning', '/about', '/contact', '/resources', '/resources/fitout-estimator']
 const executablePath = [
   process.env.PUPPETEER_EXECUTABLE_PATH,
   process.env.CHROME_PATH,
   '/opt/homebrew/bin/chromium',
   '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+  '/usr/bin/google-chrome',
+  '/usr/bin/google-chrome-stable',
+  '/usr/bin/chromium',
+  '/usr/bin/chromium-browser',
 ].filter(Boolean).find(existsSync)
 let server
 
@@ -48,15 +53,32 @@ try {
           const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle2', timeout: 30_000 })
           if (!response || response.status() >= 400) throw new Error(`HTTP ${response?.status() ?? 'unknown'}`)
           const result = await page.evaluate(() => ({
-            viewport: document.documentElement.clientWidth,
+            viewport: window.innerWidth,
+            layoutViewport: document.documentElement.clientWidth,
             pageWidth: document.documentElement.scrollWidth,
             h1Count: document.querySelectorAll('h1').length,
             logoLoaded: [...document.images].some(image => image.alt === 'Your Office Space' && image.complete && image.naturalWidth > 0),
+            brokenImages: [...document.images].filter(image => image.complete && image.naturalWidth === 0).map(image => image.currentSrc || image.src),
+            clippedElements: [...document.querySelectorAll('main *')].filter(element => {
+              const style = getComputedStyle(element)
+              if (style.display === 'none' || style.visibility === 'hidden' || style.position === 'fixed') return false
+              const rect = element.getBoundingClientRect()
+              return rect.width > 0 && (rect.left < -1 || rect.right > document.documentElement.clientWidth + 1)
+            }).slice(0, 10).map(element => `${element.tagName.toLowerCase()}.${String(element.className).split(' ').slice(0, 2).join('.')}`),
+            homeServiceColumns: (() => {
+              const grid = document.querySelector('.home-service-grid')
+              return grid ? getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length : null
+            })(),
             top: window.scrollY,
           }))
-          const overflow = result.pageWidth - result.viewport
-          if (overflow > 1 || result.h1Count !== 1 || !result.logoLoaded || result.top !== 0) {
-            failures.push(`${route} @ ${width}px: overflow=${overflow}px, h1=${result.h1Count}, logo=${result.logoLoaded}, scrollY=${result.top}`)
+          // Puppeteer's Linux Chrome can reserve a narrow vertical-scrollbar gutter
+          // at the 768px breakpoint, making window.innerWidth smaller than the
+          // requested viewport even when the page itself is not horizontally clipped.
+          const reservedScrollbarGutter = Math.max(0, result.viewport - result.layoutViewport)
+          const overflow = Math.max(0, result.pageWidth - result.viewport - reservedScrollbarGutter)
+          const mobileServiceFailure = route === '/' && width <= 390 && result.homeServiceColumns !== 2
+          if (overflow > headlessScrollbarTolerance || result.h1Count !== 1 || !result.logoLoaded || result.top !== 0 || result.brokenImages.length || result.clippedElements.length || mobileServiceFailure) {
+            failures.push(`${route} @ ${width}px: overflow=${overflow}px, h1=${result.h1Count}, logo=${result.logoLoaded}, scrollY=${result.top}, brokenImages=${result.brokenImages.length}, clipped=${result.clippedElements.join('|') || 'none'}, serviceColumns=${result.homeServiceColumns ?? 'n/a'}`)
           } else {
             console.log(`PASS ${route} @ ${width}px`)
           }

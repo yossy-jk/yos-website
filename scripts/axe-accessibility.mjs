@@ -101,6 +101,18 @@ async function run() {
           throw new Error(`HTTP ${response?.status() ?? 'unknown'}`)
         }
 
+        if (route === '/') {
+          await page.click('button[aria-label="Search"]')
+          await page.waitForSelector('[role="dialog"][aria-modal="true"]')
+          await page.type('input[role="combobox"]', 'fit')
+          await page.keyboard.press('ArrowDown')
+          await page.waitForFunction(() => {
+            const input = document.querySelector('input[role="combobox"]')
+            const activeId = input?.getAttribute('aria-activedescendant')
+            return Boolean(activeId && document.getElementById(activeId))
+          })
+        }
+
         await page.evaluate(axe.source)
         const result = await page.evaluate(async () => {
           return window.axe.run(document, {

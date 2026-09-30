@@ -49,7 +49,7 @@ function highlight(text: string, query: string) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark style={{ background: 'rgba(1,167,163,0.25)', color: '#00B5A5', borderRadius: '2px', padding: '0 1px' }}>
+      <mark style={{ background: 'rgba(0,181,165,0.22)', color: '#9FF3EA', borderRadius: '2px', padding: '0 1px' }}>
         {text.slice(idx, idx + query.length)}
       </mark>
       {text.slice(idx + query.length)}
@@ -63,6 +63,8 @@ export default function Search() {
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   const results = query.trim().length < 1
     ? ALL_ITEMS.slice(0, 8)
@@ -82,6 +84,7 @@ export default function Search() {
   const closeSearch = useCallback(() => {
     setOpen(false)
     setQuery('')
+    window.requestAnimationFrame(() => triggerRef.current?.focus())
   }, [])
 
   // Keyboard shortcut. Cmd/Ctrl + K
@@ -102,6 +105,14 @@ export default function Search() {
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       if (!open) return
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('button, input, a[href], [tabindex]:not([tabindex="-1"])')]
+          .filter(element => !element.hasAttribute('disabled'))
+        const first = focusable[0]
+        const last = focusable.at(-1)
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus() }
+        if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus() }
+      }
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(a => Math.min(a + 1, results.length - 1)) }
       if (e.key === 'ArrowUp') { e.preventDefault(); setActive(a => Math.max(a - 1, 0)) }
       if (e.key === 'Enter' && results[active]) {
@@ -130,6 +141,7 @@ export default function Search() {
     <>
       {/* Search trigger button. shown in nav */}
       <button
+        ref={triggerRef}
         onClick={openSearch}
         aria-label="Search"
         className="flex items-center gap-2 text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
@@ -153,17 +165,28 @@ export default function Search() {
           onClick={e => { if (e.target === e.currentTarget) closeSearch() }}
         >
           <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="site-search-title"
             className="w-full bg-near-black border border-white/10 shadow-2xl"
             style={{ maxWidth: '640px', margin: '0 clamp(1rem,4vw,2rem)', borderRadius: '0.75rem', overflow: 'hidden' }}
           >
             {/* Input */}
             <div className="flex items-center gap-3 border-b border-white/10" style={{ padding: '1rem 1.25rem' }}>
+              <h2 id="site-search-title" className="sr-only">Search Your Office Space</h2>
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ flexShrink: 0, color: 'rgba(255,255,255,0.3)' }}>
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
               <input
                 ref={inputRef}
                 type="text"
+                role="combobox"
+                aria-label="Search services, tools and articles"
+                aria-autocomplete="list"
+                aria-controls="site-search-results"
+                aria-expanded="true"
+                aria-activedescendant={results[active] ? `site-search-result-${active}` : undefined}
                 placeholder="Search services, tools, articles..."
                 value={query}
                 onChange={e => { setQuery(e.target.value); setActive(0) }}
@@ -171,28 +194,32 @@ export default function Search() {
                 style={{ fontSize: '0.95rem' }}
               />
               {query && (
-                <button onClick={() => { setQuery(''); setActive(0) }} className="text-white/30 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0">
+                <button aria-label="Clear search" onClick={() => { setQuery(''); setActive(0); inputRef.current?.focus() }} className="text-white/30 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0">
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
                   </svg>
                 </button>
               )}
               <button onClick={closeSearch}
-                className="text-white/25 hover:text-white transition-colors bg-transparent border-none cursor-pointer"
+                aria-label="Close search"
+                className="text-white/70 hover:text-white transition-colors bg-transparent border-none cursor-pointer"
                 style={{ fontSize: '0.6rem', letterSpacing: '0.1em', padding: '0.25rem 0.5rem', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '3px' }}>
                 ESC
               </button>
             </div>
 
             {/* Results */}
-            <ul ref={listRef} role="listbox" style={{ maxHeight: '420px', overflowY: 'auto', padding: '0.5rem 0', margin: 0, listStyle: 'none' }}>
+            <ul id="site-search-results" ref={listRef} role="listbox" aria-label="Search results" style={{ maxHeight: '420px', overflowY: 'auto', padding: '0.5rem 0', margin: 0, listStyle: 'none' }}>
               {results.length === 0 ? (
                 <li style={{ padding: '2rem', textAlign: 'center', color: 'rgba(255,255,255,0.3)', fontSize: '0.875rem' }}>
                   No results for &ldquo;{query}&rdquo;
                 </li>
               ) : results.map((item, i) => (
-                <li key={item.href} role="option" aria-selected={i === active}>
+                <li key={item.href} role="presentation">
                   <Link
+                    id={`site-search-result-${i}`}
+                    role="option"
+                    aria-selected={i === active}
                     href={item.href}
                     onClick={closeSearch}
                     onMouseEnter={() => setActive(i)}
@@ -231,7 +258,7 @@ export default function Search() {
                       <span className="block text-white font-semibold" style={{ fontSize: '0.875rem', lineHeight: 1.3, marginBottom: '0.2rem' }}>
                         {highlight(item.title, query)}
                       </span>
-                      <span className="block text-white/40 font-light" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
+                      <span className="block text-white/70 font-light" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
                         {highlight(item.description, query)}
                       </span>
                     </span>

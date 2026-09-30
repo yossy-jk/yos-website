@@ -53,3 +53,27 @@ jobs:
 
       - name: Run axe accessibility gate
         run: npm run test:axe
+
+      - name: Run responsive composition gate
+        run: npm run test:responsive
+
+      - name: Capture visual QA evidence
+        run: |
+          npx next start --hostname 127.0.0.1 --port 3102 > /tmp/yos-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          for attempt in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:3102/ > /dev/null; then break; fi
+            if [ "$attempt" -eq 60 ]; then cat /tmp/yos-preview.log; exit 1; fi
+            sleep 1
+          done
+          node scripts/screenshot.mjs http://127.0.0.1:3102
+
+      - name: Upload visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-visual-qa-${{ github.sha }}
+          path: screenshots/
+          if-no-files-found: error
+          retention-days: 14
