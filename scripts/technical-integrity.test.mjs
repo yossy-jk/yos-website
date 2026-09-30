@@ -9,6 +9,7 @@ const schema = await readFile(new URL('../src/lib/site-schema.ts', import.meta.u
 const home = await readFile(new URL('../src/app/page.tsx', import.meta.url), 'utf8')
 const nav = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
 const footer = await readFile(new URL('../src/components/Footer.tsx', import.meta.url), 'utf8')
+const hubspotRoute = await readFile(new URL('../src/app/api/hubspot/route.ts', import.meta.url), 'utf8')
 
 test('root layout wires deterministic route scrolling', () => {
   assert.match(layout, /import ScrollManager/)
@@ -58,4 +59,11 @@ test('brand logos preserve their real aspect ratio and footer padding remains bo
 test('default social and schema assets exist', async () => {
   await access(new URL('../public/og/og-default.png', import.meta.url))
   await access(new URL('../public/brand/yos-logo-black.png', import.meta.url))
+})
+
+test('HubSpot lead failures are diagnosable without logging credentials or lead data', () => {
+  assert.match(hubspotRoute, /HubSpot \$\{step\} failed/)
+  assert.match(hubspotRoute, /hubspot_contact_rejected/)
+  assert.match(hubspotRoute, /hubspot_deal_rejected/)
+  assert.doesNotMatch(hubspotRoute, /console\.error\([^\n]*(safeEmail|safeName|safeContext)/)
 })

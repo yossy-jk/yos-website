@@ -25,6 +25,20 @@ async function hs(path: string, method: string, body: unknown): Promise<Response
   })
 }
 
+async function logHubSpotFailure(step: string, response: Response) {
+  let detail = ''
+  try {
+    const body = await response.clone().json() as { category?: string; message?: string; correlationId?: string }
+    detail = [body.category, body.message, body.correlationId].filter(Boolean).join(' | ').slice(0, 1000)
+  } catch {
+    detail = (await response.clone().text()).slice(0, 1000)
+  }
+
+  // Never log the request payload or private token. The upstream status and
+  // HubSpot's correlation ID are enough to diagnose configuration failures.
+  console.error(`HubSpot ${step} failed`, { status: response.status, detail })
+}
+
 export async function POST(req: Request) {
   if (!TOKEN) {
     console.error('HUBSPOT_TOKEN not configured')
@@ -77,7 +91,13 @@ export async function POST(req: Request) {
       if (createRes.ok) {
         const data = await createRes.json()
         contactId = data.id
+      } else {
+        await logHubSpotFailure('contact upsert', createRes)
       }
+    }
+
+    if (!contactId) {
+      return NextResponse.json({ ok: false, error: 'hubspot_contact_rejected' }, { status: 502 })
     }
 
     // 2. Create deal
@@ -94,7 +114,10 @@ export async function POST(req: Request) {
       },
     })
 
-    if (!dealRes.ok) return NextResponse.json({ ok: false }, { status: 500 })
+    if (!dealRes.ok) {
+      await logHubSpotFailure('deal create', dealRes)
+      return NextResponse.json({ ok: false, error: 'hubspot_deal_rejected' }, { status: 502 })
+    }
     const deal = await dealRes.json()
 
     // 3. Associate deal → contact
