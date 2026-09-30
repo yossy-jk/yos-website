@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links",
