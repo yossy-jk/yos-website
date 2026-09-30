@@ -53,6 +53,7 @@ try {
           if (!response || response.status() >= 400) throw new Error(`HTTP ${response?.status() ?? 'unknown'}`)
           const result = await page.evaluate(() => ({
             viewport: window.innerWidth,
+            layoutViewport: document.documentElement.clientWidth,
             pageWidth: document.documentElement.scrollWidth,
             h1Count: document.querySelectorAll('h1').length,
             logoLoaded: [...document.images].some(image => image.alt === 'Your Office Space' && image.complete && image.naturalWidth > 0),
@@ -72,8 +73,8 @@ try {
           // Puppeteer's Linux Chrome can reserve a narrow vertical-scrollbar gutter
           // at the 768px breakpoint, making window.innerWidth smaller than the
           // requested viewport even when the page itself is not horizontally clipped.
-          const reservedScrollbarGutter = Math.max(0, width - result.viewport)
-          const overflow = Math.max(0, result.pageWidth - width - reservedScrollbarGutter)
+          const reservedScrollbarGutter = Math.max(0, result.viewport - result.layoutViewport)
+          const overflow = Math.max(0, result.pageWidth - result.viewport - reservedScrollbarGutter)
           const mobileServiceFailure = route === '/' && width <= 390 && result.homeServiceColumns !== 2
           if (overflow > 1 || result.h1Count !== 1 || !result.logoLoaded || result.top !== 0 || result.brokenImages.length || result.clippedElements.length || mobileServiceFailure) {
             failures.push(`${route} @ ${width}px: overflow=${overflow}px, h1=${result.h1Count}, logo=${result.logoLoaded}, scrollY=${result.top}, brokenImages=${result.brokenImages.length}, clipped=${result.clippedElements.join('|') || 'none'}, serviceColumns=${result.homeServiceColumns ?? 'n/a'}`)
