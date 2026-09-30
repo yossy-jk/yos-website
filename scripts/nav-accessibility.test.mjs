@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises'
 import test from 'node:test'
 
 const source = await readFile(new URL('../src/components/Nav.tsx', import.meta.url), 'utf8')
+const searchSource = await readFile(new URL('../src/components/Search.tsx', import.meta.url), 'utf8')
 const globalStyles = await readFile(new URL('../src/app/globals.css', import.meta.url), 'utf8')
 
 test('navigation disclosure buttons expose state and controlled menu IDs', () => {
@@ -43,4 +44,18 @@ test('navigation starts with a visible-on-focus skip link to the main landmark',
   assert.match(source, /<a className="skip-link" href="#main-content">Skip to main content<\/a>/)
   assert.match(globalStyles, /\.skip-link\s*\{[\s\S]*transform:\s*translateY\(-200%\)/)
   assert.match(globalStyles, /\.skip-link:focus-visible\s*\{[\s\S]*transform:\s*translateY\(0\)/)
+})
+
+test('search overlay is an accessible modal and restores focus when closed', () => {
+  assert.match(searchSource, /role="dialog"/)
+  assert.match(searchSource, /aria-modal="true"/)
+  assert.match(searchSource, /aria-labelledby="site-search-title"/)
+  assert.match(searchSource, /aria-label="Search services, tools and articles"/)
+  assert.match(searchSource, /triggerRef\.current\?\.focus\(\)/)
+})
+
+test('search overlay traps keyboard focus while open', () => {
+  assert.match(searchSource, /e\.key === 'Tab'/)
+  assert.match(searchSource, /const focusable =/)
+  assert.match(searchSource, /e\.shiftKey/)
 })

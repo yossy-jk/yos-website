@@ -5,10 +5,52 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
+import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES, SITE_URL } from '@/lib/site-schema'
 
 export const metadata: Metadata = {
   title: 'Commercial Property, Fit Out & Furniture | Your Office Space',
   description: 'Find, fit out and furnish your next commercial space with one team on your side. Commercial cleaning is available across Newcastle CBD and Lake Macquarie.',
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    title: 'Find It, Fit It Out and Furnish It | Your Office Space',
+    description: 'Commercial property, client-side fit out project management, furniture and commercial cleaning from one connected team.',
+    url: SITE_URL,
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space commercial workplace services' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Find It, Fit It Out and Furnish It | Your Office Space',
+    description: 'Commercial property, client-side fit out project management, furniture and commercial cleaning from one connected team.',
+    images: ['/og/og-default.png'],
+  },
+}
+
+const homeSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': ORGANIZATION_ID,
+      name: 'Your Office Space',
+      url: SITE_URL,
+      logo: { '@type': 'ImageObject', url: LOGO_URL },
+      areaServed: ['New South Wales', 'Australia'],
+      knowsAbout: SERVICE_TYPES,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: 'Your Office Space',
+      publisher: { '@id': ORGANIZATION_ID },
+      inLanguage: 'en-AU',
+    },
+    ...SERVICE_TYPES.map(name => ({
+      '@type': 'Service',
+      name,
+      provider: { '@id': ORGANIZATION_ID },
+    })),
+  ],
 }
 const primaryTagline = 'Find It, Fit It Out and Furnish It'
 
@@ -44,6 +86,7 @@ export default function Home() {
   return <>
     <Nav />
     <main id="main-content" tabIndex={-1}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
       <section className="home-hero">
         <Image src="/images/furniture/space-cogc-wide.jpg" alt="Contemporary commercial workplace interior" fill priority className="object-cover" sizes="100vw" />
         <div className="home-hero-shade" />
@@ -51,7 +94,7 @@ export default function Home() {
           <FadeIn>
             <p className="home-eyebrow home-eyebrow-light">One team for your workplace</p>
             <h1>{primaryTagline}</h1>
-            <p className="home-hero-copy text-white/85">We help businesses lease or buy their next commercial space, then coordinate the fit out, furniture and available ongoing services.</p>
+            <p className="home-hero-copy text-white/85">We help businesses lease or buy their next commercial space, then coordinate the fit out and furniture. Commercial cleaning is available across Newcastle CBD and Lake Macquarie.</p>
             <div className="home-actions"><Link href="/contact" className="home-button home-button-primary">Enquire</Link><Link href="/resources/fitout-estimator" className="home-button home-button-ghost">Estimate your fit out</Link></div>
           </FadeIn>
           <div className="home-service-grid" aria-label="Our services">
@@ -62,7 +105,7 @@ export default function Home() {
 
       <section className="home-capability"><div className="site-container home-capability-inner"><div><p className="home-eyebrow">See how we work</p><h2>Review our capability before we talk.</h2><p>Our services, approach and the sectors we support—in one concise document.</p></div><CapabilityDownload label="Download capability statement" variant="primary" /></div></section>
 
-      <section className="home-proof" aria-labelledby="proof-heading"><div className="site-container"><FadeIn><div className="home-section-intro home-section-intro-left"><p className="home-eyebrow">Real relationships</p><h2 id="proof-heading">Trusted by teams making important workplace decisions.</h2></div></FadeIn><div className="home-logo-grid">{clientLogos.map(logo => <div key={logo.name} className="home-logo-card"><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain" sizes="180px" /></div>)}</div></div></section>
+      <section className="home-proof" aria-labelledby="proof-heading"><div className="site-container"><FadeIn><div className="home-section-intro home-section-intro-left"><p className="home-eyebrow">Real relationships</p><h2 id="proof-heading">Clients and partners connected to our workplace projects.</h2></div></FadeIn><div className="home-logo-grid">{clientLogos.map(logo => <div key={logo.name} className="home-logo-card"><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain" sizes="180px" /></div>)}</div></div></section>
 
       <section className="home-journey"><div className="site-container"><FadeIn><div className="home-section-intro"><p className="home-eyebrow">One coordinated journey</p><h2>One team, from the first decision to the working workplace.</h2></div></FadeIn><ol className="home-journey-list">{services.map((service, index) => <li key={service.label}><span>0{index + 1}</span><strong>{service.label}</strong><p>{service.copy}</p></li>)}</ol></div></section>
 

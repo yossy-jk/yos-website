@@ -63,6 +63,8 @@ export default function Search() {
   const [active, setActive] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLUListElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   const results = query.trim().length < 1
     ? ALL_ITEMS.slice(0, 8)
@@ -82,6 +84,7 @@ export default function Search() {
   const closeSearch = useCallback(() => {
     setOpen(false)
     setQuery('')
+    window.requestAnimationFrame(() => triggerRef.current?.focus())
   }, [])
 
   // Keyboard shortcut. Cmd/Ctrl + K
@@ -102,6 +105,14 @@ export default function Search() {
   useEffect(() => {
     function handler(e: KeyboardEvent) {
       if (!open) return
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>('button, input, a[href], [tabindex]:not([tabindex="-1"])')]
+          .filter(element => !element.hasAttribute('disabled'))
+        const first = focusable[0]
+        const last = focusable.at(-1)
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus() }
+        if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus() }
+      }
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(a => Math.min(a + 1, results.length - 1)) }
       if (e.key === 'ArrowUp') { e.preventDefault(); setActive(a => Math.max(a - 1, 0)) }
       if (e.key === 'Enter' && results[active]) {
@@ -130,6 +141,7 @@ export default function Search() {
     <>
       {/* Search trigger button. shown in nav */}
       <button
+        ref={triggerRef}
         onClick={openSearch}
         aria-label="Search"
         className="flex items-center gap-2 text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
@@ -153,17 +165,23 @@ export default function Search() {
           onClick={e => { if (e.target === e.currentTarget) closeSearch() }}
         >
           <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="site-search-title"
             className="w-full bg-near-black border border-white/10 shadow-2xl"
             style={{ maxWidth: '640px', margin: '0 clamp(1rem,4vw,2rem)', borderRadius: '0.75rem', overflow: 'hidden' }}
           >
             {/* Input */}
             <div className="flex items-center gap-3 border-b border-white/10" style={{ padding: '1rem 1.25rem' }}>
+              <h2 id="site-search-title" className="sr-only">Search Your Office Space</h2>
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" style={{ flexShrink: 0, color: 'rgba(255,255,255,0.3)' }}>
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
               <input
                 ref={inputRef}
                 type="text"
+                aria-label="Search services, tools and articles"
                 placeholder="Search services, tools, articles..."
                 value={query}
                 onChange={e => { setQuery(e.target.value); setActive(0) }}

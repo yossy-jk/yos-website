@@ -52,7 +52,7 @@ try {
           const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle2', timeout: 30_000 })
           if (!response || response.status() >= 400) throw new Error(`HTTP ${response?.status() ?? 'unknown'}`)
           const result = await page.evaluate(() => ({
-            viewport: document.documentElement.clientWidth,
+            viewport: window.innerWidth,
             pageWidth: document.documentElement.scrollWidth,
             h1Count: document.querySelectorAll('h1').length,
             logoLoaded: [...document.images].some(image => image.alt === 'Your Office Space' && image.complete && image.naturalWidth > 0),
