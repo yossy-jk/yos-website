@@ -342,13 +342,6 @@ export default function Nav() {
         </div>
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-action-teal border-t border-dark-teal pb-[env(safe-area-inset-bottom)]">
-        <Link href="/contact"
-          className="flex items-center justify-center text-near-black font-bold no-underline w-full"
-          style={{ fontSize: '0.75rem', letterSpacing: '0.02em', padding: '1rem' }}>
-          Enquire →
-        </Link>
-      </div>
     </>
   )
 }

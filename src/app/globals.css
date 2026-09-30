@@ -510,26 +510,14 @@ textarea { min-height: 8rem; }
 .font-light { font-weight: 400 !important; }
 .font-black { font-weight: 700 !important; }
 
-/* Mobile padding for sticky CTA bar */
-@media (max-width: 767px) {
-  body {
-    padding-bottom: calc(56px + env(safe-area-inset-bottom));
-  }
-}
-
 .analytics-consent-panel,
 .analytics-consent-trigger {
-  bottom: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom));
 }
 
 @media (max-width: 767px) {
-  .analytics-consent-panel,
-  .analytics-consent-trigger {
-    bottom: calc(56px + env(safe-area-inset-bottom) + .75rem);
-  }
-
   .analytics-consent-panel {
-    max-height: calc(100dvh - 56px - env(safe-area-inset-bottom) - 2rem);
+    max-height: calc(100dvh - env(safe-area-inset-bottom) - 2rem);
   }
 }
 
