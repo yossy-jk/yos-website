@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
+import { trackConversion } from '@/lib/analytics'
 
 interface ToolGateProps {
   tool: string
@@ -50,12 +51,17 @@ export default function ToolGate({
     if (!validate()) return
     setLoading(true)
 
-    submitLead({
+    const leadResult = await submitLead({
       firstname: name.trim().split(' ')[0],
       email: email.trim(),
       source: tool,
       context: context?.(),
-    }).catch(() => {})
+    }).catch(() => ({ ok: false }))
+
+    trackConversion('tool_complete', {
+      tool,
+      crm_delivery: leadResult.ok,
+    })
 
     onUnlock?.(name.trim(), email.trim())
 

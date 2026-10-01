@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
+import { trackConversion } from '@/lib/analytics'
 
 const SERVICES = [
   'Leasing',
@@ -114,6 +115,11 @@ export default function ContactForm({ initialService }: { initialService?: strin
     const emailAccepted = emailResult.status === 'fulfilled' && emailResult.value.ok
     const hubspotAccepted = hubspotResult.status === 'fulfilled' && hubspotResult.value.ok
     if (emailAccepted || hubspotAccepted) {
+      trackConversion('generate_lead', {
+        service: fields.service,
+        email_delivery: emailAccepted,
+        crm_delivery: hubspotAccepted,
+      })
       setSent(true)
     } else {
       setSubmitError('We could not confirm delivery. Please try again or call (02) 4092 0733.')

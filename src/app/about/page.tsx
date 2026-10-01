@@ -28,9 +28,9 @@ const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
 const APPROVED_GOOGLE_REVIEWERS = [
-  { name: 'Beth Gwalter', organisation: 'Recovery Station' },
-  { name: 'Olivia Crawford', organisation: 'AACAFS' },
-  { name: 'Jason Dowdall', organisation: 'Total Fitouts' },
+  { name: 'Beth Gwalter', organisation: 'Recovery Station', logo: '/images/relationships/recovery-station.jpg' },
+  { name: 'Olivia Crawford', organisation: 'Australian Aboriginal Child and Family Services', logo: '/client-logos/aacafs.png' },
+  { name: 'Jason Dowdall', organisation: 'Total Fitouts', logo: '/client-logos/total-fitouts.webp' },
 ]
 
 export default function AboutPage() {
@@ -334,6 +334,7 @@ export default function AboutPage() {
               <FadeIn key={reviewer.name} delay={index * 70}>
                 <article className="h-full rounded-2xl border border-gray-200 bg-warm-grey p-7">
                   <p className="text-dark-teal font-bold uppercase tracking-widest mb-5" style={{ fontSize: '0.65rem' }}>Google reviewer</p>
+                  <div className="relative mb-6 h-14 w-full max-w-44"><Image src={reviewer.logo} alt={`${reviewer.organisation} logo`} fill sizes="176px" className="object-contain object-left" /></div>
                   <h3 className="text-near-black font-bold text-xl">{reviewer.name}</h3>
                   <p className="text-charcoal mt-2">{reviewer.organisation}</p>
                 </article>

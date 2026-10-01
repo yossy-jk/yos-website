@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
-type Review = { quote: string; name: string; organisation: string }
+type Review = { quote: string; name: string; organisation: string; logo?: string | null }
 
 export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
   const [active, setActive] = useState(0)
@@ -23,7 +24,10 @@ export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
           <span className="text-sm text-charcoal">{active + 1} of {reviews.length}</span>
         </div>
         <blockquote className="mt-8 text-2xl font-semibold leading-relaxed text-near-black sm:text-3xl">“{review.quote}”</blockquote>
-        <figcaption className="mt-8 border-t border-black/10 pt-6"><strong className="block text-lg text-near-black">{review.name}</strong><span className="mt-1 block text-charcoal">{review.organisation}</span></figcaption>
+        <figcaption className="mt-8 flex items-center justify-between gap-5 border-t border-black/10 pt-6">
+          <span><strong className="block text-lg text-near-black">{review.name}</strong><span className="mt-1 block text-charcoal">{review.organisation}</span></span>
+          {review.logo && <Image src={review.logo} alt={`${review.organisation} logo`} width={150} height={54} className="h-12 w-auto max-w-36 object-contain" />}
+        </figcaption>
       </figure>
       <div className="mt-6 flex items-center justify-center gap-3">
         <button type="button" onClick={() => setActive(index => (index - 1 + reviews.length) % reviews.length)} className="min-h-12 min-w-12 justify-center rounded-full border border-near-black text-xl text-near-black hover:bg-near-black hover:text-white" aria-label="Previous review">←</button>

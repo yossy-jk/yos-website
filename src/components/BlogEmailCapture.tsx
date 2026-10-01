@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { submitLead } from '@/lib/hubspot-lead'
+import { trackConversion } from '@/lib/analytics'
 
 export default function BlogEmailCapture() {
   const [email, setEmail] = useState('')
@@ -17,6 +18,7 @@ export default function BlogEmailCapture() {
         fetch('/api/notify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email, source: 'Blog Email Capture', context: 'Subscribed to blog article notifications.' }) }),
       ])
     } catch { /* fail silently */ }
+    trackConversion('newsletter_signup', { source: 'blog' })
     setSubmitted(true)
     setLoading(false)
   }
