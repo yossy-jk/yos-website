@@ -384,6 +384,7 @@ body {
 .home-budget-visual div:nth-child(1), .home-budget-visual div:nth-child(4) { background: #00796D; }
 .home-budget-visual div:nth-child(2), .home-budget-visual div:nth-child(3) { background: #00B5A5; }
 .home-budget-visual span { color: #fff; font-size: clamp(.75rem,1.5vw,.95rem); font-weight: 700; }
+.home-budget-visual div:nth-child(2) span, .home-budget-visual div:nth-child(3) span { color: #1A1A1A; }
 .home-budget-visual strong { position: absolute; inset: 50% auto auto 50%; display: grid; width: 9rem; aspect-ratio: 1; place-items: center; transform: translate(-50%,-50%); border-radius: 50%; background: #1A1A1A; color: #fff; text-align: center; font-size: .95rem; line-height: 1.35; }
 .home-review-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.25rem; margin-top: 2.5rem; }
 .home-review-grid figure { height: 100%; padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: 1.5rem; background: #fff; }
