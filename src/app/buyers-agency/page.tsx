@@ -29,6 +29,10 @@ const FAQS = [
   { question: 'Where does YOS provide commercial buyers agent services?', answer: 'YOS provides commercial buyers agent services in New South Wales through Joseph Kelley, Class 2 licensed real estate agent No. 20565455.' },
   { question: 'Can YOS help with an SMSF property purchase?', answer: 'YOS can coordinate the commercial property workstream and help connect the purchaser with appropriately qualified advisers. YOS does not provide legal, tax, financial, credit or investment advice.' },
   { question: 'What does Structure Ready and Finance Ready mean?', answer: 'It means identifying the legal, ownership, tax, borrowing, valuation and approval questions early, so the purchaser and their appointed professional advisers can prepare before the right property is found.' },
+  { question: 'When should I engage a commercial buyers agent?', answer: 'Ideally before you begin inspecting properties. An early brief helps align the business need, budget, ownership pathway, finance preparation and due diligence responsibilities before an opportunity creates time pressure.' },
+  { question: 'Can YOS find off-market commercial property?', answer: 'We assess advertised opportunities and use relevant market relationships where appropriate. We never promise off-market access; every option is tested against the same documented brief and commercial criteria.' },
+  { question: 'Who completes the legal and building due diligence?', answer: 'You appoint the qualified solicitor, accountant, finance broker, valuer, building consultant and other specialists you need. YOS coordinates the commercial property workstream and keeps their inputs connected to the decision.' },
+  { question: 'Can YOS help after the property is purchased?', answer: 'Yes. If required, our client-side FitOut project management and commercial furniture services can carry the workplace brief through planning, procurement and handover under separately agreed scopes.' },
 ] as const
 
 export default function BuyersAgencyPage() {

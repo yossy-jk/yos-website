@@ -24,7 +24,6 @@ export const metadata = {
 }
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
-const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
@@ -77,7 +76,7 @@ export default function AboutPage() {
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
             "logo": LOGO_URL,
-            "telephone": "+61434655511",
+            "telephone": "+61240920733",
             "email": "jk@yourofficespace.au",
             "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
@@ -105,7 +104,7 @@ export default function AboutPage() {
             "worksFor": { "@id": ORGANIZATION_ID },
             "url": "https://www.yourofficespace.au/about",
             "description": "Commercial property professional working across office fit outs, tenant representation and workplace strategy.",
-            "telephone": "+61434655511",
+            "telephone": "+61240920733",
             "email": "jk@yourofficespace.au",
             "knowsAbout": ["Commercial Leases", "Tenant Representation", "Office Fit Out", "Commercial Property Negotiation"],
             "areaServed": [{ "@type": "State", "name": "New South Wales" }, { "@type": "Country", "name": "Australia" }]
@@ -116,7 +115,7 @@ export default function AboutPage() {
             "jobTitle": "Cleaning Division Director",
             "worksFor": { "@id": ORGANIZATION_ID },
             "description": "Runs the commercial cleaning division with hands-on site auditing and quality control.",
-            "telephone": "+61434655511"
+            "telephone": "+61240920733"
           },
           {
             "@type": "FAQPage",
@@ -159,8 +158,8 @@ export default function AboutPage() {
                 </h2>
                 <div className="w-full mt-8 overflow-hidden">
                   <Image
-                    src="/team/joe-kelley.jpg"
-                    alt="Joe Kelley. Managing Director, Your Office Space"
+                    src="/images/furniture/space-geelong-a.jpg"
+                    alt="Commercial workplace representing the spaces Your Office Space helps clients create"
                     width={600}
                     height={600}
                     className="object-cover w-full"

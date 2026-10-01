@@ -62,7 +62,7 @@ export default function ResourcesPage() {
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
             "description": "Newcastle-based, tenant-side commercial property advisory across Australia. Practical tools and guidance for lease, fit out and workplace decisions.",
-            "telephone": "+61434655511",
+            "telephone": "+61240920733",
             "email": "jk@yourofficespace.au",
             "address": {
               "@type": "PostalAddress",

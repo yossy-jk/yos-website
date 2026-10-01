@@ -451,7 +451,7 @@ export default function MarketSnapshotPageContent({
             <a href="mailto:jk@yourofficespace.au" className="text-teal no-underline hover:underline">
               jk@yourofficespace.au
             </a>{' '}
-            | 0434 655 511
+            | (02) 4092 0733
           </p>
         </div>
       </section>

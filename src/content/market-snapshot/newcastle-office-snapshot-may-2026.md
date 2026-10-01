@@ -95,4 +95,4 @@ yourofficespace.au/lease-intel
 yourofficespace.au/tenant-rep
 
 ---
-Your Office Space | Newcastle | jk@yourofficespace.au | 0434 655 511
+Your Office Space | Newcastle | jk@yourofficespace.au | (02) 4092 0733

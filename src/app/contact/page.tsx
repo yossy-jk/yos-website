@@ -8,8 +8,7 @@ import FadeIn from '@/components/FadeIn'
 import ContactForm from '@/components/ContactForm'
 import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
-const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
-const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
+const SEC    = { paddingTop: 'clamp(4rem,7vw,7rem)', paddingBottom: 'clamp(4rem,7vw,7rem)' }
 const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
 export const metadata = {
@@ -49,7 +48,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             "url": "https://www.yourofficespace.au",
             "logo": LOGO_URL,
             "serviceType": SERVICE_TYPES,
-            "telephone": "+61434655511",
+            "telephone": "+61240920733",
             "email": "jk@yourofficespace.au",
             "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
@@ -75,7 +74,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             "@type": "FAQPage",
             "mainEntity": [
               { "@type": "Question", "name": "What happens after I enquire?", "acceptedAnswer": { "@type": "Answer", "text": "We review the situation and confirm the most appropriate next step, service scope or referral." } },
-              { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call 0434 655 511." } },
+              { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call (02) 4092 0733." } },
               { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office FitOut and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
             ]
           }
@@ -106,7 +105,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       {/* CONTACT. form + direct details */}
       <section className="bg-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
 
             {/* Left. contact form */}
             <FadeIn className="lg:col-span-7">
@@ -224,7 +223,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
 
             {/* Right. direct contact */}
             <FadeIn delay={120} className="lg:col-span-5">
-              <div>
+              <div className="rounded-3xl bg-warm-grey p-7 sm:p-10 lg:sticky lg:top-28">
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Or reach us directly</p>
                 <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-8"
                   style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
@@ -233,7 +232,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
 
                 <div className="flex flex-col gap-6">
                   {/* Enquire */}
-                  <div className="border border-gray-100 p-8">
+                  <div className="rounded-2xl border border-black/5 bg-white p-7 shadow-sm">
                     <p className="text-teal font-bold uppercase tracking-widest mb-2" style={{ fontSize: '0.65rem' }}>Fastest option</p>
                     <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Enquire</p>
                     <p className="text-charcoal font-light mb-4" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
@@ -260,7 +259,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   {/* Phone */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Phone</p>
-                    <a href={`tel:${CONTACT.phone.replace(/\s+/g,'')}`}
+                    <a href={`tel:${CONTACT.phone.replace(/\D/g,'')}`}
                       className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
                       style={{ fontSize: '1rem' }}>
                       {CONTACT.phone}

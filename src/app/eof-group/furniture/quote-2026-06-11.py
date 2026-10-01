@@ -322,7 +322,7 @@ p_sig2 = para('', space_before=0, space_after=1)
 run_in(p_sig2, 'Managing Director | Your Office Space', size=9, color=MID)
 
 p_sig3 = para('', space_before=0, space_after=1)
-run_in(p_sig3, 'M: 0434 655 511  |  E: jk@yourofficespace.au  |  W: yourofficespace.au', size=8, color=MID)
+run_in(p_sig3, 'M: (02) 4092 0733  |  E: jk@yourofficespace.au  |  W: yourofficespace.au', size=8, color=MID)
 
 # ── FOOTER LINE ──────────────────────────────────────────────────────────────
 p_ftr = para('', space_before=10, space_after=0)

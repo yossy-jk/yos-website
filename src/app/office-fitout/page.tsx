@@ -38,6 +38,10 @@ const FAQS = [
   { question: 'When should we appoint a FitOut project manager?', answer: 'The strongest time to start is before committing to a space or design pathway. Early involvement helps test the workplace brief, likely cost, programme and landlord requirements before major commitments are made.' },
   { question: 'Can YOS provide a preliminary FitOut budget?', answer: 'Yes. YOS can coordinate an order-of-cost range with clearly stated assumptions, allowances and contingency. It is an indicative planning tool, not a fixed construction quote.' },
   { question: 'Who performs the construction work?', answer: 'Trade and construction work is performed by appropriately appointed and licensed contractors. YOS supports scope comparison and procurement, then manages delivery from the client side.' },
+  { question: 'How long does a commercial FitOut take?', answer: 'Timing depends on the size, approvals, design complexity, procurement and site conditions. We establish a realistic programme early and keep dependencies, decisions and risks visible.' },
+  { question: 'Can you help before we sign a lease?', answer: 'Yes. Early involvement lets us test the brief, likely FitOut cost, programme, building constraints and landlord responsibilities before you commit.' },
+  { question: 'How are contractor quotes compared?', answer: 'We align scopes, allowances, exclusions and responsibilities so proposals can be compared on the same basis, then support you to appoint the appropriate licensed contractors.' },
+  { question: 'What happens at handover?', answer: 'We coordinate completion, defects, required documentation and outstanding actions so ownership is clear and the workplace is ready for use.' },
 ] as const
 
 export default function OfficeFitoutPage() {
@@ -54,7 +58,7 @@ export default function OfficeFitoutPage() {
     </div></section>
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel>The YOS FitOut process</SectionLabel><h2 className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Six clear stages from first brief to handover.</h2></FadeIn>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{PROCESS.map(([title, body], index) => <FadeIn key={title} delay={index * 50}><article className="h-full bg-warm-grey p-8 rounded-2xl"><p className="text-teal font-bold text-sm mb-5">{String(index + 1).padStart(2, '0')}</p><h3 className="text-near-black text-xl mb-3">{title}</h3><p className="text-charcoal leading-relaxed">{body}</p></article></FadeIn>)}</div>
+      <ol className="fitout-process-flow">{PROCESS.map(([title, body], index) => <FadeIn key={title} delay={index * 50}><li><details><summary><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><i aria-hidden="true">+</i></summary><p>{body}</p></details></li></FadeIn>)}</ol>
     </div></section>
     <section className="bg-near-black" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-12`} style={PAD}>
       <FadeIn><SectionLabel>What stays visible</SectionLabel><h2 className="text-white mt-3 leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Scope, budget, programme and responsibility.</h2></FadeIn>

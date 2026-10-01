@@ -8,7 +8,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Tenant Rep Newcastle | Tenant Representation Newcastle NSW',
-  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Free initial consultation. Call 0434 655 511.',
+  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Free initial consultation. Call (02) 4092 0733.',
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep/newcastle' },
   openGraph: {
     
@@ -277,7 +277,7 @@ export default function TenantRepNewcastlePage() {
                         "name": "Your Office Space",
                         "url": "https://www.yourofficespace.au",
                         "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-                        "telephone": "0434 655 511",
+                        "telephone": "(02) 4092 0733",
                         "email": "jk@yourofficespace.au",
                         "address": {
                           "@type": "PostalAddress",
@@ -435,7 +435,7 @@ export default function TenantRepNewcastlePage() {
                 Enquire
               </Button>
               <p className="text-white/50 font-light mt-6" style={{ fontSize: '0.8rem' }}>
-                Newcastle &amp; Hunter &nbsp;|&nbsp; 0434 655 511 &nbsp;|&nbsp; jk@yourofficespace.au
+                Newcastle &amp; Hunter &nbsp;|&nbsp; (02) 4092 0733 &nbsp;|&nbsp; jk@yourofficespace.au
               </p>
             </div>
           </FadeIn>

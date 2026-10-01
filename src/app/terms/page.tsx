@@ -26,7 +26,7 @@ const TERMS_SCHEMA = {
       "@id": "https://www.yourofficespace.au/#organization",
       "name": "Your Office Space",
       "url": "https://www.yourofficespace.au",
-      "telephone": "+61434655511",
+      "telephone": "+61240920733",
       "email": "jk@yourofficespace.au",
       "address": {
         "@type": "PostalAddress",

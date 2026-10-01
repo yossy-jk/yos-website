@@ -63,7 +63,7 @@ export default function NotForProfitPage() {
             "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+61-2-4000-0717",
+              "telephone": "+61-2-4092-0733",
               "contactType": "customer service",
               "areaServed": "AU",
             },
@@ -338,7 +338,7 @@ export default function NotForProfitPage() {
                   </div>
                   <div>
                     <p className="text-charcoal font-semibold" style={{ fontSize: '0.8rem' }}>Phone</p>
-                    <a href={`tel:${CONTACT.phone.replace(/\s/g, '')}`} className="text-teal hover:text-near-black transition-colors"
+                    <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`} className="text-teal hover:text-near-black transition-colors"
                       style={{ fontSize: '0.9rem' }}>
                       {CONTACT.phone}
                     </a>

@@ -5,7 +5,7 @@ export const SITE_URL = 'https://www.yourofficespace.au'
 
 export const CONTACT = {
   email: 'hello@yourofficespace.au',
-  phone: '0434 655 511',
+  phone: '(02) 4092 0733',
   location: 'Newcastle, NSW',
 }
 
@@ -22,6 +22,7 @@ export const NAV_LINKS = [
 
 export const SERVICE_LINKS = [
   { label: 'Tenant Representation', href: '/tenant-rep', tagline: 'Your lease. Your terms.' },
+  { label: 'Commercial Buyers Agent', href: '/buyers-agency', tagline: 'Structure Ready. Finance Ready. Ready to move.' },
   { label: 'Commercial FitOut & Project Management', href: '/office-fitout', tagline: 'From brief to delivered workspace.' },
   { label: 'Office & Commercial Furniture', href: '/furniture', tagline: 'Furniture selected, supplied and installed.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },

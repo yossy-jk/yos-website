@@ -114,7 +114,7 @@ export async function POST(req: Request) {
     <p style="font-size:13px;font-weight:300;color:#6B6B6B;margin:0">Your Office Space | Newcastle</p>
     <p style="font-size:13px;font-weight:300;color:#6B6B6B;margin:4px 0 0">
       <a href="mailto:jk@yourofficespace.au" style="color:#00B5A5;text-decoration:none">jk@yourofficespace.au</a>
-      &nbsp;&nbsp;|&nbsp;&nbsp;0434 655 511
+      &nbsp;&nbsp;|&nbsp;&nbsp;(02) 4092 0733
     </p>
   </div>
 

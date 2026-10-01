@@ -64,7 +64,7 @@ def header(c, label):
 def footer(c, page):
     c.setStrokeColor(HexColor("#D9DDDC"))
     c.line(40, 34, W - 40, 34)
-    txt(c, "yourofficespace.au  |  jk@yourofficespace.au  |  0434 655 511", 40, 19, 7, MUTED)
+    txt(c, "yourofficespace.au  |  jk@yourofficespace.au  |  (02) 4092 0733", 40, 19, 7, MUTED)
     txt(c, str(page), W - 45, 19, 7, MUTED)
 
 
@@ -245,7 +245,7 @@ def build():
     rounded(c, 42, 270, W - 84, 92, HexColor("#242424"), 24)
     txt(c, "JOE KELLEY  |  MANAGING DIRECTOR", 62, 328, 9, TEAL, "Montserrat-Bold")
     txt(c, "jk@yourofficespace.au", 62, 299, 13, white, "Montserrat-Bold")
-    txt(c, "0434 655 511  |  yourofficespace.au", 62, 278, 10, HexColor("#D7DBDA"), "Montserrat")
+    txt(c, "(02) 4092 0733  |  yourofficespace.au", 62, 278, 10, HexColor("#D7DBDA"), "Montserrat")
     rounded(c, 42, 176, 132, 52, TEAL, 12)
     txt(c, "ENQUIRE", 74, 195, 11, INK, "Montserrat-Bold")
     txt(c, "Based in Newcastle. Working Australia-wide where service capability and licensing permit.", 42, 92, 8, HexColor("#B7BEBC"), "Montserrat", W - 84, 12)
