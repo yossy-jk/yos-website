@@ -7,6 +7,7 @@ import SectionLabel from '@/components/SectionLabel'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import { submitLead } from '@/lib/hubspot-lead'
+import { trackConversion } from '@/lib/analytics'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
@@ -111,6 +112,7 @@ export default function FurnitureQuotePage() {
       }).catch(() => {})
 
       setSubmitted(true)
+      trackConversion('generate_lead', { service: 'Furniture Quote' })
     } catch (err) {
       console.error(err)
       setError('Something went wrong. Please try again or call us directly.')

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef } from 'react'
+import { trackConversion } from '@/lib/analytics'
 
 interface Props {
   label?: string
@@ -89,6 +90,8 @@ export default function CapabilityDownload({
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
+
+      trackConversion('capability_statement_download', { asset: 'YOS-Capability-Statement.pdf' })
 
       closeModal()
     } catch {
