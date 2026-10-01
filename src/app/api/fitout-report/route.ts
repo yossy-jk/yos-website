@@ -155,7 +155,7 @@ ${data.fitoutType !== 'furniture-only' ? `<tr><td style="padding:0.5rem 0;font-s
 </div>
 </td></tr>
 <tr><td style="padding:0;border-top:1px solid #ffffff14;text-align:center">
-<p style="margin:0.75rem 0;font-size:0.7rem;color:#ffffff30">Your Office Space · Newcastle NSW · hello@yourofficespace.au · 0434 655 511<br/>This estimate is based on market rates and is indicative only. A site visit is required for a fixed price.</p>
+<p style="margin:0.75rem 0;font-size:0.7rem;color:#ffffff30">Your Office Space · Newcastle NSW · hello@yourofficespace.au · (02) 4092 0733<br/>This estimate is based on market rates and is indicative only. A site visit is required for a fixed price.</p>
 </td></tr>
 </table>
 </td></tr>

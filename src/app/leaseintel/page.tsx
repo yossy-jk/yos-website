@@ -53,7 +53,7 @@ const SCHEMA = {
       "name": "Your Office Space",
       "url": "https://www.yourofficespace.au",
       "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-      "telephone": "+61434655511",
+      "telephone": "+61240920733",
       "email": "jk@yourofficespace.au",
       "address": {
         "@type": "PostalAddress",

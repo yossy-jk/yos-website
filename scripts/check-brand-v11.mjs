@@ -34,7 +34,8 @@ const capabilityStatementPath = path.join(root, 'public/YOS-Capability-Statement
 const capabilityStatementHash = createHash('sha256')
   .update(fs.readFileSync(capabilityStatementPath))
   .digest('hex')
-const approvedCapabilityStatementHash = '3ab0b7b070178cc4fa7561576df3d8ee34a4704cce738385d53f2fab36522d01'
+// Approved 1 October 2026 asset with the main office number (02) 4092 0733.
+const approvedCapabilityStatementHash = '5ccb24025039ba7da2bb03b98551d3cfe03dac613278ea73bfc67f5ce0c83a7a'
 if (capabilityStatementHash !== approvedCapabilityStatementHash) {
   failures.push('public/YOS-Capability-Statement.pdf: does not match the approved Brand v1.1 capability statement')
 }

@@ -122,9 +122,9 @@ export default function SpacePlannerPage() {
                   style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center', width: '100%', maxWidth: '20rem', justifyContent: 'center' }}>
                   Enquire
                 </a>
-                <a href="tel:0434655511"
+                <a href="tel:0240920733"
                   style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
-                  0434 655 511
+                  (02) 4092 0733
                 </a>
                 <a href="mailto:hello@yourofficespace.au"
                   style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem', textDecoration: 'none', letterSpacing: '0.05em' }}>

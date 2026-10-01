@@ -20,7 +20,7 @@ export default function CapabilityDownload({
   const modalRef = useRef<HTMLDivElement>(null)
 
   const baseStyles =
-    'inline-flex items-center gap-2 font-black text-sm tracking-widest uppercase cursor-pointer transition-all duration-200 min-h-[56px] px-8 justify-center no-underline'
+    'inline-flex items-center gap-3 font-bold text-sm cursor-pointer transition-all duration-200 min-h-[58px] px-9 justify-center no-underline shadow-sm hover:-translate-y-0.5 hover:shadow-lg'
 
   const variantStyles = {
     primary:
@@ -104,7 +104,7 @@ export default function CapabilityDownload({
         type="button"
         onClick={openModal}
         className={`${baseStyles} ${variantStyles[variant]} ${className}`}
-        style={{ borderRadius: '0.375rem' }}
+        style={{ borderRadius: '0.75rem' }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -137,8 +137,8 @@ export default function CapabilityDownload({
           aria-labelledby="cap-download-title"
         >
           <div
-            className="bg-white w-full max-w-md rounded-sm overflow-hidden shadow-2xl"
-            style={{ maxHeight: '90vh', overflowY: 'auto' }}
+            className="bg-white w-full max-w-lg overflow-hidden shadow-2xl"
+            style={{ maxHeight: '90vh', overflowY: 'auto', borderRadius: '1.5rem' }}
           >
             {/* Header */}
             <div
@@ -157,7 +157,7 @@ export default function CapabilityDownload({
                   className="text-near-black font-black leading-tight"
                   style={{ fontSize: '1.2rem' }}
                 >
-                  Download Capability Statement
+                  See how we can help
                 </h2>
               </div>
               <button
@@ -176,7 +176,7 @@ export default function CapabilityDownload({
             {/* Body */}
             <div className="px-7 py-6">
               <p className="text-charcoal font-light leading-relaxed mb-6" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                Tell us where to send it. No spam. No follow-up calls unless you ask.
+                Get the concise YOS capability statement with our services, delivery approach and the sectors we support. No spam and no follow-up calls unless you ask.
               </p>
 
               <form onSubmit={handleSubmit} noValidate>
@@ -228,7 +228,7 @@ export default function CapabilityDownload({
                   className="mt-6 w-full bg-teal text-white font-black text-sm tracking-widest uppercase flex items-center justify-center gap-2 disabled:opacity-60 transition-all"
                   style={{
                     padding: '1rem',
-                    borderRadius: '0.375rem',
+                    borderRadius: '0.75rem',
                     minHeight: '56px',
                     letterSpacing: '0.1em',
                     fontSize: '0.85rem',

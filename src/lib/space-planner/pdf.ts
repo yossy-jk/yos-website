@@ -197,7 +197,7 @@ export function generateQuotePDF({
     footerY
   );
   doc.text(
-    "yourofficespace.au  |  0434 655 511",
+    "yourofficespace.au  |  (02) 4092 0733",
     pageW - margin,
     footerY,
     { align: "right" }

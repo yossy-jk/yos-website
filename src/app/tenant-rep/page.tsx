@@ -6,6 +6,7 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
 import TenantProcess from '@/components/TenantProcess'
+import ServiceFaq from '@/components/ServiceFaq'
 
 export const metadata = {
   title: 'Tenant Representation & Commercial Leasing NSW | YOS',
@@ -28,6 +29,17 @@ const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2
 const WRAP   = 'max-w-screen-xl mx-auto'
 const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
+const TENANT_FAQS = [
+  { question: 'What does a tenant representative do?', answer: 'A tenant representative works for the occupying business, helping define the brief, assess options, compare the commercial position and negotiate with the landlord side.' },
+  { question: 'How does tenant representation work in practice?', answer: 'We start with your space, timing, budget and non-negotiables, then assess options consistently, coordinate the decision inputs and support negotiation through the agreed scope.' },
+  { question: 'Who pays for tenant representation?', answer: 'Fee arrangements depend on the engagement and transaction structure. We explain the scope, fee and any relevant payment arrangements before work begins.' },
+  { question: 'How is a tenant representative different from a leasing agent?', answer: 'The landlord-appointed leasing agent works for the property owner. YOS is engaged to advise the tenant and assess the decision from the occupying business perspective.' },
+  { question: 'Can you help with an existing lease?', answer: 'Yes. We can review the commercial position around options, rent, make-good, outgoings, relocation rights and other decision points, alongside your appointed legal adviser.' },
+  { question: 'What types of commercial property do you cover?', answer: 'We assess office, industrial, retail and specialised-use briefs case by case, subject to location, scope and licensing coverage.' },
+  { question: 'Where does YOS provide tenant representation?', answer: 'Tenant representation is delivered in New South Wales through Joseph Kelley, Class 2 licensed real estate agent No. 20565455.' },
+  { question: 'Can YOS coordinate the FitOut and furniture after the lease?', answer: 'Yes. Our client-side FitOut project management and commercial furniture services can continue the brief through planning, procurement and handover under separately agreed scopes.' },
+] as const
+
 export default function TenantRepPage() {
   return (
     <>
@@ -44,7 +56,7 @@ export default function TenantRepPage() {
                                 "name": "Your Office Space",
                                 "url": "https://www.yourofficespace.au",
                                 "logo": "https://www.yourofficespace.au/brand/yos-logo-black.png",
-                                "telephone": "0434 655 511",
+                                "telephone": "(02) 4092 0733",
                                 "email": "jk@yourofficespace.au",
                                 "address": {
                                         "@type": "PostalAddress",
@@ -461,6 +473,8 @@ export default function TenantRepPage() {
           </FadeIn>
         </div>
       </section>
+
+      <ServiceFaq heading="Clear answers before the lease decision." items={TENANT_FAQS} />
 
       {/* ─── CTA ──────────────────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>

@@ -72,7 +72,7 @@ const DAY2_EMAIL = (name: string, riskLevel: string) => `
     <p style="color: #444; font-size: 14px; line-height: 1.7; margin: 0 0 16px;">Suitability, deliverables, timing, fees and secure document handling are confirmed before work begins.</p>
     <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #00B5A5; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Request review scope →</a>
   </div>
-  <p style="color: #aaa; font-size: 11px; margin: 0;">Joseph Kelley – Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
+  <p style="color: #aaa; font-size: 11px; margin: 0;">Joseph Kelley – Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a> · (02) 4092 0733</p>
 </div>`
 
 const DAY7_EMAIL = (name: string, riskLevel: string) => `
@@ -96,7 +96,7 @@ const DAY7_EMAIL = (name: string, riskLevel: string) => `
   </div>
   <p style="color: #333; font-size: 13px; line-height: 1.7; margin: 0 0 20px;">If the timing isn't right – no problem. Hit reply and let me know where things are at. Happy to help when you're ready.</p>
   <p style="color: #333; font-size: 14px; margin: 0 0 4px;">Joe Kelley</p>
-  <p style="color: #aaa; font-size: 11px; margin: 0;">Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a> · 0434 655 511</p>
+  <p style="color: #aaa; font-size: 11px; margin: 0;">Your Office Space, Newcastle NSW<br><a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a> · (02) 4092 0733</p>
 </div>`
 
 export async function POST(req: Request) {

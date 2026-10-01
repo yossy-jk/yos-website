@@ -38,6 +38,10 @@ const FAQS = [
   { question: 'What commercial furniture can you source?', answer: 'YOS can source workstations, desks, task and executive seating, meeting and boardroom settings, storage, lockers, breakout furniture and reception settings across established commercial ranges.' },
   { question: 'Do you coordinate delivery and installation?', answer: 'Yes. The quote can include delivery and installation, with access, sequencing, placement and completion coordinated before delivery day.' },
   { question: 'Can furniture be customised for our workplace?', answer: 'Made-to-order sizes, finishes and configurations may be available depending on the product, quantity, lead time and manufacturer. These requirements are confirmed during specification and quoting.' },
+  { question: 'Can we see samples before ordering?', answer: 'Where suppliers offer samples, finish swatches or showroom access, we coordinate these so key selections can be checked before approval.' },
+  { question: 'Do you supply ergonomic furniture?', answer: 'Yes. We can source adjustable task seating, sit-stand workstations and other ergonomic products suited to the people, work patterns and budget.' },
+  { question: 'What lead times should we allow?', answer: 'Lead times vary by product, quantity, finish and manufacturer. We confirm availability during quoting and coordinate ordering against the workplace programme.' },
+  { question: 'Can you remove or reuse existing furniture?', answer: 'We can review what should be retained, relocated, repurposed or separately removed, then reflect those decisions in the furniture plan and delivery sequence.' },
 ] as const
 
 export default function FurniturePage() {
@@ -58,6 +62,15 @@ export default function FurniturePage() {
       <FadeIn><div className="relative min-h-[360px] overflow-hidden rounded-3xl"><Image src="/images/furniture/burgtec-room-workstations.jpg" alt="Customisable commercial workstations in a completed office" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" /></div></FadeIn>
       <FadeIn delay={100}><SectionLabel>Made for your space</SectionLabel><h2 className="text-near-black mt-3 leading-tight" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>More choice, properly coordinated.</h2><div className="mt-6 space-y-5 text-charcoal leading-relaxed text-lg"><p>We source across established commercial manufacturers and wholesale ranges, with made-to-order sizes, finishes and configurations where the brief calls for them.</p><p>We quote, supply and coordinate installation so product, access, placement and programme are resolved before delivery day.</p></div></FadeIn>
     </div></section>
+
+    <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}><FadeIn><SectionLabel>Workplace inspiration</SectionLabel><h2 className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>See how different settings work together.</h2></FadeIn><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">{[
+      ['/images/furniture/space-wsi-workstations.jpg', 'Workstations arranged for focused individual work'],
+      ['/images/furniture/burgtec-room-collaboration.jpg', 'Informal collaboration setting with commercial furniture'],
+      ['/images/furniture/dbt-boardroom.jpg', 'Boardroom table, seating and acoustic treatment'],
+      ['/images/furniture/space-bendigo-detail.jpg', 'Detailed breakout and meeting furniture setting'],
+      ['/images/furniture/burgtec-open-plan.jpg', 'Open-plan workplace furniture and storage'],
+      ['/images/furniture/space-pillowtalk-b.jpg', 'Commercial lounge and flexible meeting setting'],
+    ].map(([src, alt], index) => <FadeIn key={src} delay={index * 50}><figure className="group relative min-h-[20rem] overflow-hidden rounded-2xl"><Image src={src} alt={alt} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transform-none" /><figcaption className="absolute inset-x-0 bottom-0 bg-near-black/85 p-5 text-sm font-semibold text-white">{alt}</figcaption></figure></FadeIn>)}</div></div></section>
 
     <section className="bg-near-black" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel>How it works</SectionLabel><h2 className="text-white mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>From product brief to installed workplace.</h2></FadeIn>

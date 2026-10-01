@@ -10,6 +10,18 @@ const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3re
 const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 import FadeIn from '@/components/FadeIn'
 import HubSpotForm from '@/components/HubSpotForm'
+import ServiceFaq from '@/components/ServiceFaq'
+
+const CLEANING_FAQS = [
+  { question: 'How is commercial cleaning priced?', answer: 'Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal.' },
+  { question: 'Do you use the same cleaning team every visit?', answer: 'We aim to keep the same team on each site wherever possible, supported by documented scopes, site notes and quality checks.' },
+  { question: 'Where is commercial cleaning available?', answer: 'Our commercial cleaning service covers Newcastle CBD and Lake Macquarie.' },
+  { question: 'How often should a commercial office be cleaned?', answer: 'The right frequency depends on occupancy, visitor numbers, amenities and presentation requirements. We recommend a schedule after inspecting the workplace.' },
+  { question: 'What is included in a standard office clean?', answer: 'The agreed scope may include rubbish removal, kitchens, bathrooms, surface wiping, vacuuming and hard-floor care. Every inclusion and exclusion is documented before service begins.' },
+  { question: 'Can cleaning happen after hours?', answer: 'Yes. Access, timing, alarms, keys and security requirements are agreed during the site inspection and documented before commencement.' },
+  { question: 'How do you manage quality?', answer: 'The scope is documented, issues have a direct management pathway and Sarah oversees regular quality assurance so standards remain visible.' },
+  { question: 'Can you handle a post-FitOut clean and ongoing service?', answer: 'Yes. A handover clean and the ongoing workplace service can be coordinated as separate, clearly scoped workstreams.' },
+] as const
 
 export const metadata = {
   title: 'Commercial Cleaning Newcastle & Lake Macquarie | YOS',
@@ -39,7 +51,7 @@ export default function CleaningPage() {
             "name": "Your Office Space",
             "url": "https://www.yourofficespace.au",
             "logo": "https://www.yourofficespace.au/brand/yos-logo-black.png",
-            "telephone": "+61434655511",
+            "telephone": "+61240920733",
             "email": "jk@yourofficespace.au",
             "description": "Newcastle-based commercial cleaning and workplace services.",
             "address": {
@@ -243,6 +255,27 @@ export default function CleaningPage() {
         </div>
       </section>
 
+      {/* LOCAL QUALITY OWNERSHIP */}
+      <section className="bg-light-teal" style={SEC_SM}>
+        <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16 items-center" style={PAD}>
+          <FadeIn>
+            <div className="relative overflow-hidden rounded-3xl aspect-[4/5] max-w-md">
+              <Image src="/team/sarah-kelley.jpg" alt="Sarah Kelley, commercial cleaning quality lead at Your Office Space" fill sizes="(max-width: 1024px) 90vw, 32vw" className="object-cover" />
+            </div>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <SectionLabel>Local quality ownership</SectionLabel>
+            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>
+              A real person accountable for the standard.
+            </h2>
+            <p className="text-charcoal leading-relaxed text-lg mb-5 max-w-2xl">
+              Sarah oversees the cleaning relationship and regular quality assurance. Your agreed scope, site feedback and follow-up stay connected to one accountable team.
+            </p>
+            <p className="text-near-black font-semibold">Sarah Kelley · Cleaning quality lead</p>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* THE YOS DIFFERENCE */}
       <section className="bg-near-black"
         style={SEC}>
@@ -354,6 +387,8 @@ export default function CleaningPage() {
           </div>
         </FadeIn>
       </section>
+
+      <ServiceFaq heading="Clear answers before your first clean." items={CLEANING_FAQS} />
 
       {/* CTA */}
       <section className="bg-teal text-white"

@@ -245,6 +245,12 @@ export default function Nav() {
 
             <Search />
 
+            <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`}
+              className="text-white/75 font-semibold hover:text-teal transition-colors no-underline whitespace-nowrap"
+              style={{ fontSize: '0.75rem' }} aria-label={`Call Your Office Space on ${CONTACT.phone}`}>
+              {CONTACT.phone}
+            </a>
+
             <a href="https://www.linkedin.com/company/your-office-space-au" target="_blank" rel="noopener noreferrer"
               className="text-white/40 hover:text-white transition-colors no-underline flex items-center"
               aria-label="YOS on LinkedIn">
@@ -262,7 +268,7 @@ export default function Nav() {
               style={{ fontSize: '0.75rem', padding: '0.75rem 1.1rem' }}>Enquire</Link>
             <Search />
           <button ref={mobileMenuButtonRef} onClick={() => setOpen(!open)}
-            className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-10 h-10 bg-transparent border-none cursor-pointer"
+            className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-11 h-11 bg-transparent border-none cursor-pointer"
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="mobile-navigation-menu">
@@ -333,7 +339,7 @@ export default function Nav() {
               style={{ padding: '1.1rem', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
               Enquire →
             </Link>
-            <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} onClick={() => setOpen(false)}
+            <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`} onClick={() => setOpen(false)}
               className="text-white font-light text-center no-underline block"
               style={{ padding: '0.9rem', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)' }}>
               {CONTACT.phone}

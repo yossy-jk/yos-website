@@ -116,7 +116,7 @@ export default function ContactForm({ initialService }: { initialService?: strin
     if (emailAccepted || hubspotAccepted) {
       setSent(true)
     } else {
-      setSubmitError('We could not confirm delivery. Please try again or call 0434 655 511.')
+      setSubmitError('We could not confirm delivery. Please try again or call (02) 4092 0733.')
     }
   }
 
@@ -210,7 +210,7 @@ export default function ContactForm({ initialService }: { initialService?: strin
       <button
         type="submit"
         disabled={submitting}
-        className="self-start bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[52px] inline-flex items-center gap-2"
+        className="w-full sm:w-auto self-start justify-center bg-teal text-white font-black text-sm tracking-widest uppercase px-8 py-4 rounded-lg hover:bg-dark-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[56px] inline-flex items-center gap-2"
       >
         {submitting ? (
           <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-sm animate-spin" />Sending…</>

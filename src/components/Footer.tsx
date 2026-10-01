@@ -6,14 +6,14 @@ export default function Footer() {
   return (
     <footer className="bg-near-black" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(3rem,6vw,5rem)' }}>
       <div
-        className="max-w-screen-xl mx-auto"
+        className="max-w-[1440px] mx-auto"
         style={{ paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }}
       >
         {/* Top grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-5 md:gap-10 mb-14 md:mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.45fr_1fr_0.85fr_1fr] gap-10 sm:gap-x-12 lg:gap-x-16 mb-14 md:mb-16">
 
           {/* Brand */}
-          <div className="col-span-1 sm:col-span-2 md:col-span-1">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1 max-w-sm">
             <Link href="/" aria-label="Your Office Space home" className="inline-flex mb-4">
               <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} className="h-8 w-auto" />
             </Link>
@@ -65,7 +65,7 @@ export default function Footer() {
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.email}
               </a>
-              <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+              <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`}
                 className="text-white/80 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>
                 {CONTACT.phone}
@@ -90,19 +90,19 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-6">
             <Link href="/privacy"
-              className="text-white/55 font-light no-underline hover:text-teal transition-colors"
+              className="inline-flex min-h-11 items-center px-1 text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Privacy Policy
             </Link>
             <Link href="/terms"
-              className="text-white/55 font-light no-underline hover:text-teal transition-colors"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Terms
             </Link>
             <a
               href="https://www.linkedin.com/company/your-office-space-au"
               target="_blank" rel="noopener noreferrer"
-              className="text-white/55 font-light no-underline hover:text-teal transition-colors"
+              className="inline-flex min-h-11 items-center px-1 text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               LinkedIn →
             </a>
