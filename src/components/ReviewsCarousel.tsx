@@ -30,7 +30,6 @@ export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
           <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}><strong className="block text-lg text-near-black">{review.name}</strong><span className="mt-1 block text-charcoal">{review.organisation}</span></span>
           {review.logo && <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '168px', maxWidth: '100%', minHeight: '72px', padding: '12px', borderRadius: '12px', background: review.logoBackground === 'dark' ? '#1a1a1a' : '#ffffff' }}><Image src={review.logo} alt={`${review.organisation} logo`} width={150} height={54} style={{ width: '144px', maxWidth: '100%', height: 'auto', maxHeight: '48px', objectFit: 'contain' }} /></span>}
         </figcaption>
-        {review.source && <a href={review.source} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center text-sm font-semibold underline underline-offset-4">Read the full Google review</a>}
       </figure>
       <div className={styles.controls}>
         <button type="button" onClick={() => setActive(index => (index - 1 + reviews.length) % reviews.length)} className="min-h-12 min-w-12 justify-center rounded-full border border-near-black text-xl text-near-black hover:bg-near-black hover:text-white" aria-label="Previous review">←</button>
