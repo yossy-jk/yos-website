@@ -33,6 +33,15 @@ const APPROVED_GOOGLE_REVIEWERS = [
   { name: 'Jason Dowdall', organisation: 'Total Fitouts', logo: '/client-logos/total-fitouts.webp' },
 ]
 
+
+const TEAM = [
+  { name: 'Joe Kelley', title: 'Founder & Managing Director', image: '/team/joe-kelley.jpg', initials: 'JK', description: 'Commercial property, fit out and workplace strategy. Joe brings more than a decade of industry experience to the team.' },
+  { name: 'Sarah Kelley', title: 'Director, Cleaning Division', image: '/team/sarah-kelley.jpg', initials: 'SK', description: 'Sarah leads the Cleaning Division and manages its clients, team and service delivery.' },
+  { name: 'Frank Smith', title: 'Head of Furniture', image: '/team/frank-smith.webp', initials: 'FS', description: null },
+  { name: 'Harvey Byrne', title: 'Business Development', image: null, initials: 'HB', description: null },
+  { name: 'Mary Jenkins', title: 'Head of AI', image: '/team/mary-jenkins.webp', initials: 'MJ', description: null },
+]
+
 export default function AboutPage() {
   return (
     <>
@@ -42,7 +51,7 @@ export default function AboutPage() {
 
       {/* ─── HERO ─────────────────────────────────────────── */}
       <section className="bg-near-black relative min-h-[72vh] flex items-center overflow-hidden" style={{ paddingTop: 'clamp(8rem,12vw,10rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
-        <Image src="/team/joe-kelley.jpg" alt="Joe Kelley, founder of Your Office Space" fill priority sizes="100vw" className="object-cover object-[70%_25%]" />
+        <Image src="/images/furniture/space-geelong-a.jpg" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-near-black/80" />
         <div className={`relative ${WRAP}`} style={PAD}>
           <FadeIn delay={0}>
@@ -58,9 +67,9 @@ export default function AboutPage() {
           <FadeIn delay={160}>
             <p className="text-white/85 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1.05rem,2vw,1.25rem)' }}>
-              We built this business because business owners deserve someone genuinely in their corner
-              when the stakes are high. Not someone who disappears after the lease is signed.
-              A real team. A real relationship. Long after the move is done.
+              Your property decision, fit out, furniture and ongoing workplace care belong in one conversation.
+              Engage an experienced Newcastle team, with different roles working towards the same workplace outcome.
+              One service, or one team across the whole journey.
             </p>
           </FadeIn>
         </div>
@@ -77,7 +86,7 @@ export default function AboutPage() {
             "url": "https://www.yourofficespace.au",
             "logo": LOGO_URL,
             "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
+            "email": "hello@yourofficespace.au",
             "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
             "address": {
               "@type": "PostalAddress",
@@ -96,27 +105,14 @@ export default function AboutPage() {
             "serviceType": SERVICE_TYPES,
             "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property", "Office Fit Out", "Commercial Furniture", "Commercial Cleaning"]
           },
-          {
+          ...TEAM.map(member => ({
             "@type": "Person",
-            "@id": "https://www.yourofficespace.au/#person-joe-kelley",
-            "name": "Joe Kelley",
-            "jobTitle": "Founder & Managing Director",
+            "name": member.name,
+            "jobTitle": member.title,
             "worksFor": { "@id": ORGANIZATION_ID },
             "url": "https://www.yourofficespace.au/about",
-            "description": "Commercial property professional working across office fit outs, tenant representation and workplace strategy.",
-            "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
-            "knowsAbout": ["Commercial Leases", "Tenant Representation", "Office Fit Out", "Commercial Property Negotiation"],
-            "areaServed": [{ "@type": "State", "name": "New South Wales" }, { "@type": "Country", "name": "Australia" }]
-          },
-          {
-            "@type": "Person",
-            "name": "Sarah Kelley",
-            "jobTitle": "Cleaning Division Director",
-            "worksFor": { "@id": ORGANIZATION_ID },
-            "description": "Runs the commercial cleaning division with hands-on site auditing and quality control.",
-            "telephone": "+61240920733"
-          },
+            ...(member.description ? { "description": member.description } : {}),
+          })),
           {
             "@type": "FAQPage",
             "mainEntity": [
@@ -145,173 +141,80 @@ export default function AboutPage() {
         ]
       }) }} />
 
-      {/* ─── THE STORY ────────────────────────────────────── */}
+      {/* Company story and team */}
       <section className="bg-white" style={SEC}>
         <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            <FadeIn direction="left">
-              <div>
-                <SectionLabel>The story</SectionLabel>
-                <h2 className="text-near-black font-black leading-tight tracking-tight mt-3 mb-7"
-                  style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
-                  I got tired of watching good businesses get taken advantage of.
-                </h2>
-                <div className="w-full mt-8 overflow-hidden">
-                  <Image
-                    src="/images/furniture/space-geelong-a.jpg"
-                    alt="Commercial workplace representing the spaces Your Office Space helps clients create"
-                    width={600}
-                    height={600}
-                    className="object-cover w-full"
-                    style={{ aspectRatio: '1/1' }}
-                  />
-                </div>
-              </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <FadeIn>
+              <SectionLabel>Why we exist</SectionLabel>
+              <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6"
+                style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
+                Your workplace should support the business you are building.
+              </h2>
+              <p className="text-charcoal leading-relaxed text-base max-w-xl">
+                A lease or purchase sets the direction. The fit out, furniture and ongoing care
+                need to work with it. You can engage us for one service, or connect the whole journey.
+              </p>
             </FadeIn>
-
-            <FadeIn direction="right" delay={100}>
-              <div className="flex flex-col gap-6 text-charcoal font-light leading-relaxed"
-                style={{ fontSize: 'clamp(0.95rem,1.5vw,1.1rem)' }}>
+            <FadeIn delay={80}>
+              <div className="space-y-6 text-charcoal leading-relaxed text-base max-w-xl">
                 <p>
-                  I have worked across commercial office fit outs, furniture and workplace strategy.
-                  In that work I watched good businesses carry avoidable risk during one of the
-                  most expensive and distracting moments in their journey: the office move, the fit out,
-                  the lease negotiation.
+                  Established in 2025, Your Office Space brings commercial property, fit out,
+                  furniture and cleaning together under one roof. We are based in Newcastle,
+                  with tenant representation across NSW, fit out and furniture Australia-wide,
+                  and cleaning across Newcastle CBD and Lake Macquarie.
                 </p>
                 <p>
-                  Here&apos;s what most people don&apos;t see: an office project has a fixed budget.
-                  Think of it as a pie. From the moment the project kicks off, multiple contractors,
-                  suppliers and agents all need to eat from it. Some are fair. Some are not.
-                  The greedy ones take more than their share early. and the business owner doesn&apos;t
-                  notice until quality drops at the back end and the budget is gone.
+                  Joe brings more than a decade of fit out, furniture and workplace experience.
+                  Today, you engage a growing team with distinct roles.
                 </p>
-                <p>
-                  Worse, leadership gets pulled away from the work that actually pays the bills to manage
-                  a process they were never equipped for.
-                </p>
-                <div className="border-l-4 border-teal pl-6 py-2 my-2">
-                  <p className="text-near-black font-medium">
-                    I started Your Office Space because I believed business owners deserved someone
-                    genuinely on their side. someone who gets in early, before the pie starts shrinking,
-                    creates a realistic budget, finds the right space on the right terms, and manages the
-                    whole thing from a position of trust and experience.
+                <div className="border-l-4 border-teal pl-6">
+                  <h3 className="text-near-black font-bold text-xl mb-3">One budget. Protect the whole picture.</h3>
+                  <p>
+                    Property costs, consultants, contractors and furniture draw from the same
+                    project budget. We keep the brief, budget and delivery connected so you can
+                    see the trade-offs before committing.
                   </p>
                 </div>
-                <p className="text-near-black font-black text-lg">
-                  One Team. One relationship. One outcome.
-                </p>
-                <p className="text-mid-grey text-xs font-medium tracking-wide">
-                 . Joe Kelley, Founder &amp; Managing Director
-                </p>
               </div>
             </FadeIn>
           </div>
         </div>
       </section>
-
-      {/* ─── TEAM ─────────────────────────────────────────── */}
-      <section className="bg-warm-grey" style={SEC}>
+      <section className="bg-warm-grey" style={SEC} aria-labelledby="team-heading">
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <SectionLabel>Meet the team</SectionLabel>
-            <h2 className="text-near-black font-black leading-tight tracking-tight mt-3 mb-12"
-              style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>
-              The people behind every deal.
+            <h2 id="team-heading" className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6"
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
+              Different roles. One accountable team.
             </h2>
+            <p className="text-charcoal leading-relaxed max-w-2xl mb-10">
+              By teaming up with Your Office Space, you engage an experienced team across
+              commercial property, workplace projects, furniture, cleaning and business support.
+            </p>
           </FadeIn>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-
-            {/* Joe */}
-            <FadeIn direction="left">
-              <div className="bg-white rounded-sm overflow-hidden flex flex-col border border-gray-200">
-
-                {/* Photo strip */}
-                <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
-                  <Image
-                    src="/team/joe-kelley.jpg"
-                    alt="Joe Kelley. Founder & Managing Director, Your Office Space"
-                    fill
-                    className="object-cover object-top"
-                  />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 55%)' }} />
-                  <div className="absolute bottom-0 left-0 right-0" style={{ padding: '2rem' }}>
-                    <h3 className="text-white font-black text-2xl leading-tight">Joe Kelley</h3>
-                    <p className="text-teal font-bold uppercase tracking-widest" style={{ fontSize: '0.65rem', marginTop: '0.35rem' }}>Founder &amp; Managing Director</p>
-                  </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {TEAM.map(member => (
+              <article key={member.name} className="bg-white rounded-sm overflow-hidden border border-gray-200">
+                <div className="relative aspect-[4/3] bg-warm-grey">
+                  {member.image ? (
+                    <Image src={member.image} alt={member.name} fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                      className="object-cover object-top" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center" aria-hidden="true">
+                      <span className="text-action-teal text-5xl font-semibold">{member.initials}</span>
+                    </div>
+                  )}
                 </div>
-
-                {/* Body */}
-                <div className="p-7 sm:p-8">
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
-                    Experience across commercial property, fit out and workplace strategy. Joe started Your Office Space because he believed business owners deserved clear advice and accountable coordination on their side of the table.
-                  </p>
+                <div style={{ padding: '1.5rem' }}>
+                  <h3 className="text-near-black font-bold text-xl">{member.name}</h3>
+                  <p className="text-action-teal font-semibold text-base mt-2">{member.title}</p>
+                  {member.description && <p className="text-charcoal leading-relaxed text-base mt-4">{member.description}</p>}
                 </div>
-
-                {/* Quote */}
-                <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
-                  <blockquote>
-                    <p className="text-mid-grey font-semibold leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
-                      &ldquo;I got into this because I watched too many good businesses get stitched up by leases they didn&apos;t fully understand. Every client I work with gets the same thing – straight advice, and someone who actually gives a damn about the outcome.&rdquo;
-                    </p>
-                  </blockquote>
-                </div>
-
-                {/* Tags */}
-                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-                  {['Commercial Property', 'Tenant Representation', 'Fit Out Strategy'].map(tag => (
-                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-sm border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
-                  ))}
-                </div>
-
-              </div>
-            </FadeIn>
-
-            {/* Sarah */}
-            <FadeIn direction="right" delay={100}>
-              <div className="bg-white rounded-sm overflow-hidden flex flex-col border border-gray-200">
-
-                {/* Photo strip */}
-                <div className="relative bg-near-black overflow-hidden" style={{ height: 'clamp(14rem,22vw,20rem)' }}>
-                  <Image
-                    src="/team/sarah-kelley.jpg"
-                    alt="Sarah Kelley. Cleaning Division Director, Your Office Space"
-                    fill
-                    className="object-cover object-top"
-                  />
-                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 55%)' }} />
-                  <div className="absolute bottom-0 left-0 right-0" style={{ padding: '2rem' }}>
-                    <h3 className="text-white font-black text-2xl leading-tight">Sarah Kelley</h3>
-                    <p className="text-teal font-bold uppercase tracking-widest" style={{ fontSize: '0.65rem', marginTop: '0.35rem' }}>Cleaning Division Director</p>
-                  </div>
-                </div>
-
-                {/* Body */}
-                <div className="p-7 sm:p-8">
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.9 }}>
-                    Sarah runs the commercial cleaning division from the ground up. She personally audits every site every month. not a clipboard exercise, a genuine check that standards are being met. If something isn&apos;t right, you hear from Sarah directly. Not a call centre.
-                  </p>
-                </div>
-
-                {/* Quote */}
-                <div style={{ margin: '0 clamp(1.75rem,4vw,2.5rem)', paddingTop: '2rem', paddingBottom: '2rem', borderTop: '1px solid rgba(0,0,0,0.07)' }}>
-                  <blockquote>
-                    <p className="text-mid-grey font-semibold leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.85 }}>
-                      &ldquo;The clients I love most are the ones who&apos;ve had a bad experience somewhere else. They know what a difference a reliable team makes. My standard is simple – if I wouldn&apos;t be happy with it, neither should you.&rdquo;
-                    </p>
-                  </blockquote>
-                </div>
-
-                {/* Tags */}
-                <div className="flex flex-wrap" style={{ gap: '0.5rem', padding: 'clamp(1.25rem,3vw,1.75rem) clamp(1.75rem,4vw,2.5rem)', background: '#F8F7F5', borderTop: '1px solid rgba(0,0,0,0.05)' }}>
-                  {['Commercial Offices', 'Medical & Childcare', 'Quality Assurance'].map(tag => (
-                    <span key={tag} className="text-mid-grey font-semibold uppercase tracking-wider bg-white rounded-sm border border-gray-200" style={{ fontSize: '0.65rem', padding: '0.35rem 0.75rem' }}>{tag}</span>
-                  ))}
-                </div>
-
-              </div>
-            </FadeIn>
-
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -323,7 +226,7 @@ export default function AboutPage() {
             <SectionLabel>Independent feedback</SectionLabel>
             <h2 id="reviews-heading" className="text-near-black font-black leading-tight tracking-tight mt-3 mb-5"
               style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
-              What clients say about working with Joe.
+              Feedback from people we have worked with.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-10 max-w-3xl">
               Independent feedback from people who have worked with Joe and Your Office Space.

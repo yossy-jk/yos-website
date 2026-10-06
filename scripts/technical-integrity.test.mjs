@@ -59,3 +59,12 @@ test('default social and schema assets exist', async () => {
   await access(new URL('../public/og/og-default.png', import.meta.url))
   await access(new URL('../public/brand/yos-logo-black.png', import.meta.url))
 })
+
+test('capability video is controlled, opt-in and below the hero and service choices', async () => {
+  assert.match(home, /<video controls playsInline preload="none"/)
+  assert.doesNotMatch(home, /<video[^>]*autoPlay/)
+  assert.ok(home.indexOf('capability-video-heading') > home.indexOf('home-service-choice'))
+  for (const asset of ['videos/yos-one-team.mp4', 'videos/yos-one-team-poster.jpg', 'team/frank-smith.webp', 'team/mary-jenkins.webp']) {
+    await access(new URL(`../public/${asset}`, import.meta.url))
+  }
+})

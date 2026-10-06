@@ -37,6 +37,12 @@ async function internalHrefTargets() {
 }
 
 async function routeExists(target) {
+  // Public assets, including video downloads, are valid internal link targets.
+  try {
+    if ((await stat(new URL(`../public${target}`, import.meta.url))).isFile()) return true
+  } catch {
+    // Continue to application and content-backed route checks.
+  }
   const pagePath = target === '/'
     ? new URL('page.tsx', appRoot)
     : new URL(`.${target}/page.tsx`, appRoot)

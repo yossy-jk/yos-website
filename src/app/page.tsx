@@ -58,7 +58,7 @@ const services = [
   { label: 'Find It', title: 'Lease or buy', copy: 'Tenant-side property advice.', href: '/tenant-rep', image: '/images/furniture/space-cogc-office.jpg' },
   { label: 'Fit It Out', title: 'Plan and deliver', copy: 'Client-side project management.', href: '/office-fitout', image: '/images/furniture/space-wsi-openplan.jpg' },
   { label: 'Furnish It', title: 'Source, supply and install', copy: 'Commercial furniture, end to end.', href: '/furniture', image: '/images/furniture/dbt-boardroom.jpg' },
-  { label: 'Look After It', title: 'Commercial Cleaning', copy: 'Reliable ongoing workplace care.', href: '/cleaning', image: '/images/furniture/space-liverpool-b.jpg' },
+  { label: 'Flourish It', title: 'Commercial Cleaning', copy: 'Reliable ongoing workplace care.', href: '/cleaning', image: '/images/furniture/space-liverpool-b.jpg' },
 ]
 
 const clientLogos = [
@@ -74,7 +74,7 @@ const showcases = [
   { eyebrow: 'Find It', title: 'Make the property decision with someone on your side.', copy: 'Lease or buy with a clear brief, market evidence and the commercial trade-offs explained before you commit.', points: ['Tenant representation across NSW', 'Commercial Buyers Agent support', 'Structure Ready and Finance Ready pathways'], href: '/tenant-rep', cta: 'Explore property services', image: '/images/furniture/space-cogc-office.jpg', alt: 'Contemporary commercial office used to illustrate property selection' },
   { eyebrow: 'Fit It Out', title: 'Keep the brief, budget and delivery connected.', copy: 'YOS acts as your client-side project manager, coordinating the specialist team while protecting your priorities.', points: ['Brief and preliminary budget', 'Design and procurement coordination', 'Programme, risk and handover oversight'], href: '/office-fitout', cta: 'See the FitOut process', image: '/images/furniture/space-wsi-openplan.jpg', alt: 'Completed open-plan commercial workplace' },
   { eyebrow: 'Furnish It', title: 'Source, supply and install for the people in the space.', copy: 'From one boardroom to a complete workplace, we coordinate selection, supply, delivery and installation.', points: ['Workstations and seating', 'Meeting, storage and breakout spaces', 'Australia-wide supply and installation'], href: '/furniture', cta: 'Explore commercial furniture', image: '/images/furniture/dbt-boardroom.jpg', alt: 'Commercial boardroom furniture installation' },
-  { eyebrow: 'Look After It', title: 'A clean workplace without chasing anyone.', copy: 'Commercial cleaning across Newcastle CBD and Lake Macquarie, with a clear scope and monthly quality assurance.', points: ['Quote after a site inspection', 'Same cleaning team wherever possible', 'Monthly quality assurance'], href: '/cleaning', cta: 'Get a cleaning quote', image: '/images/furniture/space-liverpool-b.jpg', alt: 'Clean and ready commercial workplace' },
+  { eyebrow: 'Flourish It', title: 'A clean workplace without chasing anyone.', copy: 'Commercial cleaning across Newcastle CBD and Lake Macquarie, with a clear scope and monthly quality assurance.', points: ['Quote after a site inspection', 'Same cleaning team wherever possible', 'Monthly quality assurance'], href: '/cleaning', cta: 'Get a cleaning quote', image: '/images/furniture/space-liverpool-b.jpg', alt: 'Clean and ready commercial workplace' },
 ]
 
 const reviews = [
@@ -101,6 +101,16 @@ export default function Home() {
       </section>
 
       <section className="home-service-choice" aria-labelledby="service-choice-heading"><div className="site-container"><div className="home-service-choice-heading"><p className="home-eyebrow">Start with what you need</p><h2 id="service-choice-heading">Four ways we can help.</h2></div><div className="home-service-grid" aria-label="Our services">{services.map((service, index) => <FadeIn key={service.label} delay={index * 70}><Link href={service.href} className="home-service-card"><span className="home-service-number">0{index + 1}</span><span className="home-service-content"><span className="home-service-label">{service.label}</span><strong>{service.title}</strong><span>{service.copy}</span><span className="home-card-arrow" aria-hidden="true">→</span></span></Link></FadeIn>)}</div></div></section>
+
+      <section aria-labelledby="capability-video-heading" style={{ padding: 'clamp(2rem, 5vw, 4rem) 0', background: '#F5F5F5' }}>
+        <div className="site-container">
+          <h2 id="capability-video-heading" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, marginBottom: '1.5rem' }}>One team, from lease to move-in.</h2>
+          <video controls playsInline preload="none" poster="/videos/yos-one-team-poster.jpg" aria-label="Your Office Space capability video, one team from lease to move-in" style={{ width: '100%', aspectRatio: '16 / 9', display: 'block', background: '#191919', borderRadius: '0.5rem' }}>
+            <source src="/videos/yos-one-team.mp4" type="video/mp4" />
+            Your browser does not support video. <a href="/videos/yos-one-team.mp4">Watch the capability video</a>.
+          </video>
+        </div>
+      </section>
 
       <section className="home-capability"><div className="site-container home-capability-inner"><div><p className="home-eyebrow">See how we work</p><h2>Review our capability before we talk.</h2><p>Our services, approach and the sectors we support—in one concise document.</p></div><CapabilityDownload label="Download capability statement" variant="primary" /></div></section>
 
