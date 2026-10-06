@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "node --test scripts/next-root-glob.test.mjs && eslint",
     "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links",
     "test:credential-scan": "node --test scripts/scan-source-credentials.test.mjs",
     "test:download-token": "node --test src/lib/download-token.test.mjs",
@@ -61,6 +61,7 @@
     "typescript": "5.9.3"
   },
   "overrides": {
+    "fast-glob": "file:vendor/next-root-glob",
     "minimatch@3.1.5": {
       "brace-expansion": "1.1.21"
     },
