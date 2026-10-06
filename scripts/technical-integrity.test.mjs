@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict'
 import { access, readFile } from 'node:fs/promises'
 import test from 'node:test'
+import './favicon-integrity.test.mjs'
+import './reviews-integrity.test.mjs'
 
 const layout = await readFile(new URL('../src/app/layout.tsx', import.meta.url), 'utf8')
 const scrollManager = await readFile(new URL('../src/components/ScrollManager.tsx', import.meta.url), 'utf8')
@@ -58,4 +60,13 @@ test('brand logos preserve their real aspect ratio and footer padding remains bo
 test('default social and schema assets exist', async () => {
   await access(new URL('../public/og/og-default.png', import.meta.url))
   await access(new URL('../public/brand/yos-logo-black.png', import.meta.url))
+})
+
+test('capability video is controlled, opt-in and below the hero and service choices', async () => {
+  assert.match(home, /<video controls playsInline preload="none"/)
+  assert.doesNotMatch(home, /<video[^>]*autoPlay/)
+  assert.ok(home.indexOf('capability-video-heading') > home.indexOf('home-service-choice'))
+  for (const asset of ['videos/yos-one-team.mp4', 'videos/yos-one-team-poster.jpg', 'team/frank-smith.webp', 'team/mary-jenkins.webp']) {
+    await access(new URL(`../public/${asset}`, import.meta.url))
+  }
 })

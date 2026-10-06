@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-32.png', sizes: '32x32' },
-      { url: '/favicon-192.png', sizes: '192x192' },
+      { url: '/favicon.ico?v=yos-oct06', sizes: 'any' },
+      { url: '/favicon-32.png?v=yos-oct06', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-192.png?v=yos-oct06', sizes: '192x192', type: 'image/png' },
     ],
-    apple: '/apple-touch-icon.png',
+    apple: '/apple-touch-icon.png?v=yos-oct06',
   },
   title: "Your Office Space | Find It, Fit It Out and Furnish It",
   description: "Lease or buy the right commercial space, then coordinate the FitOut, furniture and ongoing workplace services with one team on your side.",
