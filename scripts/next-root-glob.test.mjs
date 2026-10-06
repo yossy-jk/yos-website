@@ -7,7 +7,7 @@ const adapter = require('../vendor/next-root-glob/index.cjs');
 const pluginRequire = createRequire(require.resolve('@next/eslint-plugin-next'));
 test('replacement has exactly the reviewed Next consumer and version', () => {
   const lock = JSON.parse(readFileSync(new URL('../package-lock.json', import.meta.url)));
-  const consumers = Object.entries(lock.packages).filter(([, pkg]) => pkg.dependencies?.['fast-glob']);
+  const consumers = Object.entries(lock.packages).filter(([path, pkg]) => path && pkg.dependencies?.['fast-glob']);
   assert.deepEqual(consumers.map(([path]) => path), ['node_modules/@next/eslint-plugin-next']);
   assert.equal(consumers[0][1].version, '16.3.7');
 });
