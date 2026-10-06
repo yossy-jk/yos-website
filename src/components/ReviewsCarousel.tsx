@@ -24,9 +24,9 @@ export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
           <span className="text-sm text-charcoal">{active + 1} of {reviews.length}</span>
         </div>
         <blockquote className="mt-8 text-2xl font-semibold leading-relaxed text-near-black sm:text-3xl">“{review.quote}”</blockquote>
-        <figcaption className="mt-8 flex items-center justify-between gap-5 border-t border-black/10 pt-6">
-          <span><strong className="block text-lg text-near-black">{review.name}</strong><span className="mt-1 block text-charcoal">{review.organisation}</span></span>
-          {review.logo && <Image src={review.logo} alt={`${review.organisation} logo`} width={150} height={54} className="h-12 w-auto max-w-36 object-contain" />}
+        <figcaption className="mt-8 flex items-center justify-between gap-5 border-t border-black/10 pt-6" style={{ flexWrap: 'wrap' }}>
+          <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}><strong className="block text-lg text-near-black">{review.name}</strong><span className="mt-1 block text-charcoal">{review.organisation}</span></span>
+          {review.logo && <Image src={review.logo} alt={`${review.organisation} logo`} width={150} height={54} style={{ width: '144px', maxWidth: '100%', height: 'auto', maxHeight: '48px', objectFit: 'contain' }} />}
         </figcaption>
       </figure>
       <div className="mt-6 flex items-center justify-center gap-3">
