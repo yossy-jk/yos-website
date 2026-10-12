@@ -6,7 +6,7 @@ const sitemapResponse = await fetch(`${base}/sitemap.xml`)
 if (!sitemapResponse.ok) throw new Error('Sitemap cannot be fetched')
 const xml = await sitemapResponse.text()
 const sitemapUrls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1].replaceAll('&amp;', '&'))
-const additional = ['/resources/lease-vs-buy', '/resources/stamp-duty-calculator', '/resources/rental-yield-calculator', '/resources/cap-rate-calculator', '/resources/land-tax-calculator', '/resources/purchase-checklist', '/blog/commercial-property-stamp-duty-australia-guide', '/dashboard/login', '/wholesale']
+const additional = ['/resources/lease-vs-buy', '/resources/stamp-duty-calculator', '/resources/rental-yield-calculator', '/resources/cap-rate-calculator', '/resources/land-tax-calculator', '/resources/purchase-checklist', '/blog/commercial-property-stamp-duty-australia-guide', '/dashboard/login', '/wholesale', '/tenant-rep/brief/seo-audit-invalid-token']
 const paths = [...new Set([...sitemapUrls.map(url => new URL(url).pathname), ...additional])]
 const executablePath = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'].find(existsSync)
 const browser = await puppeteer.launch({headless: true, ...(executablePath ? {executablePath} : {}), args: ['--no-sandbox']})
@@ -35,6 +35,16 @@ try {
     return results
   }, paths)
   const failures=[]
+  const redirects = { '/eof-group': '/about', '/eof-group/furniture': '/furniture', '/eof-group/tenant-representation': '/tenant-rep', '/eof-group/lease-review': '/lease-review', '/eof-group/newcastle': '/newcastle-commercial-property' }
+  for (const [source, destination] of Object.entries(redirects)) {
+    const response = await fetch(`${base}${source}`, {redirect: 'manual'})
+    const target = new URL(response.headers.get('location') || '/', base).pathname
+    if (![301,308].includes(response.status) || target !== destination) failures.push(`${source}: expected permanent redirect to ${destination}`)
+  }
+  for (const image of new Set(rows.map(row => row.ogImage).filter(image => image.startsWith(site)))) {
+    const response = await fetch(image.replace(site, base), {method: 'HEAD'})
+    if (!response.ok) failures.push(`Missing social image: ${image}`)
+  }
   const indexed=rows.filter(r=>!r.robots.includes('noindex'))
   for (const row of rows) {
     if(row.status!==200) failures.push(`${row.path}: HTTP ${row.status}`)
