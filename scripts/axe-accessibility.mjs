@@ -13,6 +13,7 @@ const routes = [
   '/',
   '/about',
   '/tenant-rep',
+  '/cleaning',
   '/newcastle-commercial-property',
   '/buyers-agency',
   '/resources',

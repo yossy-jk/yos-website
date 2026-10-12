@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import { readFileSync, existsSync } from 'node:fs'
 
 const page = readFileSync(new URL('../src/app/page.tsx', import.meta.url), 'utf8')
-const reviews = page.split('const reviews = [')[1].split('\n]')[0]
+const reviews = readFileSync(new URL('../src/lib/client-reviews.ts', import.meta.url), 'utf8')
 test('homepage includes all eight owner-supplied reviewers and distinct original review links', () => {
   for (const name of ['Beth Gwalter', 'Olivia Crawford', 'Mitch Peck', 'Nathan Franks', 'Liz Murray', 'Jason Dowdall', 'Sophie Collinson', 'Kristy Cashman']) assert.ok(reviews.includes(`name: '${name}'`), name)
   const sources = [...reviews.matchAll(/source: '(https:\/\/share.google\/[^']+)'/g)].map(match => match[1])

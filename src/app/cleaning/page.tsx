@@ -13,8 +13,12 @@ const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5re
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 import FadeIn from '@/components/FadeIn'
-import HubSpotForm from '@/components/HubSpotForm'
+import ContactForm from '@/components/ContactForm'
+import ReviewsCarousel from '@/components/ReviewsCarousel'
+import { CLIENT_REVIEWS } from '@/lib/client-reviews'
 import ServiceFaq from '@/components/ServiceFaq'
+
+const CLEANING_REVIEWS = [...CLIENT_REVIEWS].sort((a, b) => Number(b.name === 'Sophie Collinson') - Number(a.name === 'Sophie Collinson'))
 
 const CLEANING_FAQS = [
   { question: 'How is commercial cleaning priced?', answer: 'Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal.' },
@@ -99,11 +103,11 @@ export default function CleaningPage() {
           </FadeIn>
           <FadeIn delay={300}>
             <div className="flex flex-row flex-wrap gap-4 items-center">
-              <Button href="#cleaning-quote-form" variant="primary" size="lg">
+              <a href="#cleaning-quote-form" className="cleaning-quote-button bg-teal text-white no-underline hover:bg-dark-teal">
                 Get a cleaning quote
-              </Button>
-              <a href="/contact?service=cleaning"
-                className="inline-flex min-h-14 min-w-40 items-center justify-center gap-2 rounded-lg border-2 border-white/70 px-8 py-4 text-white font-bold no-underline transition hover:-translate-y-0.5 hover:bg-white/10 hover:border-white motion-reduce:transform-none"
+              </a>
+              <a href="#cleaning-quote-form"
+                className="cleaning-quote-button inline-flex min-h-14 min-w-40 items-center justify-center gap-2 rounded-lg border-2 border-white/70 px-8 py-4 text-white font-bold no-underline transition hover:-translate-y-0.5 hover:bg-white/10 hover:border-white motion-reduce:transform-none"
                 style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
                 Enquire
               </a>
@@ -144,6 +148,15 @@ export default function CleaningPage() {
               Cleaning scopes are documented around the site, access requirements, service frequency and agreed quality checks.
             </p>
           </FadeIn>
+        </div>
+      </section>
+
+      <section className="bg-warm-grey cleaning-reviews" style={SEC_SM} aria-labelledby="cleaning-reviews-heading">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <SectionLabel>Client feedback</SectionLabel>
+          <h2 id="cleaning-reviews-heading" className="text-near-black font-bold" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)', marginTop: '1rem' }}>What businesses say about YOS.</h2>
+          <p className="text-charcoal leading-relaxed" style={{ marginTop: '1rem', maxWidth: '44rem' }}>Feedback from clients across our workplace services, starting with commercial cleaning.</p>
+          <ReviewsCarousel reviews={CLEANING_REVIEWS} />
         </div>
       </section>
 
@@ -334,13 +347,12 @@ export default function CleaningPage() {
       </section>
 
       {/* INLINE QUOTE FORM */}
-      <section className="bg-near-black" style={SEC}>
-        <FadeIn>
+      <section id="cleaning-enquiry" aria-labelledby="cleaning-quote-heading" className="bg-near-black cleaning-enquiry" style={{ ...SEC, scrollMarginTop: '6rem' }}>
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
               <div>
                 <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Get a Quote</p>
-                <h2 className="text-white font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}>
+                <h2 id="cleaning-quote-heading" className="text-white font-bold leading-tight mb-5" style={{ fontSize: 'clamp(1.75rem, 4vw, 3rem)' }}>
                   Tell us about your space.
                 </h2>
                 <p className="text-white/60 font-light leading-relaxed mb-8" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
@@ -352,12 +364,13 @@ export default function CleaningPage() {
                   ))}
                 </div>
               </div>
-              <div className="bg-warm-grey rounded-sm p-7 sm:p-10">
-                <HubSpotForm formId="b1a300a1-c032-486e-a04d-308d140da948" targetId="cleaning-quote-form" />
+              <div id="cleaning-quote-form" tabIndex={-1} aria-labelledby="cleaning-form-heading" className="bg-white rounded-2xl cleaning-enquiry-card" style={{ padding: 'clamp(1.25rem,3vw,2.5rem)', scrollMarginTop: '6rem' }}>
+                <h3 id="cleaning-form-heading" className="text-near-black font-bold text-xl" style={{ marginBottom: '1rem' }}>Request a cleaning quote.</h3>
+                <p className="text-charcoal leading-relaxed" style={{ marginBottom: '1.5rem' }}>Leave your details and tell us what needs cleaning. We will confirm the site requirements and arrange the next step.</p>
+                <ContactForm initialService="Cleaning" fixedService submitLabel="Request a cleaning quote" messagePlaceholder="Office address, approximate size, preferred cleaning frequency and access times..." />
               </div>
             </div>
           </div>
-        </FadeIn>
       </section>
 
       <ServiceFaq heading="Clear answers before your first clean." items={CLEANING_FAQS} />
@@ -376,11 +389,11 @@ export default function CleaningPage() {
                 Start with a site quote or send an enquiry. We&apos;ll confirm the scope before any service begins.
               </p>
               <div className="flex flex-col sm:flex-row flex-wrap gap-4 items-center justify-center">
-                <Button href="#cleaning-quote-form" variant="dark" size="lg">
+                <a href="#cleaning-quote-form" className="cleaning-quote-button bg-near-black text-white no-underline hover:bg-charcoal">
                   Get a cleaning quote
-                </Button>
-                <a href="/contact?service=cleaning"
-                  className="inline-flex items-center gap-2 text-white font-bold border border-white/30 rounded-none px-6 py-3 no-underline hover:border-white transition-colors"
+                </a>
+                <a href="#cleaning-quote-form"
+                  className="cleaning-quote-button inline-flex items-center gap-2 text-white font-bold border border-white/30 rounded-none px-6 py-3 no-underline hover:border-white transition-colors"
                   style={{ fontSize: 'clamp(0.85rem,1.5vw,1rem)', letterSpacing: '0.02em' }}>
                   Enquire
                 </a>

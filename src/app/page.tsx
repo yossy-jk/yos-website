@@ -1,3 +1,4 @@
+import { CLIENT_REVIEWS } from '@/lib/client-reviews'
 import FlourishServices from '@/components/FlourishServices'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -73,16 +74,7 @@ const showcases = [
   { eyebrow: 'Flourish It', title: 'A clean workplace without chasing anyone.', copy: 'Commercial cleaning across Newcastle CBD and Lake Macquarie, with a clear scope and monthly quality assurance.', points: ['Quote after a site inspection', 'Same cleaning team wherever possible', 'Monthly quality assurance'], href: '/cleaning', cta: 'Get a cleaning quote', image: '/images/furniture/space-liverpool-b.jpg', alt: 'Clean and ready commercial workplace' },
 ]
 
-const reviews = [
-  { quote: 'For us, it meant we could stay focused on our core business while knowing the property side was being properly managed.', name: 'Beth Gwalter', organisation: 'Recovery Station', logo: '/images/relationships/recovery-station.jpg', source: 'https://share.google/0lpk1QW50JwpUsbRu' },
-  { quote: 'They are incredibly professional, reliable, and always go above and beyond to meet our needs.', name: 'Olivia Crawford', organisation: 'Australian Aboriginal Child and Family Services', logo: '/client-logos/aacafs.png', source: 'https://share.google/HidAuZX3Bc0ZYK31x' },
-  { quote: 'Communication was clear, lead times were accurate, and the product quality exceeded expectations.', name: 'Mitch Peck', organisation: 'Get Leveled Flooring', logo: '/client-logos/get-leveled-flooring.jpeg', source: 'https://share.google/vpstmI6eEJQYV0x2A' },
-  { quote: 'His advice was practical, his attention to detail excellent, and the end result both functional and professional.', name: 'Nathan Franks', organisation: 'Dynamic Business Technologies', logo: '/client-logos/dynamic-business-technologies.jpg', source: 'https://share.google/sdMxxcSIOrRfm1U4R' },
-  { quote: 'He asks thoughtful questions and builds genuine, lasting relationships based on consistent two-way communication.', name: 'Liz Murray', organisation: 'Edge of Possibilities', logo: '/client-logos/edge-of-possibilities.png', source: 'https://share.google/XPIrLkixCGQSgHtSY' },
-  { quote: 'Joe and the team at YOS are incredible to work with.', name: 'Jason Dowdall', organisation: 'Total Fitouts', logo: '/client-logos/total-fitouts.webp', logoBackground: 'dark' as const, source: 'https://share.google/X2lSU9zQVaHDtDd0r' },
-  { quote: 'They are reliable and consistent, and go above and beyond to make sure all our cleaning needs are met.', name: 'Sophie Collinson', organisation: 'Jirsch Sutherland', logo: '/client-logos/jirsch-sutherland.jpg', source: 'https://share.google/HXVrtRaWPBmZm0aEh' },
-  { quote: 'Excellent service, reliable staff. We had an all-round exceptional experience and would definitely recommend', name: 'Kristy Cashman', organisation: 'ConnectAbility', logo: null, source: 'https://share.google/bnY6KlPoFhDbjOrA7' },
-]
+const reviews = CLIENT_REVIEWS
 
 export default function Home() {
   return <>
