@@ -192,7 +192,7 @@ export default function FurnitureQuotePage() {
               </FadeIn>
             ) : (
               <FadeIn>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form id="furniture-quote-form" tabIndex={-1} aria-label="Furniture quote request" onSubmit={handleSubmit} className="space-y-6">
                   {/* Name + Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>

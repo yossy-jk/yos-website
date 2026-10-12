@@ -309,10 +309,12 @@ export default function LeaseIntelPage() {
         </div>
       </section>
 
+      <div style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}><BookingCTA label="Enquire" href="/contact?service=leasing#contact-enquiry" /></div>
+
       </main>
 
       <Footer />
-      <BookingCTA label="Enquire" />
+
     </>
   )
 }

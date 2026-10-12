@@ -56,14 +56,14 @@ export default function FlourishPage() {
         </div>
       </section>
       <ServiceFaq heading="Flourish: your questions answered." items={FAQS} />
-      <section id="flourish-enquiry" className="bg-warm-grey py-16 md:py-24 scroll-mt-24">
+      <section className="bg-warm-grey py-16 md:py-24 scroll-mt-24">
         <div className="yos-container grid gap-10 lg:grid-cols-2 lg:gap-20">
           <div>
             <p className="text-action-teal font-semibold uppercase tracking-widest text-sm">One clear starting point</p>
             <h2 className="text-near-black text-3xl md:text-4xl font-bold mt-4">What does your workplace need next?</h2>
             <p className="text-charcoal leading-relaxed mt-6">Tell us your address, preferred service and what you want to improve. We confirm the appropriate scope, availability and pricing before any booking.</p>
           </div>
-          <div className="bg-white rounded-2xl border border-black/10 p-6 md:p-8"><ContactForm initialService="Not sure" /></div>
+          <div id="flourish-enquiry" tabIndex={-1} aria-label="Workplace enquiry form" className="bg-white rounded-2xl border border-black/10 p-6 md:p-8"><ContactForm initialService="Not sure" /></div>
         </div>
       </section>
     </main>

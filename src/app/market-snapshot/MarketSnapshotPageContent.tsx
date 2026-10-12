@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import BookingCTA from '@/components/BookingCTA'
 import Link from 'next/link'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
@@ -458,11 +457,13 @@ export default function MarketSnapshotPageContent({
         </div>
       </section>
 
+      <div style={{ textAlign: 'center', padding: '1.5rem' }}><button type="button" onClick={openPopup} className="bg-teal text-near-black rounded-lg font-bold" style={{ padding: '1rem 2rem' }}>Get Monthly Market Updates</button></div>
+
       </main>
 
       <Footer />
 
-      <BookingCTA label="Get Monthly Market Updates" />
+
 
       {/* ── Popup ────────────────────────────────────────── */}
       {popupOpen && <RegistrationPopup onClose={closePopup} />}

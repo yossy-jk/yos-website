@@ -63,9 +63,7 @@ export default function SpacePlannerPage() {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
               <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center' }}>
-                Enquire
-              </a>
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center' }}>Book a call</a>
               <a href="/furniture"
                 className="text-white/50 no-underline hover:text-white transition-colors"
                 style={{ fontSize: '0.85rem', letterSpacing: '0.05em' }}>
@@ -121,9 +119,7 @@ export default function SpacePlannerPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', alignItems: 'center' }}>
                 <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
                   className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
-                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center', width: '100%', maxWidth: '20rem', justifyContent: 'center' }}>
-                  Enquire
-                </a>
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center', width: '100%', maxWidth: '20rem', justifyContent: 'center' }}>Book a call</a>
                 <a href="tel:0240920733"
                   style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
                   (02) 4092 0733
@@ -138,10 +134,12 @@ export default function SpacePlannerPage() {
         </div>
       </section>
 
+      <div style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}><BookingCTA href="/contact?service=furniture#contact-enquiry" /></div>
+
       </main>
 
       <Footer />
-      <BookingCTA />
+
     </>
   )
 }

@@ -45,7 +45,7 @@ export default function BuyersAgencyPage() {
       <FadeIn><SectionLabel>Commercial Buyers Agent · NSW</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Buy the right commercial property, with someone on your side.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We represent commercial buyers in NSW, turning the business objective into a clear property brief and coordinating the search, evidence, professional advice and negotiation before you commit.</p></FadeIn>
-      <FadeIn delay={220}><Button href="/contact?service=buying" variant="primary" size="lg">Enquire</Button></FadeIn>
+      <FadeIn delay={220}><Button href="/contact?service=buying#contact-enquiry" variant="primary" size="lg">Enquire</Button></FadeIn>
     </div></section>
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
@@ -67,7 +67,7 @@ export default function BuyersAgencyPage() {
 
     <ServiceFaq items={FAQS} />
 
-    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Start with the business objective.</h2><Button href="/contact?service=buying" variant="dark" size="lg">Enquire</Button></div></section>
+    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Start with the business objective.</h2><Button href="/contact?service=buying#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
   <ServiceArticle slug="buying-business-premises-five-year-fit" />
       </main><Footer /></>
 }

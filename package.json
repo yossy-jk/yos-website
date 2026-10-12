@@ -26,10 +26,11 @@
     "scan:credentials": "node scripts/scan-source-credentials.mjs",
     "check:brand": "node scripts/check-brand-v11.mjs",
     "audit:dependencies": "node scripts/audit-dependencies.mjs",
-    "check": "npm test && npm run scan:credentials && npm run check:brand && npm run lint && npm run audit:dependencies && npm run build && npm run test:responsive && npm run test:axe && npm run test:cleaning-enquiry",
+    "check": "npm test && npm run scan:credentials && npm run check:brand && npm run lint && npm run audit:dependencies && npm run build && npm run test:responsive && npm run test:axe && npm run test:cleaning-enquiry && npm run test:button-destinations",
     "test:seo": "node scripts/seo-integrity.mjs",
     "test:sitemap-content": "node --no-warnings --experimental-strip-types --test src/lib/sitemap-content.test.ts",
-    "test:cleaning-enquiry": "node scripts/cleaning-enquiry.mjs"
+    "test:cleaning-enquiry": "node scripts/cleaning-enquiry.mjs",
+    "test:button-destinations": "node scripts/button-destinations.mjs"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",

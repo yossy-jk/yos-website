@@ -71,7 +71,7 @@ const showcases = [
   { eyebrow: 'Find It', title: 'Make the property decision with someone on your side.', copy: 'Lease or buy with a clear brief, market evidence and the commercial trade-offs explained before you commit.', points: ['Tenant representation across NSW', 'Commercial Buyers Agent support', 'Structure Ready and Finance Ready pathways'], href: '/tenant-rep', cta: 'Explore property services', image: '/images/furniture/space-cogc-office.jpg', alt: 'Contemporary commercial office used to illustrate property selection' },
   { eyebrow: 'Fit It Out', title: 'Keep the brief, budget and delivery connected.', copy: 'YOS acts as your client-side project manager, coordinating the specialist team while protecting your priorities.', points: ['Brief and preliminary budget', 'Design and procurement coordination', 'Programme, risk and handover oversight'], href: '/office-fitout', cta: 'See the FitOut process', image: '/images/furniture/space-wsi-openplan.jpg', alt: 'Completed open-plan commercial workplace' },
   { eyebrow: 'Furnish It', title: 'Source, supply and install for the people in the space.', copy: 'From one boardroom to a complete workplace, we coordinate selection, supply, delivery and installation.', points: ['Workstations and seating', 'Meeting, storage and breakout spaces', 'Australia-wide supply and installation'], href: '/furniture', cta: 'Explore commercial furniture', image: '/images/furniture/dbt-boardroom.jpg', alt: 'Commercial boardroom furniture installation' },
-  { eyebrow: 'Flourish It', title: 'A clean workplace without chasing anyone.', copy: 'Commercial cleaning across Newcastle CBD and Lake Macquarie, with a clear scope and monthly quality assurance.', points: ['Quote after a site inspection', 'Same cleaning team wherever possible', 'Monthly quality assurance'], href: '/cleaning', cta: 'Get a cleaning quote', image: '/images/furniture/space-liverpool-b.jpg', alt: 'Clean and ready commercial workplace' },
+  { eyebrow: 'Flourish It', title: 'A clean workplace without chasing anyone.', copy: 'Commercial cleaning across Newcastle CBD and Lake Macquarie, with a clear scope and monthly quality assurance.', points: ['Quote after a site inspection', 'Same cleaning team wherever possible', 'Monthly quality assurance'], href: '/cleaning#cleaning-quote-form', cta: 'Get a cleaning quote', image: '/images/furniture/space-liverpool-b.jpg', alt: 'Clean and ready commercial workplace' },
 ]
 
 const reviews = CLIENT_REVIEWS
@@ -89,7 +89,7 @@ export default function Home() {
             <p className="home-eyebrow home-eyebrow-light">One team for your workplace</p>
             <h1>{primaryTagline}</h1>
             <p className="home-hero-copy text-white/85">We help businesses lease or buy their next commercial space, then coordinate the FitOut and furniture. Commercial cleaning is available across Newcastle CBD and Lake Macquarie.</p>
-            <div className="home-actions"><Link href="/contact" className="home-button home-button-primary">Enquire</Link><Link href="/resources/fitout-estimator" className="home-button home-button-ghost">Estimate your FitOut</Link></div>
+            <div className="home-actions"><Link href="/contact#contact-enquiry" className="home-button home-button-primary">Enquire</Link><Link href="/resources/fitout-estimator" className="home-button home-button-ghost">Estimate your FitOut</Link></div>
           </FadeIn>
         </div>
       </section>
@@ -122,7 +122,7 @@ export default function Home() {
 
       <section className="home-estimator"><div className="site-container home-estimator-inner"><FadeIn><p className="home-eyebrow">FitOut estimator</p><h2>What could your FitOut cost?</h2><p>Build an indicative range in about two minutes and bring the result into a preliminary budget conversation.</p></FadeIn><Link href="/resources/fitout-estimator" className="home-button home-button-dark">Estimate your FitOut</Link></div></section>
 
-      <section className="home-final"><div className="site-container home-final-grid"><div className="home-final-image"><Image src="/images/furniture/dbt-boardroom.jpg" alt="Finished commercial boardroom and furniture installation" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" /></div><FadeIn><div><p className="home-eyebrow home-eyebrow-light">Clear next step</p><h2>Tell us what your workplace needs next.</h2><p>Property, FitOut, furniture or commercial cleaning—start with the outcome you need.</p><Link href="/contact" className="home-button home-button-primary">Enquire</Link></div></FadeIn></div></section>
+      <section className="home-final"><div className="site-container home-final-grid"><div className="home-final-image"><Image src="/images/furniture/dbt-boardroom.jpg" alt="Finished commercial boardroom and furniture installation" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" /></div><FadeIn><div><p className="home-eyebrow home-eyebrow-light">Clear next step</p><h2>Tell us what your workplace needs next.</h2><p>Property, FitOut, furniture or commercial cleaning—start with the outcome you need.</p><Link href="/contact#contact-enquiry" className="home-button home-button-primary">Enquire</Link></div></FadeIn></div></section>
     </main>
     <Footer />
   </>

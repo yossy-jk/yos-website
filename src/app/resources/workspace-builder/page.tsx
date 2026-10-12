@@ -1032,7 +1032,7 @@ function ResultsContent({
 
       {/* Actions */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem', marginBottom: '2rem' }}>
-        <Link href="/contact"
+        <Link href="/contact?service=furniture#contact-enquiry"
           className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] text-center"
           style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
           Get a full quote from YOS →

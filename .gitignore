@@ -48,3 +48,5 @@ credentials/
 
 # Cleaning enquiry browser-test evidence
 /screenshots/cleaning-enquiry/
+
+/screenshots/button-audit/

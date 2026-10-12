@@ -6,7 +6,6 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
 
 export const metadata: Metadata = withPageSeo({
   title: 'Tenant Rep Newcastle | Tenant Representation Newcastle NSW',
@@ -92,9 +91,7 @@ export default function TenantRepNewcastlePage() {
           </FadeIn>
           <FadeIn delay={300}>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                Enquire
-              </Button>
+              <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">Enquire</Button>
               <Button href="/lease-review" variant="outline" size="lg">
                 Request a Lease Review
               </Button>
@@ -343,9 +340,7 @@ export default function TenantRepNewcastlePage() {
                     does this protect the tenant? Every negotiation has one outcome: the best deal for the business signing the lease.
                   </p>
                 </div>
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
-                  Enquire
-                </Button>
+                <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">Enquire</Button>
               </div>
             </FadeIn>
 
@@ -415,9 +410,7 @@ export default function TenantRepNewcastlePage() {
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
                 A focused conversation about your space, your situation and the decision in front of you.
               </p>
-              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Enquire
-              </Button>
+              <Button href="/contact?service=leasing#contact-enquiry" variant="dark" size="lg">Enquire</Button>
               <p className="text-white/50 font-light mt-6" style={{ fontSize: '0.8rem' }}>
                 Newcastle &amp; Hunter &nbsp;|&nbsp; (02) 4092 0733 &nbsp;|&nbsp; jk@yourofficespace.au
               </p>

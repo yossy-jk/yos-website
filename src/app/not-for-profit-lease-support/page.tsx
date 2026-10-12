@@ -294,7 +294,7 @@ export default function NotForProfitPage() {
       </section>
 
       {/* ─── APPLICATION FORM ──────────────────────── */}
-      <section className="bg-white" id="apply" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
+      <section className="bg-white" style={{ paddingTop: 'clamp(5rem,10vw,10rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 
@@ -335,7 +335,7 @@ export default function NotForProfitPage() {
 
             {/* Right, form */}
             <FadeIn delay={80}>
-              <NotForProfitForm />
+              <div id="apply" tabIndex={-1} aria-label="Not for profit lease support application"><NotForProfitForm /></div>
             </FadeIn>
           </div>
         </div>
