@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useSyncExternalStore } from 'react'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Script from 'next/script'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
@@ -62,7 +61,6 @@ function OptionalAnalytics() {
 export default function AnalyticsConsent() {
   const consent = useSyncExternalStore(subscribeToConsent, getConsentSnapshot, () => null)
   const [preferencesOpen, setPreferencesOpen] = useState(false)
-  const pathname = usePathname()
   useEffect(() => {
     const open = () => setPreferencesOpen(true)
     window.addEventListener('yos-open-privacy-choices', open)
@@ -83,7 +81,7 @@ export default function AnalyticsConsent() {
     if (withdrawing) window.location.reload()
   }
 
-  const showPanel = preferencesOpen || (pathname !== '/' && consent === null)
+  const showPanel = preferencesOpen
 
   return (
     <>
@@ -122,15 +120,6 @@ export default function AnalyticsConsent() {
             </Link>
           </div>
         </section>
-      ) : pathname !== '/' ? (
-        <button
-          type="button"
-          onClick={() => setPreferencesOpen(true)}
-          className="analytics-consent-trigger fixed left-4 z-[90] rounded-lg bg-near-black text-white/75 shadow-lg hover:text-white"
-          style={{ border: '1px solid rgba(255,255,255,0.16)', padding: '0.55rem 0.8rem', fontSize: '0.72rem' }}
-        >
-          Privacy choices
-        </button>
       ) : null}
     </>
   )

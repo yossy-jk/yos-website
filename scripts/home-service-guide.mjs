@@ -66,6 +66,9 @@ try {
       await link.click()
       await page.waitForFunction(path => location.pathname === path, {}, href)
       await page.waitForSelector('main h1')
+      assert.equal(await page.$('.analytics-consent-panel'), null, 'Navigation must not open analytics preferences.')
+      assert.equal(await page.$('.analytics-consent-trigger'), null)
+      assert.equal(await page.$('#hs-script-loader'), null)
       assert.equal(await page.$('#home-service-guide-overlay'), null)
     }
     await page.goto(base, { waitUntil: 'networkidle2' })

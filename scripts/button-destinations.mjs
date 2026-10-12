@@ -40,12 +40,8 @@ try{
  for(const row of report.pages)for(const a of row.anchors)if(a.text==='Enquire')assert.ok(!a.href.includes('meetings-ap1')&&a.href.includes('#'),`${row.route}: enquiry must reach a form, not a calendar.`)
  assert.deepEqual(report.failures, [], 'Every public destination and section must exist.')
  const dismissConsent=async()=>{
-  if(new URL(page.url()).pathname==='/')return
-  await page.waitForSelector('.analytics-consent-panel, .analytics-consent-trigger')
-  if(await page.$('.analytics-consent-panel')) {
-   await page.click('.analytics-consent-panel button:nth-of-type(2)')
-   await page.waitForSelector('.analytics-consent-trigger')
-  }
+  assert.equal(await page.$('.analytics-consent-panel'), null, 'Privacy preferences must only open on request.')
+  assert.equal(await page.$('.analytics-consent-trigger'), null, 'No floating privacy notification.')
  }
  const interactions=[]
  const matrix=report.pages.flatMap(row=>[...new Set(row.anchors.filter(a=>a.region==='main'&&a.href.startsWith('#')).map(a=>a.href))].map(href=>({route:row.route,href})))
