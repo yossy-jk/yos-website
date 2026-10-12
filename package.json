@@ -39,7 +39,7 @@
     "konva": "^10.2.5",
     "lucide-react": "^1.8.0",
     "nanoid": "^5.1.9",
-    "next": "16.3.7",
+    "next": "16.3.8",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-hot-toast": "^2.6.0",
@@ -48,15 +48,15 @@
     "zustand": "^5.0.12"
   },
   "devDependencies": {
-    "fast-glob": "file:vendor/next-root-glob",
     "@tailwindcss/postcss": "^4.2.3",
-    "axe-core": "^4.13.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.19.41",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
     "eslint": "^9",
-    "eslint-config-next": "16.3.7",
+    "eslint-config-next": "16.3.8",
+    "fast-glob": "file:vendor/next-root-glob",
     "puppeteer": "^25.9.0",
     "tailwindcss": "^4.2.3",
     "typescript": "5.9.3"

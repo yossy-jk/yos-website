@@ -127,6 +127,39 @@ export default function TenantRepPage() {
         </div>
       </section>
 
+      <section className="bg-warm-grey" style={SEC_SM} aria-labelledby="tenant-video-heading">
+        <div className={WRAP} style={PAD}>
+          <div className="max-w-3xl mb-8">
+            <SectionLabel>Tenant representation explained</SectionLabel>
+            <h2 id="tenant-video-heading" className="text-near-black font-bold leading-tight mb-5"
+              style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
+              More value from your next lease.<br />More time for your business.
+            </h2>
+            <p id="tenant-video-description" className="text-charcoal leading-relaxed" style={{ lineHeight: 1.85 }}>
+              See how a tenant representative can take the property search, option comparison and
+              lease negotiation off your desk. We help you understand the costs and trade-offs,
+              so you can make an informed decision and keep your focus on running your business.
+            </p>
+          </div>
+          <video
+            controls
+            playsInline
+            preload="none"
+            width={1920}
+            height={1080}
+            poster="/videos/yos-tenant-representation-poster.jpg"
+            aria-label="How tenant representation can add value and save business owners time"
+            aria-describedby="tenant-video-description"
+            className="block h-auto w-full aspect-video bg-near-black rounded-lg"
+          >
+            <source src="/videos/yos-tenant-representation.mp4" type="video/mp4" />
+            <track src="/videos/yos-tenant-representation.vtt" kind="captions" srcLang="en" label="English" />
+            Your browser does not support video. <a href="/videos/yos-tenant-representation.mp4">Watch the tenant representation introduction</a>.
+          </video>
+          <p className="text-charcoal text-sm mt-4">Watch the introduction · 1 minute 20 seconds</p>
+        </div>
+      </section>
+
       {/* ─── OUR COMMITMENT ───────────────────────────────── */}
       <section className="bg-near-black" style={SEC}>
         <div className={WRAP} style={PAD}>
