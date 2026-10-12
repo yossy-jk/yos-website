@@ -1,3 +1,4 @@
+import ServiceArticle from '@/components/ServiceArticle'
 import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
@@ -67,5 +68,6 @@ export default function BuyersAgencyPage() {
     <ServiceFaq items={FAQS} />
 
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Start with the business objective.</h2><Button href="/contact?service=buying" variant="dark" size="lg">Enquire</Button></div></section>
-  </main><Footer /></>
+  <ServiceArticle slug="buying-business-premises-five-year-fit" />
+      </main><Footer /></>
 }

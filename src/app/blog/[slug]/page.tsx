@@ -183,7 +183,7 @@ function renderBody(body: string, slug: string) {
     const headers = rows[0] || []
     const dataRows = rows.slice(2) // skip separator row
     elements.push(
-      <div key={key++} style={{ overflowX: 'auto', margin: '2rem 0 2.5rem' }}>
+      <div key={key++} tabIndex={0} role="region" aria-label="Article table" style={{ overflowX: 'auto', margin: '2rem 0 2.5rem' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', minWidth: '400px' }}>
           <thead>
             <tr style={{ background: '#0A0A0A' }}>
