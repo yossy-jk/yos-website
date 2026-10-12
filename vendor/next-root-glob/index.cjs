@@ -1,5 +1,5 @@
 'use strict';
-// Only the Next 16.3.7 get-root-dirs call contract is supported.
+// Only the Next 16.3.8 get-root-dirs call contract is supported.
 // Fail closed if a future plugin starts using a broader fast-glob API.
 // The upstream consumer uses require(), so this entry point must remain CommonJS.
 // eslint-disable-next-line @typescript-eslint/no-require-imports
