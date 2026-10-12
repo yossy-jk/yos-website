@@ -36,6 +36,7 @@ try {
       await page.waitForSelector('button[aria-label="Close menu"]')
       await page.waitForFunction(() => document.querySelector('main').inert)
     }
+    assert.equal(await page.$$eval('footer nav[aria-label="Flourish services"] a[href="/cleaning"]', items => items.length), 1)
     await openMenu()
     assert.equal(await page.$$eval('.yos-mobile-group-toggle[aria-expanded="true"]', items => items.length), 0)
     assert.equal(await page.$$eval('.yos-mobile-group-links a', items => items.filter(item => item.getClientRects().length).length), 0)
@@ -60,6 +61,7 @@ try {
       await page.click(`button[aria-controls="mobile-${key}-links"]`)
       assert.equal(await page.$$eval('.yos-mobile-group-toggle[aria-expanded="true"]', items => items.length), 1)
       assert.ok(await page.$eval(`#mobile-${key}-links`, element => !element.hidden))
+      if (key === 'services' || key === 'care') assert.equal(await page.$$eval(`#mobile-${key}-links a[href="/cleaning"]`, items => items.length), 1, 'Cleaning belongs to both menu groups.')
       assert.ok(await page.$eval('.yos-mobile-enquire', element => element.getBoundingClientRect().bottom <= innerHeight))
     }
     await page.keyboard.press('Escape')

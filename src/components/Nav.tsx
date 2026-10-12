@@ -185,7 +185,7 @@ export default function Nav() {
                     </div>
                     <div className="py-5 flex flex-wrap items-center gap-x-7 gap-y-3">
                       <Link href="/flourish" onClick={closeAll} className="text-teal font-bold text-sm no-underline hover:text-white">Flourish workplace care</Link>
-                      {FLOURISH_LINKS.slice(1).map(link => <Link key={link.href} href={link.href} onClick={closeAll} className="inline-flex min-h-11 items-center text-white/80 hover:text-white text-sm no-underline">{link.label}</Link>)}
+                      {FLOURISH_LINKS.map(link => <Link key={link.href} href={link.href} onClick={closeAll} className="inline-flex min-h-11 items-center text-white/80 hover:text-white text-sm no-underline">{link.label}</Link>)}
                     </div>
                   </div>
               </div>
@@ -330,7 +330,7 @@ export default function Nav() {
           <div className="yos-mobile-groups">
             {([
               { key: 'services', title: 'Services', links: MOBILE_SERVICES },
-              { key: 'care', title: 'Workplace Care', links: [{ label: 'Explore Flourish', href: '/flourish' }, ...FLOURISH_LINKS.slice(1).map(link => ({ href: link.href, label: link.label.replace(/^Office /, '') }))] },
+              { key: 'care', title: 'Workplace Care', links: [{ label: 'Explore Flourish', href: '/flourish' }, ...FLOURISH_LINKS.map(link => ({ href: link.href, label: link.label.replace(/^Office /, '') }))] },
               { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Articles & Guides', href: '/blog' }] },
             ] as const).map(group => <div key={group.key} className="yos-mobile-group">
               <button type="button" aria-expanded={mobileSection === group.key} aria-controls={`mobile-${group.key}-links`} onClick={() => setMobileSection(mobileSection === group.key ? null : group.key)} className="yos-mobile-group-toggle">
