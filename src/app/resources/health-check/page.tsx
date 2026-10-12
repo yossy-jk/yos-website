@@ -1,4 +1,5 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -1182,7 +1183,9 @@ export default function HealthCheckPage() {
         </section>
       )}
 
-      </main>
+
+      <ToolGuide purpose="Review the key workplace issues that may affect your next commercial property decision." inputs="Your current premises, lease position, workplace needs, costs and timing." result="A diagnostic starting point for a conversation. It is not a professional inspection or a substitute for legal or financial advice." next="Talk to the YOS team" href="/contact" />
+</main>
 
       <Footer />
     </>

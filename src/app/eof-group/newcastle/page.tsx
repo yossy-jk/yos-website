@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
@@ -5,7 +6,7 @@ import FadeIn from '@/components/FadeIn'
 import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Commercial Property Newcastle | EOF Group, Fitout, Tenant Rep & Lease Review',
   description: 'EOF Group delivers commercial office fitout, tenant representation and lease review across Newcastle, the Hunter Valley, Lake Macquarie and regional NSW. Deep local knowledge. Four specialist divisions. Based in Newcastle.',
   twitter: { card: 'summary_large_image', title: 'Commercial Property Newcastle | EOF Group', description: 'Commercial office fitout, tenant rep and lease review across Newcastle and the Hunter Valley.' },
@@ -14,12 +15,12 @@ export const metadata = {
     title: 'Commercial Property Newcastle | EOF Group',
     description: 'Commercial office fitout, tenant representation and lease review. Based in Newcastle. Working across the Hunter Valley and regional NSW.',
     url: 'https://www.yourofficespace.au/eof-group/newcastle',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Commercial Property Newcastle, EOF Group' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Commercial Property Newcastle, EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }

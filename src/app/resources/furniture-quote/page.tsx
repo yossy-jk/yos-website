@@ -1,4 +1,5 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
 
 import { useState, useRef } from 'react'
 import Nav from '@/components/Nav'
@@ -408,7 +409,9 @@ export default function FurnitureQuotePage() {
         </div>
       </section>
 
-      </main>
+
+      <ToolGuide purpose="Send a furniture brief so YOS can assess the project and prepare a scoped proposal." inputs="Contact details, company, workstations or floor area, project type, budget, timing and any useful notes or plans." result="A request for a tailored proposal, rather than an instant binding quotation. Scope and site requirements are confirmed with you." next="See our furniture services" href="/furniture" />
+</main>
 
       <Footer />
     </>

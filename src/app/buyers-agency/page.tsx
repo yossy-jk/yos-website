@@ -1,3 +1,5 @@
+import ServiceSchema from '@/components/ServiceSchema'
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -6,7 +8,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import ServiceFaq from '@/components/ServiceFaq'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Commercial Buyers Agent NSW | Your Office Space',
   description: 'Commercial Buyers Agent support in NSW, from an evidence-led property brief through search, due diligence coordination, negotiation and handover.',
   alternates: { canonical: 'https://www.yourofficespace.au/buyers-agency' },
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
     images: [{ url: '/og/og-buyers-agency.png', width: 1200, height: 630, alt: 'Commercial buyers agent services in New South Wales' }],
   },
   twitter: { card: 'summary_large_image', title: 'Commercial Buyers Agent NSW', description: 'Commercial property buying support from brief to handover.', images: ['/og/og-buyers-agency.png'] },
-}
+})
 
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
@@ -37,6 +39,7 @@ const FAQS = [
 
 export default function BuyersAgencyPage() {
   return <><Nav /><main id="main-content" tabIndex={-1}>
+      <ServiceSchema name="Commercial Buyers Agent" path="/buyers-agency" description="Buyer-side commercial property support in NSW, from brief and search through due diligence coordination, negotiation and handover." area="NSW" />
     <section className="bg-near-black min-h-[78vh] flex items-center" style={SEC}><div className={WRAP} style={{ ...PAD, paddingTop: 'clamp(5rem,10vw,9rem)' }}>
       <FadeIn><SectionLabel>Commercial Buyers Agent · NSW</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Buy the right commercial property, with someone on your side.</h1></FadeIn>

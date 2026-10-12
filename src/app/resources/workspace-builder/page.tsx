@@ -1,4 +1,7 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+
 import { useState } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -278,7 +281,7 @@ const SCHEMA = {
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
-  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "provider": ORGANIZATION_SCHEMA,
   "areaServed": { "@type": "Country", "name": "Australia" },
 }
 
@@ -832,7 +835,9 @@ export default function WorkspaceBuilderPage() {
         </div>
       </div>
 
-      </main>
+
+      <ToolGuide purpose="Build an initial workplace furniture specification to discuss with the YOS team." inputs="Team size, workspace requirements, furniture preferences and your approximate budget." result="An initial specification for further discussion. Availability, dimensions, installation and pricing require confirmation." next="Explore commercial furniture supply and installation" href="/furniture" />
+</main>
 
       <Footer />
 

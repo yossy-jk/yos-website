@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
@@ -7,7 +8,7 @@ import { getAllCaseStudies, type CaseStudy } from '@/lib/case-studies'
 import { DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Case Studies | Your Office Space',
   description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.',
   alternates: { canonical: 'https://www.yourofficespace.au/case-studies' },
@@ -19,9 +20,9 @@ export const metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-case-studies.png', width: 1200, height: 630, alt: 'Case Studies, Your Office Space' }],
+    images: [{ url: '/og/og-case-studies.png', width: 1200, height: 630, alt: 'Case Studies, Your Office Space' }],
   },
-}
+})
 
 const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
@@ -81,7 +82,7 @@ export default function CaseStudiesPage() {
 
   return (
     <>
-      
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
       <Nav />
 

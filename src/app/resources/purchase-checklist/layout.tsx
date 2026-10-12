@@ -1,6 +1,8 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
+  robots: { index: false, follow: true },
   title: 'Commercial Property Purchase Checklist | Your Office Space',
   description: 'Interactive due diligence checklist for buying commercial property in Australia. 40+ items covering legal, financial, physical and compliance checks.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/purchase-checklist' },
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Commercial Property Purchase Checklist | Your Office Space', description: 'Interactive due diligence checklist for buying commercial property in Australia. 40+ items covering legal, financial, physical and compliance checks.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

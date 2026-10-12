@@ -1,3 +1,5 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,7 +10,7 @@ import CapabilityDownload from '@/components/CapabilityDownload'
 import ReviewsCarousel from '@/components/ReviewsCarousel'
 import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES, SITE_URL } from '@/lib/site-schema'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Commercial Property, FitOut & Furniture | Your Office Space',
   description: 'Find, fit out and furnish your next commercial space with one team on your side. Commercial cleaning is available across Newcastle CBD and Lake Macquarie.',
   alternates: { canonical: SITE_URL },
@@ -24,19 +26,12 @@ export const metadata: Metadata = {
     description: 'Commercial property, client-side FitOut project management, furniture and commercial cleaning from one connected team.',
     images: ['/og/og-default.png'],
   },
-}
+})
 
 const homeSchema = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': ORGANIZATION_ID,
-      name: 'Your Office Space',
-      url: SITE_URL,
-      logo: { '@type': 'ImageObject', url: LOGO_URL },
-      knowsAbout: SERVICE_TYPES,
-    },
+    ORGANIZATION_SCHEMA,
     {
       '@type': 'WebSite',
       '@id': `${SITE_URL}/#website`,

@@ -1,6 +1,7 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Compare Commercial Leases Side by Side | Your Office Space',
   description: 'Compare two commercial lease options on true cost, incentives, and net effective rent. Free lease comparison calculator for Australian businesses.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/lease-comparison' },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Compare Commercial Leases Side by Side | Your Office Space', description: 'Compare two commercial lease options on true cost, incentives, and net effective rent. Free lease comparison calculator for Australian businesses.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

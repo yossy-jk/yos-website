@@ -26,7 +26,8 @@
     "scan:credentials": "node scripts/scan-source-credentials.mjs",
     "check:brand": "node scripts/check-brand-v11.mjs",
     "audit:dependencies": "node scripts/audit-dependencies.mjs",
-    "check": "npm test && npm run scan:credentials && npm run check:brand && npm run lint && npm run audit:dependencies && npm run build && npm run test:responsive && npm run test:axe"
+    "check": "npm test && npm run scan:credentials && npm run check:brand && npm run lint && npm run audit:dependencies && npm run build && npm run test:responsive && npm run test:axe",
+    "test:seo": "node scripts/seo-integrity.mjs"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",

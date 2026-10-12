@@ -1,3 +1,6 @@
+import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { absoluteAssetUrl } from '@/lib/page-seo'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -21,8 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     description: cs.metaDescription || cs.excerpt,
     alternates: { canonical: `https://www.yourofficespace.au/case-studies/${cs.slug}` },
     openGraph: {
-      
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+
+  images: [{ url: absoluteAssetUrl(cs.heroImage || '/og/og-case-studies.png'), alt: cs.title }],
 title: cs.metaTitle || cs.title,
       description: cs.metaDescription || cs.excerpt,
       url: `https://www.yourofficespace.au/case-studies/${cs.slug}`,
@@ -34,6 +37,7 @@ title: cs.metaTitle || cs.title,
       card: 'summary_large_image' as const,
       title: cs.metaTitle || cs.title,
       description: cs.metaDescription || cs.excerpt,
+      images: [absoluteAssetUrl(cs.heroImage || '/og/og-case-studies.png')],
     },
   }
 }
@@ -49,10 +53,11 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
     '@type': 'Article',
     headline: cs.title,
     description: cs.metaDescription || cs.excerpt,
-    author: { '@type': 'Organization', name: 'Your Office Space', url: 'https://www.yourofficespace.au' },
-    publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://www.yourofficespace.au' },
+    author: ORGANIZATION_SCHEMA,
+    publisher: ORGANIZATION_SCHEMA,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/case-studies/${cs.slug}` },
-    ...(cs.heroImage ? { image: `https://www.yourofficespace.au${cs.heroImage}` } : {}),
+    datePublished: cs.date,
+    ...(cs.heroImage ? { image: absoluteAssetUrl(cs.heroImage) } : {}),
   }
 
   return (
@@ -72,6 +77,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
           </div>
         )}
         <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 pt-12 pb-16">
+          <ContentBreadcrumbs section="Case studies" sectionPath="/case-studies" title={cs.title} path={`/case-studies/${cs.slug}`} />
           <div className="flex items-center gap-3 mb-6">
             <span className={`text-xs font-semibold px-3 py-1 rounded-sm ${DIVISION_COLORS[cs.division as Division]}`}>
               {DIVISION_LABELS[cs.division as Division]}

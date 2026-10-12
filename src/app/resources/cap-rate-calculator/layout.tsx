@@ -1,6 +1,8 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
+  robots: { index: false, follow: true },
   title: 'Cap Rate Calculator for Commercial Property | Your Office Space',
   description: 'Calculate capitalisation rate (cap rate) for commercial property valuation. Free tool for Australian commercial property investors.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/cap-rate-calculator' },
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Cap Rate Calculator for Commercial Property | Your Office Space', description: 'Calculate capitalisation rate (cap rate) for commercial property valuation. Free tool for Australian commercial property investors.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

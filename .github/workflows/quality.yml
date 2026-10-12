@@ -67,6 +67,7 @@ jobs:
             if [ "$attempt" -eq 60 ]; then cat /tmp/yos-preview.log; exit 1; fi
             sleep 1
           done
+          SEO_BASE_URL=http://127.0.0.1:3102 SEO_REPORT_PATH=screenshots/seo-integrity.json npm run test:seo
           node scripts/screenshot.mjs http://127.0.0.1:3102
 
       - name: Upload visual QA evidence

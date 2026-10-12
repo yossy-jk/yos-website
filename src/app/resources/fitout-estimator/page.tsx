@@ -1,4 +1,7 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -35,7 +38,7 @@ const SCHEMA = {
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
-  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "provider": ORGANIZATION_SCHEMA,
   "areaServed": { "@type": "Country", "name": "Australia" },
 }
 export default function FitoutEstimatorPage() {
@@ -830,7 +833,9 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           </section>
-      </main>
+
+      <ToolGuide purpose="Develop an indicative FitOut budget before committing to a property or design." inputs="Floor area, project location, the intended fitout standard and scope selections." result="A planning estimate based on the assumptions shown. Building condition, compliance, design and procurement change the final cost." next="Discuss client-side FitOut project management" href="/office-fitout" />
+</main>
 
       <Footer />
     </>

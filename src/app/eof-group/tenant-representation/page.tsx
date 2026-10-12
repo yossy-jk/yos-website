@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
@@ -5,7 +6,7 @@ import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Tenant Representation | EOF Group, We Only Work for Tenants | Newcastle NSW',
   description: 'EOF Group provides commercial tenant representation across Newcastle, the Hunter Valley and regional NSW. We negotiate leases exclusively for tenants, never landlords. Better terms, no conflicts, stronger outcomes.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | EOF Group, We Only Work for Tenants', description: 'We negotiate commercial leases for tenants. Never landlords. Better terms, no conflicts.' },
@@ -14,12 +15,12 @@ export const metadata = {
     title: 'Tenant Representation | EOF Group',
     description: 'Commercial tenant representation across Newcastle and regional NSW. We work exclusively for tenants, never landlords.',
     url: 'https://www.yourofficespace.au/eof-group/tenant-representation',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Tenant Representation, EOF Group' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Tenant Representation, EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }

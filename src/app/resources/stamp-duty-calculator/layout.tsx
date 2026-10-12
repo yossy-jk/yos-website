@@ -1,6 +1,8 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
+  robots: { index: false, follow: true },
   title: 'Commercial Stamp Duty Calculator NSW & Australia | Your Office Space',
   description: 'Calculate stamp duty on commercial property purchases across NSW, VIC, QLD, WA and SA. 2025-26 rates. Free online calculator.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/stamp-duty-calculator' },
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Commercial Stamp Duty Calculator NSW & Australia | Your Office Space', description: 'Calculate stamp duty on commercial property purchases across NSW, VIC, QLD, WA and SA. 2025-26 rates. Free online calculator.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

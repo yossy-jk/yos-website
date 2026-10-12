@@ -1,6 +1,7 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Commercial Lease Risk Checker | Your Office Space',
   description: 'Identify hidden risks in your commercial lease before you sign. Free clause-by-clause risk assessment tool for Australian tenants.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/lease-review' },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Commercial Lease Risk Checker | Your Office Space', description: 'Identify hidden risks in your commercial lease before you sign. Free clause-by-clause risk assessment tool for Australian tenants.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

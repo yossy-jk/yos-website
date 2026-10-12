@@ -1,17 +1,19 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import { readFileSync } from 'fs'
 import path from 'path'
 import MarketSnapshotPageContent from './MarketSnapshotPageContent'
 
-export const metadata: Metadata = {
-  title: 'Newcastle Office Market Snapshot | Your Office Space',
-  description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
+export const metadata: Metadata = withPageSeo({
+  title: 'Newcastle Office Market Snapshot, May 2026 | Your Office Space',
+  description: 'Read the May 2026 Newcastle office market snapshot, with dated vacancy, rent and supply commentary. Ask YOS for a current, brief-specific assessment.',
   alternates: { canonical: 'https://www.yourofficespace.au/market-snapshot' },
   openGraph: {
-    title: 'Newcastle Office Market Snapshot | Your Office Space',
-    description: 'Monthly market intelligence from the tenant\'s side. Vacancy rates, rent trends, supply pipeline, and which way leverage is moving in the Newcastle office market.',
+    title: 'Newcastle Office Market Snapshot, May 2026 | Your Office Space',
+    description: 'Read the May 2026 Newcastle office market snapshot, with dated vacancy, rent and supply commentary. Ask YOS for a current, brief-specific assessment.',
     url: 'https://www.yourofficespace.au/market-snapshot',
-    images: [{ url: '/og/og-market-snapshot.png', width: 1200, height: 630, alt: 'Newcastle Office Market Snapshot | Your Office Space' }],
+    images: [{ url: '/og/og-market-snapshot.png', width: 1200, height: 630, alt: 'Newcastle Office Market Snapshot, May 2026 | Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
@@ -21,7 +23,7 @@ export const metadata: Metadata = {
     title: 'Newcastle Office Market Snapshot',
     description: 'Monthly office market intelligence from the tenant\'s side.',
   },
-}
+})
 
 export default function MarketSnapshotPage() {
   // Read snapshot content at build/request time (server-side only)
@@ -45,46 +47,17 @@ export default function MarketSnapshotPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-            "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
-              { "@type": "State", "name": "New South Wales" }
-            ]
-          },
+          ORGANIZATION_SCHEMA,
           {
             "@type": "Article",
-            "headline": "Newcastle Office Market Snapshot, Q2 2026",
-            "description": "Monthly market intelligence from the tenant's side. Newcastle office vacancy rates, rent trends, supply pipeline and market analysis.",
+            "headline": "Newcastle Office Market Snapshot, May 2026",
+            "description": "Historical May 2026 office market commentary. Newcastle office vacancy rates, rent trends, supply pipeline and market analysis.",
             "author": { "@type": "Person", "name": "Joe Kelley", "worksFor": { "@id": "https://www.yourofficespace.au/#organization" } },
             "publisher": { "@id": "https://www.yourofficespace.au/#organization" },
             "datePublished": "2026-05-01",
             "dateModified": "2026-05-24",
             "url": "https://www.yourofficespace.au/market-snapshot",
             "about": { "@type": "Place", "name": "Newcastle Commercial Office Market", "address": { "@type": "PostalAddress", "addressLocality": "Newcastle", "addressRegion": "NSW", "addressCountry": "AU" } }
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "Is the Newcastle office market tenant-friendly in 2026?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The Newcastle office market in 2026 is broadly tenant-friendly, with vacancy rates providing negotiating leverage. Incentives remain competitive, particularly for quality A-grade space. Tenants who engage a tenant representative consistently achieve better outcomes than those who negotiate directly." } },
-              { "@type": "Question", "name": "What are current vacancy rates in Newcastle CBD?", "acceptedAnswer": { "@type": "Answer", "text": "Vacancy rates in the Newcastle CBD have moderated from their 2022-23 highs. The market remains tenant-friendly at the upper end, with landlords offering extended rent-free periods and fitout contributions to attract quality tenants. Speak to Your Office Space for current market data specific to your requirements." } },
-              { "@type": "Question", "name": "Should I renew my lease now or look at alternatives?", "acceptedAnswer": { "@type": "Answer", "text": "Most businesses should explore their options 12 months before lease expiry, regardless of whether they plan to stay. The Newcastle market in 2026 offers real negotiating leverage for tenants willing to use it. A tenant representative can assess your current position and identify whether a renewal, relocation, or renegotiation delivers the best outcome." } }
-            ]
           }
         ]
       }) }} />

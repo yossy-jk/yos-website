@@ -1,9 +1,11 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import SectionLabel from '@/components/SectionLabel'
 import FadeIn from '@/components/FadeIn'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Privacy Policy | Your Office Space',
   description: 'How Your Office Space collects, uses, and protects your personal information. Governed by the Privacy Act 1988 (Cth).',
   alternates: { canonical: 'https://www.yourofficespace.au/privacy' },
@@ -11,31 +13,17 @@ export const metadata = {
     title: 'Privacy Policy | Your Office Space',
     description: 'How Your Office Space collects, uses, and protects your personal information.',
     url: 'https://www.yourofficespace.au/privacy',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const PRIVACY_SCHEMA = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.yourofficespace.au/#organization",
-      "name": "Your Office Space",
-      "url": "https://www.yourofficespace.au",
-      "telephone": "+61240920733",
-      "email": "jk@yourofficespace.au",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Newcastle",
-        "addressRegion": "NSW",
-        "postalCode": "2300",
-        "addressCountry": "AU"
-      }
-    },
+    ORGANIZATION_SCHEMA,
     {
       "@type": "WebPage",
       "name": "Privacy Policy | Your Office Space",

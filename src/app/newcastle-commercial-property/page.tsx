@@ -1,3 +1,6 @@
+import ServiceFaq from '@/components/ServiceFaq'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -11,7 +14,7 @@ import SectionLabel from '@/components/SectionLabel'
 import BookingCTA from '@/components/BookingCTA'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Newcastle Commercial Property, Leases, Fitout, Cleaning & Market Guides',
   description: 'Everything Newcastle businesses need to know about commercial property. Tenant representation, lease negotiation, office fitout costs, and commercial cleaning, all local, all practical.',
   alternates: { canonical: 'https://www.yourofficespace.au/newcastle-commercial-property' },
@@ -19,12 +22,12 @@ export const metadata: Metadata = {
     title: 'Newcastle Commercial Property Hub, Your Office Space',
     description: 'Local guides, market updates and practical advice for Newcastle businesses navigating commercial property.',
     url: 'https://www.yourofficespace.au/newcastle-commercial-property',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const ARTICLES = [
   {
@@ -37,7 +40,7 @@ const ARTICLES = [
     category: 'Market Intelligence',
     slug: 'hunter-valley-commercial-property-market-2026',
     title: 'Hunter Valley Commercial Property Market Update, Q2 2026',
-    desc: 'Vacancy rates, incentives and what\'s actually happening in the Newcastle and Hunter commercial property market right now.',
+    desc: 'A dated Q2 2026 view of vacancy, incentives and market conditions. Check current evidence before a decision.',
   },
   {
     category: 'Office Fitout',
@@ -54,6 +57,7 @@ const ARTICLES = [
 ]
 
 const SERVICES = [
+  { label: 'Commercial Buyers Agent', href: '/buyers-agency', desc: 'Buyer-side commercial property search and coordination in NSW.' },
   { label: 'Tenant Representation', href: '/tenant-rep', desc: 'Lease negotiation on your side, not the landlord\'s.' },
   { label: 'Commercial FitOut & Project Management', href: '/office-fitout', desc: 'Workplace brief through delivery and handover.' },
   { label: 'Office & Commercial Furniture', href: '/furniture', desc: 'Furniture selected, supplied and installed.' },
@@ -67,42 +71,12 @@ export default function NewcastleCommercialPropertyHub() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-            "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based tenant-side commercial property advisory across Australia, spanning tenant representation, fit out and project management, furniture and commercial cleaning.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
-              { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
-            ]
-          },
+          ORGANIZATION_SCHEMA,
           {
             "@type": "CollectionPage",
             "name": "Newcastle Commercial Property Hub",
             "description": "Local guides, market updates and practical advice for Newcastle businesses navigating commercial property.",
             "url": "https://www.yourofficespace.au/newcastle-commercial-property"
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "What is tenant representation in Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation is an agent working exclusively for the tenant in a commercial lease negotiation. In Newcastle, tenant reps negotiate rent, incentives, make-good terms and lease conditions on behalf of the tenant, never the landlord." } },
-              { "@type": "Question", "name": "How should a Newcastle business plan a commercial fit out?", "acceptedAnswer": { "@type": "Answer", "text": "Start with the workplace brief, budget, programme and lease constraints, then coordinate design, procurement, approvals, construction, furniture and handover around one accountable plan." } }
-            ]
           }
         ]
       }) }} />
@@ -211,6 +185,8 @@ export default function NewcastleCommercialPropertyHub() {
       </section>
 
       <BookingCTA />
+
+      <ServiceFaq items={[{"question": "How can YOS help a Newcastle business with its workplace?", "answer": "We can help define the property brief, assess lease or buying options, coordinate a client-side FitOut and source commercial furniture. Cleaning can be scoped for Newcastle CBD and Lake Macquarie workplaces."}, {"question": "When should I start assessing my next lease?", "answer": "Start early enough to compare staying with relocating before renewal or option deadlines. Your current lease, fitout requirements and business timing determine the practical programme. Obtain legal advice on notice deadlines."}]} />
       </main>
 
       <Footer />

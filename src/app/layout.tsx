@@ -12,6 +12,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-snippet': -1, 'max-image-preview': 'large', 'max-video-preview': -1 } },
   verification: {
     google: "y_reMqD1jgJLEUomnBsCqbMF-ZrEZs0dcbQiMlpSZDE",
   },
@@ -25,11 +26,7 @@ export const metadata: Metadata = {
   },
   title: "Your Office Space | Find It, Fit It Out and Furnish It",
   description: "Lease or buy the right commercial space, then coordinate the FitOut, furniture and ongoing workplace services with one team on your side.",
-  keywords: "tenant representation NSW, commercial FitOut Australia, office furniture Australia, commercial cleaning Newcastle, workplace project management",
   metadataBase: new URL("https://www.yourofficespace.au"),
-  alternates: {
-    canonical: "https://www.yourofficespace.au",
-  },
   openGraph: {
     title: "Your Office Space | One Team for Your Commercial Space",
     description: "Find it. Fit it out. Furnish it. Look after it. Commercial space support from one accountable team.",

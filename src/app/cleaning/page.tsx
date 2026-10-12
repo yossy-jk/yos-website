@@ -1,3 +1,5 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
@@ -23,10 +25,10 @@ const CLEANING_FAQS = [
   { question: 'Can you handle a post-FitOut clean and ongoing service?', answer: 'Yes. A handover clean and the ongoing workplace service can be coordinated as separate, clearly scoped workstreams.' },
 ] as const
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Commercial Cleaning Newcastle & Lake Macquarie | YOS',
-  description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with the same team, monthly QA and a quote within 24 hours of site inspection.',
-  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope. Consistent team. Monthly quality checks.' },
+  description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with a documented Scope of Works, consistent teams wherever possible and a site-specific proposal.',
+  twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope, consistent teams wherever possible and direct quality management.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
     title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
@@ -37,7 +39,7 @@ export const metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 export default function CleaningPage() {
   return (
@@ -45,28 +47,7 @@ export default function CleaningPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/brand/yos-logo-black.png",
-            "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based commercial cleaning and workplace services.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" }
-            ]
-          },
+          ORGANIZATION_SCHEMA,
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/cleaning#service",
@@ -87,17 +68,6 @@ export default function CleaningPage() {
             ],
             "serviceType": "Commercial Cleaning",
             "url": "https://www.yourofficespace.au/cleaning"
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "How is commercial cleaning priced?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal." } },
-              { "@type": "Question", "name": "Do you use the same cleaning team every visit?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every Your Office Space cleaning contract is serviced by the same team on every visit. We do not rotate staff. You know who is coming and so do we." } },
-              { "@type": "Question", "name": "Where is commercial cleaning available?", "acceptedAnswer": { "@type": "Answer", "text": "Commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
-              { "@type": "Question", "name": "How often should a commercial office be cleaned?", "acceptedAnswer": { "@type": "Answer", "text": "Most offices benefit from daily or every-second-day cleaning for high-traffic environments, and weekly for lower-use spaces. We work with each client to determine the right frequency for their space, team size and usage patterns." } },
-              { "@type": "Question", "name": "What is included in a standard commercial office clean?", "acceptedAnswer": { "@type": "Answer", "text": "Standard commercial office cleaning includes rubbish removal, kitchen and breakroom cleaning, bathroom sanitation, desk and surface wiping, floor care (vacuum/mop), and bin replacement. Deep cleans, infection control cleans and carpet extraction are charged separately." } },
-              { "@type": "Question", "name": "Can the cleaning happen after hours?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Access, timing and security requirements are agreed during the site inspection and documented in the Scope of Works." } }
-            ]
           }
         ]
       }) }} />

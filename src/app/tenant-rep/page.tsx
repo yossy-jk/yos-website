@@ -1,3 +1,5 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
@@ -8,7 +10,7 @@ import CapabilityDownload from '@/components/CapabilityDownload'
 import TenantProcess from '@/components/TenantProcess'
 import ServiceFaq from '@/components/ServiceFaq'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Tenant Representation & Commercial Leasing NSW | YOS',
   description: 'Tenant-side commercial leasing support in NSW, from property brief and search through comparison, negotiation and handover.',
   twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'Tenant-side commercial lease advice, option assessment and negotiation support.' },
@@ -22,7 +24,7 @@ export const metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
@@ -50,29 +52,7 @@ export default function TenantRepPage() {
         {
                 "@context": "https://schema.org",
                 "@graph": [
-                        {
-                                "@type": "Organization",
-                                "@id": "https://www.yourofficespace.au/#organization",
-                                "name": "Your Office Space",
-                                "url": "https://www.yourofficespace.au",
-                                "logo": "https://www.yourofficespace.au/brand/yos-logo-black.png",
-                                "telephone": "(02) 4092 0733",
-                                "email": "jk@yourofficespace.au",
-                                "address": {
-                                        "@type": "PostalAddress",
-                                        "streetAddress": "16A Chelmsford St",
-                                        "addressLocality": "Maryville",
-                                        "addressRegion": "NSW",
-                                        "postalCode": "2293",
-                                        "addressCountry": "AU"
-                                },
-                                "areaServed": [
-                                        "New South Wales"
-                                ],
-                                "sameAs": [
-                                        "https://www.linkedin.com/company/your-office-space"
-                                ]
-                        },
+                        ORGANIZATION_SCHEMA,
                         {
                                 "@type": "Service",
                                 "@id": "https://www.yourofficespace.au/tenant-rep",
@@ -127,6 +107,15 @@ export default function TenantRepPage() {
         </div>
       </section>
 
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org', '@type': 'VideoObject',
+        name: 'Tenant representation explained',
+        description: 'How a tenant representative helps a business assess property options, compare occupancy costs and negotiate lease terms.',
+        thumbnailUrl: 'https://www.yourofficespace.au/videos/yos-tenant-representation-poster.jpg',
+        contentUrl: 'https://www.yourofficespace.au/videos/yos-tenant-representation.mp4',
+        uploadDate: '2026-10-12T05:00:16Z', duration: 'PT1M19.573S', inLanguage: 'en-AU',
+        publisher: { '@id': 'https://www.yourofficespace.au/#organization' },
+      }) }} />
       <section className="bg-warm-grey" style={SEC_SM} aria-labelledby="tenant-video-heading">
         <div className={WRAP} style={PAD}>
           <div className="max-w-3xl mb-8">
@@ -542,73 +531,7 @@ export default function TenantRepPage() {
       </section>
 
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "What does a tenant representative do?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "A tenant representative advocates exclusively for businesses looking to lease commercial space. Unlike a landlord's agent, we work only for you, negotiating rent, lease terms, incentives, and every clause on your behalf. We have no relationship with the landlord and no conflict of interest.",
-                },
-              },
-              {
-                "@type": "Question",
-                "name": "How does tenant representation work in practice?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We start with your brief – space requirements, location, timeline and non-negotiables. We assess available and relationship-sourced options against that brief, shortlist the trade-offs, and support negotiation with the landlord's agent. We coordinate with the tenant's legal and other advisers through the agreed scope.",
-                },
-              },
-              {
-                "@type": "Question",
-                "name": "Who pays for tenant representation?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Fee arrangements depend on the engagement and transaction structure. We explain the scope, fee and any relevant payment arrangements before work begins.",
-                },
-              },
-              {
-                "@type": "Question",
-                "name": "How is a tenant representative different from a commercial agent?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "A commercial agent appointed by the landlord acts for the property owner. A tenant representative is engaged to advise the tenant, assess the options and negotiate from the occupying business's perspective.",
-                },
-              },
-              {
-                "@type": "Question",
-                "name": "Can you help with an existing lease rather than a new one?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Yes. A structured lease review can organise issues such as rent, make-good, relocation rights, option clauses and outgoings into a Red / Amber / Green summary. The review supports commercial decision-making and does not replace legal advice.",
-                },
-              },
-              {
-                "@type": "Question",
-                "name": "What types of commercial property do you cover?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "We assess office, industrial, retail and specialised-use briefs case by case. The property type, location, engagement scope and licensing coverage are confirmed before work begins.",
-                },
-              },
-              {
-                "@type": "Question",
-                "name": "How much can a tenant representative save on a commercial lease?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "The outcome depends on the property, market, landlord position, lease structure and the tenant's negotiating leverage. We do not promise a saving. We show the commercial effect of the available terms and explain our scope and fees before the engagement begins.",
-                },
-              },
-            ],
-          })
-        }}
-      />
+
 
       </main>
 

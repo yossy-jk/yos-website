@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
@@ -5,7 +6,7 @@ import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Commercial Lease Review | EOF Group, Know What You\'re Signing | Newcastle NSW',
   description: 'EOF Group reviews and negotiates commercial lease terms before you commit. Lease review, clause-by-clause negotiation, rent review advocacy and exit strategy for businesses in Newcastle and regional NSW.',
   twitter: { card: 'summary_large_image', title: 'Commercial Lease Review | EOF Group', description: 'We review commercial leases before you sign. Clause-by-clause negotiation, rent reviews, and exit strategy.' },
@@ -14,12 +15,12 @@ export const metadata = {
     title: 'Commercial Lease Review | EOF Group',
     description: 'Lease review and negotiation for commercial tenants. Know what you\'re signing before you commit.',
     url: 'https://www.yourofficespace.au/eof-group/lease-review',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Lease Review, EOF Group' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Lease Review, EOF Group' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }

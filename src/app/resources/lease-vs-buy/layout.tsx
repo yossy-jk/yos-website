@@ -1,6 +1,8 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
+  robots: { index: false, follow: true },
   title: 'Lease vs Buy Calculator, Commercial Property Cost Comparison | Your Office Space',
   description: 'Compare the true cost of leasing vs buying commercial property over your chosen term. Includes mortgage, capital growth, and equity modelling. Free tool.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/lease-vs-buy' },
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Lease vs Buy Calculator | Your Office Space',
     description: 'Is it cheaper to lease or buy your commercial premises? Model it in seconds.',
   },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children
