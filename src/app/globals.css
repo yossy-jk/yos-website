@@ -861,3 +861,30 @@ main [id] { scroll-margin-top: 6rem; }
   .home-guide-service:last-child p { display: block; font-size: 0.75rem; }
 }
 .footer-privacy-settings { font-size: 0.78rem; color: rgb(255 255 255 / 65%); }
+
+/* Mobile navigation uses explicit sizing so generic touch-target rules cannot expose hidden links. */
+.yos-nav-logo img { width: 210px; height: auto; }
+.yos-mobile-menu[hidden], .yos-mobile-group-links[hidden] { display: none; }
+.yos-mobile-menu-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; color: white; background: transparent; border: 0; cursor: pointer; }
+@media (max-width: 1279px) {
+  .yos-nav-header { height: 72px; }
+  .yos-nav-logo img { width: 160px; }
+  .yos-mobile-nav-actions { gap: 0.375rem; }
+  .yos-mobile-nav-actions .site-search-trigger { width: 44px; height: 44px; justify-content: center; }
+  .yos-mobile-menu { position: fixed; inset: 72px 0 0; z-index: 40; display: flex; flex-direction: column; height: calc(100dvh - 72px); background: #191919; border-top: 1px solid #333; }
+  .yos-mobile-menu-content { min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 1rem 1.25rem; }
+  .yos-mobile-search .site-search-trigger { width: 100%; min-height: 48px; padding: 0.75rem 1rem; gap: 0.75rem; background: #272727; border: 1px solid #444; border-radius: 0.5rem; text-transform: none !important; letter-spacing: 0 !important; font-size: 0.95rem !important; }
+  .yos-mobile-groups { margin-top: 0.75rem; }
+  .yos-mobile-group { border-bottom: 1px solid #383838; }
+  .yos-mobile-group-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; min-height: 56px; background: transparent; border: 0; color: white; font-size: 1.05rem; font-weight: 600; text-align: left; cursor: pointer; }
+  .yos-mobile-group-toggle span { color: #00B5A5; font-size: 1.4rem; font-weight: 400; }
+  .yos-mobile-group-links { padding: 0 0 0.75rem 0.75rem; border-left: 2px solid #00B5A5; margin-bottom: 0.75rem; }
+  .yos-mobile-menu a[href] { width: 100%; display: flex; align-items: center; min-height: 48px; text-decoration: none; }
+  .yos-mobile-group-links a { color: #ddd; padding: 0.65rem 0.5rem; font-size: 0.95rem; line-height: 1.4; }
+  .yos-mobile-group-links a:hover, .yos-mobile-simple-link:hover { color: #00B5A5; }
+  .yos-mobile-menu a.yos-mobile-simple-link { padding: 1rem 0; min-height: 56px; color: white; font-size: 1.05rem; font-weight: 600; border-bottom: 1px solid #383838; }
+  .yos-mobile-menu-footer { flex-shrink: 0; padding: 0.75rem 1.25rem max(0.75rem,env(safe-area-inset-bottom)); border-top: 1px solid #383838; background: #191919; }
+  .yos-mobile-menu a.yos-mobile-enquire { justify-content: center; min-height: 48px; padding: 0.85rem 1rem; border-radius: 0.5rem; color: #191919; background: #00B5A5; font-size: 0.95rem; font-weight: 700; }
+  .yos-mobile-menu a.yos-mobile-call { justify-content: center; color: #ccc; font-size: 0.85rem; min-height: 44px; }
+}
+@media (max-width: 359px) { .yos-nav-logo img { width: 140px; } }

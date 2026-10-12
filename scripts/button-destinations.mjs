@@ -100,7 +100,7 @@ try{
    await page.click('button[aria-label="Open menu"]')
    await page.waitForSelector('button[aria-label="Close menu"]')
   }
-  const enquiry=await page.evaluateHandle(()=>[...document.querySelectorAll('nav a[href="/contact#contact-enquiry"]')].find(e=>e.getBoundingClientRect().width>0))
+  const enquiry=await page.evaluateHandle(()=>[...document.querySelectorAll('nav a[href="/contact#contact-enquiry"], #mobile-navigation-menu a[href="/contact#contact-enquiry"]')].find(e=>e.getBoundingClientRect().width>0))
   assert.ok(enquiry.asElement(),'Visible navigation enquiry link')
   await enquiry.asElement().click()
   await page.waitForFunction(()=>location.pathname==='/contact'&&location.hash==='#contact-enquiry'&&document.querySelector('#contact-name')?.getBoundingClientRect().top<900)

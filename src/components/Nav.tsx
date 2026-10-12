@@ -21,6 +21,14 @@ const BLOG_HIGHLIGHTS = [
   { label: 'Make Good: What It Really Means', href: '/blog/what-is-make-good' },
 ]
 
+const MOBILE_SERVICES = [
+  { label: 'Tenant Representation', href: '/tenant-rep' },
+  { label: 'Buyers Agency', href: '/buyers-agency' },
+  { label: 'Office FitOut', href: '/office-fitout' },
+  { label: 'Office Furniture', href: '/furniture' },
+  { label: 'Commercial Cleaning', href: '/cleaning' },
+]
+
 const NAV_LINKS_SIMPLE = [
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
@@ -30,6 +38,8 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [resourcesOpen, setResourcesOpen] = useState(false)
+  const [mobileSection, setMobileSection] = useState<'services' | 'care' | 'resources' | null>(null)
+  const mobilePanelRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
   const resourcesRef = useRef<HTMLDivElement>(null)
@@ -44,8 +54,17 @@ export default function Nav() {
   }, [])
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    const background = [...document.querySelectorAll<HTMLElement>('main, footer')]
+    const previousInert = background.map(element => element.inert)
+    document.body.style.overflow = 'hidden'
+    background.forEach(element => { element.inert = true })
+    mobileMenuButtonRef.current?.focus()
+    return () => {
+      document.body.style.overflow = previousOverflow
+      background.forEach((element, index) => { element.inert = previousInert[index] })
+    }
   }, [open])
 
   useEffect(() => {
@@ -63,6 +82,12 @@ export default function Nav() {
 
   useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
+      if (open && e.key === 'Tab') {
+        const items = [document.querySelector<HTMLElement>('.yos-nav-logo'), mobileMenuButtonRef.current, ...(mobilePanelRef.current?.querySelectorAll<HTMLElement>('button, a[href]') ?? [])].filter((element): element is HTMLElement => Boolean(element?.getClientRects().length))
+        const first = items[0], last = items.at(-1)
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus() }
+        if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus() }
+      }
       if (e.key !== 'Escape') return
 
       if (open) {
@@ -85,22 +110,31 @@ export default function Nav() {
     return () => document.removeEventListener('keydown', handleEscape)
   }, [open, resourcesOpen, servicesOpen])
 
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 1280px)')
+    const closeOnWide = () => { if (wide.matches) { setOpen(false); setMobileSection(null) } }
+    wide.addEventListener('change', closeOnWide)
+    return () => wide.removeEventListener('change', closeOnWide)
+  }, [])
+
   const NAV_H = 80
 
+  const closeMobile = () => { setOpen(false); setMobileSection(null) }
+  const toggleMobile = () => { setOpen(!open); setMobileSection(null) }
   const closeAll = () => { setServicesOpen(false); setResourcesOpen(false) }
 
   return (
     <>
       <a className="skip-link" href="#main-content">Skip to main content</a>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <nav className={`yos-navigation fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-near-black border-b border-white/10' : 'bg-near-black/95 backdrop-blur-md'
       }`}>
         <div
-          className="max-w-screen-xl mx-auto flex justify-between items-center h-16 md:h-20"
+          className="yos-nav-header max-w-screen-xl mx-auto flex justify-between items-center h-16 md:h-20"
           style={{ paddingLeft: 'clamp(1.25rem,5vw,4rem)', paddingRight: 'clamp(1.25rem,5vw,4rem)' }}
         >
-          <Link href="/" onClick={() => setOpen(false)} aria-label="Your Office Space home"
-            className="relative z-50 flex shrink-0 items-center no-underline">
+          <Link href="/" onClick={closeMobile} aria-label="Your Office Space home"
+            className="yos-nav-logo relative z-50 flex shrink-0 items-center no-underline">
             <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} sizes="(min-width: 1200px) 210px, 150px" className="h-[23px] w-auto xl:h-8" priority />
           </Link>
 
@@ -268,22 +302,15 @@ export default function Nav() {
               style={{ fontSize: '0.8rem', letterSpacing: '0.02em', padding: '0.9rem 1.6rem' }}>Enquire</Link>
           </div>
 
-          <div className="xl:hidden flex items-center gap-2">
-            <Link href="/contact#contact-enquiry" className="hidden sm:inline-flex rounded-lg bg-teal text-near-black font-bold no-underline"
-              style={{ fontSize: '0.75rem', padding: '0.75rem 1.1rem' }}>Enquire</Link>
-            <Search />
-          <button ref={mobileMenuButtonRef} onClick={() => setOpen(!open)}
-            className="relative z-50 flex flex-col justify-center items-center gap-[5px] w-11 h-11 bg-transparent border-none cursor-pointer"
-            aria-label={open ? 'Close menu' : 'Open menu'}
-            aria-expanded={open}
-            aria-controls="mobile-navigation-menu">
-            <span className="block w-6 h-[2px] bg-white transition-all duration-300 origin-center"
-              style={{ transform: open ? 'rotate(45deg) translateY(7px)' : 'none' }} />
-            <span className="block w-6 h-[2px] bg-white transition-all duration-200"
-              style={{ opacity: open ? 0 : 1 }} />
-            <span className="block w-6 h-[2px] bg-white transition-all duration-300 origin-center"
-              style={{ transform: open ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
-          </button>
+          <div className="yos-mobile-nav-actions xl:hidden flex items-center gap-2">
+            {!open && <Search compact />}
+            <button ref={mobileMenuButtonRef} type="button" onClick={toggleMobile}
+              className="yos-mobile-menu-toggle"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-navigation-menu">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d={open ? 'M6 6l12 12M18 6L6 18' : 'M4 6h16M4 12h16M4 18h16'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+            </button>
           </div>
         </div>
       </nav>
@@ -296,65 +323,30 @@ export default function Nav() {
         />
       )}
 
-      {/* Mobile fullscreen */}
-      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} className={`fixed inset-0 z-40 bg-near-black xl:hidden transition-opacity duration-300 ${
-        open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-      }`}>
-        <div className="flex flex-col h-full overflow-y-auto" style={{ padding: '5rem 1.25rem 2.5rem' }}>
-
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Services</p>
-          <div className="flex flex-col mb-8">
-            {SERVICE_LINKS.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
-                className="text-white no-underline font-bold hover:text-teal transition-colors"
-                style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
-                {link.label}
-              </Link>
-            ))}
+      {/* Mobile navigation: show one group at a time, with enquiry always within reach. */}
+      <div id="mobile-navigation-menu" hidden={!open} aria-hidden={!open} ref={mobilePanelRef} className="yos-mobile-menu xl:hidden" role="navigation" aria-label="Mobile navigation">
+        <div className="yos-mobile-menu-content">
+          <div className="yos-mobile-search"><Search showShortcut={false} onOpen={closeMobile} focusReturnRef={mobileMenuButtonRef} /></div>
+          <div className="yos-mobile-groups">
+            {([
+              { key: 'services', title: 'Services', links: MOBILE_SERVICES },
+              { key: 'care', title: 'Workplace Care', links: [{ label: 'Explore Flourish', href: '/flourish' }, ...FLOURISH_LINKS.slice(1).map(link => ({ href: link.href, label: link.label.replace(/^Office /, '') }))] },
+              { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Articles & Guides', href: '/blog' }] },
+            ] as const).map(group => <div key={group.key} className="yos-mobile-group">
+              <button type="button" aria-expanded={mobileSection === group.key} aria-controls={`mobile-${group.key}-links`} onClick={() => setMobileSection(mobileSection === group.key ? null : group.key)} className="yos-mobile-group-toggle">
+                {group.title}<span aria-hidden="true">{mobileSection === group.key ? '−' : '+'}</span>
+              </button>
+              <div id={`mobile-${group.key}-links`} hidden={mobileSection !== group.key} className="yos-mobile-group-links">
+                {group.links.map(link => <Link key={link.href} href={link.href} onClick={closeMobile}>{link.label}</Link>)}
+              </div>
+            </div>)}
+            <Link href="/about" onClick={closeMobile} className="yos-mobile-simple-link">About YOS</Link>
+            <Link href="/contact" onClick={closeMobile} className="yos-mobile-simple-link">Contact</Link>
           </div>
-
-          <Link href="/flourish" onClick={() => setOpen(false)} className="text-teal font-semibold uppercase inline-flex min-h-11 items-center mb-4 text-sm tracking-widest">Flourish workplace care</Link>
-          <div className="flex flex-col mb-8">
-            {FLOURISH_LINKS.slice(1).map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="text-white font-semibold no-underline py-3 min-h-11 border-b border-white/10">{link.label}</Link>)}
-          </div>
-
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Resources</p>
-          <div className="flex flex-col mb-8">
-            <Link href="/resources" onClick={() => setOpen(false)}
-              className="text-white no-underline font-bold hover:text-teal transition-colors"
-              style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
-              Free Tools (10)
-            </Link>
-            <Link href="/blog" onClick={() => setOpen(false)}
-              className="text-white no-underline font-bold hover:text-teal transition-colors"
-              style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
-              Articles &amp; Guides
-            </Link>
-          </div>
-
-          <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>More</p>
-          <div className="flex flex-col mb-10">
-            {NAV_LINKS_SIMPLE.map(link => (
-              <Link key={link.href} href={link.href} onClick={() => setOpen(false)}
-                className="text-white no-underline font-bold hover:text-teal transition-colors"
-                style={{ fontSize: '1rem', paddingTop: '0.875rem', paddingBottom: '0.875rem', borderBottom: '1px solid rgba(255,255,255,0.07)', display: 'block', minHeight: '44px' }}>
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex flex-col gap-3 pb-4" style={{ marginTop: 'auto' }}>
-            <Link href="/contact#contact-enquiry" onClick={() => setOpen(false)}
-              className="rounded-lg bg-teal text-near-black font-bold text-center no-underline block"
-              style={{ padding: '1.1rem', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
-              Enquire →
-            </Link>
-            <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`} onClick={() => setOpen(false)}
-              className="text-white font-light text-center no-underline block"
-              style={{ padding: '0.9rem', fontSize: '0.9rem', border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.05)' }}>
-              {CONTACT.phone}
-            </a>
-          </div>
+        </div>
+        <div className="yos-mobile-menu-footer">
+          <Link href="/contact#contact-enquiry" onClick={closeMobile} className="yos-mobile-enquire">Enquire →</Link>
+          <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`} onClick={closeMobile} className="yos-mobile-call">Call {CONTACT.phone}</a>
         </div>
       </div>
 
