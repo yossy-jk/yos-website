@@ -45,3 +45,6 @@ credentials/
 !src/content/blog/*.json
 credentials/
 *.pre-*
+
+# Cleaning enquiry browser-test evidence
+/screenshots/cleaning-enquiry/

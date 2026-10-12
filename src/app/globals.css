@@ -806,3 +806,22 @@ input[type='range']::-moz-range-thumb {
 @media (min-width: 768px) {
   .flourish-page .md\:p-8 { padding: 2rem; }
 }
+
+/* Cleaning enquiries use native on-page links and a first-party form. */
+.cleaning-quote-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  min-width: 160px;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+}
+.cleaning-enquiry-card label { margin-bottom: .5rem; }
+.cleaning-enquiry-card button[type="submit"] { width: 100%; padding: 1rem 1.5rem; }
+.cleaning-reviews blockquote { margin-top: 2rem; }
+.cleaning-reviews figcaption { margin-top: 2rem; padding-top: 1.5rem; }
+.cleaning-reviews figure > div > span:first-child { padding: .5rem 1rem; }

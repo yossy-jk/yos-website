@@ -55,10 +55,15 @@ function resolveService(requested?: string): Service | '' {
 }
 
 /**
- * Contact form. sends to FormSubmit (email delivery) + HubSpot CRM (deal creation).
+ * Contact form. sends to Resend (email delivery) + HubSpot CRM (deal creation).
  * Both run in parallel; neither blocks the other.
  */
-export default function ContactForm({ initialService }: { initialService?: string }) {
+export default function ContactForm({ initialService, fixedService = false, submitLabel = 'Send Message →', messagePlaceholder = "Tell us what you're working on..." }: {
+  initialService?: string
+  fixedService?: boolean
+  submitLabel?: string
+  messagePlaceholder?: string
+}) {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -192,7 +197,7 @@ export default function ContactForm({ initialService }: { initialService?: strin
         </div>
       </div>
 
-      <div>
+      {!(fixedService && resolveService(initialService)) && <div>
         <fieldset id="contact-service" tabIndex={-1} aria-describedby={errors.service ? 'contact-service-error' : undefined} className="outline-none">
           <legend className={labelClass} style={labelStyle}>What do you need? <span className="text-teal">*</span></legend>
           <div className="flex flex-wrap gap-2">
@@ -207,15 +212,15 @@ export default function ContactForm({ initialService }: { initialService?: strin
               )
             })}
           </div>
-          <input type="hidden" name="service" value={fields.service} />
           {errors.service && <p id="contact-service-error" role="alert" className="text-red-500 text-xs mt-1">{errors.service}</p>}
         </fieldset>
-      </div>
+      </div>}
+      <input type="hidden" name="service" value={fields.service} />
 
       <div>
         <label htmlFor="contact-message" className={labelClass} style={labelStyle}>Anything else we should know? <span className="text-readable-grey font-normal">(optional)</span></label>
         <textarea id="contact-message" name="message" value={fields.message} onChange={e => set('message')(e.target.value)}
-          rows={4} placeholder="Tell us what you&apos;re working on..."
+          rows={4} placeholder={messagePlaceholder}
           aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined}
           className={inputClass()} style={{ ...style, resize: 'vertical' as const }} />
         {errors.message && <p id="contact-message-error" role="alert" className="text-red-500 text-xs mt-1">{errors.message}</p>}
@@ -230,7 +235,7 @@ export default function ContactForm({ initialService }: { initialService?: strin
       >
         {submitting ? (
           <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-sm animate-spin" />Sending…</>
-        ) : 'Send Message →'}
+        ) : submitLabel}
       </button>
 
       <p className="text-readable-grey text-xs">
