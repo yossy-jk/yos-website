@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "node --test scripts/next-root-glob.test.mjs && eslint",
-    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links",
+    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links && npm run test:sitemap-content",
     "test:credential-scan": "node --test scripts/scan-source-credentials.test.mjs",
     "test:download-token": "node --test src/lib/download-token.test.mjs",
     "test:fitout-estimate": "node --no-warnings --experimental-strip-types --test src/lib/fitout-estimate.test.ts",
@@ -27,7 +27,8 @@
     "check:brand": "node scripts/check-brand-v11.mjs",
     "audit:dependencies": "node scripts/audit-dependencies.mjs",
     "check": "npm test && npm run scan:credentials && npm run check:brand && npm run lint && npm run audit:dependencies && npm run build && npm run test:responsive && npm run test:axe",
-    "test:seo": "node scripts/seo-integrity.mjs"
+    "test:seo": "node scripts/seo-integrity.mjs",
+    "test:sitemap-content": "node --no-warnings --experimental-strip-types --test src/lib/sitemap-content.test.ts"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",

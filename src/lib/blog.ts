@@ -88,6 +88,7 @@ async function fetchRedisPosts(): Promise<BlogPost[]> {
     const res = await fetch(`${url}/hgetall/yos:blog:live`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: 'no-store',
+      signal: AbortSignal.timeout(5000),
     })
     const d = await res.json() as { result: unknown }
     const raw = d.result
@@ -136,6 +137,7 @@ export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null>
     const res = await fetch(`${url}/hget/yos:blog:live/${slug}`, {
       headers: { Authorization: `Bearer ${token}` },
       cache: 'no-store',
+      signal: AbortSignal.timeout(5000),
     })
     const d = await res.json() as { result: string | null }
     if (!d.result) return null

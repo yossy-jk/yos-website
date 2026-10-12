@@ -1,3 +1,4 @@
+import { blogSitemapEntries, safeContentDate } from '@/lib/sitemap-content'
 import { MetadataRoute } from 'next'
 import { SEARCH_EXCLUDED_BLOG_SLUGS } from '@/lib/search-policy'
 import { getAllPublicPostsAsync } from '@/lib/blog'
@@ -6,7 +7,7 @@ import { getAllCaseStudies } from '@/lib/case-studies'
 const BASE = 'https://www.yourofficespace.au'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = (await getAllPublicPostsAsync()).filter(post => !SEARCH_EXCLUDED_BLOG_SLUGS.some(slug => slug === post.slug))
+  const posts = await getAllPublicPostsAsync()
   const caseStudies = getAllCaseStudies()
 
   return [
@@ -41,15 +42,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/case-studies`,                        changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/tools/space-planner`,                 changeFrequency: 'monthly', priority: 0.65 },
     // Dynamic blog posts
-    ...posts.map(p => ({
-      url: `${BASE}/blog/${p.slug}`,
-      lastModified: new Date(p.date).toISOString(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.75,
-    })),
+    ...blogSitemapEntries(posts, BASE, SEARCH_EXCLUDED_BLOG_SLUGS),
     ...caseStudies.map(caseStudy => ({
       url: `${BASE}/case-studies/${caseStudy.slug}`,
-      lastModified: new Date(caseStudy.date).toISOString(),
+      ...(safeContentDate(caseStudy.date) ? { lastModified: safeContentDate(caseStudy.date) } : {}),
       changeFrequency: 'monthly' as const,
       priority: 0.65,
     })),

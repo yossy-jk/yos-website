@@ -1,3 +1,4 @@
+import { safeContentDate } from '@/lib/sitemap-content'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { SEARCH_EXCLUDED_BLOG_SLUGS } from '@/lib/search-policy'
@@ -290,6 +291,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     .slice(0, Math.max(0, 3 - related.length))
   const relatedPosts = [...related, ...otherPosts].slice(0, 3)
 
+  const publicationDate = safeContentDate(post.date)
   const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
 
 
@@ -299,9 +301,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.metaDescription || post.excerpt,
-    datePublished: post.date,
-    dateModified: post.date,
-    author: { '@type': post.author === 'Your Office Space' ? 'Organization' : 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' },
+    datePublished: publicationDate,
+    dateModified: publicationDate,
+    author: post.author ? { '@type': post.author === 'Your Office Space' ? 'Organization' : 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' } : undefined,
     publisher: ORGANIZATION_SCHEMA,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/blog/${post.slug}` },
     image: absoluteAssetUrl(heroImage),
@@ -337,12 +339,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {DIVISION_LABELS[post.division as Division]}
               </span>
               <span className="text-white/40 text-xs">
-                {new Date(post.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}
+                {publicationDate ? new Date(publicationDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Australia/Sydney' }) : 'Publication date not recorded'}
               </span>
               <span className="text-white/40 text-xs">·</span>
               <span className="text-white/40 text-xs">{readTime} min read</span>
               <span className="text-white/40 text-xs">·</span>
-              <span className="text-white/40 text-xs">by {post.author}</span>
+              <span className="text-white/40 text-xs">{post.author ? `by ${post.author}` : 'Published by Your Office Space'}</span>
             </div>
 
             {/* Title */}
@@ -420,10 +422,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666666', marginBottom: '1rem' }}>About the author</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginBottom: '0.875rem' }}>
                   <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#00796D', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>{post.author === 'Your Office Space' ? 'YOS' : post.author.split(/\s+/).map(part => part[0]).slice(0, 2).join('')}</span>
+                    <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>{post.author === 'Your Office Space' ? 'YOS' : post.author?.split(/\s+/).map(part => part[0]).slice(0, 2).join('') || 'YOS'}</span>
                   </div>
                   <div>
-                    <p style={{ fontWeight: 800, color: '#0A0A0A', fontSize: '0.9rem' }}>{post.author}</p>
+                    <p style={{ fontWeight: 800, color: '#0A0A0A', fontSize: '0.9rem' }}>{post.author || 'Your Office Space'}</p>
                     <p style={{ color: '#6B7280', fontSize: '0.78rem', fontWeight: 300 }}>Your Office Space</p>
                   </div>
                 </div>
