@@ -160,7 +160,7 @@ export default function PrivacyPage() {
                 Essential session and security storage is used where required for the site to function. Optional Google Analytics and HubSpot analytics are disabled by default and only load after you select <strong>Accept analytics</strong>.
               </p>
               <p>
-                We do not use analytics for advertising. You can choose <strong>Essential only</strong> or reopen <strong>Privacy choices</strong> at any time to change your preference. You can also disable cookies in your browser settings, though some site functionality may be affected.
+                We do not use analytics for advertising. You can choose <strong>Essential only</strong> or use <strong>Privacy settings</strong> in the footer at any time to change your preference. You can also disable cookies in your browser settings, though some site functionality may be affected.
               </p>
             </PrivacySection>
 

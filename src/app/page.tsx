@@ -1,3 +1,4 @@
+import HomeServiceGuide from '@/components/HomeServiceGuide'
 import { CLIENT_REVIEWS } from '@/lib/client-reviews'
 import FlourishServices from '@/components/FlourishServices'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -89,7 +90,7 @@ export default function Home() {
             <p className="home-eyebrow home-eyebrow-light">One team for your workplace</p>
             <h1>{primaryTagline}</h1>
             <p className="home-hero-copy text-white/85">We help businesses lease or buy their next commercial space, then coordinate the FitOut and furniture. Commercial cleaning is available across Newcastle CBD and Lake Macquarie.</p>
-            <div className="home-actions"><Link href="/contact#contact-enquiry" className="home-button home-button-primary">Enquire</Link><Link href="/resources/fitout-estimator" className="home-button home-button-ghost">Estimate your FitOut</Link></div>
+            <div className="home-actions"><Link href="/contact#contact-enquiry" className="home-button home-button-primary">Enquire</Link><Link href="/resources/fitout-estimator" className="home-button home-button-ghost">Estimate your FitOut</Link></div><HomeServiceGuide />
           </FadeIn>
         </div>
       </section>

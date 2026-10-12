@@ -1,3 +1,4 @@
+import PrivacySettingsButton from '@/components/PrivacySettingsButton'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FLOURISH_LINKS } from '@/lib/flourish-links'
@@ -93,12 +94,13 @@ export default function Footer() {
               Tenant representation is delivered in NSW by Joseph Kelley, Class 2 licensed real estate agent No. 20565455.
             </p>
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center gap-6">
             <Link href="/privacy"
               className="inline-flex min-h-11 items-center px-1 text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
               Privacy Policy
             </Link>
+            <PrivacySettingsButton />
             <Link href="/terms"
               className="inline-flex min-h-11 min-w-11 items-center justify-center px-1 text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>
