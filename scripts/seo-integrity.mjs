@@ -29,7 +29,7 @@ try {
           if(node['@type']==='Question' && (!text.includes(normal(node.name)) || !text.includes(normal(node.acceptedAnswer?.text)))) errors.push(`FAQ not represented in visible content: ${node.name}`)
           if(typeof node.image==='string') {try{const url=new URL(node.image);if(!['https:','http:'].includes(url.protocol)||node.image.includes('.auhttps:'))errors.push('Invalid schema image URL')}catch{errors.push('Invalid schema image URL')}}
         }
-        return {path,status:response.status,title:doc.title,description:meta('description'),canonical:doc.querySelector('link[rel="canonical"]')?.href || '',robots:meta('robots'),h1Count:doc.querySelectorAll('h1').length,ogTitle:meta('og:title'),ogUrl:meta('og:url'),ogImage:meta('og:image'),twitterTitle:meta('twitter:title'),wordCount:text.split(' ').length,schemaTypes:[...new Set(schemaNodes.map(n=>n['@type']))],errors}
+        return {path,status:response.status,title:doc.title,description:meta('description'),canonical:doc.querySelector('link[rel="canonical"]')?.href || '',robots:meta('robots'),googleBot:meta('googlebot'),h1Count:doc.querySelectorAll('h1').length,ogTitle:meta('og:title'),ogUrl:meta('og:url'),ogImage:meta('og:image'),twitterTitle:meta('twitter:title'),wordCount:text.split(' ').length,schemaTypes:[...new Set(schemaNodes.map(n=>n['@type']))],errors}
       })))
     }
     return results
@@ -43,6 +43,7 @@ try {
       for(const key of ['title','description','ogTitle','ogUrl','ogImage','twitterTitle']) if(!row[key])failures.push(`${row.path}: missing ${key}`)
       if(row.h1Count!==1)failures.push(`${row.path}: ${row.h1Count} H1 headings`)
     }
+    if(row.robots.includes('noindex') && row.googleBot && !row.googleBot.includes('noindex')) failures.push(`${row.path}: Googlebot overrides noindex`)
     if(sitemapUrls.includes(`${site}${row.path==='/'?'':row.path}`)&&row.robots.includes('noindex'))failures.push(`${row.path}: noindex URL in sitemap`)
     failures.push(...row.errors.map(e=>`${row.path}: ${e}`))
   }
