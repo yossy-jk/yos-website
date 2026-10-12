@@ -10,6 +10,13 @@ process.env.TURBOPACK = '0';
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      ...[
+        ['/eof-group', '/about'],
+        ['/eof-group/furniture', '/furniture'],
+        ['/eof-group/tenant-representation', '/tenant-rep'],
+        ['/eof-group/lease-review', '/lease-review'],
+        ['/eof-group/newcastle', '/newcastle-commercial-property'],
+      ].map(([source, destination]) => ({ source, destination, permanent: true })),
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'yourofficespace.au' }],

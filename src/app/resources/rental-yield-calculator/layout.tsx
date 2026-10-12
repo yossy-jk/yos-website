@@ -1,6 +1,8 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
+  robots: { index: false, follow: true },
   title: 'Commercial Rental Yield Calculator | Your Office Space',
   description: 'Calculate gross and net rental yield on commercial property investments. Free calculator for Australian investors.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/rental-yield-calculator' },
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Commercial Rental Yield Calculator | Your Office Space', description: 'Calculate gross and net rental yield on commercial property investments. Free calculator for Australian investors.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

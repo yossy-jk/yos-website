@@ -1,3 +1,5 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
@@ -13,7 +15,7 @@ import NotForProfitForm from '@/components/NotForProfitForm'
 import FadeIn from '@/components/FadeIn'
 import { CONTACT } from '@/lib/constants'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Free Lease Support for Not-for-Profits | Your Office Space Newcastle',
   description: 'Pro bono lease reviews and relocation search for not-for-profits in Newcastle and the Hunter. No fee, no obligation. Limited spots available. Apply now.',
   alternates: { canonical: 'https://www.yourofficespace.au/not-for-profit-lease-support' },
@@ -22,12 +24,12 @@ export const metadata = {
     title: 'Free Lease Support for Not-for-Profits | Your Office Space',
     description: 'Pro bono lease reviews and relocation search for not-for-profits. No fee, no obligation. Limited spots available in Newcastle and the Hunter.',
     url: 'https://www.yourofficespace.au/not-for-profit-lease-support',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Free Lease Support for Not-for-Profits, Your Office Space' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Free Lease Support for Not-for-Profits, Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 
 const FAQ_SCHEMA = [
@@ -55,27 +57,7 @@ export default function NotForProfitPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+61-2-4092-0733",
-              "contactType": "customer service",
-              "areaServed": "AU",
-            },
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "16A Chelmsford St",
-              "addressLocality": "Maryville",
-              "addressRegion": "NSW",
-              "postalCode": "2293",
-              "addressCountry": "AU",
-            },
-          },
+          ORGANIZATION_SCHEMA,
           {
             "@type": "FAQPage",
             "@id": "https://www.yourofficespace.au/not-for-profit-lease-support/#faq",

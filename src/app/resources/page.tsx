@@ -1,3 +1,6 @@
+import ServiceFaq from '@/components/ServiceFaq'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
@@ -11,7 +14,7 @@ import { HUBSPOT } from '@/lib/constants'
 import { getPublicPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Resources & Insights | Your Office Space',
   description: 'Practical tenant-side commercial property tools for Australian businesses, including lease risk, fit out cost, lease comparison and office size tools.',
   twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Practical lease, fit out and workplace planning tools for Australian business owners.' },
@@ -23,9 +26,9 @@ export const metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-resources.png', width: 1200, height: 630, alt: 'Free Commercial Property Tools. Your Office Space' }],
+    images: [{ url: '/og/og-resources.png', width: 1200, height: 630, alt: 'Free Commercial Property Tools. Your Office Space' }],
   },
-}
+})
 
 const LEASING_TOOLS = [
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention. and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
@@ -56,36 +59,14 @@ export default function ResourcesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": "https://www.yourofficespace.au/#organization",
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "description": "Newcastle-based, tenant-side commercial property advisory across Australia. Practical tools and guidance for lease, fit out and workplace decisions.",
-            "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            }
-          },
+          ORGANIZATION_SCHEMA,
           {
             "@type": "WebPage",
             "name": "Resources & Tools. Your Office Space",
             "description": "Practical tools including a lease risk checker, fit out estimator, lease comparison and office size calculator for Australian business owners.",
             "url": "https://www.yourofficespace.au/resources"
           },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "Are the tools on Your Office Space really free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. All tools on the Your Office Space website are completely free to use. No sign-up, no email capture, no catch. We built them to help business owners make better property decisions." } },
-              { "@type": "Question", "name": "How accurate are the calculators?", "acceptedAnswer": { "@type": "Answer", "text": "The tools are for indicative planning and do not replace project-specific professional advice. Inputs, assumptions and market conditions should be checked before a decision is made." } },
-              { "@type": "Question", "name": "What should I use the Lease Risk Checker for?", "acceptedAnswer": { "@type": "Answer", "text": "The LeaseIntel risk checker is designed for business owners who want a quick read on whether their current lease has clauses that need attention. particularly make-good obligations, rent review structures, and assignment restrictions." } }
-            ]
-          },
+
           {
             "@type": "SoftwareApplication",
             "name": "Lease Risk Checker",
@@ -140,7 +121,7 @@ export default function ResourcesPage() {
             </h1>
             <p className="text-white/60 font-light leading-relaxed"
               style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.75 }}>
-              Free tools for commercial property decisions, practical articles, and real project case studies. No sign-up required.
+              Free tools for commercial property decisions, practical articles, and real project case studies. Some tools request contact details to unlock results or a report.
             </p>
           </FadeIn>
         </div>
@@ -303,6 +284,8 @@ export default function ResourcesPage() {
         </div>
       </section>
 
+
+      <ServiceFaq items={[{"question": "Are the tools free to use?", "answer": "The listed planning tools have no usage charge. Some tools request your name and work email to unlock a result or report. A tailored advisory or project engagement is separately scoped."}, {"question": "Can I rely on a calculator result as a final quote?", "answer": "No. Results are indicative and depend on the inputs and assumptions shown. Confirm current rates, site conditions and scope before making a decision. Obtain legal, tax or financial advice where relevant."}, {"question": "Which tool should I use first?", "answer": "Use the office size calculator for an initial space brief, the lease comparison tool to assess options, or the FitOut estimator for an indicative project budget. If you already have a lease, start with a lease risk review."}]} />
       </main>
 
       <Footer />

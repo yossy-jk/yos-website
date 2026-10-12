@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
@@ -5,7 +6,7 @@ import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
 import { CONTACT } from '@/lib/constants'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'EOF Group | Commercial Fitout, Tenant Rep, Lease Review & Property Services',
   description: 'EOF Group delivers commercial office fitout, tenant representation, lease review and property services across Newcastle, the Hunter Valley and regional NSW. Four divisions. One team. We work exclusively for tenants and occupiers.',
   twitter: { card: 'summary_large_image', title: 'EOF Group | Commercial Fitout & Property Services', description: 'Office fitout, tenant rep, lease review and commercial property services. We work for tenants and occupiers, never landlords.' },
@@ -14,12 +15,12 @@ export const metadata = {
     title: 'EOF Group | Commercial Fitout, Tenant Rep & Property Services',
     description: 'Four specialist divisions. One experienced team. EOF Group delivers office fitout, tenant representation, lease review and property services across Newcastle and regional NSW.',
     url: 'https://www.yourofficespace.au/eof-group',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Group, Commercial Fitout & Property Services' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'EOF Group, Commercial Fitout & Property Services' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }

@@ -61,8 +61,8 @@ export function getAllPosts(): BlogPost[] {
   return posts
 }
 
-// Buyers Agency content is retained for controlled referral use, but it is not
-// part of the approved public service offer in Brand Standard v1.1.
+// Public buying content supports the current Commercial Buyers Agent service.
+// Search eligibility is managed separately from publication status.
 export function getPublicPosts(): BlogPost[] {
   return getAllPosts()
 }

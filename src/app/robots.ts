@@ -6,15 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/api/',
-          '/resources/lease-vs-buy',
-          '/resources/stamp-duty-calculator',
-          '/resources/rental-yield-calculator',
-          '/resources/cap-rate-calculator',
-          '/resources/land-tax-calculator',
-          '/resources/purchase-checklist',
-        ],
+        disallow: ['/api/'],
       },
     ],
     sitemap: 'https://www.yourofficespace.au/sitemap.xml',

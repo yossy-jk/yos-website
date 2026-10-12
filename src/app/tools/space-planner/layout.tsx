@@ -1,6 +1,7 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Office Space Planner | Your Office Space',
   description: 'Plan your office layout online. Drag-and-drop desks, meeting rooms, breakout zones and more. Free space planning tool for Newcastle and Australian businesses.',
   alternates: { canonical: 'https://www.yourofficespace.au/tools/space-planner' },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Office Space Planner | Your Office Space', description: 'Plan your office layout online. Free space planning tool for Australian businesses.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

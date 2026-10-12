@@ -1,4 +1,6 @@
 'use client'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -72,7 +74,7 @@ const SCHEMA = {
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
-  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "provider": ORGANIZATION_SCHEMA,
   "areaServed": { "@type": "Country", "name": "Australia" },
 }
 

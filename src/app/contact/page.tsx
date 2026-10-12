@@ -1,3 +1,6 @@
+import ServiceFaq from '@/components/ServiceFaq'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Image from 'next/image'
 import Footer from '@/components/Footer'
@@ -11,7 +14,7 @@ import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 const SEC    = { paddingTop: 'clamp(4rem,7vw,7rem)', paddingBottom: 'clamp(4rem,7vw,7rem)' }
 const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Contact Your Office Space | Tenant-Side Commercial Advisory',
   description: 'Talk to Your Office Space about tenant representation in NSW, FitOut and furniture Australia-wide, or commercial cleaning in Newcastle and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/contact' },
@@ -25,7 +28,7 @@ export const metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[] }> }) {
   const params = await searchParams
@@ -41,42 +44,12 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": ORGANIZATION_ID,
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": LOGO_URL,
-            "serviceType": SERVICE_TYPES,
-            "telephone": "+61240920733",
-            "email": "jk@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office FitOut and commercial furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
-            ]
-          },
+          ORGANIZATION_SCHEMA,
           {
             "@type": "ContactPage",
             "name": "Contact Your Office Space",
             "description": "Get in touch with Your Office Space about tenant representation, FitOut, furniture or commercial cleaning.",
             "url": "https://www.yourofficespace.au/contact"
-          },
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "What happens after I enquire?", "acceptedAnswer": { "@type": "Answer", "text": "We review the situation and confirm the most appropriate next step, service scope or referral." } },
-              { "@type": "Question", "name": "How quickly will I hear back?", "acceptedAnswer": { "@type": "Answer", "text": "Appointment availability is shown when you book. For time-sensitive lease matters, call (02) 4092 0733." } },
-              { "@type": "Question", "name": "Do you work outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We provide office FitOut and commercial furniture support Australia-wide. Tenant representation is delivered in NSW, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } }
-            ]
           }
         ]
       }) }} />
@@ -311,6 +284,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
       </section>
 
       <BookingCTA label="Enquire" />
+
+      <ServiceFaq items={[{"question": "What should I include in an enquiry?", "answer": "Tell us which service you need, the location, approximate space or team size, your timing and any existing lease or project constraints. We use that information to confirm the next step."}, {"question": "Which areas does YOS cover?", "answer": "Tenant representation and commercial buying are available in NSW. FitOut and furniture can be coordinated Australia-wide. Commercial cleaning covers Newcastle CBD and Lake Macquarie."}]} />
       </main>
 
       <Footer />

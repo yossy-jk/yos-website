@@ -1,3 +1,5 @@
+import ServiceSchema from '@/components/ServiceSchema'
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -7,7 +9,7 @@ import Button from '@/components/Button'
 import Image from 'next/image'
 import ServiceFaq from '@/components/ServiceFaq'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Commercial Office Furniture | Your Office Space',
   description: 'Commercial furniture specified, quoted, delivered and installed for offices and workplaces across Australia.',
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
     images: [{ url: '/og/og-furniture.png', width: 1200, height: 630, alt: 'Commercial office furniture supplied and installed' }],
   },
   twitter: { card: 'summary_large_image', title: 'Commercial Office Furniture | Your Office Space', description: 'Furniture specified, quoted, delivered and installed for commercial workplaces.', images: ['/og/og-furniture.png'] },
-}
+})
 
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
@@ -46,6 +48,7 @@ const FAQS = [
 
 export default function FurniturePage() {
   return <><Nav /><main id="main-content" tabIndex={-1}>
+      <ServiceSchema name="Office and Commercial Furniture" path="/furniture" description="Commercial furniture selection, supply and installation for workplace briefs across Australia." area="Australia" />
     <section className="relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-liverpool-a.jpg" alt="Commercial workplace furnished with workstations and collaborative settings" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
       <FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Furniture that fits the work, not just the floor plan.</h1></FadeIn>

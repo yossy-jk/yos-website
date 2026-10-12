@@ -1,3 +1,7 @@
+import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { SEARCH_EXCLUDED_BLOG_SLUGS } from '@/lib/search-policy'
+import { absoluteAssetUrl } from '@/lib/page-seo'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -20,10 +24,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: post.metaTitle || `${post.title} | Your Office Space`,
     description: post.metaDescription || post.excerpt,
     alternates: { canonical: `https://www.yourofficespace.au/blog/${post.slug}` },
-    robots: post.division === 'buyers-agency' ? { index: false, follow: false } : undefined,
+    robots: SEARCH_EXCLUDED_BLOG_SLUGS.some(slug => slug === post.slug) ? { index: false, follow: true } : undefined,
     openGraph: {
-      
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+
+  images: [{ url: absoluteAssetUrl(post.heroImage || DIVISION_HERO_IMAGES[post.division]), alt: post.title }],
 title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
       url: `https://www.yourofficespace.au/blog/${post.slug}`,
@@ -35,6 +39,7 @@ title: post.metaTitle || post.title,
       card: 'summary_large_image' as const,
       title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
+      images: [absoluteAssetUrl(post.heroImage || DIVISION_HERO_IMAGES[post.division])],
     },
   }
 }
@@ -296,10 +301,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     description: post.metaDescription || post.excerpt,
     datePublished: post.date,
     dateModified: post.date,
-    author: { '@type': 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' },
-    publisher: { '@type': 'Organization', name: 'Your Office Space', url: 'https://www.yourofficespace.au' },
+    author: { '@type': post.author === 'Your Office Space' ? 'Organization' : 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' },
+    publisher: ORGANIZATION_SCHEMA,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/blog/${post.slug}` },
-    image: `https://www.yourofficespace.au${heroImage}`,
+    image: absoluteAssetUrl(heroImage),
     keywords: post.tags?.join(', '),
     articleSection: DIVISION_LABELS[post.division as Division],
   }
@@ -323,9 +328,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* Dark gradient overlay. heavier at bottom */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.96) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
 
-        <div className="absolute inset-0 flex items-end">
+        <div className="relative flex min-h-[inherit] items-end">
           <div className="w-full" style={{ maxWidth: '52rem', paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)', paddingTop: '8rem' }}>
             {/* Division + meta */}
+            <ContentBreadcrumbs section="Blog" sectionPath="/blog" title={post.title} path={`/blog/${post.slug}`} />
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span className={`text-xs font-bold px-3 py-1 rounded-sm tracking-widest uppercase ${DIVISION_COLORS[post.division as Division]}`}>
                 {DIVISION_LABELS[post.division as Division]}
@@ -417,12 +423,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>JK</span>
                   </div>
                   <div>
-                    <p style={{ fontWeight: 800, color: '#0A0A0A', fontSize: '0.9rem' }}>Joe Kelley</p>
-                    <p style={{ color: '#6B7280', fontSize: '0.78rem', fontWeight: 300 }}>Managing Director</p>
+                    <p style={{ fontWeight: 800, color: '#0A0A0A', fontSize: '0.9rem' }}>{post.author}</p>
+                    <p style={{ color: '#6B7280', fontSize: '0.78rem', fontWeight: 300 }}>Your Office Space</p>
                   </div>
                 </div>
                 <p style={{ fontSize: '0.825rem', color: '#6B7280', lineHeight: 1.75, fontWeight: 300 }}>
-                  Licensed commercial property advisor. A decade in commercial real estate on the tenant side. Founder of Your Office Space.
+                  Practical workplace guidance from Your Office Space. Confirm current assumptions and obtain project-specific professional advice before committing.
                 </p>
               </div>
 

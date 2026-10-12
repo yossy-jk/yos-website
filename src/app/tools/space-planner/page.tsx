@@ -1,24 +1,26 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import BookingCTA from '@/components/BookingCTA'
 import { HUBSPOT } from '@/lib/constants'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Space Planner | Your Office Space',
   description: 'Draw your floor plan, drag furniture in, get an instant quote. The YOS Space Planner is coming soon, book a call to get started now.',
   alternates: { canonical: 'https://www.yourofficespace.au/tools/space-planner' },
   openGraph: {
     title: 'Space Planner | Your Office Space',
     description: 'Draw your floor plan, drag furniture in, get an instant quote. Coming soon, but you can start now.',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
     url: 'https://www.yourofficespace.au/tools/space-planner',
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
   twitter: { card: 'summary_large_image' },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const WRAP   = 'max-w-screen-xl mx-auto'
@@ -40,7 +42,7 @@ export default function SpacePlannerPage() {
         "applicationCategory": "BusinessApplication",
         "operatingSystem": "Web",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
-        "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+        "provider": ORGANIZATION_SCHEMA,
         "areaServed": { "@type": "Country", "name": "Australia" },
       }) }} />
 

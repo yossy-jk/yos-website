@@ -1,9 +1,11 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import SectionLabel from '@/components/SectionLabel'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Terms & Conditions | Your Office Space',
   description: 'Terms and conditions governing use of the Your Office Space website and engagement of its services, including LeaseIntel™.',
   alternates: { canonical: 'https://www.yourofficespace.au/terms' },
@@ -11,31 +13,17 @@ export const metadata = {
     title: 'Terms & Conditions | Your Office Space',
     description: 'Terms and conditions governing use of the Your Office Space website and engagement of its services.',
     url: 'https://www.yourofficespace.au/terms',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const TERMS_SCHEMA = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.yourofficespace.au/#organization",
-      "name": "Your Office Space",
-      "url": "https://www.yourofficespace.au",
-      "telephone": "+61240920733",
-      "email": "jk@yourofficespace.au",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Newcastle",
-        "addressRegion": "NSW",
-        "postalCode": "2300",
-        "addressCountry": "AU"
-      }
-    },
+    ORGANIZATION_SCHEMA,
     {
       "@type": "WebPage",
       "name": "Terms and Conditions | Your Office Space",

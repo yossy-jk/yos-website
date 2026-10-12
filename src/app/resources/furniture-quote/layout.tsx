@@ -1,6 +1,7 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Furniture & Fitout Quote | Your Office Space',
   description: 'Get a furniture and fitout quote for your Newcastle commercial space. Tell us about your project and we will provide a tailored estimate.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/furniture-quote' },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'Furniture & Fitout Quote | Your Office Space', description: 'Get a furniture and fitout quote for your Newcastle commercial space.' },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

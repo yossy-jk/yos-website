@@ -1,3 +1,5 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -11,7 +13,7 @@ const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5re
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'LeaseIntel™ – Professional Lease Review | Your Office Space',
   description: 'Two ways to examine commercial lease risk: an educational self-check and a scoped LeaseIntel™ document review. Review scope, timing and fees are confirmed before work begins.',
   alternates: { canonical: 'https://www.yourofficespace.au/leaseintel' },
@@ -25,7 +27,7 @@ export const metadata: Metadata = {
     type: 'website',
   },
   twitter: { card: 'summary_large_image', title: 'LeaseIntel™ – Commercial Lease Review Newcastle | Your Office Space', description: 'Commercial lease risk review in NSW. Scope, timing and fees are confirmed before work begins.' },
-}
+})
 
 /* ─── FAQ Data ────────────────────────────────────────────── */
 const FAQS = [
@@ -47,22 +49,7 @@ const FAQS = [
 const SCHEMA = {
   "@context": "https://schema.org",
   "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.yourofficespace.au/#organization",
-      "name": "Your Office Space",
-      "url": "https://www.yourofficespace.au",
-      "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-      "telephone": "+61240920733",
-      "email": "jk@yourofficespace.au",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Newcastle",
-        "addressRegion": "NSW",
-        "postalCode": "2300",
-        "addressCountry": "AU"
-      }
-    },
+    ORGANIZATION_SCHEMA,
     {
       "@type": "Service",
       "name": "LeaseIntel™ Commercial Lease Review",

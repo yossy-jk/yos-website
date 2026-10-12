@@ -1,12 +1,13 @@
+'use client'
 /**
  * /tenant-rep/brief/[token], Client-facing brief viewer
- * 
+ *
  * Clean, professional. Shows client their brief and pipeline.
  * No YOS branding, branded as "Your Office Space Advisory"
  * Password protected if token requires it.
  */
 
-'use client'
+
 
 import { useEffect, useState } from 'react'
 

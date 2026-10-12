@@ -1,4 +1,7 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -111,7 +114,7 @@ const SCHEMA = {
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
-  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "provider": ORGANIZATION_SCHEMA,
   "areaServed": { "@type": "Country", "name": "Australia" },
 }
 
@@ -533,7 +536,9 @@ export default function LeaseRiskCheckerPage() {
         </div>
       </div>
 
-      </main>
+
+      <ToolGuide purpose="Use the questions to identify lease topics that warrant closer review before you commit or renew." inputs="Your lease and information about rent reviews, make-good, options and other commercial obligations." result="A risk summary based on your answers. It does not analyse the full lease or replace a solicitor." next="Request a scoped lease review" href="/lease-review" />
+</main>
 
       <Footer />
     </>

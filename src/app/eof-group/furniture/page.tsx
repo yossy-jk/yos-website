@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
@@ -6,7 +7,7 @@ import Button from '@/components/Button'
 import BookingCTA from '@/components/BookingCTA'
 import HubSpotForm from '@/components/HubSpotForm'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply | Newcastle NSW',
   description: 'EOF Furniture delivers commercial office fitout and furniture supply across Newcastle, the Hunter Valley and regional NSW. From brief to installed, we manage the whole project. Express in-stock to made-to-order solutions.',
   twitter: { card: 'summary_large_image', title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply', description: 'Brief to installed. Commercial office fitout and furniture supply, Newcastle and regional NSW.' },
@@ -15,12 +16,12 @@ export const metadata = {
     title: 'EOF Furniture | Commercial Office Fitout & Furniture Supply',
     description: 'Full commercial office fitout project management. Supply, installation, project management. Based in Newcastle, working across NSW.',
     url: 'https://www.yourofficespace.au/eof-group/furniture',
-    images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'EOF Furniture, Commercial Office Fitout' }],
+    images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'EOF Furniture, Commercial Office Fitout' }],
     siteName: 'EOF Group',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }

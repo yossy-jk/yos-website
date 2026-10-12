@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
@@ -5,7 +6,7 @@ import Footer from '@/components/Footer'
 import BlogEmailCapture from '@/components/BlogEmailCapture'
 import { getAllPublicPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES, SAFE_DIVISION } from '@/lib/blog'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'Blog | Your Office Space',
   description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',
   alternates: { canonical: 'https://www.yourofficespace.au/blog' },
@@ -17,9 +18,9 @@ export const metadata = {
     siteName: 'Your Office Space',
     locale: 'en_AU',
     type: 'website',
-    images: [{ url: '/og-blog.png', width: 1200, height: 630, alt: 'Blog, Your Office Space' }],
+    images: [{ url: '/og/og-blog.png', width: 1200, height: 630, alt: 'Blog, Your Office Space' }],
   },
-}
+})
 
 export const revalidate = 3600 // re-check Redis every hour
 

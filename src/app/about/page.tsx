@@ -1,3 +1,6 @@
+import ServiceFaq from '@/components/ServiceFaq'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
@@ -7,7 +10,7 @@ import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
-export const metadata = {
+export const metadata = withPageSeo({
   title: 'About Your Office Space | Newcastle Workplace Team',
   description: 'Based in Newcastle. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
@@ -21,7 +24,7 @@ export const metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const WRAP = 'max-w-screen-xl mx-auto'
@@ -79,32 +82,7 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
         "@graph": [
-          {
-            "@type": "Organization",
-            "@id": ORGANIZATION_ID,
-            "name": "Your Office Space",
-            "url": "https://www.yourofficespace.au",
-            "logo": LOGO_URL,
-            "telephone": "+61240920733",
-            "email": "hello@yourofficespace.au",
-            "description": "Newcastle-based workplace partner providing tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Newcastle",
-              "addressRegion": "NSW",
-              "postalCode": "2300",
-              "addressCountry": "AU"
-            },
-            "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Maitland" },
-              { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "State", "name": "New South Wales" },
-              { "@type": "Country", "name": "Australia" }
-            ],
-            "serviceType": SERVICE_TYPES,
-            "knowsAbout": ["Commercial Leases", "Tenant Rights", "Commercial Property", "Office Fit Out", "Commercial Furniture", "Commercial Cleaning"]
-          },
+          ORGANIZATION_SCHEMA,
           ...TEAM.map(member => ({
             "@type": "Person",
             "name": member.name,
@@ -113,31 +91,8 @@ export default function AboutPage() {
             "url": "https://www.yourofficespace.au/about",
             ...(member.description ? { "description": member.description } : {}),
           })),
-          {
-            "@type": "FAQPage",
-            "mainEntity": [
-              { "@type": "Question", "name": "How does Your Office Space charge?", "acceptedAnswer": { "@type": "Answer", "text": "Scope, fees and any relevant payment arrangements are explained before an engagement begins." } },
-              { "@type": "Question", "name": "Why does Your Office Space take a tenant-side position?", "acceptedAnswer": { "@type": "Answer", "text": "A tenant-side position keeps advice and negotiation focused on the priorities of the business occupying the space." } },
-              { "@type": "Question", "name": "Where is Your Office Space based?", "acceptedAnswer": { "@type": "Answer", "text": "Your Office Space is based in Newcastle. Tenant representation is delivered in NSW, fit out and furniture support is available Australia-wide, and commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
-              { "@type": "Question", "name": "What areas do you service?", "acceptedAnswer": { "@type": "Answer", "text": "Tenant representation and commercial buyers agent services are delivered in NSW. Fit out and furniture support is available Australia-wide. Commercial cleaning is available in Newcastle CBD and Lake Macquarie." } },
-              { "@type": "Question", "name": "How do I get started with Your Office Space?", "acceptedAnswer": { "@type": "Answer", "text": "Enquire with the lease, fit out, furniture or cleaning decision that needs to become clearer." } },
-              { "@type": "Question", "name": "Do you work with businesses outside Newcastle?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Fit out and furniture support is available Australia-wide, while property representation is delivered in NSW. Commercial cleaning remains focused on Newcastle CBD and Lake Macquarie." } }
-            ]
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Liz Murray" },
-            "reviewBody": "Joe takes the time to really listen and understand what you need. He asks thoughtful questions, builds genuine relationships, and makes the whole process feel collaborative.",
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "itemReviewed": { "@type": "Service", "name": "Tenant Representation", "provider": { "@id": ORGANIZATION_ID } }
-          },
-          {
-            "@type": "Review",
-            "author": { "@type": "Person", "name": "Nathan Franks", "worksFor": { "@type": "Organization", "name": "Dynamic Business Technologies" } },
-            "reviewBody": "Joe was instrumental in building out our boardroom. High-quality table, chairs and acoustic panelling that completely transformed the space. Practical advice, excellent detail.",
-            "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" },
-            "itemReviewed": { "@type": "Service", "name": "Furniture & Fit Out", "provider": { "@id": ORGANIZATION_ID } }
-          }
+
+
         ]
       }) }} />
 
@@ -318,6 +273,8 @@ export default function AboutPage() {
         </div>
       </section>
 
+
+      <ServiceFaq items={[{"question": "What does Your Office Space do?", "answer": "YOS helps businesses lease or buy commercial space in NSW, then coordinates client-side FitOut project management and commercial furniture. Commercial cleaning is available in Newcastle CBD and Lake Macquarie."}, {"question": "Where is Your Office Space based?", "answer": "Our team is based in Newcastle, NSW. Tenant representation and commercial buying are provided in NSW; FitOut and furniture briefs can be supported Australia-wide, subject to the agreed scope."}, {"question": "How are scope and fees agreed?", "answer": "We confirm the brief, responsibilities, scope and fees before an engagement begins. Each service has its own agreed scope."}]} />
       </main>
 
       <Footer />

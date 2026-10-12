@@ -1,6 +1,7 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'LeaseIntel™ – Commercial Lease Risk Review | Your Office Space',
   description: 'Request a scoped commercial lease risk review covering rent, make-good, relocation, options and other material obligations. Scope, timing and fees are confirmed before work begins.',
   alternates: { canonical: 'https://www.yourofficespace.au/lease-review' },
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 export default function LeaseReviewLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>

@@ -1,4 +1,7 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -92,7 +95,7 @@ const SCHEMA = {
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
-  "provider": { "@type": "Organization", "name": "Your Office Space", "url": "https://www.yourofficespace.au" },
+  "provider": ORGANIZATION_SCHEMA,
   "areaServed": { "@type": "Country", "name": "Australia" },
 }
 
@@ -397,7 +400,9 @@ export default function OfficeSizeCalculatorPage() {
         </div>
       </section>
 
-      </main>
+
+      <ToolGuide purpose="Estimate an initial office space range for your team before starting a property search." inputs="Headcount, work style, team growth and the working arrangements you expect." result="An indicative floor-area range. A measured layout, accessibility requirements and site conditions still need review." next="Discuss your property brief" href="/tenant-rep" />
+</main>
 
       <Footer />
     </>

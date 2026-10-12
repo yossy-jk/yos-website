@@ -1,15 +1,19 @@
 import { MetadataRoute } from 'next'
-import { getPublicPosts } from '@/lib/blog'
+import { SEARCH_EXCLUDED_BLOG_SLUGS } from '@/lib/search-policy'
+import { getAllPublicPostsAsync } from '@/lib/blog'
 import { getAllCaseStudies } from '@/lib/case-studies'
 
 const BASE = 'https://www.yourofficespace.au'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const posts = getPublicPosts()
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = (await getAllPublicPostsAsync()).filter(post => !SEARCH_EXCLUDED_BLOG_SLUGS.some(slug => slug === post.slug))
   const caseStudies = getAllCaseStudies()
 
   return [
     { url: BASE,                                          changeFrequency: 'weekly',  priority: 1.0 },
+    { url: `${BASE}/buyers-agency`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/cleaning/work-with-us`, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE}/cleaning/work-with-us/cleaning`, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/tenant-rep`,                          changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/tenant-rep/newcastle`,                changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/office-fitout`,                       changeFrequency: 'monthly', priority: 0.9 },

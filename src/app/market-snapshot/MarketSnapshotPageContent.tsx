@@ -304,12 +304,14 @@ export default function MarketSnapshotPageContent({
               className="text-white/55 font-light leading-relaxed mb-12"
               style={{ fontSize: 'clamp(1rem,2.2vw,1.25rem)', maxWidth: '620px', lineHeight: 1.85 }}
             >
-              Every month, we publish what landlords already know but tenants don&apos;t. Vacancy rates. Rent trends. What&apos;s in the pipeline. Which way leverage is moving.
+              This is our May 2026 edition. Read the dated commentary on vacancy, rents and supply, then ask us to assess the current market against your workplace brief.
             </p>
             <CTASection onOpen={openPopup} leaseIntelHref={leaseIntelHref} />
           </FadeIn>
         </div>
       </section>
+
+      <div className="bg-warm-grey px-6 py-6 text-charcoal"><p className="mx-auto max-w-screen-xl leading-relaxed"><strong>Historical edition: May 2026.</strong> Market figures and estimates relate to the period described, not today. Confirm current availability, rents and incentives before making a lease decision.</p></div>
 
       {/* ── Intro paragraphs ─────────────────────────────── */}
       <section
@@ -328,7 +330,7 @@ export default function MarketSnapshotPageContent({
                 className="text-near-black font-light leading-relaxed mb-5"
                 style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', lineHeight: 1.9 }}
               >
-                CBRE and Colliers publish market reports for landlords and investors. Nobody publishes the tenant&apos;s view. We&apos;re fixing that.
+                CBRE and Colliers publish market reports for landlords and investors. We consider that evidence from the perspective of the business occupying the space.
               </p>
               <p
                 className="text-near-black font-light leading-relaxed mb-5"

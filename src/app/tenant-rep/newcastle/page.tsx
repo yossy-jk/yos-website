@@ -1,3 +1,5 @@
+import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
@@ -6,13 +8,13 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import { HUBSPOT } from '@/lib/constants'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Tenant Rep Newcastle | Tenant Representation Newcastle NSW',
   description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Free initial consultation. Call (02) 4092 0733.',
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep/newcastle' },
   openGraph: {
-    
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+
+  images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
 title: 'Tenant Rep Newcastle | Your Office Space',
     description: 'Expert commercial tenant representation in Newcastle. Better terms, no conflicts, always working for tenants.',
     url: 'https://www.yourofficespace.au/tenant-rep/newcastle',
@@ -20,7 +22,7 @@ title: 'Tenant Rep Newcastle | Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,11rem)', paddingBottom: 'clamp(5rem,10vw,11rem)' }
 const SEC_SM = { paddingTop: 'clamp(3rem,6vw,5rem)',   paddingBottom: 'clamp(3rem,6vw,5rem)' }
@@ -271,25 +273,7 @@ export default function TenantRepNewcastlePage() {
                   __html: JSON.stringify({
                     "@context": "https://schema.org",
                     "@graph": [
-                      {
-                        "@type": "Organization",
-                        "@id": "https://www.yourofficespace.au/#organization",
-                        "name": "Your Office Space",
-                        "url": "https://www.yourofficespace.au",
-                        "logo": "https://www.yourofficespace.au/brand/yos-logo-white.png",
-                        "telephone": "(02) 4092 0733",
-                        "email": "jk@yourofficespace.au",
-                        "address": {
-                          "@type": "PostalAddress",
-                          "streetAddress": "16A Chelmsford St",
-                          "addressLocality": "Maryville",
-                          "addressRegion": "NSW",
-                          "postalCode": "2293",
-                          "addressCountry": "AU"
-                        },
-                        "areaServed": ["NSW", "Australia"],
-                        "sameAs": ["https://www.linkedin.com/company/your-office-space"]
-                      },
+                      ORGANIZATION_SCHEMA,
                       {
                         "@type": "Service",
                         "@id": "https://www.yourofficespace.au/#service-tenant-rep-newcastle",

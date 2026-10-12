@@ -1,10 +1,11 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import { CheckIcon } from '@/components/Icons'
 import Footer from '@/components/Footer'
 import CleaningCareersForm from './CleaningCareersForm'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Join the Cleaning Team | Your Office Space',
   description: 'Join a growing Newcastle commercial cleaning team. Consistent work, fair pay, local management. Positions open for employees and contractors.',
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning/work-with-us/cleaning' },
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const REASONS = [
   {

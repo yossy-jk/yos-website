@@ -1,6 +1,7 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Should I Relocate My Office? | Free Assessment | Your Office Space',
   description: 'Answer 6 quick questions and get an instant Red, Amber, or Green verdict on whether your business should relocate offices. Free tool from Your Office Space.',
   alternates: { canonical: 'https://www.yourofficespace.au/resources/relocate-quiz' },
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     title: 'Should I Relocate My Office? | Free Assessment | Your Office Space',
     description: 'Answer 6 quick questions and get a Red/Amber/Green verdict on whether you should move offices.',
   },
-}
+})
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return children

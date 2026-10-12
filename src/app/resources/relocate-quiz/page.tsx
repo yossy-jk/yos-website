@@ -1,4 +1,5 @@
 'use client'
+import ToolGuide from '@/components/ToolGuide'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -691,7 +692,9 @@ export default function RelocateQuizPage() {
         </section>
       )}
 
-      </main>
+
+      <ToolGuide purpose="Use the questions to organise your thinking about staying, renewing or relocating." inputs="Information about your current space, lease, team needs and the issues prompting the decision." result="An initial assessment and suggested next steps. Your lease obligations and available properties need a separate review." next="Discuss staying or relocating" href="/tenant-rep" />
+</main>
 
       <Footer />
     </>

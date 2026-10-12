@@ -1,3 +1,4 @@
+import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -5,14 +6,14 @@ import SalesCareersForm from './SalesCareersForm'
 import RoleSwitcher from './RoleSwitcher'
 import { BroomIcon, ChairIcon, HandshakeIcon, CheckIcon } from '@/components/Icons'
 
-export const metadata: Metadata = {
+export const metadata: Metadata = withPageSeo({
   title: 'Commission Sales Partners | Your Office Space',
   description: 'Earn serious commission selling commercial cleaning and office furniture in Newcastle and the Hunter Valley. No base, no cap, just results.',
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning/work-with-us' },
   robots: { index: true, follow: true },
   openGraph: {
-    
-  images: [{ url: '/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
+
+  images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
 title: 'Commission Sales Partners, Your Office Space',
     description: 'Earn serious commission selling commercial cleaning and office furniture in Newcastle and the Hunter Valley. No base, no cap.',
     url: 'https://www.yourofficespace.au/cleaning/work-with-us',
@@ -20,7 +21,7 @@ title: 'Commission Sales Partners, Your Office Space',
     locale: 'en_AU',
     type: 'website',
   },
-}
+})
 
 const WHAT_YOU_SELL = [
   {
