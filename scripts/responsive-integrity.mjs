@@ -48,6 +48,7 @@ try {
     for (const route of routes) {
       for (const width of widths) {
         const page = await browser.newPage()
+        await page.evaluateOnNewDocument(() => sessionStorage.setItem('yos-service-guide-dismissed', '1'))
         await page.setViewport({ width, height: 900, deviceScaleFactor: 1 })
         try {
           const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'networkidle2', timeout: 30_000 })

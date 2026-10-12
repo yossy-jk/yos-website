@@ -22,7 +22,7 @@ const staticRoutes=[]
 function walk(dir){for(const file of readdirSync(dir,{withFileTypes:true})){const full=path.join(dir,file.name);if(file.isDirectory())walk(full);else if(file.name==='page.tsx'){const route='/'+path.relative('src/app',dir);if(!route.includes('[')&&!route.startsWith('/dashboard')&&!route.startsWith('/eof-group'))staticRoutes.push(route==='/'?'/':route)}}}
 walk('src/app')
 try{
- const page=await browser.newPage();await page.setCacheEnabled(false);await page.goto(base,{waitUntil:'domcontentloaded'});
+ const page=await browser.newPage();await page.evaluateOnNewDocument(()=>sessionStorage.setItem('yos-service-guide-dismissed','1'));await page.setCacheEnabled(false);await page.goto(base,{waitUntil:'domcontentloaded'});
  const report=await page.evaluate(async seeds=>{
   const xml=await (await fetch('/sitemap.xml')).text();const sitemap=[...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>new URL(m[1]).pathname);
   const queue=[...new Set([...seeds,...sitemap])],rows=[],docs=new Map(),checked=new Set();
@@ -40,6 +40,7 @@ try{
  for(const row of report.pages)for(const a of row.anchors)if(a.text==='Enquire')assert.ok(!a.href.includes('meetings-ap1')&&a.href.includes('#'),`${row.route}: enquiry must reach a form, not a calendar.`)
  assert.deepEqual(report.failures, [], 'Every public destination and section must exist.')
  const dismissConsent=async()=>{
+  if(new URL(page.url()).pathname==='/')return
   await page.waitForSelector('.analytics-consent-panel, .analytics-consent-trigger')
   if(await page.$('.analytics-consent-panel')) {
    await page.click('.analytics-consent-panel button:nth-of-type(2)')

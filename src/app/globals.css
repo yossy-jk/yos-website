@@ -833,3 +833,31 @@ main [id] { scroll-margin-top: 6rem; }
 .enquiry-form-card button[type="submit"] { margin-top: 1rem; padding: 1rem 1.5rem; min-height: 48px; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.home-guide-trigger { display: inline-flex; align-items: center; min-height: 44px; margin-top: 1rem; color: white; text-decoration: underline; text-underline-offset: 4px; background: transparent; border: 0; cursor: pointer; font-size: 0.9rem; }
+.home-guide-overlay { position: fixed; inset: 0; z-index: 150; display: flex; align-items: flex-end; justify-content: center; padding: 1rem; background: rgb(0 0 0 / 65%); backdrop-filter: blur(4px); }
+.home-guide-panel { width: 100%; max-width: 56rem; max-height: calc(100dvh - 2rem); overflow-y: auto; padding: clamp(1.25rem,4vw,2rem); background: #191919; color: white; border-radius: 1rem; border: 1px solid #444; }
+.home-guide-heading-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.home-guide-eyebrow { color: #00B5A5; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+.home-guide-panel h2 { color: white; font-size: clamp(1.35rem,3vw,2rem); line-height: 1.2; }
+#home-service-guide-description { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin: 1rem 0; }
+.home-guide-close { justify-content: center; flex-shrink: 0; width: 44px; height: 44px; font-size: 1.75rem; color: white; background: #303030; border-radius: 0.5rem; cursor: pointer; border: 1px solid #555; }
+.home-guide-services { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0.75rem; }
+.home-guide-panel a.home-guide-service { position: relative; display: block; padding: 1rem 2.5rem 1rem 1rem; border: 1px solid #555; border-radius: 0.75rem; background: #242424; color: white; text-decoration: none; }
+.home-guide-service:hover { border-color: #00B5A5; background: #303030; }
+.home-guide-service > span:first-child { font-weight: 700; font-size: 0.95rem; line-height: 1.35; display: block; }
+.home-guide-service p { color: #ccc; font-size: 0.85rem; line-height: 1.5; margin-top: 0.5rem; }
+.home-guide-arrow { position: absolute; right: 1rem; top: 1rem; color: #00B5A5; }
+.home-guide-bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem; margin-top: 1rem; }
+.home-guide-bottom a, .home-guide-bottom button { color: #ddd; min-height: 44px; display: inline-flex; align-items: center; text-decoration: underline; text-underline-offset: 4px; background: transparent; border: 0; font-size: 0.85rem; cursor: pointer; }
+.footer-privacy-settings { background: transparent; border: 0; color: inherit; font: inherit; cursor: pointer; min-height: 44px; }
+.footer-privacy-settings:hover { color: #00B5A5; }
+@media (max-width: 540px) {
+  .home-guide-overlay { padding: 0.75rem; }
+  .home-guide-panel { max-height: calc(100dvh - 1.5rem); }
+  .home-guide-panel a.home-guide-service { padding: 0.875rem; }
+  .home-guide-service > span:first-child { font-size: 0.85rem; }
+  .home-guide-service p, .home-guide-arrow { display: none; }
+  .home-guide-service:last-child p { display: block; font-size: 0.75rem; }
+}
+.footer-privacy-settings { font-size: 0.78rem; color: rgb(255 255 255 / 65%); }

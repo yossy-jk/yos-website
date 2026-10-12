@@ -97,6 +97,7 @@ async function run() {
   try {
     for (const route of routes) {
       const page = await browser.newPage()
+        await page.evaluateOnNewDocument(() => sessionStorage.setItem('yos-service-guide-dismissed', '1'))
       await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 })
 
       try {
