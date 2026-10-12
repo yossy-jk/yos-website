@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import { createPortal } from 'react-dom'
 import { FLOURISH_LINKS } from '@/lib/flourish-links'
 
 type SearchResult = {
@@ -60,7 +61,7 @@ function highlight(text: string, query: string) {
   )
 }
 
-export default function Search() {
+export default function Search({ compact = false, showShortcut = true, onOpen, focusReturnRef }: { compact?: boolean; showShortcut?: boolean; onOpen?: () => void; focusReturnRef?: React.RefObject<HTMLButtonElement | null> }) {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
@@ -78,22 +79,27 @@ export default function Search() {
       ).slice(0, 10)
 
   const openSearch = useCallback(() => {
+    onOpen?.()
     setOpen(true)
     setQuery('')
     setActive(0)
     setTimeout(() => inputRef.current?.focus(), 50)
-  }, [])
+  }, [onOpen])
 
   const closeSearch = useCallback(() => {
     setOpen(false)
     setQuery('')
-    window.requestAnimationFrame(() => triggerRef.current?.focus())
-  }, [])
+    window.requestAnimationFrame(() => {
+      if (focusReturnRef?.current) focusReturnRef.current.focus()
+      else triggerRef.current?.focus()
+    })
+  }, [focusReturnRef])
 
   // Keyboard shortcut. Cmd/Ctrl + K
   useEffect(() => {
     function handler(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k' && (open || triggerRef.current?.getClientRects().length)) {
+        if (!open && document.getElementById('site-search-title')) return
         e.preventDefault()
         if (open) closeSearch()
         else openSearch()
@@ -136,8 +142,10 @@ export default function Search() {
 
   // Lock body scroll
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    if (!open) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = previousOverflow }
   }, [open])
 
   return (
@@ -147,21 +155,21 @@ export default function Search() {
         ref={triggerRef}
         onClick={openSearch}
         aria-label="Search"
-        className="flex items-center gap-2 text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
+        className="site-search-trigger flex items-center gap-2 text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer p-0 outline-none focus:outline-none"
         style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
       >
         <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
         </svg>
-        <span className="hidden lg:inline">Search</span>
-        <kbd className="hidden lg:inline" style={{
+        {!compact && <span>Search</span>}
+        {!compact && showShortcut && <kbd className="hidden lg:inline" style={{
           fontSize: '0.55rem', padding: '0.15rem 0.4rem', border: '1px solid rgba(255,255,255,0.2)',
           borderRadius: '3px', color: 'rgba(255,255,255,0.8)', fontFamily: 'inherit', letterSpacing: '0.05em'
-        }}>⌘K</kbd>
+        }}>⌘K</kbd>}
       </button>
 
       {/* Overlay */}
-      {open && (
+      {open && createPortal(
         <div
           className="fixed inset-0 z-[200] flex items-start justify-center"
           style={{ paddingTop: 'clamp(4rem,10vw,8rem)', background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(4px)' }}
@@ -294,7 +302,7 @@ export default function Search() {
               </span>}
             </div>
           </div>
-        </div>
+        </div>, document.body
       )}
     </>
   )

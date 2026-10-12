@@ -30,7 +30,7 @@ export default function HomeServiceGuide() {
     // Direct section links should reach their destination without an interruption.
     if (window.location.hash) return
     const timer = setTimeout(() => {
-      if (!document.querySelector('[aria-modal="true"], .analytics-consent-panel')) setOpen(true)
+      if (!document.querySelector('[aria-modal="true"], .analytics-consent-panel, .yos-mobile-menu:not([hidden])')) setOpen(true)
     }, 700)
     return () => clearTimeout(timer)
   }, [])
