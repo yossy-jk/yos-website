@@ -101,7 +101,7 @@ export default function TenantRepPage() {
             </p>
           </FadeIn>
           <FadeIn delay={300}>
-            <Button href="/contact?service=leasing" variant="primary" size="lg">
+            <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">
               Enquire
             </Button>
           </FadeIn>
@@ -424,7 +424,7 @@ export default function TenantRepPage() {
                   Legal advice remains with the tenant&apos;s solicitor; our role is to keep the commercial position clear.
                   </p>
                 </div>
-                <Button href="/contact?service=leasing" variant="primary" size="lg">
+                <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">
                   Enquire
                 </Button>
               </div>
@@ -514,7 +514,7 @@ export default function TenantRepPage() {
                 A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button href="/contact?service=leasing" variant="primary" size="lg">
+                <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">
                   Enquire
                 </Button>
                 <CapabilityDownload

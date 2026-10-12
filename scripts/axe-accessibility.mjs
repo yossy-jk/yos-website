@@ -18,6 +18,8 @@ const routes = [
   '/buyers-agency',
   '/resources',
   '/blog',
+  '/blog/commercial-cleaning-scope-busier-office',
+  '/contact',
   '/flourish',
   '/flourish/office-plant-hire-newcastle',
   '/flourish/office-electrical-test-and-tag',

@@ -1,4 +1,5 @@
 'use client'
+import { HUBSPOT } from '@/lib/constants'
 import ToolGuide from '@/components/ToolGuide'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
@@ -1068,7 +1069,7 @@ export default function HealthCheckPage() {
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
                   <a
-                    href="https://meetings-ap1.hubspot.com/jkelley"
+                    href={HUBSPOT.bookingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -1162,7 +1163,7 @@ export default function HealthCheckPage() {
                 Answer the questions above for a clear picture across all four areas. Or book a free call with The Team and skip straight to the answer.
               </p>
               <a
-                href="https://meetings-ap1.hubspot.com/jkelley"
+                href={HUBSPOT.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -1184,7 +1185,7 @@ export default function HealthCheckPage() {
       )}
 
 
-      <ToolGuide purpose="Review the key workplace issues that may affect your next commercial property decision." inputs="Your current premises, lease position, workplace needs, costs and timing." result="A diagnostic starting point for a conversation. It is not a professional inspection or a substitute for legal or financial advice." next="Talk to the YOS team" href="/contact" />
+      <ToolGuide purpose="Review the key workplace issues that may affect your next commercial property decision." inputs="Your current premises, lease position, workplace needs, costs and timing." result="A diagnostic starting point for a conversation. It is not a professional inspection or a substitute for legal or financial advice." next="Talk to the YOS team" href="/contact#contact-enquiry" />
 </main>
 
       <Footer />

@@ -76,7 +76,7 @@ export default function FlourishServicePage({ service }: { service: FlourishServ
         </div>
       </section>
       <ServiceFaq heading={`${service.formService}: your questions answered.`} items={service.faqs} />
-      <section id="service-enquiry" className="bg-warm-grey py-16 md:py-24 scroll-mt-24" aria-labelledby="service-enquiry-heading">
+      <section className="bg-warm-grey py-16 md:py-24 scroll-mt-24" aria-labelledby="service-enquiry-heading">
         <div className="yos-container grid gap-10 lg:grid-cols-2 lg:gap-20 items-start">
           <div>
             <p className="text-action-teal uppercase text-sm tracking-widest font-semibold">Enquire about {service.formService}</p>
@@ -85,7 +85,7 @@ export default function FlourishServicePage({ service }: { service: FlourishServ
             <p className="text-charcoal leading-relaxed mt-5">We welcome enquiries from Newcastle and Lake Macquarie. Your site address, provider availability, scope and pricing are confirmed before booking.</p>
             <Link href="/office-fitout" className="inline-flex min-h-11 items-center text-action-teal underline underline-offset-4 mt-6">Planning a FitOut? Connect the workplace brief.</Link>
           </div>
-          <div className="bg-white rounded-2xl p-6 md:p-8 border border-black/10"><ContactForm initialService={service.formService} /></div>
+          <div id="service-enquiry" tabIndex={-1} aria-labelledby="service-enquiry-heading" className="bg-white rounded-2xl p-6 md:p-8 border border-black/10"><ContactForm initialService={service.formService} /></div>
         </div>
       </section>
       {service.sources.length > 0 && <section className="bg-white py-12">

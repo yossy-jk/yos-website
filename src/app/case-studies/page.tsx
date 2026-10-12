@@ -126,7 +126,7 @@ export default function CaseStudiesPage() {
             <p className="text-white/60 font-light text-lg mb-10 w-full">
               Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.
             </p>
-            <Button href="/contact" variant="primary" size="lg">Enquire</Button>
+            <Button href="/contact#contact-enquiry" variant="primary" size="lg">Enquire</Button>
           </div>
         </div>
       </section>

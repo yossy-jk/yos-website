@@ -82,7 +82,7 @@ export default function ConsultantPopup({ quoteModalOpen }: ConsultantPopupProps
 
       <div style={{ display: 'flex', gap: '0.6rem' }}>
         <Link
-          href="/contact"
+          href="/contact?service=furniture#contact-enquiry"
           style={{
             flex: 1,
             textAlign: 'center',

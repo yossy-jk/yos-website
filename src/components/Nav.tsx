@@ -264,12 +264,12 @@ export default function Nav() {
               </svg>
             </a>
 
-            <Link href="/contact" className="rounded-lg bg-teal text-near-black font-bold hover:bg-white transition-colors no-underline"
+            <Link href="/contact#contact-enquiry" className="rounded-lg bg-teal text-near-black font-bold hover:bg-white transition-colors no-underline"
               style={{ fontSize: '0.8rem', letterSpacing: '0.02em', padding: '0.9rem 1.6rem' }}>Enquire</Link>
           </div>
 
           <div className="xl:hidden flex items-center gap-2">
-            <Link href="/contact" className="hidden sm:inline-flex rounded-lg bg-teal text-near-black font-bold no-underline"
+            <Link href="/contact#contact-enquiry" className="hidden sm:inline-flex rounded-lg bg-teal text-near-black font-bold no-underline"
               style={{ fontSize: '0.75rem', padding: '0.75rem 1.1rem' }}>Enquire</Link>
             <Search />
           <button ref={mobileMenuButtonRef} onClick={() => setOpen(!open)}
@@ -344,7 +344,7 @@ export default function Nav() {
           </div>
 
           <div className="flex flex-col gap-3 pb-4" style={{ marginTop: 'auto' }}>
-            <Link href="/contact" onClick={() => setOpen(false)}
+            <Link href="/contact#contact-enquiry" onClick={() => setOpen(false)}
               className="rounded-lg bg-teal text-near-black font-bold text-center no-underline block"
               style={{ padding: '1.1rem', fontSize: '0.75rem', letterSpacing: '0.02em' }}>
               Enquire →

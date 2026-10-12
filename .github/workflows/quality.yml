@@ -69,6 +69,7 @@ jobs:
           done
           SEO_BASE_URL=http://127.0.0.1:3102 SEO_REPORT_PATH=screenshots/seo-integrity.json npm run test:seo
           CLEANING_QA_BASE_URL=http://127.0.0.1:3102 npm run test:cleaning-enquiry
+          LINK_AUDIT_BASE=http://127.0.0.1:3102 npm run test:button-destinations
           node scripts/screenshot.mjs http://127.0.0.1:3102
 
       - name: Upload visual QA evidence

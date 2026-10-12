@@ -338,11 +338,9 @@ export default function RentalYieldCalculatorPage() {
             style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
             Yield is one metric. We help you buy the right property at the right price. First conversation is free.
           </p>
-          <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+          <a href="/contact?service=buying#contact-enquiry"
             className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
-            style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>
-            Enquire
-          </a>
+            style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>Enquire</a>
         </div>
       </section>
 

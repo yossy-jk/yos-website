@@ -9,7 +9,7 @@ import Image from 'next/image'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import BookingCTA from '@/components/BookingCTA'
-import HubSpotForm from '@/components/HubSpotForm'
+import ContactForm from '@/components/ContactForm'
 import { getPublicPosts, getAllPublicPostsAsync, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
@@ -251,7 +251,7 @@ function renderBody(body: string, slug: string) {
       const match = line.match(/\[(.+?)\]\((.+?)\)/)
       if (match) {
         elements.push(
-          <Link key={key++} href={match[2]}
+          <Link key={key++} href={match[2] === '/contact' ? '/contact#contact-enquiry' : match[2]}
             className="inline-block text-action-teal font-semibold no-underline hover:text-dark-teal transition-colors"
             style={{ margin: '0.5rem 0', fontSize: '0.95rem' }}>
             {match[1]} →
@@ -398,11 +398,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   </p>
                 </div>
                 <div>
-                  <BookingCTA label="Enquire" variant="primary" />
+                  <BookingCTA label="Enquire" variant="primary" href="#blog-contact-form" />
                 </div>
                 {/* Inline contact form */}
-                <div style={{ marginTop: '1.5rem' }}>
-                  <HubSpotForm targetId="blog-contact-form" />
+                <div id="blog-contact-form" tabIndex={-1} aria-label="Article enquiry form" className="enquiry-form-card" style={{ marginTop: '1.5rem', background: 'white', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
+                  <ContactForm initialService={post.division === 'tenant-rep' ? 'Leasing' : post.division === 'buyers-agency' ? 'Buying' : post.division === 'cleaning' ? 'Cleaning' : /fitout/i.test(post.slug) ? 'FitOut' : post.division === 'furniture' ? 'Furniture' : 'Not sure'} />
                 </div>
               </div>
 

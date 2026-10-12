@@ -7,7 +7,6 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
 import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
 
 export const metadata = withPageSeo({
@@ -265,9 +264,7 @@ export default function AboutPage() {
               <p className="text-white font-light text-lg leading-relaxed mb-10 w-full">
                 A focused conversation about your space and the decision you are trying to make.
               </p>
-              <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-                Enquire
-              </Button>
+              <Button href="/contact#contact-enquiry" variant="dark" size="lg">Enquire</Button>
             </div>
           </FadeIn>
         </div>

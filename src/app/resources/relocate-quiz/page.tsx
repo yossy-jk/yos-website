@@ -1,4 +1,5 @@
 'use client'
+import { HUBSPOT } from '@/lib/constants'
 import ToolGuide from '@/components/ToolGuide'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
@@ -555,7 +556,7 @@ export default function RelocateQuizPage() {
                 {/* CTAs */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
                   <a
-                    href="https://meetings-ap1.hubspot.com/jkelley"
+                    href={HUBSPOT.bookingUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -674,7 +675,7 @@ export default function RelocateQuizPage() {
                 Answer the questions above and we&apos;ll give you a clear direction. Or book a free call with The Team and skip straight to the answer.
               </p>
               <a
-                href="https://meetings-ap1.hubspot.com/jkelley"
+                href={HUBSPOT.bookingUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

@@ -825,3 +825,11 @@ input[type='range']::-moz-range-thumb {
 .cleaning-reviews blockquote { margin-top: 2rem; }
 .cleaning-reviews figcaption { margin-top: 2rem; padding-top: 1.5rem; }
 .cleaning-reviews figure > div > span:first-child { padding: .5rem 1rem; }
+
+/* Keep section destinations below the fixed navigation on every public page. */
+main [id] { scroll-margin-top: 6rem; }
+.enquiry-form-card label { margin-bottom: 0.5rem; }
+.enquiry-form-card h2 { margin-bottom: 1.5rem; }
+.enquiry-form-card button[type="submit"] { margin-top: 1rem; padding: 1rem 1.5rem; min-height: 48px; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

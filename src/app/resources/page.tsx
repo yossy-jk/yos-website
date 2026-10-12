@@ -10,7 +10,6 @@ import Button from '@/components/Button'
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const PAD    = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
 import { getPublicPosts, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
@@ -276,9 +275,7 @@ export default function ResourcesPage() {
               style={{ fontSize: '1rem', lineHeight: 1.75 }}>
               Use the tools to build your understanding. Then talk to our team when you&apos;re ready to act. First conversation is free.
             </p>
-            <Button href={HUBSPOT.bookingUrl} variant="dark" external size="lg">
-              Enquire
-            </Button>
+            <Button href="/contact#contact-enquiry" variant="dark" size="lg">Enquire</Button>
             </div>
           </FadeIn>
         </div>

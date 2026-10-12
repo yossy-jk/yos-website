@@ -54,7 +54,7 @@ export default function FurniturePage() {
       <FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Furniture that fits the work, not just the floor plan.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We specify, quote, supply and coordinate installation of commercial furniture around your people, space, budget and programme. You can engage us for furniture only or as part of a wider workplace project.</p></FadeIn>
-      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/resources/furniture-quote" variant="primary" size="lg">Request a furniture quote</Button><Button href="/contact?service=furniture" variant="outline-light" size="lg">Enquire</Button></div></FadeIn>
+      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/resources/furniture-quote#furniture-quote-form" variant="primary" size="lg">Request a furniture quote</Button><Button href="/contact?service=furniture#contact-enquiry" variant="outline-light" size="lg">Enquire</Button></div></FadeIn>
     </div></section>
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
@@ -93,7 +93,7 @@ export default function FurniturePage() {
 
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><div className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center"><div className="flex-1"><SectionLabel>More than furniture?</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Planning building work as well?</h2><p className="text-charcoal leading-relaxed">Our separate fit out service provides client-side project management across brief, budget, design, procurement and delivery.</p></div><Button href="/office-fitout" variant="outline" size="lg">Explore fit out</Button></div></div></section>
     <ServiceFaq items={FAQS} />
-    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><Button href="/contact?service=furniture" variant="dark" size="lg">Enquire</Button></div></section>
+    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
   <ServiceArticle slug="adaptable-office-furniture-growth-relocation" />
       </main><Footer /></>
 }

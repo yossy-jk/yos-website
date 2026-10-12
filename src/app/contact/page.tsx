@@ -5,7 +5,7 @@ import Nav from '@/components/Nav'
 import Image from 'next/image'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
-import { HUBSPOT, CONTACT } from '@/lib/constants'
+import { CONTACT } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 import FadeIn from '@/components/FadeIn'
 import ContactForm from '@/components/ContactForm'
@@ -82,15 +82,15 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
 
             {/* Left. contact form */}
             <FadeIn className="lg:col-span-7">
-              <div className="rounded-3xl border border-black/5 bg-white p-7 shadow-sm sm:p-10">
+              <div id="contact-enquiry" tabIndex={-1} aria-labelledby="contact-enquiry-heading" className="enquiry-form-card rounded-3xl border border-black/5 bg-white p-7 shadow-sm sm:p-10" style={{ padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
                 <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Send a message</p>
-                <h2 className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
+                <h2 id="contact-enquiry-heading" className="text-near-black font-black uppercase leading-tight tracking-tight mb-6"
                   style={{ fontSize: 'clamp(1.75rem,3vw,2.5rem)' }}>
                   Tell us what you need.<br />We&apos;ll confirm the next step.
                 </h2>
 
                 {/* Contact Form. sends to HubSpot CRM + email */}
-                <ContactForm initialService={initialService} />
+                <ContactForm key={initialService || 'general'} initialService={initialService} />
                 {false && <form
                   name="contact-legacy"
                   method="POST"
@@ -209,9 +209,9 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                     <p className="text-teal font-bold uppercase tracking-widest mb-2" style={{ fontSize: '0.65rem' }}>Fastest option</p>
                     <p className="text-near-black font-black mb-2" style={{ fontSize: '1.05rem' }}>Enquire</p>
                     <p className="text-charcoal font-light mb-4" style={{ fontSize: '0.9rem', lineHeight: 1.7 }}>
-                      20 minutes. Pick a time that suits you and we will call.
+                      Use the form to share your workplace needs, timing and location.
                     </p>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external size="lg">
+            <Button href="#contact-enquiry" variant="primary" size="lg">
               Enquire
             </Button>
                   </div>
@@ -283,7 +283,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         </div>
       </section>
 
-      <BookingCTA label="Enquire" />
+      <BookingCTA label="Enquire" href="#contact-enquiry" />
 
       <ServiceFaq items={[{"question": "What should I include in an enquiry?", "answer": "Tell us which service you need, the location, approximate space or team size, your timing and any existing lease or project constraints. We use that information to confirm the next step."}, {"question": "Which areas does YOS cover?", "answer": "Tenant representation and commercial buying are available in NSW. FitOut and furniture can be coordinated Australia-wide. Commercial cleaning covers Newcastle CBD and Lake Macquarie."}]} />
       </main>
