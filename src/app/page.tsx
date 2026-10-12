@@ -1,3 +1,4 @@
+import FlourishServices from '@/components/FlourishServices'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
@@ -120,6 +121,8 @@ export default function Home() {
       <section className="home-journey"><div className="site-container"><FadeIn><div className="home-section-intro"><p className="home-eyebrow">One coordinated journey</p><h2>One team, from the first decision to the working workplace.</h2></div></FadeIn><ol className="home-journey-list">{services.map((service, index) => <li key={service.label}><span>0{index + 1}</span><strong>{service.label}</strong><p>{service.copy}</p></li>)}</ol></div></section>
 
       <section className="home-showcases" aria-labelledby="services-heading"><div className="site-container"><FadeIn><div className="home-section-intro"><p className="home-eyebrow">Choose what you need</p><h2 id="services-heading">One service, or one team across the whole journey.</h2></div></FadeIn><div className="home-showcase-list">{showcases.map((service, index) => <FadeIn key={service.eyebrow}><article className={`home-showcase ${index % 2 ? 'home-showcase-reverse' : ''}`}><div className="home-showcase-image"><Image src={service.image} alt={service.alt} fill className="object-cover" sizes="(min-width: 1100px) 50vw, 100vw" /></div><div className="home-showcase-copy"><p className="home-eyebrow">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.copy}</p><ul>{service.points.map(point => <li key={point}><span aria-hidden="true">✓</span>{point}</li>)}</ul><Link href={service.href} className="home-button home-button-dark">{service.cta}<span aria-hidden="true">→</span></Link></div></article></FadeIn>)}</div></div></section>
+
+      <FlourishServices compact />
 
       <section className="home-budget"><div className="site-container home-budget-grid"><FadeIn><div className="home-budget-visual" aria-label="Property, FitOut, furniture and programme are four connected parts of one project budget"><div><span>Property</span></div><div><span>FitOut</span></div><div><span>Furniture</span></div><div><span>Programme</span></div><strong>One brief<br />One budget</strong></div></FadeIn><FadeIn><div><p className="home-eyebrow">Protect the whole picture</p><h2>One budget. A lot of hands reaching for it.</h2><p>Property costs, consultants, contractors, furniture and programme changes all draw from the same project budget.</p><p>As your client-side project manager, YOS makes the trade-offs visible and keeps every decision tied to the workplace outcome.</p><Link href="/office-fitout" className="home-button home-button-outline">How client-side PM works</Link></div></FadeIn></div></section>
 

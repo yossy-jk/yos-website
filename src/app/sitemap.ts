@@ -41,6 +41,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/blog`,                                changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/case-studies`,                        changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/tools/space-planner`,                 changeFrequency: 'monthly', priority: 0.65 },
+    { url: `${BASE}/flourish`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/flourish/office-plant-hire-newcastle`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/flourish/office-electrical-test-and-tag`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/flourish/office-fire-compliance`, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/flourish/office-first-aid-compliance`, changeFrequency: 'monthly', priority: 0.8 },
     // Dynamic blog posts
     ...blogSitemapEntries(posts, BASE, SEARCH_EXCLUDED_BLOG_SLUGS),
     ...caseStudies.map(caseStudy => ({

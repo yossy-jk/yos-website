@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
 import { SERVICE_LINKS, CONTACT } from '@/lib/constants'
 import Search from '@/components/Search'
+import { FLOURISH_LINKS } from '@/lib/flourish-links'
 
 const TOOLS_LEASING = [
   { label: 'Lease Risk Checker', href: '/resources/lease-review', tagline: 'Spot hidden obligations before you sign.' },
@@ -147,6 +148,10 @@ export default function Nav() {
                           <span className="text-teal/0 group-hover:text-teal/70 transition-colors block mt-auto pt-3" style={{ fontSize: '0.65rem', fontWeight: 600 }}>→</span>
                         </Link>
                       ))}
+                    </div>
+                    <div className="py-5 flex flex-wrap items-center gap-x-7 gap-y-3">
+                      <Link href="/flourish" onClick={closeAll} className="text-teal font-bold text-sm no-underline hover:text-white">Flourish workplace care</Link>
+                      {FLOURISH_LINKS.slice(1).map(link => <Link key={link.href} href={link.href} onClick={closeAll} className="inline-flex min-h-11 items-center text-white/80 hover:text-white text-sm no-underline">{link.label}</Link>)}
                     </div>
                   </div>
               </div>
@@ -306,6 +311,11 @@ export default function Nav() {
                 {link.label}
               </Link>
             ))}
+          </div>
+
+          <Link href="/flourish" onClick={() => setOpen(false)} className="text-teal font-semibold uppercase inline-flex min-h-11 items-center mb-4 text-sm tracking-widest">Flourish workplace care</Link>
+          <div className="flex flex-col mb-8">
+            {FLOURISH_LINKS.slice(1).map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} className="text-white font-semibold no-underline py-3 min-h-11 border-b border-white/10">{link.label}</Link>)}
           </div>
 
           <p className="text-teal font-semibold uppercase mb-4" style={{ fontSize: '0.62rem', letterSpacing: '0.3em' }}>Resources</p>

@@ -17,6 +17,11 @@ const routes = [
   '/buyers-agency',
   '/resources',
   '/blog',
+  '/flourish',
+  '/flourish/office-plant-hire-newcastle',
+  '/flourish/office-electrical-test-and-tag',
+  '/flourish/office-fire-compliance',
+  '/flourish/office-first-aid-compliance',
 ]
 
 const executableCandidates = [

@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import { FLOURISH_LINKS } from '@/lib/flourish-links'
 
 type SearchResult = {
   title: string
@@ -15,6 +16,8 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Commercial FitOut & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },
   { title: 'Office & Commercial Furniture', description: 'Furniture selected, supplied and installed for your workplace.', href: '/furniture', category: 'Service' },
   { title: 'Commercial Cleaning', description: 'Accountable commercial cleaning built around your workplace standards.', href: '/cleaning', category: 'Service' },
+  { title: 'Flourish Workplace Services', description: 'Ongoing workplace care in Newcastle.', href: '/flourish', category: 'Service' },
+  ...FLOURISH_LINKS.slice(1).map(link => ({ title: link.label, description: link.description, href: link.href, category: 'Service' })),
   // Tools
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk rating on your commercial lease.', href: '/resources/lease-review', category: 'Tool' },
   { title: 'Fitout Cost Estimator', description: 'Estimate your office fitout cost using 2026 Newcastle market rates.', href: '/resources/fitout-estimator', category: 'Tool' },
