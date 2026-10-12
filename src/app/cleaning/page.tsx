@@ -1,3 +1,4 @@
+import FlourishServices from '@/components/FlourishServices'
 import ServiceArticle from '@/components/ServiceArticle'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -401,6 +402,8 @@ export default function CleaningPage() {
           </Button>
         </div>
       </section>
+
+      <FlourishServices compact />
 
       <ServiceArticle slug="commercial-cleaning-scope-busier-office" />
       </main>

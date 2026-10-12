@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import { FLOURISH_LINKS } from '@/lib/flourish-links'
 import { CONTACT, SERVICE_LINKS } from '@/lib/constants'
 
 export default function Footer() {
@@ -34,6 +35,10 @@ export default function Footer() {
                   {link.label}
                 </Link>
               ))}
+            </nav>
+            <Link href="/flourish" className="inline-flex min-h-11 items-center mt-5 text-teal font-semibold text-sm no-underline">Flourish workplace care</Link>
+            <nav aria-label="Flourish services" className="flex flex-col gap-3 mt-3">
+              {FLOURISH_LINKS.slice(1).map(link => <Link key={link.href} href={link.href} className="text-white/70 text-sm no-underline hover:text-white">{link.label}</Link>)}
             </nav>
           </div>
 

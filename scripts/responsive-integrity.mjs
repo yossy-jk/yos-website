@@ -10,7 +10,7 @@ const configuredBaseUrl = process.env.RESPONSIVE_BASE_URL
 const baseUrl = configuredBaseUrl || `http://${host}:${port}`
 const widths = [320, 390, 768, 820, 1024, 1280, 1440]
 const headlessScrollbarTolerance = 8
-const routes = ['/', '/tenant-rep', '/office-fitout', '/furniture', '/cleaning', '/about', '/contact', '/resources', '/resources/fitout-estimator']
+const routes = ['/', '/tenant-rep', '/office-fitout', '/furniture', '/cleaning', '/about', '/contact', '/resources', '/resources/fitout-estimator', '/flourish', '/flourish/office-plant-hire-newcastle', '/flourish/office-electrical-test-and-tag', '/flourish/office-fire-compliance', '/flourish/office-first-aid-compliance']
 const executablePath = [
   process.env.PUPPETEER_EXECUTABLE_PATH,
   process.env.CHROME_PATH,

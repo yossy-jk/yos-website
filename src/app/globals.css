@@ -774,3 +774,35 @@ input[type='range']::-moz-range-thumb {
 .text-white\/45:not(:disabled) {
   color: rgb(255 255 255 / 0.55);
 }
+
+/* Flourish pages own their spacing because the legacy unlayered reset
+   overrides Tailwind's spacing utilities. Keep this local to workplace care. */
+.flourish-services,
+.flourish-page > section { padding-block: clamp(3.5rem, 7vw, 6rem); }
+.flourish-page > .flourish-hero { padding-top: clamp(9rem, 13vw, 12rem); padding-bottom: clamp(4rem, 7vw, 6rem); }
+.flourish-card { padding: clamp(1.25rem, 3vw, 1.75rem); }
+.flourish-card > span { display: flex; }
+:is(.flourish-page, .flourish-services) .mt-3 { margin-top: .75rem; }
+:is(.flourish-page, .flourish-services) .mt-4 { margin-top: 1rem; }
+:is(.flourish-page, .flourish-services) .mt-5 { margin-top: 1.25rem; }
+:is(.flourish-page, .flourish-services) .mt-6 { margin-top: 1.5rem; }
+:is(.flourish-page, .flourish-services) .mt-7 { margin-top: 1.75rem; }
+:is(.flourish-page, .flourish-services) .mt-8 { margin-top: 2rem; }
+:is(.flourish-page, .flourish-services) .mt-10 { margin-top: 2.5rem; }
+:is(.flourish-page, .flourish-services) .mt-12 { margin-top: 3rem; }
+:is(.flourish-page, .flourish-services) .mb-2 { margin-bottom: .5rem; }
+:is(.flourish-page, .flourish-services) .mb-4 { margin-bottom: 1rem; }
+:is(.flourish-page, .flourish-services) .mb-5 { margin-bottom: 1.25rem; }
+:is(.flourish-page, .flourish-services) .mb-6 { margin-bottom: 1.5rem; }
+:is(.flourish-page, .flourish-services) .mb-10 { margin-bottom: 2.5rem; }
+.flourish-page .p-6 { padding: 1.5rem; }
+.flourish-page .p-7 { padding: 1.75rem; }
+.flourish-page .py-6 { padding-block: 1.5rem; }
+.flourish-page .pt-4 { padding-top: 1rem; }
+.flourish-page .pb-2 { padding-bottom: .5rem; }
+.flourish-hero > .yos-container > a { padding: 1rem 1.75rem; }
+.flourish-page .space-y-3 > * + * { margin-top: .75rem; }
+.flourish-page .space-y-5 > * + * { margin-top: 1.25rem; }
+@media (min-width: 768px) {
+  .flourish-page .md\:p-8 { padding: 2rem; }
+}

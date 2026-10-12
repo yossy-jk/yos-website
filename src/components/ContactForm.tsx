@@ -9,6 +9,10 @@ const SERVICES = [
   'FitOut',
   'Furniture',
   'Cleaning',
+  'Office Plant Hire',
+  'Electrical Test & Tag',
+  'Office Fire Compliance',
+  'Office First Aid Compliance',
   'Not sure',
 ] as const
 
@@ -34,6 +38,12 @@ const SERVICE_ALIASES: Record<string, Service> = {
   'fit-out': 'FitOut',
   furniture: 'Furniture',
   cleaning: 'Cleaning',
+  'office-plant-hire': 'Office Plant Hire',
+  'office-plant-hire-newcastle': 'Office Plant Hire',
+  'electrical-test-and-tag': 'Electrical Test & Tag',
+  'office-electrical-test-and-tag': 'Electrical Test & Tag',
+  'office-fire-compliance': 'Office Fire Compliance',
+  'office-first-aid-compliance': 'Office First Aid Compliance',
   unsure: 'Not sure',
   'not-sure': 'Not sure',
 }
