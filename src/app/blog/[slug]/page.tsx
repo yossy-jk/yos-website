@@ -420,7 +420,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#666666', marginBottom: '1rem' }}>About the author</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.875rem', marginBottom: '0.875rem' }}>
                   <div style={{ width: '44px', height: '44px', borderRadius: '50%', background: '#00796D', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                    <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>JK</span>
+                    <span style={{ color: 'white', fontSize: '1rem', fontWeight: 900 }}>{post.author === 'Your Office Space' ? 'YOS' : post.author.split(/\s+/).map(part => part[0]).slice(0, 2).join('')}</span>
                   </div>
                   <div>
                     <p style={{ fontWeight: 800, color: '#0A0A0A', fontSize: '0.9rem' }}>{post.author}</p>
