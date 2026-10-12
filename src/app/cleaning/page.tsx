@@ -1,3 +1,4 @@
+import ServiceArticle from '@/components/ServiceArticle'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
@@ -401,6 +402,7 @@ export default function CleaningPage() {
         </div>
       </section>
 
+      <ServiceArticle slug="commercial-cleaning-scope-busier-office" />
       </main>
 
       <Footer />

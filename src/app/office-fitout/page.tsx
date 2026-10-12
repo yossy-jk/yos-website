@@ -1,3 +1,4 @@
+import ServiceArticle from '@/components/ServiceArticle'
 import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
@@ -70,5 +71,6 @@ export default function OfficeFitoutPage() {
     <section className="bg-warm-grey" style={SEC}><div className={`${WRAP} bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center`}><div className="flex-1"><SectionLabel>Furniture comes next</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Need the space furnished as well?</h2><p className="text-charcoal leading-relaxed">Our commercial furniture service handles product specification, samples, quoting, delivery and installation as a separate, clearly defined workstream.</p></div><Button href="/furniture" variant="outline" size="lg">Explore furniture</Button></div></section>
     <ServiceFaq items={FAQS} />
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us where the project stands.</h2><Button href="/contact?service=fitout" variant="dark" size="lg">Enquire</Button></div></section>
-  </main><Footer /></>
+  <ServiceArticle slug="office-fitout-handover-checklist" />
+      </main><Footer /></>
 }

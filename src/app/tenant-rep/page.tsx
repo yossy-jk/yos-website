@@ -1,3 +1,4 @@
+import ServiceArticle from '@/components/ServiceArticle'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
@@ -533,6 +534,7 @@ export default function TenantRepPage() {
 
 
 
+      <ServiceArticle slug="renew-or-relocate-commercial-lease" />
       </main>
 
       <Footer />
