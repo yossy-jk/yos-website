@@ -10,7 +10,7 @@ import { HUBSPOT } from '@/lib/constants'
 
 export const metadata: Metadata = withPageSeo({
   title: 'Tenant Rep Newcastle | Tenant Representation Newcastle NSW',
-  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Free initial consultation. Call (02) 4092 0733.',
+  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Discuss your brief, options and lease priorities. Call (02) 4092 0733.',
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep/newcastle' },
   openGraph: {
 
@@ -36,7 +36,7 @@ const FAQ_SCHEMA = [
   },
   {
     q: 'Who pays the tenant representative fee?',
-    a: 'In most commercial lease transactions across Newcastle and the Hunter Valley, the landlord pays the tenant representative\'s fee, either directly or through the agreed lease terms. The fee is typically negotiated as part of the deal structure and is not paid by you as a separate cost. Every brief is different, and we discuss the fee structure before any engagement begins.',
+    a: 'Fee arrangements depend on the engagement and transaction structure. We explain the scope, fees and any relevant third-party payment arrangements before work begins.',
   },
   {
     q: 'How is tenant representation different from using a commercial agent?',
@@ -48,7 +48,7 @@ const FAQ_SCHEMA = [
   },
   {
     q: 'Do you cover areas outside Newcastle?',
-    a: 'Yes. We are Newcastle-based but cover the broader Hunter Valley, including Maitland, Charlestown, Wallsend, Cardiff, Tomago, Beresfield, Rutherford, and the Central Coast. For NSW-wide requirements, we work with a network of trusted tenant representation advisors in Sydney, Melbourne, and Brisbane.',
+    a: 'Yes. We are Newcastle-based and provide tenant representation across New South Wales through Joseph Kelley, Class 2 licensed real estate agent No. 20565455. Each brief is assessed against the location and agreed service scope.',
   },
   {
     q: 'What types of commercial property do you cover?',
@@ -237,12 +237,12 @@ export default function TenantRepNewcastlePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
-              { risk: 'Above-market rent', detail: 'Landlords open at 10–20% above fair market rate. Without comparable data, most tenants sign without question. We know what fair looks like in the Hunter.' },
-              { risk: 'Uncapped make-good', detail: 'Make-good clauses can cost $200–$400/sqm at lease end. Most standard leases have no cap and no clarity on what that means for your business.' },
-              { risk: 'Missed incentives', detail: 'Fit-out contributions of $50–$150/sqm are standard in this market. Most tenants don\'t ask. Landlords don\'t offer what isn\'t asked for.' },
+              { risk: 'Above-market rent', detail: 'Test the proposed rent against comparable properties, available incentives and the full occupancy cost before accepting an offer.' },
+              { risk: 'Uncapped make-good', detail: 'Identify what must be reinstated, when the obligation arises and how the cost will be assessed. Review the wording with your solicitor before committing.' },
+              { risk: 'Missed incentives', detail: 'Compare rent-free periods, fitout contributions and other incentives on the same basis. Availability depends on the property and the negotiated deal.' },
               { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent at renewal, removing all leverage at the moment you have the most.' },
-              { risk: 'Relocation risk', detail: 'Without a proper prohibition on landlord relocation rights, you can be legally moved mid-lease. We\'ve seen it happen to established Newcastle businesses.' },
-              { risk: 'Outgoings exposure', detail: 'Gross vs. net leases are not the same. Unexpected outgoings charges have blindsided clients by $30–$60k over a five-year term.' },
+              { risk: 'Relocation risk', detail: 'Have your solicitor review any relocation clause, the conditions for using it and the protections your business needs.' },
+              { risk: 'Outgoings exposure', detail: 'Compare gross and net terms carefully. Identify recoverable outgoings and review budgets, reconciliations and exclusions before comparing options.' },
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 60} direction="up">
                 <div className="bg-white border border-gray-200 p-8 h-full">
@@ -280,7 +280,7 @@ export default function TenantRepNewcastlePage() {
                         "name": "Tenant Representation Newcastle",
                         "provider": { "@id": "https://www.yourofficespace.au/#organization" },
                         "description": "Expert commercial tenant representation in Newcastle and the Hunter Valley. We negotiate better lease terms for tenants, never landlords.",
-                        "areaServed": ["Newcastle", "NSW", "Australia"],
+                        "areaServed": ["Newcastle", "New South Wales"],
                         "serviceType": "Tenant Representation",
                         "offers": { "@type": "Offer", "description": "Scope, fees and any third-party arrangements are confirmed before engagement." }
                       }
