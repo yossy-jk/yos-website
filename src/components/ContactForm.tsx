@@ -132,6 +132,7 @@ export default function ContactForm({ initialService, fixedService = false, subm
     if (emailAccepted || hubspotAccepted) {
       trackConversion('generate_lead', {
         service: fields.service,
+        form_name: 'contact_enquiry',
         email_delivery: emailAccepted,
         crm_delivery: hubspotAccepted,
       })
@@ -145,7 +146,7 @@ export default function ContactForm({ initialService, fixedService = false, subm
     return (
       <div className="bg-teal/5 border border-teal/20 rounded-sm p-8 text-center">
         <p className="text-teal font-black text-lg mb-2">Message received.</p>
-        <p className="text-charcoal font-light text-sm">Joe or the relevant service lead will reply within one business day.</p>
+        <p className="text-charcoal font-light text-sm">The Your Office Space team will review your enquiry and contact you about the next step.</p>
       </div>
     )
   }

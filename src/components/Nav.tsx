@@ -290,7 +290,7 @@ export default function Nav() {
               {CONTACT.phone}
             </a>
 
-            <a href="https://www.linkedin.com/company/your-office-space-au" target="_blank" rel="noopener noreferrer"
+            <a href="https://www.linkedin.com/company/yourofficespace" target="_blank" rel="noopener noreferrer"
               className="text-white/40 hover:text-white transition-colors no-underline flex items-center"
               aria-label="YOS on LinkedIn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">

@@ -1,16 +1,18 @@
+'use client'
 import Script from 'next/script'
+import { flushQueuedConversions } from '@/lib/analytics'
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
 
 export default function GoogleAnalytics() {
-  if (!GA_ID) return null
+  if (!GA_ID || !/^G-[A-Z0-9]+$/.test(GA_ID)) return null
   return (
     <>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
         strategy="afterInteractive"
       />
-      <Script id="ga4-init" strategy="afterInteractive">
+      <Script id="ga4-init" strategy="afterInteractive" onReady={flushQueuedConversions}>
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}

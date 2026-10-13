@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     const color = source.includes('Exit') ? '#EF4444' : source.includes('Furniture') ? '#8B5CF6' : '#00B5A5'
 
-    await resend.emails.send({
+    const result = await resend.emails.send({
       from: 'YOS Website <notifications@yourofficespace.au>',
       to: TO,
       ...(safeEmail ? { replyTo: safeEmail } : {}),
@@ -68,6 +68,10 @@ export async function POST(req: Request) {
       </div>`,
     })
 
+    if (result.error || !result.data?.id) {
+      console.error('Notify delivery was not accepted')
+      return NextResponse.json({ error: 'Delivery unavailable' }, { status: 502 })
+    }
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error('Notify failed:', err)
