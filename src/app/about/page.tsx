@@ -37,11 +37,10 @@ const APPROVED_GOOGLE_REVIEWERS = [
 
 
 const TEAM = [
-  { name: 'Joe Kelley', title: 'Founder & Managing Director', image: '/team/joe-kelley.jpg', initials: 'JK', description: 'Commercial property, fit out and workplace strategy. Joe brings more than a decade of industry experience to the team.' },
+  { name: 'Joe Kelley', title: 'Commercial Property & Workplace Strategy', image: '/team/joe-kelley.jpg', initials: 'JK', description: 'Joe supports commercial property, fit out and workplace strategy as part of the YOS team, bringing more than a decade of industry experience.' },
   { name: 'Sarah Kelley', title: 'Director, Cleaning Division', image: '/team/sarah-kelley.jpg', initials: 'SK', description: 'Sarah leads the Cleaning Division and manages its clients, team and service delivery.' },
-  { name: 'Frank Smith', title: 'Head of Furniture', image: '/team/frank-smith.webp', initials: 'FS', description: null },
-  { name: 'Harvey Byrne', title: 'Business Development', image: null, initials: 'HB', description: null },
-  { name: 'Mary Jenkins', title: 'Head of AI', image: '/team/mary-jenkins.webp', initials: 'MJ', description: null },
+  { name: 'Frank Smith', title: 'Head of Furniture', image: '/team/frank-smith.webp', initials: 'FS', description: 'Frank turns workplace briefs into clear furniture plans, schedules and prompt quotes. He guides clients through the project journey, from the first brief and product selection to delivery, keeping requirements, timing and next steps clear.' },
+  { name: 'Mary Jenkins', title: 'Head of AI and Systems', image: '/team/mary-jenkins.webp', initials: 'MJ', description: 'Mary leads AI and systems at YOS and has helped build the team from scratch. She brings people, processes and technology together, developing practical ways of working that support a growing team and keep the client journey organised.' },
 ]
 
 export default function AboutPage() {
@@ -119,8 +118,8 @@ export default function AboutPage() {
                   and cleaning across Newcastle CBD and Lake Macquarie.
                 </p>
                 <p>
-                  Joe brings more than a decade of fit out, furniture and workplace experience.
-                  Today, you engage a growing team with distinct roles.
+                  Our team connects commercial property, fit out, furniture, cleaning and systems support.
+                  You work with people in clearly defined roles, with one workplace brief guiding the project.
                 </p>
                 <div className="border-l-4 border-teal pl-6">
                   <h3 className="text-near-black font-bold text-xl mb-3">One budget. Protect the whole picture.</h3>
@@ -148,13 +147,13 @@ export default function AboutPage() {
               commercial property, workplace projects, furniture, cleaning and business support.
             </p>
           </FadeIn>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {TEAM.map(member => (
               <article key={member.name} className="bg-white rounded-sm overflow-hidden border border-gray-200">
                 <div className="relative aspect-[4/3] bg-warm-grey">
                   {member.image ? (
                     <Image src={member.image} alt={member.name} fill
-                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                      sizes="(max-width: 639px) 100vw, (max-width: 1280px) 50vw, 640px"
                       className="object-cover object-top" />
                   ) : (
                     <div className="flex h-full items-center justify-center" aria-hidden="true">
@@ -183,7 +182,7 @@ export default function AboutPage() {
               Feedback from people we have worked with.
             </h2>
             <p className="text-charcoal font-light leading-relaxed mb-10 max-w-3xl">
-              Independent feedback from people who have worked with Joe and Your Office Space.
+              Independent feedback from people who have worked with the Your Office Space team.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
