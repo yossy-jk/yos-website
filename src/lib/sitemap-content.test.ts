@@ -24,3 +24,10 @@ test('search exclusions and duplicate published slugs stay out of the sitemap', 
   assert.equal(blogSitemapEntries([valid,valid],base,[]).length,1)
   assert.equal(blogSitemapEntries([valid],base,['lease-planning']).length,0)
 })
+
+test('a recorded article revision updates crawl freshness without inventing a date', () => {
+  const revised = blogSitemapEntries([{ ...valid, updatedDate: '2026-10-13' }], base, [])
+  assert.equal(revised[0].lastModified, '2026-10-13T00:00:00.000Z')
+  const invalid = blogSitemapEntries([{ ...valid, updatedDate: '2026-02-31' }], base, [])
+  assert.equal(invalid[0].lastModified, '2026-10-12T00:00:00.000Z')
+})

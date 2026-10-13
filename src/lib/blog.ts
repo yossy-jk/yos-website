@@ -8,11 +8,13 @@ export interface BlogPost {
   title: string
   excerpt: string
   date: string
+  updatedDate?: string
   division: Division
   author: string
   body: string
   tags: string[]
   heroImage?: string   // URL or /images/... path — optional, falls back to division default
+  heroImageAlt?: string
   metaTitle?: string
   metaDescription?: string
 }

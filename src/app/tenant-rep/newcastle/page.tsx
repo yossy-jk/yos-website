@@ -1,3 +1,4 @@
+import ServiceArticle from '@/components/ServiceArticle'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
@@ -419,7 +420,8 @@ export default function TenantRepNewcastlePage() {
         </div>
       </section>
 
-      </main>
+      <ServiceArticle slug="tenant-representation-brief-newcastle" />
+</main>
 
       <Footer />
     </>

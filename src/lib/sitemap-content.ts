@@ -16,7 +16,7 @@ export function blogSitemapEntries(records: readonly unknown[], base: string, ex
     // Only discover records the article renderer can actually display.
     if (typeof post.title !== 'string' || !post.title.trim() || typeof post.body !== 'string' || !post.body.trim()) return []
     seen.add(post.slug)
-    const lastModified = safeContentDate(post.date)
+    const lastModified = safeContentDate(post.updatedDate) || safeContentDate(post.date)
     return [{ url: `${base}/blog/${post.slug}`, ...(lastModified ? { lastModified } : {}), changeFrequency: 'monthly' as const, priority: 0.75 }]
   })
 }

@@ -8,14 +8,17 @@ import { getAllCaseStudies, type CaseStudy } from '@/lib/case-studies'
 import { DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
 import type { Division } from '@/lib/blog'
 
+const hasPublishedStudies = getAllCaseStudies().length > 0
+
 export const metadata = withPageSeo({
+  robots: hasPublishedStudies ? undefined : { index: false, follow: true },
   title: 'Case Studies | Your Office Space',
-  description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.',
+  description: 'Explore Your Office Space services and practical workplace planning guides. Approved project case studies will be added when available.',
   alternates: { canonical: 'https://www.yourofficespace.au/case-studies' },
-  twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Real outcomes for real clients. Lease negotiations, fitouts, cleaning contracts and commercial property acquisitions.' },
+  twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Explore Your Office Space services and practical workplace planning guides. Approved project case studies will be added when available.' },
   openGraph: {
     title: 'Case Studies | Your Office Space',
-    description: 'Real projects, real outcomes. See how Your Office Space has helped Australian businesses with leasing, fitout, furniture and cleaning.',
+    description: 'Explore Your Office Space services and practical workplace planning guides. Approved project case studies will be added when available.',
     url: 'https://www.yourofficespace.au/case-studies',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -68,22 +71,13 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   )
 }
 
-const SCHEMA = {
-  "@context": "https://schema.org",
-  "@type": "ItemList",
-  "name": "Case Studies | Your Office Space",
-  "description": "Real commercial property projects with real outcomes. Tenant representation, fitout, furniture and cleaning across Australia.",
-  "url": "https://www.yourofficespace.au/case-studies",
-  "numberOfItems": 5,
-}
-
 export default function CaseStudiesPage() {
   const all = getAllCaseStudies()
 
   return (
     <>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(SCHEMA) }} />
+      {all.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'ItemList', name: 'YOS case studies', numberOfItems: all.length, itemListElement: all.map((study, index) => ({ '@type': 'ListItem', position: index + 1, url: `https://www.yourofficespace.au/case-studies/${study.slug}` })) }) }} />}
       <Nav />
 
       <main id="main-content" tabIndex={-1}>
@@ -94,11 +88,11 @@ export default function CaseStudiesPage() {
           <SectionLabel>Case studies</SectionLabel>
           <h1 className="text-white font-bold leading-tight tracking-tight max-w-3xl mb-6"
             style={{ fontSize: 'clamp(2.25rem,6vw,5rem)' }}>
-            Real projects.<br />Real outcomes.
+            {all.length > 0 ? <>Real projects.<br />Real outcomes.</> : <>Plan your next<br />workplace project.</>}
           </h1>
           <p className="text-white/60 font-light leading-relaxed max-w-2xl"
             style={{ fontSize: 'clamp(1rem,2vw,1.25rem)' }}>
-            Our next clients come from our past work. Here&apos;s the evidence, what we were asked to do, what we did, and what it delivered.
+            {all.length > 0 ? "Explore approved project briefs, YOS’s role and documented outcomes." : "Explore our services and practical planning guides while approved project case studies are being prepared."}
           </p>
         </div>
       </section>
@@ -107,7 +101,7 @@ export default function CaseStudiesPage() {
       <section className="bg-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           {all.length === 0 ? (
-            <p className="text-mid-grey font-light text-lg">Case studies coming soon.</p>
+            <div><p className="text-charcoal text-lg" style={{ marginBottom: 24 }}>Approved case studies will be added when available. Start with a practical guide for your next decision.</p><Button href="/blog" variant="primary">Explore articles &amp; guides</Button></div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {all.map(cs => <CaseStudyCard key={cs.slug} cs={cs} />)}
@@ -121,7 +115,7 @@ export default function CaseStudiesPage() {
         <div className={WRAP} style={PAD}>
           <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
             <h2 className="text-white font-bold leading-tight mb-4 w-full" style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
-              Want results like these?
+              Tell us what you want to achieve.
             </h2>
             <p className="text-white/60 font-light text-lg mb-10 w-full">
               Tell us what you&apos;re trying to achieve. We&apos;ll tell you honestly whether we can help.
