@@ -5,12 +5,11 @@ import Link from 'next/link'
 import Script from 'next/script'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 
-type Consent = 'accepted' | 'declined'
+import { type Consent, STORAGE_KEY, CONSENT_EVENT, getAnalyticsConsent as getConsentSnapshot, setMemoryConsent } from '@/lib/analytics-consent'
+import { discardQueuedConversions } from '@/lib/analytics'
+import PhoneClickTracking from '@/components/PhoneClickTracking'
 
-const STORAGE_KEY = 'yos_analytics_consent'
 const HUBSPOT_PORTAL_ID = '442709765'
-const CONSENT_EVENT = 'yos-analytics-consent-changed'
-let memoryConsent: Consent | null = null
 
 function subscribeToConsent(onStoreChange: () => void) {
   window.addEventListener(CONSENT_EVENT, onStoreChange)
@@ -19,16 +18,6 @@ function subscribeToConsent(onStoreChange: () => void) {
     window.removeEventListener(CONSENT_EVENT, onStoreChange)
     window.removeEventListener('storage', onStoreChange)
   }
-}
-
-function getConsentSnapshot(): Consent | null {
-  try {
-    const saved = window.localStorage.getItem(STORAGE_KEY)
-    if (saved === 'accepted' || saved === 'declined') return saved
-  } catch {
-    // Fall through to the in-memory choice.
-  }
-  return memoryConsent
 }
 
 function clearAnalyticsCookies() {
@@ -49,6 +38,7 @@ function OptionalAnalytics() {
   return (
     <>
       <GoogleAnalytics />
+      <PhoneClickTracking />
       <Script
         id="hs-script-loader"
         src={`https://js-ap1.hs-scripts.com/${HUBSPOT_PORTAL_ID}.js`}
@@ -69,13 +59,13 @@ export default function AnalyticsConsent() {
 
   function saveConsent(next: Consent) {
     const withdrawing = consent === 'accepted' && next === 'declined'
-    memoryConsent = next
+    setMemoryConsent(next)
     try {
       window.localStorage.setItem(STORAGE_KEY, next)
     } catch {
       // Keep the in-memory choice for this page when storage is unavailable.
     }
-    if (next === 'declined') clearAnalyticsCookies()
+    if (next === 'declined') { discardQueuedConversions(); clearAnalyticsCookies() }
     window.dispatchEvent(new Event(CONSENT_EVENT))
     setPreferencesOpen(false)
     if (withdrawing) window.location.reload()

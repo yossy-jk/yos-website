@@ -23,6 +23,7 @@ export default function FurnitureQuotePage() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [attachmentWarning, setAttachmentWarning] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
 
   const [form, setForm] = useState({
@@ -63,6 +64,7 @@ export default function FurnitureQuotePage() {
         file && `File attached: ${file.name}`,
       ].filter(Boolean).join('\n')
 
+      let attachmentAccepted = false
       // If file uploaded, send via FormSubmit
       if (file) {
         const data = new FormData()
@@ -81,39 +83,30 @@ export default function FurnitureQuotePage() {
         data.append('_captcha', 'false')
         data.append('_template', 'table')
 
-        const res = await fetch('https://formsubmit.co/jk@yourofficespace.au', {
-          method: 'POST',
-          body: data,
-        })
-
-        if (!res.ok) {
-          console.warn('FormSubmit returned non-OK status:', res.status)
+        try {
+          const res = await fetch('https://formsubmit.co/jk@yourofficespace.au', { method: 'POST', body: data })
+          attachmentAccepted = res.ok
+        } catch {
+          // Still attempt the enquiry channels; explain an attachment failure below.
         }
       }
 
-      // Always submit to HubSpot
-      await submitLead({
-        firstname: form.name,
-        email: form.email,
-        source: 'Furniture Quote',
-        context: contextParts,
-      })
-
-      // Always notify Joe, even when no file attached
-      fetch('/api/notify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          phone: form.phone || undefined,
-          source: 'Furniture Quote Request',
-          context: contextParts,
+      const [crmResult, emailResult] = await Promise.allSettled([
+        submitLead({ firstname: form.name, email: form.email, source: 'Furniture Quote', context: contextParts }),
+        fetch('/api/notify', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone || undefined, source: 'Furniture Quote Request', context: contextParts }),
         }),
-      }).catch(() => {})
-
+      ])
+      const crmAccepted = crmResult.status === 'fulfilled' && crmResult.value.ok
+      const emailAccepted = attachmentAccepted || (emailResult.status === 'fulfilled' && emailResult.value.ok)
+      if (!crmAccepted && !emailAccepted) {
+        setError('We could not confirm delivery. Please try again or call (02) 4092 0733.')
+        return
+      }
+      setAttachmentWarning(Boolean(file && !attachmentAccepted))
       setSubmitted(true)
-      trackConversion('generate_lead', { service: 'Furniture Quote' })
+      trackConversion('generate_lead', { service: 'Furniture', form_name: 'furniture_quote', email_delivery: emailAccepted, crm_delivery: crmAccepted })
     } catch (err) {
       console.error(err)
       setError('Something went wrong. Please try again or call us directly.')
@@ -177,6 +170,7 @@ export default function FurnitureQuotePage() {
                   <p className="text-charcoal font-light text-lg leading-relaxed mb-8">
                     We&apos;ll review the brief and confirm the next step.
                   </p>
+                  {attachmentWarning && <p role="status" className="text-charcoal leading-relaxed" style={{ marginBottom: 24 }}>Your enquiry was received, but we could not confirm delivery of the attachment. Please email your plans to <a href="mailto:hello@yourofficespace.au" className="text-dark-teal underline">hello@yourofficespace.au</a>.</p>}
                   <p className="text-mid-grey font-light text-sm">
                     Prefer to talk?{' '}
                     <a
