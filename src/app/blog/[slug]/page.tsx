@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     robots: SEARCH_EXCLUDED_BLOG_SLUGS.some(slug => slug === post.slug) ? { index: false, follow: true } : undefined,
     openGraph: {
 
-  images: [{ url: absoluteAssetUrl(post.heroImage || DIVISION_HERO_IMAGES[post.division]), alt: post.title }],
+  images: [{ url: absoluteAssetUrl(post.heroImage || DIVISION_HERO_IMAGES[post.division]), alt: post.heroImageAlt || post.title }],
 title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
       url: `https://www.yourofficespace.au/blog/${post.slug}`,
@@ -302,7 +302,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     headline: post.title,
     description: post.metaDescription || post.excerpt,
     datePublished: publicationDate,
-    dateModified: publicationDate,
+    dateModified: safeContentDate(post.updatedDate) || publicationDate,
     author: post.author ? { '@type': post.author === 'Your Office Space' ? 'Organization' : 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' } : undefined,
     publisher: ORGANIZATION_SCHEMA,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/blog/${post.slug}` },
@@ -322,7 +322,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <section className="relative bg-near-black overflow-hidden" style={{ minHeight: 'clamp(24rem,48vw,38rem)' }}>
         <Image
           src={post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]}
-          alt={post.title}
+          alt={post.heroImageAlt || post.title}
           fill
           className="object-cover object-center"
           priority
@@ -402,7 +402,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
                 {/* Inline contact form */}
                 <div id="blog-contact-form" tabIndex={-1} aria-label="Article enquiry form" className="enquiry-form-card" style={{ marginTop: '1.5rem', background: 'white', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
-                  <ContactForm initialService={post.division === 'tenant-rep' ? 'Leasing' : post.division === 'buyers-agency' ? 'Buying' : post.division === 'cleaning' ? 'Cleaning' : /fitout/i.test(post.slug) ? 'FitOut' : post.division === 'furniture' ? 'Furniture' : 'Not sure'} />
+                  <ContactForm initialService={post.division === 'tenant-rep' ? 'Leasing' : post.division === 'buyers-agency' ? 'Buying' : post.division === 'cleaning' ? 'Cleaning' : /fitout|commercial-construction/i.test(post.slug) ? 'FitOut' : post.division === 'furniture' ? 'Furniture' : 'Not sure'} />
                 </div>
               </div>
 

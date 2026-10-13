@@ -71,5 +71,6 @@ export default function BuyersAgencyPage() {
 
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Start with the business objective.</h2><Button href="/contact?service=buying#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
   <ServiceArticle slug="buying-business-premises-five-year-fit" />
-      </main><Footer /></>
+      <ServiceArticle slug="commercial-buyers-agent-brief-newcastle" />
+</main><Footer /></>
 }

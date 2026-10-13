@@ -20,6 +20,7 @@ export interface CaseStudy {
   metaTitle?: string
   metaDescription?: string
   featured?: boolean
+  published?: boolean       // Publish only after YOS verifies the project and approves its use.
 }
 
 const CS_DIR = path.join(process.cwd(), 'src/content/case-studies')
@@ -29,13 +30,16 @@ export function getAllCaseStudies(): CaseStudy[] {
   const files = fs.readdirSync(CS_DIR).filter(f => f.endsWith('.json'))
   return files
     .map(file => JSON.parse(fs.readFileSync(path.join(CS_DIR, file), 'utf8')) as CaseStudy)
+    .filter(study => study.published === true)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | null {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return null
   const filePath = path.join(CS_DIR, `${slug}.json`)
   if (!fs.existsSync(filePath)) return null
-  return JSON.parse(fs.readFileSync(filePath, 'utf8')) as CaseStudy
+  const study = JSON.parse(fs.readFileSync(filePath, 'utf8')) as CaseStudy
+  return study.published === true ? study : null
 }
 
 export function getFeaturedCaseStudies(): CaseStudy[] {

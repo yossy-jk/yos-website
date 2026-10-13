@@ -1,3 +1,4 @@
+import ServiceArticle from '@/components/ServiceArticle'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -58,5 +59,6 @@ export default function ConstructionPage() {
       <p className="text-charcoal leading-relaxed" style={{ marginBottom: 32 }}>Share what you know so far. We’ll discuss the next steps and whether YOS’s client-side project management is suited to your brief. You can also call <a href="tel:0240920733" className="font-semibold text-dark-teal">02 4092 0733</a>.</p>
       <ContactForm initialService="fitout" fixedService submitLabel="Send project enquiry →" messagePlaceholder="Site suburb, project scope, current stage, budget expectations and target completion date..." />
     </div></section>
-  </main><Footer /></>
+  <ServiceArticle slug="commercial-construction-project-manager-vs-builder-newcastle" />
+</main><Footer /></>
 }
