@@ -108,7 +108,7 @@ export default function Footer() {
               Terms
             </Link>
             <a
-              href="https://www.linkedin.com/company/your-office-space-au"
+              href="https://www.linkedin.com/company/yourofficespace"
               target="_blank" rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center px-1 text-white/55 font-light no-underline hover:text-teal transition-colors"
               style={{ fontSize: '0.78rem' }}>

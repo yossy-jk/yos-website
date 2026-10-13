@@ -8,7 +8,7 @@ export default function PhoneClickTracking() {
       const target = event.target instanceof Element ? event.target : null
       const link = target?.closest<HTMLAnchorElement>('a[href^="tel:"]')
       if (!link) return
-      const location = link.closest('header') ? 'header' : link.closest('footer') ? 'footer' : link.closest('main') ? 'content' : 'other'
+      const location = link.closest('header, .yos-navigation, #mobile-navigation-menu') ? 'header' : link.closest('footer') ? 'footer' : link.closest('main') ? 'content' : 'other'
       // A dialler click expresses intent; it does not establish a completed call.
       trackConversion('phone_click', { contact_method: 'phone', link_location: location })
     }
