@@ -10,11 +10,11 @@ import Button from '@/components/Button'
 import ServiceFaq from '@/components/ServiceFaq'
 
 export const metadata: Metadata = withPageSeo({
-  title: 'Commercial Buyers Agent NSW | Your Office Space',
-  description: 'Commercial Buyers Agent support in NSW, from an evidence-led property brief through search, due diligence coordination, negotiation and handover.',
+  title: 'Commercial Buyers Agent Newcastle & NSW | YOS',
+  description: 'Commercial buyers agent in Newcastle and NSW. Buyer-side property search, due diligence coordination and negotiation for your business premises or commercial brief.',
   alternates: { canonical: 'https://www.yourofficespace.au/buyers-agency' },
   openGraph: {
-    title: 'Commercial Buyers Agent NSW | Your Office Space',
+    title: 'Commercial Buyers Agent Newcastle & NSW | YOS',
     description: 'Commercial property buying support in NSW, from the brief and search through due diligence coordination, negotiation and handover.',
     url: 'https://www.yourofficespace.au/buyers-agency',
     siteName: 'Your Office Space', locale: 'en_AU', type: 'website',
@@ -43,10 +43,12 @@ export default function BuyersAgencyPage() {
       <ServiceSchema name="Commercial Buyers Agent" path="/buyers-agency" description="Buyer-side commercial property support in NSW, from brief and search through due diligence coordination, negotiation and handover." area="NSW" />
     <section className="bg-near-black min-h-[78vh] flex items-center" style={SEC}><div className={WRAP} style={{ ...PAD, paddingTop: 'clamp(5rem,10vw,9rem)' }}>
       <FadeIn><SectionLabel>Commercial Buyers Agent · NSW</SectionLabel></FadeIn>
-      <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Buy the right commercial property, with someone on your side.</h1></FadeIn>
-      <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We represent commercial buyers in NSW, turning the business objective into a clear property brief and coordinating the search, evidence, professional advice and negotiation before you commit.</p></FadeIn>
+      <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Commercial buyers agent Newcastle & NSW.</h1></FadeIn>
+      <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we represent commercial buyers across Newcastle, the Hunter and NSW, turning the business objective into a clear property brief and coordinating the search, evidence, professional advice and negotiation before you commit.</p></FadeIn>
       <FadeIn delay={220}><Button href="/contact?service=buying#contact-enquiry" variant="primary" size="lg">Enquire</Button></FadeIn>
     </div></section>
+
+    <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Buying commercial property in Newcastle and NSW</SectionLabel><h2 className="text-near-black leading-tight max-w-3xl" style={{ fontSize: 'clamp(2rem,4vw,3rem)', marginTop: 20, marginBottom: 24 }}>Test the property against the business you want to run.</h2><p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 20 }}>For a Newcastle or Hunter owner-occupier brief, define the proposed use, preferred locations, access, parking, approximate floor area and timing before comparing listings. Set out the purchase budget with your appointed finance and professional advisers.</p><p className="text-charcoal leading-relaxed max-w-3xl">A commercial buyers agent helps organise the search and negotiation. Your solicitor, accountant, valuer and building specialists advise within their own scopes. We coordinate their inputs so key questions are resolved before the purchasing decision.</p></div></section>
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel>The buying pathway</SectionLabel><h2 className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>A commercial decision, tested from every side.</h2></FadeIn>

@@ -8,14 +8,14 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 
 export const metadata: Metadata = withPageSeo({
-  title: 'Tenant Rep Newcastle | Tenant Representation Newcastle NSW',
-  description: 'Expert commercial tenant representation in Newcastle. We negotiate better lease terms for tenants, never landlords. Discuss your brief, options and lease priorities. Call (02) 4092 0733.',
+  title: 'Tenant Representative Newcastle | Your Office Space',
+  description: 'Tenant representative for Newcastle and Hunter businesses. Compare premises, plan renewals and negotiate commercial lease terms with tenant-side support.',
   alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep/newcastle' },
   openGraph: {
 
   images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
 title: 'Tenant Rep Newcastle | Your Office Space',
-    description: 'Expert commercial tenant representation in Newcastle. Better terms, no conflicts, always working for tenants.',
+    description: 'Tenant-side commercial leasing support for Newcastle and Hunter businesses, from premises search and renewal planning to negotiation.',
     url: 'https://www.yourofficespace.au/tenant-rep/newcastle',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -39,7 +39,7 @@ const FAQ_SCHEMA = [
   },
   {
     q: 'How is tenant representation different from using a commercial agent?',
-    a: 'Most commercial agents in Newcastle work for landlords, they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. We have no relationship with the landlord, no incentive to soften negotiations, and no conflict of interest. We read every clause through one lens: does this protect the tenant? That independence is the entire point.',
+    a: 'Most commercial agents in Newcastle work for landlords, they are appointed by the owner to secure the best deal for the property. A tenant representative works exclusively for you. YOS represents the tenant’s agreed brief and explains the scope, fees and any relevant third-party payment arrangements before work begins. Your solicitor advises on the legal terms.',
   },
   {
     q: 'Can you help with an existing lease, not just a new one?',
@@ -75,8 +75,8 @@ export default function TenantRepNewcastlePage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mt-3 mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,5.5rem)' }}>
-              The landlord has a professional.<br />
-              <span className="text-teal">Now you do too.</span>
+              Tenant representative Newcastle.<br />
+              <span className="text-teal">Your business comes first.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
@@ -402,16 +402,16 @@ export default function TenantRepNewcastlePage() {
         <div className={WRAP} style={PAD}>
           <FadeIn>
             <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <h2 className="text-white font-bold leading-tight mb-5 w-full"
+              <h2 className="text-near-black font-bold leading-tight mb-5 w-full"
                 style={{ fontSize: 'clamp(1.7rem,4.5vw,3.75rem)' }}>
                 Let&apos;s talk about your lease.
               </h2>
-              <p className="text-white/80 font-light leading-relaxed mb-14 w-full"
+              <p className="text-charcoal font-light leading-relaxed mb-14 w-full"
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
                 A focused conversation about your space, your situation and the decision in front of you.
               </p>
               <Button href="/contact?service=leasing#contact-enquiry" variant="dark" size="lg">Enquire</Button>
-              <p className="text-white/50 font-light mt-6" style={{ fontSize: '0.8rem' }}>
+              <p className="text-charcoal font-light mt-6" style={{ fontSize: '0.8rem' }}>
                 Newcastle &amp; Hunter &nbsp;|&nbsp; (02) 4092 0733 &nbsp;|&nbsp; jk@yourofficespace.au
               </p>
             </div>

@@ -497,6 +497,7 @@ export default function TenantRepPage() {
         </div>
       </section>
 
+      <div className="yos-container" style={{ paddingTop: 32, paddingBottom: 32 }}><Button href="/tenant-rep/newcastle" variant="primary">Tenant representation in Newcastle &amp; the Hunter</Button></div>
       <ServiceFaq heading="Clear answers before the lease decision." items={TENANT_FAQS} />
 
       {/* ─── CTA ──────────────────────────────────────────── */}

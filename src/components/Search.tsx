@@ -13,6 +13,7 @@ type SearchResult = {
 
 const ALL_ITEMS: SearchResult[] = [
   // Services
+  { title: 'Commercial Construction Project Management', description: 'Client-side commercial construction support in Newcastle and the Hunter.', href: '/commercial-construction', category: 'Service' },
   { title: 'Tenant Representation', description: 'Tenant-side commercial lease advice and negotiation.', href: '/tenant-rep', category: 'Service' },
   { title: 'Commercial FitOut & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },
   { title: 'Office & Commercial Furniture', description: 'Furniture selected, supplied and installed for your workplace.', href: '/furniture', category: 'Service' },

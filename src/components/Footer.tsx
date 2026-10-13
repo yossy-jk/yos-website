@@ -37,6 +37,7 @@ export default function Footer() {
                 </Link>
               ))}
             </nav>
+            <Link href="/commercial-construction" className="inline-flex min-h-11 items-center text-white/70 text-sm no-underline">Construction project management</Link>
             <Link href="/flourish" className="inline-flex min-h-11 items-center mt-5 text-teal font-semibold text-sm no-underline">Flourish workplace care</Link>
             <nav aria-label="Flourish services" className="flex flex-col gap-3 mt-3">
               {FLOURISH_LINKS.map(link => <Link key={link.href} href={link.href} className="text-white/70 text-sm no-underline hover:text-white">{link.label}</Link>)}

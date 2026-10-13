@@ -245,7 +245,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   {/* Location */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Based in Newcastle</p>
-                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>Based in Newcastle. Working Australia-wide.</p>
+                    <p className="text-near-black font-bold" style={{ fontSize: '1rem' }}>2 Portside Crescent, Maryville NSW 2293</p><p className="text-charcoal" style={{ marginTop: 8 }}>Visits by appointment. Working Australia-wide for fit out and furniture.</p>
                   </div>
                 </div>
               </div>
