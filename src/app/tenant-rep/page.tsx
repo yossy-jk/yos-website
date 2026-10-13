@@ -534,6 +534,7 @@ export default function TenantRepPage() {
 
 
 
+      <ServiceArticle slug="buy-office-furniture-before-lease-expiry" />
       <ServiceArticle slug="renew-or-relocate-commercial-lease" />
       </main>
 
