@@ -11,17 +11,17 @@ import Image from 'next/image'
 import ServiceFaq from '@/components/ServiceFaq'
 
 export const metadata: Metadata = withPageSeo({
-  title: 'Commercial Office Furniture | Your Office Space',
-  description: 'Commercial furniture specified, quoted, delivered and installed for offices and workplaces across Australia.',
+  title: 'Office Furniture Newcastle | Your Office Space',
+  description: 'Office furniture in Newcastle and the Hunter: workstations, seating, boardrooms and storage, with quoting, delivery and installation coordination across Australia.',
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
-    title: 'Commercial Office Furniture | Your Office Space',
+    title: 'Office Furniture Newcastle | Your Office Space',
     description: 'Commercial furniture specified, quoted, delivered and installed around your people, space, budget and programme.',
     url: 'https://www.yourofficespace.au/furniture',
     siteName: 'Your Office Space', locale: 'en_AU', type: 'website',
     images: [{ url: '/og/og-furniture.png', width: 1200, height: 630, alt: 'Commercial office furniture supplied and installed' }],
   },
-  twitter: { card: 'summary_large_image', title: 'Commercial Office Furniture | Your Office Space', description: 'Furniture specified, quoted, delivered and installed for commercial workplaces.', images: ['/og/og-furniture.png'] },
+  twitter: { card: 'summary_large_image', title: 'Office Furniture Newcastle | Your Office Space', description: 'Furniture specified, quoted, delivered and installed for commercial workplaces.', images: ['/og/og-furniture.png'] },
 })
 
 const WRAP = 'max-w-screen-xl mx-auto'
@@ -52,10 +52,12 @@ export default function FurniturePage() {
       <ServiceSchema name="Office and Commercial Furniture" path="/furniture" description="Commercial furniture selection, supply and installation for workplace briefs across Australia." area="Australia" />
     <section className="relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-liverpool-a.jpg" alt="Commercial workplace furnished with workstations and collaborative settings" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
       <FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
-      <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Furniture that fits the work, not just the floor plan.</h1></FadeIn>
-      <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We specify, quote, supply and coordinate installation of commercial furniture around your people, space, budget and programme. You can engage us for furniture only or as part of a wider workplace project.</p></FadeIn>
+      <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office furniture Newcastle. Planned around your people.</h1></FadeIn>
+      <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we specify, quote, supply and coordinate installation of office furniture for Newcastle, Lake Macquarie and Hunter workplaces, with projects supported Australia-wide. You can engage us for furniture only or as part of a wider workplace project.</p></FadeIn>
       <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/resources/furniture-quote#furniture-quote-form" variant="primary" size="lg">Request a furniture quote</Button><Button href="/contact?service=furniture#contact-enquiry" variant="outline-light" size="lg">Enquire</Button></div></FadeIn>
     </div></section>
+
+    <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Planning office furniture in Newcastle</SectionLabel><h2 className="text-near-black leading-tight max-w-3xl" style={{ fontSize: 'clamp(2rem,4vw,3rem)', marginTop: 20, marginBottom: 24 }}>Start with a usable brief, then compare the installed quote.</h2><p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 20 }}>For a Newcastle, Lake Macquarie or Hunter office, send the floor plan, suburb, team size, furniture you want to retain and target move-in date. We can plan workstations, ergonomic seating, meeting rooms and storage around those requirements.</p><p className="text-charcoal leading-relaxed max-w-3xl">Confirm the delivery address, lift or stair access, loading arrangements and any building booking rules early. Compare product specifications, freight, installation, packaging removal and lead times together, so the quote reflects the whole job.</p></div></section>
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel>What we specify</SectionLabel><h2 className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Every setting has a job to do.</h2></FadeIn>

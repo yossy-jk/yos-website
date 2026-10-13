@@ -410,7 +410,7 @@ body {
 
 .fitout-process-flow { position: relative; display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 1rem; list-style: none; }
 .fitout-process-flow::before { content: ''; position: absolute; top: 2.25rem; left: 7%; right: 7%; height: 2px; background: #00B5A5; opacity: .45; }
-.fitout-process-flow > div { position: relative; z-index: 1; }
+.fitout-process-flow > li { position: relative; z-index: 1; }
 .fitout-process-flow li { height: 100%; }
 .fitout-process-flow details { height: 100%; border: 1px solid rgba(26,26,26,.12); border-radius: 1rem; background: #F5F5F5; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
 .fitout-process-flow details:hover, .fitout-process-flow details[open] { transform: translateY(-4px); border-color: #00796D; box-shadow: 0 14px 30px rgba(26,26,26,.1); }

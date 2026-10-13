@@ -6,6 +6,7 @@ export const SERVICE_TYPES = [
   'Tenant Representation and Commercial Leasing',
   'Commercial Property Buying',
   'Commercial FitOut',
+  'Client-side Commercial Construction Project Management',
   'Office and Commercial Furniture',
   'Commercial Cleaning',
 ] as const
@@ -19,7 +20,7 @@ export const ORGANIZATION_SCHEMA = {
   telephone: '+61240920733',
   email: 'hello@yourofficespace.au',
   description: 'Newcastle-based workplace support: tenant representation and commercial buying in NSW, FitOut and furniture Australia-wide, and cleaning in Newcastle CBD and Lake Macquarie.',
-  address: { '@type': 'PostalAddress', addressLocality: 'Newcastle', addressRegion: 'NSW', addressCountry: 'AU' },
+  address: { '@type': 'PostalAddress', streetAddress: '2 Portside Crescent', addressLocality: 'Maryville', addressRegion: 'NSW', postalCode: '2293', addressCountry: 'AU' },
   knowsAbout: SERVICE_TYPES,
-  sameAs: ['https://www.linkedin.com/company/your-office-space'],
+  sameAs: ['https://www.linkedin.com/company/yourofficespace'],
 } as const

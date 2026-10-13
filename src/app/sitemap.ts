@@ -18,6 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/tenant-rep`,                          changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/tenant-rep/newcastle`,                changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/office-fitout`,                       changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/commercial-construction`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/furniture`,                           changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/cleaning`,                            changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/lease-review`,                        changeFrequency: 'monthly', priority: 0.8 },

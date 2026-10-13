@@ -11,6 +11,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...[
+        ['/sitemap_index.xml', '/sitemap.xml'],
+        ['/commercial-cleaning', '/cleaning'],
+        ['/tennant-representation', '/tenant-rep'],
+        ['/tenant-representation', '/tenant-rep'],
+        ['/ContactPage', '/contact'],
+        ['/Services', '/#services'],
+        ['/category/commercial-real-estate', '/blog'],
+        ['/off-market-commercial-property-deserves-look', '/blog/off-market-commercial-property-newcastle'],
+        ['/avoiding-common-pitfalls-in-commercial-lease-negotiations', '/blog/commercial-lease-negotiation-tips-australia'],
+        ['/top-5-risks-in-commercial-property-investment-and-how-to-mitigate-them', '/blog/commercial-property-due-diligence-newcastle'],
         ['/eof-group', '/about'],
         ['/eof-group/furniture', '/furniture'],
         ['/eof-group/tenant-representation', '/tenant-rep'],
