@@ -1,9 +1,10 @@
 // Commercial data owned by YOS. Unconfirmed inclusions stay out of client pricing.
 export const TENANT_OFFER = {
   approvedForPublication: false,
+  copyApproved: true,
   pricesConfirmed: true,
   guaranteeApproved: false,
-  licenceApproved: false,
+  licenceApproved: true,
   delivery: {
     lockSeconds: 300,
     receiptRetentionSeconds: 604800,
@@ -113,7 +114,7 @@ export const TENANT_OFFER = {
   // Only enter genuine, confirmed standalone prices here. Empty rows are hidden.
   standaloneValues: [] as { name: string; value: number; tiers: string[] }[],
   licence:
-    "Tenant representation is provided by Joseph Kelley, Class 2 Licensed Real Estate Agent (NSW Licence No. 20565455), under the supervision of Ricky Briggs, Property By RJB Pty Ltd t/as Elders Advantage Group (Licence 10100265, ABN 66 600 043 105).",
+    "Tenant representation is provided by Joseph Kelley, Class 2 Licensed Real Estate Agent (NSW Licence No. 20565455), under the supervision of Gavin Coulson, Licensee in Charge, Property By RJB Pty Ltd t/as Elders Advantage Group (Licence 10100265, ABN 66 600 043 105).",
 } as const;
 export function packageForArea(area: number) {
   if (area > TENANT_OFFER.customArea) return "custom";

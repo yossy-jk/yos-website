@@ -6,13 +6,25 @@
   "copyApproval": "confirmed by user",
   "checklistApproval": "confirmed by user",
   "feesApproval": "previously confirmed by user",
-  "rickyLicenceApproval": "awaiting explicit evidence",
-  "rickyAndLawyerAgreementApproval": "awaiting final approved terms/version",
-  "guaranteeClaimResolution": "awaiting final approved wording or formula resolving the 2x claim and fee cap",
+  "guaranteeClaimResolution": "Licensee approval recorded for the review copy. Final contractual promise, cap and calculation must match the lawyer-reviewed agreement.",
   "publicationState": "review preview only",
   "remainingTechnicalAcceptance": [
     "Improve tenant page performance against the brief's two-second target; simulated mobile median was 2.5 seconds",
     "Verify authorised live enquiry delivery to HubSpot, inbox, response task and customer receipt",
     "Verify calendar import in Outlook and Google Calendar"
-  ]
+  ],
+  "licenseeApproval": {
+    "status": "approved as reported by user",
+    "name": "Gavin Coulson",
+    "role": "Director | Licensee in Charge",
+    "credentialsAsProvided": "LREA | Stock & Station | Auctioneer",
+    "emailAsProvided": "gavin.coulson@eldersrealestate.com.au",
+    "source": "User message: Approved by licensee in charge",
+    "scope": "Reviewed website copy and licence disclosure; user additionally confirms Gavin replaces Ricky as supervisor",
+    "supervisionReplacementConfirmed": true
+  },
+  "agreementApproval": {
+    "licensee": "Approved by Gavin Coulson, as reported by user",
+    "lawyerReviewedFinalAgreement": "Awaiting final approved clause/version"
+  }
 }

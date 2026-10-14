@@ -110,6 +110,21 @@ try {
           path: out + "/" + route.replaceAll("/", "_") + "-" + width + ".png",
         });
     }
+    await p.goto(base + "/tenant-rep", { waitUntil: "networkidle2" });
+    assert.equal(await p.$('[data-tenant-deferred="time"] input'), null);
+    assert.equal(await p.$('[data-tenant-deferred="health"] input'), null);
+    await p.$eval('[data-tenant-deferred="time"]', (e) => e.scrollIntoView({ block: "center" }));
+    await p.waitForSelector("#hourly-true");
+    await p.click("#hourly-true", { clickCount: 3 });
+    await p.type("#hourly-true", "200");
+    await p.click('[data-tenant-deferred="time"] form button[type=submit]');
+    await p.waitForSelector('[data-tenant-deferred="time"] .tenant-result-main');
+    assert.equal(await p.$eval('[data-tenant-deferred="time"] .tenant-result-main', e => e.textContent), "$12,000");
+    await p.$eval('[data-tenant-deferred="health"]', (e) => e.scrollIntoView({ block: "center" }));
+    await p.waitForSelector("#health_check-email");
+    assert.ok(await p.$('[data-tenant-deferred="health"] form input[name="business"]'));
+    await p.addScriptTag({ content: axe.source });
+    assert.deepEqual(await p.evaluate(async () => (await axe.run(document.querySelector("main"))).violations.map(v => v.id)), []);
     await p.goto(base + "/tenant-rep/packages", { waitUntil: "networkidle2" });
     await p.type("#tenant-area", "250");
     assert.equal(
@@ -248,6 +263,7 @@ try {
       {
         routes: report,
         checkedForms: true,
+        deferredLandingTools: true,
         deliveryFailurePreserved: true,
         utmCapture: true,
         buyingIntent: true,

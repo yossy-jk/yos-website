@@ -64,9 +64,9 @@ export default function TenantShell({
       <main id="main-content" tabIndex={-1} className="tenant-journey">
         {!TENANT_OFFER.approvedForPublication && (
           <aside className="tenant-preview" role="note">
-            Review preview. Prices confirmed. Copy, guarantee and licence
-            wording await final approval. Forms do not send enquiries in this
-            preview.
+            Review preview. Copy and licence disclosure approved. Final
+            agreement terms and launch checks remain. Forms do not send
+            enquiries in this preview.
           </aside>
         )}
         {title && (

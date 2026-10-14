@@ -5,8 +5,7 @@ import TenantShell, {
   tenantMetadata,
 } from "@/components/tenant/TenantShell";
 import PackageCards from "@/components/tenant/PackageCards";
-import { TimeCalculator } from "@/components/tenant/TenantCalculators";
-import TenantLeadForm from "@/components/tenant/TenantLeadForm";
+import TenantDeferred from "@/components/tenant/TenantDeferred";
 import ServiceFaq from "@/components/ServiceFaq";
 import { TENANT_OFFER } from "@/lib/tenant-offer";
 import { ORGANIZATION_SCHEMA } from "@/lib/site-schema";
@@ -237,7 +236,7 @@ export default function Page() {
           <p>
             Get an estimate on screen. You can email yourself a copy afterwards.
           </p>
-          <TimeCalculator compact />
+          <TenantDeferred kind="time" />
         </div>
       </section>
       <section className="tenant-section tenant-dark">
@@ -472,7 +471,7 @@ export default function Page() {
               information needed and timing for your Health Check.
             </p>
           </div>
-          <TenantLeadForm />
+          <TenantDeferred kind="health" />
         </div>
       </section>
       <section className="tenant-section">
