@@ -22,8 +22,8 @@ export default function TenantDeferred({ kind }: { kind: "time" | "health" }) {
     const target = region.current;
     if (!target || visible) return;
     if (!("IntersectionObserver" in window)) {
-      setVisible(true);
-      return;
+      const frame = requestAnimationFrame(() => setVisible(true));
+      return () => cancelAnimationFrame(frame);
     }
     const observer = new IntersectionObserver(
       (entries) => {
