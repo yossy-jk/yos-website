@@ -76,6 +76,7 @@ function run() {
       "src/lib/tenant-offer.ts",
       "src/lib/tenant-calculations.ts",
       "src/lib/tenant-leads.ts",
+      "src/content/tenant-checklist.json",
     ]);
   const issues = paths.flatMap((f) =>
     reviewText(fs.readFileSync(f, "utf8")).map((x) => `${f}: ${x}`),

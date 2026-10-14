@@ -6,3 +6,4 @@
 body:has(.tenant-form-box input:focus, .tenant-form-box select:focus, .tenant-form-box button:focus) .tenant-mobile-cta { display:none; }
 .tenant-custom.is-selected{outline:3px solid #007c72;outline-offset:3px}
 .tenant-mobile-cta:focus-visible{outline:3px solid #007c72;outline-offset:3px}
+.tenant-checklist-item{padding:0 0 24px 8px}.tenant-checklist-item h3{font-size:19px;margin:0 0 10px}.tenant-checklist-item p{font-size:15px;margin:0 0 12px}.tenant-checklist-item .tenant-checklist-tip{background:#E0F5F3;padding:16px;border-left:3px solid #00796D;border-radius:4px}.tenant-checklist-tip strong{color:#00796D}
