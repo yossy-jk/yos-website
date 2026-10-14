@@ -243,6 +243,7 @@ try {
       path: out + "/health-check-complete-" + width + ".png",
     });
     await p.click(".tenant-results button");
+    await p.waitForSelector("form button[type=submit]");
     unavailable = true;
     fallbackFailure = true;
     await p.click("form button[type=submit]");
