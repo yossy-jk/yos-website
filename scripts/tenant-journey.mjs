@@ -242,6 +242,7 @@ try {
     await p.screenshot({
       path: out + "/health-check-complete-" + width + ".png",
     });
+    assert.equal(await p.$eval(".tenant-mobile-cta", e => getComputedStyle(e).display), "none", "The floating action must not cover receipt controls");
     await p.click(".tenant-results button");
     await p.waitForSelector("form button[type=submit]");
     unavailable = true;
