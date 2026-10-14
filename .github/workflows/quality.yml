@@ -72,6 +72,7 @@ jobs:
           MOBILE_MENU_BASE_URL=http://127.0.0.1:3102 npm run test:mobile-menu
           HOME_GUIDE_BASE_URL=http://127.0.0.1:3102 npm run test:home-service-guide
           LINK_AUDIT_BASE=http://127.0.0.1:3102 npm run test:button-destinations
+          QA_BASE=http://127.0.0.1:3102 QA_OUT=screenshots/tenant-journey npm run test:tenant-journey-ui
           node scripts/screenshot.mjs http://127.0.0.1:3102
 
       - name: Upload visual QA evidence

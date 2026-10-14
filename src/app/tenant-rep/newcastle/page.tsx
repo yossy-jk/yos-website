@@ -1,3 +1,4 @@
+import { TenantLicence } from '@/components/tenant/TenantShell'
 import ServiceArticle from '@/components/ServiceArticle'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -92,7 +93,7 @@ export default function TenantRepNewcastlePage() {
           </FadeIn>
           <FadeIn delay={300}>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">Enquire</Button>
+              <Button href="/lease-health-check" variant="primary" size="lg">Free Lease Health Check</Button>
               <Button href="/lease-review" variant="outline" size="lg">
                 Request a Lease Review
               </Button>
@@ -341,7 +342,7 @@ export default function TenantRepNewcastlePage() {
                     does this protect the tenant? Every negotiation has one outcome: the best deal for the business signing the lease.
                   </p>
                 </div>
-                <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">Enquire</Button>
+                <Button href="/lease-health-check" variant="primary" size="lg">Free Lease Health Check</Button>
               </div>
             </FadeIn>
 
@@ -411,7 +412,7 @@ export default function TenantRepNewcastlePage() {
                 style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
                 A focused conversation about your space, your situation and the decision in front of you.
               </p>
-              <Button href="/contact?service=leasing#contact-enquiry" variant="dark" size="lg">Enquire</Button>
+              <Button href="/lease-health-check" variant="dark" size="lg">Free Lease Health Check</Button>
               <p className="text-charcoal font-light mt-6" style={{ fontSize: '0.8rem' }}>
                 Newcastle &amp; Hunter &nbsp;|&nbsp; (02) 4092 0733 &nbsp;|&nbsp; jk@yourofficespace.au
               </p>
@@ -421,6 +422,7 @@ export default function TenantRepNewcastlePage() {
       </section>
 
       <ServiceArticle slug="tenant-representation-brief-newcastle" />
+      <section className="tenant-section"><div className="tenant-wrap"><TenantLicence /></div></section>
 </main>
 
       <Footer />

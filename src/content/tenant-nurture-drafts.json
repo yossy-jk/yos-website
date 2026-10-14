@@ -1,0 +1,42 @@
+{
+  "enabled": false,
+  "requires": [
+    "YOS sending account and unsubscribe mechanism",
+    "Reply and booking stop signals",
+    "Approved copy and publication permission"
+  ],
+  "sequence": [
+    {
+      "day": 0,
+      "subject": "Your results and your next step",
+      "purpose": "Transactional requested results; marketing content only with consent."
+    },
+    {
+      "day": 2,
+      "subject": "What is your office search time worth?",
+      "path": "/tools/time-cost-calculator"
+    },
+    {
+      "day": 5,
+      "subject": "Check your make-good obligations before the next move",
+      "path": "/lease-checklist"
+    },
+    {
+      "day": 10,
+      "subject": "A savings calculation you can follow",
+      "path": "/tenant-rep/guarantee"
+    },
+    {
+      "day": 20,
+      "subject": "Is your next lease decision still on the radar?",
+      "purpose": "Invite a one-line reply."
+    }
+  ],
+  "stopOn": [
+    "reply",
+    "booking",
+    "unsubscribe",
+    "consent withdrawal"
+  ],
+  "followUpDays": 90
+}
