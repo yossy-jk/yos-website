@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-14",
+  "timezone": "Australia/Sydney",
+  "reviewedCommit": "37ea092",
+  "userStatement": "All reads well and is approved",
+  "copyApproval": "confirmed by user",
+  "checklistApproval": "confirmed by user",
+  "feesApproval": "previously confirmed by user",
+  "rickyLicenceApproval": "awaiting explicit evidence",
+  "rickyAndLawyerAgreementApproval": "awaiting final approved terms/version",
+  "guaranteeClaimResolution": "awaiting final approved wording or formula resolving the 2x claim and fee cap",
+  "publicationState": "review preview only",
+  "remainingTechnicalAcceptance": [
+    "Improve tenant page performance against the brief's two-second target; simulated mobile median was 2.5 seconds",
+    "Verify authorised live enquiry delivery to HubSpot, inbox, response task and customer receipt",
+    "Verify calendar import in Outlook and Google Calendar"
+  ]
+}
