@@ -256,7 +256,7 @@ try {
     fallbackFailure = false;
     await p.click("form button[type=submit]");
     await p.waitForFunction(() => document.querySelector('h3[tabindex="-1"]')?.textContent.includes("Your request was received"));
-    assert.ok(fallbacks.at(-1).source.includes("CRM follow-up required"));
+    assert.ok(fallbacks.at(-1).source.includes("email follow-up required"));
     await p.click(".tenant-results button");
     await p.waitForSelector("form button[type=submit]");
     unavailableStatus = 502;
