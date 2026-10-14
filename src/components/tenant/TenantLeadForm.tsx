@@ -250,7 +250,7 @@ export default function TenantLeadForm({
           />
         </>
       )}
-      <div style={{ position: "absolute", left: -9999 }} aria-hidden="true">
+      <div style={{ position: "absolute", visibility: "hidden", width: 1, height: 1, overflow: "hidden" }} aria-hidden="true">
         <label htmlFor={`${kind}-website`}>Website</label>
         <input
           id={`${kind}-website`}
