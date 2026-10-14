@@ -245,7 +245,7 @@ test("preview requests cannot reach email or CRM; a wrong portal prevents CRM wr
     resend: { Resend: class {} },
     "@/lib/ratelimit": { contactLimiter: () => null, getIp: () => "" },
     "@/lib/tenant-leads": leads,
-    "@/lib/tenant-offer": offer,
+    "@/lib/tenant-offer": { ...offer, TENANT_OFFER: { ...offer.TENANT_OFFER, approvedForPublication: false } },
     "@/lib/tenant-calculations": calc,
     "@/lib/constants": { HUBSPOT: { bookingUrl: "https://example.invalid" } },
   };

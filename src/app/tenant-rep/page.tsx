@@ -33,7 +33,7 @@ const faqs = [
   {
     question: "What if I already have an offer?",
     answer:
-      "Bring the written proposal to the Health Check. We can help compare its commercial costs, obligations and timing before you decide. For the proposed guarantee, an existing written offer is the baseline.",
+      "Bring the written proposal to the Health Check. We can help compare its commercial costs, obligations and timing before you decide. For the guarantee, an existing written offer is the baseline.",
   },
   {
     question: "Can you help me renew instead of moving?",
@@ -42,12 +42,12 @@ const faqs = [
   },
   {
     question: "What happens if I do not sign?",
-    answer: `The proposed package payment terms are ${TENANT_OFFER.startPayment} dollars ex GST to start, with the balance due on signed Heads of Agreement. If no suitable space is found and you do not sign, the start payment is all you pay, subject to the agreed engagement terms.`,
+    answer: `The package payment terms are ${TENANT_OFFER.startPayment} dollars ex GST to start, with the balance due on signed Heads of Agreement. If no suitable space is found and you do not sign, the start payment is all you pay, subject to the agreed engagement terms.`,
   },
   {
-    question: "What does the proposed guarantee exclude?",
+    question: "What does the guarantee exclude?",
     answer:
-      "It excludes changes already in the first written offer, bank guarantees and deposit reductions. It also excludes direct client negotiation during the engagement, signing against written YOS advice, or ending before a lease is signed. See the full proposed terms and refund cap.",
+      "It excludes changes already in the first written offer, bank guarantees and deposit reductions. It also excludes direct client negotiation during the engagement, signing against written YOS advice, or ending before a lease is signed. See the full terms and refund cap.",
   },
   {
     question: "Can you help after the lease decision?",
@@ -129,7 +129,7 @@ export default function Page() {
             No agency agreement is signed online.
           </p>
           <Link href="/tenant-rep/guarantee">
-            Explore the proposed {TENANT_OFFER.guarantee.multiple}x Return
+            Explore the {TENANT_OFFER.guarantee.multiple}x Return
             Guarantee
           </Link>
         </div>
@@ -339,17 +339,17 @@ export default function Page() {
       <section className="tenant-section">
         <div className="tenant-wrap tenant-two">
           <div>
-            <p className="tenant-eyebrow">Proposed commercial protection</p>
+            <p className="tenant-eyebrow">Commercial protection</p>
             <h2>The {TENANT_OFFER.guarantee.multiple}x Return Guarantee.</h2>
             <p>
               A defined savings target, a written baseline and a refund
-              calculation you can follow. Proposed terms are awaiting
-              professional approval.
+              calculation you can follow. See how savings are measured and
+              how the fee-capped refund works.
             </p>
           </div>
           <div className="tenant-results">
             <p>
-              For eligible leases, the proposed target is savings worth at least{" "}
+              For eligible leases, the target is savings worth at least{" "}
               {TENANT_OFFER.guarantee.multiple} times the professional fee,
               measured against the first written offer over the initial term.
             </p>
@@ -359,7 +359,7 @@ export default function Page() {
                 years.
               </li>
               <li>
-                Proposed minimum annual gross rent:{" "}
+                Minimum annual gross rent:{" "}
                 {new Intl.NumberFormat("en-AU", {
                   style: "currency",
                   currency: "AUD",
@@ -372,12 +372,12 @@ export default function Page() {
               </li>
               <li>
                 Any shortfall refund is capped at the professional fee paid.
-                Shorter or smaller leases use the proposed{" "}
+                Shorter or smaller leases use the{" "}
                 {TENANT_OFFER.guarantee.fallbackMultiple}x rule.
               </li>
             </ul>
             <Link href="/tenant-rep/guarantee">
-              Read the proposed terms and try the calculator
+              Read the terms and try the calculator
             </Link>
           </div>
         </div>

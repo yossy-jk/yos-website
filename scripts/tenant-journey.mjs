@@ -34,7 +34,7 @@ const routes = [
   "/lease-checklist",
   "/refer",
   "/insights/lease-costs",
-  "/insights/lease-costs/cost-of-diy-office-search",
+  "/tenant-rep/newcastle",
   "/thank-you/health-check",
 ];
 try {
@@ -256,7 +256,9 @@ try {
   const p = await browser.newPage();
   await p.goto(base + "/sitemap.xml");
   const sitemap = await p.content();
-  assert.ok(!sitemap.includes("/tenant-rep/packages"));
+  assert.ok(sitemap.includes("/tenant-rep/packages"));
+  const draft = await p.goto(base + "/insights/lease-costs/cost-of-diy-office-search");
+  assert.equal(draft.status(), 404, "Unpublished article templates must not go live");
   writeFileSync(
     out + "/report.json",
     JSON.stringify(
@@ -271,7 +273,8 @@ try {
         referralPermissionRequired: true,
         calculatorsUngated: true,
         icsCalendarVerified: true,
-        previewExcludedFromSitemap: true,
+        publishedRoutesInSitemap: true,
+        articleDraftsExcluded: true,
       },
       null,
       2,

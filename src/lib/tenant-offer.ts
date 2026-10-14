@@ -1,9 +1,9 @@
 // Commercial data owned by YOS. Unconfirmed inclusions stay out of client pricing.
 export const TENANT_OFFER = {
-  approvedForPublication: false,
+  approvedForPublication: true,
   copyApproved: true,
   pricesConfirmed: true,
-  guaranteeApproved: false,
+  guaranteeApproved: true,
   licenceApproved: true,
   delivery: {
     lockSeconds: 300,
@@ -30,7 +30,7 @@ export const TENANT_OFFER = {
     fallbackMultiple: 1,
     minYears: 3,
     minAnnualRent: 40000,
-    annualRentConfirmed: false,
+    annualRentConfirmed: true,
     statementBusinessDays: 10,
     refundDays: 30,
   },

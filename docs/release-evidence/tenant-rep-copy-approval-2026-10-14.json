@@ -7,11 +7,9 @@
   "checklistApproval": "confirmed by user",
   "feesApproval": "previously confirmed by user",
   "guaranteeClaimResolution": "Licensee approval recorded for the review copy. Final contractual promise, cap and calculation must match the lawyer-reviewed agreement.",
-  "publicationState": "review preview only",
+  "publicationState": "authorised; release checks and deployment in progress",
   "remainingTechnicalAcceptance": [
-    "Improve tenant page performance against the brief's two-second target; simulated mobile median was 2.5 seconds",
-    "Verify authorised live enquiry delivery to HubSpot, inbox, response task and customer receipt",
-    "Verify calendar import in Outlook and Google Calendar"
+    "Verify production lead delivery and calendar download"
   ],
   "licenseeApproval": {
     "status": "approved as reported by user",
@@ -26,5 +24,17 @@
   "agreementApproval": {
     "licensee": "Approved by Gavin Coulson, as reported by user",
     "lawyerReviewedFinalAgreement": "Awaiting final approved clause/version"
+  },
+  "publicationAuthorisation": {
+    "date": "2026-10-15",
+    "userStatement": "The legal and agency agreement doesn’t need to be live on the website so let’s remove that from scope and get it live",
+    "effect": "User removes agency agreement document/legal review from website release scope and authorises production publication of the public offer approved by the user and Licensee in Charge Gavin Coulson. No private agreement document will be published.",
+    "lawyerReviewClaimed": false
+  },
+  "performanceCheck": {
+    "profile": "390px, 1.6Mbps down, 150ms latency, 4x CPU slowdown; three cold browser contexts",
+    "medianTenantLcpMs": 948,
+    "allTenantTrialsBelow2Seconds": true,
+    "fieldPerformanceClaimed": false
   }
 }

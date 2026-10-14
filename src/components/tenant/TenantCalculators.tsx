@@ -444,8 +444,7 @@ export function GuaranteeCalculator() {
         </select>
       </div>
       <p className="tenant-note">
-        Example only. The proposed rent threshold and terms need approval. This
-        comparison estimates rent, outgoings, incentives and make-good only. Any
+        Example only. This comparison estimates rent, outgoings, incentives and make-good only. Any
         other eligible saving needs written supporting evidence. Deposits and
         bank guarantees are excluded.
       </p>
@@ -500,11 +499,11 @@ export function GuaranteeCalculator() {
             <dd>{money(result.savings)}</dd>
             <dt>Multiple of the professional fee</dt>
             <dd>{result.achieved.toFixed(2)}x</dd>
-            <dt>Proposed savings target</dt>
+            <dt>Savings target</dt>
             <dd>
               {result.multiple}x / {money(result.target)}
             </dd>
-            <dt>Proposed refund, capped at the fee paid</dt>
+            <dt>Refund, capped at the fee paid</dt>
             <dd>{money(result.refund)}</dd>
           </dl>
           <p>

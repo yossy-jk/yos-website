@@ -26,7 +26,7 @@ export default function Page() {
               ))}
             </ol>
             <p className="tenant-small">
-              Draft checklist for approval. General information only. Your lease
+              General information only. Your lease
               and circumstances need individual legal advice.
             </p>
           </div>

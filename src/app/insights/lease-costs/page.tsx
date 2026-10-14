@@ -23,6 +23,9 @@ export default async function Page() {
       ),
     }))
     .filter((item) => item.post || !TENANT_OFFER.approvedForPublication);
+  const availableCards = cards.length ? cards : published
+    .filter((post) => ["tenant-representation-brief-newcastle", "what-is-tenant-representation-newcastle", "what-is-make-good"].includes(post.slug))
+    .map((post) => ({ article: { slug: post.slug, title: post.title }, post }));
   return (
     <TenantShell
       title="What is your lease really costing you?"
@@ -52,7 +55,7 @@ export default async function Page() {
               <Link href="/tools/critical-dates">Critical Dates Checker</Link>
             </article>
           </div>
-          <h2 style={{ marginTop: 56 }}>The lease cost series.</h2>
+          <h2 style={{ marginTop: 56 }}>{cards.length ? "The lease cost series." : "Practical lease guides."}</h2>
           {!TENANT_OFFER.approvedForPublication && (
             <p>
               Eight planned guides. Draft articles are available for review in
@@ -61,7 +64,7 @@ export default async function Page() {
             </p>
           )}
           <div className="tenant-grid">
-            {cards.map(({ article: a, post }) => (
+            {availableCards.map(({ article: a, post }) => (
               <article key={a.slug} className="tenant-card">
                 <p className="tenant-eyebrow">
                   {post ? "Guide" : "Draft / awaiting copy approval"}

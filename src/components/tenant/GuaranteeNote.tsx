@@ -5,13 +5,13 @@ export default function GuaranteeNote() {
   return (
     <div className="tenant-note">
       <Link href="/tenant-rep/guarantee">
-        <strong>Proposed {g.multiple}x Return Guarantee</strong>
+        <strong>{g.multiple}x Return Guarantee</strong>
       </Link>
       <p className="tenant-small">
-        For initial terms of {g.minYears} years or more and proposed annual
+        For initial terms of {g.minYears} years or more and annual
         gross rent of ${g.minAnnualRent.toLocaleString("en-AU")} or more. YOS
         runs the negotiation. Refunds are capped at the professional fee paid.
-        Below either threshold, the proposed {g.fallbackMultiple}x rule applies.
+        Below either threshold, the {g.fallbackMultiple}x rule applies.
       </p>
     </div>
   );

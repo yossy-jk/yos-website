@@ -28,7 +28,7 @@ export default function Page() {
             <h3>If you do not sign</h3>
             <p>
               If we cannot find a space that fits the agreed brief and you do
-              not sign, the start payment is all you pay under the proposed
+              not sign, the start payment is all you pay under the agreed
               engagement terms. No balance is due before signed Heads of
               Agreement. GST is added to each payment.
             </p>
