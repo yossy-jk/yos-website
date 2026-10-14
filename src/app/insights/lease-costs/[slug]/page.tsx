@@ -12,8 +12,10 @@ import {
 } from "@/components/tenant/TenantCalculators";
 import articles from "@/content/tenant-insights.json";
 import { TENANT_OFFER } from "@/lib/tenant-offer";
+import { tenantPublicPosts } from "@/lib/tenant-content";
+export const dynamicParams = false;
 export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
+  return articles.filter((a) => !TENANT_OFFER.approvedForPublication || a.status === "published").map((a) => ({ slug: a.slug }));
 }
 export async function generateMetadata({
   params,
@@ -38,7 +40,7 @@ export default async function Page({
   const { slug } = await params,
     a = articles.find((a) => a.slug === slug);
   if (a) {
-    const publicPosts = await getAllPublicPostsAsync();
+    const publicPosts = tenantPublicPosts(await getAllPublicPostsAsync().catch(() => []));
     const published = publicPosts.find(
       (p) =>
         p.slug === a.slug || p.title.toLowerCase() === a.title.toLowerCase(),

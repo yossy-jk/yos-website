@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     !process.env.UPSTASH_REDIS_REST_URL ||
     !process.env.UPSTASH_REDIS_REST_TOKEN
   )
-    return NextResponse.json({ ok: false }, { status: 503 });
+    return NextResponse.json({ ok: false, code: "DELIVERY_CONFIG" }, { status: 503 });
   const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
@@ -104,16 +104,15 @@ export async function POST(req: Request) {
       "https://api.hubapi.com/oauth/v2/private-apps/get/access-token-info",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ tokenKey: token }),
         signal: AbortSignal.timeout(10000),
       },
     );
-    if (
-      !identity.ok ||
-      String((await identity.json()).hubId) !== TENANT_ROUTING.portal
-    )
-      return NextResponse.json({ ok: false }, { status: 503 });
+    if (!identity.ok)
+      return NextResponse.json({ ok: false, code: "CRM_IDENTITY" }, { status: 503 });
+    if (String((await identity.json()).hubId) !== TENANT_ROUTING.portal)
+      return NextResponse.json({ ok: false, code: "CRM_ACCOUNT" }, { status: 503 });
     const context = JSON.stringify(lead, null, 2);
     const callNumber = lead.fields.referredPhone || lead.fields.mobile;
     if (!state.contactId) {

@@ -25,6 +25,7 @@ export default function TenantLeadForm({
     [done, setDone] = useState(false),
     [error, setError] = useState(""),
     [preview, setPreview] = useState(false),
+    [emailOnly, setEmailOnly] = useState(false),
     [fields, setFields] = useState<Record<string, string>>({
       intent: "unsure",
       expiry: "",
@@ -140,13 +141,45 @@ export default function TenantLeadForm({
           submissionId: submission.current.id,
         }),
       });
-      const data = await response.json();
-      if (!response.ok || !data.ok)
+      let data = await response.json();
+      let accepted = response.ok;
+      // Preserve enquiries when CRM configuration is unavailable. The existing
+      // owner-email endpoint confirms real mail acceptance before success.
+      if (response.status === 503) {
+        const fallback = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: fields.name,
+            company: fields.business || fields.referredBusiness,
+            email: fields.email,
+            phone: fields.mobile || fields.referredPhone,
+            source: `YOS ${kind} - CRM follow-up required`,
+            message: JSON.stringify({
+              kind,
+              submissionId: submission.current.id,
+              marketingConsent: consent,
+              consentWording: marketing,
+              submittedAt: new Date().toISOString(),
+              attribution: payload.attribution,
+              fields,
+              worries,
+              tool,
+              results,
+              referralPermission: refPermission,
+            }, null, 2).slice(0, 2900),
+          }),
+        });
+        data = { ...(await fallback.json()), emailOnly: true };
+        accepted = fallback.ok;
+      }
+      if (!accepted || !data.ok)
         throw new Error(
           data.error ||
             "We could not confirm delivery. Please try again or call (02) 4092 0733.",
         );
       setPreview(Boolean(data.preview));
+      setEmailOnly(Boolean(data.emailOnly));
       setDone(true);
       if (!data.preview && !data.duplicate) {
         const event =
@@ -155,14 +188,14 @@ export default function TenantLeadForm({
             : kind === "referral"
               ? "referral_submit"
               : kind === "results"
-                ? "results_emailed"
+                ? data.emailOnly ? "results_requested" : "results_emailed"
                 : "guide_download";
         trackConversion(event, {
           form_name: kind,
           tool,
           service: fields.intent === "buy" ? "Buying" : "Leasing",
         });
-        if (kind === "health_check" || kind === "referral")
+        if (kind === "health_check" || kind === "referral" || (kind === "results" && data.emailOnly))
           trackConversion("generate_lead", {
             form_name: kind,
             service: fields.intent === "buy" ? "Buying" : "Leasing",
@@ -196,7 +229,9 @@ export default function TenantLeadForm({
         <p>
           {preview
             ? "Review the next step below. The booking link opens the existing YOS booking service."
-            : "The YOS team will review your request and contact you about the next step."}
+            : emailOnly && kind === "results"
+              ? "Your request and tool details reached the YOS team. They will follow up by email."
+              : "The YOS team will review your request and contact you about the next step."}
         </p>
         {kind === "checklist" && (
           <Link

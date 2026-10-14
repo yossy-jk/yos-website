@@ -47,6 +47,12 @@ const offer = load("src/lib/tenant-offer.ts"),
     "./tenant-offer": offer,
     "./tenant-calculations": calc,
   });
+test("incomplete CMS records cannot break tenant guidance cards or redirects", () => {
+  const content = load("src/lib/tenant-content.ts");
+  const records = content.tenantPublicPosts([null, "text", {}, { slug: "broken" }, { slug: "../api/health", title: "Bad path" }, { slug: "valid-guide", title: "  Approved guide  " }]);
+  assert.equal(JSON.stringify(records), JSON.stringify([{ slug: "valid-guide", title: "Approved guide" }]));
+  assert.equal(content.tenantPublicPosts({}).length, 0);
+});
 test("guarantee examples reproduce the written baseline and cap refunds at fees paid", () => {
   const a = {
       area: 250,
