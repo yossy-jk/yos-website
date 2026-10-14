@@ -46,17 +46,26 @@ try {
       { name: "prefers-reduced-motion", value: "reduce" },
     ]);
     const posts = [];
+    const fallbacks = [];
     let failure = false;
+    let unavailable = false;
+    let unavailableStatus = 503;
+    let fallbackFailure = false;
     await p.setRequestInterception(true);
     p.on("request", async (r) => {
       const u = new URL(r.url());
       if (r.method() === "POST") {
+        if (u.pathname === "/api/tenant-enquiry-email") {
+          fallbacks.push(JSON.parse(r.postData()));
+          await r.respond({ status: fallbackFailure || failure ? 502 : 200, contentType: "application/json", body: JSON.stringify({ ok: !fallbackFailure && !failure }) });
+          return;
+        }
         if (u.pathname === "/api/tenant-lead")
           posts.push(JSON.parse(r.postData()));
         await r.respond({
-          status: failure ? 502 : 200,
+          status: unavailable ? unavailableStatus : failure ? 502 : 200,
           contentType: "application/json",
-          body: JSON.stringify({ ok: !failure, preview: true }),
+          body: JSON.stringify({ ok: !failure && !unavailable, preview: !unavailable }),
         });
       } else if (
         /google-analytics|googletagmanager|hubspot|hs-scripts|hs-analytics/.test(
@@ -234,6 +243,26 @@ try {
     await p.screenshot({
       path: out + "/health-check-complete-" + width + ".png",
     });
+    assert.equal(await p.$eval(".tenant-mobile-cta", e => getComputedStyle(e).display), "none", "The floating action must not cover receipt controls");
+    await p.click(".tenant-results button");
+    await p.waitForSelector("form button[type=submit]");
+    unavailable = true;
+    fallbackFailure = true;
+    await p.click("form button[type=submit]");
+    await p.waitForSelector("[role=alert]");
+    assert.ok(await p.$("form"), "Email failure must preserve the enquiry");
+    assert.equal(fallbacks.at(-1).email, "qa@example.invalid");
+    assert.equal(JSON.parse(fallbacks.at(-1).message).marketingConsent, false);
+    fallbackFailure = false;
+    await p.click("form button[type=submit]");
+    await p.waitForFunction(() => document.querySelector('h3[tabindex="-1"]')?.textContent.includes("Your request was received"));
+    assert.ok(fallbacks.at(-1).source.includes("CRM follow-up required"));
+    await p.click(".tenant-results button");
+    await p.waitForSelector("form button[type=submit]");
+    unavailableStatus = 502;
+    await p.click("form button[type=submit]");
+    await p.waitForFunction(() => document.querySelector('h3[tabindex="-1"]')?.textContent.includes("Your request was received"));
+    unavailable = false;
     await p.goto(base + "/refer", { waitUntil: "networkidle2" });
     await p.type("#referral-name", "QA Referrer");
     await p.type("#referral-email", "qa@example.invalid");
@@ -267,6 +296,7 @@ try {
         checkedForms: true,
         deferredLandingTools: true,
         deliveryFailurePreserved: true,
+        emailFallbackConfirmed: true,
         utmCapture: true,
         buyingIntent: true,
         marketingDefaultFalse: true,

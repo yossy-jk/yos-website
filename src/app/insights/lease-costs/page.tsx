@@ -6,13 +6,17 @@ import TenantShell, {
   TenantCta,
 } from "@/components/tenant/TenantShell";
 import articles from "@/content/tenant-insights.json";
+import { tenantPublicPosts } from "@/lib/tenant-content";
+import brief from "@/content/blog/tenant-representation-brief-newcastle.json";
+import representation from "@/content/blog/what-is-tenant-representation-newcastle.json";
+import makeGood from "@/content/blog/what-is-make-good.json";
 export const metadata = tenantMetadata(
   "Understand Your Commercial Lease Costs | YOS Newcastle",
   "Practical lease guidance and tools for Newcastle and Hunter businesses, covering occupancy costs, leadership time and lease dates.",
   "/insights/lease-costs",
 );
 export default async function Page() {
-  const published = await getAllPublicPostsAsync();
+  const published = tenantPublicPosts(await getAllPublicPostsAsync().catch(() => []));
   const cards = articles
     .map((article) => ({
       article,
@@ -23,8 +27,7 @@ export default async function Page() {
       ),
     }))
     .filter((item) => item.post || !TENANT_OFFER.approvedForPublication);
-  const availableCards = cards.length ? cards : published
-    .filter((post) => ["tenant-representation-brief-newcastle", "what-is-tenant-representation-newcastle", "what-is-make-good"].includes(post.slug))
+  const availableCards = cards.length ? cards : [brief, representation, makeGood]
     .map((post) => ({ article: { slug: post.slug, title: post.title }, post }));
   return (
     <TenantShell

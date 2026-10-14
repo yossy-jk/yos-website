@@ -47,6 +47,27 @@ const offer = load("src/lib/tenant-offer.ts"),
     "./tenant-offer": offer,
     "./tenant-calculations": calc,
   });
+test("incomplete CMS records cannot break tenant guidance cards or redirects", () => {
+  const content = load("src/lib/tenant-content.ts");
+  const records = content.tenantPublicPosts([null, "text", {}, { slug: "broken" }, { slug: "../api/health", title: "Bad path" }, { slug: "valid-guide", title: "  Approved guide  " }]);
+  assert.equal(JSON.stringify(records), JSON.stringify([{ slug: "valid-guide", title: "Approved guide" }]));
+  assert.equal(content.tenantPublicPosts({}).length, 0);
+});
+test("the email fallback cannot send from a preview deployment", async () => {
+  let sent = 0;
+  const mocks = {
+    "next/server": { NextResponse: { json: (body) => Response.json(body) } },
+    "@/lib/tenant-offer": offer,
+    "../contact/route": { POST: async () => { sent++; return Response.json({ ok: true }); } },
+  };
+  const req = () => new Request("https://example.invalid/api/tenant-enquiry-email", { method: "POST" });
+  const preview = load("src/app/api/tenant-enquiry-email/route.ts", mocks, { process: { env: { VERCEL_ENV: "preview" } } });
+  assert.equal((await (await preview.POST(req())).json()).preview, true);
+  assert.equal(sent, 0);
+  const production = load("src/app/api/tenant-enquiry-email/route.ts", mocks, { process: { env: { VERCEL_ENV: "production" } } });
+  assert.equal((await (await production.POST(req())).json()).ok, true);
+  assert.equal(sent, 1);
+});
 test("guarantee examples reproduce the written baseline and cap refunds at fees paid", () => {
   const a = {
       area: 250,
