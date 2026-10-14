@@ -1,4 +1,5 @@
 'use client'
+import { postEnquiry } from '@/lib/enquiry'
 import ToolGuide from '@/components/ToolGuide'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 
@@ -7,7 +8,7 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import {
   FITOUT_RATES as RATES,
   calculateFitoutEstimate as calcEstimate,
@@ -116,10 +117,7 @@ export default function FitoutEstimatorPage() {
     setReportMessage('')
 
     try {
-      const response = await fetch('/api/fitout-report', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const response = await postEnquiry('/api/fitout-report', {
           name: reportName,
           email: reportEmail,
           fitoutType: inputs.fitoutType,
@@ -133,8 +131,7 @@ export default function FitoutEstimatorPage() {
           hasReception: inputs.hasReception,
           hasAV: inputs.hasAV,
           source: 'fitout-estimator',
-        }),
-      })
+        })
       const result = await response.json().catch(() => ({})) as { error?: string; message?: string }
       if (!response.ok) throw new Error(result.error || 'We could not send the report right now.')
 
@@ -672,7 +669,7 @@ export default function FitoutEstimatorPage() {
             </div>
             {/* CTA, Book a consultation */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+              <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
                 style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
                 Book a Fitout Consultation &nbsp;→

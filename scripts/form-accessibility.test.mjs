@@ -16,20 +16,20 @@ test('contact form labels are programmatically associated with their controls', 
   }
 })
 
-test('contact service choices are accessible, required, and captured in HubSpot context', () => {
+test('contact service choices are accessible, required, and captured in the emailed source', () => {
   for (const service of ['Leasing', 'Buying', 'FitOut', 'Furniture', 'Cleaning', 'Not sure']) {
     assert.match(contactSource, new RegExp(`'${service}'`))
   }
   assert.match(contactSource, /<fieldset id="contact-service" tabIndex=\{-1\}/)
   assert.match(contactSource, /aria-pressed=\{selected\}/)
   assert.match(contactSource, /<input type="hidden" name="service" value=\{fields\.service\}/)
-  assert.match(contactSource, /context: `Service: \$\{fields\.service\}/)
+  assert.match(contactSource, /source: `Contact Form — \$\{fields\.service\}/)
 })
 
 test('contact form supports service query prefill and only confirms accepted delivery', () => {
   assert.match(contactSource, /resolveService\(initialService\)/)
-  assert.match(contactSource, /emailResult\.value\.ok/)
-  assert.match(contactSource, /hubspotResult\.value\.ok/)
+  assert.match(contactSource, /const emailAccepted = result\.ok/)
+  assert.doesNotMatch(contactSource, /hubspotResult/)
   assert.match(contactSource, /We could not confirm delivery/)
 })
 

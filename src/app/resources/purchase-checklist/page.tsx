@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 
 const SECTIONS = [
   {
@@ -180,7 +180,7 @@ export default function PurchaseChecklistPage() {
             <p className="text-white/60 font-light text-sm leading-relaxed mb-6">
               Additional due diligence may be required depending on property type, use, age, and location. Always engage a commercial solicitor and a qualified buyers agent before exchanging contracts.
             </p>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external>Talk to a buyers agent</Button>
+            <Button href={ENQUIRY.contactUrl} variant="primary" external>Talk to a buyers agent</Button>
           </div>
         </div>
       </section>

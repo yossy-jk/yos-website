@@ -4,7 +4,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import BookingCTA from '@/components/BookingCTA'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 
 export const metadata = withPageSeo({
   title: 'Space Planner | Your Office Space',
@@ -61,9 +61,9 @@ export default function SpacePlannerPage() {
               Draw your floor plan, drag workstations and furniture into it, and get a real quote on the spot. No sign-up required.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
-              <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+              <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
-                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center' }}>Book a call</a>
+                style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center' }}>Request a call</a>
               <a href="/furniture"
                 className="text-white/50 no-underline hover:text-white transition-colors"
                 style={{ fontSize: '0.85rem', letterSpacing: '0.05em' }}>
@@ -117,9 +117,9 @@ export default function SpacePlannerPage() {
                 The Space Planner is coming. In the meantime, we can walk you through furniture options over a 30-minute call, no obligation.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.875rem', alignItems: 'center' }}>
-                <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+                <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
                   className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
-                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center', width: '100%', maxWidth: '20rem', justifyContent: 'center' }}>Book a call</a>
+                  style={{ padding: '1.1rem 3rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center', width: '100%', maxWidth: '20rem', justifyContent: 'center' }}>Request a call</a>
                 <a href="tel:0240920733"
                   style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
                   (02) 4092 0733

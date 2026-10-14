@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { submitLead } from '@/lib/hubspot-lead'
+import { submitLead } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
 
 interface ToolGateProps {
@@ -19,8 +19,8 @@ export default function ToolGate({
   teaser,
   children,
   context,
-  heading = 'Where should we send your results?',
-  subheading = 'Enter your details \u2014 we\u2019ll email you a full branded report instantly.',
+  heading = 'View your full results',
+  subheading = 'Share your details with the YOS team and view your results here.',
   onUnlock,
   dark = true,
 }: ToolGateProps) {
@@ -28,6 +28,7 @@ export default function ToolGate({
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({})
+  const [submitError, setSubmitError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const storageKey = `yos_tool_unlocked_${tool.toLowerCase().replace(/\s+/g, '_')}`
@@ -50,17 +51,23 @@ export default function ToolGate({
     e.preventDefault()
     if (!validate()) return
     setLoading(true)
+    setSubmitError('')
 
     const leadResult = await submitLead({
-      firstname: name.trim().split(' ')[0],
+      firstname: name.trim(),
       email: email.trim(),
       source: tool,
       context: context?.(),
     }).catch(() => ({ ok: false }))
 
+    if (!leadResult.ok) {
+      setSubmitError('We could not confirm delivery. Please retry or call 02 4092 0733.')
+      setLoading(false)
+      return
+    }
     trackConversion('tool_complete', {
       tool,
-      crm_delivery: leadResult.ok,
+      email_delivery: leadResult.ok,
     })
 
     onUnlock?.(name.trim(), email.trim())
@@ -123,6 +130,7 @@ export default function ToolGate({
         </p>
 
         <form onSubmit={handleSubmit} noValidate>
+          {submitError && <p role="alert" style={{ color: '#ef4444', marginBottom: 16 }}>{submitError}</p>}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.75rem' }}>
 
             <div>
@@ -194,7 +202,7 @@ export default function ToolGate({
           </button>
 
           <p style={{ color: noteColor, fontSize: '0.7rem', marginTop: '1.25rem', lineHeight: 1.6 }}>
-            We use this to send your results and follow up only where you have requested it.
+            We use your details to respond to this request. This does not subscribe you to marketing.
           </p>
         </form>
       </div>

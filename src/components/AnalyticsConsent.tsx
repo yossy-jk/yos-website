@@ -2,14 +2,11 @@
 
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
-import Script from 'next/script'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 
 import { type Consent, STORAGE_KEY, CONSENT_EVENT, getAnalyticsConsent as getConsentSnapshot, setMemoryConsent } from '@/lib/analytics-consent'
 import { discardQueuedConversions } from '@/lib/analytics'
 import PhoneClickTracking from '@/components/PhoneClickTracking'
-
-const HUBSPOT_PORTAL_ID = '442709765'
 
 function subscribeToConsent(onStoreChange: () => void) {
   window.addEventListener(CONSENT_EVENT, onStoreChange)
@@ -39,11 +36,7 @@ function OptionalAnalytics() {
     <>
       <GoogleAnalytics />
       <PhoneClickTracking />
-      <Script
-        id="hs-script-loader"
-        src={`https://js-ap1.hs-scripts.com/${HUBSPOT_PORTAL_ID}.js`}
-        strategy="lazyOnload"
-      />
+
     </>
   )
 }
@@ -86,7 +79,7 @@ export default function AnalyticsConsent() {
         >
           <h2 className="font-bold mb-2" style={{ fontSize: '1.1rem' }}>Your privacy choices</h2>
           <p className="text-white/65 font-light mb-5" style={{ fontSize: '0.86rem', lineHeight: 1.7 }}>
-            We use essential storage for security and site functions. With your permission, Google Analytics and HubSpot analytics help us understand site usage. Optional analytics is off unless you accept it.
+            We use essential storage for security and site functions. With your permission, Google Analytics helps us understand site usage. Optional analytics is off unless you accept it.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
             <button

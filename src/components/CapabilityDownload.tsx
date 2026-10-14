@@ -1,4 +1,5 @@
 'use client'
+import { postEnquiry } from '@/lib/enquiry'
 import { useState, useRef } from 'react'
 import { trackConversion } from '@/lib/analytics'
 
@@ -69,11 +70,7 @@ export default function CapabilityDownload({
 
     setLoading(true)
     try {
-      const res = await fetch('/api/download/capability-statement', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstname: firstname.trim(), email: email.trim().toLowerCase() }),
-      })
+      const res = await postEnquiry('/api/download/capability-statement', { firstname: firstname.trim(), email: email.trim().toLowerCase() })
 
       const data = await res.json()
       if (!res.ok || !data.downloadUrl) {

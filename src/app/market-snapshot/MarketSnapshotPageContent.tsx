@@ -1,4 +1,5 @@
 'use client'
+import { postEnquiry } from '@/lib/enquiry'
 import { useState, useEffect, useRef } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -86,11 +87,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
     setError('')
 
     try {
-      const res = await fetch('/api/market-snapshot-register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstname: firstname.trim(), email: email.trim(), region }),
-      })
+      const res = await postEnquiry('/api/market-snapshot-register', { firstname: firstname.trim(), email: email.trim(), region })
       if (res.ok) {
         localStorage.setItem('snapshot-registered', '1')
         setSubmitted(true)

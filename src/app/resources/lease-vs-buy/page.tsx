@@ -4,7 +4,7 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import ToolGate from '@/components/ToolGate'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 
 const SEC = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const WRAP = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
@@ -550,7 +550,7 @@ export default function LeaseVsBuyPage() {
               style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
               We help businesses work out whether leasing or buying makes more sense for their situation.
             </h2>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+            <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
               className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
               style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
               Book a Strategy Session →

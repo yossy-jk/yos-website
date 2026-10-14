@@ -69,6 +69,7 @@ jobs:
           done
           SEO_BASE_URL=http://127.0.0.1:3102 SEO_REPORT_PATH=screenshots/seo-integrity.json npm run test:seo
           CLEANING_QA_BASE_URL=http://127.0.0.1:3102 npm run test:cleaning-enquiry
+          QA_BASE=http://127.0.0.1:3102 node scripts/sitewide-enquiries.mjs
           MOBILE_MENU_BASE_URL=http://127.0.0.1:3102 npm run test:mobile-menu
           HOME_GUIDE_BASE_URL=http://127.0.0.1:3102 npm run test:home-service-guide
           LINK_AUDIT_BASE=http://127.0.0.1:3102 npm run test:button-destinations

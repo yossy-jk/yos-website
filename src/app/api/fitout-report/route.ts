@@ -1,23 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { HUBSPOT } from '@/lib/constants'
+import { sendOwnerEnquiry, enquirySubmissionId } from '@/lib/enquiry-delivery'
 import { calculateFitoutEstimate, type FitoutInputs, type FitoutTier } from '@/lib/fitout-estimate'
 import { fitoutLimiter, getIp } from '@/lib/ratelimit'
 import { isPreviewDeployment } from '@/lib/deployment-scope'
 
 export const runtime = 'nodejs'
-
-const UPSTASH_URL   = process.env.UPSTASH_REDIS_REST_URL  || ''
-const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN || ''
-
-async function redisSet(key: string, value: string): Promise<boolean> {
-  if (!UPSTASH_URL || !UPSTASH_TOKEN) return false
-  const response = await fetch(`${UPSTASH_URL}/set/${encodeURIComponent(key)}/${encodeURIComponent(value)}`, {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${UPSTASH_TOKEN}` },
-  })
-  return response.ok
-}
 
 type ReportData = FitoutInputs & {
   name: string
@@ -151,7 +139,7 @@ ${data.fitoutType !== 'furniture-only' ? `<tr><td style="padding:0.5rem 0;font-s
 <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:0.75rem;padding:1.5rem;text-align:center">
 <p style="margin:0 0 0.5rem;font-size:1rem;font-weight:700;color:#ffffff">Ready to get an accurate quote?</p>
 <p style="margin:0 0 1.25rem;font-size:0.8rem;color:#ffffff60;line-height:1.6">A site visit and detailed brief will refine this estimate significantly. We'll walk through your space and give you a fixed-price proposal – no obligation.</p>
-<a href="${HUBSPOT.bookingUrl}" style="display:inline-block;background:#00B5A5;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Enquire →</a>
+<a href="https://www.yourofficespace.au/contact?service=fitout#contact-enquiry" style="display:inline-block;background:#00B5A5;color:#ffffff;font-weight:700;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;padding:1rem 2.5rem;border-radius:0.5rem">Enquire →</a>
 </div>
 </td></tr>
 <tr><td style="padding:0;border-top:1px solid #ffffff14;text-align:center">
@@ -175,7 +163,9 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const parsed = parseReportRequest(await req.json())
+    const raw = await req.json()
+    const submissionId = enquirySubmissionId(raw.submissionId)
+    const parsed = parseReportRequest(raw)
     if (parsed.honeypot) return NextResponse.json({ ok: true })
     if (!parsed.data) return NextResponse.json({ error: parsed.error || 'Invalid request' }, { status: 400 })
 
@@ -194,79 +184,26 @@ export async function POST(req: NextRequest) {
     const apiKey = process.env.RESEND_API_KEY
     if (!apiKey) return NextResponse.json({ error: 'Report delivery is temporarily unavailable' }, { status: 503 })
 
+    if (isPreviewDeployment()) return NextResponse.json({ ok: true, preview: true, message: 'Preview only: no email sent.' })
     const resend = new Resend(apiKey)
+    await sendOwnerEnquiry({ name: data.name, email: data.email, phone: data.phone,
+      source: 'Fitout estimate', details: data, submissionId })
+
     const reportResult = await resend.emails.send({
       from: 'Your Office Space <notifications@yourofficespace.au>',
       to: data.email,
       replyTo: 'jk@yourofficespace.au',
       subject: `Your Fitout Estimate – ${data.sqm}m² ${data.tier} · Your Office Space`,
       html: buildEmailHtml(data),
-    })
-    if (reportResult.error) {
+    }, { idempotencyKey: `${submissionId}-fitout-client` })
+    if (reportResult.error || !reportResult.data?.id) {
       console.error('[fitout-report] Customer email failed:', reportResult.error)
       return NextResponse.json({ error: 'We could not send the report. Please try again shortly.' }, { status: 502 })
-    }
-
-    // Preview acceptance proves the customer-delivery contract only. Keep
-    // synthetic preview submissions out of production notifications and CRM.
-    if (isPreviewDeployment()) {
-      return NextResponse.json({ ok: true, preview: true, message: 'Your report has been emailed. Check your inbox.' })
-    }
-
-    const safeName = escapeHtml(data.name)
-    const safeEmail = escapeHtml(data.email)
-    const safePhone = data.phone ? escapeHtml(data.phone) : ''
-
-    // Customer delivery is the success contract. Internal notification and CRM
-    // enrichment are attempted separately so a secondary outage cannot cause a
-    // duplicate customer email on retry.
-    const notification = resend.emails.send({
-      from: 'YOS Website <notifications@yourofficespace.au>',
-      to: 'jk@yourofficespace.au',
-      replyTo: data.email,
-      subject: `New fitout estimate lead – ${data.name} (${data.email})`,
-      html: `<p>New fitout estimate submitted.</p><p><strong>${safeName}</strong> · ${safeEmail}${safePhone ? ` · ${safePhone}` : ''}</p><p>${data.sqm}m² · ${data.tier} · ${data.fitoutType === 'furniture-only' ? 'Furniture only' : `Full fitout (${data.shellCondition} shell)`}</p><p>Estimate: ${fmt(data.totalLow)}–${fmt(data.totalHigh)} ex GST</p><p><a href="${HUBSPOT.bookingUrl}">Book follow-up call</a></p>`,
-    })
-
-    const crmQueue = redisSet('yos:hubspot:actions', JSON.stringify({
-      action: 'create-deal',
-      data: {
-        title: `Fitout Estimate – ${data.name}`,
-        email: data.email,
-        phone: data.phone || '',
-        company: '',
-        pipeline: 'furniture',
-        stage: 'New Enquiry',
-        amount: Math.round((data.totalLow + data.totalHigh) / 2),
-        closeDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-        notes: [
-          `Fitout type: ${data.fitoutType}`,
-          `Size: ${data.sqm}m²`,
-          `Tier: ${data.tier}`,
-          data.fitoutType !== 'furniture-only' ? `Shell: ${data.shellCondition}` : null,
-          `Workstation type: ${data.workstationType}`,
-          `Desks: ${data.desks}, Meeting rooms: ${data.meetingRooms}`,
-          `Kitchen: ${data.hasKitchen ? 'Yes' : 'No'}`,
-          `Reception: ${data.hasReception ? 'Yes' : 'No'}`,
-          `AV: ${data.hasAV ? 'Yes' : 'No'}`,
-          `Source: fitout-estimator`,
-        ].filter(Boolean).join('\n'),
-        source: 'fitout-estimator',
-      },
-      createdAt: new Date().toISOString(),
-    }))
-
-    const [notificationResult, crmResult] = await Promise.allSettled([notification, crmQueue])
-    if (notificationResult.status === 'rejected' || (notificationResult.status === 'fulfilled' && notificationResult.value.error)) {
-      console.error('[fitout-report] Internal notification failed')
-    }
-    if (crmResult.status === 'rejected' || (crmResult.status === 'fulfilled' && !crmResult.value)) {
-      console.warn('[fitout-report] CRM queue unavailable')
     }
 
     return NextResponse.json({ ok: true, message: 'Your report has been emailed. Check your inbox.' })
   } catch (error: unknown) {
     console.error('[fitout-report] Request failed:', error)
-    return NextResponse.json({ error: 'We could not send the report. Please try again shortly.' }, { status: 500 })
+    return NextResponse.json({ error: 'We could not send the report. Please try again shortly.' }, { status: 502 })
   }
 }

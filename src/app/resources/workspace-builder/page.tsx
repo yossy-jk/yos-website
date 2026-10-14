@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
-import { HUBSPOT } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
 // ─── Pricing reference (ex GST, YOS Furniture 2026) ─────────────────────────
@@ -749,32 +748,11 @@ export default function WorkspaceBuilderPage() {
                   `Headcount: ${teamData.headcount} | Building: ${spaceData.buildingType} | Budget: ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}–${fmt(spec.totalHigh)}`
                 }
                 heading="Where should we send your specification?"
-                subheading="Enter your details, we'll email you a full workspace spec instantly."
+                subheading="Share your details with YOS and view your workspace specification here."
                 onUnlock={(name, email) => {
                   setUnlockedName(name)
                   setUnlockedEmail(email)
-                  const ctx = `Building: ${spaceData.buildingType} | Headcount: ${teamData.headcount} | Budget: ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}–${fmt(spec.totalHigh)} | Priority: ${prioritiesData.topPriority} | Roles: ${prioritiesData.roles.join(', ')}`
-                  fetch('/api/hubspot', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      firstname: name,
-                      email,
-                      source: 'Workspace Builder',
-                      context: `Workspace Builder, ${ctx}`,
-                    }),
-                  }).catch(() => {})
-                  // Notify Joe via email
-                  fetch('/api/notify', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      name,
-                      email,
-                      source: 'Workspace Builder',
-                      context: ctx,
-                    }),
-                  }).catch(() => {})
+
                 }}
                 teaser={
                   <div>

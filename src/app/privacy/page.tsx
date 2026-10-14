@@ -104,7 +104,7 @@ export default function PrivacyPage() {
                 <li><strong>Request source and consent records</strong>, campaign labels, the landing page, and the marketing choice, wording and time recorded when you submit.</li>
                 <li><strong>Payment details</strong>, for LeaseIntel™ ($97 review). Card processing is handled by Stripe; we do not store card numbers.</li>
                 <li><strong>IP address</strong>, collected automatically for rate limiting purposes (see Third Parties below). Not linked to your identity.</li>
-                <li><strong>Basic browser/device and usage information</strong>, standard server logs used for security and performance monitoring. If you accept optional analytics, Google Analytics and HubSpot analytics also process information about pages viewed, device/browser type and approximate location.</li>
+                <li><strong>Basic browser/device and usage information</strong>, standard server logs used for security and performance monitoring. If you accept optional analytics, Google Analytics also process information about pages viewed, device/browser type and approximate location.</li>
               </ul>
               <p>We do not collect sensitive information (health, financial records, government IDs) unless you voluntarily include it in an enquiry message.</p>
             </PrivacySection>
@@ -126,7 +126,7 @@ export default function PrivacyPage() {
               <div className="not-prose space-y-5 my-6">
                 <ThirdParty
                   name="HubSpot"
-                  role="CRM and optional website analytics, stores enquiry details you submit. Its analytics tracking only loads after you accept optional analytics."
+                  role="Historical CRM records only. New website enquiry forms deliver directly to the YOS inbox by email and do not send data to HubSpot."
                   link="https://legal.hubspot.com/privacy-policy"
                 />
                 <ThirdParty
@@ -165,7 +165,7 @@ export default function PrivacyPage() {
 
             <PrivacySection title="Cookies">
               <p>
-                Essential session and security storage is used where required for the site to function. Optional Google Analytics and HubSpot analytics are disabled by default and only load after you select <strong>Accept analytics</strong>.
+                Essential session and security storage is used where required for the site to function. Optional Google Analytics is disabled by default and only loads after you select <strong>Accept analytics</strong>.
               </p>
               <p>
                 We do not use analytics for advertising. You can choose <strong>Essential only</strong> or use <strong>Privacy settings</strong> in the footer at any time to change your preference. You can also disable cookies in your browser settings, though some site functionality may be affected.
@@ -174,7 +174,7 @@ export default function PrivacyPage() {
 
             <PrivacySection title="How long we keep your data">
               <p>
-                Enquiry data is retained in HubSpot for as long as it&apos;s reasonably needed to manage the relationship or
+                New enquiry data is delivered to the YOS email inbox. Historical HubSpot records and enquiry emails are retained for as long as they&apos;re reasonably needed to manage the relationship or
                 provide the requested service, typically no longer than three years of inactivity.
                 LeaseIntel™ order records are kept for seven years as required by Australian tax law.
                 Rate-limiting IP data in Upstash expires automatically (usually within minutes to hours).

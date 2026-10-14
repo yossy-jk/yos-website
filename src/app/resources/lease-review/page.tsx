@@ -1,4 +1,5 @@
 'use client'
+import { postEnquiry } from '@/lib/enquiry'
 import ToolGuide from '@/components/ToolGuide'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 
@@ -205,11 +206,7 @@ export default function LeaseRiskCheckerPage() {
 
     setCaptureLoading(true)
     try {
-      const res = await fetch('/api/lease-risk-capture', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstname: firstName.trim(), email: captureEmail.trim(), answers }),
-      })
+      const res = await postEnquiry('/api/lease-risk-capture', { firstname: firstName.trim(), email: captureEmail.trim(), answers })
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}))

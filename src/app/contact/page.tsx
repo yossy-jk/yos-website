@@ -89,7 +89,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   Tell us what you need.<br />We&apos;ll confirm the next step.
                 </h2>
 
-                {/* Contact Form. sends to HubSpot CRM + email */}
+                {/* Contact form with direct YOS inbox delivery */}
                 <ContactForm key={initialService || 'general'} initialService={initialService} />
                 {false && <form
                   name="contact-legacy"

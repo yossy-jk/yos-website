@@ -1,23 +1,25 @@
 'use client'
 import { useState } from 'react'
-import { submitLead } from '@/lib/hubspot-lead'
+import { submitLead } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
 
 export default function BlogEmailCapture() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim()) return
     setLoading(true)
-    try {
-      await Promise.allSettled([
-        submitLead({ firstname: 'Blog Subscriber', email, source: 'Blog Email Capture', context: 'Subscribed to blog updates from blog index page.' }),
-        fetch('/api/notify', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ email, source: 'Blog Email Capture', context: 'Subscribed to blog article notifications.' }) }),
-      ])
-    } catch { /* fail silently */ }
+    setError('')
+    const result = await submitLead({ firstname: 'Blog Subscriber', email, source: 'Blog subscription request', marketingConsent: true, context: 'Requested blog updates from the blog index. Consent: subscribe button.', })
+    if (!result.ok) {
+      setError('We could not confirm delivery. Please try again.')
+      setLoading(false)
+      return
+    }
     trackConversion('newsletter_signup', { source: 'blog' })
     setSubmitted(true)
     setLoading(false)
@@ -31,13 +33,14 @@ export default function BlogEmailCapture() {
             <path d="M2 6l3 3 5-6" stroke="#00B5A5" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
-        Done, we&apos;ll be in touch.
+        Your subscription request has been received.
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex w-full gap-3" style={{ maxWidth: '28rem' }}>
+    <form onSubmit={handleSubmit} className="flex w-full gap-3 flex-wrap" style={{ maxWidth: '28rem' }}>
+      {error && <p role="alert" className="w-full text-red-600">{error}</p>}
       <label htmlFor="blog-email" className="sr-only">Email address</label>
       <input
         id="blog-email"
