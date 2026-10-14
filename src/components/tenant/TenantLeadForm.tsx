@@ -141,11 +141,11 @@ export default function TenantLeadForm({
           submissionId: submission.current.id,
         }),
       });
-      let data = await response.json();
+      let data = await response.json().catch(() => ({ ok: false }));
       let accepted = response.ok;
       // Preserve enquiries when CRM configuration is unavailable. The existing
       // owner-email endpoint confirms real mail acceptance before success.
-      if (response.status === 503) {
+      if (response.status >= 500) {
         const fallback = await fetch("/api/contact", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

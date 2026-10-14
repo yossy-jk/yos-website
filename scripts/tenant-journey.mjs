@@ -56,7 +56,7 @@ try {
       if (r.method() === "POST") {
         if (u.pathname === "/api/contact") {
           fallbacks.push(JSON.parse(r.postData()));
-          await r.respond({ status: fallbackFailure ? 502 : 200, contentType: "application/json", body: JSON.stringify({ ok: !fallbackFailure }) });
+          await r.respond({ status: fallbackFailure || failure ? 502 : 200, contentType: "application/json", body: JSON.stringify({ ok: !fallbackFailure && !failure }) });
           return;
         }
         if (u.pathname === "/api/tenant-lead")
