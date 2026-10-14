@@ -49,6 +49,7 @@ try {
     const fallbacks = [];
     let failure = false;
     let unavailable = false;
+    let unavailableStatus = 503;
     let fallbackFailure = false;
     await p.setRequestInterception(true);
     p.on("request", async (r) => {
@@ -62,7 +63,7 @@ try {
         if (u.pathname === "/api/tenant-lead")
           posts.push(JSON.parse(r.postData()));
         await r.respond({
-          status: unavailable ? 503 : failure ? 502 : 200,
+          status: unavailable ? unavailableStatus : failure ? 502 : 200,
           contentType: "application/json",
           body: JSON.stringify({ ok: !failure && !unavailable, preview: !unavailable }),
         });
@@ -256,6 +257,11 @@ try {
     await p.click("form button[type=submit]");
     await p.waitForFunction(() => document.querySelector('h3[tabindex="-1"]')?.textContent.includes("Your request was received"));
     assert.ok(fallbacks.at(-1).source.includes("CRM follow-up required"));
+    await p.click(".tenant-results button");
+    await p.waitForSelector("form button[type=submit]");
+    unavailableStatus = 502;
+    await p.click("form button[type=submit]");
+    await p.waitForFunction(() => document.querySelector('h3[tabindex="-1"]')?.textContent.includes("Your request was received"));
     unavailable = false;
     await p.goto(base + "/refer", { waitUntil: "networkidle2" });
     await p.type("#referral-name", "QA Referrer");
