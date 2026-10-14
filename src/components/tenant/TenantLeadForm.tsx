@@ -4,7 +4,6 @@ import { TENANT_ATTRIBUTION_KEY } from "./TenantAttribution";
 import Link from "next/link";
 import { TENANT_OFFER } from "@/lib/tenant-offer";
 import { urgencyBand } from "@/lib/tenant-calculations";
-import { HUBSPOT } from "@/lib/constants";
 import { trackTenantEvent as trackConversion } from "@/lib/tenant-analytics";
 type Kind = "health_check" | "results" | "referral" | "checklist";
 const privacy =
@@ -154,7 +153,7 @@ export default function TenantLeadForm({
             company: fields.business || fields.referredBusiness,
             email: fields.email,
             phone: fields.mobile || fields.referredPhone,
-            source: `YOS ${kind} - CRM follow-up required`,
+            source: `YOS ${kind} - email follow-up required`,
             message: JSON.stringify({
               kind,
               submissionId: submission.current.id,
@@ -243,15 +242,12 @@ export default function TenantLeadForm({
         )}
         <a
           className="tenant-button"
-          href={HUBSPOT.bookingUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          href="tel:0240920733"
         >
-          Book a clarity call
+          Call the YOS team
         </a>
         <p className="tenant-small">
-          Sending this form does not book a call. Choose a time in the booking
-          service.
+          Our team will contact you to arrange a suitable time to talk.
         </p>
         <button
           type="button"

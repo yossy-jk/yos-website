@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import TenantShell, { tenantMetadata } from "@/components/tenant/TenantShell";
-import { HUBSPOT } from "@/lib/constants";
 const kinds = ["health-check", "results", "referral", "checklist"];
 export function generateStaticParams() {
   return kinds.map((form) => ({ form }));
@@ -26,23 +25,20 @@ export default async function Page({
   if (!kinds.includes(form)) notFound();
   return (
     <TenantShell
-      title="Choose a time to talk."
-      intro="Use the existing YOS booking service to choose a call time that suits your business."
+      title="Talk to the YOS team."
+      intro="Call us on 02 4092 0733 to discuss your next step."
     >
       <section className="tenant-section">
         <div className="tenant-wrap">
           <p>
             This page does not confirm that a request has been submitted or that
-            a booking exists. Your form confirmation and booking confirmation
-            are shown separately.
+            a call has been scheduled. Check the confirmation shown after submitting your form.
           </p>
           <a
             className="tenant-button"
-            href={HUBSPOT.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            href="tel:0240920733"
           >
-            Book a clarity call
+            Call the YOS team
           </a>
           <p style={{ marginTop: 24 }}>
             <Link href="/tenant-rep">Back to tenant representation</Link>
