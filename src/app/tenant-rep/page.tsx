@@ -1,545 +1,488 @@
-import ServiceArticle from '@/components/ServiceArticle'
-import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
-import { withPageSeo } from '@/lib/page-seo'
-import Image from 'next/image'
-import Nav from '@/components/Nav'
-import SectionLabel from '@/components/SectionLabel'
-import Button from '@/components/Button'
-import Footer from '@/components/Footer'
-import FadeIn from '@/components/FadeIn'
-import CapabilityDownload from '@/components/CapabilityDownload'
-import TenantProcess from '@/components/TenantProcess'
-import ServiceFaq from '@/components/ServiceFaq'
-
-export const metadata = withPageSeo({
-  title: 'Tenant Representation & Commercial Leasing NSW | YOS',
-  description: 'Tenant-side commercial leasing support in NSW, from property brief and search through comparison, negotiation and handover.',
-  twitter: { card: 'summary_large_image', title: 'Tenant Representation | Your Office Space', description: 'Tenant-side commercial lease advice, option assessment and negotiation support.' },
-  alternates: { canonical: 'https://www.yourofficespace.au/tenant-rep' },
-  openGraph: {
-    title: 'Tenant Representation | Your Office Space',
-    description: 'Tenant-side commercial lease advice, option assessment and negotiation support.',
-    url: 'https://www.yourofficespace.au/tenant-rep',
-    images: [{ url: '/og/og-tenant-rep.png', width: 1200, height: 630, alt: 'Commercial Tenant Representation Newcastle | Your Office Space' }],
-    siteName: 'Your Office Space',
-    locale: 'en_AU',
-    type: 'website',
+import Image from "next/image";
+import Link from "next/link";
+import TenantShell, {
+  TenantCta,
+  tenantMetadata,
+} from "@/components/tenant/TenantShell";
+import PackageCards from "@/components/tenant/PackageCards";
+import TenantDeferred from "@/components/tenant/TenantDeferred";
+import ServiceFaq from "@/components/ServiceFaq";
+import { TENANT_OFFER } from "@/lib/tenant-offer";
+import { ORGANIZATION_SCHEMA } from "@/lib/site-schema";
+export const metadata = tenantMetadata(
+  "Tenant Representation Newcastle & NSW | Your Office Space",
+  "Tenant-side lease support in Newcastle, Lake Macquarie and NSW. Understand costs, compare clear packages and start with a free Lease Health Check.",
+  "/tenant-rep",
+);
+const faqs = [
+  {
+    question: "What does a tenant representative do?",
+    answer:
+      "We help your business define its premises brief, find and compare properties, and negotiate the commercial terms. Your solicitor advises on legal wording. You decide which option to pursue and whether to sign.",
   },
-})
-
-const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
-const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
-const WRAP   = 'max-w-screen-xl mx-auto'
-const PAD    = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
-
-const TENANT_FAQS = [
-  { question: 'What does a tenant representative do?', answer: 'A tenant representative works for the occupying business, helping define the brief, assess options, compare the commercial position and negotiate with the landlord side.' },
-  { question: 'How does tenant representation work in practice?', answer: 'We start with your space, timing, budget and non-negotiables, then assess options consistently, coordinate the decision inputs and support negotiation through the agreed scope.' },
-  { question: 'Who pays for tenant representation?', answer: 'Fee arrangements depend on the engagement and transaction structure. We explain the scope, fee and any relevant payment arrangements before work begins.' },
-  { question: 'How is a tenant representative different from a leasing agent?', answer: 'The landlord-appointed leasing agent works for the property owner. YOS is engaged to advise the tenant and assess the decision from the occupying business perspective.' },
-  { question: 'Can you help with an existing lease?', answer: 'Yes. We can review the commercial position around options, rent, make-good, outgoings, relocation rights and other decision points, alongside your appointed legal adviser.' },
-  { question: 'What types of commercial property do you cover?', answer: 'We assess office, industrial, retail and specialised-use briefs case by case, subject to location, scope and licensing coverage.' },
-  { question: 'Where does YOS provide tenant representation?', answer: 'Tenant representation is delivered in New South Wales through Joseph Kelley, Class 2 licensed real estate agent No. 20565455.' },
-  { question: 'Can YOS coordinate the FitOut and furniture after the lease?', answer: 'Yes. Our client-side FitOut project management and commercial furniture services can continue the brief through planning, procurement and handover under separately agreed scopes.' },
-] as const
-
-export default function TenantRepPage() {
+  {
+    question: "Who pays YOS?",
+    answer:
+      "The professional fees and payment timing are shown in our packages and confirmed in your agency agreement. Any relevant payment arrangement or conflict is disclosed before an engagement begins.",
+  },
+  {
+    question: "Do you act for the landlord?",
+    answer:
+      "In a tenant representation engagement, YOS represents the occupying business. The landlord-appointed leasing agent represents the property owner.",
+  },
+  {
+    question: "What if I already have an offer?",
+    answer:
+      "Bring the written proposal to the Health Check. We can help compare its commercial costs, obligations and timing before you decide. For the guarantee, an existing written offer is the baseline.",
+  },
+  {
+    question: "Can you help me renew instead of moving?",
+    answer:
+      "Yes. We can compare renewal with suitable alternatives, assess the commercial terms and help negotiate a renewal. Check option notice deadlines with your solicitor before they pass.",
+  },
+  {
+    question: "What happens if I do not sign?",
+    answer: `The package payment terms are ${TENANT_OFFER.startPayment} dollars ex GST to start, with the balance due on signed Heads of Agreement. If no suitable space is found and you do not sign, the start payment is all you pay, subject to the agreed engagement terms.`,
+  },
+  {
+    question: "What does the guarantee exclude?",
+    answer:
+      "It excludes changes already in the first written offer, bank guarantees and deposit reductions. It also excludes direct client negotiation during the engagement, signing against written YOS advice, or ending before a lease is signed. See the full terms and refund cap.",
+  },
+  {
+    question: "Can you help after the lease decision?",
+    answer:
+      "Yes. Separately agreed fitout project management, furniture supply and workplace care can carry the same brief through to a working office. Appointed builders and licensed trades deliver construction.",
+  },
+];
+export default function Page() {
   return (
-    <>
-      <Nav />
-
-      <main id="main-content" tabIndex={-1}>
-          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(
-        {
-                "@context": "https://schema.org",
-                "@graph": [
-                        ORGANIZATION_SCHEMA,
-                        {
-                                "@type": "Service",
-                                "@id": "https://www.yourofficespace.au/tenant-rep",
-                                "name": "Commercial Tenant Representation",
-                                "provider": {
-                                        "@id": "https://www.yourofficespace.au/#organization"
-                                },
-                                "description": "Tenant-side commercial lease advice, option assessment and negotiation support in New South Wales.",
-                                "areaServed": [
-                                        "New South Wales"
-                                ],
-                                "serviceType": "Commercial Tenant Representation"
-                        }
-                ]
-        }
-      ) }} />
-
-
-
-
-      {/* ─── HERO ─────────────────────────────────────────── */}
-      <section className="relative flex min-h-[calc(100svh-5rem)] items-center overflow-hidden bg-near-black">
-        <Image src="/images/furniture/space-geelong-a.jpg" alt="Modern commercial building interior ready for inspection" fill priority sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-near-black/80" />
-        <div className={`relative z-10 w-full ${WRAP}`} style={{ ...PAD, paddingTop: 'clamp(7rem,10vw,9rem)', paddingBottom: 'clamp(4rem,7vw,6rem)' }}>
-          <FadeIn delay={0}>
-            <SectionLabel>Commercial Leasing · NSW</SectionLabel>
-          </FadeIn>
-          <FadeIn delay={100}>
-            <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mt-3 mb-8"
-              style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Lease with someone<br />
-              <span className="text-teal">on your side of the table.</span>
-            </h1>
-          </FadeIn>
-          <FadeIn delay={200}>
-            <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-6"
-              style={{ fontSize: 'clamp(1rem,2vw,1.375rem)', lineHeight: 1.8 }}>
-              Every lease negotiation has two sides. The landlord&apos;s agent is an expert at protecting their client.
-              We represent commercial tenants in NSW, from the first property brief through search, comparison,
-              negotiation and handover. Rent, incentives, obligations and trade-offs stay visible before you commit.
-            </p>
-            <p className="text-white/80 font-normal mb-10" style={{ fontSize: '0.8rem' }}>
-              Commercial leasing services are provided by Joseph Kelley, licensed in NSW.
-            </p>
-          </FadeIn>
-          <FadeIn delay={300}>
-            <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">
-              Enquire
-            </Button>
-          </FadeIn>
+    <TenantShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              ORGANIZATION_SCHEMA,
+              {
+                "@type": "Service",
+                name: "Commercial Tenant Representation",
+                provider: {
+                  "@id": "https://www.yourofficespace.au/#organization",
+                },
+                areaServed: ["Newcastle", "Lake Macquarie", "New South Wales"],
+                description:
+                  "Tenant-side premises search, lease comparisons and commercial negotiation.",
+              },
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://www.yourofficespace.au/",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Tenant representation",
+                    item: "https://www.yourofficespace.au/tenant-rep",
+                  },
+                ],
+              },
+            ],
+          }),
+        }}
+      />
+      <section className="tenant-hero">
+        <Image
+          className="tenant-hero-image"
+          src="/images/furniture/space-geelong-a.jpg"
+          alt="Illustrative commercial office interior"
+          fill
+          priority
+          sizes="100vw"
+        />
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">
+            Tenant representation / Newcastle, Lake Macquarie and NSW
+          </p>
+          <h1>
+            Your next lease.
+            <br />A clear plan.
+            <br />
+            One team on your side.
+          </h1>
+          <p className="tenant-intro">
+            The rent on the listing is only part of the commitment. We help you
+            understand the costs, compare the options and negotiate with your
+            business priorities in view.
+          </p>
+          <div className="tenant-actions">
+            <TenantCta />
+            <Link href="#packages">See packages and fees</Link>
+          </div>
+          <p className="tenant-small">
+            Start with a conversation about your lease, dates and next decision.
+            No agency agreement is signed online.
+          </p>
+          <Link href="/tenant-rep/guarantee">
+            Explore the {TENANT_OFFER.guarantee.multiple}x Return
+            Guarantee
+          </Link>
         </div>
       </section>
-
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-        '@context': 'https://schema.org', '@type': 'VideoObject',
-        name: 'Tenant representation explained',
-        description: 'How a tenant representative helps a business assess property options, compare occupancy costs and negotiate lease terms.',
-        thumbnailUrl: 'https://www.yourofficespace.au/videos/yos-tenant-representation-poster.jpg',
-        contentUrl: 'https://www.yourofficespace.au/videos/yos-tenant-representation.mp4',
-        uploadDate: '2026-10-12T05:00:16Z', duration: 'PT1M19.573S', inLanguage: 'en-AU',
-        publisher: { '@id': 'https://www.yourofficespace.au/#organization' },
-      }) }} />
-      <section className="bg-warm-grey" style={SEC_SM} aria-labelledby="tenant-video-heading">
-        <div className={WRAP} style={PAD}>
-          <div className="max-w-3xl mb-8">
-            <SectionLabel>Tenant representation explained</SectionLabel>
-            <h2 id="tenant-video-heading" className="text-near-black font-bold leading-tight mb-5"
-              style={{ fontSize: 'clamp(1.75rem,4vw,3rem)' }}>
-              More value from your next lease.<br />More time for your business.
+      <section className="tenant-section">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">Look beyond the asking rent</p>
+          <h2>Three costs to put on the table.</h2>
+          <div className="tenant-grid">
+            {[
+              {
+                title: "Your money",
+                body: "Compare rent, outgoings, reviews, incentives and the cost of leaving. A rent-free period is only useful when you understand the full deal.",
+                href: "/tools/lease-cost-calculator",
+                link: "See the full lease cost",
+              },
+              {
+                title: "Your time",
+                body: "Calls, inspections and comparing proposals take time from the people running your business. Put a value on that time using your own numbers.",
+                href: "#time-cost",
+                link: "Calculate your time cost",
+              },
+              {
+                title: "Your risk",
+                body: "Make-good wording and option notice deadlines can affect your next move. Know what needs checking before you commit.",
+                href: "/tools/critical-dates",
+                link: "Map your lease dates",
+              },
+            ].map((x) => (
+              <article className="tenant-card" key={x.title}>
+                <h3>{x.title}</h3>
+                <p>{x.body}</p>
+                <Link href={x.href}>{x.link}</Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="tenant-section tenant-soft" id="tenant-video">
+        <div className="tenant-wrap tenant-two">
+          <div>
+            <p className="tenant-eyebrow">A quick introduction</p>
+            <h2>
+              More clarity.
+              <br />
+              More time for your business.
             </h2>
-            <p id="tenant-video-description" className="text-charcoal leading-relaxed" style={{ lineHeight: 1.85 }}>
-              See how a tenant representative can take the property search, option comparison and
-              lease negotiation off your desk. We help you understand the costs and trade-offs,
-              so you can make an informed decision and keep your focus on running your business.
+            <p>
+              Watch how tenant representation brings the search, comparison and
+              negotiation into one organised process.
+            </p>
+            <p className="tenant-small">
+              1 minute 20 seconds. Captions available.
             </p>
           </div>
           <video
+            className="tenant-video"
             controls
             playsInline
             preload="none"
-            width={1920}
-            height={1080}
             poster="/videos/yos-tenant-representation-poster.jpg"
-            aria-label="How tenant representation can add value and save business owners time"
-            aria-describedby="tenant-video-description"
-            className="block h-auto w-full aspect-video bg-near-black rounded-lg"
+            aria-label="Tenant representation introduction"
           >
-            <source src="/videos/yos-tenant-representation.mp4" type="video/mp4" />
-            <track src="/videos/yos-tenant-representation.vtt" kind="captions" srcLang="en" label="English" />
-            Your browser does not support video. <a href="/videos/yos-tenant-representation.mp4">Watch the tenant representation introduction</a>.
+            <source
+              src="/videos/yos-tenant-representation.mp4"
+              type="video/mp4"
+            />
+            <track
+              src="/videos/yos-tenant-representation.vtt"
+              kind="captions"
+              srcLang="en"
+              label="English"
+            />
+            Your browser does not support video.{" "}
+            <a href="/videos/yos-tenant-representation.mp4">
+              Watch the introduction
+            </a>
+            .
           </video>
-          <p className="text-charcoal text-sm mt-4">Watch the introduction · 1 minute 20 seconds</p>
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "VideoObject",
+              name: "Tenant representation explained",
+              description:
+                "How a tenant representative helps compare property options, occupancy costs and lease terms.",
+              thumbnailUrl:
+                "https://www.yourofficespace.au/videos/yos-tenant-representation-poster.jpg",
+              contentUrl:
+                "https://www.yourofficespace.au/videos/yos-tenant-representation.mp4",
+              uploadDate: "2026-10-12T05:00:16Z",
+              duration: "PT1M19.573S",
+            }),
+          }}
+        />
+      </section>
+      <section className="tenant-section" id="time-cost">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">Use your own numbers</p>
+          <h2>What will the search cost in your time?</h2>
+          <p>
+            Get an estimate on screen. You can email yourself a copy afterwards.
+          </p>
+          <TenantDeferred kind="time" />
         </div>
       </section>
-
-      {/* ─── OUR COMMITMENT ───────────────────────────────── */}
-      <section className="bg-near-black" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <div className="max-w-3xl">
-            <FadeIn>
-              <SectionLabel>Our commitment</SectionLabel>
-              <h2 className="text-white font-black leading-tight mt-3 mb-8"
-                style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
-                We work for you.<br />
-                <span className="text-teal">Not the landlord.</span>
-              </h2>
-              <p className="text-white/80 font-light leading-relaxed mb-8"
-                style={{ fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.85 }}>
-                Every commercial lease has two sides. The landlord has representation. We exist to make sure you do too,                 with advice focused on your brief, risks and commercial priorities. Every negotiation, clause and
-                recommendation is considered from the tenant side.
-              </p>
-            </FadeIn>
-            <FadeIn delay={100}>
-              <div className="border border-teal/40 p-8 sm:p-10 lg:p-12 bg-teal/5">
-                <p className="text-white font-bold leading-relaxed mb-5" style={{ fontSize: 'clamp(1rem,2vw,1.35rem)' }}>
-                  Your brief sets the decision standard.
-                </p>
-                <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  We do not represent the landlord in the transaction. Scope, fees, evidence and decision responsibilities
-                  are made clear before an engagement begins.
-                </p>
-              </div>
-            </FadeIn>
+      <section className="tenant-section tenant-dark">
+        <div className="tenant-wrap tenant-two">
+          <div>
+            <p className="tenant-eyebrow">One workplace budget</p>
+            <h2>Your lease decision shapes everything that follows.</h2>
+          </div>
+          <div>
+            <p>
+              Rent, fitout, furniture, technology and the move all draw on the
+              same budget. Check the preferred premises against the whole
+              workplace brief before signing.
+            </p>
+            <p>
+              Our team can connect the property decision with separately agreed
+              fitout project management, furniture and ongoing workplace care.
+            </p>
+            <div className="tenant-inline-links">
+              <Link href="/office-fitout">Fit It Out</Link>
+              <Link href="/furniture">Furnish It</Link>
+              <Link href="/cleaning">Flourish workplace care</Link>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Testimonial publication remains held until permissions are recorded. */}
-      <section className="bg-warm-grey" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <SectionLabel>Evidence before commitment</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-5"
-              style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-              A recommendation you can test.
-            </h2>
-            <p className="text-charcoal font-normal leading-relaxed" style={{ maxWidth: '44rem', lineHeight: 1.85 }}>
-              We connect each recommendation to the agreed brief, available market evidence and the commercial trade-offs. Named testimonials will only appear here when publication permission is recorded.
-            </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── IMAGE BREAK 1 ──────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
-        <Image
-          src="/images/furniture/space-cogc-office.jpg"
-          alt="Contemporary commercial office considered during a property search"
-          fill className="object-cover object-center"
-        />
-        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.55)' }} />
-        <div className={`absolute inset-0 flex items-end ${WRAP}`} style={{ ...PAD, paddingBottom: 'clamp(2.5rem,6vw,5rem)' }}>
-          <FadeIn>
-            <p className="text-white font-semibold" style={{ fontSize: 'clamp(1.1rem,2.2vw,1.5rem)', maxWidth: '44rem', lineHeight: 1.75, borderLeft: '3px solid #00B5A5', paddingLeft: '1.5rem' }}>
-              &ldquo;The useful time to test lease assumptions is before the business commits.&rdquo;
-              <br /><span className="text-teal font-semibold" style={{ fontSize: '0.75rem', letterSpacing: '0.1em' }}>– Joe Kelley, Your Office Space</span>
-            </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── LEASE NEGOTIATION ASSISTANCE ─────────────────── */}
-      <section className="bg-white" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            <FadeIn direction="left">
-              <div>
-                <SectionLabel>Lease Negotiation Assistance</SectionLabel>
-                <h2 className="text-near-black font-bold leading-tight mt-3 mb-8"
-                  style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-                  Your lease terms shape your cashflow. We make sure they work for you.
-                </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-12"
-                  style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  Instead of accepting what&apos;s offered, we fight for stronger terms and fairer conditions.
-                  Every lease decision impacts your bottom line, so we focus on long-term value, not short-term convenience.
-                  We identify risks early, protect your upside, and negotiate outcomes that work in your favour.
-                </p>
-                <p className="text-charcoal font-light leading-relaxed mb-14"
-                  style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  We step in early to make sure the deal structure works for you, not the landlord.
-                </p>
-                <ul className="space-y-4">
-                  {[
-                    'Strategic advice before you make a move',
-                    'Tactical input on rental rates, clauses, and incentives',
-                    'Detailed review of leasing agreements to protect your position',
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start pl-5 border-l-2 border-teal">
-                      <span className="text-charcoal font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.8 }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeIn>
-
-            <FadeIn direction="right" delay={100}>
-              <div className="lg:pt-20">
-                <div className="border border-gray-200 p-8 sm:p-10 mb-6">
-                  <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">The outcome</p>
-                  <p className="text-near-black font-bold leading-snug mb-3" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)' }}>
-                    Commercial terms and lease risks made clear before commitment.
-                  </p>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    Recommendations are tied back to the agreed brief, comparable evidence and the business outcome.
-                  </p>
-                </div>
-                <div className="border border-gray-200 p-8 sm:p-10">
-                  <p className="text-teal font-bold text-xs tracking-widest uppercase mb-4">Market search</p>
-                  <p className="text-near-black font-bold leading-snug mb-3" style={{ fontSize: 'clamp(1.1rem,2vw,1.4rem)' }}>
-                    A broader view of suitable options.
-                  </p>
-                  <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                    We assess advertised and introduced opportunities against the same brief,
-                    then show the trade-offs clearly.
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── IMAGE BREAK 2 ──────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
-        <Image
-          src="/images/furniture/dbt-boardroom.jpg"
-          alt="Commercial boardroom used for workplace and lease planning"
-          fill className="object-cover object-center"
-        />
-        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.6)' }} />
-        <div className={`absolute inset-0 flex items-center ${WRAP}`} style={PAD}>
-          <FadeIn>
-            <p className="text-white font-black uppercase leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '20ch' }}>
-              We negotiate harder<br />because we only answer<br /><span style={{ color: '#00B5A5' }}>to you.</span>
-            </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── LEASE NEGOTIATION REPRESENTATION ────────────── */}
-      <section className="bg-near-black" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <SectionLabel>Lease Negotiation Representation</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mt-3 mb-8 max-w-3xl"
-              style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-              Most business owners accept the lease they&apos;re given. Ours don&apos;t.
-            </h2>
-            <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
-              style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              We represent tenants in NSW. The goal is clear: give the occupying business a properly tested commercial position.
-            </p>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-12">
+      <section className="tenant-section" id="how-it-works">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">How it works</p>
+          <h2>Five steps. Each with a clear next decision.</h2>
+          <ol className="tenant-steps">
             {[
               {
-                title: 'Direct negotiation',
-                body: 'We negotiate directly with landlords and agents. No middlemen, no softened messages, hard and fair representation on your behalf.'
+                title: "Health Check",
+                we: "We review your starting point, lease dates and concerns.",
+                you: "You tell us what is changing and share the information you have.",
+                get: "A sensible next step.",
               },
               {
-                title: 'Rent, fit out support and flexible clauses',
-                body: 'We test rent, fit out contributions, rent-free periods and clause structures against the brief and available evidence.'
+                title: "Agree the brief",
+                we: "We document the space, budget, location, timing and non-negotiables.",
+                you: "You confirm the brief, scope and agency agreement.",
+                get: "A shared decision standard.",
               },
               {
-                title: 'Clause-by-clause risk review',
-                body: 'Every clause reviewed with an eye on risk, cost, and future impact. Nothing is accepted without scrutiny.'
+                title: "Search and compare",
+                we: "We source options, coordinate inspections and compare the full occupancy cost.",
+                you: "You shortlist premises with the trade-offs visible.",
+                get: "A like-for-like comparison.",
               },
               {
-                title: 'Legal team coordination',
-                body: 'We work alongside your solicitors to lock in the right deal. Commercial strategy from us, legal precision from them.'
+                title: "Negotiate",
+                we: "We negotiate commercial terms and coordinate the agreed position with your solicitor.",
+                you: "You approve the proposed deal and obtain legal advice.",
+                get: "A clear commercial proposal.",
               },
-            ].map((item, i) => (
-              <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors h-full" style={{ padding: 'clamp(1.5rem,2.5vw,2rem)' }}>
-                  <h3 className="text-white font-bold text-base leading-snug mb-3">{item.title}</h3>
-                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>{item.body}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-
-          <FadeIn delay={150}>
-            <div className="border-l-4 border-teal pl-8 py-6 bg-teal/5">
-              <p className="text-white font-light leading-relaxed" style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-                This isn&apos;t about paperwork. It&apos;s about protection. Every dollar, every clause, every timeline negotiated with one goal, your best possible outcome.
-              </p>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── IMAGE BREAK 3 ──────────────────────────────────── */}
-      <section className="relative overflow-hidden" style={{ height: 'clamp(26rem,42vw,38rem)' }}>
-        <Image
-          src="/images/furniture/space-wsi-openplan.jpg"
-          alt="Modern commercial office space Newcastle"
-          fill className="object-cover object-center"
-        />
-        <div className="absolute inset-0" style={{ background: 'rgba(10,59,56,0.5)' }} />
-        <div className={`absolute inset-0 flex items-center justify-end ${WRAP}`} style={PAD}>
-          <FadeIn>
-            <p className="text-white font-black uppercase leading-tight text-right" style={{ fontSize: 'clamp(1.75rem,3.5vw,3.25rem)', maxWidth: '22ch' }}>
-              The right space changes<br />how your business feels<br /><span style={{ color: '#00B5A5' }}>every single day.</span>
-            </p>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── FULL SERVICE, 6-STEP PROCESS ─────────────────── */}
-      <TenantProcess dark={false} />
-      {/* ─── WHAT'S AT STAKE ──────────────────────────────── */}
-      <section className="bg-near-black" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <SectionLabel>What&apos;s at stake</SectionLabel>
-            <h2 className="text-white font-bold leading-tight mt-3 mb-8 max-w-3xl"
-              style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-              The cost of a bad lease is never just rent.
-            </h2>
-            <p className="text-white/60 font-light leading-relaxed max-w-2xl mb-14"
-              style={{ fontSize: 'clamp(1rem,1.8vw,1.15rem)', lineHeight: 1.85 }}>
-              Lease risk often sits outside the headline rent. It is easier to address before terms are agreed.
-            </p>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { risk: 'Rent without context', detail: 'Headline rent needs to be tested against comparable options, outgoings, incentives and the full lease term.' },
-              { risk: 'Unclear make-good', detail: 'Make-good obligations can create a material end-of-lease cost when the scope, evidence and handover standard are not clear.' },
-              { risk: 'Unexamined incentives', detail: 'Incentives change the effective cost of a lease and should be assessed alongside the base rent and fit out requirements.' },
-              { risk: 'Bad option structures', detail: 'A poorly drafted option clause can lock you into market rent, removing all leverage at renewal time.' },
-              { risk: 'Relocation risk', detail: 'Relocation rights can affect continuity, fit out value and future operating plans if they are not understood before signing.' },
-              { risk: 'Outgoings exposure', detail: 'Gross and net leases allocate operating costs differently. The comparison needs to include every recurring occupancy cost.' }
-            ].map((item, i) => (
-              <FadeIn key={i} delay={i * 60} direction="up">
-                <div className="border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition-colors h-full" style={{ padding: 'clamp(1.5rem,2.5vw,2rem)' }}>
-                  <h3 className="text-white font-bold text-base leading-snug mb-3">{item.risk}</h3>
-                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>{item.detail}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── WHY IT MATTERS ───────────────────────────────── */}
-      <section className="bg-white" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            <FadeIn direction="left">
-              <div>
-                <SectionLabel>No conflict of interest</SectionLabel>
-                <h2 className="text-near-black font-bold leading-tight mt-3 mb-8"
-                  style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>
-                  We only ever work for you.
-                </h2>
-                <p className="text-charcoal font-light leading-relaxed mb-6"
-                  style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  A landlord&apos;s appointed agent acts for the property owner. Tenant representation gives the occupying
-                  business its own advice, assessment and negotiation support.
+              {
+                title: "Sign and settle in",
+                we: "We help coordinate key dates and handover. Further workplace services are agreed separately.",
+                you: "You decide whether to sign and plan the move.",
+                get: "An organised path into the workplace.",
+              },
+            ].map((s, i) => (
+              <li key={s.title}>
+                <span className="tenant-number">0{i + 1}</span>
+                <h3>{s.title}</h3>
+                <p>
+                  <strong>YOS:</strong> {s.we}
                 </p>
-                <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5 mb-8">
-                  <p className="text-near-black font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                  For each tenant engagement, our advice and negotiation stay focused on the occupying business.
-                  Legal advice remains with the tenant&apos;s solicitor; our role is to keep the commercial position clear.
-                  </p>
-                </div>
-                <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">
-                  Enquire
-                </Button>
-              </div>
-            </FadeIn>
-
-            <FadeIn direction="right" delay={100}>
-              <div className="lg:pt-16">
-                <h3 className="text-near-black font-bold text-xl mb-8">What you get from this.</h3>
-                <ul className="space-y-5">
-                  {[
-                    { title: 'Commercial negotiation', body: 'Rent, incentives, lease length and other commercial terms tested against the brief and available evidence.' },
-                    { title: 'Obligations made visible', body: 'Make-good, reviews, options, relocation and other material terms identified for commercial and legal review.' },
-                    { title: 'Comparable options', body: 'Available properties and proposals assessed on a consistent basis, including total occupancy cost.' },
-                    { title: 'A coordinated decision', body: 'Commercial, legal and fit out questions tracked so the business can decide with fewer gaps.' },
-                  ].map((item, i) => (
-                    <li key={i} className="flex gap-5 items-start pb-5 border-b border-gray-100 last:border-0">
-                      <span className="text-teal font-black flex-shrink-0 leading-none mt-1" style={{ fontSize: '1.1rem' }}>→</span>
-                      <div>
-                        <p className="text-near-black font-bold text-sm mb-1">{item.title}</p>
-                        <p className="text-charcoal font-light leading-relaxed" style={{ fontSize: '0.9rem', lineHeight: 1.8 }}>{item.body}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </FadeIn>
+                <p>
+                  <strong>You:</strong> {s.you}
+                </p>
+                <p>
+                  <strong>Your outcome:</strong> {s.get}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+      <section className="tenant-section tenant-soft" id="packages">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">Clear scope. Clear fees.</p>
+          <h2>Choose a starting point for your tenancy.</h2>
+          <p>
+            Two payments: a start payment that forms part of the fee, then the
+            balance on signed Heads of Agreement. The final package is agreed
+            with your team.
+          </p>
+          <PackageCards />
+          <h3>Included in every package</h3>
+          <ul className="tenant-list">
+            {TENANT_OFFER.core.map((v) => (
+              <li key={v}>{v}</li>
+            ))}
+          </ul>
+          <Link href="/tenant-rep/packages">Compare the package details</Link>
+        </div>
+      </section>
+      <section className="tenant-section">
+        <div className="tenant-wrap tenant-two">
+          <div>
+            <p className="tenant-eyebrow">Commercial protection</p>
+            <h2>The {TENANT_OFFER.guarantee.multiple}x Return Guarantee.</h2>
+            <p>
+              A defined savings target, a written baseline and a refund
+              calculation you can follow. See how savings are measured and
+              how the fee-capped refund works.
+            </p>
+          </div>
+          <div className="tenant-results">
+            <p>
+              For eligible leases, the target is savings worth at least{" "}
+              {TENANT_OFFER.guarantee.multiple} times the professional fee,
+              measured against the first written offer over the initial term.
+            </p>
+            <ul className="tenant-guarantee-conditions">
+              <li>
+                Initial term of at least {TENANT_OFFER.guarantee.minYears}{" "}
+                years.
+              </li>
+              <li>
+                Minimum annual gross rent:{" "}
+                {new Intl.NumberFormat("en-AU", {
+                  style: "currency",
+                  currency: "AUD",
+                  maximumFractionDigits: 0,
+                }).format(TENANT_OFFER.guarantee.minAnnualRent)}
+                .
+              </li>
+              <li>
+                YOS runs the negotiation and the agreed exclusions do not apply.
+              </li>
+              <li>
+                Any shortfall refund is capped at the professional fee paid.
+                Shorter or smaller leases use the{" "}
+                {TENANT_OFFER.guarantee.fallbackMultiple}x rule.
+              </li>
+            </ul>
+            <Link href="/tenant-rep/guarantee">
+              Read the terms and try the calculator
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* ─── LEASEINTEL CALLOUT ───────────────────────────── */}
-      <section className="bg-warm-grey" style={SEC_SM}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <div className="bg-near-black p-8 sm:p-10 lg:p-14 flex flex-col lg:flex-row gap-8 items-start lg:items-center">
-              <div className="flex-1">
-                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
-                <h3 className="text-white font-bold leading-tight mb-4"
-                  style={{ fontSize: 'clamp(1.25rem,2.5vw,2rem)' }}>
-                  Already have a lease? Start with a structured risk review.
-                </h3>
-                <p className="text-white/60 font-light leading-relaxed"
-                  style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation,
-                  options – with key clauses organised into a clear Red / Amber / Green summary. Scope and timing are confirmed before review begins.
-                </p>
-              </div>
-              <div className="flex-shrink-0">
-                <Button href="/lease-review" variant="primary" size="lg">
-                  Request a Lease Review
-                </Button>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      <section className="bg-light-teal" style={SEC_SM}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-center">
-              <div className="flex-1">
-                <SectionLabel>Looking to buy?</SectionLabel>
-                <h2 className="text-near-black text-3xl mt-3 mb-3">Commercial Buyers Agent support in NSW.</h2>
-                <p className="text-charcoal leading-relaxed">Buying requires a different brief, professional team and due diligence pathway. Our Commercial Buyers Agent service keeps those workstreams connected.</p>
-              </div>
-              <Button href="/buyers-agency" variant="dark" size="lg">Explore buying</Button>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      <div className="yos-container" style={{ paddingTop: 32, paddingBottom: 32 }}><Button href="/tenant-rep/newcastle" variant="primary">Tenant representation in Newcastle &amp; the Hunter</Button></div>
-      <ServiceFaq heading="Clear answers before the lease decision." items={TENANT_FAQS} />
-
-      {/* ─── CTA ──────────────────────────────────────────── */}
-      <section className="bg-near-black" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-              <SectionLabel>Get started</SectionLabel>
-              <h2 className="text-white font-black uppercase leading-tight tracking-tight w-full"
-                style={{ fontSize: 'clamp(1.7rem,4.5vw,3.75rem)', marginTop: '0.75rem', marginBottom: '1.25rem' }}>
-                Let&apos;s talk about your next lease.
-              </h2>
-              <p className="text-white/60 font-light leading-relaxed mb-10 w-full"
-                style={{ fontSize: 'clamp(1rem,1.8vw,1.2rem)', lineHeight: 1.8 }}>
-                A focused conversation about your space, your situation and the decision in front of you.
+      <section className="tenant-section tenant-soft">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">Evidence you can follow</p>
+          <h2>Know why a recommendation fits.</h2>
+          <div className="tenant-grid">
+            <article className="tenant-card">
+              <h3>Your brief stays visible</h3>
+              <p>
+                Space, timing, budget and priorities give each property
+                comparison a consistent starting point.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button href="/contact?service=leasing#contact-enquiry" variant="primary" size="lg">
-                  Enquire
-                </Button>
-                <CapabilityDownload
-                  label="Download Our Credentials"
-                  variant="outline"
-                  className="min-h-[56px] px-8"
-                />
-              </div>
-              <p className="text-white/20 font-light" style={{ fontSize: '0.78rem' }}>
-                Not ready to talk? Download our capability statement first.
+            </article>
+            <article className="tenant-card">
+              <h3>The costs are explained</h3>
+              <p>
+                See the assumptions behind the rent comparison, incentives,
+                fitout allowance and exit exposure.
               </p>
-            </div>
-          </FadeIn>
+            </article>
+            <article className="tenant-card">
+              <h3>You control the decision</h3>
+              <p>
+                YOS explains the options and negotiates within the agreed scope.
+                You retain the decision to proceed.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
-
-
-
-
-      <ServiceArticle slug="buy-office-furniture-before-lease-expiry" />
-      <ServiceArticle slug="renew-or-relocate-commercial-lease" />
-      </main>
-
-      <Footer />
-    </>
-  )
+      <section className="tenant-section" id="team">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">The YOS team</p>
+          <h2>One team across your workplace decision.</h2>
+          <p className="tenant-intro">
+            Property advice, client-side project management, furniture and
+            workplace care can use the same brief, so each stage supports the
+            next.
+          </p>
+          <div className="tenant-grid">
+            <article className="tenant-card">
+              <h3>Find It</h3>
+              <p>Tenant-side search, comparisons and commercial negotiation.</p>
+            </article>
+            <article className="tenant-card">
+              <h3>Fit It Out and Furnish It</h3>
+              <p>
+                Project coordination, furniture plans, schedules, quotes and
+                delivery under agreed scopes.
+              </p>
+            </article>
+            <article className="tenant-card">
+              <h3>Flourish</h3>
+              <p>
+                Commercial cleaning and workplace care to support the office
+                once you move in.
+              </p>
+            </article>
+          </div>
+          <p style={{ marginTop: 24 }}>
+            <Link href="/about">Meet the YOS team</Link>
+          </p>
+        </div>
+      </section>
+      <ServiceFaq
+        heading="Understand the next step before you take it."
+        items={faqs}
+      />
+      <section className="tenant-section tenant-soft" id="lease-health-check">
+        <div className="tenant-wrap tenant-two">
+          <div>
+            <p className="tenant-eyebrow">Your first step</p>
+            <h2>Start with a free Lease Health Check.</h2>
+            <p>
+              Tell us about your business, your lease and the decision ahead.
+              You do not need to know every answer.
+            </p>
+            <ul className="tenant-checklist">
+              <li>Key lease dates and option questions.</li>
+              <li>Commercial costs and make-good points to check.</li>
+              <li>Whether renewal, relocation or buying needs exploring.</li>
+              <li>
+                A clear next step, with any further work scoped separately.
+              </li>
+            </ul>
+            <p>
+              Your solicitor provides legal advice. We will confirm the
+              information needed and timing for your Health Check.
+            </p>
+          </div>
+          <TenantDeferred kind="health" />
+        </div>
+      </section>
+      <section className="tenant-section">
+        <div className="tenant-wrap tenant-inline-links">
+          <Link href="/tenant-rep/newcastle">
+            Tenant representation in Newcastle
+          </Link>
+          <Link href="/insights/lease-costs">Understand your lease costs</Link>
+          <Link href="/lease-checklist">Before-you-sign checklist</Link>
+        </div>
+      </section>
+    </TenantShell>
+  );
 }

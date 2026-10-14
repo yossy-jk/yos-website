@@ -1,3 +1,4 @@
+import './tenant-rep/tenant-journey.css'
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import AnalyticsConsent from "@/components/AnalyticsConsent";

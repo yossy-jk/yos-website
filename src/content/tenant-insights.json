@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "cost-of-diy-office-search",
+    "title": "What is your office search time costing your business?",
+    "tool": "time_cost",
+    "href": "/tools/time-cost-calculator",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "finding office space Newcastle"
+  },
+  {
+    "slug": "real-cost-of-a-lease",
+    "title": "The real cost of a lease goes beyond the asking rent.",
+    "tool": "health_check",
+    "href": "/lease-health-check",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "commercial lease advice Newcastle"
+  },
+  {
+    "slug": "net-effective-rent",
+    "title": "Face rent and net effective rent: compare the full commitment.",
+    "tool": "lease_cost",
+    "href": "/tools/lease-cost-calculator",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "net effective rent explained"
+  },
+  {
+    "slug": "make-good-costs",
+    "title": "Make-good: understand the exit obligation before you sign.",
+    "tool": "health_check",
+    "href": "/lease-health-check",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "make good clause commercial lease"
+  },
+  {
+    "slug": "lease-critical-dates",
+    "title": "Which lease dates should your business put in the calendar?",
+    "tool": "critical_dates",
+    "href": "/tools/critical-dates",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "lease option notice period"
+  },
+  {
+    "slug": "lease-incentives",
+    "title": "How to compare office lease incentives in Newcastle.",
+    "tool": "lease_cost",
+    "href": "/tools/lease-cost-calculator",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "office lease incentives Newcastle"
+  },
+  {
+    "slug": "off-market-office-space",
+    "title": "How off-market introductions fit an office search.",
+    "tool": "health_check",
+    "href": "/lease-health-check",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "off market commercial property Newcastle"
+  },
+  {
+    "slug": "who-works-for-the-tenant",
+    "title": "The landlord has an agent. Who represents your business?",
+    "tool": "packages",
+    "href": "/tenant-rep/packages",
+    "status": "draft",
+    "body": "[DRAFT] Article copy awaits approval.",
+    "target": "tenant representation Newcastle"
+  }
+]

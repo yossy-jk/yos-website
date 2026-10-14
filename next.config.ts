@@ -49,6 +49,7 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
+          ...(process.env.VERCEL_ENV === "preview" ? [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] : []),
           // Prevent clickjacking
           { key: 'X-Frame-Options', value: 'DENY' },
           // Prevent MIME sniffing
