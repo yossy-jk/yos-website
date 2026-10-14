@@ -146,7 +146,7 @@ export default function TenantLeadForm({
       // Preserve enquiries when CRM configuration is unavailable. The existing
       // owner-email endpoint confirms real mail acceptance before success.
       if (response.status >= 500) {
-        const fallback = await fetch("/api/contact", {
+        const fallback = await fetch("/api/tenant-enquiry-email", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
