@@ -46,8 +46,8 @@ try{
  const interactions=[]
  const matrix=report.pages.flatMap(row=>[...new Set(row.anchors.filter(a=>a.region==='main'&&a.href.startsWith('#')).map(a=>a.href))].map(href=>({route:row.route,href})))
  matrix.push(...[
-  ['/','/contact#contact-enquiry'],['/','/cleaning#cleaning-quote-form'],['/about','/contact#contact-enquiry'],['/resources','/contact#contact-enquiry'],['/tenant-rep/newcastle','/contact?service=leasing#contact-enquiry'],
-  ...['land-tax-calculator','lease-vs-buy','rental-yield-calculator','stamp-duty-calculator'].map(slug=>['/resources/'+slug,'/contact?service=buying#contact-enquiry']),['/resources/office-size-calculator','/contact?service=leasing#contact-enquiry'],['/tenant-rep','/contact?service=leasing#contact-enquiry'],
+  ['/','/contact#contact-enquiry'],['/','/cleaning#cleaning-quote-form'],['/about','/contact#contact-enquiry'],['/resources','/contact#contact-enquiry'],['/tenant-rep/newcastle','/lease-health-check'],
+  ...['land-tax-calculator','lease-vs-buy','rental-yield-calculator','stamp-duty-calculator'].map(slug=>['/resources/'+slug,'/contact?service=buying#contact-enquiry']),['/resources/office-size-calculator','/contact?service=leasing#contact-enquiry'],['/tenant-rep','#lease-health-check'],
   ['/buyers-agency','/contact?service=buying#contact-enquiry'],['/office-fitout','/contact?service=fitout#contact-enquiry'],
   ['/furniture','/contact?service=furniture#contact-enquiry'],['/furniture','/resources/furniture-quote#furniture-quote-form'],
   ['/leaseintel','/contact?service=leasing#contact-enquiry'],['/tools/space-planner','/contact?service=furniture#contact-enquiry'],['/newcastle-commercial-property','/contact#contact-enquiry'],
@@ -72,6 +72,7 @@ try{
    const expected=new URL(href,base+route)
    await page.waitForFunction((path,query,hash)=>{
     if(location.pathname!==path||location.search!==query||location.hash!==hash)return false
+    if(!hash)return !!document.querySelector('form input[name="email"]')
     const e=document.getElementById(decodeURIComponent(hash.slice(1))),r=e?.getBoundingClientRect()
     return r&&r.top>=75&&r.top<140&&r.bottom>80
    },{timeout:15000},expected.pathname,expected.search,expected.hash)
