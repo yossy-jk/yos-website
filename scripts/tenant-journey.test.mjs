@@ -242,7 +242,7 @@ test("lead validation requires referral permission and recalculates emailed esti
   );
 });
 
-test("preview requests cannot reach email or CRM; a wrong portal prevents CRM writes", async () => {
+test("preview requests cannot reach email; email intake needs no CRM token", async () => {
   let external = 0;
   const mocks = {
     "next/server": {
@@ -263,7 +263,7 @@ test("preview requests cannot reach email or CRM; a wrong portal prevents CRM wr
         async del() {}
       },
     },
-    resend: { Resend: class {} },
+    resend: { Resend: class { emails = { send: async () => { external++; return { data: { id: "accepted" } }; } }; } },
     "@/lib/ratelimit": { contactLimiter: () => null, getIp: () => "" },
     "@/lib/tenant-leads": leads,
     "@/lib/tenant-offer": { ...offer, TENANT_OFFER: { ...offer.TENANT_OFFER, approvedForPublication: false } },
@@ -306,7 +306,6 @@ test("preview requests cannot reach email or CRM; a wrong portal prevents CRM wr
       process: {
         env: {
           RESEND_API_KEY: "test",
-          HUBSPOT_TOKEN: "test",
           UPSTASH_REDIS_REST_URL: "https://example.invalid",
           UPSTASH_REDIS_REST_TOKEN: "test",
           VERCEL_ENV: "production",
@@ -318,10 +317,10 @@ test("preview requests cannot reach email or CRM; a wrong portal prevents CRM wr
       },
     },
   );
-  assert.equal((await live.POST(request())).status, 503);
-  assert.equal(external, 1);
+  assert.equal((await live.POST(request())).status, 200);
+  assert.equal(external, 2);
 });
-test("partial delivery resumes without duplicate deals, alerts or receipts", async () => {
+test("partial email delivery resumes without duplicate receipts or CRM requests", async () => {
   const records = new Map(),
     counts = { deal: 0, alert: 0, client: 0, task: 0 };
   let failAlert = true;
@@ -378,25 +377,12 @@ test("partial delivery resumes without duplicate deals, alerts or receipts", asy
       process: {
         env: {
           RESEND_API_KEY: "test",
-          HUBSPOT_TOKEN: "test",
           UPSTASH_REDIS_REST_URL: "https://example.invalid",
           UPSTASH_REDIS_REST_TOKEN: "test",
           VERCEL_ENV: "production",
         },
       },
-      fetch: async (url) => {
-        if (url.includes("access-token-info"))
-          return Response.json({ hubId: 442709765 });
-        if (url.endsWith("/deals")) {
-          counts.deal++;
-          return Response.json({ id: "deal1" });
-        }
-        if (url.endsWith("/tasks")) {
-          counts.task++;
-          return Response.json({ id: "task1" });
-        }
-        return Response.json({ id: "contact1" });
-      },
+      fetch: async () => { throw new Error("Email intake must not contact a CRM"); },
     },
   );
   const body = {
@@ -417,13 +403,13 @@ test("partial delivery resumes without duplicate deals, alerts or receipts", asy
       body: JSON.stringify(body),
     });
   assert.equal((await route.POST(request())).status, 502);
-  assert.equal(counts.deal, 1);
+  assert.equal(counts.deal, 0);
   assert.equal((await route.POST(request())).status, 200);
-  assert.equal(counts.deal, 1);
+  assert.equal(counts.deal, 0);
   assert.equal(counts.alert, 2);
   assert.equal(counts.client, 1);
-  assert.equal(counts.task, 1);
+  assert.equal(counts.task, 0);
   assert.equal((await route.POST(request())).status, 200);
-  assert.equal(counts.deal, 1);
+  assert.equal(counts.deal, 0);
   assert.equal(counts.client, 1);
 });

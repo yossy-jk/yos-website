@@ -173,11 +173,9 @@ export function validateTenantLead(raw: unknown) {
 }
 export const TENANT_ROUTING = {
   recipients: ["jk@yourofficespace.au"],
-  pipeline: "default",
-  stage: "2455891412",
+  deliveryChannel: "email",
   osEnabled: false,
   nurtureEnabled: false,
-  portal: TENANT_OFFER.hubspotPortal,
 };
 
 export function resultsEmailText(lead: TenantLead): string {
