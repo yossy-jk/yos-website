@@ -557,3 +557,15 @@ test("a concurrent receipt worker cannot make the webhook acknowledge undelivere
   assert.equal((await route.POST(request())).status, 200);
   assert.equal(s.emails.length, 2);
 });
+
+test('disabling new checkouts preserves receipt delivery for payments already completed', async () => {
+  const s = setup();
+  await s.payments.createTenantCheckout(rules.tenantPaymentQuote('platinum'), orderId);
+  s.settings.STRIPE_TENANT_PAYMENTS_ENABLED = 'false';
+  s.update({ payment_status: 'paid', status: 'complete' });
+  await assert.rejects(() => s.payments.createTenantCheckout(rules.tenantPaymentQuote('platinum'), orderId));
+  const paid = await s.payments.fulfilTenantPayment('cs_live_fixture');
+  assert.equal(paid.status, 'paid');
+  assert.equal(paid.balanceExGst, 645000);
+  assert.equal(s.emails.length, 2);
+});
