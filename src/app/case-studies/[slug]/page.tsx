@@ -8,7 +8,7 @@ import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import { getAllCaseStudies, getCaseStudyBySlug } from '@/lib/case-studies'
 import { DIVISION_LABELS, DIVISION_COLORS } from '@/lib/blog'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import type { Division } from '@/lib/blog'
 
 export async function generateStaticParams() {
@@ -159,7 +159,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <div className="bg-near-black rounded-sm p-8">
                 <p className="text-white font-bold text-base mb-3">Want a similar outcome?</p>
                 <p className="text-white/60 font-light text-sm mb-6">Talk to us about your situation. First conversation is always free.</p>
-                <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a call</Button>
+                <Button href={ENQUIRY.contactUrl} variant="primary" external>Request a call</Button>
               </div>
             </div>
           </div>

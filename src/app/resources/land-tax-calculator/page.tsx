@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
 const SEC = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
@@ -609,7 +609,7 @@ export default function LandTaxCalculatorPage() {
               style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
               Land tax is one of the holding costs most buyers underestimate. We model the full picture.
             </h2>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+            <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
               className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
               style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
               Book a Buyer Consultation →

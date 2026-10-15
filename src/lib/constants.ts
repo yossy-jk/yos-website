@@ -9,8 +9,8 @@ export const CONTACT = {
   location: 'Newcastle, NSW',
 }
 
-export const HUBSPOT = {
-  bookingUrl: 'https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354'
+export const ENQUIRY = {
+  contactUrl: '/contact#contact-enquiry',
 }
 
 // Top-level nav — Services is a dropdown

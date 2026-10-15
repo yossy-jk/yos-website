@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 
 export default function NotFound() {
   return (
@@ -27,7 +27,7 @@ export default function NotFound() {
               Back to Home
             </Link>
             <a
-              href={HUBSPOT.bookingUrl}
+              href={ENQUIRY.contactUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="border border-white/30 text-white font-bold text-xs tracking-widest uppercase px-8 py-4 rounded-sm hover:border-teal hover:text-teal transition-colors no-underline text-center"

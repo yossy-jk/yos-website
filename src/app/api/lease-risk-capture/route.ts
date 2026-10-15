@@ -1,7 +1,8 @@
+import { enquirySubmissionId } from '@/lib/enquiry-delivery'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const HUBSPOT_BASE = 'https://api.hubapi.com/crm/v3/objects/contacts'
+import { enquiryResponse } from '@/lib/enquiry-delivery'
 
 const RISK_LABELS: Record<string, string> = {
   high: 'HIGH RISK',
@@ -47,61 +48,10 @@ function getRisk(answers: Record<string, string>): { level: string; high: number
   return { level, high, medium, issues }
 }
 
-async function upsertHubSpotContact(firstname: string, email: string, riskLevel?: string) {
-  const HUBSPOT_KEY = process.env.HUBSPOT_TOKEN
-  if (!HUBSPOT_KEY) throw new Error('HUBSPOT_TOKEN missing')
-
-  const today = new Date()
-  today.setUTCHours(0, 0, 0, 0)
-  const properties: Record<string, string> = {
-    firstname,
-    email,
-    leaseintel_free_check: 'true',
-    snapshot_region: 'Newcastle',
-    leaseintel_check_date: today.getTime().toString(),
-  }
-  if (riskLevel) properties.leaseintel_risk_level = riskLevel
-
-  // Try to create first
-  const createRes = await fetch(HUBSPOT_BASE, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${HUBSPOT_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ properties }),
-  })
-
-  if (createRes.ok) return createRes.json()
-
-  if (createRes.status === 409) {
-    // Contact exists – find by email then patch
-    const searchRes = await fetch(`${HUBSPOT_BASE}/${encodeURIComponent(email)}?idProperty=email`, {
-      headers: { 'Authorization': `Bearer ${HUBSPOT_KEY}` },
-    })
-    if (!searchRes.ok) throw new Error('HubSpot search failed')
-    const existing = await searchRes.json()
-    const contactId = existing.id
-
-    const patchRes = await fetch(`${HUBSPOT_BASE}/${contactId}`, {
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${HUBSPOT_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ properties }),
-    })
-    if (!patchRes.ok) throw new Error('HubSpot patch failed')
-    return patchRes.json()
-  }
-
-  const errText = await createRes.text()
-  throw new Error(`HubSpot error ${createRes.status}: ${errText}`)
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json()
+    body.submissionId = enquirySubmissionId(body.submissionId)
     const { firstname, email, answers } = body
 
     if (!firstname || !email) {
@@ -113,13 +63,10 @@ export async function POST(req: Request) {
 
     const risk = answers ? getRisk(answers) : null
 
-    // 1. Upsert HubSpot contact
-    try {
-      await upsertHubSpotContact(String(firstname).slice(0, 200), String(email).slice(0, 200), risk?.level)
-    } catch (err) {
-      console.error('HubSpot upsert error:', err)
-      // Non-fatal – still send email and return ok
-    }
+    const delivery = await enquiryResponse(new Request(req.url, { method: 'POST', headers: req.headers,
+      body: JSON.stringify({ firstname, email, source: 'Lease risk check', details: { answers, risk }, submissionId: body.submissionId }) }))
+    if (!delivery.ok) return delivery
+    if (process.env.VERCEL_ENV === 'preview') return NextResponse.json({ ok: true, preview: true })
 
     // 2. Send confirmation email via Resend
     const apiKey = process.env.RESEND_API_KEY
@@ -135,7 +82,7 @@ export async function POST(req: Request) {
         ? topIssues.map(i => `<li style="padding: 6px 0; color: #444; font-size: 14px; line-height: 1.6;">${i}</li>`).join('')
         : '<li style="padding: 6px 0; color: #444; font-size: 14px;">No major risk clauses identified.</li>'
 
-      await resend.emails.send({
+      const delivered = await resend.emails.send({
         from: 'YOS LeaseIntel <notifications@yourofficespace.au>',
         to: String(email).slice(0, 200),
         replyTo: 'jk@yourofficespace.au',
@@ -193,7 +140,8 @@ export async function POST(req: Request) {
             </p>
           </div>
         `,
-      })
+      }, { idempotencyKey: `${body.submissionId}-risk-client` })
+      if (delivered.error || !delivered.data?.id) return NextResponse.json({ ok: false }, { status: 502 })
     }
 
     return NextResponse.json({ ok: true })

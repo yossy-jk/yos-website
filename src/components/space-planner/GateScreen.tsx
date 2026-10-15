@@ -27,21 +27,13 @@ export default function GateScreen({ onComplete }: GateScreenProps) {
 
     const payload = { firstName: firstName.trim(), email: email.trim() }
 
-    // Persist to sessionStorage immediately
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('yos_planner_user', JSON.stringify(payload))
-    }
-
-    // Fire HubSpot contact in background, non-blocking
+    // Planning remains available if the optional session notification fails.
+    // Quote requests use a separate, confirmed email submission.
     fetch('/api/space-planner-gate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    }).catch(() => { /* non-fatal */ })
-
-    // Small delay so the button feels responsive, not instant
-    await new Promise((r) => setTimeout(r, 400))
-
+    }).catch(() => {})
+    try { sessionStorage.setItem('yos_planner_user', JSON.stringify(payload)) } catch {}
     setLoading(false)
     onComplete(payload.firstName, payload.email)
   }

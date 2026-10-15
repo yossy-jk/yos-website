@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { submitLead } from '@/lib/hubspot-lead'
+import { sendEnquiry } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
 
 const SERVICES = [
@@ -55,8 +55,7 @@ function resolveService(requested?: string): Service | '' {
 }
 
 /**
- * Contact form. sends to Resend (email delivery) + HubSpot CRM (deal creation).
- * Both run in parallel; neither blocks the other.
+ * Contact form with confirmed direct YOS inbox delivery.
  */
 export default function ContactForm({ initialService, fixedService = false, submitLabel = 'Send Message →', messagePlaceholder = "Tell us what you're working on..." }: {
   initialService?: string
@@ -100,41 +99,18 @@ export default function ContactForm({ initialService, fixedService = false, subm
     setSubmitting(true)
     setSubmitError('')
 
-    // Run email + HubSpot in parallel. Only show success when at least one
-    // delivery channel confirms that it accepted the enquiry.
-    const [emailResult, hubspotResult] = await Promise.allSettled([
-      // Email delivery via server-side API route
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: fields.name,
-          company: fields.company || '',
-          email: fields.email,
-          phone: fields.phone || '',
-          message: fields.message,
-          source: `Contact Form — ${fields.service}`,
-          _honey: honey,
-        }),
-      }),
-      // HubSpot CRM. contact + deal
-      submitLead({
-        firstname: fields.name.split(' ')[0],
-        email: fields.email,
-        source: `Contact Form — ${fields.service}`,
-        context: `Service: ${fields.service}\nCompany: ${fields.company || '-'}\nPhone: ${fields.phone || '-'}\nMessage: ${fields.message || '-'}`,
-      }),
-    ])
-
+    const result = await sendEnquiry({
+      name: fields.name, company: fields.company, email: fields.email,
+      phone: fields.phone, message: fields.message,
+      source: `Contact Form — ${fields.service}`, _honey: honey,
+    })
     setSubmitting(false)
-    const emailAccepted = emailResult.status === 'fulfilled' && emailResult.value.ok
-    const hubspotAccepted = hubspotResult.status === 'fulfilled' && hubspotResult.value.ok
-    if (emailAccepted || hubspotAccepted) {
+    const emailAccepted = result.ok
+    if (emailAccepted) {
       trackConversion('generate_lead', {
         service: fields.service,
         form_name: 'contact_enquiry',
         email_delivery: emailAccepted,
-        crm_delivery: hubspotAccepted,
       })
       setSent(true)
     } else {

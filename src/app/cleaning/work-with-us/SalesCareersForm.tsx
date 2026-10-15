@@ -1,4 +1,5 @@
 'use client'
+import { postEnquiry } from '@/lib/enquiry'
 import { useState } from 'react'
 import { CheckIcon } from '@/components/Icons'
 
@@ -88,17 +89,13 @@ export default function SalesCareersForm() {
     }
     setSubmitting(true)
     try {
-      const res = await fetch('/api/cleaning-careers', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      const res = await postEnquiry('/api/cleaning-careers', {
           ...form,
           _honey: '',
           type: 'sales-partner',
           channels: channel.join(', '),
           industries: industry.join(', '),
-        }),
-      })
+        })
       if (!res.ok) {
         const d = await res.json()
         throw new Error(d.error || 'Submission failed')

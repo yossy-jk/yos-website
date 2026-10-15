@@ -4,7 +4,7 @@ import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 
 const BENCHMARKS = [
   { type: 'Newcastle CBD Office', low: 5.5, high: 7.0 },
@@ -398,7 +398,7 @@ export default function CapRateCalculatorPage() {
               style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
               We can assess any commercial opportunity and tell you if the numbers stack up.
             </h2>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+            <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
               className="inline-block bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
               style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Book a Buyer Consultation →

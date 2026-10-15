@@ -30,14 +30,14 @@ try {
     await page.setViewport({ width, height: 900 })
     await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
     await page.setRequestInterception(true)
-    let emailStatus = 503, crmStatus = 503
+    let emailStatus = 503
     const submitted = []
     page.on('request', async request => {
       const target = new URL(request.url())
-      if (request.method() === 'POST' && ['/api/contact', '/api/hubspot'].includes(target.pathname)) {
+      if (request.method() === 'POST' && ['/api/enquiry'].includes(target.pathname)) {
         assert.equal(target.origin, new URL(base).origin)
         submitted.push({ endpoint: target.pathname, body: JSON.parse(request.postData()) })
-        const status = target.pathname === '/api/contact' ? emailStatus : crmStatus
+        const status = emailStatus
         await request.respond({ status, contentType: 'application/json', body: JSON.stringify({ ok: status === 200 }) })
       } else await request.continue()
     })
@@ -94,15 +94,9 @@ try {
     await page.click('form button[type="submit"]')
     await page.waitForFunction(() => document.body.innerText.includes('Message received.'))
     assert.equal(await page.$('form'), null)
-    await load()
-    emailStatus = 503; crmStatus = 200
-    await page.type('#contact-name', 'Local enquiry check')
-    await page.type('#contact-email', 'qa@example.invalid')
-    await page.click('form button[type="submit"]')
-    await page.waitForFunction(() => document.body.innerText.includes('Message received.'))
-    assert.equal(submitted.length, 6)
+    assert.equal(submitted.length, 2, 'One email request per submit attempt; no duplicate CRM request.')
+    assert.equal(submitted[0].body.submissionId, submitted[1].body.submissionId, 'Retries must reuse the submission ID.')
     assert.ok(submitted.every(item => item.body.source === 'Contact Form — Cleaning'))
-    assert.ok(submitted.filter(item => item.endpoint === '/api/hubspot').every(item => item.body.context.startsWith('Service: Cleaning')))
     await page.click('[aria-label="Next review"]')
     assert.equal(await page.$eval('.cleaning-reviews figcaption strong', element => element.textContent), 'Beth Gwalter')
     await page.click('[aria-label="Previous review"]')
@@ -112,7 +106,7 @@ try {
     assert.equal(await page.$eval('.cleaning-reviews figcaption strong', element => element.textContent), 'Sophie Collinson')
     await page.$eval('.cleaning-reviews', element => element.scrollIntoView({ block: 'start', behavior: 'instant' }))
     await page.screenshot({ path: path.join(out, `cleaning-reviews-${width}.png`) })
-    results.push({ width, quoteButtons: 4, nativeForm: true, validation: true, preservesFailedEnquiry: true, emailOnlyReceipt: true, crmOnlyReceipt: true, reviewControls: true, accessibilityViolations: 0 })
+    results.push({ width, quoteButtons: 4, nativeForm: true, validation: true, preservesFailedEnquiry: true, emailOnlyReceipt: true, noCrmRequest: true, reviewControls: true, accessibilityViolations: 0 })
     await page.close()
   }
   const page = await browser.newPage()
@@ -121,7 +115,7 @@ try {
   await page.mouse.move(0, 0)
   await page.waitForFunction(() => { const name = document.querySelector('.cleaning-reviews figcaption strong')?.textContent; return name && name !== 'Sophie Collinson' }, { timeout: 12000 })
   writeFileSync(path.join(out, 'results.json'), JSON.stringify({ results, automaticReviewRotation: true }, null, 2))
-  console.log('PASS cleaning enquiries: 16 CTA jumps, validation, both delivery fallbacks, accessibility and testimonial navigation/rotation.')
+  console.log('PASS cleaning enquiries: 16 CTA jumps, validation, confirmed email delivery and retry, accessibility and testimonial navigation/rotation.')
 } finally {
   await browser?.close()
   server?.kill()

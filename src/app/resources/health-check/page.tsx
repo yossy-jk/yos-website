@@ -1,5 +1,5 @@
 'use client'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import ToolGuide from '@/components/ToolGuide'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
@@ -476,7 +476,7 @@ export default function HealthCheckPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  // Context string for HubSpot
+  // Context for the YOS enquiry inbox
   const contextString = () => {
     const domainParts = DOMAINS.map((d, i) => `${d.name}: ${domainVerdicts[i]} (${domainScores[i]}/8)`).join(', ')
     return `Health Check: ${overallVerdict} (score ${totalScore}/32). ${domainParts}.`
@@ -867,8 +867,8 @@ export default function HealthCheckPage() {
             <ToolGate
               tool="Commercial Property Health Check"
               context={contextString}
-              heading="Where should we send your report?"
-              subheading="We'll email you a full breakdown with specific next steps for your business."
+              heading="View your health check report"
+              subheading="Share your details with the YOS team and view your breakdown and next steps here."
               teaser={teaserContent}
             >
               {/* ── Overall health score card ── */}
@@ -1069,7 +1069,7 @@ export default function HealthCheckPage() {
                 </p>
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem' }}>
                   <a
-                    href={HUBSPOT.bookingUrl}
+                    href={ENQUIRY.contactUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
@@ -1163,7 +1163,7 @@ export default function HealthCheckPage() {
                 Answer the questions above for a clear picture across all four areas. Or book a free call with The Team and skip straight to the answer.
               </p>
               <a
-                href={HUBSPOT.bookingUrl}
+                href={ENQUIRY.contactUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

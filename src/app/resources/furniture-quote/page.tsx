@@ -6,8 +6,8 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import SectionLabel from '@/components/SectionLabel'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
-import { submitLead } from '@/lib/hubspot-lead'
+import { ENQUIRY } from '@/lib/constants'
+import { sendEnquiry } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
@@ -51,7 +51,7 @@ export default function FurnitureQuotePage() {
     const file = fileRef.current?.files?.[0]
 
     try {
-      // Build context string for HubSpot
+      // Build the full enquiry summary
       const contextParts = [
         form.company && `Company: ${form.company}`,
         form.phone && `Phone: ${form.phone}`,
@@ -61,7 +61,7 @@ export default function FurnitureQuotePage() {
         form.projectType && `Project type: ${form.projectType}`,
         form.timeline && `Timeline: ${form.timeline}`,
         form.notes && `Notes: ${form.notes}`,
-        file && `File attached: ${file.name}`,
+        file && `File selected: ${file.name} (attachment sent separately if accepted)`,
       ].filter(Boolean).join('\n')
 
       let attachmentAccepted = false
@@ -91,22 +91,16 @@ export default function FurnitureQuotePage() {
         }
       }
 
-      const [crmResult, emailResult] = await Promise.allSettled([
-        submitLead({ firstname: form.name, email: form.email, source: 'Furniture Quote', context: contextParts }),
-        fetch('/api/notify', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone || undefined, source: 'Furniture Quote Request', context: contextParts }),
-        }),
-      ])
-      const crmAccepted = crmResult.status === 'fulfilled' && crmResult.value.ok
-      const emailAccepted = attachmentAccepted || (emailResult.status === 'fulfilled' && emailResult.value.ok)
-      if (!crmAccepted && !emailAccepted) {
+      const result = await sendEnquiry({ name: form.name, email: form.email, phone: form.phone,
+        company: form.company, source: 'Furniture Quote Request', message: contextParts })
+      const emailAccepted = attachmentAccepted || result.ok
+      if (!emailAccepted) {
         setError('We could not confirm delivery. Please try again or call (02) 4092 0733.')
         return
       }
       setAttachmentWarning(Boolean(file && !attachmentAccepted))
       setSubmitted(true)
-      trackConversion('generate_lead', { service: 'Furniture', form_name: 'furniture_quote', email_delivery: emailAccepted, crm_delivery: crmAccepted })
+      trackConversion('generate_lead', { service: 'Furniture', form_name: 'furniture_quote', email_delivery: emailAccepted })
     } catch (err) {
       console.error(err)
       setError('Something went wrong. Please try again or call us directly.')
@@ -174,12 +168,12 @@ export default function FurnitureQuotePage() {
                   <p className="text-mid-grey font-light text-sm">
                     Prefer to talk?{' '}
                     <a
-                      href={HUBSPOT.bookingUrl}
+                      href={ENQUIRY.contactUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-teal underline underline-offset-2 hover:text-teal/80 transition-colors"
                     >
-                      Book a call instead.
+                      Request a call instead.
                     </a>
                   </p>
                 </div>
@@ -387,12 +381,12 @@ export default function FurnitureQuotePage() {
                     <p className="text-mid-grey font-light text-sm">
                       Prefer to talk?{' '}
                       <a
-                        href={HUBSPOT.bookingUrl}
+                        href={ENQUIRY.contactUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-teal underline underline-offset-2 hover:text-teal/80 transition-colors"
                       >
-                        Book a call instead.
+                        Request a call instead.
                       </a>
                     </p>
                   </div>

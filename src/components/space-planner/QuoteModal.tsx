@@ -1,4 +1,5 @@
 "use client";
+import { postEnquiry } from '@/lib/enquiry'
 
 import { useState } from "react";
 import { X, CheckCircle } from "lucide-react";
@@ -18,6 +19,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
@@ -42,10 +44,8 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
 
     setLoading(true);
     try {
-      await fetch("/api/space-planner-lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      setError("");
+      const response = await postEnquiry('/api/space-planner-lead', {
           name: name.trim(),
           email: email.trim(),
           company: company.trim(),
@@ -67,12 +67,11 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
           doors: doors.length,
           windows: windows.length,
           columns: columns.length,
-        }),
-      });
+        });
+      if (!response.ok || !(await response.json()).success) throw Error("Delivery unavailable");
       setSubmitted(true);
     } catch {
-      // Non-fatal, still show success to user
-      setSubmitted(true);
+      setError("We could not confirm delivery. Please retry or call 02 4092 0733.");
     } finally {
       setLoading(false);
     }
@@ -136,6 +135,7 @@ export default function QuoteModal({ isOpen, onClose }: QuoteModalProps) {
         ) : (
           /* Form */
           <form onSubmit={handleSubmit} style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+              {error && <p role="alert" style={{ color: "#b91c1c" }}>{error}</p>}
 
             {/* Space summary */}
             <div style={{ background: '#F7F6F4', borderRadius: '8px', padding: '0.75rem 1rem', fontSize: '0.8rem', color: '#3D3D3D', lineHeight: 1.6 }}>

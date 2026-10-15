@@ -42,12 +42,13 @@ test('a consented conversion waits for GA init, flushes once, and is discarded o
 test('the notification API only confirms delivery when Resend supplies an accepted message ID', async () => {
   for (const [result, expected] of [[{ data: { id: 'fixture-message' }, error: null }, 200], [{ data: null, error: { message: 'Rejected' } }, 502], [{ data: null, error: null }, 502]]) {
     let sends = 0
-    const route = load('src/app/api/notify/route.ts', {
+    const delivery = load('src/lib/enquiry-delivery.ts', {
       'next/server': { NextResponse: { json: (body, options = {}) => Response.json(body, options) } },
       resend: { Resend: class { emails = { send: async () => { sends++; return result } } } },
-      '@/lib/ratelimit': { notifyLimiter: () => null, getIp: () => 'fixture' },
-    }, { process: { env: { RESEND_API_KEY: 'fixture' } }, console: { error() {}, warn() {} } })
-    const response = await route.POST(new Request('https://example.invalid/api/notify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name: 'Fixture', email: 'qa@example.invalid', source: 'Furniture Quote Request' }) }))
+      'node:crypto': { randomUUID: () => '12345678-1234-1234-1234-123456789abc' },
+      '@/lib/ratelimit': { contactLimiter: () => null, getIp: () => 'fixture' },
+    }, { Request, Response, Date, JSON, process: { env: { RESEND_API_KEY: 'fixture' } }, console: { error() {}, warn() {} } })
+    const response = await delivery.enquiryResponse(new Request('https://example.invalid/api/notify', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name: 'Fixture', email: 'qa@example.invalid', source: 'Furniture Quote Request' }) }))
     assert.equal(response.status, expected); assert.equal(sends, 1)
   }
 })

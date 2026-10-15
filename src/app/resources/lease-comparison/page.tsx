@@ -6,7 +6,7 @@ import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import Button from '@/components/Button'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
@@ -505,7 +505,7 @@ export default function LeaseComparisonPage() {
             <p className="text-white/60 font-light text-lg mb-8 w-full">
               We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better, and what to negotiate.
             </p>
-            <Button href={HUBSPOT.bookingUrl} variant="primary" external>Book a Lease Review Call</Button>
+            <Button href={ENQUIRY.contactUrl} variant="primary" external>Request a Lease Review Call</Button>
           </div>
         </div>
       </section>

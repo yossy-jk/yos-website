@@ -5,7 +5,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import { virusTotalScan, encryptFile } from '@/lib/file-security'
 import { LockIcon, ShieldIcon, TLSIcon, PrivateIcon, CheckIcon } from '@/components/Icons'
 
@@ -279,35 +279,6 @@ export default function LeaseReviewPage() {
       // ── Step 3: Submit ──────────────────────────────────
       setSecurityStep('sending')
 
-      // 3a. HubSpot CRM entry
-      try {
-        const scanNote = scanResult.status === 'clean'
-          ? `VT scan: CLEAN (${scanResult.engines} engines)`
-          : scanResult.status === 'unknown'
-          ? 'VT scan: hash not in database (new file)'
-          : 'VT scan: skipped (API unreachable)'
-
-        await fetch(
-          'https://api.hsforms.com/submissions/v3/integration/submit/442709765/e3e49521-0831-49ba-8929-610c7cc7f282',
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              fields: [
-                { name: 'firstname', value: form.name.split(' ')[0] },
-                { name: 'lastname', value: form.name.split(' ').slice(1).join(' ') || '' },
-                { name: 'email', value: form.email },
-                { name: 'company', value: form.company },
-                { name: 'phone', value: form.phone },
-                { name: 'message', value: `LeaseIntel™ Scope Request – ${form.leaseType} lease – ${form.state}\nFile: ${form.file?.name || 'none'} (${form.file ? (form.file.size / 1024 / 1024).toFixed(1) + 'MB' : ''})\n${scanNote}\nEncryption: ${encryptedFile ? 'AES-256-GCM' : 'none (fallback)'}` },
-              ],
-            }),
-          }
-        )
-      } catch {
-        // Non-blocking CRM entry
-      }
-
       // 3b. Send encrypted file to Joe
       try {
         const fd = new FormData()
@@ -334,7 +305,7 @@ export default function LeaseReviewPage() {
         }
 
         // Email notification via API route
-        await Promise.allSettled([
+        const deliveries = await Promise.all([
           fetch('https://formsubmit.co/jk@yourofficespace.au', { method: 'POST', body: fd }),
           fetch('/api/notify', {
             method: 'POST',
@@ -348,11 +319,28 @@ export default function LeaseReviewPage() {
             }),
           }),
         ])
+        if (deliveries.some(response => !response.ok)) throw Error('Email delivery unavailable')
       } catch {
-        // Non-blocking
+        setErrors({ file: 'We could not confirm delivery of your request and attachment. Please retry or call 02 4092 0733.' })
+        setSubmitting(false)
+        setSecurityStep('idle')
+        return
       }
     }
 
+    if (!form.file) {
+      try {
+        const delivered = await fetch('/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: form.name, email: form.email, phone: form.phone, company: form.company,
+            source: 'Lease review scope request', details: { leaseType: form.leaseType, state: form.state } }) })
+        if (!delivered.ok) throw Error('Delivery unavailable')
+      } catch {
+        setErrors({ file: 'We could not confirm delivery. Please retry or call 02 4092 0733.' })
+        setSubmitting(false)
+        setSecurityStep('idle')
+        return
+      }
+    }
     setSubmitting(false)
     setSecurityStep('idle')
     setStep('submitted')
@@ -903,7 +891,7 @@ export default function LeaseReviewPage() {
             </div>
           </div>
           <a
-            href={HUBSPOT.bookingUrl}
+            href={ENQUIRY.contactUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-teal font-bold text-xs tracking-widest uppercase border-b border-teal/50 hover:border-teal hover:text-dark-teal transition-colors no-underline pb-0.5 no-min-height"

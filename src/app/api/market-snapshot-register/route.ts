@@ -1,35 +1,25 @@
+import { enquirySubmissionId } from '@/lib/enquiry-delivery'
 /**
  * Market Snapshot Registration
  *
- * 1. Upsert contact in HubSpot with snapshot_region custom property
+ * 1. Deliver registration to the YOS inbox
  * 2. Send confirmation email via Resend to the registrant
- * 3. Notify Joe via internal notify route
+ * No CRM dependency
  */
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
 
-const HUBSPOT_TOKEN = process.env.HUBSPOT_TOKEN
-const HUBSPOT_BASE = 'https://api.hubapi.com'
+import { enquiryResponse } from '@/lib/enquiry-delivery'
 
 const VALID_REGIONS = ['Newcastle', 'Hunter Valley', 'Sydney', 'Illawarra']
 
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-async function hs(path: string, method: string, body: unknown): Promise<Response> {
-  return fetch(`${HUBSPOT_BASE}${path}`, {
-    method,
-    headers: {
-      Authorization: `Bearer ${HUBSPOT_TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(body),
-  })
-}
-
 export async function POST(req: Request) {
   try {
     const body = await req.json()
+    body.submissionId = enquirySubmissionId(body.submissionId)
     const { firstname, email, region } = body
 
     // Validation
@@ -44,48 +34,19 @@ export async function POST(req: Request) {
     const safeName = esc(firstname.trim().slice(0, 100))
     const safeEmail = esc(email.trim().slice(0, 200))
 
-    // ── HubSpot: upsert contact ──────────────────────────────────────────
-    if (HUBSPOT_TOKEN) {
-      try {
-        // Try PATCH first (update if exists)
-        const patchRes = await hs(
-          `/crm/v3/objects/contacts/${encodeURIComponent(safeEmail)}?idProperty=email`,
-          'PATCH',
-          {
-            properties: {
-              firstname: safeName,
-              snapshot_region: safeRegion,
-              hs_lead_status: 'NEW',
-              lead_source: 'Market Snapshot',
-            },
-          }
-        )
-
-        if (!patchRes.ok) {
-          // Contact doesn't exist – create
-          await hs('/crm/v3/objects/contacts', 'POST', {
-            properties: {
-              firstname: safeName,
-              email: safeEmail,
-              snapshot_region: safeRegion,
-              hs_lead_status: 'NEW',
-              lead_source: 'Market Snapshot',
-            },
-          })
-        }
-      } catch (hsErr) {
-        console.warn('HubSpot upsert failed (non-fatal):', hsErr)
-      }
-    }
+    const delivery = await enquiryResponse(new Request(req.url, { method: 'POST', headers: req.headers,
+      body: JSON.stringify({ firstname, email, source: 'Market Snapshot Registration', details: { region: safeRegion }, marketingConsent: true, submissionId: body.submissionId }) }))
+    if (!delivery.ok) return delivery
+    if (process.env.VERCEL_ENV === 'preview') return NextResponse.json({ ok: true, preview: true })
 
     // ── Resend: confirmation email to registrant ────────────────────────
     const apiKey = process.env.RESEND_API_KEY
     if (apiKey) {
       try {
         const resend = new Resend(apiKey)
-        await resend.emails.send({
+        const delivered = await resend.emails.send({
           from: 'Joe Kelley – Your Office Space <notifications@yourofficespace.au>',
-          to: safeEmail,
+          to: email.trim().toLowerCase(),
           replyTo: 'jk@yourofficespace.au',
           subject: `You're on the list – Newcastle Office Market Snapshot`,
           html: `
@@ -98,7 +59,7 @@ export async function POST(req: Request) {
   <p style="font-size:15px;line-height:1.8;margin:0 0 16px;font-weight:300">Hi ${safeName},</p>
 
   <p style="font-size:15px;line-height:1.8;margin:0 0 16px;font-weight:300">
-    You&apos;re on the list. First edition lands in your inbox shortly.
+    You&apos;re on the list. The YOS team has received your subscription request.
   </p>
 
   <p style="font-size:15px;line-height:1.8;margin:0 0 24px;font-weight:300">
@@ -124,28 +85,12 @@ export async function POST(req: Request) {
   </p>
 </div>
           `,
-        })
+        }, { idempotencyKey: `${body.submissionId}-snapshot-client` })
+        if (delivered.error || !delivered.data?.id) throw Error('Confirmation unavailable')
       } catch (emailErr) {
-        console.warn('Resend confirmation email failed (non-fatal):', emailErr)
+        console.warn('Confirmation email not accepted', emailErr)
+        return NextResponse.json({ ok: false }, { status: 502 })
       }
-    }
-
-    // ── Internal notify to Joe ───────────────────────────────────────────
-    try {
-      const host = req.headers.get('host') || 'yourofficespace.au'
-      const protocol = host.includes('localhost') ? 'http' : 'https'
-      await fetch(`${protocol}://${host}/api/notify`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: safeName,
-          email: safeEmail,
-          source: 'Market Snapshot Registration',
-          context: `Region: ${safeRegion}\n\nRegistered for the Newcastle Office Market Snapshot.`,
-        }),
-      })
-    } catch {
-      // non-fatal
     }
 
     return NextResponse.json({ ok: true })

@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { submitLead } from '@/lib/hubspot-lead'
+import { sendEnquiry } from '@/lib/enquiry'
 
 const LEASE_TYPE_OPTIONS = [
   { value: 'lease-review', label: 'Lease Review, I\'m already in a lease and want it reviewed' },
@@ -18,6 +18,7 @@ const SITUATION_OPTIONS = [
 export default function NotForProfitForm() {
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const [honey, setHoney] = useState('')
   const [fields, setFields] = useState({
     name: '',
@@ -56,39 +57,18 @@ export default function NotForProfitForm() {
     const leaseTypeLabel = LEASE_TYPE_OPTIONS.find(o => o.value === fields.leaseType)?.label || fields.leaseType
     const situationLabel = SITUATION_OPTIONS.find(o => o.value === fields.situation)?.label || fields.situation
 
-    await Promise.allSettled([
-      // Email delivery via FormSubmit
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: fields.name,
-          company: fields.organisation,
-          email: fields.email,
-          phone: fields.phone || '',
-          message: fields.message,
-          source: 'Not-for-Profit Support',
-          _honey: honey,
-        }),
-      }),
-      // HubSpot CRM
-      submitLead({
-        firstname: fields.name.split(' ')[0],
-        email: fields.email,
-        source: 'Not-for-Profit Support',
-        context: [
-          `Organisation: ${fields.organisation}`,
-          `ABN: ${fields.abn || ', '}`,
-          `Phone: ${fields.phone || ', '}`,
-          `What they need: ${leaseTypeLabel}`,
-          `Current situation: ${situationLabel}`,
-          `Message: ${fields.message}`,
-        ].join('\n'),
-      }),
-    ])
+    setSubmitError('')
+    const result = await sendEnquiry({
+      name: fields.name, company: fields.organisation, email: fields.email,
+      phone: fields.phone, source: 'Not-for-Profit Support', _honey: honey,
+      message: [`Organisation: ${fields.organisation}`, `ABN: ${fields.abn}`,
+        `What they need: ${leaseTypeLabel}`, `Current situation: ${situationLabel}`,
+        `Message: ${fields.message}`].join('\n'),
+    })
 
     setSubmitting(false)
-    setSent(true)
+    if (result.ok) setSent(true)
+    else setSubmitError('We could not confirm delivery. Please retry or call 02 4092 0733.')
   }
 
   if (sent) {
@@ -115,6 +95,7 @@ export default function NotForProfitForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+      {submitError && <p role="alert" className="text-red-600 mb-4">{submitError}</p>}
       {/* Honeypot */}
       <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)}
         style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />

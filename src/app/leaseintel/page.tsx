@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 import Button from '@/components/Button'
 import FadeIn from '@/components/FadeIn'
 import { LockIcon, ShieldIcon, FolderIcon } from '@/components/Icons'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import BookingCTA from '@/components/BookingCTA'
 
 const SEC    = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
@@ -120,7 +120,7 @@ export default function LeaseIntelPage() {
               <Button href="/lease-review" variant="primary" size="lg">
                 Submit Your Lease
               </Button>
-              <Button href={HUBSPOT.bookingUrl} variant="outline" size="lg" external>Talk to us first</Button>
+              <Button href={ENQUIRY.contactUrl} variant="outline" size="lg" external>Talk to us first</Button>
             </div>
           </FadeIn>
         </div>
@@ -303,7 +303,7 @@ export default function LeaseIntelPage() {
             </p>
             <div className="flex flex-wrap justify-center gap-6">
               <Button href="/resources/lease-review" variant="primary" size="lg">Free Lease Risk Checker</Button>
-              <Button href={HUBSPOT.bookingUrl} variant="outline" size="lg" external>Book a call</Button>
+              <Button href={ENQUIRY.contactUrl} variant="outline" size="lg" external>Request a call</Button>
             </div>
           </div>
         </div>

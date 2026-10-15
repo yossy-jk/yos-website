@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { HUBSPOT } from '@/lib/constants'
+import { ENQUIRY } from '@/lib/constants'
 import ToolGate from '@/components/ToolGate'
 
 const SEC = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
@@ -317,7 +317,7 @@ export default function RentalYieldCalculatorPage() {
               style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
               We assess any commercial property opportunity and tell you if the numbers stack up.
             </h2>
-            <a href={HUBSPOT.bookingUrl} target="_blank" rel="noopener noreferrer"
+            <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
               className="inline-block bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
               style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Book a Buyer Consultation →
