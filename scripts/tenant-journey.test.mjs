@@ -41,6 +41,8 @@ function load(file, mocks = {}, extra = {}) {
   );
   return sandboxModule.exports;
 }
+const fileRules = load("src/lib/lease-file-rules.ts");
+const leaseRequest = load("src/lib/lease-request.ts", { "node:buffer": { Buffer }, "node:crypto": { createHash }, "./lease-file-rules": fileRules });
 const offer = load("src/lib/tenant-offer.ts"),
   calc = load("src/lib/tenant-calculations.ts", { "./tenant-offer": offer }),
   leads = load("src/lib/tenant-leads.ts", {
@@ -252,6 +254,7 @@ test("preview requests cannot reach email; email intake needs no CRM token", asy
       },
     },
     "node:crypto": { createHash },
+    "@/lib/lease-request": leaseRequest,
     "@upstash/redis": {
       Redis: class {
         async set() {
@@ -365,6 +368,7 @@ test("partial email delivery resumes without duplicate receipts or CRM requests"
         },
       },
       "node:crypto": { createHash },
+    "@/lib/lease-request": leaseRequest,
       "@upstash/redis": { Redis },
       resend: { Resend },
       "@/lib/ratelimit": { contactLimiter: () => null, getIp: () => "" },

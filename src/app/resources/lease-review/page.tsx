@@ -1,4 +1,7 @@
 'use client'
+import LeaseAttachmentField from '@/components/LeaseAttachmentField'
+import LeasingResources from '@/components/LeasingResources'
+import { leaseFileError } from '@/lib/lease-file-rules'
 import { postEnquiry } from '@/lib/enquiry'
 import ToolGuide from '@/components/ToolGuide'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -104,7 +107,6 @@ const RISK_CONFIG = {
   low: { label: 'LOWER RISK', colour: '#10b981', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', message: 'Your lease looks relatively standard. A full review will confirm there are no hidden issues.' },
 }
 
-const LS_KEY = 'yos_lease_checker_captured'
 
 const SCHEMA = {
   "@context": "https://schema.org",
@@ -128,22 +130,11 @@ export default function LeaseRiskCheckerPage() {
   const [firstName, setFirstName] = useState('')
   const [captureEmail, setCaptureEmail] = useState('')
   const [captureError, setCaptureError] = useState<string | null>(null)
+  const [capturePreview, setCapturePreview] = useState(false)
   const [captureLoading, setCaptureLoading] = useState(false)
-  const [alreadyCaptured, setAlreadyCaptured] = useState(false)
+  const [lease, setLease] = useState<File | null>(null)
   const stepHeadingRef = useRef<HTMLHeadingElement>(null)
   const previousStepRef = useRef<Step>(step)
-
-  // Check localStorage on mount
-  useEffect(() => {
-    let timer: number | undefined
-    try {
-      const stored = localStorage.getItem(LS_KEY)
-      if (stored) timer = window.setTimeout(() => setAlreadyCaptured(true), 0)
-    } catch {
-      // localStorage unavailable, continue without it
-    }
-    return () => { if (timer !== undefined) window.clearTimeout(timer) }
-  }, [])
 
   useEffect(() => {
     if (previousStepRef.current !== step) {
@@ -169,12 +160,7 @@ export default function LeaseRiskCheckerPage() {
     if (typeof step === 'number' && step < QUESTIONS.length - 1) {
       setStep(step + 1)
     } else {
-      // Last question answered, go to capture unless already done
-      if (alreadyCaptured) {
-        setStep('result')
-      } else {
-        setStep('capture')
-      }
+      setStep('capture')
     }
   }
 
@@ -204,22 +190,14 @@ export default function LeaseRiskCheckerPage() {
       return
     }
 
+    if (lease && leaseFileError(lease)) { setCaptureError(leaseFileError(lease)); return }
     setCaptureLoading(true)
     try {
-      const res = await postEnquiry('/api/lease-risk-capture', { firstname: firstName.trim(), email: captureEmail.trim(), answers })
+      const res = await postEnquiry('/api/lease-risk-capture', { firstname: firstName.trim(), email: captureEmail.trim(), answers }, lease || undefined)
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        throw new Error(data.error || 'Something went wrong. Please try again.')
-      }
-
-      // Mark captured in localStorage
-      try {
-        localStorage.setItem(LS_KEY, JSON.stringify({ email: captureEmail.trim(), ts: Date.now() }))
-        setAlreadyCaptured(true)
-      } catch {
-        // Ignore localStorage errors
-      }
+      const delivered = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(delivered.error || 'We could not confirm delivery. Please retry.')
+      setCapturePreview(Boolean(delivered.preview))
 
       setStep('result')
     } catch (err: unknown) {
@@ -281,7 +259,7 @@ export default function LeaseRiskCheckerPage() {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
-                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>No sign-up, no document</span>
+                  <span className="text-white/50 font-light" style={{ fontSize: '0.9rem' }}>Lease upload optional</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckIcon />
@@ -372,19 +350,20 @@ export default function LeaseRiskCheckerPage() {
 
               <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3rem)', marginBottom: '1.25rem' }}>
-                Where should we send your risk rating?
+                Your details and optional lease
               </h2>
 
               <p className="text-white/50 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.8, marginBottom: '3rem' }}>
-                Get your result now plus a plain-English summary of the top issues.
+                Finish with your details to receive your result and a plain-English summary. If you have your current lease handy, you can attach it; it is not required.
               </p>
 
               <form onSubmit={handleCapture} noValidate>
                 <div style={{ marginBottom: '1.25rem' }}>
-                  <label className="block text-white/40 font-light uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', marginBottom: '0.6rem' }}>
+                  <label htmlFor="lease-risk-name" className="block text-white/40 font-light uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', marginBottom: '0.6rem' }}>
                     First name
                   </label>
                   <input
+                    id="lease-risk-name"
                     type="text"
                     value={firstName}
                     onChange={e => setFirstName(e.target.value)}
@@ -396,10 +375,11 @@ export default function LeaseRiskCheckerPage() {
                 </div>
 
                 <div style={{ marginBottom: '2.5rem' }}>
-                  <label className="block text-white/40 font-light uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', marginBottom: '0.6rem' }}>
+                  <label htmlFor="lease-risk-email" className="block text-white/40 font-light uppercase" style={{ fontSize: '0.7rem', letterSpacing: '0.15em', marginBottom: '0.6rem' }}>
                     Email address
                   </label>
                   <input
+                    id="lease-risk-email"
                     type="email"
                     value={captureEmail}
                     onChange={e => setCaptureEmail(e.target.value)}
@@ -410,8 +390,9 @@ export default function LeaseRiskCheckerPage() {
                   />
                 </div>
 
+                <LeaseAttachmentField dark file={lease} onChange={file => { setLease(file); setCaptureError(null) }} />
                 {captureError && (
-                  <p className="text-red-400 font-light" style={{ fontSize: '0.85rem', marginBottom: '1.5rem' }}>
+                  <p role="alert" className="text-red-400 font-light" style={{ fontSize: '0.85rem', marginBottom: '1.5rem' }}>
                     {captureError}
                   </p>
                 )}
@@ -438,7 +419,7 @@ export default function LeaseRiskCheckerPage() {
                 </div>
 
                 <p className="text-white/20 font-light" style={{ fontSize: '0.75rem', marginTop: '1.5rem', lineHeight: 1.6 }}>
-                  No spam. We send your result once. You can opt out any time.
+                  YOS uses your details and any optional lease to respond to this request. This does not subscribe you to marketing.
                 </p>
               </form>
             </div>
@@ -451,6 +432,7 @@ export default function LeaseRiskCheckerPage() {
                 Your lease risk assessment
               </p>
 
+              {capturePreview ? <p role="status" className="text-white mb-5">Preview only. No details or lease were sent.</p> : lease ? <p role="status" className="text-white mb-5">Your lease was included with your request to the YOS team.</p> : null}
               {/* Risk badge */}
               <div className={`inline-flex items-center gap-2 mb-6 px-4 py-2`}
                 style={{ background: riskConfig.colour + '20', border: `1px solid ${riskConfig.colour}40` }}>
@@ -521,6 +503,8 @@ export default function LeaseRiskCheckerPage() {
                   Request review scope →
                 </Link>
               </div>
+
+              <LeasingResources dark />
 
               <button
                 onClick={() => { setStep('intro'); setAnswers({}); setSelected(null) }}

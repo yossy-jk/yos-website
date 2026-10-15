@@ -3,16 +3,20 @@ export interface LeadPayload {
   firstname: string; email: string; source: string; context?: string; marketingConsent?: boolean
 }
 const ids = new Map<string, { id: string; submittedAt: string }>()
-export async function postEnquiry(endpoint: string, payload: Record<string, unknown>): Promise<Response> {
-  const key = JSON.stringify({ endpoint, payload })
+export async function postEnquiry(endpoint: string, payload: Record<string, unknown>, attachment?: File): Promise<Response> {
+  const digest = attachment ? Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await attachment.arrayBuffer()))).map(n => n.toString(16).padStart(2, '0')).join('') : ''
+  const key = JSON.stringify({ endpoint, payload, attachment: attachment ? { name: attachment.name, digest } : null })
   if (!ids.has(key)) {
     if (ids.size >= 100) ids.delete(ids.keys().next().value!)
     ids.set(key, { id: crypto.randomUUID(), submittedAt: new Date().toISOString() })
   }
-  return fetch(endpoint, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ ...payload, submissionId: ids.get(key)!.id, submittedAt: ids.get(key)!.submittedAt }),
-  })
+  const data = { ...payload, submissionId: ids.get(key)!.id, submittedAt: ids.get(key)!.submittedAt }
+  if (attachment) {
+    const form = new FormData()
+    form.set('payload', JSON.stringify(data)); form.set('lease', attachment)
+    return fetch(endpoint, { method: 'POST', body: form })
+  }
+  return fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
 }
 export async function sendEnquiry(payload: Record<string, unknown>): Promise<{ ok: boolean; preview?: boolean }> {
   try {

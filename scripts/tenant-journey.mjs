@@ -130,8 +130,8 @@ try {
     await p.waitForSelector('[data-tenant-deferred="time"] .tenant-result-main');
     assert.equal(await p.$eval('[data-tenant-deferred="time"] .tenant-result-main', e => e.textContent), "$12,000");
     await p.$eval('[data-tenant-deferred="health"]', (e) => e.scrollIntoView({ block: "center" }));
-    await p.waitForSelector("#health_check-email");
-    assert.ok(await p.$('[data-tenant-deferred="health"] form input[name="business"]'));
+    await p.waitForSelector("#health-intent");
+    assert.ok(await p.$('[data-tenant-deferred="health"] form input[name="expiry"]'));
     await p.addScriptTag({ content: axe.source });
     assert.deepEqual(await p.evaluate(async () => (await axe.run(document.querySelector("main"))).violations.map(v => v.id)), []);
     await p.goto(base + "/tenant-rep/packages", { waitUntil: "networkidle2" });
@@ -200,21 +200,19 @@ try {
         "/lease-health-check?utm_source=linkedin&utm_campaign=lease-costs&package=platinum",
       { waitUntil: "networkidle2" },
     );
+    assert.equal(await p.$("#health_check-name"), null, "Contact details belong at the end");
+    await p.select("#health-intent", "buy");
+    await p.click("form button[type=submit]");
+    await p.waitForFunction(() => document.activeElement.tagName === "LEGEND");
+    assert.ok((await p.$eval("main", e => e.textContent)).includes("Step 2 of 3"));
+    await p.click("form button[type=submit]");
+    await p.waitForSelector("#health_check-name");
     await p.type("#health_check-name", "QA Owner");
     await p.type("#health_check-email", "qa@example.invalid");
     await p.type("#health_check-business", "QA Business");
     await p.type("#health_check-mobile", "0400000000");
     await p.type("#health_check-suburb", "Newcastle");
-    await p.click("form button[type=submit]");
-    await p.waitForFunction(() => document.activeElement.tagName === "LEGEND");
-    assert.ok(
-      (await p.$eval("main", (e) => e.textContent)).includes("Step 2 of 3"),
-    );
-    await p.select("#health-intent", "buy");
-    await p.click("form button[type=submit]");
-    await p.waitForFunction(() =>
-      document.body.innerText.includes("Step 3 of 3"),
-    );
+    assert.equal(await p.$eval('input[type=file]', e => e.required), false);
     assert.equal(
       await p.$$eval(
         "input[type=checkbox]",

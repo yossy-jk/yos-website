@@ -1,4 +1,7 @@
 "use client";
+import LeaseAttachmentField from "@/components/LeaseAttachmentField";
+import LeasingResources from "@/components/LeasingResources";
+import { leaseFileError } from "@/lib/lease-file-rules";
 import { useState, useRef, useEffect } from "react";
 import { TENANT_ATTRIBUTION_KEY } from "./TenantAttribution";
 import Link from "next/link";
@@ -23,6 +26,7 @@ export default function TenantLeadForm({
     [busy, setBusy] = useState(false),
     [done, setDone] = useState(false),
     [error, setError] = useState(""),
+    [lease, setLease] = useState<File | null>(null),
     [preview, setPreview] = useState(false),
     [emailOnly, setEmailOnly] = useState(false),
     [fields, setFields] = useState<Record<string, string>>({
@@ -90,6 +94,10 @@ export default function TenantLeadForm({
       document.getElementById(`${kind}-referredEmail`)?.focus();
       return;
     }
+    if (lease && leaseFileError(lease)) {
+      setError(leaseFileError(lease));
+      return;
+    }
     setBusy(true);
     try {
       const query = new URLSearchParams(location.search),
@@ -132,19 +140,23 @@ export default function TenantLeadForm({
       const fingerprint = JSON.stringify(payload);
       if (submission.current.body !== fingerprint)
         submission.current = { body: fingerprint, id: crypto.randomUUID() };
+      const requestBody = { ...payload, submissionId: submission.current.id };
+      let body: string | FormData = JSON.stringify(requestBody);
+      if (lease) {
+        body = new FormData();
+        body.set("payload", JSON.stringify(requestBody));
+        body.set("lease", lease);
+      }
       const response = await fetch("/api/tenant-lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...payload,
-          submissionId: submission.current.id,
-        }),
+        ...(lease ? {} : { headers: { "Content-Type": "application/json" } }),
+        body,
       });
       let data = await response.json().catch(() => ({ ok: false }));
       let accepted = response.ok;
-      // Preserve enquiries when CRM configuration is unavailable. The existing
+      // Preserve enquiries when the primary email route is unavailable. The existing
       // owner-email endpoint confirms real mail acceptance before success.
-      if (response.status >= 500) {
+      if (response.status >= 500 && !lease) {
         const fallback = await fetch("/api/tenant-enquiry-email", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -208,7 +220,7 @@ export default function TenantLeadForm({
   }
   if (done)
     return (
-      <div className="tenant-results" role="status">
+      <div className="tenant-results" role="status" style={{ scrollMarginTop: 110 }}>
         <h3 ref={resultHeading} tabIndex={-1}>
           {preview
             ? "Preview completed. No enquiry was sent."
@@ -227,11 +239,12 @@ export default function TenantLeadForm({
         )}
         <p>
           {preview
-            ? "Review the next step below. The booking link opens the existing YOS booking service."
+            ? "Review the next steps below. This preview does not send your details or lease."
             : emailOnly && kind === "results"
               ? "Your request and tool details reached the YOS team. They will follow up by email."
               : "The YOS team will review your request and contact you about the next step."}
         </p>
+        {health && lease && !preview && <p>Your lease was included with the request sent to the YOS team.</p>}
         {kind === "checklist" && (
           <Link
             className="tenant-button"
@@ -256,6 +269,7 @@ export default function TenantLeadForm({
         >
           Edit my details
         </button>
+        {health && <LeasingResources />}
       </div>
     );
   return (
@@ -290,13 +304,13 @@ export default function TenantLeadForm({
           autoComplete="off"
         />
       </div>
-      {(!health || step === 1) && (
+      {(!health || step === 3) && (
         <fieldset>
           <legend tabIndex={-1}>
             {kind === "referral"
               ? "Your details"
               : health
-                ? "About you"
+                ? "Your details and optional lease"
                 : "Where should we send it?"}
           </legend>
           <div className="tenant-fields">
@@ -314,7 +328,7 @@ export default function TenantLeadForm({
           </div>
         </fieldset>
       )}
-      {health && step === 2 && (
+      {health && step === 1 && (
         <fieldset>
           <legend tabIndex={-1}>Your lease and next step</legend>
           <div className="tenant-fields">
@@ -343,12 +357,11 @@ export default function TenantLeadForm({
             </select>
           </div>
           <p className="tenant-note">
-            Have your lease handy for the call. You can request a secure way to
-            share it with our team.
+            Dates and figures are optional. You can add your current lease at the final step if it is handy.
           </p>
         </fieldset>
       )}
-      {health && step === 3 && (
+      {health && step === 2 && (
         <fieldset>
           <legend tabIndex={-1}>What matters most?</legend>
           {[
@@ -376,6 +389,9 @@ export default function TenantLeadForm({
           {field("referrer", "Referrer name (if applicable)")}
         </fieldset>
       )}
+      {health && step === 3 && <LeaseAttachmentField file={lease} onChange={file => {
+        setLease(file); setError(""); submission.current = { body: "", id: "" };
+      }} />}
       {kind === "referral" && (
         <fieldset>
           <legend tabIndex={-1}>Business you are referring</legend>

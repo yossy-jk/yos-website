@@ -1,3 +1,4 @@
+import { readLeaseRequest, LeaseRequestError } from "@/lib/lease-request"
 import { enquirySubmissionId } from '@/lib/enquiry-delivery'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
@@ -50,7 +51,7 @@ function getRisk(answers: Record<string, string>): { level: string; high: number
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json()
+    const { raw: body, attachment } = await readLeaseRequest(req)
     body.submissionId = enquirySubmissionId(body.submissionId)
     const { firstname, email, answers } = body
 
@@ -61,10 +62,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
     }
 
-    const risk = answers ? getRisk(answers) : null
+    const risk = answers && typeof answers === 'object' && !Array.isArray(answers) ? getRisk(answers as Record<string, string>) : null
 
     const delivery = await enquiryResponse(new Request(req.url, { method: 'POST', headers: req.headers,
-      body: JSON.stringify({ firstname, email, source: 'Lease risk check', details: { answers, risk }, submissionId: body.submissionId }) }))
+      body: JSON.stringify({ firstname, email, company: body.company, phone: body.phone, source: 'Lease risk check', details: { answers, risk }, submissionId: body.submissionId }) }), undefined, attachment)
     if (!delivery.ok) return delivery
     if (process.env.VERCEL_ENV === 'preview') return NextResponse.json({ ok: true, preview: true })
 
@@ -148,6 +149,6 @@ export async function POST(req: Request) {
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err)
     console.error('Lease risk capture route error:', msg)
-    return NextResponse.json({ error: 'Internal error', detail: msg }, { status: 500 })
+    return NextResponse.json({ error: err instanceof LeaseRequestError ? err.message : 'We could not confirm delivery. Please retry.' }, { status: err instanceof LeaseRequestError ? err.status : 502 })
   }
 }
