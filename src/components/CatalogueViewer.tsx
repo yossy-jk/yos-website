@@ -23,12 +23,18 @@ export default function CatalogueViewer({
   const [error, setError] = useState("");
   const [success, setSuccess] = useState<"discount" | "discovery" | null>(null);
   const [shopUrl, setShopUrl] = useState("");
+  const [preview, setPreview] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const offerButton = useRef<HTMLButtonElement>(null);
   const shown = useRef(false);
 
   function openOffer() {
     shown.current = true;
+    try {
+      sessionStorage.setItem(`yos-catalogue-offer-${catalogue.id}`, "shown");
+    } catch {
+      /* Optional suppression only. */
+    }
     dialog.current?.showModal();
   }
   useEffect(() => {
@@ -46,6 +52,10 @@ export default function CatalogueViewer({
     };
     document.addEventListener("visibilitychange", visibility);
     const timer = setInterval(() => {
+      if (shown.current) {
+        clearInterval(timer);
+        return;
+      }
       const now = performance.now();
       if (!document.hidden) elapsed += now - last;
       last = now;
@@ -85,6 +95,7 @@ export default function CatalogueViewer({
         throw Error(
           result.error || "We could not confirm delivery. Please try again.",
         );
+      setPreview(result.preview === true);
       setSuccess(intent);
       setShopUrl(result.shopUrl || "");
       trackConversion(
@@ -191,6 +202,11 @@ export default function CatalogueViewer({
         </div>
         {success ? (
           <div role="status">
+            {preview && (
+              <p>
+                Preview only: your request was checked, but no email was sent.
+              </p>
+            )}
             <h2 id="catalogue-offer-title">
               {success === "discount"
                 ? "Your 5% code is on its way."
