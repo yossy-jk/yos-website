@@ -182,29 +182,31 @@ export default function Page() {
               negotiation into one organised process.
             </p>
             <p className="tenant-small">
-              1 minute 20 seconds. Captions available.
+              56 seconds. On-screen subtitles and optional English captions.
             </p>
           </div>
           <video
             className="tenant-video"
+            width={1920}
+            height={1080}
             controls
             playsInline
             preload="none"
-            poster="/videos/yos-tenant-representation-poster.jpg"
+            poster="/videos/yos-tenant-representation-2026-10-poster.jpg"
             aria-label="Tenant representation introduction"
           >
             <source
-              src="/videos/yos-tenant-representation.mp4"
+              src="/videos/yos-tenant-representation-2026-10.mp4"
               type="video/mp4"
             />
             <track
-              src="/videos/yos-tenant-representation.vtt"
+              src="/videos/yos-tenant-representation-2026-10.vtt"
               kind="captions"
               srcLang="en"
               label="English"
             />
             Your browser does not support video.{" "}
-            <a href="/videos/yos-tenant-representation.mp4">
+            <a href="/videos/yos-tenant-representation-2026-10.mp4">
               Watch the introduction
             </a>
             .
@@ -220,11 +222,11 @@ export default function Page() {
               description:
                 "How a tenant representative helps compare property options, occupancy costs and lease terms.",
               thumbnailUrl:
-                "https://www.yourofficespace.au/videos/yos-tenant-representation-poster.jpg",
+                "https://www.yourofficespace.au/videos/yos-tenant-representation-2026-10-poster.jpg",
               contentUrl:
-                "https://www.yourofficespace.au/videos/yos-tenant-representation.mp4",
-              uploadDate: "2026-10-12T05:00:16Z",
-              duration: "PT1M19.573S",
+                "https://www.yourofficespace.au/videos/yos-tenant-representation-2026-10.mp4",
+              uploadDate: "2026-10-15T10:48:46Z",
+              duration: "PT55.893S",
             }),
           }}
         />
