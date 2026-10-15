@@ -10,6 +10,8 @@ function load(file, mocks, extra = {}) {
     { exports, require: name => { if (!(name in mocks)) throw Error(`Unexpected provider: ${name}`); return mocks[name] }, Request, Response, Date, JSON, process: { env: { RESEND_API_KEY: 'test', VERCEL_ENV: 'production' } }, ...extra })
   return exports
 }
+const fileRules = load('src/lib/lease-file-rules.ts', {});
+const leaseRequest = load('src/lib/lease-request.ts', { 'node:buffer': { Buffer }, 'node:crypto': { createHash: (await import('node:crypto')).createHash }, './lease-file-rules': fileRules });
 const json = { NextResponse: { json: (body, opts) => Response.json(body, opts) } }
 function setup(result = { data: { id: 'accepted' } }, env = {}) {
   const messages = []
@@ -100,7 +102,7 @@ test('specialised registrations and reports require confirmed inbox delivery', a
     for (const accepted of [true, false]) {
       const { delivery, messages } = setup(accepted ? { data: { id: 'accepted' } } : { error: { message: 'Not accepted' } })
       const route = load(`src/app/api/${endpoint}/route.ts`, {
-        'next/server': json, '@/lib/enquiry-delivery': delivery,
+        'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest,
         resend: { Resend: class { emails = { send: async () => ({ data: { id: 'customer' } }) } } },
         '@/lib/ratelimit': { contactLimiter: () => null, fitoutLimiter: () => null, getIp: () => '' },
         '@/lib/deployment-scope': { isPreviewDeployment: () => false },
@@ -117,4 +119,19 @@ test('specialised registrations and reports require confirmed inbox delivery', a
       }
     }
   }
+})
+
+test('the ten-question lease review forwards an optional attachment only to the YOS inbox', async () => {
+  const { delivery, messages } = setup()
+  const route = load('src/app/api/lease-risk-capture/route.ts', {
+    'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest,
+    resend: { Resend: class { emails = { send: async () => ({ data: { id: 'customer' } }) } } },
+  }, { console: { error() {}, warn() {} } })
+  const form = new FormData()
+  form.set('payload', JSON.stringify({ firstname: input.name, email: input.email, answers: { term: '7+ years' }, submissionId: input.submissionId }))
+  form.set('lease', new File(['%PDF-1.4 YOS QA only'], 'qa-lease.pdf'))
+  assert.equal((await route.POST(new Request('https://example.invalid/api/lease-risk-capture', { method: 'POST', body: form }))).status, 200)
+  assert.equal(messages[0].message.to, 'jk@yourofficespace.au')
+  assert.equal(messages[0].message.attachments[0].filename, 'qa-lease.pdf')
+  assert.equal(Buffer.from(messages[0].message.attachments[0].content, 'base64').toString(), '%PDF-1.4 YOS QA only')
 })

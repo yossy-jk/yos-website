@@ -17,9 +17,9 @@ export default function Page() {
           <div>
             <h2>You can start with what you know.</h2>
             <p>
-              Tell us about your business, current premises and timing. If a
+              Start with your lease and plans, then finish with your contact details. If a
               date or figure is unclear, leave it blank. We will confirm the
-              information needed for your written Health Check.
+              information needed for your written Health Check. Uploading your current lease is optional; you can submit without it.
             </p>
             <GuaranteeNote />
             <ul className="tenant-checklist">

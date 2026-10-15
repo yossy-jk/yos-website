@@ -1,3 +1,4 @@
+import type { LeaseAttachment } from './lease-request'
 import { randomUUID } from 'node:crypto'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
@@ -7,7 +8,7 @@ export const ENQUIRY_ROUTING = { recipient: 'jk@yourofficespace.au', channel: 'e
 export type Enquiry = {
   name: string; email: string; phone?: string; company?: string
   source: string; message?: string; details?: unknown; submissionId?: string
-  marketingConsent?: boolean; submittedAt?: string
+  marketingConsent?: boolean; submittedAt?: string; attachment?: LeaseAttachment
 }
 export function enquirySubmissionId(value: unknown): string {
   return typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value) ? value : randomUUID()
@@ -39,12 +40,14 @@ export async function sendOwnerEnquiry(data: Enquiry, routing?: { recipient: str
     request: { message: data.message, details: data.details },
     marketingConsent: data.marketingConsent === true,
     clientSubmittedAt: data.submittedAt,
+    lease: data.attachment ? { filename: data.attachment.filename, bytes: data.attachment.size } : undefined,
   }
   const result = await new Resend(process.env.RESEND_API_KEY).emails.send({
     from: 'YOS Website <notifications@yourofficespace.au>',
     to: routing?.recipient || ENQUIRY_ROUTING.recipient,
     ...(routing?.cc ? { cc: routing.cc } : {}),
     ...(data.email ? { replyTo: data.email } : {}),
+    ...(data.attachment ? { attachments: [{ filename: data.attachment.filename, content: data.attachment.content }] } : {}),
     subject: `YOS ${data.source.replace(/[\r\n]/g, ' ')} — ${(data.name || data.email || data.phone || 'Enquiry').replace(/[\r\n]/g, ' ')}`,
     text: `New website request\n\n${JSON.stringify(envelope, null, 2)}\n\nReply directly to contact this prospect. YOS OS is not connected yet.`,
   }, { idempotencyKey: `${submissionId}-owner` })
@@ -52,7 +55,7 @@ export async function sendOwnerEnquiry(data: Enquiry, routing?: { recipient: str
   return { id: result.data.id, preview: false }
 }
 
-export async function enquiryResponse(req: Request, source?: string) {
+export async function enquiryResponse(req: Request, source?: string, attachment?: LeaseAttachment) {
   try {
     const text = await req.text()
     if (text.length > 100000) return NextResponse.json({ ok: false, error: 'Request too large' }, { status: 413 })
@@ -61,7 +64,7 @@ export async function enquiryResponse(req: Request, source?: string) {
       const raw = JSON.parse(text)
       if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw Error('Invalid request')
       if (raw._honey || raw.honeypot) return NextResponse.json({ ok: false }, { status: 400 })
-      data = normaliseEnquiry({ ...raw, ...(source ? { source } : {}) })
+      data = { ...normaliseEnquiry({ ...raw, ...(source ? { source } : {}) }), ...(attachment ? { attachment } : {}) }
     } catch {
       return NextResponse.json({ ok: false, error: 'Check your contact details.' }, { status: 400 })
     }

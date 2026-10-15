@@ -100,13 +100,14 @@ export default function PrivacyPage() {
                 <li><strong>Phone number</strong>, if you choose to include it in an enquiry.</li>
                 <li><strong>Enquiry details</strong>, the information you type into any contact or service form.</li>
                 <li><strong>Lease Health Check and tool details</strong>, business name, role, suburb, lease dates, area, headcount, plans, concerns and calculator inputs or results that you choose to send us.</li>
+                <li><strong>Optional lease documents</strong>, your current lease if you choose to attach it to a lease check. It is emailed to the YOS inbox with your request through our email provider.</li>
                 <li><strong>Referral details</strong>, referrer and business contact information, with confirmation that the referred contact has agreed to be contacted.</li>
                 <li><strong>Request source and consent records</strong>, campaign labels, the landing page, and the marketing choice, wording and time recorded when you submit.</li>
                 <li><strong>Payment details</strong>, for LeaseIntel™ ($97 review). Card processing is handled by Stripe; we do not store card numbers.</li>
                 <li><strong>IP address</strong>, collected automatically for rate limiting purposes (see Third Parties below). Not linked to your identity.</li>
                 <li><strong>Basic browser/device and usage information</strong>, standard server logs used for security and performance monitoring. If you accept optional analytics, Google Analytics also process information about pages viewed, device/browser type and approximate location.</li>
               </ul>
-              <p>We do not collect sensitive information (health, financial records, government IDs) unless you voluntarily include it in an enquiry message.</p>
+              <p>We do not collect sensitive information (health, financial records, government IDs) unless you voluntarily include it in an enquiry message or optional lease attachment.</p>
             </PrivacySection>
 
             <PrivacySection title="Why we collect it">
@@ -136,7 +137,7 @@ export default function PrivacyPage() {
                 />
                 <ThirdParty
                   name="Resend"
-                  role="Email delivery, sends you confirmation emails and delivers your LeaseIntel™ report."
+                  role="Email delivery, sends confirmations and reports, and delivers enquiries and optional lease attachments to the YOS inbox."
                   link="https://resend.com/privacy"
                 />
                 <ThirdParty
