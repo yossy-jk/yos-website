@@ -54,3 +54,10 @@ export function getIp(req: Request): string {
   if (forwarded) return forwarded.split(',')[0].trim()
   return '127.0.0.1'
 }
+
+// Payment attempts and receipt checks have separate limits.
+export function tenantPaymentLimiter(kind: 'checkout' | 'status') {
+  const redis = getRedis()
+  if (!redis) return null
+  return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(kind === 'checkout' ? 5 : 60, '10 m'), prefix: deploymentScopedKey(`rl:tenant-payment:${kind}`) })
+}

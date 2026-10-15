@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
 
 import { type Consent, STORAGE_KEY, CONSENT_EVENT, getAnalyticsConsent as getConsentSnapshot, setMemoryConsent } from '@/lib/analytics-consent'
@@ -42,6 +43,8 @@ function OptionalAnalytics() {
 }
 
 export default function AnalyticsConsent() {
+  const pathname = usePathname()
+  const paymentReceipt = pathname === '/tenant-rep/payment'
   const consent = useSyncExternalStore(subscribeToConsent, getConsentSnapshot, () => null)
   const [preferencesOpen, setPreferencesOpen] = useState(false)
   useEffect(() => {
@@ -68,7 +71,7 @@ export default function AnalyticsConsent() {
 
   return (
     <>
-      {consent === 'accepted' && <OptionalAnalytics />}
+      {consent === 'accepted' && !paymentReceipt && <OptionalAnalytics />}
 
       {showPanel ? (
         <section

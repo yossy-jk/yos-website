@@ -22,7 +22,8 @@ test('lead magnets and gated tools emit conversion events only after their succe
 
 test('optional analytics remains consent gated globally', () => {
   const consent = read('src/components/AnalyticsConsent.tsx')
-  assert.match(consent, /consent === 'accepted' && <OptionalAnalytics \/>/)
+  assert.match(consent, /consent === 'accepted' && !paymentReceipt && <OptionalAnalytics \/>/)
+  assert.match(consent, /pathname === '\/tenant-rep\/payment'/)
   assert.match(consent, /GoogleAnalytics/)
   assert.doesNotMatch(consent, /hs-script-loader|hs-scripts\.com/)
 })

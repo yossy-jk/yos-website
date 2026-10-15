@@ -12,6 +12,12 @@ try {
   for (const width of [390, 1440]) {
     const page = await browser.newPage()
     await page.setViewport({ width, height: 950 })
+    await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
+    const clickSubmit = async selector => {
+      const button = await page.waitForSelector(selector, { visible: true })
+      await button.evaluate(element => element.scrollIntoView({ block: 'center', behavior: 'instant' }))
+      await button.click()
+    }
     await page.evaluateOnNewDocument(() => { sessionStorage.setItem('yos-service-guide-dismissed', '1'); localStorage.removeItem('yos_tool_unlocked_office_size_calculator') })
     const requests = []
     let status = 200
@@ -38,7 +44,7 @@ try {
       assert.equal(await page.$$eval('script[src]', elements => elements.some(e => /hsforms|hs-scripts/.test(e.src))), false)
       await page.type('#contact-name', 'YOS Browser QA')
       await page.type('#contact-email', 'qa@example.invalid')
-      await page.click('form button[type=submit]')
+      await clickSubmit('form button[type=submit]')
       await page.waitForFunction(() => document.body.innerText.includes('Message received.'))
       assert.equal(requests.at(-1).source, `Contact Form — ${service}`)
       report.push({ width, path, directEmail: true })
@@ -52,12 +58,12 @@ try {
     await page.goto(base + '/blog', { waitUntil: 'networkidle2' })
     await page.type('#blog-email', 'qa@example.invalid')
     status = 502
-    await page.click('form:has(#blog-email) button[type=submit]')
+    await clickSubmit('form:has(#blog-email) button[type=submit]')
     await page.waitForSelector('form:has(#blog-email) [role=alert]')
     assert.equal(await page.$eval('#blog-email', e => e.value), 'qa@example.invalid')
     const failedBlog = requests.at(-1)
     status = 200
-    await page.click('form:has(#blog-email) button[type=submit]')
+    await clickSubmit('form:has(#blog-email) button[type=submit]')
     await page.waitForFunction(() => document.body.innerText.includes('Your subscription request has been received.'))
     assert.equal(requests.at(-1).submissionId, failedBlog.submissionId)
     assert.equal(requests.at(-1).marketingConsent, true)
@@ -71,11 +77,11 @@ try {
     await selects[0].select('lease-review'); await selects[1].select('in-lease')
     await page.type('#apply textarea', 'Please review our lease options.')
     status = 502
-    await page.click('#apply button[type=submit]')
+    await clickSubmit('#apply button[type=submit]')
     await page.waitForSelector('#apply [role=alert]')
     assert.equal(await page.$eval('#apply input[type=email]', e => e.value), 'qa@example.invalid')
     status = 200
-    await page.click('#apply button[type=submit]')
+    await clickSubmit('#apply button[type=submit]')
     await page.waitForFunction(() => document.body.innerText.includes('Application received.'))
     assert.ok(requests.at(-1).message.includes('Current situation: Currently in a commercial lease'))
     report.push({ width, path: '/not-for-profit-lease-support', fullDetails: true, retry: true })
@@ -94,10 +100,10 @@ try {
     await page.type('main form input[type=text]', 'YOS Browser QA')
     await page.type('main form input[type=email]', 'qa@example.invalid')
     status = 502
-    await page.click('main form button[type=submit]')
+    await clickSubmit('main form button[type=submit]')
     await page.waitForSelector('main form [role=alert]')
     status = 200
-    await page.click('main form button[type=submit]')
+    await clickSubmit('main form button[type=submit]')
     await page.waitForFunction(() => !document.querySelector('main form'))
     assert.equal(requests.at(-1).source, 'Office Size Calculator')
     assert.ok(requests.at(-1).context.includes('Staff: 20'))

@@ -10,7 +10,7 @@ const money = (v: number) =>
     currency: "AUD",
     maximumFractionDigits: 0,
   }).format(v);
-export default function PackageCards() {
+export default function PackageCards({ paymentsEnabled = false }: { paymentsEnabled?: boolean }) {
   const [area, setArea] = useState("");
   const suggested =
     area && Number(area) > 0 ? packageForArea(Number(area)) : null;
@@ -96,13 +96,14 @@ export default function PackageCards() {
             )}
             <Link
               className="tenant-button"
-              href={`/lease-health-check?package=${p.id}`}
+              href={paymentsEnabled ? `/tenant-rep/start?package=${p.id}` : `/lease-health-check?package=${p.id}`}
               onClick={() =>
                 trackConversion("package_card_click", { package_tier: p.id })
               }
             >
-              Start with a free Lease Health Check
+              {paymentsEnabled ? `Choose ${p.name} and get started` : 'Start with a free Lease Health Check'}
             </Link>
+            {paymentsEnabled && <Link href={`/lease-health-check?package=${p.id}`}>Prefer a free Lease Health Check first?</Link>}
           </article>
         ))}
       </div>

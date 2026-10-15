@@ -13,8 +13,9 @@ declare global {
 }
 
 export function publicAnalyticsPath(path: string): string | undefined {
-  if (/^\/(?:api|dashboard)(?:\/|$)/.test(path) || /^\/tenant-rep\/brief(?:\/|$)/.test(path)) return undefined
-  return path.split(/[?#]/)[0] || '/'
+  const cleanPath = path.split(/[?#]/)[0] || '/'
+  if (/^\/(?:api|dashboard)(?:\/|$)/.test(cleanPath) || /^\/tenant-rep\/(?:brief|payment)(?:\/|$)/.test(cleanPath)) return undefined
+  return cleanPath
 }
 
 export function discardQueuedConversions() { pendingEvents = [] }

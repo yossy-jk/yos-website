@@ -1,3 +1,4 @@
+import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
 import TenantShell, {
   tenantMetadata,
   TenantLicence,
@@ -17,7 +18,7 @@ export default function Page() {
     >
       <section className="tenant-section">
         <div className="tenant-wrap">
-          <PackageCards />
+          <PackageCards paymentsEnabled={tenantPaymentRuntime().enabled} />
           <h2>The core service in every package.</h2>
           <ul className="tenant-list">
             {TENANT_OFFER.core.map((v) => (

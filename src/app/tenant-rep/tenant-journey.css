@@ -10,3 +10,7 @@ body:has(.tenant-form-box input:focus, .tenant-form-box select:focus, .tenant-fo
 /* Keep the mobile action from covering an active form or its receipt controls. */
 .tenant-journey:has(form:focus-within) ~ .tenant-mobile-cta,
 .tenant-journey:has(.tenant-results:focus-within) ~ .tenant-mobile-cta{display:none}
+
+.tenant-payment-summary{margin:24px 0}.tenant-payment-summary>div{display:flex;justify-content:space-between;gap:18px;margin:14px 0;flex-wrap:wrap}.tenant-payment-summary dt{font-weight:500;margin:0}.tenant-payment-summary dd{margin:0;font-size:18px;font-weight:700}.tenant-payment-summary .tenant-payment-total{padding:18px 0;border-top:1px solid #c8d7ce;border-bottom:1px solid #c8d7ce}.tenant-payment-total dd{font-size:24px}.tenant-payment-layout .tenant-small{font-size:14px;line-height:1.6}.tenant-payment-layout select{margin:10px 0 20px}
+
+.tenant-journey:has(.tenant-payment-layout, .tenant-payment-status) ~ .tenant-mobile-cta{display:none}
