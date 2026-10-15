@@ -1,3 +1,14 @@
+const MARKET_COMPARABLES_REPORT = "Market comparables report";
+const PLATINUM_DIAMOND_INCLUSIONS = [
+  MARKET_COMPARABLES_REPORT,
+  "Photo-documented ingoing condition report",
+  "Preliminary fitout budget range",
+  "Current lease make-good exposure review",
+  "Current lease exit plan",
+  "Relocation roadmap",
+  "12-month post-move check",
+];
+
 // Commercial data owned by YOS. Unconfirmed inclusions stay out of client pricing.
 export const TENANT_OFFER = {
   approvedForPublication: true,
@@ -65,7 +76,7 @@ export const TENANT_OFFER = {
       inspections: "Up to 5",
       updates: "Fortnightly update",
       fit: "Small offices and studios",
-      extras: [] as string[],
+      extras: [MARKET_COMPARABLES_REPORT],
     },
     {
       id: "platinum",
@@ -73,14 +84,10 @@ export const TENANT_OFFER = {
       fee: 6950,
       maxArea: 400,
       maxPeople: 40,
-      inspections: "Up to 10",
-      updates: "Weekly call",
+      inspections: "Unlimited",
+      updates: "Weekly round table",
       fit: "Growing teams",
-      extras: [
-        "Photo-documented ingoing condition report",
-        "Preliminary fitout budget range",
-        "Current lease make-good exposure review",
-      ],
+      extras: PLATINUM_DIAMOND_INCLUSIONS,
     },
     {
       id: "diamond",
@@ -90,16 +97,8 @@ export const TENANT_OFFER = {
       maxPeople: null,
       inspections: "Unlimited",
       updates: "Weekly round table",
-      fit: "Larger or more complex moves",
-      extras: [
-        "Photo-documented ingoing condition report",
-        "Preliminary fitout budget range",
-        "Current lease make-good exposure review",
-        "Market comparables report",
-        "Current lease exit plan",
-        "Relocation roadmap",
-        "12-month post-move check",
-      ],
+      fit: "Larger teams",
+      extras: PLATINUM_DIAMOND_INCLUSIONS,
     },
   ],
   core: [
@@ -107,6 +106,7 @@ export const TENANT_OFFER = {
     "A written space, budget, location and timing brief",
     "Property search, including verified off-market introductions where available",
     "Net effective rent comparisons for shortlisted premises",
+    MARKET_COMPARABLES_REPORT,
     "Commercial negotiation of rent, incentives and material lease terms",
     "Lease review alongside your solicitor",
     "A critical dates calendar for the life of the lease",
