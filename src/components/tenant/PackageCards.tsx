@@ -10,7 +10,11 @@ const money = (v: number) =>
     currency: "AUD",
     maximumFractionDigits: 0,
   }).format(v);
-export default function PackageCards({ paymentsEnabled = false }: { paymentsEnabled?: boolean }) {
+export default function PackageCards({
+  paymentsEnabled = false,
+}: {
+  paymentsEnabled?: boolean;
+}) {
   const [area, setArea] = useState("");
   const suggested =
     area && Number(area) > 0 ? packageForArea(Number(area)) : null;
@@ -56,12 +60,14 @@ export default function PackageCards({ paymentsEnabled = false }: { paymentsEnab
               {money(p.fee)} <span>ex GST</span>
             </p>
             <p className="tenant-payment">
-              {money(TENANT_OFFER.startPayment)} to start. Balance on signed
-              Heads of Agreement.
+              {money(TENANT_OFFER.startPayment * (1 + TENANT_OFFER.gstRate))}{" "}
+              including GST to start. Balance on signed Heads of Agreement.
             </p>
             <p>
               Balance: {money(p.fee - TENANT_OFFER.startPayment)} ex GST. The
-              start payment is part of your fee.
+              start payment is {money(TENANT_OFFER.startPayment)} ex GST plus{" "}
+              {money(TENANT_OFFER.startPayment * TENANT_OFFER.gstRate)} GST and
+              is part of your fee.
             </p>
             <p>
               {p.maxArea
@@ -96,14 +102,24 @@ export default function PackageCards({ paymentsEnabled = false }: { paymentsEnab
             )}
             <Link
               className="tenant-button"
-              href={paymentsEnabled ? `/tenant-rep/start?package=${p.id}` : `/lease-health-check?package=${p.id}`}
+              href={
+                paymentsEnabled
+                  ? `/tenant-rep/start?package=${p.id}`
+                  : `/lease-health-check?package=${p.id}`
+              }
               onClick={() =>
                 trackConversion("package_card_click", { package_tier: p.id })
               }
             >
-              {paymentsEnabled ? `Choose ${p.name} and get started` : 'Start with a free Lease Health Check'}
+              {paymentsEnabled
+                ? `Choose ${p.name} and get started`
+                : "Start with a free Lease Health Check"}
             </Link>
-            {paymentsEnabled && <Link href={`/lease-health-check?package=${p.id}`}>Prefer a free Lease Health Check first?</Link>}
+            {paymentsEnabled && (
+              <Link href={`/lease-health-check?package=${p.id}`}>
+                Prefer a free Lease Health Check first?
+              </Link>
+            )}
           </article>
         ))}
       </div>
