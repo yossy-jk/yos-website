@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
-import { SERVICE_LINKS, CONTACT } from '@/lib/constants'
+import { SERVICE_LINKS, CONTACT, FURNITURE_STORE_URL } from '@/lib/constants'
 import Search from '@/components/Search'
 import { FLOURISH_LINKS } from '@/lib/flourish-links'
 
@@ -83,7 +83,7 @@ export default function Nav() {
   useEffect(() => {
     function handleEscape(e: KeyboardEvent) {
       if (open && e.key === 'Tab') {
-        const items = [document.querySelector<HTMLElement>('.yos-nav-logo'), mobileMenuButtonRef.current, ...(mobilePanelRef.current?.querySelectorAll<HTMLElement>('button, a[href]') ?? [])].filter((element): element is HTMLElement => Boolean(element?.getClientRects().length))
+        const items = [...document.querySelectorAll<HTMLElement>('.yos-navigation a[href], .yos-navigation button'), ...(mobilePanelRef.current?.querySelectorAll<HTMLElement>('button, a[href]') ?? [])].filter((element): element is HTMLElement => Boolean(element?.getClientRects().length))
         const first = items[0], last = items.at(-1)
         if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus() }
         if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus() }
@@ -138,7 +138,7 @@ export default function Nav() {
             <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} sizes="(min-width: 1200px) 210px, 150px" className="h-[23px] w-auto xl:h-8" priority />
           </Link>
 
-          <div className="hidden xl:flex gap-7 items-center">
+          <div className="hidden xl:flex gap-4 items-center">
 
             {/* ── Services dropdown ── */}
             <div className="relative" ref={servicesRef}>
@@ -285,13 +285,13 @@ export default function Nav() {
             <Search />
 
             <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`}
-              className="text-white/75 font-semibold hover:text-teal transition-colors no-underline whitespace-nowrap"
+              className="hidden 2xl:inline-flex text-white/75 font-semibold hover:text-teal transition-colors no-underline whitespace-nowrap"
               style={{ fontSize: '0.75rem' }} aria-label={`Call Your Office Space on ${CONTACT.phone}`}>
               {CONTACT.phone}
             </a>
 
             <a href="https://www.linkedin.com/company/yourofficespace" target="_blank" rel="noopener noreferrer"
-              className="text-white/40 hover:text-white transition-colors no-underline flex items-center"
+              className="hidden 2xl:flex text-white/40 hover:text-white transition-colors no-underline items-center"
               aria-label="YOS on LinkedIn">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -300,6 +300,7 @@ export default function Nav() {
 
             <Link href="/contact#contact-enquiry" className="rounded-lg bg-teal text-near-black font-bold hover:bg-white transition-colors no-underline"
               style={{ fontSize: '0.8rem', letterSpacing: '0.02em', padding: '0.9rem 1.6rem' }}>Enquire</Link>
+            <a href={FURNITURE_STORE_URL} className="yos-furniture-store">Furniture Store</a>
           </div>
 
           <div className="yos-mobile-nav-actions xl:hidden flex items-center gap-2">
@@ -313,7 +314,12 @@ export default function Nav() {
             </button>
           </div>
         </div>
+        <div className="yos-mobile-quick-actions xl:hidden">
+          <Link href="/contact#contact-enquiry" onClick={closeMobile} className="yos-header-enquire">Enquire</Link>
+          <a href={FURNITURE_STORE_URL} onClick={closeMobile} className="yos-furniture-store">Furniture Store</a>
+        </div>
       </nav>
+      <div className="yos-mobile-header-spacer xl:hidden" aria-hidden="true" />
 
       {/* Desktop backdrop */}
       {(servicesOpen || resourcesOpen) && (

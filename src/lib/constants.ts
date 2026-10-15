@@ -2,6 +2,7 @@
 
 export const SITE_NAME = 'Your Office Space'
 export const SITE_URL = 'https://www.yourofficespace.au'
+export const FURNITURE_STORE_URL = 'https://www.yourofficefurniture.com.au'
 
 export const CONTACT = {
   email: 'hello@yourofficespace.au',
