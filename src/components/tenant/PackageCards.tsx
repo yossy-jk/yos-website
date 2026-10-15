@@ -37,6 +37,11 @@ export default function PackageCards() {
           {TENANT_OFFER.packages[1].maxArea} m², compare Diamond.
         </p>
       </div>
+      <p className="tenant-note">
+        Every package includes a Market Comparables Report. Platinum and Diamond
+        include the same services, inspections and support; the package and fee
+        reflect the size of your business and premises.
+      </p>
       <div className="tenant-package-grid">
         {TENANT_OFFER.packages.map((p, index) => (
           <article
