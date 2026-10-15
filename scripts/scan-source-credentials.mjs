@@ -20,6 +20,8 @@ const textExtensions = new Set([
   '.txt', '.xml', '.yaml', '.yml',
 ])
 const prefixRules = [
+  ['stripe_api_secret', 'critical', /\b(?:sk|rk)_(?:live|test)_[A-Za-z0-9]{20,}\b/],
+  ['stripe_webhook_secret', 'critical', /\bwhsec_[A-Za-z0-9]{20,}\b/],
   ['resend_api_key', 'critical', /\bre_[A-Za-z0-9_]{20,}\b/],
   ['github_classic_token', 'critical', /\bghp_[A-Za-z0-9]{20,}\b/],
   ['github_fine_grained_token', 'critical', /\bgithub_pat_[A-Za-z0-9_]{20,}\b/],

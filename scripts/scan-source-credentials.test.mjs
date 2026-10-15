@@ -58,3 +58,15 @@ test('detects non-empty secret environment fallback', async () => {
   assert.equal(result.code, 1)
   assert.ok(result.output.findings.some((item) => item.rule === 'nonempty_secret_environment_fallback'))
 })
+
+
+test('detects Stripe API and webhook secrets without logging their values', async () => {
+  const api = ['sk', 'live', 'S'.repeat(28)].join('_')
+  const hook = ['whsec', 'W'.repeat(28)].join('_')
+  const result = await scanFixture({ 'accidental.txt': api + '\n' + hook })
+  assert.equal(result.code, 1)
+  assert.ok(result.output.findings.some(item => item.rule === 'stripe_api_secret'))
+  assert.ok(result.output.findings.some(item => item.rule === 'stripe_webhook_secret'))
+  assert.ok(!JSON.stringify(result.output).includes(api))
+  assert.ok(!JSON.stringify(result.output).includes(hook))
+})

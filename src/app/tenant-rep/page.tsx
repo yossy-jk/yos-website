@@ -1,3 +1,4 @@
+import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
 import Image from "next/image";
 import Link from "next/link";
 import TenantShell, {
@@ -326,7 +327,7 @@ export default function Page() {
             balance on signed Heads of Agreement. The final package is agreed
             with your team.
           </p>
-          <PackageCards />
+          <PackageCards paymentsEnabled={tenantPaymentRuntime().enabled} />
           <h3>Included in every package</h3>
           <ul className="tenant-list">
             {TENANT_OFFER.core.map((v) => (

@@ -7,7 +7,7 @@
     "build": "node scripts/check-tenant-offer.mjs && next build",
     "start": "next start",
     "lint": "node --test scripts/next-root-glob.test.mjs && eslint",
-    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links && npm run test:sitemap-content && npm run test:case-study-publication && npm run test:enquiry-measurement && npm run test:tenant-journey && npm run test:sitewide-enquiries && npm run test:lease-upload && npm run test:enquiry-email",
+    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links && npm run test:sitemap-content && npm run test:case-study-publication && npm run test:enquiry-measurement && npm run test:tenant-journey && npm run test:sitewide-enquiries && npm run test:lease-upload && npm run test:enquiry-email && npm run test:tenant-payments",
     "test:credential-scan": "node --test scripts/scan-source-credentials.test.mjs",
     "test:download-token": "node --test src/lib/download-token.test.mjs",
     "test:fitout-estimate": "node --no-warnings --experimental-strip-types --test src/lib/fitout-estimate.test.ts",
@@ -38,6 +38,7 @@
     "test:tenant-journey": "node --test scripts/tenant-journey.test.mjs",
     "test:tenant-journey-ui": "node scripts/tenant-journey.mjs",
     "test:sitewide-enquiries": "node --test scripts/sitewide-enquiries.test.mjs",
+    "test:tenant-payments": "node --test scripts/tenant-payments.test.mjs",
     "test:enquiry-email": "node --test scripts/enquiry-email.test.mjs",
     "test:lease-upload": "node --test scripts/lease-upload.test.mjs"
   },
@@ -58,6 +59,7 @@
     "react-hot-toast": "^2.6.0",
     "react-konva": "^19.2.3",
     "resend": "^6.12.2",
+    "stripe": "23.0.0",
     "zustand": "^5.0.12"
   },
   "devDependencies": {

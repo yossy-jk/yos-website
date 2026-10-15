@@ -26,6 +26,9 @@ test('conversion measurement rejects missing/declined consent, excludes private 
   window.location.pathname = '/tenant-rep/brief/private-token'
   analytics.trackConversion('phone_click'); assert.equal(calls.length, 1)
   assert.equal(analytics.publicAnalyticsPath('/contact?email=private@example.invalid'), '/contact')
+  assert.equal(analytics.publicAnalyticsPath('/tenant-rep/payment?session_id=private-reference'), undefined)
+  window.location.pathname = '/tenant-rep/payment'
+  analytics.trackConversion('phone_click'); assert.equal(calls.length, 1)
 })
 
 test('a consented conversion waits for GA init, flushes once, and is discarded on withdrawal', () => {
