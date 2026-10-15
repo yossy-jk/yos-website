@@ -31,7 +31,8 @@ export default function Page() {
               If we cannot find a space that fits the agreed brief and you do
               not sign, the start payment is all you pay under the agreed
               engagement terms. No balance is due before signed Heads of
-              Agreement. GST is added to each payment.
+              Agreement. The start payment is $550 including GST ($500 ex GST
+              plus $50 GST). GST also applies to the remaining fee.
             </p>
           </div>
           <TenantLicence />

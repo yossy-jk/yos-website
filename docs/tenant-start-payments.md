@@ -4,7 +4,7 @@
 
 Select Gold, Platinum or Diamond, review the package and one-off start payment at `/tenant-rep/start?package=platinum`, acknowledge the payment summary, then continue to Stripe-hosted Checkout. Stripe collects individual name, business name, email and payment details. Phone and lease upload are not required; billing address is collected only when Stripe needs it. No customer account or long questionnaire is required. The free Lease Health Check remains available.
 
-The implementation currently follows the already approved website pricing: AUD $500 ex GST plus $50 GST = $550 paid today. This GST treatment must be confirmed before enabling live collection. The $500 ex GST is credited against the selected package fee; the balance is due on signed Heads of Agreement. There is no subscription, saved future-payment authority or automatic balance charge. Payment is an onboarding start payment; scope and the agency agreement are arranged privately before representation begins. Public legal/agency documents are not added.
+Confirmed by the client on 15 October 2026: AUD $500 ex GST plus $50 GST = $550 paid today. The $500 ex GST is credited against the selected package fee; the balance is due on signed Heads of Agreement. There is no subscription, saved future-payment authority or automatic balance charge. Payment is an onboarding start payment; scope and the agency agreement are arranged privately before representation begins. Public legal/agency documents are not added.
 
 ## Account connection and activation
 
@@ -20,7 +20,7 @@ Set these **server-side** in the Vercel project `yos-website`:
 
 For a public preview/sandbox deployment, use sandbox keys and `STRIPE_TENANT_TEST_ENABLED=true`. Production keys are rejected in previews; sandbox keys cannot enable production payments. Test orders use separate Redis keys and never send real emails. If Vercel deployment protection is enabled, the preview webhook must have an approved public webhook path or a separate public sandbox deployment; do not disable project-wide protection merely for this test.
 
-For production, first confirm GST treatment and complete sandbox verification. Set live keys/rate/signing secret and `STRIPE_TENANT_PAYMENTS_ENABLED=true`, then redeploy. Environment changes alone do not update statically rendered package-card availability. Do not claim live payments work until a real account Checkout session, customer receipt and signed callback have been verified. Testing does not require charging a real card.
+For production, first complete sandbox verification. Set live keys/rate/signing secret and `STRIPE_TENANT_PAYMENTS_ENABLED=true`, then redeploy. Environment changes alone do not update statically rendered package-card availability. Do not claim live payments work until a real account Checkout session, customer receipt and signed callback have been verified. Testing does not require charging a real card.
 
 Create a Stripe webhook destination at:
 
@@ -45,3 +45,16 @@ The receipt page is noindex, has no-referrer metadata, returns no contact/card d
 Use Stripe sandbox test cards, not real card information. Verify a successful payment, cancelled checkout, declined card, any authentication flow, duplicate clicks, reloads, invalid signatures, wrong mode/amount, email retry and customer/owner confirmation. Confirm each package's credited and remaining fees. Then verify live configuration and the hosted checkout page without submitting a real payment. Rollback: set `STRIPE_TENANT_PAYMENTS_ENABLED=false` and redeploy. Existing paid-session webhook processing remains active so disabling new checkouts does not discard completed payments.
 
 Primary implementation guidance: [Stripe Checkout name collection](https://docs.stripe.com/payments/checkout/name-collection), [Checkout fulfilment and signed webhooks](https://docs.stripe.com/checkout/fulfillment).
+
+## Owner handover: connecting the existing Stripe account
+
+1. Sign in to the YOS Stripe account and Vercel. Start in a Stripe sandbox. Keep credentials out of chat.
+2. Add the matching server-side API key to `STRIPE_SECRET_KEY` in Vercel's Preview environment. A restricted key with the required Checkout, tax-rate and payment-read permissions is preferred; validate its permissions during sandbox testing.
+3. Create an active Australian 10% exclusive GST tax rate and save its ID as `STRIPE_TENANT_GST_RATE_ID`. This produces a $500 subtotal, $50 GST and $550 total.
+4. Register the public preview's `/api/tenant-payments/webhook` URL in Stripe for the two events above, using the installed SDK API version. Save that destination's signing secret as `STRIPE_WEBHOOK_SECRET` in the same Vercel environment.
+5. Set `STRIPE_TENANT_TEST_ENABLED=true`, redeploy the preview, and complete the sandbox checks above. Provider-isolated tests are already present but do not replace this account test. Preview payments deliberately do not send real emails; email rendering/delivery must be checked separately.
+6. Repeat the account configuration in live mode, with the production webhook URL above and Production-scoped values. Keep `STRIPE_TENANT_PAYMENTS_ENABLED=false` until verification is complete; then set it to `true` and redeploy production. Check hosted checkout without submitting a real payment.
+
+Vercel settings: https://vercel.com/joe-kelleys-projects-8f5ee275/yos-website/settings/environment-variables
+
+References: [Stripe API keys](https://docs.stripe.com/keys), [Stripe webhooks](https://docs.stripe.com/webhooks), [Vercel environment variables](https://vercel.com/docs/environment-variables).

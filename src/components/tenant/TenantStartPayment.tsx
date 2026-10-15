@@ -133,7 +133,7 @@ export default function TenantStartPayment({
             <dd>{aud(quote.gst)}</dd>
           </div>
           <div className="tenant-payment-total">
-            <dt>Pay securely today</dt>
+            <dt>Pay securely today (including GST)</dt>
             <dd>{aud(quote.total)} AUD</dd>
           </div>
           <div>

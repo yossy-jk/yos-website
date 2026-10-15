@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     question: "What happens if I do not sign?",
-    answer: `The package payment terms are ${TENANT_OFFER.startPayment} dollars ex GST to start, with the balance due on signed Heads of Agreement. If no suitable space is found and you do not sign, the start payment is all you pay, subject to the agreed engagement terms.`,
+    answer: `The package payment terms are ${TENANT_OFFER.startPayment * (1 + TENANT_OFFER.gstRate)} dollars including GST to start (${TENANT_OFFER.startPayment} dollars ex GST plus ${TENANT_OFFER.startPayment * TENANT_OFFER.gstRate} dollars GST), with the balance due on signed Heads of Agreement. If no suitable space is found and you do not sign, the start payment is all you pay, subject to the agreed engagement terms.`,
   },
   {
     question: "What does the guarantee exclude?",
@@ -130,8 +130,7 @@ export default function Page() {
             No agency agreement is signed online.
           </p>
           <Link href="/tenant-rep/guarantee">
-            Explore the {TENANT_OFFER.guarantee.multiple}x Return
-            Guarantee
+            Explore the {TENANT_OFFER.guarantee.multiple}x Return Guarantee
           </Link>
         </div>
       </section>
@@ -323,9 +322,9 @@ export default function Page() {
           <p className="tenant-eyebrow">Clear scope. Clear fees.</p>
           <h2>Choose a starting point for your tenancy.</h2>
           <p>
-            Two payments: a start payment that forms part of the fee, then the
-            balance on signed Heads of Agreement. The final package is agreed
-            with your team.
+            Two payments: $550 including GST to start ($500 ex GST plus $50
+            GST), which forms part of the fee, then the balance on signed Heads
+            of Agreement. The final package is agreed with your team.
           </p>
           <PackageCards paymentsEnabled={tenantPaymentRuntime().enabled} />
           <h3>Included in every package</h3>
@@ -344,8 +343,8 @@ export default function Page() {
             <h2>The {TENANT_OFFER.guarantee.multiple}x Return Guarantee.</h2>
             <p>
               A defined savings target, a written baseline and a refund
-              calculation you can follow. See how savings are measured and
-              how the fee-capped refund works.
+              calculation you can follow. See how savings are measured and how
+              the fee-capped refund works.
             </p>
           </div>
           <div className="tenant-results">
