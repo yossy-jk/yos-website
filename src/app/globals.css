@@ -888,3 +888,16 @@ main [id] { scroll-margin-top: 6rem; }
   .yos-mobile-menu a.yos-mobile-call { justify-content: center; color: #ccc; font-size: 0.85rem; min-height: 44px; }
 }
 @media (max-width: 359px) { .yos-nav-logo img { width: 140px; } }
+
+/* Keep buying and enquiry actions visible without crowding the mobile logo row. */
+.yos-furniture-store { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0.75rem 1rem; border: 1px solid #00B5A5; border-radius: 0.5rem; color: #00B5A5; font-size: 0.8rem; font-weight: 700; white-space: nowrap; text-decoration: none; }
+.yos-furniture-store:hover { color: #191919; background: #00B5A5; }
+.yos-navigation a:focus-visible { outline: 2px solid #00B5A5; outline-offset: 3px; }
+@media (max-width: 1279px) {
+  .yos-mobile-quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; height: 56px; padding: 0 1.25rem 8px; background: #191919; }
+  .yos-mobile-quick-actions a { min-height: 44px; font-size: 0.85rem; }
+  .yos-header-enquire { display: flex; align-items: center; justify-content: center; border-radius: 0.5rem; background: #00B5A5; color: #191919; font-weight: 700; text-decoration: none; }
+  .yos-mobile-header-spacer { height: 56px; }
+  main [id] { scroll-margin-top: 136px; }
+  .yos-mobile-menu { top: 128px; height: calc(100dvh - 128px); }
+}

@@ -31,6 +31,9 @@ try {
     await page.setRequestInterception(true)
     page.on('request', request => request.method() === 'POST' ? request.abort() : request.continue())
     await page.goto(base, { waitUntil: 'networkidle2' })
+    const store = await page.$eval('.yos-mobile-quick-actions .yos-furniture-store', element => ({ href: element.href, top: element.getBoundingClientRect().top, bottom: element.getBoundingClientRect().bottom, height: element.getBoundingClientRect().height }))
+    assert.equal(store.href, 'https://www.yourofficefurniture.com.au/')
+    assert.ok(store.top >= 72 && store.bottom <= 128 && store.height >= 44, 'Furniture Store is visible and tappable in the mobile header.')
     const openMenu = async () => {
       await page.click('button[aria-label="Open menu"]')
       await page.waitForSelector('button[aria-label="Close menu"]')

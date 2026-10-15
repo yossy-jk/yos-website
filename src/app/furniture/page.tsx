@@ -1,3 +1,4 @@
+import { FURNITURE_STORE_URL } from '@/lib/constants'
 import FurniturePlanningGuides from '@/components/FurniturePlanningGuides'
 import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -37,6 +38,7 @@ const CATEGORIES = [
 ] as const
 
 const FAQS = [
+  { question: 'Can I buy office furniture online?', answer: 'Yes. Visit our Your Office Furniture store at www.yourofficefurniture.com.au to browse and purchase online. For layout planning, bulk orders or a complete workplace furniture project, request a tailored quote from YOS.' },
   { question: 'Can YOS supply furniture without managing a fit out?', answer: 'Yes. Furniture can be delivered as a standalone service for a single room, an existing workplace refresh, a relocation or a complete new office.' },
   { question: 'What commercial furniture can you source?', answer: 'YOS can source workstations, desks, task and executive seating, meeting and boardroom settings, storage, lockers, breakout furniture and reception settings across established commercial ranges.' },
   { question: 'Do you coordinate delivery and installation?', answer: 'Yes. The quote can include delivery and installation, with access, sequencing, placement and completion coordinated before delivery day.' },
@@ -54,7 +56,12 @@ export default function FurniturePage() {
       <FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office furniture Newcastle. Planned around your people.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we specify, quote, supply and coordinate installation of office furniture for Newcastle, Lake Macquarie and Hunter workplaces, with projects supported Australia-wide. You can engage us for furniture only or as part of a wider workplace project.</p></FadeIn>
-      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/resources/furniture-quote#furniture-quote-form" variant="primary" size="lg">Request a furniture quote</Button><Button href="/contact?service=furniture#contact-enquiry" variant="outline-light" size="lg">Enquire</Button></div></FadeIn>
+      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href={FURNITURE_STORE_URL} variant="primary" size="lg">Shop furniture online</Button><Button href="/resources/furniture-quote#furniture-quote-form" variant="outline-light" size="lg">Request a furniture quote</Button></div></FadeIn>
+    </div></section>
+
+    <section className="bg-light-teal" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-8 items-center`} style={PAD}>
+      <div><SectionLabel>Your Office Furniture</SectionLabel><h2 className="text-near-black mt-3 mb-6 leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3rem)' }}>Ready to choose your furniture?</h2><p className="text-charcoal leading-relaxed">Browse and buy online at Your Office Furniture. If you know what you need, head straight to the store. For help with layouts, product selection or a complete office project, our Newcastle team can put together a tailored furniture quote.</p></div>
+      <div className="flex flex-col gap-4 items-start"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Visit the Furniture Store</Button><Button href="/resources/furniture-quote#furniture-quote-form" variant="outline" size="lg">Help me plan my furniture</Button></div>
     </div></section>
 
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Planning office furniture in Newcastle</SectionLabel><h2 className="text-near-black leading-tight max-w-3xl" style={{ fontSize: 'clamp(2rem,4vw,3rem)', marginTop: 20, marginBottom: 24 }}>Start with a usable brief, then compare the installed quote.</h2><p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 20 }}>For a Newcastle, Lake Macquarie or Hunter office, send the floor plan, suburb, team size, furniture you want to retain and target move-in date. We can plan workstations, ergonomic seating, meeting rooms and storage around those requirements.</p><p className="text-charcoal leading-relaxed max-w-3xl">Confirm the delivery address, lift or stair access, loading arrangements and any building booking rules early. Compare product specifications, freight, installation, packaging removal and lead times together, so the quote reflects the whole job.</p></div></section>
@@ -95,7 +102,7 @@ export default function FurniturePage() {
 
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><div className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center"><div className="flex-1"><SectionLabel>More than furniture?</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Planning building work as well?</h2><p className="text-charcoal leading-relaxed">Our separate fit out service provides client-side project management across brief, budget, design, procurement and delivery.</p></div><Button href="/office-fitout" variant="outline" size="lg">Explore fit out</Button></div></div></section>
     <ServiceFaq items={FAQS} />
-    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
+    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><div className="flex flex-col sm:flex-row justify-center gap-4"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Shop furniture online</Button><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire about a project</Button></div></div></section>
   <FurniturePlanningGuides />
       </main><Footer /></>
 }
