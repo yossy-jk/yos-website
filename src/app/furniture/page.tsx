@@ -1,3 +1,4 @@
+import CatalogueCards from '@/components/CatalogueCards'
 import { FURNITURE_STORE_URL } from '@/lib/constants'
 import FurniturePlanningGuides from '@/components/FurniturePlanningGuides'
 import ServiceSchema from '@/components/ServiceSchema'
@@ -101,6 +102,7 @@ export default function FurniturePage() {
     </div></section>
 
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><div className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center"><div className="flex-1"><SectionLabel>More than furniture?</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Planning building work as well?</h2><p className="text-charcoal leading-relaxed">Our separate fit out service provides client-side project management across brief, budget, design, procurement and delivery.</p></div><Button href="/office-fitout" variant="outline" size="lg">Explore fit out</Button></div></div></section>
+    <CatalogueCards />
     <ServiceFaq items={FAQS} />
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><div className="flex flex-col sm:flex-row justify-center gap-4"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Shop furniture online</Button><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire about a project</Button></div></div></section>
   <FurniturePlanningGuides />

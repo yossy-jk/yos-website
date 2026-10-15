@@ -75,6 +75,7 @@ jobs:
           LINK_AUDIT_BASE=http://127.0.0.1:3102 npm run test:button-destinations
           QA_BASE=http://127.0.0.1:3102 QA_OUT=screenshots/tenant-journey npm run test:tenant-journey-ui
           QA_BASE=http://127.0.0.1:3102 node scripts/lease-check-flow.mjs
+          QA_BASE=http://127.0.0.1:3102 node scripts/catalogue-flow.mjs
           node scripts/screenshot.mjs http://127.0.0.1:3102
 
       - name: Upload visual QA evidence

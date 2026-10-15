@@ -1,3 +1,4 @@
+import { CATALOGUES } from '@/lib/catalogues'
 import { TENANT_OFFER } from '@/lib/tenant-offer'
 import { blogSitemapEntries, safeContentDate } from '@/lib/sitemap-content'
 import { MetadataRoute } from 'next'
@@ -14,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const tenantRoutes = TENANT_OFFER.approvedForPublication ? ['/tenant-rep/packages', '/tenant-rep/guarantee', '/lease-health-check', '/tools/lease-cost-calculator', '/tools/time-cost-calculator', '/tools/critical-dates', '/lease-checklist', '/refer', '/insights/lease-costs'].map(route => ({url: `${BASE}${route}`,changeFrequency:'monthly' as const,priority:0.7})) : []
   return [
     ...tenantRoutes,
+    ...CATALOGUES.map(item => ({ url: `${BASE}/catalogues/${item.id}`, changeFrequency: 'yearly' as const, priority: 0.6 })),
     { url: BASE,                                          changeFrequency: 'weekly',  priority: 1.0 },
     { url: `${BASE}/buyers-agency`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/cleaning/work-with-us`, changeFrequency: 'monthly', priority: 0.5 },
