@@ -1,3 +1,4 @@
+import { renderEnquiryEmail } from "@/lib/enquiry-email";
 import { readLeaseRequest, LeaseRequestError, type LeaseAttachment } from "@/lib/lease-request";
 import { NextResponse } from "next/server";
 import { createHash } from "node:crypto";
@@ -89,8 +90,19 @@ export async function POST(req: Request) {
       consent: { ...lead.consent, at: state.createdAt } };
     // Email is the active intake channel. YOS OS integration will be added
     // once its live endpoint and authentication contract are confirmed.
-    const context = JSON.stringify({ ...lead, ...(attachment ? { lease: { filename: attachment.filename, bytes: attachment.size } } : {}) }, null, 2);
-    const callNumber = lead.fields.referredPhone || lead.fields.mobile;
+    const source = ({ health_check: "Lease Health Check", results: "Leasing tool results", referral: "Business referral", checklist: "Lease checklist request" } as Record<string, string>)[lead.kind] || "Tenant enquiry";
+    const content = renderEnquiryEmail({
+      source, name: lead.fields.name, company: lead.fields.business,
+      email: lead.fields.email, phone: lead.fields.mobile,
+      submissionId: String(raw.submissionId), submittedAt: state.createdAt,
+      marketingConsent: lead.consent.marketing, attachment,
+      priority: lead.urgency, followUpBy: responseTaskDue(new Date(state.createdAt)),
+      details: { ...lead.fields, worries: lead.worries, tool: lead.tool,
+        estimatedResults: lead.calculated ? resultsEmailText(lead) : undefined,
+        attribution: lead.attribution, landingPage: lead.landingPage,
+        ...(lead.kind === "referral" ? { referralPermission: lead.referralPermission } : {}),
+      },
+    });
     const resend = new Resend(process.env.RESEND_API_KEY);
     if (!state.alert) {
       const alert = await resend.emails.send(
@@ -99,8 +111,8 @@ export async function POST(req: Request) {
           to: [...TENANT_ROUTING.recipients],
           replyTo: lead.fields.email,
           ...(attachment ? { attachments: [{ filename: attachment.filename, content: attachment.content }] } : {}),
-          subject: `YOS ${lead.kind}: ${lead.fields.referredBusiness || lead.fields.business || lead.fields.name} (${lead.urgency})`,
-          text: `New website request\n\n${context}\n\nCall: ${callNumber ? `tel:${callNumber.replace(/[^+0-9]/g, "")}` : "Email provided"}\nFollow up by: ${responseTaskDue(new Date(state.createdAt))} (UTC)`,
+          subject: `YOS ${source}: ${lead.fields.referredBusiness || lead.fields.business || lead.fields.name} (${lead.urgency})`,
+          ...content,
         },
         { idempotencyKey: `${raw.submissionId}-team` },
       );

@@ -43,6 +43,7 @@ test('the notification API only confirms delivery when Resend supplies an accept
   for (const [result, expected] of [[{ data: { id: 'fixture-message' }, error: null }, 200], [{ data: null, error: { message: 'Rejected' } }, 502], [{ data: null, error: null }, 502]]) {
     let sends = 0
     const delivery = load('src/lib/enquiry-delivery.ts', {
+      './enquiry-email': load('src/lib/enquiry-email.ts', {}),
       'next/server': { NextResponse: { json: (body, options = {}) => Response.json(body, options) } },
       resend: { Resend: class { emails = { send: async () => { sends++; return result } } } },
       'node:crypto': { randomUUID: () => '12345678-1234-1234-1234-123456789abc' },

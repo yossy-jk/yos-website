@@ -2,7 +2,7 @@
 
 Public enquiries use YOS email delivery, with no HubSpot token, form embed, CRM queue or external quoting-system requirement. The fixed inbox is `jk@yourofficespace.au`. Cleaning job/contractor applications go to Sarah with Joe copied; sales partner applications go to Joe with Sarah copied, preserving existing routing.
 
-`src/lib/enquiry-delivery.ts` is the server delivery boundary. It sends a versioned JSON envelope in a readable plain-text email: submission ID, source, contact, request details, explicit marketing choice and client submission time where available; the email itself records delivery time. The browser transport in `src/lib/enquiry.ts` reuses a UUID for retries of unchanged details; Resend uses it as an idempotency key. Invalid submissions or provider rejection do not produce an accepted receipt. Preview deployments send no email.
+`src/lib/enquiry-delivery.ts` is the server delivery boundary. The shared renderer in `src/lib/enquiry-email.ts` sends branded HTML and a readable plain-text alternative with: submission ID, source, contact, request details, explicit marketing choice and client submission time where available; the email itself records delivery time. The browser transport in `src/lib/enquiry.ts` reuses a UUID for retries of unchanged details; Resend uses it as an idempotency key. Invalid submissions or provider rejection do not produce an accepted receipt. Preview deployments send no email.
 
 | Journey | Route / delivery |
 | --- | --- |
@@ -25,6 +25,11 @@ Public enquiries use YOS email delivery, with no HubSpot token, form embed, CRM 
 
 ## Connect YOS OS later
 
-`ENQUIRY_ROUTING.yosOsEnabled` remains false. No webhook or CRM sync is active. Confirm the live YOS OS endpoint, server-side authentication, accepted schema, consent fields, retention and idempotency semantics. Map the versioned envelope and use the website submission ID as external reference. Add the adapter at the delivery boundary and the tenant route. Test genuine account receipt before enabling it, and retain email delivery when OS is unavailable. Existing mailbox history is not automatically backfilled.
+`ENQUIRY_ROUTING.yosOsEnabled` remains false. No webhook or CRM sync is active. Confirm the live YOS OS endpoint, server-side authentication, accepted schema, consent fields, retention and idempotency semantics. Map the typed enquiry fields and use the website submission ID as external reference. Add the adapter at the delivery boundary and the tenant route. Test genuine account receipt before enabling it, and retain email delivery when OS is unavailable. Existing mailbox history is not automatically backfilled.
 
 Required now: existing Resend email key; Upstash rate limiting where configured. Tenant delivery additionally uses existing Redis receipts. Capability downloads still require their existing download signing secret. No HubSpot credentials are required.
+
+
+## Readable inbox notifications
+
+Owner notifications put the sender and business first, with email/call links, labelled contact details, the original message, structured answers and a clearly identified lease attachment when supplied. Tenant notifications show priority, follow-up time in Australia/Sydney and human-readable calculated estimates. Detail values are escaped before HTML rendering; false and zero answers and nested quote items remain visible. The footer records explicit marketing permission and the submission reference. No raw JSON or internal integration status is shown in the main notification. Routing, reply-to addresses, optional lease attachments and provider acceptance checks remain at the delivery boundary; tenant receipt timestamps keep retries deterministic. The tenant emergency fallback sends structured details without truncating JSON into the message.

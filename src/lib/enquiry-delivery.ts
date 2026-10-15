@@ -1,3 +1,4 @@
+import { renderEnquiryEmail } from './enquiry-email'
 import type { LeaseAttachment } from './lease-request'
 import { randomUUID } from 'node:crypto'
 import { NextResponse } from 'next/server'
@@ -34,14 +35,7 @@ export async function sendOwnerEnquiry(data: Enquiry, routing?: { recipient: str
   if (process.env.VERCEL_ENV === 'preview') return { id: 'preview', preview: true }
   if (!process.env.RESEND_API_KEY) throw Error('Email delivery unavailable')
   const submissionId = enquirySubmissionId(data.submissionId)
-  const envelope = {
-    schemaVersion: 1, submissionId, source: data.source,
-    contact: { name: data.name, email: data.email, phone: data.phone, company: data.company },
-    request: { message: data.message, details: data.details },
-    marketingConsent: data.marketingConsent === true,
-    clientSubmittedAt: data.submittedAt,
-    lease: data.attachment ? { filename: data.attachment.filename, bytes: data.attachment.size } : undefined,
-  }
+  const content = renderEnquiryEmail({ ...data, submissionId })
   const result = await new Resend(process.env.RESEND_API_KEY).emails.send({
     from: 'YOS Website <notifications@yourofficespace.au>',
     to: routing?.recipient || ENQUIRY_ROUTING.recipient,
@@ -49,7 +43,7 @@ export async function sendOwnerEnquiry(data: Enquiry, routing?: { recipient: str
     ...(data.email ? { replyTo: data.email } : {}),
     ...(data.attachment ? { attachments: [{ filename: data.attachment.filename, content: data.attachment.content }] } : {}),
     subject: `YOS ${data.source.replace(/[\r\n]/g, ' ')} — ${(data.name || data.email || data.phone || 'Enquiry').replace(/[\r\n]/g, ' ')}`,
-    text: `New website request\n\n${JSON.stringify(envelope, null, 2)}\n\nReply directly to contact this prospect. YOS OS is not connected yet.`,
+    ...content,
   }, { idempotencyKey: `${submissionId}-owner` })
   if (result.error || !result.data?.id) throw Error('Email delivery was not accepted')
   return { id: result.data.id, preview: false }

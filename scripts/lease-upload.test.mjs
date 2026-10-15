@@ -34,6 +34,7 @@ test('lease attachment is optional, size bounded and checked against document si
 function route(preview = false, failFirst = false) {
   const messages = [], records = new Map()
   const handler = load('src/app/api/tenant-lead/route.ts', {
+    '@/lib/enquiry-email': load('src/lib/enquiry-email.ts', {}),
     '@/lib/lease-request': reader, 'next/server': { NextResponse: { json: (body, opts) => Response.json(body, opts) } },
     'node:crypto': { createHash },
     '@upstash/redis': { Redis: class {

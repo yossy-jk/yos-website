@@ -165,20 +165,19 @@ export default function TenantLeadForm({
             company: fields.business || fields.referredBusiness,
             email: fields.email,
             phone: fields.mobile || fields.referredPhone,
-            source: `YOS ${kind} - email follow-up required`,
-            message: JSON.stringify({
+            source: `YOS ${kind.replaceAll("_", " ")} - email follow-up required`,
+            submissionId: submission.current.id,
+            marketingConsent: consent,
+            details: {
               kind,
-              submissionId: submission.current.id,
-              marketingConsent: consent,
               consentWording: marketing,
-              submittedAt: new Date().toISOString(),
               attribution: payload.attribution,
               fields,
               worries,
               tool,
               results,
               referralPermission: refPermission,
-            }, null, 2).slice(0, 2900),
+            },
           }),
         });
         data = { ...(await fallback.json()), emailOnly: true };
