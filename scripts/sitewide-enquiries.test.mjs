@@ -16,6 +16,7 @@ const json = { NextResponse: { json: (body, opts) => Response.json(body, opts) }
 function setup(result = { data: { id: 'accepted' } }, env = {}) {
   const messages = []
   const delivery = load('src/lib/enquiry-delivery.ts', {
+      './enquiry-email': load('src/lib/enquiry-email.ts', {}),
     'next/server': json, 'node:crypto': { randomUUID },
     resend: { Resend: class { emails = { send: async (message, options) => { messages.push({ message, options }); return result } } } },
     '@/lib/ratelimit': { contactLimiter: () => null, getIp: () => '' },

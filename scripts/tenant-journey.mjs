@@ -250,7 +250,11 @@ try {
     await p.waitForSelector("[role=alert]");
     assert.ok(await p.$("form"), "Email failure must preserve the enquiry");
     assert.equal(fallbacks.at(-1).email, "qa@example.invalid");
-    assert.equal(JSON.parse(fallbacks.at(-1).message).marketingConsent, false);
+    assert.equal(fallbacks.at(-1).marketingConsent, false);
+    assert.equal(fallbacks.at(-1).details.fields.intent, "buy");
+    assert.equal(fallbacks.at(-1).details.attribution.utm_source, "linkedin");
+    assert.equal(fallbacks.at(-1).submissionId, posts.at(-1).submissionId);
+    assert.equal(fallbacks.at(-1).message, undefined, "The fallback sends full labelled details instead of truncated JSON");
     fallbackFailure = false;
     await p.click("form button[type=submit]");
     await p.waitForFunction(() => document.querySelector('h3[tabindex="-1"]')?.textContent.includes("Your request was received"));
