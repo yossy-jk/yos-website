@@ -13,10 +13,13 @@ writeFileSync(oversized, Buffer.alloc(3 * 1024 * 1024 + 1))
 const executablePath = [process.env.PUPPETEER_EXECUTABLE_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'].filter(Boolean).find(existsSync)
 const browser = await puppeteer.launch({ headless: true, pipe: true, ...(executablePath ? { executablePath } : {}), args: ['--no-sandbox'] })
 const rows = []
+let lastPage
 try {
   for (const width of [390, 1440]) {
     const page = await browser.newPage()
+    lastPage = page
     await page.setViewport({ width, height: 950 })
+    await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
     await page.evaluateOnNewDocument(() => {
       sessionStorage.setItem('yos-service-guide-dismissed', '1')
       window.__leaseQA = []
@@ -39,25 +42,31 @@ try {
       }
       return request.continue()
     })
+    const clickSelector = async selector => {
+      const element = await page.$(selector)
+      assert.ok(element, selector)
+      await element.evaluate(e => e.scrollIntoView({ block: 'center', behavior: 'instant' }))
+      await element.click()
+    }
     const clickText = async text => page.evaluate(text => [...document.querySelectorAll('main button')].find(b => b.textContent.trim() === text)?.click(), text)
     console.log(`CHECK Health Check @ ${width}`)
     await page.goto(base + '/lease-health-check', { waitUntil: 'networkidle2' })
     assert.equal(await page.$('#health_check-email'), null)
     await page.select('#health-intent', 'stay')
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForFunction(() => document.body.innerText.includes('Step 2 of 3'))
     assert.equal(await page.$('#health_check-email'), null)
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('#health_check-email')
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     assert.equal(posts.length, 0, 'Final contact details are required')
     for (const [id, value] of [['name', 'YOS QA'], ['email', 'qa@example.invalid'], ['business', 'YOS QA'], ['mobile', '0240920733'], ['suburb', 'Newcastle']]) await page.type(`#health_check-${id}`, value)
     assert.equal(await page.$eval('input[type=file]', e => e.required), false)
     await (await page.$('input[type=file]')).uploadFile(oversized)
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     assert.equal(posts.length, 0, 'Oversized file cannot be sent')
     await clickText('Remove lease')
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('.tenant-results')
     assert.equal(posts.at(-1).contentType, 'application/json')
     const resourceLinks = await page.$$eval('[aria-label="Useful leasing tools and articles"] a', els => els.map(e => e.getAttribute('href')))
@@ -65,17 +74,19 @@ try {
     assert.ok(await page.$eval('[aria-label="Useful leasing tools and articles"] a', a => a.querySelector('span').getBoundingClientRect().top >= a.querySelector('strong').getBoundingClientRect().bottom), 'Resource descriptions must sit below their titles')
     for (const href of resourceLinks) assert.equal((await fetch(base + href)).status, 200, href)
     await clickText('Edit my details')
+    await page.waitForFunction(() => document.querySelector('form')?.contains(document.activeElement))
     await page.waitForSelector('input[type=file]')
     await (await page.$('input[type=file]')).uploadFile(file)
+    await page.waitForFunction(() => document.activeElement?.getAttribute('type') === 'file')
     failure = true
     const before = posts.length
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('form [role=alert]')
     assert.equal(posts.length, before + 1, 'Attachment must not be silently omitted by an email-only fallback')
     assert.equal(await page.$eval('input[type=file]', e => e.files[0].name), 'qa-lease.pdf')
     const failed = await page.evaluate(() => window.__leaseQA.at(-1))
     failure = false
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('.tenant-results')
     assert.ok((await page.$eval('.tenant-results', e => e.innerText)).includes('Your lease was included'))
     const sent = await page.evaluate(() => window.__leaseQA.at(-1))
@@ -92,7 +103,8 @@ try {
     for (let i = 0; i < 10; i++) {
       await page.waitForSelector('main button[aria-pressed]')
       const heading = await page.$eval('main h2[tabindex="-1"]', e => e.textContent)
-      await page.click('main button[aria-pressed]')
+      await clickSelector('main button[aria-pressed]')
+      await page.waitForFunction(() => document.querySelector('main button[aria-pressed]')?.getAttribute('aria-pressed') === 'true')
       await clickText(i === 9 ? 'See my results' : 'Next')
       await page.waitForFunction(previous => document.querySelector('main h2[tabindex="-1"]')?.textContent !== previous, {}, heading)
     }
@@ -100,7 +112,7 @@ try {
     assert.equal(await page.$eval('input[type=file]', e => e.required), false)
     await page.type('#lease-risk-name', 'YOS QA')
     await page.type('#lease-risk-email', 'qa@example.invalid')
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('[aria-label="Useful leasing tools and articles"]')
     assert.equal((await page.evaluate(() => window.__leaseQA.at(-1))).lease, null)
     rows.push({ width, path: '/resources/lease-review', contactLast: true, noFileAccepted: true, resources: true })
@@ -109,7 +121,8 @@ try {
     for (let i = 0; i < 10; i++) {
       await page.waitForSelector('main button[aria-pressed]')
       const heading = await page.$eval('main h2[tabindex="-1"]', e => e.textContent)
-      await page.click('main button[aria-pressed]')
+      await clickSelector('main button[aria-pressed]')
+      await page.waitForFunction(() => document.querySelector('main button[aria-pressed]')?.getAttribute('aria-pressed') === 'true')
       await clickText(i === 9 ? 'See my results' : 'Next')
       await page.waitForFunction(previous => document.querySelector('main h2[tabindex="-1"]')?.textContent !== previous, {}, heading)
     }
@@ -117,13 +130,14 @@ try {
     await page.type('#lease-risk-name', 'YOS QA')
     await page.type('#lease-risk-email', 'qa@example.invalid')
     await (await page.$('input[type=file]')).uploadFile(file)
+    await page.waitForFunction(() => document.activeElement?.getAttribute('type') === 'file')
     failure = true
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('form [role=alert]')
     assert.equal(await page.$eval('input[type=file]', e => e.files[0].name), 'qa-lease.pdf')
     const failedRisk = await page.evaluate(() => window.__leaseQA.at(-1))
     failure = false
-    await page.click('form button[type=submit]')
+    await clickSelector('form button[type=submit]')
     await page.waitForSelector('[aria-label="Useful leasing tools and articles"]')
     const sentRisk = await page.evaluate(() => window.__leaseQA.at(-1))
     assert.equal(sentRisk.lease, 'qa-lease.pdf')
@@ -134,4 +148,11 @@ try {
   }
   writeFileSync(`${out}/report.json`, JSON.stringify(rows, null, 2))
   console.log('PASS lease checks: contact details last, with/without optional lease, file limits, preserved retry, no dropped attachment, and six working tools/articles links at mobile/desktop. All POSTs mocked.')
+} catch (error) {
+  if (lastPage && !lastPage.isClosed()) {
+    await lastPage.screenshot({ path: `${out}/failure.png` }).catch(() => {})
+    const state = await lastPage.evaluate(() => ({ text: document.querySelector('main')?.innerText, focus: document.activeElement?.outerHTML, posts: window.__leaseQA })).catch(() => ({}))
+    writeFileSync(`${out}/failure.json`, JSON.stringify({ error: String(error), state }, null, 2))
+  }
+  throw error
 } finally { await browser.close(); rmSync(temp, { recursive: true, force: true }) }

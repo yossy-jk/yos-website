@@ -264,7 +264,10 @@ export default function TenantLeadForm({
         </p>
         <button
           type="button"
-          onClick={() => setDone(false)}
+          onClick={() => {
+            setDone(false);
+            requestAnimationFrame(() => formRef.current?.querySelector<HTMLInputElement>("input[required]")?.focus());
+          }}
           className="tenant-button"
         >
           Edit my details
