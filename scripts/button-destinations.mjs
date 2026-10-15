@@ -72,7 +72,7 @@ try{
    const expected=new URL(href,base+route)
    await page.waitForFunction((path,query,hash)=>{
     if(location.pathname!==path||location.search!==query||location.hash!==hash)return false
-    if(!hash)return !!document.querySelector('form input[name="email"]')
+    if(!hash)return [...document.querySelectorAll('form input, form select, form textarea')].some(e=>!e.disabled&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0)
     const e=document.getElementById(decodeURIComponent(hash.slice(1))),r=e?.getBoundingClientRect()
     return r&&r.top>=75&&r.top<140&&r.bottom>80
    },{timeout:15000},expected.pathname,expected.search,expected.hash)
