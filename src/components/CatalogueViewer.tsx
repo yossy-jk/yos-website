@@ -66,7 +66,7 @@ export default function CatalogueViewer({
         } catch {
           /* Optional session suppression only. */
         }
-        openOffer();
+        dialog.current?.showModal();
         clearInterval(timer);
       }
     }, 250);
