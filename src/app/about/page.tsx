@@ -149,7 +149,7 @@ export default function AboutPage() {
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {TEAM.map(member => (
-              <article key={member.name} className="bg-white rounded-sm overflow-hidden border border-gray-200">
+              <article key={member.name} id={member.name.toLowerCase().replaceAll(' ', '-')} style={{ scrollMarginTop: 110 }} className="bg-white rounded-sm overflow-hidden border border-gray-200">
                 <div className="relative aspect-[4/3] bg-warm-grey">
                   {member.image ? (
                     <Image src={member.image} alt={member.name} fill

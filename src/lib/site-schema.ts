@@ -9,6 +9,10 @@ export const SERVICE_TYPES = [
   'Client-side Commercial Construction Project Management',
   'Office and Commercial Furniture',
   'Commercial Cleaning',
+  'Office Plant Hire',
+  'Office Electrical Test and Tag Coordination',
+  'Office Fire Compliance Coordination',
+  'Office First Aid Compliance Coordination',
 ] as const
 
 export const ORGANIZATION_SCHEMA = {
@@ -22,5 +26,6 @@ export const ORGANIZATION_SCHEMA = {
   description: 'Newcastle-based workplace support: tenant representation and commercial buying in NSW, FitOut and furniture Australia-wide, and cleaning in Newcastle CBD and Lake Macquarie.',
   address: { '@type': 'PostalAddress', streetAddress: '2 Portside Crescent', addressLocality: 'Maryville', addressRegion: 'NSW', postalCode: '2293', addressCountry: 'AU' },
   knowsAbout: SERVICE_TYPES,
+  brand: { '@type': 'Brand', name: 'Your Office Furniture', url: 'https://www.yourofficefurniture.com.au' },
   sameAs: ['https://www.linkedin.com/company/yourofficespace'],
 } as const

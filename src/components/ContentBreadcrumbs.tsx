@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { SITE_URL } from '@/lib/site-schema'
-export default function ContentBreadcrumbs({ section, sectionPath, title, path }: { section: string; sectionPath: string; title: string; path: string }) {
-  const items = [{ name: 'Home', path: '/' }, { name: section, path: sectionPath }, { name: title, path }]
+export default function ContentBreadcrumbs({ section, sectionPath, title, path }: { section?: string; sectionPath?: string; title: string; path: string }) {
+  const items = [{ name: 'Home', path: '/' }, ...(section && sectionPath ? [{ name: section, path: sectionPath }] : []), { name: title, path }]
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',

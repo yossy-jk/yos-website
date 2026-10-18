@@ -17,5 +17,17 @@
     "Newcastle",
     "buyers agent",
     "commercial investment"
+  ],
+  "sources": [
+    {
+      "title": "NSW Planning Portal: change of use",
+      "url": "https://www.planningportal.nsw.gov.au/development-and-assessment/planning-approval-pathways/exempt-development/change-use",
+      "note": "Approval pathways depend on the premises, proposed use and applicable rules. Your appointed planning adviser or certifier should assess the actual project."
+    },
+    {
+      "title": "Revenue NSW: transfer duty",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/transfer-duty",
+      "note": "Confirm the current transaction treatment and costs with your solicitor or conveyancer. This is not a YOS tax or legal assessment."
+    }
   ]
 }

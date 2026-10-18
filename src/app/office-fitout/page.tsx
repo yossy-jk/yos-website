@@ -1,3 +1,5 @@
+import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
+import PlanningResources from '@/components/PlanningResources'
 import ServiceArticle from '@/components/ServiceArticle'
 import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -50,8 +52,8 @@ const FAQS = [
 export default function OfficeFitoutPage() {
   return <><Nav /><main id="main-content" tabIndex={-1}>
       <ServiceSchema name="Commercial FitOut Project Management" path="/office-fitout" description="Client-side FitOut project management, coordinating the workplace brief, planning, procurement and handover." area="Australia" />
-    <section className="relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-cogc-wide.jpg" alt="Completed commercial workplace with fitted meeting and work areas" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
-      <FadeIn><SectionLabel>Commercial FitOut &amp; project management</SectionLabel></FadeIn>
+    <section className="hero-static relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-cogc-wide.jpg" alt="Completed commercial workplace with fitted meeting and work areas" fill preload sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
+      <ContentBreadcrumbs title="Office fit out" path="/office-fitout" /><FadeIn><SectionLabel>Commercial FitOut &amp; project management</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office fit out Newcastle. Managed on your behalf.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We act as your client-side project manager, connecting the brief, budget, design team, licensed contractors, programme and handover so you stay informed without becoming the project manager.</p></FadeIn>
       <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/resources/fitout-estimator" variant="primary" size="lg">Estimate your FitOut</Button><Button href="/contact?service=fitout#contact-enquiry" variant="outline-light" size="lg">Enquire</Button></div></FadeIn>
@@ -72,6 +74,7 @@ export default function OfficeFitoutPage() {
     </div></section>
     <section className="bg-warm-grey" style={SEC}><div className={`${WRAP} bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center`}><div className="flex-1"><SectionLabel>Furniture comes next</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Need the space furnished as well?</h2><p className="text-charcoal leading-relaxed">Our commercial furniture service handles product specification, samples, quoting, delivery and installation as a separate, clearly defined workstream.</p></div><Button href="/furniture" variant="outline" size="lg">Explore furniture</Button></div></section>
     <section className="bg-light-teal" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Beyond the office fit out</SectionLabel><h2 className="text-near-black text-3xl" style={{ marginTop: 16, marginBottom: 20 }}>Need client-side commercial construction support?</h2><p className="text-charcoal max-w-2xl leading-relaxed" style={{ marginBottom: 24 }}>For a broader commercial construction brief, YOS helps coordinate the client’s requirements, consultants, appointed contractors and project decisions. Contractor responsibilities and YOS’s management scope are agreed before work begins.</p><Button href="/commercial-construction" variant="primary">Explore construction project management</Button></div></section>
+    <PlanningResources kind="project" />
     <ServiceFaq items={FAQS} />
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us where the project stands.</h2><Button href="/contact?service=fitout#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
   <ServiceArticle slug="office-fitout-handover-checklist" />

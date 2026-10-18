@@ -83,8 +83,8 @@ export default function Home() {
     <Nav />
     <main id="main-content" tabIndex={-1}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
-      <section className="home-hero">
-        <Image src="/images/furniture/space-cogc-wide.jpg" alt="Contemporary commercial workplace interior" fill priority className="object-cover" sizes="100vw" />
+      <section className="hero-static home-hero">
+        <Image src="/images/furniture/space-cogc-wide.jpg" alt="Contemporary commercial workplace interior" fill preload className="object-cover" sizes="100vw" />
         <div className="home-hero-shade" />
         <div className="site-container home-hero-inner">
           <FadeIn>

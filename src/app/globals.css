@@ -939,3 +939,6 @@ main [id] { scroll-margin-top: 6rem; }
 .catalogue-error { color: #981e18; font-weight: 650; }
 .catalogue-reader :focus-visible,.catalogue-section :focus-visible,.catalogue-offer :focus-visible { outline: 3px solid #00796D; outline-offset: 3px; }
 @media(max-width:767px) { .catalogue-cards { grid-template-columns: 1fr; } .catalogue-pagination { gap: 6px; } .catalogue-pagination button { padding: 10px; } }
+
+/* Keep first-screen content stable while images and fonts load. */
+.hero-static .safe-reveal { animation: none; }

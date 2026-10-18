@@ -1,3 +1,4 @@
+import PlanningResources from '@/components/PlanningResources'
 import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
 import Image from "next/image";
 import Link from "next/link";
@@ -103,7 +104,7 @@ export default function Page() {
           src="/images/furniture/space-geelong-a.jpg"
           alt="Illustrative commercial office interior"
           fill
-          priority
+          preload
           sizes="100vw"
         />
         <div className="tenant-wrap">
@@ -319,6 +320,7 @@ export default function Page() {
           </ol>
         </div>
       </section>
+    <PlanningResources kind="tenant" />
       <section className="tenant-section tenant-soft" id="packages">
         <div className="tenant-wrap">
           <p className="tenant-eyebrow">Clear scope. Clear fees.</p>

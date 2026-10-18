@@ -9,6 +9,7 @@ export interface BlogPost {
   excerpt: string
   date: string
   updatedDate?: string
+  sources?: { title: string; url: string; note?: string }[]
   division: Division
   author: string
   body: string

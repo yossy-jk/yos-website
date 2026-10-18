@@ -1,4 +1,3 @@
-'use client'
 
 interface FadeInProps {
   children: React.ReactNode
