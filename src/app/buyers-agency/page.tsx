@@ -1,3 +1,5 @@
+import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
+import PlanningResources from '@/components/PlanningResources'
 import ServiceArticle from '@/components/ServiceArticle'
 import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -42,7 +44,7 @@ export default function BuyersAgencyPage() {
   return <><Nav /><main id="main-content" tabIndex={-1}>
       <ServiceSchema name="Commercial Buyers Agent" path="/buyers-agency" description="Buyer-side commercial property support in NSW, from brief and search through due diligence coordination, negotiation and handover." area="NSW" />
     <section className="bg-near-black min-h-[78vh] flex items-center" style={SEC}><div className={WRAP} style={{ ...PAD, paddingTop: 'clamp(5rem,10vw,9rem)' }}>
-      <FadeIn><SectionLabel>Commercial Buyers Agent · NSW</SectionLabel></FadeIn>
+      <ContentBreadcrumbs title="Commercial buyers agent" path="/buyers-agency" /><FadeIn><SectionLabel>Commercial Buyers Agent · NSW</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Commercial buyers agent Newcastle & NSW.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we represent commercial buyers across Newcastle, the Hunter and NSW, turning the business objective into a clear property brief and coordinating the search, evidence, professional advice and negotiation before you commit.</p></FadeIn>
       <FadeIn delay={220}><Button href="/contact?service=buying#contact-enquiry" variant="primary" size="lg">Enquire</Button></FadeIn>
@@ -67,6 +69,7 @@ export default function BuyersAgencyPage() {
 
     <section className="bg-near-black" style={SEC}><div className={WRAP} style={PAD}><FadeIn><SectionLabel>Considering an SMSF purchase?</SectionLabel><h2 className="text-white mt-3 mb-6 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Get specialist advice before the property decision.</h2><p className="text-white/75 text-lg leading-relaxed max-w-3xl">Purchasing commercial property through a self-managed super fund can involve strict legal, tax, borrowing, related-party and use requirements. Information on this site is general only. Obtain advice from appropriately qualified and licensed legal, tax, financial and credit professionals before acting.</p></FadeIn></div></section>
 
+    <PlanningResources kind="buyer" />
     <ServiceFaq items={FAQS} />
 
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Start with the business objective.</h2><Button href="/contact?service=buying#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>

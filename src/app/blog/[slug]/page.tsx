@@ -1,3 +1,5 @@
+import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
+import ArticleNextSteps from '@/components/ArticleNextSteps'
 import { safeContentDate } from '@/lib/sitemap-content'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -291,6 +293,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     .slice(0, Math.max(0, 3 - related.length))
   const relatedPosts = [...related, ...otherPosts].slice(0, 3)
 
+  const authorProfile = EDITORIAL_AUTHORS[post.author]
   const publicationDate = safeContentDate(post.date)
   const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
 
@@ -303,7 +306,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     description: post.metaDescription || post.excerpt,
     datePublished: publicationDate,
     dateModified: safeContentDate(post.updatedDate) || publicationDate,
-    author: post.author ? { '@type': post.author === 'Your Office Space' ? 'Organization' : 'Person', name: post.author, url: 'https://www.yourofficespace.au/about' } : undefined,
+    author: post.author ? { '@type': post.author === 'Your Office Space' ? 'Organization' : 'Person', name: post.author, url: `https://www.yourofficespace.au${authorProfile?.path || '/about'}` } : undefined,
     publisher: ORGANIZATION_SCHEMA,
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/blog/${post.slug}` },
     image: absoluteAssetUrl(heroImage),
@@ -373,6 +376,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {renderBody(post.body, slug)}
               </div>
 
+              {post.sources && post.sources.length > 0 && <section className="article-sources border-t border-gray-200" aria-labelledby="article-sources-heading">
+                <h2 id="article-sources-heading" className="text-near-black text-2xl font-bold mb-4">Official guidance and further reading</h2>
+                <ul className="space-y-5">{post.sources.map(source => <li key={source.url}>
+                  <a href={source.url} className="text-action-teal underline underline-offset-4 font-semibold">{source.title}</a>
+                  {source.note && <p className="text-charcoal leading-relaxed mt-2">{source.note}</p>}
+                </li>)}</ul>
+              </section>}
+              <ArticleNextSteps slug={post.slug} division={post.division} />
               {/* Tags */}
               {post.tags.length > 0 && (
                 <div style={{ marginTop: '3.5rem', paddingTop: '2rem', borderTop: '1px solid #F3F4F6', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -426,14 +437,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   </div>
                   <div>
                     <p style={{ fontWeight: 800, color: '#0A0A0A', fontSize: '0.9rem' }}>{post.author || 'Your Office Space'}</p>
-                    <p style={{ color: '#6B7280', fontSize: '0.78rem', fontWeight: 300 }}>Your Office Space</p>
+                    <p style={{ color: '#6B7280', fontSize: '0.78rem', fontWeight: 300 }}>{authorProfile?.role || 'Your Office Space'}</p>
                   </div>
                 </div>
                 <p style={{ fontSize: '0.825rem', color: '#6B7280', lineHeight: 1.75, fontWeight: 300 }}>
-                  Practical workplace guidance from Your Office Space. Confirm current assumptions and obtain project-specific professional advice before committing.
+                  {authorProfile?.bio || 'Practical workplace guidance from Your Office Space.'}
                 </p>
               </div>
 
+              <p style={{ marginBottom: 24 }}><Link href={authorProfile?.path || '/about'} className="text-action-teal underline underline-offset-4">Meet {authorProfile ? post.author : 'the YOS team'}</Link></p>
               {/* Service links relevant to division */}
               <div style={{ background: '#0A0A0A', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem' }}>
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '1.25rem' }}>Our services</p>

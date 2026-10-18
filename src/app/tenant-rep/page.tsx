@@ -1,3 +1,5 @@
+import { TENANT_INTRO_TRANSCRIPT } from '@/lib/tenant-intro'
+import PlanningResources from '@/components/PlanningResources'
 import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
 import Image from "next/image";
 import Link from "next/link";
@@ -103,7 +105,7 @@ export default function Page() {
           src="/images/furniture/space-geelong-a.jpg"
           alt="Illustrative commercial office interior"
           fill
-          priority
+          preload
           sizes="100vw"
         />
         <div className="tenant-wrap">
@@ -212,6 +214,12 @@ export default function Page() {
             .
           </video>
         </div>
+        <div className="tenant-wrap tenant-video-transcript" style={{ marginTop: 32 }}>
+          <details className="border border-black/10 rounded-xl" style={{ padding: "clamp(1.25rem,3vw,1.75rem)" }}>
+            <summary className="font-semibold cursor-pointer">Read the video transcript</summary>
+            <div className="max-w-3xl" style={{ marginTop: 20 }}>{TENANT_INTRO_TRANSCRIPT.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
+          </details>
+        </div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -227,6 +235,7 @@ export default function Page() {
                 "https://www.yourofficespace.au/videos/yos-tenant-representation-2026-10.mp4",
               uploadDate: "2026-10-15T10:48:46Z",
               duration: "PT55.893S",
+              transcript: TENANT_INTRO_TRANSCRIPT.join(" "),
             }),
           }}
         />
@@ -319,6 +328,7 @@ export default function Page() {
           </ol>
         </div>
       </section>
+    <PlanningResources kind="tenant" />
       <section className="tenant-section tenant-soft" id="packages">
         <div className="tenant-wrap">
           <p className="tenant-eyebrow">Clear scope. Clear fees.</p>

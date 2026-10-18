@@ -1,3 +1,5 @@
+import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
+import PlanningResources from '@/components/PlanningResources'
 import CatalogueCards from '@/components/CatalogueCards'
 import { FURNITURE_STORE_URL } from '@/lib/constants'
 import FurniturePlanningGuides from '@/components/FurniturePlanningGuides'
@@ -53,8 +55,8 @@ const FAQS = [
 export default function FurniturePage() {
   return <><Nav /><main id="main-content" tabIndex={-1}>
       <ServiceSchema name="Office and Commercial Furniture" path="/furniture" description="Commercial furniture selection, supply and installation for workplace briefs across Australia." area="Australia" />
-    <section className="relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-liverpool-a.jpg" alt="Commercial workplace furnished with workstations and collaborative settings" fill priority sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
-      <FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
+    <section className="hero-static relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-liverpool-a.jpg" alt="Commercial workplace furnished with workstations and collaborative settings" fill preload sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
+      <ContentBreadcrumbs title="Office furniture" path="/furniture" /><FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office furniture Newcastle. Planned around your people.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we specify, quote, supply and coordinate installation of office furniture for Newcastle, Lake Macquarie and Hunter workplaces, with projects supported Australia-wide. You can engage us for furniture only or as part of a wider workplace project.</p></FadeIn>
       <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href={FURNITURE_STORE_URL} variant="primary" size="lg">Shop furniture online</Button><Button href="/resources/furniture-quote#furniture-quote-form" variant="outline-light" size="lg">Request a furniture quote</Button></div></FadeIn>
@@ -102,6 +104,7 @@ export default function FurniturePage() {
     </div></section>
 
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><div className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center"><div className="flex-1"><SectionLabel>More than furniture?</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Planning building work as well?</h2><p className="text-charcoal leading-relaxed">Our separate fit out service provides client-side project management across brief, budget, design, procurement and delivery.</p></div><Button href="/office-fitout" variant="outline" size="lg">Explore fit out</Button></div></div></section>
+    <PlanningResources kind="furniture" />
     <CatalogueCards />
     <ServiceFaq items={FAQS} />
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><div className="flex flex-col sm:flex-row justify-center gap-4"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Shop furniture online</Button><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire about a project</Button></div></div></section>

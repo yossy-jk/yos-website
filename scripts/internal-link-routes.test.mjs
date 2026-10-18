@@ -53,6 +53,12 @@ async function routeExists(target) {
     // Dynamic blog routes are backed by content records rather than a static page path.
   }
 
+  if (target.startsWith('/catalogues/')) {
+    const catalogueSource = await readFile(new URL('../src/lib/catalogues.ts', import.meta.url), 'utf8')
+    const ids = [...catalogueSource.matchAll(/id:\s*"([a-z]+)"/g)].map(match => match[1])
+    return ids.some(id => target === `/catalogues/${id}`)
+  }
+
   if (target.startsWith('/blog/')) {
     const slug = target.slice('/blog/'.length)
     const posts = (await readdir(blogRoot)).filter(file => file.endsWith('.json'))

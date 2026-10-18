@@ -79,6 +79,16 @@ function RegistrationPopup({ onClose }: PopupProps) {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
+  const dialogRef = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    const dialog = dialogRef.current
+    const previousFocus = document.activeElement as HTMLElement | null
+    dialog?.showModal()
+    return () => {
+      dialog?.close()
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true })
+    }
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -89,7 +99,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
     try {
       const res = await postEnquiry('/api/market-snapshot-register', { firstname: firstname.trim(), email: email.trim(), region })
       if (res.ok) {
-        localStorage.setItem('snapshot-registered', '1')
+        try { localStorage.setItem('snapshot-registered', '1') } catch { /* Optional popup suppression only. */ }
         setSubmitted(true)
         setTimeout(onClose, 3500)
       } else {
@@ -103,13 +113,17 @@ function RegistrationPopup({ onClose }: PopupProps) {
   }
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
-      style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(6px)' }}
+    <dialog
+      ref={dialogRef}
+      aria-label="Newcastle market updates"
+      onCancel={event => { event.preventDefault(); onClose() }}
+      className="market-update-dialog fixed inset-0 z-50 flex items-center justify-center"
+
+      style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(6px)', width: '100vw', height: '100dvh', maxWidth: 'none', maxHeight: 'none', margin: 0, border: 0, padding: 'clamp(1rem,3vw,1.5rem)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
-        className="relative w-full bg-white rounded-sm overflow-hidden shadow-2xl"
+        className="relative w-full bg-white rounded-sm max-h-[90dvh] overflow-y-auto shadow-2xl"
         style={{ maxWidth: '34rem', animation: 'popupIn 0.32s cubic-bezier(0.34,1.56,0.64,1)' }}
       >
         {/* Teal top bar */}
@@ -129,43 +143,48 @@ function RegistrationPopup({ onClose }: PopupProps) {
         {!submitted ? (
           <div style={{ padding: '2.5rem 2.75rem 2.75rem' }}>
             <div
-              className="inline-flex items-center gap-2 bg-teal/10 text-teal rounded-sm mb-6"
+              className="inline-flex items-center gap-2 bg-teal/10 text-action-teal rounded-sm mb-6"
               style={{ padding: '0.5rem 1rem' }}
             >
               <span className="w-2 h-2 rounded-sm bg-teal" />
-              <span className="font-bold text-xs tracking-widest uppercase">Free Monthly Report</span>
+              <span className="font-bold text-xs tracking-widest uppercase">Free Market Updates</span>
             </div>
 
             <h2
               className="text-near-black font-bold leading-tight mb-3"
               style={{ fontSize: 'clamp(1.3rem,3vw,1.65rem)', paddingRight: '2rem' }}
             >
-              Get the monthly snapshot delivered to your inbox
+              Get the next market update in your inbox
             </h2>
             <p className="text-mid-grey font-light leading-relaxed mb-7" style={{ fontSize: '0.92rem', lineHeight: 1.85 }}>
-              One email, once a month. No spam. Unsubscribe any time.
+              Market updates when a new edition is published. No spam. Unsubscribe any time.
             </p>
 
             <form onSubmit={handleSubmit} className="flex flex-col" style={{ gap: '0.875rem' }}>
               <input
                 type="text"
                 placeholder="First name"
+                aria-label="First name"
+                autoComplete="given-name"
                 value={firstname}
                 onChange={e => setFirstname(e.target.value)}
                 required
-                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-readable-grey outline-none focus:border-teal transition-colors"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               />
               <input
                 type="email"
                 placeholder="Email address"
+                aria-label="Email address"
+                autoComplete="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required
-                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-gray-400 outline-none focus:border-teal transition-colors"
+                className="w-full border border-gray-200 rounded-sm text-near-black font-light placeholder:text-readable-grey outline-none focus:border-teal transition-colors"
                 style={{ padding: '1.1rem 1.25rem', fontSize: '0.95rem' }}
               />
               <select
+                aria-label="Region"
                 value={region}
                 onChange={e => setRegion(e.target.value)}
                 className="w-full border border-gray-200 rounded-sm text-near-black font-light outline-none focus:border-teal transition-colors bg-white"
@@ -178,21 +197,21 @@ function RegistrationPopup({ onClose }: PopupProps) {
               </select>
 
               {error && (
-                <p className="text-red-500 font-light" style={{ fontSize: '0.82rem' }}>{error}</p>
+                <p role="alert" className="text-red-700 font-light" style={{ fontSize: '0.82rem' }}>{error}</p>
               )}
 
               <button
                 type="submit"
                 disabled={submitting || !email.trim() || !firstname.trim()}
-                className="w-full bg-teal text-white font-bold uppercase tracking-[0.1em] rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-full bg-teal text-near-black font-bold uppercase tracking-[0.1em] rounded-sm hover:bg-dark-teal transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 style={{ padding: '1.25rem 2rem', fontSize: '0.72rem', marginTop: '0.35rem' }}
               >
                 {submitting ? 'Sending…' : 'Send me the snapshot'}
               </button>
             </form>
 
-            <p className="text-gray-400 font-light text-center" style={{ fontSize: '0.72rem', marginTop: '1.25rem' }}>
-              No spam. Unsubscribe any time. Published the first business day of every month.
+            <p className="text-readable-grey font-light text-center" style={{ fontSize: '0.72rem', marginTop: '1.25rem' }}>
+              No fixed publication schedule. Unsubscribe any time.
             </p>
           </div>
         ) : (
@@ -216,7 +235,7 @@ function RegistrationPopup({ onClose }: PopupProps) {
           to   { opacity: 1; transform: scale(1) translateY(0); }
         }
       `}</style>
-    </div>
+    </dialog>
   )
 }
 
@@ -225,10 +244,11 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
   return (
     <div className="flex flex-wrap gap-4">
       <button
+        data-market-updates-trigger
         onClick={onOpen}
         className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-teal text-white hover:bg-dark-teal transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
       >
-        Get it delivered monthly
+        Get future market updates
       </button>
       <Link
         href={leaseIntelHref}
@@ -259,7 +279,7 @@ export default function MarketSnapshotPageContent({
 
   // Auto-show after 15s if not already registered
   useEffect(() => {
-    if (localStorage.getItem('snapshot-registered')) return
+    try { if (localStorage.getItem('snapshot-registered')) return } catch { /* Registration remains usable without storage. */ }
     timerRef.current = setTimeout(() => {
       setPopupOpen(true)
     }, 15000)
@@ -300,14 +320,14 @@ export default function MarketSnapshotPageContent({
               className="text-white/55 font-light leading-relaxed mb-12"
               style={{ fontSize: 'clamp(1rem,2.2vw,1.25rem)', maxWidth: '620px', lineHeight: 1.85 }}
             >
-              This is our May 2026 edition. Read the dated commentary on vacancy, rents and supply, then ask us to assess the current market against your workplace brief.
+              This historical May 2026 edition has been updated to separate practical leasing questions from unverified market figures. Ask us to assess current evidence against your workplace brief.
             </p>
             <CTASection onOpen={openPopup} leaseIntelHref={leaseIntelHref} />
           </FadeIn>
         </div>
       </section>
 
-      <div className="bg-warm-grey px-6 py-6 text-charcoal"><p className="mx-auto max-w-screen-xl leading-relaxed"><strong>Historical edition: May 2026.</strong> Market figures and estimates relate to the period described, not today. Confirm current availability, rents and incentives before making a lease decision.</p></div>
+      <div className="bg-warm-grey px-6 py-6 text-charcoal"><p className="mx-auto max-w-screen-xl leading-relaxed"><strong>Historical edition: May 2026.</strong> Reviewed 19 October 2026: unsupported numerical claims have been removed. This is not a current market valuation or a forecast. Confirm availability, rents and incentives against dated, comparable evidence before making a decision.</p></div>
 
       {/* ── Intro paragraphs ─────────────────────────────── */}
       <section
@@ -332,13 +352,13 @@ export default function MarketSnapshotPageContent({
                 className="text-near-black font-light leading-relaxed mb-5"
                 style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', lineHeight: 1.9 }}
               >
-                The Newcastle Office Market Snapshot is free. One page. Published the first business day of every month. Written by Your Office Space, the only commercial property firm in Newcastle that works exclusively for tenants.
+                The Newcastle Office Market Snapshot is free. Prepared by Your Office Space, it considers leasing decisions from the tenant’s side. New editions are published when updated research is available.
               </p>
               <p
                 className="text-near-black font-light leading-relaxed"
                 style={{ fontSize: 'clamp(0.95rem,2vw,1.1rem)', lineHeight: 1.9 }}
               >
-                Read this edition below or register to get it delivered to your inbox each month.
+                Read the historical edition below or register for future editions when they are published.
               </p>
             </div>
           </FadeIn>
@@ -405,24 +425,25 @@ export default function MarketSnapshotPageContent({
           <FadeIn>
             <div style={{ maxWidth: '640px' }}>
               <h2
-                className="text-white font-bold leading-tight mb-5"
+                className="text-near-black font-bold leading-tight mb-5"
                 style={{ fontSize: 'clamp(1.6rem,3.5vw,2.4rem)' }}
               >
-                Get it delivered to your inbox every month.
+                Get the next edition when it is published.
               </h2>
-              <p className="text-white/75 font-light mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
-                One email, once a month. The market data landlords already know, delivered to the tenant&apos;s side.
+              <p className="text-near-black font-light mb-8" style={{ fontSize: '1rem', lineHeight: 1.8 }}>
+                Updates on the questions to ask about your next lease, considered from the tenant&apos;s side.
               </p>
               <div className="flex flex-wrap gap-4">
                 <button
+                  data-market-updates-trigger
                   onClick={openPopup}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-white text-white hover:bg-white hover:text-near-black transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-near-black text-near-black hover:bg-white hover:text-near-black transition-colors min-h-[48px] px-10 py-4 text-[0.72rem]"
                 >
-                  Get it delivered monthly
+                  Get future market updates
                 </button>
                 <Link
                   href={leaseIntelHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-white/10 text-white hover:bg-white/20 transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
+                  className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-near-black text-white hover:bg-charcoal transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
                   Lease review – request scope confirmation
                 </Link>
@@ -446,7 +467,7 @@ export default function MarketSnapshotPageContent({
         >
           <p className="text-mid-grey font-light" style={{ fontSize: '0.82rem' }}>
             Published by Your Office Space | Newcastle |{' '}
-            <a href="mailto:jk@yourofficespace.au" className="text-teal no-underline hover:underline">
+            <a href="mailto:jk@yourofficespace.au" className="text-action-teal no-underline hover:underline">
               jk@yourofficespace.au
             </a>{' '}
             | (02) 4092 0733
@@ -454,7 +475,8 @@ export default function MarketSnapshotPageContent({
         </div>
       </section>
 
-      <div style={{ textAlign: 'center', padding: '1.5rem' }}><button type="button" onClick={openPopup} className="bg-teal text-near-black rounded-lg font-bold" style={{ padding: '1rem 2rem' }}>Get Monthly Market Updates</button></div>
+      <div style={{ textAlign: 'center', padding: '1.5rem' }}><button type="button" data-market-updates-trigger
+                  onClick={openPopup} className="bg-teal text-near-black rounded-lg font-bold" style={{ padding: '1rem 2rem' }}>Get future market updates</button></div>
 
       </main>
 

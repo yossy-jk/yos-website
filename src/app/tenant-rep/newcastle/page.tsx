@@ -123,7 +123,7 @@ export default function TenantRepNewcastlePage() {
                 </p>
                 <div className="border-l-4 border-teal pl-7 py-5 bg-teal/5">
                   <p className="text-near-black font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.85 }}>
-                    We have represented tenants across Newcastle CBD, Hamilton, Broadmeadow, New Lambton, Edgeworth, Maitland, Charlestown, and the Port of Newcastle industrial corridor. Every market has its own dynamics, we know ours.
+                    A Newcastle brief can span the CBD, Hamilton, Broadmeadow, New Lambton, Edgeworth, Maitland, Charlestown and the port corridor. We assess each option against your use, access, budget and timing, rather than assuming every suburb suits the same business.
                   </p>
                 </div>
               </div>
@@ -134,13 +134,13 @@ export default function TenantRepNewcastlePage() {
                 <p className="text-near-black font-bold text-base mb-4">Key submarkets we cover in Newcastle &amp; Hunter:</p>
                 {[
                   { area: 'Newcastle CBD &amp; Hamilton', note: 'Premium office, adaptive reuse, short-term options' },
-                  { area: 'Broadmeadow &amp; Islington', note: 'Growing creative/tech precinct, values from $280/sqm' },
+                  { area: 'Broadmeadow &amp; Islington', note: 'Compare floorplates, access and availability against your brief' },
                   { area: 'New Lambton &amp; Waratah', note: 'Established commercial, good parking, strong local amenity' },
-                  { area: 'Edgeworth &amp; Glendale', note: 'Industrial and trade-orientated, high demand from logistics' },
-                  { area: 'Maitland &amp; Rutherford', note: 'Regional centre growth, Government tenants driving demand' },
+                  { area: 'Edgeworth &amp; Glendale', note: 'Check proposed use, vehicle access and servicing requirements' },
+                  { area: 'Maitland &amp; Rutherford', note: 'Compare location, workforce access and required services' },
                   { area: 'Charlestown &amp; Wallsend', note: 'Retail and service hub, mid-market office requirements' },
                   { area: 'Port &amp; Kooragang Industrial', note: 'Specialised industrial, cold storage, logistics users' },
-                  { area: 'Central Coast', note: 'Corridor office and industrial, growing residential demand spill-over' },
+                  { area: 'Central Coast', note: 'Assess office and industrial options against location and access needs' },
                 ].map((item, i) => (
                   <FadeIn key={i} delay={i * 50} direction="up">
                     <div className="border border-gray-200 p-6 flex gap-5">
