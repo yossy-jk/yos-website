@@ -14,7 +14,7 @@ export default function ArticleNextSteps({ slug, division }: { slug: string; div
           : division === 'cleaning'
             ? [{ href: '/flourish', title: 'Plan your workplace care', text: 'Connect cleaning, plant hire and specialist compliance coordination.' }, { href: '/contact#contact-enquiry', title: 'Discuss your workplace brief', text: 'Share the service and outcome you need.' }]
             : [{ href: '/resources/office-size-calculator', title: 'Test your workspace requirements', text: 'Use your team size and work patterns to start a space brief.' }, { href: '/tenant-rep', title: 'Compare your property options', text: 'Connect premises, occupancy costs and the next lease decision.' }]
-  return <section className="mt-12 rounded-2xl bg-light-teal p-6 md:p-8" aria-label="Put this guide into practice">
+  return <section className="article-next-steps rounded-2xl bg-light-teal" aria-label="Put this guide into practice">
     <h2 className="text-near-black text-2xl font-bold mb-6">Put this guide into practice.</h2>
     <div className="grid sm:grid-cols-2 gap-6">{items.map(item => <div key={item.href}><Link href={item.href} className="text-action-teal font-semibold underline underline-offset-4">{item.title}</Link><p className="text-charcoal mt-3 leading-relaxed">{item.text}</p></div>)}</div>
   </section>

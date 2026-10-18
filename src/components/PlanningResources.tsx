@@ -29,17 +29,17 @@ const resources = {
 
 export default function PlanningResources({ kind }: { kind: keyof typeof resources }) {
   const content = resources[kind]
-  return <section className="bg-warm-grey py-16 md:py-24" aria-label={content.label}>
-    <div className="max-w-screen-xl mx-auto px-6 md:px-8">
-      <p className="text-action-teal text-xs font-bold uppercase tracking-widest mb-4">{content.label}</p>
+  return <section className="planning-resources bg-warm-grey" aria-label={content.label}>
+    <div className="planning-resources-inner">
+      <p className="planning-resources-label text-action-teal text-xs font-bold uppercase tracking-widest">{content.label}</p>
       <h2 className="text-near-black text-3xl md:text-4xl font-bold leading-tight max-w-3xl mb-6">{content.heading}</h2>
       <p className="text-charcoal leading-relaxed max-w-3xl mb-8">{content.intro}</p>
-      <div className="grid md:grid-cols-3 gap-6">{content.files.map(([file, title, text]) => <article key={file} className="bg-white border border-black/10 rounded-2xl p-6">
+      <div className="planning-resources-grid" data-count={content.files.length}>{content.files.map(([file, title, text]) => <article key={file} className="bg-white border border-black/10 rounded-2xl p-6">
         <h3 className="text-near-black text-xl font-bold mb-4">{title}</h3><p className="text-charcoal leading-relaxed mb-5">{text}</p>
         <a href={`/downloads/${file}`} download className="text-action-teal font-semibold underline underline-offset-4">Download blank worksheet (CSV)</a>
       </article>)}</div>
-      <p className="text-charcoal mt-5 text-sm">No email required. Open CSV worksheets in Excel or another spreadsheet app. Fill in your own information; no client data is included.</p>
-      <ul className="flex flex-wrap gap-x-8 gap-y-4 mt-8">{content.links.map(link => <li key={link.href}><Link href={link.href} className="text-action-teal font-semibold underline underline-offset-4">{link.title}</Link></li>)}</ul>
+      <p className="planning-resources-note text-charcoal text-sm">No email required. Open CSV worksheets in Excel or another spreadsheet app. Fill in your own information; no client data is included.</p>
+      <ul className="planning-resources-links">{content.links.map(link => <li key={link.href}><Link href={link.href} className="text-action-teal font-semibold underline underline-offset-4">{link.title}</Link></li>)}</ul>
     </div>
   </section>
 }

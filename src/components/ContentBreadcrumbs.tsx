@@ -7,7 +7,7 @@ export default function ContentBreadcrumbs({ section, sectionPath, title, path }
       '@context': 'https://schema.org', '@type': 'BreadcrumbList',
       itemListElement: items.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: new URL(item.path, SITE_URL).href })),
     }).replace(/</g, '\\u003c') }} />
-    <nav aria-label="Breadcrumb" className="mb-6 text-sm text-white/80">
+    <nav aria-label="Breadcrumb" className="text-sm text-white/80" style={{ marginBottom: 24 }}>
       <ol className="flex flex-wrap gap-2">
         {items.map((item, index) => <li key={item.path} className="flex items-center gap-2">
           {index > 0 && <span aria-hidden="true">/</span>}

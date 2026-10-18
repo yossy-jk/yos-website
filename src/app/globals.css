@@ -942,3 +942,32 @@ main [id] { scroll-margin-top: 6rem; }
 
 /* Keep first-screen content stable while images and fonts load. */
 .hero-static .safe-reveal { animation: none; }
+
+/* Scoped spacing for the search resources: the existing unlayered reset overrides
+   utility margin/padding, so keep these additions independent of old page layouts. */
+.planning-resources { padding: clamp(3.5rem,7vw,6rem) 0; }
+.planning-resources-inner { max-width: 1200px; margin: 0 auto; padding: 0 clamp(1.25rem,3vw,2rem); }
+.planning-resources-label { margin-bottom: 1rem; }
+.planning-resources h2 { margin-bottom: 1.5rem; }
+.planning-resources-inner > p:not(.planning-resources-label):not(.planning-resources-note) { max-width: 48rem; margin-bottom: 2rem; }
+.planning-resources-grid { display: grid; gap: 1.5rem; }
+.planning-resources-grid article { padding: clamp(1.25rem,3vw,1.75rem); }
+.planning-resources-grid h3 { margin-bottom: 1rem; line-height: 1.35; }
+.planning-resources-grid p { margin-bottom: 1.25rem; }
+.planning-resources-note { margin-top: 1.25rem; }
+.planning-resources-links { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-top: 2rem; }
+.article-next-steps { margin-top: 3rem; padding: clamp(1.5rem,3vw,2rem); }
+.article-next-steps h2 { margin-bottom: 1.5rem; }
+.article-next-steps p { margin-top: .75rem; }
+.article-sources { margin-top: 2.5rem; padding-top: 2rem; }
+.article-sources h2 { margin-bottom: 1rem; }
+.article-sources li + li { margin-top: 1.25rem; }
+.article-sources p { margin-top: .5rem; }
+.catalogue-planning-guide { margin: 2rem 0; max-width: 56rem; }
+.catalogue-planning-guide h2 { margin-bottom: 1rem; }
+.catalogue-planning-guide p { margin-bottom: 1rem; }
+.tenant-video-transcript p + p { margin-top: 1rem; }
+.market-update-dialog h2 { margin-bottom: .75rem; }
+.market-update-dialog h2 + p { margin-bottom: 1.5rem; }
+@media (min-width: 900px) { .planning-resources-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
+.planning-resources-grid[data-count="1"] { grid-template-columns: 1fr; max-width: 48rem; }

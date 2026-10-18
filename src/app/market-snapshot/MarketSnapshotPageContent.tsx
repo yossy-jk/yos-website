@@ -117,9 +117,9 @@ function RegistrationPopup({ onClose }: PopupProps) {
       ref={dialogRef}
       aria-label="Newcastle market updates"
       onCancel={event => { event.preventDefault(); onClose() }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6"
+      className="market-update-dialog fixed inset-0 z-50 flex items-center justify-center"
 
-      style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(6px)', width: '100vw', height: '100dvh', maxWidth: 'none', maxHeight: 'none', margin: 0, border: 0 }}
+      style={{ background: 'rgba(10,10,10,0.75)', backdropFilter: 'blur(6px)', width: '100vw', height: '100dvh', maxWidth: 'none', maxHeight: 'none', margin: 0, border: 0, padding: 'clamp(1rem,3vw,1.5rem)' }}
       onClick={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div

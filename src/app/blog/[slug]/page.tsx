@@ -376,7 +376,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 {renderBody(post.body, slug)}
               </div>
 
-              {post.sources && post.sources.length > 0 && <section className="mt-10 border-t border-gray-200 pt-8" aria-labelledby="article-sources-heading">
+              {post.sources && post.sources.length > 0 && <section className="article-sources border-t border-gray-200" aria-labelledby="article-sources-heading">
                 <h2 id="article-sources-heading" className="text-near-black text-2xl font-bold mb-4">Official guidance and further reading</h2>
                 <ul className="space-y-5">{post.sources.map(source => <li key={source.url}>
                   <a href={source.url} className="text-action-teal underline underline-offset-4 font-semibold">{source.title}</a>
@@ -445,7 +445,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </p>
               </div>
 
-              <p className="mb-6"><Link href={authorProfile?.path || '/about'} className="text-action-teal underline underline-offset-4">Meet {authorProfile ? post.author : 'the YOS team'}</Link></p>
+              <p style={{ marginBottom: 24 }}><Link href={authorProfile?.path || '/about'} className="text-action-teal underline underline-offset-4">Meet {authorProfile ? post.author : 'the YOS team'}</Link></p>
               {/* Service links relevant to division */}
               <div style={{ background: '#0A0A0A', borderRadius: '0.875rem', padding: '1.75rem', marginBottom: '1.5rem' }}>
                 <p style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#00B5A5', marginBottom: '1.25rem' }}>Our services</p>

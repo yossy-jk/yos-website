@@ -214,10 +214,10 @@ export default function Page() {
             .
           </video>
         </div>
-        <div className="tenant-wrap mt-8">
-          <details className="border border-black/10 rounded-xl p-5 md:p-7">
+        <div className="tenant-wrap tenant-video-transcript" style={{ marginTop: 32 }}>
+          <details className="border border-black/10 rounded-xl" style={{ padding: "clamp(1.25rem,3vw,1.75rem)" }}>
             <summary className="font-semibold cursor-pointer">Read the video transcript</summary>
-            <div className="mt-5 space-y-4 max-w-3xl">{TENANT_INTRO_TRANSCRIPT.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
+            <div className="max-w-3xl" style={{ marginTop: 20 }}>{TENANT_INTRO_TRANSCRIPT.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
           </details>
         </div>
         <script

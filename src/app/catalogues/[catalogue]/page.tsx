@@ -50,7 +50,7 @@ export default async function Page({
           <p>
             {item.description} Browse page by page or download the original PDF.
           </p>
-          <section className="my-8 max-w-4xl" aria-labelledby="catalogue-guidance-heading">
+          <section className="catalogue-planning-guide" aria-labelledby="catalogue-guidance-heading">
             <h2 id="catalogue-guidance-heading" className="text-2xl font-bold mb-4">{catalogue === 'acoustics' ? 'Choose acoustics for the problem you need to solve.' : 'Turn your furniture shortlist into a clear brief.'}</h2>
             <p className="text-charcoal leading-relaxed mb-4">{catalogue === 'acoustics'
               ? 'Note where speech, meetings or focused work are being disrupted. Share the room dimensions, existing surfaces and how the space is used. Product suitability and any acoustic performance requirements need assessment against the actual room; a catalogue alone cannot establish the result.'
