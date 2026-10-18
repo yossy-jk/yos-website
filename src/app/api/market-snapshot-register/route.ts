@@ -63,7 +63,7 @@ export async function POST(req: Request) {
   </p>
 
   <p style="font-size:15px;line-height:1.8;margin:0 0 24px;font-weight:300">
-    Every month, one email with the market data landlords already know – vacancy rates, rent trends, supply pipeline, and which way leverage is moving. No noise. No spam.
+    We will send future market updates when a new edition is published. There is no fixed publication schedule. Unsubscribe any time by replying to this email.
   </p>
 
   <p style="font-size:15px;line-height:1.8;margin:0 0 8px;font-weight:300">

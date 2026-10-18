@@ -1,3 +1,4 @@
+import { TENANT_INTRO_TRANSCRIPT } from '@/lib/tenant-intro'
 import PlanningResources from '@/components/PlanningResources'
 import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
 import Image from "next/image";
@@ -213,6 +214,12 @@ export default function Page() {
             .
           </video>
         </div>
+        <div className="tenant-wrap mt-8">
+          <details className="border border-black/10 rounded-xl p-5 md:p-7">
+            <summary className="font-semibold cursor-pointer">Read the video transcript</summary>
+            <div className="mt-5 space-y-4 max-w-3xl">{TENANT_INTRO_TRANSCRIPT.map(paragraph => <p key={paragraph}>{paragraph}</p>)}</div>
+          </details>
+        </div>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -228,6 +235,7 @@ export default function Page() {
                 "https://www.yourofficespace.au/videos/yos-tenant-representation-2026-10.mp4",
               uploadDate: "2026-10-15T10:48:46Z",
               duration: "PT55.893S",
+              transcript: TENANT_INTRO_TRANSCRIPT.join(" "),
             }),
           }}
         />
