@@ -1,7 +1,7 @@
 /** Pure, deterministic rendering shared by every owner enquiry notification. */
 export type EnquiryEmail = {
   source: string; name?: string; email?: string; phone?: string; company?: string
-  message?: string; details?: unknown; submissionId: string; submittedAt?: string
+  enquiryPage?: string; entryPage?: string; message?: string; details?: unknown; submissionId: string; submittedAt?: string
   marketingConsent?: boolean; attachment?: { filename: string; size: number }
   priority?: string; followUpBy?: string
 }
@@ -20,7 +20,7 @@ const labels: Record<string, string> = {
   marketingConsent: 'Marketing permission', consentWording: 'Consent wording',
   utm_source: 'Campaign source', utm_medium: 'Campaign medium', utm_campaign: 'Campaign name',
   utm_content: 'Campaign content', landingPage: 'Enquiry page', calculated: 'Estimated results',
-  tool: 'Tool used', results: 'Tool inputs', fields: 'Lease details', attribution: 'How they found YOS',
+  tool: 'Tool used', results: 'Tool inputs', fields: 'Lease details', attribution: 'How they found YOS', enquiryPage: 'Enquiry page', entryPage: 'Service entry page',
 }
 export const enquiryLabel = (key: string) => labels[key] || key.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/[_-]+/g, ' ').replace(/^./, c => c.toUpperCase())
 const escape = (s: string) => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!)
@@ -56,7 +56,7 @@ export function renderEnquiryEmail(data: EnquiryEmail): { html: string; text: st
   const details = [...rows(uniqueDetails), ...rows(structuredMessage)]
   if (details.length) sections.push({ title: 'Submission details', rows: details })
   if (data.attachment) sections.splice(1, 0, { title: 'Lease attached', rows: [{ label: 'File', value: `${data.attachment.filename} (${Math.ceil(data.attachment.size / 1024)} KB) — attached to this email` }] })
-  const meta = rows({ received: enquirySydneyDate(data.submittedAt), marketingPermission: data.marketingConsent === true ? 'Opted in' : 'Not opted in', reference: data.submissionId })
+  const meta = rows({ enquiryPage: data.enquiryPage, entryPage: data.entryPage, received: enquirySydneyDate(data.submittedAt), marketingPermission: data.marketingConsent === true ? 'Opted in' : 'Not opted in', reference: data.submissionId })
   const email = data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) ? data.email : ''
   const phone = data.phone?.replace(/[^+0-9]/g, '') || ''
   const actions = [email ? { text: 'Email prospect', href: `mailto:${encodeURIComponent(email)}` } : null, phone ? { text: 'Call prospect', href: `tel:${phone}` } : null].filter((v): v is { text: string; href: string } => !!v)

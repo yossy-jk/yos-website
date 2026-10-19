@@ -8,13 +8,21 @@ import { contactLimiter, getIp } from '@/lib/ratelimit'
 export const ENQUIRY_ROUTING = { recipient: 'jk@yourofficespace.au', channel: 'email', yosOsEnabled: false } as const
 export type Enquiry = {
   name: string; email: string; phone?: string; company?: string
-  source: string; message?: string; details?: unknown; submissionId?: string
+  source: string; enquiryPage?: string; entryPage?: string; message?: string; details?: unknown; submissionId?: string
   marketingConsent?: boolean; submittedAt?: string; attachment?: LeaseAttachment
 }
 export function enquirySubmissionId(value: unknown): string {
   return typeof value === 'string' && /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(value) ? value : randomUUID()
 }
 const clean = (value: unknown, max: number) => typeof value === 'string' ? value.trim().slice(0, max) : ''
+// Only public route shapes may enter the enquiry record. Queries, fragments and
+// private token paths are never retained as page attribution.
+export function enquiryPage(value: unknown): string | undefined {
+  if (typeof value !== 'string') return undefined
+  const path = value.split(/[?#]/)[0]
+  return /^\/(?:$|(?:contact|tenant-rep|buyers-agency|office-fitout|commercial-construction|furniture|cleaning|flourish|resources|blog|catalogues|tools|lease-health-check|lease-checklist)(?:\/[a-z0-9-]+)*$)/.test(path)
+    && !/^\/tenant-rep\/(?:brief|payment)(?:\/|$)/.test(path) && path.length <= 200 ? path : undefined
+}
 export function normaliseEnquiry(raw: Record<string, unknown>): Enquiry {
   const email = clean(raw.email, 254).toLowerCase()
   const phone = clean(raw.phone, 80)
@@ -22,6 +30,7 @@ export function normaliseEnquiry(raw: Record<string, unknown>): Enquiry {
   return {
     name: clean(raw.name || raw.firstname || raw.firstName, 200), email, phone,
     company: clean(raw.company, 200), source: clean(raw.source, 200) || 'Website enquiry',
+    enquiryPage: enquiryPage(raw.enquiryPage), entryPage: enquiryPage(raw.entryPage),
     message: clean(raw.message || raw.context, 24000), details: raw.details,
     submissionId: typeof raw.submissionId === 'string' && /^[a-f0-9-]{36}$/i.test(raw.submissionId) ? raw.submissionId : undefined,
     marketingConsent: raw.marketingConsent === true,
@@ -67,8 +76,9 @@ export async function enquiryResponse(req: Request, source?: string, attachment?
       const limiter = contactLimiter()
       if (limiter && !(await limiter.limit(getIp(req))).success) return NextResponse.json({ ok: false }, { status: 429 })
     } catch { /* An unavailable rate-limit store must not discard an enquiry. */ }
+    data.submissionId = enquirySubmissionId(data.submissionId)
     await sendOwnerEnquiry(data)
-    return NextResponse.json({ ok: true, success: true })
+    return NextResponse.json({ ok: true, success: true, reference: data.submissionId })
   } catch {
     return NextResponse.json({ ok: false, error: 'We could not confirm email delivery. Please retry or call 02 4092 0733.' }, { status: 502 })
   }

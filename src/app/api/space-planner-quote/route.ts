@@ -6,7 +6,7 @@ export async function POST(req: Request) {
     if (!raw.contact || !Array.isArray(raw.items) || !raw.items.length || raw.items.length > 500) return NextResponse.json({ success: false }, { status: 400 })
     return enquiryResponse(new Request(req.url, {
       method: 'POST', headers: req.headers,
-      body: JSON.stringify({ ...raw.contact, name: `${raw.contact.firstName || ''} ${raw.contact.lastName || ''}`.trim(), source: 'Space Planner quote', message: raw.contact.notes, submissionId: raw.submissionId, details: { room: raw.room, items: raw.items, location: raw.contact.location, deliveryType: raw.contact.deliveryType } }),
+      body: JSON.stringify({ ...raw.contact, name: `${raw.contact.firstName || ''} ${raw.contact.lastName || ''}`.trim(), source: 'Space Planner quote', message: raw.contact.notes, submissionId: raw.submissionId, enquiryPage: raw.enquiryPage, details: { room: raw.room, items: raw.items, location: raw.contact.location, deliveryType: raw.contact.deliveryType } }),
     }))
   } catch { return NextResponse.json({ success: false }, { status: 400 }) }
 }

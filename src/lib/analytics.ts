@@ -18,10 +18,14 @@ export function publicAnalyticsPath(path: string): string | undefined {
   return cleanPath
 }
 
+function productionMeasurementOrigin() {
+  return typeof window !== 'undefined' && ['https://www.yourofficespace.au', 'https://yourofficespace.au'].includes(window.location.origin)
+}
+
 export function discardQueuedConversions() { pendingEvents = [] }
 
 export function flushQueuedConversions() {
-  if (getAnalyticsConsent() !== 'accepted') { discardQueuedConversions(); return }
+  if (!productionMeasurementOrigin() || getAnalyticsConsent() !== 'accepted') { discardQueuedConversions(); return }
   if (!window.gtag) return
   const events = pendingEvents
   pendingEvents = []
@@ -30,7 +34,7 @@ export function flushQueuedConversions() {
 
 /** Optional conversion measurement; never includes form contact details. */
 export function trackConversion(eventName: string, parameters: ConversionParameters = {}) {
-  if (typeof window === 'undefined' || getAnalyticsConsent() !== 'accepted') return
+  if (!productionMeasurementOrigin() || getAnalyticsConsent() !== 'accepted') return
   const pagePath = publicAnalyticsPath(window.location.pathname)
   if (!pagePath) return
   const eventParameters = { ...parameters, page_path: pagePath, page_location: `${window.location.origin}${pagePath}` }

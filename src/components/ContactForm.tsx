@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Link from 'next/link'
 import { sendEnquiry } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
 
@@ -57,12 +58,15 @@ function resolveService(requested?: string): Service | '' {
 /**
  * Contact form with confirmed direct YOS inbox delivery.
  */
-export default function ContactForm({ initialService, fixedService = false, submitLabel = 'Send Message →', messagePlaceholder = "Tell us what you're working on..." }: {
+export default function ContactForm({ initialService, entryPage, fixedService = false, submitLabel = 'Send Message →', messagePlaceholder = "Tell us what you're working on..." }: {
   initialService?: string
+  entryPage?: string
   fixedService?: boolean
   submitLabel?: string
   messagePlaceholder?: string
 }) {
+  const [showServices, setShowServices] = useState(!resolveService(initialService))
+  const [receipt, setReceipt] = useState<{ preview?: boolean; reference?: string }>({})
   const [sent, setSent] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -101,17 +105,19 @@ export default function ContactForm({ initialService, fixedService = false, subm
 
     const result = await sendEnquiry({
       name: fields.name, company: fields.company, email: fields.email,
-      phone: fields.phone, message: fields.message,
+      phone: fields.phone, message: fields.message, entryPage,
       source: `Contact Form — ${fields.service}`, _honey: honey,
     })
     setSubmitting(false)
     const emailAccepted = result.ok
     if (emailAccepted) {
-      trackConversion('generate_lead', {
+      if (!result.preview) trackConversion('generate_lead', {
         service: fields.service,
         form_name: 'contact_enquiry',
+        entry_page: entryPage,
         email_delivery: emailAccepted,
       })
+      setReceipt(result)
       setSent(true)
     } else {
       setSubmitError('We could not confirm delivery. Please try again or call (02) 4092 0733.')
@@ -120,9 +126,11 @@ export default function ContactForm({ initialService, fixedService = false, subm
 
   if (sent) {
     return (
-      <div className="bg-teal/5 border border-teal/20 rounded-sm p-8 text-center">
-        <p className="text-teal font-black text-lg mb-2">Message received.</p>
-        <p className="text-charcoal font-light text-sm">The Your Office Space team will review your enquiry and contact you about the next step.</p>
+      <div role="status" className="contact-receipt">
+        <p className="text-action-teal font-black text-lg mb-2">{receipt.preview ? 'Preview completed.' : 'Message received.'}</p>
+        <p className="text-charcoal font-light text-sm">{receipt.preview ? 'This preview has not sent an email.' : 'Thank you. The YOS team will review what you need and contact you about the next step.'}</p>
+        {receipt.reference && <p className="contact-reference">Enquiry reference: {receipt.reference}</p>}
+        <p style={{ marginTop: 16 }}>Need to add something? <a href="tel:0240920733">Call (02) 4092 0733</a>{receipt.reference ? ' and quote your reference.' : '.'}</p>
       </div>
     )
   }
@@ -137,7 +145,8 @@ export default function ContactForm({ initialService, fixedService = false, subm
   const labelStyle = { fontSize: '0.78rem', letterSpacing: '0.05em' }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+    <form onSubmit={handleSubmit} noValidate className="contact-enquiry-form flex flex-col gap-4">
+      <p className="contact-form-help">{fields.service ? `Enquiring about ${fields.service}.` : 'Choose the service you need, or select Not sure.'} Your name and email are required. Business name, phone and message are optional.</p>
       {/* Honeypot. hidden from real users, filled by bots */}
       <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -150,15 +159,6 @@ export default function ContactForm({ initialService, fixedService = false, subm
           {errors.name && <p id="contact-name-error" role="alert" className="text-red-500 text-xs mt-1">{errors.name}</p>}
         </div>
         <div>
-          <label htmlFor="contact-company" className={labelClass} style={labelStyle}>Business name</label>
-          <input id="contact-company" name="company" type="text" value={fields.company} onChange={e => set('company')(e.target.value)}
-            placeholder="Acme Pty Ltd" autoComplete="organization"
-            className={inputClass()} style={style} />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
           <label htmlFor="contact-email" className={labelClass} style={labelStyle}>Email <span className="text-teal">*</span></label>
           <input id="contact-email" name="email" type="email" value={fields.email} onChange={e => set('email')(e.target.value)}
             placeholder="jane@company.com.au" autoComplete="email"
@@ -166,8 +166,17 @@ export default function ContactForm({ initialService, fixedService = false, subm
             className={inputClass(errors.email)} style={style} />
           {errors.email && <p id="contact-email-error" role="alert" className="text-red-500 text-xs mt-1">{errors.email}</p>}
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="contact-phone" className={labelClass} style={labelStyle}>Phone</label>
+          <label htmlFor="contact-company" className={labelClass} style={labelStyle}>Business name <span className="font-normal">(optional)</span></label>
+          <input id="contact-company" name="company" type="text" value={fields.company} onChange={e => set('company')(e.target.value)}
+            placeholder="Acme Pty Ltd" autoComplete="organization"
+            className={inputClass()} style={style} />
+        </div>
+        <div>
+          <label htmlFor="contact-phone" className={labelClass} style={labelStyle}>Phone <span className="font-normal">(optional)</span></label>
           <input id="contact-phone" name="phone" type="tel" value={fields.phone} onChange={e => set('phone')(e.target.value)}
             placeholder="0400 000 000" autoComplete="tel"
             className={inputClass()} style={style} />
@@ -175,6 +184,8 @@ export default function ContactForm({ initialService, fixedService = false, subm
       </div>
 
       {!(fixedService && resolveService(initialService)) && <div>
+        {!showServices && fields.service && <div className="contact-service-summary"><span>Service: <strong>{fields.service}</strong></span><button id="contact-service-change" type="button" onClick={() => { setShowServices(true); window.requestAnimationFrame(() => document.getElementById('contact-service')?.focus()) }} aria-expanded={false}>Change service</button></div>}
+        {showServices && <>
         <fieldset id="contact-service" tabIndex={-1} aria-describedby={errors.service ? 'contact-service-error' : undefined} className="outline-none">
           <legend className={labelClass} style={labelStyle}>What do you need? <span className="text-teal">*</span></legend>
           <div className="flex flex-wrap gap-2">
@@ -182,7 +193,7 @@ export default function ContactForm({ initialService, fixedService = false, subm
               const selected = fields.service === service
               return (
                 <button key={service} type="button" aria-pressed={selected}
-                  onClick={() => set('service')(service)}
+                  onClick={() => { set('service')(service); setShowServices(false); window.requestAnimationFrame(() => document.getElementById('contact-service-change')?.focus()) }}
                   className={`min-h-[44px] rounded-lg border px-4 py-2 text-sm font-semibold transition-colors ${selected ? 'border-near-black bg-near-black text-white' : 'border-gray-300 bg-white text-near-black hover:border-teal'}`}>
                   {service}
                 </button>
@@ -191,6 +202,7 @@ export default function ContactForm({ initialService, fixedService = false, subm
           </div>
           {errors.service && <p id="contact-service-error" role="alert" className="text-red-500 text-xs mt-1">{errors.service}</p>}
         </fieldset>
+        </>}
       </div>}
       <input type="hidden" name="service" value={fields.service} />
 
@@ -216,7 +228,7 @@ export default function ContactForm({ initialService, fixedService = false, subm
       </button>
 
       <p className="text-readable-grey text-xs">
-        Your information is handled under the Australian Privacy Act 1988 and never shared.
+        We use these details to respond to your enquiry. <Link href="/privacy">Read our privacy policy</Link>.
       </p>
     </form>
   )
