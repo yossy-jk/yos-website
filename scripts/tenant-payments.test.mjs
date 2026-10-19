@@ -29,12 +29,14 @@ function load(file, mocks = {}, env = {}) {
   );
   return exports;
 }
+const constants = load("src/lib/constants.ts");
 const offer = load("src/lib/tenant-offer.ts");
 const rules = load("src/lib/tenant-payment-rules.ts", {
   "./tenant-offer": offer,
 });
 const config = load("src/lib/tenant-payment-config.ts", { "./tenant-payment-rules": rules });
 const receipt = load("src/lib/tenant-payment-receipt.ts", {
+  "./constants": constants,
   "./tenant-payment-rules": rules,
 });
 const renderer = load("src/lib/enquiry-email.ts");
@@ -146,6 +148,7 @@ function setup(options = {}) {
       "./tenant-payment-rules": rules,
       "./enquiry-email": renderer,
       "./tenant-payment-receipt": receipt,
+      "./constants": constants,
     },
     settings,
   );
@@ -341,6 +344,16 @@ test("paid notifications retry independently without repeating owner mail or cha
   assert.match(customer[1].message.text, /\$550/);
   assert.match(customer[1].message.text, /\$6,450/);
   assert.match(customer[1].message.text, /It has not been charged/);
+  assert.ok(customer[1].message.html.includes(`href="${constants.DISCOVERY_BOOKING_URL.replace(/&/g, '&amp;')}"`));
+  assert.ok(customer[1].message.text.includes(constants.DISCOVERY_BOOKING_URL));
+  assert.match(customer[1].message.html, /href="mailto:jk@yourofficespace.au"/);
+  assert.match(customer[1].message.text, /existing lease.*jk@yourofficespace.au/);
+  assert.match(customer[1].message.text, /This is optional/);
+  const owner = s.emails.find(e => e.message.to === "jk@yourofficespace.au").message;
+  assert.equal(owner.replyTo, "client@example.invalid");
+  assert.match(owner.text, /QA Business/);
+  assert.match(owner.text, /Platinum/);
+  assert.ok(owner.text.includes(constants.DISCOVERY_BOOKING_URL));
   assert.equal(s.creates.length, 1);
   const stored = JSON.stringify([...s.records.values()]);
   assert.ok(

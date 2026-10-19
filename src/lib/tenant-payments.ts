@@ -1,3 +1,4 @@
+import { DISCOVERY_BOOKING_URL } from "./constants";
 import Stripe from "stripe";
 import { Redis } from "@upstash/redis";
 import { Resend } from "resend";
@@ -301,9 +302,10 @@ export async function fulfilTenantPayment(sessionId: string) {
         submissionId: state.id,
         submittedAt: state.paidAt,
         message:
-          "Start payment verified by Stripe. Confirm the client brief and scope, and arrange the private agency agreement before tenant representation begins.",
+          "Start payment verified by Stripe. The client confirmation includes a link to book their Project Discovery Session and an optional prompt to email their existing lease to jk@yourofficespace.au. Confirm the client brief and scope, and arrange the private agency agreement before tenant representation begins.",
         details: {
           selectedPackage: state.quote.name,
+          discoverySessionBookingLink: DISCOVERY_BOOKING_URL,
           paidIncludingGst: `${aud(state.quote.total)} AUD`,
           gst: aud(state.quote.gst),
           creditedExGst: aud(state.quote.startExGst),
