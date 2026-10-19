@@ -1,3 +1,4 @@
+import DiscoveryBooking from '@/components/DiscoveryBooking'
 import ServiceFaq from '@/components/ServiceFaq'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -217,6 +218,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               Enquire
             </Button>
                   </div>
+
+                  <DiscoveryBooking />
 
                   {/* Email */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>

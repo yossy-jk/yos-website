@@ -1,4 +1,6 @@
 "use client";
+import DiscoveryBooking from '@/components/DiscoveryBooking'
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -217,6 +219,7 @@ export default function CatalogueViewer({
                 ? "Check your inbox for your first-order code and shopping link."
                 : "Your session request has been sent. Our team will contact you to arrange a time; no appointment is booked yet."}
             </p>
+            {success === "discovery" && <DiscoveryBooking />}
             {success === "discount" && shopUrl && (
               <a className="home-button home-button-dark" href={shopUrl}>
                 Shop with 5% off
@@ -261,6 +264,7 @@ export default function CatalogueViewer({
               </button>
             </div>
             <form onSubmit={submit}>
+              {intent === "discovery" && <DiscoveryBooking />}
               {intent === "discovery" && (
                 <label>
                   Your name

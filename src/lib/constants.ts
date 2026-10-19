@@ -14,6 +14,9 @@ export const ENQUIRY = {
   contactUrl: '/contact#contact-enquiry',
 }
 
+// Temporary booking provider; normal enquiry delivery remains independent.
+export const DISCOVERY_BOOKING_URL = 'https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354'
+
 // Top-level nav — Services is a dropdown
 export const NAV_LINKS = [
   { label: 'Resources', href: '/resources' },

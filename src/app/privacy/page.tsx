@@ -127,7 +127,7 @@ export default function PrivacyPage() {
               <div className="not-prose space-y-5 my-6">
                 <ThirdParty
                   name="HubSpot"
-                  role="Historical CRM records only. New website enquiry forms deliver directly to the YOS inbox by email and do not send data to HubSpot."
+                  role="Optional appointment booking and historical CRM records. If you choose the external HubSpot calendar, the booking details you enter there are processed by HubSpot to arrange your appointment. Normal website enquiry forms deliver directly to the YOS inbox by email and do not send data to HubSpot."
                   link="https://legal.hubspot.com/privacy-policy"
                 />
                 <ThirdParty
