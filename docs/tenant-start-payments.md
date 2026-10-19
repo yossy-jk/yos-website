@@ -18,6 +18,8 @@ Set these **server-side** in the Vercel project `yos-website`:
 - Existing `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`.
 - Existing `RESEND_API_KEY` for live owner and customer confirmations.
 
+Sandbox returns use the deployment’s `VERCEL_URL` automatically, or an explicit `STRIPE_TENANT_TEST_ORIGIN` (HTTPS Vercel preview URL, or HTTP loopback for local testing). Production always uses the canonical YOS origin. Invalid sandbox origins fail closed, and the checkout endpoint requires the same configured browser origin.
+
 For a public preview/sandbox deployment, use sandbox keys and `STRIPE_TENANT_TEST_ENABLED=true`. Production keys are rejected in previews; sandbox keys cannot enable production payments. Test orders use separate Redis keys and never send real emails. If Vercel deployment protection is enabled, the preview webhook must have an approved public webhook path or a separate public sandbox deployment; do not disable project-wide protection merely for this test.
 
 For production, first complete sandbox verification. Set live keys/rate/signing secret and `STRIPE_TENANT_PAYMENTS_ENABLED=true`, then redeploy. Environment changes alone do not update statically rendered package-card availability. Do not claim live payments work until a real account Checkout session, customer receipt and signed callback have been verified. Testing does not require charging a real card.

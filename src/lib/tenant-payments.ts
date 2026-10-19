@@ -52,6 +52,7 @@ export function paymentServices() {
 export function checkoutParameters(
   order: Order,
   taxRate: string,
+  origin: string = TENANT_PAYMENT_ORIGIN,
 ): Stripe.Checkout.SessionCreateParams {
   const q = order.quote;
   const metadata = {
@@ -95,8 +96,8 @@ export function checkoutParameters(
     client_reference_id: order.id,
     metadata,
     payment_intent_data: { metadata },
-    success_url: `${TENANT_PAYMENT_ORIGIN}/tenant-rep/payment?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${TENANT_PAYMENT_ORIGIN}/tenant-rep/start?package=${q.tier}&cancelled=1`,
+    success_url: `${origin}/tenant-rep/payment?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${origin}/tenant-rep/start?package=${q.tier}&cancelled=1`,
     custom_text: {
       submit: {
         message:
@@ -131,13 +132,13 @@ export async function createTenantCheckout(
       );
     if (order?.paidAt)
       return {
-        url: `${TENANT_PAYMENT_ORIGIN}/tenant-rep/payment?session_id=${encodeURIComponent(order.sessionId!)}`,
+        url: `${runtime.origin}/tenant-rep/payment?session_id=${encodeURIComponent(order.sessionId!)}`,
       };
     if (order?.sessionId) {
       const session = await stripe.checkout.sessions.retrieve(order.sessionId);
       if (session.status === "complete")
         return {
-          url: `${TENANT_PAYMENT_ORIGIN}/tenant-rep/payment?session_id=${encodeURIComponent(session.id)}`,
+          url: `${runtime.origin}/tenant-rep/payment?session_id=${encodeURIComponent(session.id)}`,
         };
       if (session.status === "open" && session.url) return { url: session.url };
       throw new TenantPaymentError(
@@ -175,7 +176,7 @@ export async function createTenantCheckout(
         "Payment tax settings need checking. Please contact YOS.",
       );
     const session = await stripe.checkout.sessions.create(
-      checkoutParameters(order, rate.id),
+      checkoutParameters(order, rate.id, runtime.origin),
       { idempotencyKey: `yos-tenant-start-${order.id}` },
     );
     if (

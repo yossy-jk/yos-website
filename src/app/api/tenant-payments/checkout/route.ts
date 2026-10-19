@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
 import { tenantPaymentLimiter, getIp } from "@/lib/ratelimit";
 import {
   paymentRequest,
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
   const allowed =
     process.env.VERCEL_ENV === "production"
       ? TENANT_PAYMENT_ORIGIN
-      : new URL(req.url).origin;
+      : tenantPaymentRuntime().origin;
   if (!origin || origin !== allowed)
     return NextResponse.json(
       { error: "Please start checkout from the YOS website." },
