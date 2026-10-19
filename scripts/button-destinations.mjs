@@ -50,7 +50,7 @@ try{
   ...['land-tax-calculator','lease-vs-buy','rental-yield-calculator','stamp-duty-calculator'].map(slug=>['/resources/'+slug,'/contact?service=buying#contact-enquiry']),['/resources/office-size-calculator','/contact?service=leasing#contact-enquiry'],['/tenant-rep','/lease-health-check'],
   ['/buyers-agency','/contact?service=buying#contact-enquiry'],['/office-fitout','/contact?service=fitout#contact-enquiry'],
   ['/furniture','/contact?service=furniture#contact-enquiry'],['/furniture','/resources/furniture-quote#furniture-quote-form'],
-  ['/leaseintel','/contact?service=leasing#contact-enquiry'],['/tools/space-planner','/contact?service=furniture#contact-enquiry'],['/newcastle-commercial-property','/contact#contact-enquiry'],
+  ['/tools/space-planner','/contact?service=furniture#contact-enquiry'],['/newcastle-commercial-property','/contact#contact-enquiry'],
  ].map(([route,href])=>({route,href})))
  for(const width of (process.env.LINK_AUDIT_FOCUS ? [1440] : [390,1440])) {
   await page.setViewport({width,height:900})
@@ -59,6 +59,13 @@ try{
   await page.setRequestInterception(true)
   page.removeAllListeners('request')
   page.on('request',request=>request.method()==='POST'?request.abort():request.continue())
+  for(const legacy of ['/lease-review','/leaseintel','/eof-group/lease-review']) {
+   const response=await page.goto(base+legacy,{waitUntil:'networkidle2'})
+   assert.equal(new URL(page.url()).pathname,'/lease-health-check',`${legacy}: must reach the consolidated Health Check`)
+   assert.equal(response.request().redirectChain()[0]?.response()?.status(),308,`${legacy}: permanent redirect required`)
+   assert.ok(await page.$('main form input'),`${legacy}: Health Check form is available`)
+   interactions.push({route:legacy,href:'/lease-health-check',width,permanentRedirect:true})
+  }
   for(const {route,href} of matrix.filter(item=>!process.env.LINK_AUDIT_FOCUS || item.route===process.env.LINK_AUDIT_FOCUS)) {
    console.log(`CHECK ${route} → ${href} @ ${width}px`)
    await page.goto(base+route,{waitUntil:'networkidle2'})
