@@ -8,6 +8,7 @@ import GoogleAnalytics from '@/components/GoogleAnalytics'
 import { type Consent, STORAGE_KEY, CONSENT_EVENT, getAnalyticsConsent as getConsentSnapshot, setMemoryConsent } from '@/lib/analytics-consent'
 import { discardQueuedConversions } from '@/lib/analytics'
 import PhoneClickTracking from '@/components/PhoneClickTracking'
+import FurnitureStoreTracking from '@/components/FurnitureStoreTracking'
 
 function subscribeToConsent(onStoreChange: () => void) {
   window.addEventListener(CONSENT_EVENT, onStoreChange)
@@ -37,6 +38,7 @@ function OptionalAnalytics() {
     <>
       <GoogleAnalytics />
       <PhoneClickTracking />
+      <FurnitureStoreTracking />
 
     </>
   )
