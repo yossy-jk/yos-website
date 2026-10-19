@@ -3,11 +3,11 @@ export interface LeadPayload {
   firstname: string; email: string; source: string; context?: string; marketingConsent?: boolean
 }
 const ids = new Map<string, { id: string; submittedAt: string }>()
-export async function postEnquiry(endpoint: string, payload: Record<string, unknown>, attachment?: File): Promise<Response> {
+export async function postEnquiry(endpoint: string, payload: Record<string, unknown>, attachment?: File, attachmentField: 'lease' | 'attachment' = 'lease'): Promise<Response> {
   const digest = attachment ? Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await attachment.arrayBuffer()))).map(n => n.toString(16).padStart(2, '0')).join('') : ''
   const candidate = typeof window !== 'undefined' ? window.location.pathname : ''
   const enquiryPage = /^\/(?:$|[a-z0-9/-]+$)/.test(candidate) && !/^\/(?:api|dashboard)(?:\/|$)/.test(candidate) && !/^\/tenant-rep\/(?:brief|payment)(?:\/|$)/.test(candidate) ? candidate : undefined
-  const key = JSON.stringify({ endpoint, payload, enquiryPage, attachment: attachment ? { name: attachment.name, digest } : null })
+  const key = JSON.stringify({ endpoint, payload, enquiryPage, attachmentField, attachment: attachment ? { name: attachment.name, digest } : null })
   if (!ids.has(key)) {
     if (ids.size >= 100) ids.delete(ids.keys().next().value!)
     ids.set(key, { id: crypto.randomUUID(), submittedAt: new Date().toISOString() })
@@ -15,7 +15,7 @@ export async function postEnquiry(endpoint: string, payload: Record<string, unkn
   const data = { ...payload, enquiryPage, submissionId: ids.get(key)!.id, submittedAt: ids.get(key)!.submittedAt }
   if (attachment) {
     const form = new FormData()
-    form.set('payload', JSON.stringify(data)); form.set('lease', attachment)
+    form.set('payload', JSON.stringify(data)); form.set(attachmentField, attachment)
     return fetch(endpoint, { method: 'POST', body: form })
   }
   return fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })

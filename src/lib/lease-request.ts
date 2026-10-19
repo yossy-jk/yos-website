@@ -1,7 +1,7 @@
 import { Buffer } from 'node:buffer'
 import { createHash } from 'node:crypto'
 import { leaseFileError, MAX_LEASE_BYTES } from './lease-file-rules'
-export type LeaseAttachment = { filename: string; content: string; size: number; digest: string }
+export type LeaseAttachment = { filename: string; content: string; size: number; digest: string; label?: string }
 export class LeaseRequestError extends Error {
   constructor(message: string, public status = 400) { super(message) }
 }
