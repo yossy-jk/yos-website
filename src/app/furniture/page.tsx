@@ -1,3 +1,4 @@
+import DiscoveryBooking from '@/components/DiscoveryBooking'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
 import CatalogueCards from '@/components/CatalogueCards'
@@ -107,7 +108,7 @@ export default function FurniturePage() {
     <PlanningResources kind="furniture" />
     <CatalogueCards />
     <ServiceFaq items={FAQS} />
-    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><div className="flex flex-col sm:flex-row justify-center gap-4"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Shop furniture online</Button><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire about a project</Button></div></div></section>
+    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><DiscoveryBooking /><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><div className="flex flex-col sm:flex-row justify-center gap-4"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Shop furniture online</Button><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire about a project</Button></div></div></section>
   <FurniturePlanningGuides />
       </main><Footer /></>
 }

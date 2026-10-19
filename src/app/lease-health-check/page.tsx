@@ -1,3 +1,4 @@
+import DiscoveryBooking from '@/components/DiscoveryBooking'
 import GuaranteeNote from "@/components/tenant/GuaranteeNote";
 import TenantShell, { tenantMetadata } from "@/components/tenant/TenantShell";
 import TenantLeadForm from "@/components/tenant/TenantLeadForm";
@@ -22,6 +23,7 @@ export default function Page() {
               information needed for your written Health Check. Uploading your current lease is optional; you can submit without it.
             </p>
             <GuaranteeNote />
+            <DiscoveryBooking />
             <ul className="tenant-checklist">
               <li>Understand expiry and option questions.</li>
               <li>Identify commercial cost and make-good points to check.</li>
