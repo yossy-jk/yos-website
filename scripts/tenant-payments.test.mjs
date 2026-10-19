@@ -346,6 +346,9 @@ test("paid notifications retry independently without repeating owner mail or cha
   assert.match(customer[1].message.text, /It has not been charged/);
   assert.ok(customer[1].message.html.includes(`href="${constants.DISCOVERY_BOOKING_URL.replace(/&/g, '&amp;')}"`));
   assert.ok(customer[1].message.text.includes(constants.DISCOVERY_BOOKING_URL));
+  assert.match(customer[1].message.html, /href="mailto:jk@yourofficespace.au"/);
+  assert.match(customer[1].message.text, /existing lease.*jk@yourofficespace.au/);
+  assert.match(customer[1].message.text, /This is optional/);
   const owner = s.emails.find(e => e.message.to === "jk@yourofficespace.au").message;
   assert.equal(owner.replyTo, "client@example.invalid");
   assert.match(owner.text, /QA Business/);

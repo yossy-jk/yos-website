@@ -302,7 +302,7 @@ export async function fulfilTenantPayment(sessionId: string) {
         submissionId: state.id,
         submittedAt: state.paidAt,
         message:
-          "Start payment verified by Stripe. The client confirmation includes a link to book their Project Discovery Session. Confirm the client brief and scope, and arrange the private agency agreement before tenant representation begins.",
+          "Start payment verified by Stripe. The client confirmation includes a link to book their Project Discovery Session and an optional prompt to email their existing lease to jk@yourofficespace.au. Confirm the client brief and scope, and arrange the private agency agreement before tenant representation begins.",
         details: {
           selectedPackage: state.quote.name,
           discoverySessionBookingLink: DISCOVERY_BOOKING_URL,
