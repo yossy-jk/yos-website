@@ -94,8 +94,8 @@ export default function TenantRepNewcastlePage() {
           <FadeIn delay={300}>
             <div className="flex flex-col sm:flex-row gap-4">
               <Button href="/lease-health-check" variant="primary" size="lg">Free Lease Health Check</Button>
-              <Button href="/lease-review" variant="outline" size="lg">
-                Request a Lease Review
+              <Button href="/tenant-rep/packages" variant="outline" size="lg">
+                Compare Tenant Rep Packages
               </Button>
             </div>
           </FadeIn>
@@ -378,20 +378,20 @@ export default function TenantRepNewcastlePage() {
           <FadeIn>
             <div className="bg-near-black p-8 sm:p-10 lg:p-14 flex flex-col lg:flex-row gap-8 items-start lg:items-center">
               <div className="flex-1">
-                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">LeaseIntel™</p>
+                <p className="text-teal font-bold text-xs tracking-widest uppercase mb-3">Lease Health Check</p>
                 <h3 className="text-white font-bold leading-tight mb-4"
                   style={{ fontSize: 'clamp(1.25rem,2.5vw,2rem)' }}>
-                  Already have a lease? Request a scoped risk review.
+                  Already have a lease? Start with a free Health Check.
                 </h3>
                 <p className="text-white/60 font-light leading-relaxed"
                   style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
-                  Upload your lease and we&apos;ll run it through our 12-category risk framework. Rent, make good, relocation,
-                  options, every clause rated Red / Amber / Green. Free summary returned shortly.
+                  Tell us about your lease dates, commercial costs and plans. Attaching your current lease is optional.
+                  We will confirm the information needed and agree the next step; your solicitor provides legal advice.
                 </p>
               </div>
               <div className="flex-shrink-0">
-                <Button href="/lease-review" variant="primary" size="lg">
-                  Request a Lease Review
+                <Button href="/lease-health-check" variant="primary" size="lg">
+                  Start a Free Lease Health Check
                 </Button>
               </div>
             </div>

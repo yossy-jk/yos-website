@@ -249,7 +249,7 @@ export default function TenantRepPage() {
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               {[
                 { label: 'EOF Group overview', href: '/eof-group' },
-                { label: 'Lease Review & Advisory', href: '/eof-group/lease-review' },
+                { label: 'Lease Review & Advisory', href: '/lease-health-check' },
                 { label: 'Newcastle & Hunter', href: '/eof-group/newcastle' },
                 { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
               ].map(link => (

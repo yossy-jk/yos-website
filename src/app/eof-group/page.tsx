@@ -57,7 +57,7 @@ const DIVISIONS = [
     tagline: 'Know what you\'re signing before you sign.',
     description: 'Commercial leases are complex documents with clauses that can cost you significantly down the track. We review, negotiate and advise on lease terms before you commit, saving you from costly mistakes.',
     services: ['Lease document review', 'Clause-by-clause negotiation', 'Make-good obligations', 'Exit strategy planning', 'Rent and outgoings analysis'],
-    href: '/eof-group/lease-review',
+    href: '/lease-health-check',
     cta: 'Get a lease review',
     colour: '#6366f1',
   },
@@ -102,7 +102,7 @@ export default function EOFGroupPage() {
                 <Button href="/eof-group/tenant-representation" variant="outline" size="lg">
                   Tenant Rep
                 </Button>
-                <Button href="/eof-group/lease-review" variant="outline" size="lg">
+                <Button href="/lease-health-check" variant="outline" size="lg">
                   Lease Review
                 </Button>
               </div>

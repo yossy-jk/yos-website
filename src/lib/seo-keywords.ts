@@ -85,10 +85,10 @@ export const KEYWORDS: Keyword[] = [
     intent: 'transactional',
     priority: 'immediate',
     currentRank: null,
-    targetPage: '/leaseintel',
+    targetPage: '/lease-health-check',
     contentGap: null,
     aeoFit: true,
-    notes: 'Direct service intent. LeaseIntel page is the target.'
+    notes: 'Direct service intent. Lease Health Check is the target.'
   },
   {
     id: 'tr-06',
@@ -273,7 +273,7 @@ export const KEYWORDS: Keyword[] = [
     intent: 'transactional',
     priority: 'immediate',
     currentRank: null,
-    targetPage: '/leaseintel',
+    targetPage: '/lease-health-check',
     contentGap: null,
     aeoFit: true,
     notes: 'Very low competition. We may be the only tool ranking for this nationally.'
@@ -287,7 +287,7 @@ export const KEYWORDS: Keyword[] = [
     intent: 'transactional',
     priority: 'medium',
     currentRank: null,
-    targetPage: '/leaseintel',
+    targetPage: '/lease-health-check',
     contentGap: null,
     aeoFit: true,
     notes: 'National scope. Strong commercial intent. Medium competition.'

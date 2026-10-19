@@ -35,7 +35,7 @@ try {
     return results
   }, paths)
   const failures=[]
-  const redirects = { '/eof-group': '/about', '/eof-group/furniture': '/furniture', '/eof-group/tenant-representation': '/tenant-rep', '/eof-group/lease-review': '/lease-review', '/eof-group/newcastle': '/newcastle-commercial-property' }
+  const redirects = { '/lease-review': '/lease-health-check', '/leaseintel': '/lease-health-check', '/eof-group': '/about', '/eof-group/furniture': '/furniture', '/eof-group/tenant-representation': '/tenant-rep', '/eof-group/lease-review': '/lease-health-check', '/eof-group/newcastle': '/newcastle-commercial-property' }
   for (const [source, destination] of Object.entries(redirects)) {
     const response = await fetch(`${base}${source}`, {redirect: 'manual'})
     const target = new URL(response.headers.get('location') || '/', base).pathname

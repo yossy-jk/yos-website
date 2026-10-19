@@ -186,7 +186,7 @@ export default function NewcastlePage() {
                 },
                 {
                   name: 'Lease Review',
-                  href: '/eof-group/lease-review',
+                  href: '/lease-health-check',
                   colour: '#6366f1',
                   desc: 'Clause-by-clause review of any commercial lease. Whether you\'re signing a new Hunter premises lease or reviewing your current arrangement.',
                 },

@@ -490,17 +490,17 @@ export default function LeaseRiskCheckerPage() {
                 This is a commercial risk assessment, not legal advice. Always engage a qualified commercial solicitor before signing, varying, or exiting any commercial lease.
               </p>
 
-              {/* CTA – scoped LeaseIntel review */}
+              {/* CTA – current Lease Health Check */}
               <div className="mb-8 rounded-sm p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
-                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Request a scoped LeaseIntel review</p>
-                <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>Suitability, timing, fees and deliverables are confirmed first.</p>
+                <p className="text-teal font-bold mb-1" style={{ fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Start a free Lease Health Check</p>
+                <p className="font-semibold mb-3" style={{ fontSize: '0.85rem', color: 'rgba(20,184,166,0.9)' }}>A free first conversation. No document required.</p>
                 <p className="text-white/70 font-light mb-5" style={{ fontSize: '0.92rem', lineHeight: 1.7 }}>
-                  Submit an intake request for your actual lease. We confirm the proposed review scope, document handling, timing, fees and accountable reviewer before work begins.
+                  Tell us about your lease dates, costs and plans. You can optionally attach your current lease. We will confirm what needs checking and agree the next step; any further advisory work is scoped separately.
                 </p>
-                <Link href="/lease-review"
+                <Link href="/lease-health-check"
                   className="inline-flex items-center justify-center bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
                   style={{ padding: '0.9rem 2rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '4px' }}>
-                  Request review scope →
+                  Start your Health Check →
                 </Link>
               </div>
 
@@ -518,7 +518,7 @@ export default function LeaseRiskCheckerPage() {
       </div>
 
 
-      <ToolGuide purpose="Use the questions to identify lease topics that warrant closer review before you commit or renew." inputs="Your lease and information about rent reviews, make-good, options and other commercial obligations." result="A risk summary based on your answers. It does not analyse the full lease or replace a solicitor." next="Request a scoped lease review" href="/lease-review" />
+      <ToolGuide purpose="Use the questions to identify lease topics that warrant closer review before you commit or renew." inputs="Your lease and information about rent reviews, make-good, options and other commercial obligations." result="A risk summary based on your answers. It does not analyse the full lease or replace a solicitor." next="Start a free Lease Health Check" href="/lease-health-check" />
 </main>
 
       <Footer />

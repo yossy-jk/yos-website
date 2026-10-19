@@ -103,7 +103,7 @@ export default function PrivacyPage() {
                 <li><strong>Optional lease documents</strong>, your current lease if you choose to attach it to a lease check. It is emailed to the YOS inbox with your request through our email provider.</li>
                 <li><strong>Referral details</strong>, referrer and business contact information, with confirmation that the referred contact has agreed to be contacted.</li>
                 <li><strong>Request source and consent records</strong>, campaign labels, the landing page, and the marketing choice, wording and time recorded when you submit.</li>
-                <li><strong>Payment details</strong>, for LeaseIntel™ ($97 review). Card processing is handled by Stripe; we do not store card numbers.</li>
+                <li><strong>Payment details</strong>, when you choose a paid service. Card processing is handled by Stripe; we do not store card numbers.</li>
                 <li><strong>IP address</strong>, collected automatically for rate limiting purposes (see Third Parties below). Not linked to your identity.</li>
                 <li><strong>Basic browser/device and usage information</strong>, standard server logs used for security and performance monitoring. If you accept optional analytics, Google Analytics also process information about pages viewed, device/browser type and approximate location.</li>
               </ul>
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
             <PrivacySection title="Why we collect it">
               <ul>
                 <li>To respond to your enquiry and provide the service you asked about.</li>
-                <li>To deliver your LeaseIntel™ lease review report.</li>
+                <li>To respond to your Lease Health Check and deliver any separately agreed advisory work.</li>
                 <li>To send you occasional updates or resources if you&apos;ve opted in (you can unsubscribe any time).</li>
                 <li>To protect the website from abuse (rate limiting).</li>
                 <li>With your permission, to understand which pages and resources are useful and improve the website.</li>
@@ -177,7 +177,7 @@ export default function PrivacyPage() {
               <p>
                 New enquiry data is delivered to the YOS email inbox. Historical HubSpot records and enquiry emails are retained for as long as they&apos;re reasonably needed to manage the relationship or
                 provide the requested service, typically no longer than three years of inactivity.
-                LeaseIntel™ order records are kept for seven years as required by Australian tax law.
+                Historical LeaseIntel™ order records are kept for seven years as required by Australian tax law.
                 Rate-limiting IP data in Upstash expires automatically (usually within minutes to hours).
               </p>
             </PrivacySection>

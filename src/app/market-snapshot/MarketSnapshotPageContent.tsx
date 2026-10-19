@@ -254,10 +254,10 @@ function CTASection({ onOpen, leaseIntelHref }: { onOpen: () => void; leaseIntel
         href={leaseIntelHref}
         className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] border border-teal text-teal hover:bg-teal hover:text-white transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
       >
-        Lease review – scope, timing and fees confirmed first
+        Start a free Lease Health Check
       </Link>
       <p className="text-white/45 font-light" style={{ fontSize: '0.82rem', lineHeight: 1.7 }}>
-        Newcastle business? Ask about current eligibility for the full LeaseIntel report.
+        Review your lease dates, costs and next decision with the YOS team.
       </p>
     </div>
   )

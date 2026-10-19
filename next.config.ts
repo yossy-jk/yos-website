@@ -25,7 +25,9 @@ const nextConfig: NextConfig = {
         ['/eof-group', '/about'],
         ['/eof-group/furniture', '/furniture'],
         ['/eof-group/tenant-representation', '/tenant-rep'],
-        ['/eof-group/lease-review', '/lease-review'],
+        ['/eof-group/lease-review', '/lease-health-check'],
+        ['/lease-review', '/lease-health-check'],
+        ['/leaseintel', '/lease-health-check'],
         ['/eof-group/newcastle', '/newcastle-commercial-property'],
       ].map(([source, destination]) => ({ source, destination, permanent: true })),
       {

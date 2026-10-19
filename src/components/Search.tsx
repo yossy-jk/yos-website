@@ -27,7 +27,7 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs.', href: '/resources/office-size-calculator', category: 'Tool' },
   { title: 'Should I Relocate?', description: 'Six-question quiz gives you a Red, Amber or Green verdict on moving offices.', href: '/resources/relocate-quiz', category: 'Tool' },
   { title: 'Workspace Builder', description: 'Plan your office layout. rooms, desks, and space requirements.', href: '/resources/workspace-builder', category: 'Tool' },
-  { title: 'LeaseIntel Report', description: 'A structured commercial lease review in plain English.', href: '/leaseintel', category: 'Tool' },
+  { title: 'Lease Health Check', description: 'Start a free conversation about lease dates, costs and your next decision.', href: '/lease-health-check', category: 'Tool' },
   // Pages
   { title: 'About Your Office Space', description: 'Who we are, what we do, and how we work with Newcastle businesses.', href: '/about', category: 'Page' },
   { title: 'Contact', description: 'Get in touch with the YOS team in Newcastle.', href: '/contact', category: 'Page' },
