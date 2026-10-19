@@ -1,3 +1,4 @@
+import WorkplaceGuides from '@/components/WorkplaceGuides'
 import { TENANT_INTRO_TRANSCRIPT } from '@/lib/tenant-intro'
 import PlanningResources from '@/components/PlanningResources'
 import { tenantPaymentRuntime } from "@/lib/tenant-payment-config";
@@ -329,6 +330,7 @@ export default function Page() {
         </div>
       </section>
     <PlanningResources kind="tenant" />
+    <WorkplaceGuides kind="tenant" />
       <section className="tenant-section tenant-soft" id="packages">
         <div className="tenant-wrap">
           <p className="tenant-eyebrow">Clear scope. Clear fees.</p>

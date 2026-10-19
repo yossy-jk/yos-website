@@ -1,3 +1,4 @@
+import WorkplaceGuides from '@/components/WorkplaceGuides'
 import ServiceFaq from '@/components/ServiceFaq'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -31,7 +32,7 @@ export const metadata = withPageSeo({
 
 const LEASING_TOOLS = [
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention. and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
-  { title: 'Fitout Cost Estimator', description: 'Estimate your fitout cost using real market rates. Full breakdown across Basic, Mid-Range and Premium tiers.', href: '/resources/fitout-estimator', features: ['2026 market rates', 'Three quality tiers', 'Contingency included'] },
+  { title: 'Fitout Cost Estimator', description: 'Build an indicative fitout budget using the tool assumptions. Full breakdown across Basic, Mid-Range and Premium tiers.', href: '/resources/fitout-estimator', features: ['Indicative assumptions', 'Three quality tiers', 'Contingency included'] },
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost. not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
   { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs. Based on headcount, work style, and growth plans.', href: '/resources/office-size-calculator', features: ['Headcount-based', 'Growth buffer included', 'Instant result'] },
   { title: 'Should I Relocate?', description: 'Answer 6 questions about your lease, space, and team. Get an instant Red, Amber, or Green verdict on whether your business should move offices.', href: '/resources/relocate-quiz', features: ['6-question assessment', 'RAG verdict', 'Specific next steps'] },
@@ -120,7 +121,7 @@ export default function ResourcesPage() {
             </h1>
             <p className="text-white/60 font-light leading-relaxed"
               style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.75 }}>
-              Free tools for commercial property decisions, practical articles, and real project case studies. Some tools request contact details to unlock results or a report.
+              Free tools for commercial property decisions, practical articles and workplace planning guides. Some tools request contact details to unlock results or a report.
             </p>
           </FadeIn>
         </div>
@@ -172,6 +173,10 @@ export default function ResourcesPage() {
 
         </div>
       </section>
+
+      <WorkplaceGuides kind="tenant" />
+      <WorkplaceGuides kind="buyer" />
+      <WorkplaceGuides kind="project" />
 
       {/* ─── INSIGHTS: ARTICLES ───────────────── */}
       <section className="bg-warm-grey" style={SEC}>

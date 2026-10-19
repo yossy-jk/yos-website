@@ -1,6 +1,6 @@
+import WorkplaceGuides from '@/components/WorkplaceGuides'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
-import ServiceArticle from '@/components/ServiceArticle'
 import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
 import type { Metadata } from 'next'
@@ -70,10 +70,9 @@ export default function BuyersAgencyPage() {
     <section className="bg-near-black" style={SEC}><div className={WRAP} style={PAD}><FadeIn><SectionLabel>Considering an SMSF purchase?</SectionLabel><h2 className="text-white mt-3 mb-6 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Get specialist advice before the property decision.</h2><p className="text-white/75 text-lg leading-relaxed max-w-3xl">Purchasing commercial property through a self-managed super fund can involve strict legal, tax, borrowing, related-party and use requirements. Information on this site is general only. Obtain advice from appropriately qualified and licensed legal, tax, financial and credit professionals before acting.</p></FadeIn></div></section>
 
     <PlanningResources kind="buyer" />
+    <WorkplaceGuides kind="buyer" />
     <ServiceFaq items={FAQS} />
 
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Start with the business objective.</h2><Button href="/contact?service=buying#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
-  <ServiceArticle slug="buying-business-premises-five-year-fit" />
-      <ServiceArticle slug="commercial-buyers-agent-brief-newcastle" />
 </main><Footer /></>
 }

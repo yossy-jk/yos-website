@@ -35,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/market-snapshot`, lastModified: '2026-10-19',                     changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/newcastle-commercial-property`,       changeFrequency: 'weekly',  priority: 0.9 },
     { url: `${BASE}/not-for-profit-lease-support`,        changeFrequency: 'monthly', priority: 0.65 },
-    { url: `${BASE}/resources`,                           changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE}/resources`, lastModified: '2026-10-19',                           changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/resources/lease-review`,              changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/resources/fitout-estimator`,          changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/resources/lease-comparison`,          changeFrequency: 'monthly', priority: 0.75 },
