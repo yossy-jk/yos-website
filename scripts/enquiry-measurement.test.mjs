@@ -66,3 +66,40 @@ test('local and deployment preview interactions cannot enter production conversi
     assert.equal(calls.length, 0)
   }
 })
+
+test('furniture store intent is consented, separate from leads and excludes destination query data', () => {
+  let consent = 'declined', listener, cleanup
+  const calls = []
+  const window = { location: { pathname: '/furniture', origin: 'https://www.yourofficespace.au' }, gtag: (...args) => calls.push(args) }
+  const analytics = load('src/lib/analytics.ts', { './analytics-consent': { getAnalyticsConsent: () => consent } }, { window, process: { env: { NEXT_PUBLIC_GA_ID: 'G-FIXTURE' } } })
+  class Element {
+    constructor(link) { this.link = link }
+    closest() { return this.link }
+  }
+  const document = { addEventListener: (_, fn) => { listener = fn }, removeEventListener: (_, fn) => { if (listener === fn) listener = undefined } }
+  const tracking = load('src/components/FurnitureStoreTracking.tsx', {
+    react: { useEffect: fn => { cleanup = fn() } }, '@/lib/analytics': analytics,
+    '@/lib/constants': { FURNITURE_STORE_URL: 'https://www.yourofficefurniture.com.au' },
+  }, { URL, Element, document })
+  tracking.default()
+  const link = { href: 'https://www.yourofficefurniture.com.au/products/chair?email=private@example.invalid#private', closest: selector => selector === 'main' ? {} : null }
+  listener({ target: new Element(link) }); assert.equal(calls.length, 0)
+  consent = 'accepted'; listener({ target: new Element(link) })
+  assert.equal(calls.length, 1)
+  assert.equal(calls[0][1], 'furniture_store_click')
+  assert.equal(calls[0][2].link_location, 'content')
+  assert.equal(calls[0][2].destination_site, 'your_office_furniture')
+  assert.doesNotMatch(JSON.stringify(calls), /private|products|generate_lead|purchase/)
+  window.location.pathname = '/tenant-rep/brief/private-token'
+  listener({ target: new Element(link) }); assert.equal(calls.length, 1)
+  cleanup(); assert.equal(listener, undefined)
+})
+
+test('store destination matching rejects lookalike domains, credentials and other protocols', () => {
+  const tracking = load('src/components/FurnitureStoreTracking.tsx', {
+    react: { useEffect() {} }, '@/lib/analytics': { trackConversion() {} },
+    '@/lib/constants': { FURNITURE_STORE_URL: 'https://www.yourofficefurniture.com.au' },
+  }, { URL })
+  assert.equal(tracking.isFurnitureStoreLink('https://www.yourofficefurniture.com.au/collections/seating'), true)
+  for (const href of ['https://www.yourofficefurniture.com.au.external.invalid', 'https://user:secret@www.yourofficefurniture.com.au', 'http://www.yourofficefurniture.com.au', 'javascript:alert(1)', '/furniture']) assert.equal(tracking.isFurnitureStoreLink(href), false)
+})
