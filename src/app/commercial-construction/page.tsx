@@ -1,6 +1,6 @@
+import WorkplaceGuides from '@/components/WorkplaceGuides'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
-import ServiceArticle from '@/components/ServiceArticle'
 import type { Metadata } from 'next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
@@ -56,12 +56,12 @@ export default function ConstructionPage() {
       <div className="flex flex-wrap gap-4"><Button href="/office-fitout" variant="primary">Office fit out</Button><Button href="/furniture" variant="primary">Office furniture</Button><Button href="/buyers-agency" variant="primary">Commercial property buying</Button></div>
     </div></section>
     <PlanningResources kind="project" />
+    <WorkplaceGuides kind="project" />
     <ServiceFaq heading="Planning a commercial construction project?" items={FAQS} />
     <section id="construction-enquiry" className="bg-warm-grey" style={{ ...SECTION, scrollMarginTop: 110 }}><div style={{ ...WRAP, maxWidth: 820 }}>
       <SectionLabel>Tell us about the project</SectionLabel><h2 style={{ fontSize: 'clamp(1.9rem,4vw,3rem)', marginTop: 20, marginBottom: 20 }}>Start with your site, scope and timing.</h2>
       <p className="text-charcoal leading-relaxed" style={{ marginBottom: 32 }}>Share what you know so far. We’ll discuss the next steps and whether YOS’s client-side project management is suited to your brief. You can also call <a href="tel:0240920733" className="font-semibold text-dark-teal">02 4092 0733</a>.</p>
       <ContactForm initialService="fitout" fixedService submitLabel="Send project enquiry →" messagePlaceholder="Site suburb, project scope, current stage, budget expectations and target completion date..." />
     </div></section>
-  <ServiceArticle slug="commercial-construction-project-manager-vs-builder-newcastle" />
 </main><Footer /></>
 }

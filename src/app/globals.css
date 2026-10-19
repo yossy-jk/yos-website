@@ -971,3 +971,17 @@ main [id] { scroll-margin-top: 6rem; }
 .market-update-dialog h2 + p { margin-bottom: 1.5rem; }
 @media (min-width: 900px) { .planning-resources-grid { grid-template-columns: repeat(3,minmax(0,1fr)); } }
 .planning-resources-grid[data-count="1"] { grid-template-columns: 1fr; max-width: 48rem; }
+
+/* Curated guide collections: explicit spacing also respects the site reset. */
+.workplace-guides { background: #F5F5F5; padding: clamp(3rem,6vw,5rem) clamp(1.5rem,6vw,6rem); }
+.workplace-guides-inner { max-width: 1200px; margin: 0 auto; }
+.workplace-guides-label { color: #00796D; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 1rem; }
+.workplace-guides h2 { color: #1A1A1A; font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+.workplace-guides p { line-height: 1.75; }
+.workplace-guides-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,260px),1fr)); gap: 1.25rem; margin-top: 2rem; }
+.workplace-guides-grid a { display: flex; flex-direction: column; padding: 1.75rem; background: white; color: #1A1A1A; text-decoration: none; border: 1px solid #E0F5F3; border-radius: .75rem; }
+.workplace-guides-grid a:hover { border-color: #00796D; }
+.workplace-guides-grid a:focus-visible { outline: 3px solid #00796D; outline-offset: 4px; }
+.workplace-guides h3 { font-size: 1.1rem; font-weight: 700; line-height: 1.4; margin-bottom: 1rem; }
+.workplace-guides-grid p { font-size: .9rem; margin-bottom: 1.5rem; }
+.workplace-guides-grid span { color: #00796D; font-weight: 700; margin-top: auto; }

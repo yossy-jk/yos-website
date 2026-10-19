@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
         ['/ContactPage', '/contact'],
         ['/Services', '/#services'],
         ['/category/commercial-real-estate', '/blog'],
+        ['/commercial-lease-renewal-newcastle-timeline', '/blog/commercial-lease-renewal-newcastle-timeline'],
         ['/off-market-commercial-property-deserves-look', '/blog/off-market-commercial-property-newcastle'],
         ['/avoiding-common-pitfalls-in-commercial-lease-negotiations', '/blog/commercial-lease-negotiation-tips-australia'],
         ['/top-5-risks-in-commercial-property-investment-and-how-to-mitigate-them', '/blog/commercial-property-due-diligence-newcastle'],
