@@ -34,6 +34,8 @@ export const SAFE_DIVISION = (d: unknown): Division =>
   (['tenant-rep','buyers-agency','furniture','cleaning','general'] as string[]).includes(String(d))
     ? (d as Division) : 'general'
 
+// Redirected articles must not reappear from older Redis-published copies.
+const REDIRECTED_POST_SLUGS = new Set(['newcastle-office-fitout-costs-2026'])
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog')
 
 export const DIVISION_LABELS: Record<Division, string> = {
@@ -67,7 +69,7 @@ export function getAllPosts(): BlogPost[] {
 // Public buying content supports the current Commercial Buyers Agent service.
 // Search eligibility is managed separately from publication status.
 export function getPublicPosts(): BlogPost[] {
-  return getAllPosts()
+  return getAllPosts().filter(post => !REDIRECTED_POST_SLUGS.has(post.slug))
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {
@@ -125,7 +127,7 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
 
 export async function getAllPublicPostsAsync(): Promise<BlogPost[]> {
   const posts = await getAllPostsAsync()
-  return posts
+  return posts.filter(post => !REDIRECTED_POST_SLUGS.has(post.slug))
 }
 
 export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null> {

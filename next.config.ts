@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     return [
       ...[
         ['/sitemap_index.xml', '/sitemap.xml'],
+        ['/blog/newcastle-office-fitout-costs-2026', '/blog/office-furniture-budget-newcastle'],
         ['/commercial-cleaning', '/cleaning'],
         ['/tennant-representation', '/tenant-rep'],
         ['/tenant-representation', '/tenant-rep'],
