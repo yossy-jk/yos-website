@@ -7,7 +7,8 @@ import Footer from '@/components/Footer'
 import SectionLabel from '@/components/SectionLabel'
 import FadeIn from '@/components/FadeIn'
 import { ENQUIRY } from '@/lib/constants'
-import { sendEnquiry } from '@/lib/enquiry'
+import { postEnquiry } from '@/lib/enquiry'
+import { furnitureFileError, FURNITURE_FILE_ACCEPT } from '@/lib/furniture-file-rules'
 import { trackConversion } from '@/lib/analytics'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
@@ -23,7 +24,9 @@ export default function FurnitureQuotePage() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [attachmentWarning, setAttachmentWarning] = useState(false)
+  const [receipt, setReceipt] = useState<{ preview?: boolean; reference?: string }>({})
+  const [fileName, setFileName] = useState('')
+  const [honey, setHoney] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
   const [form, setForm] = useState({
@@ -51,56 +54,23 @@ export default function FurnitureQuotePage() {
     const file = fileRef.current?.files?.[0]
 
     try {
-      // Build the full enquiry summary
-      const contextParts = [
-        form.company && `Company: ${form.company}`,
-        form.phone && `Phone: ${form.phone}`,
-        form.workstations && `Workstations: ${form.workstations}`,
-        form.area && `Area: ${form.area} sqm`,
-        form.budget && `Budget: ${form.budget}`,
-        form.projectType && `Project type: ${form.projectType}`,
-        form.timeline && `Timeline: ${form.timeline}`,
-        form.notes && `Notes: ${form.notes}`,
-        file && `File selected: ${file.name} (attachment sent separately if accepted)`,
-      ].filter(Boolean).join('\n')
-
-      let attachmentAccepted = false
-      // If file uploaded, send via FormSubmit
       if (file) {
-        const data = new FormData()
-        data.append('name', form.name)
-        data.append('email', form.email)
-        data.append('phone', form.phone || '')
-        data.append('company', form.company || '')
-        data.append('workstations', form.workstations || '')
-        data.append('area_sqm', form.area || '')
-        data.append('budget', form.budget || '')
-        data.append('project_type', form.projectType || '')
-        data.append('timeline', form.timeline || '')
-        data.append('notes', form.notes || '')
-        data.append('attachment', file)
-        data.append('_subject', `Furniture Quote Request, ${form.name}${form.company ? ` (${form.company})` : ''}`)
-        data.append('_captcha', 'false')
-        data.append('_template', 'table')
-
-        try {
-          const res = await fetch('https://formsubmit.co/jk@yourofficespace.au', { method: 'POST', body: data })
-          attachmentAccepted = res.ok
-        } catch {
-          // Still attempt the enquiry channels; explain an attachment failure below.
-        }
+        const fileError = furnitureFileError(file)
+        if (fileError) { setError(fileError); return }
       }
-
-      const result = await sendEnquiry({ name: form.name, email: form.email, phone: form.phone,
-        company: form.company, source: 'Furniture Quote Request', message: contextParts })
-      const emailAccepted = attachmentAccepted || result.ok
-      if (!emailAccepted) {
-        setError('We could not confirm delivery. Please try again or call (02) 4092 0733.')
+      const response = await postEnquiry('/api/furniture-quote', {
+        name: form.name, email: form.email, phone: form.phone, company: form.company,
+        message: form.notes, _honey: honey,
+        details: { workstations: form.workstations, area: form.area, budget: form.budget, projectType: form.projectType, timeline: form.timeline },
+      }, file, 'attachment')
+      const result = await response.json()
+      if (!response.ok || result.ok !== true) {
+        setError(result.error || 'We could not confirm delivery. Please try again or call (02) 4092 0733.')
         return
       }
-      setAttachmentWarning(Boolean(file && !attachmentAccepted))
+      setReceipt({ preview: result.preview === true, reference: result.reference })
       setSubmitted(true)
-      trackConversion('generate_lead', { service: 'Furniture', form_name: 'furniture_quote', email_delivery: emailAccepted })
+      if (!result.preview) trackConversion('generate_lead', { service: 'Furniture', form_name: 'furniture_quote', email_delivery: true })
     } catch (err) {
       console.error(err)
       setError('Something went wrong. Please try again or call us directly.')
@@ -156,15 +126,15 @@ export default function FurnitureQuotePage() {
           <div className="max-w-2xl">
             {submitted ? (
               <FadeIn>
-                <div className="bg-warm-grey rounded-sm p-10 sm:p-14">
+                <div role="status" className="bg-warm-grey rounded-sm p-10 sm:p-14" style={{ padding: 'clamp(1.5rem,4vw,3rem)' }}>
                   <div className="w-10 h-1 bg-teal mb-8" />
                   <h2 className="text-near-black font-bold leading-tight mb-4">
-                    We have your brief.
+                    {receipt.preview ? 'Preview completed.' : 'We have your brief.'}
                   </h2>
                   <p className="text-charcoal font-light text-lg leading-relaxed mb-8">
-                    We&apos;ll review the brief and confirm the next step.
+                    {receipt.preview ? 'This preview has not sent an email.' : 'We will review the brief and confirm the next step.'}
                   </p>
-                  {attachmentWarning && <p role="status" className="text-charcoal leading-relaxed" style={{ marginBottom: 24 }}>Your enquiry was received, but we could not confirm delivery of the attachment. Please email your plans to <a href="mailto:hello@yourofficespace.au" className="text-dark-teal underline">hello@yourofficespace.au</a>.</p>}
+                  {receipt.reference && <p className="text-charcoal" style={{ marginBottom: 24, overflowWrap: 'anywhere' }}>Enquiry reference: {receipt.reference}</p>}
                   <p className="text-mid-grey font-light text-sm">
                     Prefer to talk?{' '}
                     <a
@@ -180,7 +150,8 @@ export default function FurnitureQuotePage() {
               </FadeIn>
             ) : (
               <FadeIn>
-                <form id="furniture-quote-form" tabIndex={-1} aria-label="Furniture quote request" onSubmit={handleSubmit} className="space-y-6">
+                <form id="furniture-quote-form" tabIndex={-1} aria-label="Furniture quote request" onSubmit={handleSubmit} className="furniture-quote-form space-y-6">
+                  <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   {/* Name + Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
@@ -345,29 +316,27 @@ export default function FurnitureQuotePage() {
                   <div>
                     <label htmlFor="file" className={labelClass}>
                       Floor plan or design brief{' '}
-                      <span className="text-mid-grey font-light text-xs">(optional, .pdf, .jpg, .png, .dwg, max 20MB)</span>
+                      <span className="text-mid-grey font-light text-xs">(optional, PDF, JPG, PNG or DWG, max 3 MB)</span>
                     </label>
                     <input
                       id="file"
                       name="file"
                       type="file"
-                      accept=".pdf,.jpg,.jpeg,.png,.dwg"
+                      accept={FURNITURE_FILE_ACCEPT}
                       ref={fileRef}
                       className="w-full text-sm text-charcoal font-light file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-medium file:bg-near-black file:text-white hover:file:bg-charcoal file:cursor-pointer cursor-pointer"
                       onChange={(e) => {
                         const f = e.target.files?.[0]
-                        if (f && f.size > 20 * 1024 * 1024) {
-                          setError('File is too large. Maximum size is 20MB.')
-                          e.target.value = ''
-                        } else {
-                          setError(null)
-                        }
+                        setFileName(f?.name || '')
+                        setError(f ? furnitureFileError(f) || null : null)
                       }}
                     />
+                    {fileName && <button type="button" className="text-action-teal underline" style={{ padding: '12px 0', minHeight: 44 }} onClick={() => { if (fileRef.current) fileRef.current.value = ''; setFileName(''); setError(null) }}>Remove selected file</button>}
+                    <p className="text-readable-grey text-sm" style={{ marginTop: 8 }}>Your file is included with your brief in the email to YOS. You can send the brief without a file.</p>
                   </div>
 
                   {error && (
-                    <p className="text-red-600 text-sm font-light">{error}</p>
+                    <p role="alert" className="text-red-600 text-sm font-light">{error}</p>
                   )}
 
                   <div className="pt-2 flex flex-col sm:flex-row gap-6 items-start sm:items-center">
@@ -398,7 +367,7 @@ export default function FurnitureQuotePage() {
       </section>
 
 
-      <ToolGuide purpose="Send a furniture brief so YOS can assess the project and prepare a scoped proposal." inputs="Contact details, company, workstations or floor area, project type, budget, timing and any useful notes or plans." result="A request for a tailored proposal, rather than an instant binding quotation. Scope and site requirements are confirmed with you." next="See our furniture services" href="/furniture" />
+      <div className="furniture-quote-guide"><ToolGuide purpose="Send a furniture brief so YOS can assess the project and prepare a scoped proposal." inputs="Your name and email are required. Add company, quantities, floor area, budget, timing or a plan if you have them; these details are optional." result="A request for a tailored proposal, rather than an instant binding quotation. Scope and site requirements are confirmed with you." next="See our furniture services" href="/furniture" /></div>
 </main>
 
       <Footer />

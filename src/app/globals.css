@@ -1003,3 +1003,13 @@ main [id] { scroll-margin-top: 6rem; }
 
 .contact-service-summary { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; font-size: .9rem; }
 .contact-service-summary button { padding: .6rem .8rem; min-height: 44px; color: #00796D; font-weight: 700; text-decoration: underline; }
+
+.furniture-quote-form > div { margin-bottom: 1.5rem; }
+.furniture-quote-form input:not([type=file]), .furniture-quote-form select, .furniture-quote-form textarea { padding: .9rem 1rem; }
+.furniture-quote-form label { margin-bottom: .5rem; }
+
+.furniture-quote-form button[type=submit] { padding: 1rem 1.75rem; min-height: 56px; border-radius: .5rem; }
+.furniture-quote-form input[type=file]::file-selector-button { padding: .6rem .9rem; margin-right: .75rem; }
+.furniture-quote-guide { max-width: 1200px; margin: 0 auto; padding: 2rem clamp(1.5rem,6vw,5rem) 4rem; }
+.furniture-quote-guide p, .furniture-quote-guide dl, .furniture-quote-guide a { margin-top: 1.25rem; }
+.furniture-quote-guide dd { margin-top: .5rem; }
