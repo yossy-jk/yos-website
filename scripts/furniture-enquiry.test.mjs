@@ -27,7 +27,7 @@ function setup({ preview = false, reject = false, limited = false } = {}) {
     '@/lib/ratelimit': { contactLimiter: () => ({ limit: async () => ({ success: !limited }) }), getIp: () => 'fixture' },
     resend: { Resend: class { emails = { send: async (message, options) => { messages.push({ message, options }); return reject ? { error: { message: 'Synthetic rejection' } } : { data: { id: 'synthetic-accepted' } } } } } },
   }, { process: { env: { RESEND_API_KEY: 'fixture', VERCEL_ENV: preview ? 'preview' : 'production' } } })
-  const route = load('src/app/api/furniture-quote/route.ts', { '@/lib/furniture-request': reader, '@/lib/enquiry-delivery': delivery, 'next/server': { NextResponse: { json: (data, options) => Response.json(data, options) } } })
+  const route = load('src/app/api/furniture-quote/route.ts', { '@/lib/furniture-request': reader, '@/lib/enquiry-delivery': delivery, 'next/server': { NextResponse: { json: (data, options) => Response.json(data, options) } } }, { process: { env: { VERCEL_ENV: preview ? 'preview' : 'production' } } })
   return { route, messages }
 }
 test('optional project files accept supported signatures and reject mismatches, empty and oversized files', async () => {
@@ -90,4 +90,17 @@ test('multipart browser retries keep the same payload and new file content gets 
   assert.equal(await calls[0].get('attachment').text(), pdf.toString())
   await browser.postEnquiry('/api/furniture-quote', input, new File([Buffer.concat([pdf, Buffer.from(' changed')])], 'plan.pdf'), 'attachment')
   assert.notEqual(JSON.parse(calls[0].get('payload')).submissionId, JSON.parse(calls[2].get('payload')).submissionId)
+})
+
+
+test('preview origins use the browser-facing host while production origins stay canonical', async () => {
+  const preview = setup({ preview: true })
+  const local = new Request('http://localhost:3100/api/furniture-quote', { method: 'POST', headers: { host: '127.0.0.1:3100', origin: 'http://127.0.0.1:3100' }, body: JSON.stringify(input) })
+  assert.equal((await preview.route.POST(local)).status, 200)
+  assert.equal(preview.messages.length, 0)
+  const prod = setup()
+  const spoofed = new Request('https://example.invalid/api/furniture-quote', { method: 'POST', headers: { host: 'external.invalid', origin: 'https://external.invalid' }, body: JSON.stringify(input) })
+  assert.equal((await prod.route.POST(spoofed)).status, 403)
+  const legitimate = new Request('https://deployment.internal/api/furniture-quote', { method: 'POST', headers: { origin: 'https://www.yourofficespace.au' }, body: JSON.stringify(input) })
+  assert.equal((await prod.route.POST(legitimate)).status, 200)
 })
