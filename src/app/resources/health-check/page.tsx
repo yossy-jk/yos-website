@@ -47,7 +47,7 @@ const DOMAINS: DomainConfig[] = [
     icon: '01',
     serviceLabel: 'Tenant Rep / Lease Review',
     ctaLinks: [
-      { label: 'Lease Review', href: '/lease-review' },
+      { label: 'Lease Health Check', href: '/lease-health-check' },
       { label: 'Tenant Representation', href: '/tenant-rep' },
     ],
     verdicts: {

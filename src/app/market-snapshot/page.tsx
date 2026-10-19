@@ -63,7 +63,7 @@ export default function MarketSnapshotPage() {
       }) }} />
       <MarketSnapshotPageContent
         snapshotContent={snapshotContent}
-        leaseIntelHref="/leaseintel"
+        leaseIntelHref="/lease-health-check"
       />
     </>
   )

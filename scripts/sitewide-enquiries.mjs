@@ -50,7 +50,7 @@ try {
       report.push({ width, path, directEmail: true })
     }
     console.log(`CHECK blog/NFP/tool @ ${width}`)
-    for (const [legacy, destination] of [['furniture', '/furniture'], ['tenant-representation', '/tenant-rep'], ['lease-review', '/lease-review']]) {
+    for (const [legacy, destination] of [['furniture', '/furniture'], ['tenant-representation', '/tenant-rep'], ['lease-review', '/lease-health-check']]) {
       await page.goto(`${base}/eof-group/${legacy}`, { waitUntil: 'networkidle2' })
       assert.equal(new URL(page.url()).pathname, destination)
       assert.equal(await page.$$eval('script[src]', elements => elements.some(e => /hsforms|hs-scripts/.test(e.src))), false)

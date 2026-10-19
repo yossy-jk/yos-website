@@ -176,20 +176,18 @@ export default function TermsPage() {
                 </div>
 
                 <div className="border-l-4 border-teal pl-6 py-2 space-y-1">
-                  <p className="text-near-black font-semibold">LeaseIntel™, Commercial Lease Analysis</p>
+                  <p className="text-near-black font-semibold">Lease Health Check</p>
                   <p>
-                    See Section 3 below. This service has specific terms that apply in addition to
-                    these general terms.
+                    The free Health Check is an initial commercial conversation. Any further advisory work is scoped separately; your solicitor provides legal advice.
                   </p>
                 </div>
               </Section>
             </FadeIn>
 
             <FadeIn delay={80}>
-              <Section title="3. LeaseIntel™, specific terms">
+              <Section title="3. Historical LeaseIntel™ engagements">
                 <p>
-                  LeaseIntel™ is a paid commercial lease analysis service. You submit your lease document,
-                  we analyse it and return a written report. The current fee is $97 (ex GST) per report.
+                  New lease enquiries now begin with the free Lease Health Check. The provisions below relate to historical LeaseIntel™ engagements and do not offer a new paid report. Existing agreed engagement terms remain applicable.
                 </p>
 
                 <div className="bg-warm-grey rounded-sm p-6 space-y-3 my-2">

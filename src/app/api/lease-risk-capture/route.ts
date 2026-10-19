@@ -130,9 +130,9 @@ export async function POST(req: Request) {
             <div style="background: #f0fdfa; border: 1px solid #99f6e4; padding: 20px 24px; margin-bottom: 28px;">
               <p style="color: #0f766e; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 8px;">Want the full picture?</p>
               <p style="color: #444; font-size: 14px; line-height: 1.7; margin: 0 0 16px;">
-                Request a scoped LeaseIntel review. Suitability, deliverables, timing, fees and secure document handling are confirmed before work begins.
+                Start a free Lease Health Check to discuss lease dates, commercial costs and your next decision. Attaching your lease is optional; further advisory work is scoped separately.
               </p>
-              <a href="https://www.yourofficespace.au/lease-review" style="display: inline-block; background: #00B5A5; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Request review scope →</a>
+              <a href="https://www.yourofficespace.au/lease-health-check" style="display: inline-block; background: #00B5A5; color: white; font-weight: 700; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; padding: 12px 24px; text-decoration: none;">Start your Health Check →</a>
             </div>
 
             <p style="color: #aaa; font-size: 11px; margin: 0;">

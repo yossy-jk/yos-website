@@ -41,7 +41,7 @@ export default function NotFound() {
               { label: 'FitOut & Project Management', href: '/office-fitout' },
               { label: 'Office & Commercial Furniture', href: '/furniture' },
               { label: 'Commercial Cleaning', href: '/cleaning' },
-              { label: 'Lease Review', href: '/lease-review' },
+              { label: 'Lease Health Check', href: '/lease-health-check' },
               { label: 'Resources', href: '/resources' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },

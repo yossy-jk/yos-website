@@ -274,7 +274,7 @@ export default function EOFFurniturePage() {
                 { label: 'Office Fitout Guide', href: '/blog/office-fitout-guide-australia-2026' },
                 { label: 'Commercial Furniture Supplier', href: '/blog/commercial-furniture-supplier-guide-australia' },
                 { label: 'Office Fitout Costs', href: '/blog/newcastle-office-fitout-costs-2026' },
-                { label: 'Lease Review', href: '/eof-group/lease-review' },
+                { label: 'Lease Review', href: '/lease-health-check' },
                 { label: 'Tenant Representation', href: '/eof-group/tenant-representation' },
               ].map(link => (
                 <Button key={link.href} href={link.href} variant="outline" size="sm">

@@ -25,6 +25,7 @@ test('every application page owns or delegates a main landmark', () => {
     const relative = path.relative(APP_ROOT, file)
     if (delegatedPages.has(relative)) continue
     const source = fs.readFileSync(file, 'utf8')
+    if (/import \{ permanentRedirect \} from ["']next\/navigation["']/.test(source) && /permanentRedirect\(["']\/lease-health-check["']\)/.test(source) && !source.includes('return <')) continue
     if (!/<main\b/.test(source) && !(source.includes("@/components/tenant/TenantShell") && /<TenantShell\b/.test(source))) failures.push(relative)
   }
 
@@ -78,14 +79,6 @@ test('the not-for-profit route owns navigation and landmark in its layout only',
 
   assert.match(layout, /<Nav\s*\/>[\s\S]*<main\s+id="main-content"\s+tabIndex=\{-1\}>\{children\}<\/main>[\s\S]*<Footer\s*\/>/)
   assert.doesNotMatch(page, /<(?:Nav|Footer)\s*\/>/)
-})
-
-test('the multi-step lease review renders a main landmark in every UI state', () => {
-  const source = fs.readFileSync(path.join(APP_ROOT, 'lease-review/page.tsx'), 'utf8')
-
-  assert.equal(source.match(/<Nav\s*\/>/g)?.length, 4)
-  assert.equal(source.match(/<main\s+id="main-content"\s+tabIndex=\{-1\}>/g)?.length, 4)
-  assert.equal(source.match(/<\/main>/g)?.length, 4)
 })
 
 test('tenant pages delegate to a shell with navigation, a focusable main and footer outside it', () => { const shell=fs.readFileSync('src/components/tenant/TenantShell.tsx','utf8'); assert.match(shell, /<Nav\s*\/>/); assert.match(shell, /<main[\s\S]*?id="main-content"[\s\S]*?tabIndex=\{-1\}/); assert.match(shell, /<\/main>\s*<Footer\s*\/>/); assert.equal(shell.match(/<main\b/g)?.length,1) });
