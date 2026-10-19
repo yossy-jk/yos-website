@@ -30,9 +30,11 @@ export const metadata = withPageSeo({
   },
 })
 
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[] }> }) {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ service?: string | string[]; from?: string | string[] }> }) {
   const params = await searchParams
   const initialService = Array.isArray(params.service) ? params.service[0] : params.service
+  const requestedEntry = Array.isArray(params.from) ? params.from[0] : params.from
+  const entryPage = requestedEntry && ['buyers-agency', 'office-fitout', 'furniture', 'commercial-construction', 'tenant-rep'].includes(requestedEntry) ? `/${requestedEntry}` : undefined
 
   return (
     <>
@@ -90,7 +92,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                 </h2>
 
                 {/* Contact form with direct YOS inbox delivery */}
-                <ContactForm key={initialService || 'general'} initialService={initialService} />
+                <ContactForm key={initialService || 'general'} initialService={initialService} entryPage={entryPage} />
                 {false && <form
                   name="contact-legacy"
                   method="POST"

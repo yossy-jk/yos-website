@@ -59,7 +59,7 @@ export default function FurniturePage() {
       <ContentBreadcrumbs title="Office furniture" path="/furniture" /><FadeIn><SectionLabel>Office &amp; Commercial Furniture</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office furniture Newcastle. Planned around your people.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we specify, quote, supply and coordinate installation of office furniture for Newcastle, Lake Macquarie and Hunter workplaces, with projects supported Australia-wide. You can engage us for furniture only or as part of a wider workplace project.</p></FadeIn>
-      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href={FURNITURE_STORE_URL} variant="primary" size="lg">Shop furniture online</Button><Button href="/resources/furniture-quote#furniture-quote-form" variant="outline-light" size="lg">Request a furniture quote</Button></div></FadeIn>
+      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href={FURNITURE_STORE_URL} variant="primary" size="lg">Shop furniture online</Button><Button href="/resources/furniture-quote#furniture-quote-form" variant="outline-light" size="lg">Request a furniture quote</Button></div><p className="service-next-step">Buy individual items in the store, or send a brief for help with quantities, specifications and project delivery.</p></FadeIn>
     </div></section>
 
     <section className="bg-light-teal" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-8 items-center`} style={PAD}>

@@ -56,3 +56,13 @@ test('the notification API only confirms delivery when Resend supplies an accept
     assert.equal(response.status, expected); assert.equal(sends, 1)
   }
 })
+
+test('local and deployment preview interactions cannot enter production conversion reports', () => {
+  for (const origin of ['http://127.0.0.1:3100', 'http://localhost:3100', 'https://yos-website-preview.vercel.app']) {
+    const calls = []
+    const window = { location: { origin, pathname: '/contact' }, gtag: (...args) => calls.push(args) }
+    const analytics = load('src/lib/analytics.ts', { './analytics-consent': { getAnalyticsConsent: () => 'accepted' } }, { window, process: { env: { NEXT_PUBLIC_GA_ID: 'G-FIXTURE' } } })
+    analytics.trackConversion('generate_lead'); analytics.flushQueuedConversions()
+    assert.equal(calls.length, 0)
+  }
+})

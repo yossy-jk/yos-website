@@ -38,7 +38,7 @@ export default function ConstructionPage() {
       <h1 style={{ fontSize: 'clamp(2.3rem,5.5vw,5rem)', lineHeight: 1.05, maxWidth: 950, marginTop: 24, marginBottom: 28 }}>Commercial construction Newcastle. A clear plan on your side.</h1>
       <p className="text-white/80 leading-relaxed" style={{ maxWidth: 720, fontSize: '1.15rem', marginBottom: 24 }}>Your Office Space helps business owners manage commercial construction projects in Newcastle and the Hunter. We coordinate the client’s brief, consultants, appointed contractors and decisions, from planning through handover.</p>
       <p className="text-white/80 leading-relaxed" style={{ maxWidth: 720, marginBottom: 32 }}>YOS acts as your client-side project manager. The appointed builder and trade contractors deliver the building work under their own agreed responsibilities.</p>
-      <Button href="#construction-enquiry" variant="primary" size="lg">Discuss your construction project</Button>
+      <Button href="#construction-enquiry" variant="primary" size="lg">Discuss your construction project</Button><p className="service-next-step">Share the site, proposed work and target timing. We will confirm the next step and the specialist inputs your project needs.</p>
     </div></section>
     <section className="bg-white" style={SECTION}><div style={WRAP}>
       <SectionLabel>Define the job before committing</SectionLabel>

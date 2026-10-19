@@ -14,7 +14,7 @@ import ServiceFaq from '@/components/ServiceFaq'
 
 export const metadata: Metadata = withPageSeo({
   title: 'Office Fit Out Newcastle | Your Office Space',
-  description: 'Newcastle office fit out project management on your side: brief, budget, design, appointed contractors and handover, with Australia-wide project support.',
+  description: 'Office fit out and refurbishment project management in Newcastle. Plan the brief, budget, appointed contractors and handover with YOS on your side.',
   alternates: { canonical: 'https://www.yourofficespace.au/office-fitout' },
   openGraph: {
     title: 'Office Fit Out Newcastle | Your Office Space',
@@ -39,6 +39,7 @@ const PROCESS = [
 ] as const
 
 const FAQS = [
+  { question: 'Can YOS help with an office refurbishment in Newcastle?', answer: 'Yes. We can coordinate the client-side brief, scope, budget, consultant inputs and appointed contractors for a Newcastle office refurbishment. If the business remains operating, include staged access, disruption limits and IT changeovers in the plan. The actual scope and programme are agreed for your premises.' },
   { question: 'What does a client-side FitOut project manager do?', answer: 'A client-side project manager represents the client across the brief, budget, design, procurement, programme, decisions, risks, defects and handover. YOS coordinates the project team but does not act as the builder or head contractor.' },
   { question: 'When should we appoint a FitOut project manager?', answer: 'The strongest time to start is before committing to a space or design pathway. Early involvement helps test the workplace brief, likely cost, programme and landlord requirements before major commitments are made.' },
   { question: 'Can YOS provide a preliminary FitOut budget?', answer: 'Yes. YOS can coordinate an order-of-cost range with clearly stated assumptions, allowances and contingency. It is an indicative planning tool, not a fixed construction quote.' },
@@ -56,7 +57,7 @@ export default function OfficeFitoutPage() {
       <ContentBreadcrumbs title="Office fit out" path="/office-fitout" /><FadeIn><SectionLabel>Commercial FitOut &amp; project management</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office fit out Newcastle. Managed on your behalf.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We act as your client-side project manager, connecting the brief, budget, design team, licensed contractors, programme and handover so you stay informed without becoming the project manager.</p></FadeIn>
-      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/resources/fitout-estimator" variant="primary" size="lg">Estimate your FitOut</Button><Button href="/contact?service=fitout#contact-enquiry" variant="outline-light" size="lg">Enquire</Button></div></FadeIn>
+      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/contact?service=fitout&from=office-fitout#contact-enquiry" variant="primary" size="lg">Discuss your FitOut project</Button><Button href="/resources/fitout-estimator" variant="outline-light" size="lg">Explore an indicative budget</Button></div><p className="service-next-step">Start with your location, timing and workplace priorities. We will review the brief and confirm what information is needed next.</p></FadeIn>
     </div></section>
     <section className="bg-light-teal" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20`} style={PAD}>
       <FadeIn><SectionLabel>Protect the whole budget</SectionLabel><h2 className="text-near-black mt-3 leading-tight" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>One budget. Many decisions competing for a share.</h2></FadeIn>
@@ -74,6 +75,14 @@ export default function OfficeFitoutPage() {
     </div></section>
     <section className="bg-warm-grey" style={SEC}><div className={`${WRAP} bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center`}><div className="flex-1"><SectionLabel>Furniture comes next</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Need the space furnished as well?</h2><p className="text-charcoal leading-relaxed">Our commercial furniture service handles product specification, samples, quoting, delivery and installation as a separate, clearly defined workstream.</p></div><Button href="/furniture" variant="outline" size="lg">Explore furniture</Button></div></section>
     <section className="bg-light-teal" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Beyond the office fit out</SectionLabel><h2 className="text-near-black text-3xl" style={{ marginTop: 16, marginBottom: 20 }}>Need client-side commercial construction support?</h2><p className="text-charcoal max-w-2xl leading-relaxed" style={{ marginBottom: 24 }}>For a broader commercial construction brief, YOS helps coordinate the client’s requirements, consultants, appointed contractors and project decisions. Contractor responsibilities and YOS’s management scope are agreed before work begins.</p><Button href="/commercial-construction" variant="primary">Explore construction project management</Button></div></section>
+    <section className="refurbishment-planning" aria-labelledby="refurbishment-heading"><div>
+      <SectionLabel>Office refurbishment Newcastle</SectionLabel>
+      <h2 id="refurbishment-heading">Refresh the workplace with a plan for keeping the business running.</h2>
+      <p>Refurbishing an existing office can involve layout changes, finishes, furniture and building services. Start by separating what can be reused from what needs changing, then confirm the scope with the relevant consultants and appointed contractors.</p>
+      <ul><li><strong>Define the work:</strong> record the spaces, services and furniture affected, with photos and a floor plan if available.</li><li><strong>Plan around operations:</strong> identify occupied areas, access limits, noisy work and IT changeovers before agreeing a programme.</li><li><strong>Check responsibilities:</strong> confirm landlord requirements, relevant approvals and who owns each decision before work begins.</li></ul>
+      <p>YOS coordinates the client-side project. Appointed contractors carry out the building and trade work.</p>
+      <Button href="/contact?service=fitout#contact-enquiry" variant="dark">Discuss your refurbishment</Button>
+    </div></section>
     <PlanningResources kind="project" />
     <WorkplaceGuides kind="project" />
     <ServiceFaq items={FAQS} />

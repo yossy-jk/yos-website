@@ -136,3 +136,27 @@ test('the ten-question lease review forwards an optional attachment only to the 
   assert.equal(messages[0].message.attachments[0].filename, 'qa-lease.pdf')
   assert.equal(Buffer.from(messages[0].message.attachments[0].content, 'base64').toString(), '%PDF-1.4 YOS QA only')
 })
+
+test('accepted enquiry references reconcile to the owner record and strip private page context', async () => {
+  const { delivery, messages } = setup()
+  const response = await delivery.enquiryResponse(request({ ...input, enquiryPage: '/contact?email=secret@example.invalid', entryPage: '/office-fitout#private' }))
+  assert.equal((await response.json()).reference, input.submissionId)
+  assert.match(messages[0].message.text, /Enquiry page: \/contact/)
+  assert.match(messages[0].message.text, /Service entry page: \/office-fitout/)
+  assert.doesNotMatch(messages[0].message.text, /secret@example.invalid|#private/)
+  for (const page of ['/tenant-rep/brief/private-token', '/tenant-rep/payment', '//external.invalid', '/dashboard/leads', '/contact/<script>', '/contact/%40private']) {
+    assert.equal(delivery.normaliseEnquiry({ ...input, enquiryPage: page }).enquiryPage, undefined)
+  }
+})
+
+test('browser transport records public page context without query data and omits private paths', async () => {
+  const calls = []
+  const window = { location: { pathname: '/office-fitout', search: '?email=private@example.invalid' } }
+  const browser = load('src/lib/enquiry.ts', {}, { window, crypto: { randomUUID }, fetch: async (url, options) => { calls.push(JSON.parse(options.body)); return Response.json({ ok: true, reference: input.submissionId }) } })
+  assert.equal((await browser.sendEnquiry(input)).reference, input.submissionId)
+  assert.equal(calls[0].enquiryPage, '/office-fitout')
+  window.location.pathname = '/tenant-rep/brief/private-token'
+  await browser.sendEnquiry(input)
+  assert.equal(calls[1].enquiryPage, undefined)
+  assert.doesNotMatch(JSON.stringify(calls), /private@example.invalid|private-token/)
+})
