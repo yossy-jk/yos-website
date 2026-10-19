@@ -33,7 +33,7 @@ const offer = load("src/lib/tenant-offer.ts");
 const rules = load("src/lib/tenant-payment-rules.ts", {
   "./tenant-offer": offer,
 });
-const config = load("src/lib/tenant-payment-config.ts");
+const config = load("src/lib/tenant-payment-config.ts", { "./tenant-payment-rules": rules });
 const receipt = load("src/lib/tenant-payment-receipt.ts", {
   "./tenant-payment-rules": rules,
 });
@@ -41,6 +41,7 @@ const renderer = load("src/lib/enquiry-email.ts");
 const orderId = "12345678-1234-1234-1234-123456789abc";
 const env = {
   VERCEL_ENV: "production",
+  VERCEL_URL: "yos-payment-qa.vercel.app",
   STRIPE_SECRET_KEY: "sk_live_fixture",
   STRIPE_WEBHOOK_SECRET: "whsec_fixture",
   STRIPE_TENANT_GST_RATE_ID: "txr_fixture",
@@ -381,6 +382,7 @@ test("webhook verifies exact raw-body signatures, ignores foreign events, and re
     {
       "next/server": json,
       "@/lib/tenant-payment-rules": rules,
+      "@/lib/tenant-payment-config": config,
       "@/lib/tenant-payments": {
         paymentServices: () => ({ stripe: s.sdk, runtime: { mode: "live" } }),
         fulfilTenantPayment: async () => {
@@ -444,6 +446,7 @@ test("checkout endpoint rejects cross-origin and amount tampering before provide
     {
       "next/server": json,
       "@/lib/tenant-payment-rules": rules,
+      "@/lib/tenant-payment-config": config,
       "@/lib/ratelimit": {
         tenantPaymentLimiter: () => ({
           limit: async () => ({ success: true }),
@@ -525,6 +528,7 @@ test("a concurrent receipt worker cannot make the webhook acknowledge undelivere
     {
       "next/server": json,
       "@/lib/tenant-payment-rules": rules,
+      "@/lib/tenant-payment-config": config,
       "@/lib/tenant-payments": s.payments,
     },
     env,
@@ -568,4 +572,18 @@ test('disabling new checkouts preserves receipt delivery for payments already co
   assert.equal(paid.status, 'paid');
   assert.equal(paid.balanceExGst, 645000);
   assert.equal(s.emails.length, 2);
+});
+
+
+test("sandbox checkout returns stay in sandbox; live return URLs stay fixed", async () => {
+  const s = setup({ env: { VERCEL_ENV: "preview", STRIPE_SECRET_KEY: "rk_test_fixture", STRIPE_TENANT_TEST_ENABLED: "true" } });
+  s.update({ id: "cs_test_fixture", livemode: false });
+  await s.payments.createTenantCheckout(rules.tenantPaymentQuote("gold"), orderId);
+  assert.match(s.creates[0].params.success_url, /^https:\/\/yos-payment-qa\.vercel\.app\/tenant-rep\/payment/);
+  assert.match(s.creates[0].params.cancel_url, /^https:\/\/yos-payment-qa\.vercel\.app\/tenant-rep\/start/);
+  assert.equal(config.tenantPaymentRuntime({ ...env, STRIPE_TENANT_TEST_ORIGIN: "https://other.invalid" }).origin, rules.TENANT_PAYMENT_ORIGIN);
+  for (const origin of ["https://other.invalid", "https://user:password@preview.vercel.app", "https://preview.vercel.app/path", "https://preview.vercel.app?query=1", "https://preview.vercel.app#fragment", "http://preview.vercel.app"]) {
+    assert.equal(config.tenantPaymentRuntime({ ...env, VERCEL_ENV: "preview", STRIPE_SECRET_KEY: "rk_test_fixture", STRIPE_TENANT_TEST_ENABLED: "true", STRIPE_TENANT_TEST_ORIGIN: origin }).enabled, false);
+  }
+  assert.equal(config.tenantPaymentRuntime({ ...env, VERCEL_ENV: "preview", STRIPE_SECRET_KEY: "rk_test_fixture", STRIPE_TENANT_TEST_ENABLED: "true", STRIPE_TENANT_TEST_ORIGIN: "http://127.0.0.1:3100" }).origin, "http://127.0.0.1:3100");
 });
