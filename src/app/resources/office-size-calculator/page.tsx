@@ -252,10 +252,11 @@ export default function OfficeSizeCalculatorPage() {
 
                 {/* Number of staff */}
                 <div>
-                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                  <label htmlFor="office-staff" className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Number of staff <span className="text-teal">*</span>
                   </label>
                   <input
+                    id="office-staff"
                     type="number"
                     value={staff}
                     min={1}
@@ -267,14 +268,15 @@ export default function OfficeSizeCalculatorPage() {
                 </div>
 
                 {/* Work style */}
-                <div>
-                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                <fieldset style={{ minWidth: 0 }}>
+                  <legend id="office-work-style" className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Work style <span className="text-teal">*</span>
-                  </label>
+                  </legend>
                   <div className="flex flex-col" style={{ gap: '0.5rem' }}>
                     {WORK_STYLES.map(opt => (
                       <button
                         key={opt.value}
+                        aria-pressed={workStyle === opt.value}
                         onClick={() => { setWorkStyle(opt.value); setResult(null) }}
                         className={`text-left font-semibold border transition-colors ${workStyle === opt.value ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1rem', fontSize: '0.88rem' }}
@@ -283,17 +285,18 @@ export default function OfficeSizeCalculatorPage() {
                       </button>
                     ))}
                   </div>
-                </div>
+                </fieldset>
 
                 {/* Private offices */}
-                <div>
-                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                <fieldset style={{ minWidth: 0 }}>
+                  <legend id="office-private-offices" className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Private offices needed <span className="text-teal">*</span>
-                  </label>
+                  </legend>
                   <div className="grid grid-cols-4 gap-2">
                     {PRIVATE_OFFICE_OPTIONS.map(opt => (
                       <button
                         key={opt}
+                        aria-pressed={privateOffices === opt}
                         onClick={() => { setPrivateOffices(opt); setResult(null) }}
                         className={`font-bold border transition-colors text-center ${privateOffices === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.65rem 0.5rem', fontSize: '0.88rem' }}
@@ -302,17 +305,18 @@ export default function OfficeSizeCalculatorPage() {
                       </button>
                     ))}
                   </div>
-                </div>
+                </fieldset>
 
                 {/* Meeting rooms */}
-                <div>
-                  <label className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
+                <fieldset style={{ minWidth: 0 }}>
+                  <legend id="office-meeting-rooms" className="block text-white/70 font-semibold" style={{ marginBottom: '0.875rem', fontSize: '0.82rem', letterSpacing: '0.04em' }}>
                     Meeting rooms needed <span className="text-teal">*</span>
-                  </label>
+                  </legend>
                   <div className="grid grid-cols-5 gap-2">
                     {MEETING_ROOM_OPTIONS.map(opt => (
                       <button
                         key={opt}
+                        aria-pressed={meetingRooms === opt}
                         onClick={() => { setMeetingRooms(opt); setResult(null) }}
                         className={`font-bold border transition-colors text-center ${meetingRooms === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.65rem 0.5rem', fontSize: '0.88rem' }}
@@ -321,7 +325,7 @@ export default function OfficeSizeCalculatorPage() {
                       </button>
                     ))}
                   </div>
-                </div>
+                </fieldset>
 
                 <button
                   onClick={handleCalc}
