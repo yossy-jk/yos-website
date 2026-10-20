@@ -1,3 +1,4 @@
+import './article-inline.test.mjs'
 import './article-enquiry.test.mjs'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'

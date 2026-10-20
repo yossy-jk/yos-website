@@ -1,3 +1,4 @@
+import { articleInlineTokens } from '@/lib/article-inline'
 import { articleEnquiry } from '@/lib/article-enquiry'
 import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
 import ArticleNextSteps from '@/components/ArticleNextSteps'
@@ -120,17 +121,11 @@ function applyInternalLinks(text: string, currentSlug: string): React.ReactNode[
 }
 
 function inlineRender(text: string, slug: string): React.ReactNode[] {
-  // Render inline bold (**text**) and internal links within a string
-  const parts = text.split(/\*\*(.+?)\*\*/)
-  const nodes: React.ReactNode[] = []
-  parts.forEach((part, i) => {
-    if (i % 2 === 1) {
-      nodes.push(<strong key={i} style={{ fontWeight: 700, color: '#111827' }}>{part}</strong>)
-    } else {
-      nodes.push(...applyInternalLinks(part, slug).map((n, j) => <span key={`${i}-${j}`}>{n}</span>))
-    }
+  return articleInlineTokens(text).map((token, i) => {
+    if (token.kind === 'bold') return <strong key={i} style={{ fontWeight: 700, color: '#111827' }}>{token.text}</strong>
+    if (token.kind === 'link') return <Link key={i} href={token.href} className="text-action-teal font-semibold underline underline-offset-4">{token.text}</Link>
+    return <span key={i}>{applyInternalLinks(token.text, slug)}</span>
   })
-  return nodes
 }
 
 function renderBody(body: string, slug: string) {
@@ -248,19 +243,6 @@ function renderBody(body: string, slug: string) {
     } else if (/^\d+[.)\s]/.test(line)) {
       flushTable(); flushList()
       numberedBuffer.push(line.replace(/^\d+[.)\s]+/, ''))
-    // Standalone link
-    } else if (line.startsWith('[') && line.includes('](')) {
-      flushAll()
-      const match = line.match(/\[(.+?)\]\((.+?)\)/)
-      if (match) {
-        elements.push(
-          <Link key={key++} href={match[2] === '/contact' ? '/contact#contact-enquiry' : match[2]}
-            className="inline-block text-action-teal font-semibold no-underline hover:text-dark-teal transition-colors"
-            style={{ margin: '0.5rem 0', fontSize: '0.95rem' }}>
-            {match[1]} →
-          </Link>
-        )
-      }
     // Empty line
     } else if (line.trim() === '') {
       flushAll()
