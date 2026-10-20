@@ -1,3 +1,4 @@
+import { articleEnquiry } from '@/lib/article-enquiry'
 import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
 import ArticleNextSteps from '@/components/ArticleNextSteps'
 import { safeContentDate } from '@/lib/sitemap-content'
@@ -283,6 +284,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = await getPostBySlugAsync(slug)
   if (!post) notFound()
 
+  const enquiry = articleEnquiry(post.slug, post.division)
+
   // Related posts. same division, exclude current
   const allPosts = await getAllPublicPostsAsync()
   const related = allPosts
@@ -399,21 +402,21 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
                   <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
-                    Free – No obligation
+                    Your next step
                   </p>
-                  <p style={{ color: 'white', fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '0.875rem' }}>
-                    Want to talk about your situation?
-                  </p>
+                  <h2 id="article-enquiry-heading" style={{ color: 'white', fontSize: 'clamp(1.1rem,2vw,1.4rem)', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.2, marginBottom: '0.875rem' }}>
+                    {enquiry.title}
+                  </h2>
                   <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.95rem', lineHeight: 1.75, fontWeight: 300, maxWidth: '36rem' }}>
-                    Enquire for an initial assessment of the situation and the most appropriate next step.
+                    {enquiry.intro}
                   </p>
                 </div>
                 <div>
-                  <BookingCTA label="Enquire" variant="primary" href="#blog-contact-form" />
+                  <BookingCTA label={enquiry.action} variant="primary" href="#blog-contact-form" />
                 </div>
                 {/* Inline contact form */}
-                <div id="blog-contact-form" tabIndex={-1} aria-label="Article enquiry form" className="enquiry-form-card" style={{ marginTop: '1.5rem', background: 'white', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
-                  <ContactForm initialService={post.division === 'tenant-rep' ? 'Leasing' : post.division === 'buyers-agency' ? 'Buying' : post.division === 'cleaning' ? 'Cleaning' : /fitout|commercial-construction/i.test(post.slug) ? 'FitOut' : post.division === 'furniture' ? 'Furniture' : 'Not sure'} />
+                <div id="blog-contact-form" tabIndex={-1} role="region" aria-labelledby="article-enquiry-heading" className="enquiry-form-card" style={{ marginTop: '1.5rem', background: 'white', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
+                  <ContactForm initialService={enquiry.service} submitLabel={enquiry.submit} messagePlaceholder={enquiry.placeholder} />
                 </div>
               </div>
 
