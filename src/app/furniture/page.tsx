@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import DiscoveryBooking from '@/components/DiscoveryBooking'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
@@ -33,12 +34,12 @@ const WRAP = 'max-w-screen-xl mx-auto'
 const PAD = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 const SEC = { paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }
 const CATEGORIES = [
-  ['Desks & workstations', 'Fixed-height, sit-stand and workstation systems selected for the team, floorplate and technology.'],
-  ['Task & executive seating', 'Commercial seating assessed for ergonomics, durability, adjustability and daily use.'],
-  ['Meeting & boardroom', 'Tables, seating, power and presentation requirements resolved as one setting.'],
-  ['Storage & lockers', 'Personal, team and document storage planned around what genuinely needs a home.'],
-  ['Breakout & collaboration', 'Flexible settings for informal meetings, focused work, waiting and reset time.'],
-  ['Reception & front of house', 'A practical first impression that fits the brand and the way visitors arrive.'],
+  ['Desks & workstations', 'Fixed-height, sit-stand and workstation systems selected for the team, floorplate and technology.', 'List the desks used on your busiest day, screen sizes and any existing workstations you want to retain.', '/blog/adaptable-office-furniture-growth-relocation', 'Plan furniture for growth and relocation'],
+  ['Task & executive seating', 'Commercial seating assessed for ergonomics, durability, adjustability and daily use.', 'Record who uses each chair, typical daily use and the adjustments or sample checks you want to discuss.', '/blog/compare-office-furniture-quotes-installed-cost', 'Compare specifications and installed quotes'],
+  ['Meeting & boardroom', 'Tables, seating, power and presentation requirements resolved as one setting.', 'Include usual and maximum meeting numbers, room dimensions, screen positions and any power or cable requirements.', '/blog/standard-modified-custom-office-furniture-newcastle', 'Compare standard, modified and custom options'],
+  ['Storage & lockers', 'Personal, team and document storage planned around what genuinely needs a home.', 'Measure what you need to store and identify usable cabinets before adding new storage to the furniture schedule.', '/blog/office-furniture-reuse-audit-newcastle', 'Audit what you can retain or reuse'],
+  ['Breakout & collaboration', 'Flexible settings for informal meetings, focused work, waiting and reset time.', 'Describe the activities and expected group sizes, and note any shared space that needs to serve more than one purpose.', '/resources/workspace-builder', 'Build a workplace furniture brief'],
+  ['Reception & front of house', 'A practical first impression that fits the brand and the way visitors arrive.', 'Share visitor numbers, reception tasks, the available floor plan and delivery access before shortlisting larger furniture.', '/blog/office-furniture-installation-checklist-newcastle', 'Prepare the delivery and installation brief'],
 ] as const
 
 const FAQS = [
@@ -72,7 +73,7 @@ export default function FurniturePage() {
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel>What we specify</SectionLabel><h2 className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Every setting has a job to do.</h2></FadeIn>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{CATEGORIES.map(([title, body], index) => <FadeIn key={title} delay={index * 50}><article className="h-full bg-warm-grey p-8 rounded-2xl"><p className="text-teal font-bold text-sm mb-5">{String(index + 1).padStart(2, '0')}</p><h3 className="text-near-black text-xl mb-3">{title}</h3><p className="text-charcoal leading-relaxed">{body}</p></article></FadeIn>)}</div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{CATEGORIES.map(([title, body, tip, href, label], index) => <FadeIn key={title} delay={index * 50}><article className="furniture-category-card h-full bg-warm-grey rounded-2xl" style={{ padding: 28 }}><p className="text-action-teal font-bold text-sm" style={{ marginBottom: 20 }}>{String(index + 1).padStart(2, '0')}</p><h3 className="text-near-black text-xl" style={{ marginBottom: 12 }}>{title}</h3><p className="text-charcoal leading-relaxed">{body}</p><p className="text-charcoal leading-relaxed" style={{ marginTop: 20 }}><strong>Helpful brief detail: </strong>{tip}</p><Link href={href} className="text-action-teal font-semibold underline underline-offset-4" style={{ display: 'inline-block', marginTop: 20 }}>{label}</Link></article></FadeIn>)}</div>
     </div></section>
 
     <section className="bg-light-teal" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center`} style={PAD}>
