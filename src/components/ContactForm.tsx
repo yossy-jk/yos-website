@@ -140,7 +140,7 @@ export default function ContactForm({ initialService, entryPage, fixedService = 
     'focus:border-teal',
     err ? 'border-red-400' : 'border-gray-200 hover:border-gray-300',
   ].join(' ')
-  const style = { padding: '0.85rem 1rem', fontSize: '0.95rem' }
+  const style = { padding: '0.85rem 1rem', fontSize: '1rem' }
   const labelClass = 'block text-near-black font-semibold mb-2'
   const labelStyle = { fontSize: '0.78rem', letterSpacing: '0.05em' }
 
