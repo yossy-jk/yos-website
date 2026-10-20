@@ -90,11 +90,14 @@ try {
     await page.type('input[type=number]', '20')
     await page.evaluate(() => {
       [...document.querySelectorAll('button')].find(b => b.textContent.includes('Traditional (all in daily)')).click()
-      for (const label of ['Private offices needed', 'Meeting rooms needed']) {
-        const field = [...document.querySelectorAll('label')].find(e => e.textContent.includes(label))
-        field.parentElement.querySelector('button').click()
+      for (const id of ['office-private-offices', 'office-meeting-rooms']) {
+        const group = document.getElementById(id)?.closest('fieldset')
+        if (!group) throw new Error(`Missing named calculator group: ${id}`)
+        const option = group.querySelector('button')
+        option.click()
       }
     })
+    await page.waitForFunction(() => ['office-private-offices', 'office-meeting-rooms'].every(id => document.getElementById(id)?.closest('fieldset')?.querySelector('button[aria-pressed="true"]')))
     await page.evaluate(() => [...document.querySelectorAll('button')].find(b => b.textContent.includes('Calculate')).click())
     await page.waitForSelector('main form input[type=email]')
     await page.type('main form input[type=text]', 'YOS Browser QA')
