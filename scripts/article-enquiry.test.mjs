@@ -14,6 +14,8 @@ test('article prompts retain the service intent, including FitOut within the fur
     ['commercial-cleaning-newcastle-what-to-expect', 'cleaning', 'Cleaning'],
     ['commercial-fitout-cost-newcastle-2026', 'furniture', 'FitOut'],
     ['commercial-construction-project-manager-vs-builder-newcastle', 'general', 'FitOut'],
+    ['residential-vs-commercial-construction-nsw', 'furniture', 'FitOut'],
+    ['office-fitout-handover-checklist', 'furniture', 'FitOut'],
     ['office-furniture-budget-newcastle', 'furniture', 'Furniture'],
     ['office-space-per-person-australia', 'general', 'Not sure'],
     ['fitout-before-a-lease', 'tenant-rep', 'Leasing'],
