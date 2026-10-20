@@ -12,7 +12,7 @@ export default function ArticleNextSteps({ slug, division }: { slug: string; div
         : division === 'furniture'
           ? [{ href: '/furniture', title: 'Plan a Newcastle furniture project', text: 'Define product quantities, delivery, installation and quote inputs.' }, { href: '/catalogues/furniture', title: 'Browse the furniture catalogue', text: 'Bring a shortlist into your workplace brief.' }]
           : division === 'cleaning'
-            ? [{ href: '/flourish', title: 'Plan your workplace care', text: 'Connect cleaning, plant hire and specialist compliance coordination.' }, { href: '/contact#contact-enquiry', title: 'Discuss your workplace brief', text: 'Share the service and outcome you need.' }]
+            ? [{ href: '/cleaning', title: 'Plan your commercial cleaning scope', text: 'Review service options and request a quote around your site, schedule and access.' }, { href: '/flourish', title: 'Connect your workplace care', text: 'Bring cleaning, plant hire and specialist compliance coordination into one brief.' }]
             : [{ href: '/resources/office-size-calculator', title: 'Test your workspace requirements', text: 'Use your team size and work patterns to start a space brief.' }, { href: '/tenant-rep', title: 'Compare your property options', text: 'Connect premises, occupancy costs and the next lease decision.' }]
   return <section className="article-next-steps rounded-2xl bg-light-teal" aria-label="Put this guide into practice">
     <h2 className="text-near-black text-2xl font-bold mb-6">Put this guide into practice.</h2>
