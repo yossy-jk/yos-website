@@ -10,7 +10,7 @@ const COPY = {
 } as const
 
 export function articleEnquiry(slug: string, division: string) {
-  // Preserve the existing service routing while making each enquiry prompt useful.
-  const service: ArticleService = division === 'tenant-rep' ? 'Leasing' : division === 'buyers-agency' ? 'Buying' : division === 'cleaning' ? 'Cleaning' : /fitout|commercial-construction/i.test(slug) ? 'FitOut' : division === 'furniture' ? 'Furniture' : 'Not sure'
+  // Respect the primary service division, then route project guides to FitOut.
+  const service: ArticleService = division === 'tenant-rep' ? 'Leasing' : division === 'buyers-agency' ? 'Buying' : division === 'cleaning' ? 'Cleaning' : /fitout|construction|handover/i.test(slug) ? 'FitOut' : division === 'furniture' ? 'Furniture' : 'Not sure'
   return { service, ...COPY[service] }
 }

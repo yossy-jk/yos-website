@@ -4,11 +4,11 @@ import type { Division } from '@/lib/blog'
 export default function ArticleNextSteps({ slug, division }: { slug: string; division: Division }) {
   const construction = /construction|fitout|handover/.test(slug)
   const items = construction
-    ? [{ href: '/office-fitout', title: 'Plan your office fit out', text: 'Connect scope, budget and appointed contractor responsibilities.' }, { href: '/commercial-construction', title: 'Client-side construction project management', text: 'Understand the coordination role before appointing your project team.' }]
+    ? [{ href: '/office-fitout', title: 'Plan your office fit out', text: 'Connect scope, budget and appointed contractor responsibilities.' }, { href: '/commercial-construction', title: 'Client-side construction project management', text: 'Understand the coordination role before appointing your project team.' }, { href: '/office-fitout#fitout-enquiry', title: 'Discuss your FitOut project', text: 'Share your site, project stage and timing through the project enquiry form.' }]
     : division === 'buyers-agency'
       ? [{ href: '/buyers-agency', title: 'Commercial buyer-side support', text: 'Turn your requirements into a search and due diligence brief.' }, { href: '/office-fitout', title: 'Plan beyond settlement', text: 'Consider workplace works and handover before committing to the premises.' }]
       : division === 'tenant-rep'
-        ? [{ href: '/tenant-rep', title: 'Compare tenant representation packages', text: 'See the process, inclusions and the next step for your lease.' }, { href: '/market-snapshot', title: 'Questions to ask about Newcastle market evidence', text: 'Use the historical discussion guide to evaluate dated comparables, not a current valuation.' }]
+        ? [{ href: '/tenant-rep#packages', title: 'Compare tenant representation packages', text: 'See the process, inclusions and the next step for your lease.' }, { href: '/tenant-rep/newcastle#newcastle-enquiry', title: 'Discuss your Newcastle lease brief', text: 'Share your location, lease situation and timing through the leasing enquiry form.' }, { href: '/lease-health-check', title: 'Start a free Lease Health Check', text: 'Tell us about your current lease and next decision. Uploading the lease is optional.' }]
         : division === 'furniture'
           ? [{ href: '/furniture', title: 'Plan a Newcastle furniture project', text: 'Define product quantities, delivery, installation and quote inputs.' }, { href: '/catalogues/furniture', title: 'Browse the furniture catalogue', text: 'Bring a shortlist into your workplace brief.' }]
           : division === 'cleaning'
