@@ -3,7 +3,7 @@ import DiscoveryBooking from '@/components/DiscoveryBooking'
 
 export default function ServiceEnquiry({ id, service, entryPage, title, description, prompts, placeholder }: {
   id: string
-  service: 'FitOut' | 'Buying'
+  service: 'FitOut' | 'Buying' | 'Leasing'
   entryPage: string
   title: string
   description: string
@@ -27,7 +27,7 @@ export default function ServiceEnquiry({ id, service, entryPage, title, descript
       </div>
       <div className="enquiry-form-card bg-white rounded-2xl order-1 lg:order-2" style={{ padding: 'clamp(1.25rem,3vw,2.5rem)', minWidth: 0 }}>
         <h3 className="text-near-black text-2xl mb-5">Send your enquiry</h3>
-        <ContactForm initialService={service} entryPage={entryPage} fixedService submitLabel={service === 'Buying' ? 'Send my property brief →' : 'Send my project enquiry →'} messagePlaceholder={placeholder} />
+        <ContactForm initialService={service} entryPage={entryPage} fixedService submitLabel={service === 'Buying' ? 'Send my property brief →' : service === 'Leasing' ? 'Send my leasing brief →' : 'Send my project enquiry →'} messagePlaceholder={placeholder} />
       </div>
       </div>
     </div>
