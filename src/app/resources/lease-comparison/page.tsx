@@ -5,8 +5,7 @@ import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { useState } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import Button from '@/components/Button'
-import { ENQUIRY } from '@/lib/constants'
+import ToolNextSteps from '@/components/ToolNextSteps'
 import ToolGate from '@/components/ToolGate'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
@@ -497,19 +496,12 @@ export default function LeaseComparisonPage() {
         </section>
       )}
 
-      {/* CTA */}
-      <section className="bg-near-black" style={SEC}>
-        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <div className="flex flex-col items-center text-center" style={{ maxWidth: '44rem', margin: '0 auto' }}>
-            <h2 className="text-white font-bold leading-tight mb-4 w-full" style={{ fontSize: 'clamp(1.5rem,3.5vw,3rem)' }}>Want us to run the numbers for real?</h2>
-            <p className="text-white/60 font-light text-lg mb-8 w-full">
-              We review leases every day. We&apos;ll look at your actual documents, pull apart the hidden costs, and tell you which deal is better, and what to negotiate.
-            </p>
-            <Button href={ENQUIRY.contactUrl} variant="primary" external>Request a Lease Review Call</Button>
-          </div>
-        </div>
-      </section>
-
+      <ToolNextSteps
+        title="Bring the comparison into your next lease decision."
+        description="Start with a free Lease Health Check to share your lease position and the decision ahead. Keep the comparison results handy for the discussion. You can upload your existing lease if applicable; a document is not required to get started. Any further work is scoped separately."
+        primary={{ href: '/lease-health-check', label: 'Start a Lease Health Check' }}
+        secondary={{ href: '/tenant-rep#packages', label: 'Compare tenant rep packages' }}
+      />
 
       <ToolGuide purpose="Compare commercial lease options on the same basis rather than relying only on advertised rent." inputs="Rental amounts, floor areas, outgoings, lease terms, incentives and relevant assumptions for each option." result="An indicative occupancy-cost comparison. Check lease wording, timing and assumptions with your advisers." next="Get tenant-side lease advice" href="/tenant-rep" />
 </main>
