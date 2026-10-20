@@ -362,10 +362,10 @@ export default function CapRateCalculatorPage() {
                 </div>
               )}
 
-              <aside className="border border-white/15 p-5 mb-5" aria-labelledby="cap-assumptions-heading">
-                <h3 id="cap-assumptions-heading" className="text-white font-semibold mb-3">Check the assumptions behind the result.</h3>
+              <aside style={{ padding: 20, marginBottom: 20 }} className="border border-white/15" aria-labelledby="cap-assumptions-heading">
+                <h3 id="cap-assumptions-heading" style={{ marginBottom: 12 }} className="text-white font-semibold mb-3">Check the assumptions behind the result.</h3>
                 <p className="text-white/75 leading-relaxed text-sm">The preset rates and sensitivity table are illustrative scenarios, not Newcastle market benchmarks. Use a rate supported by relevant, dated comparable evidence and check the income and costs with your advisers.</p>
-                <a href="https://ww3.rics.org/uk/en/journals/property-journal/valuation-approaches-methods-models.html" className="inline-block text-teal underline underline-offset-4 mt-4 text-sm">Read RICS guidance on valuation methods</a>
+                <a style={{ marginTop: 16 }} href="https://ww3.rics.org/uk/en/journals/property-journal/valuation-approaches-methods-models.html" className="inline-block text-teal underline underline-offset-4 mt-4 text-sm">Read RICS guidance on valuation methods</a>
               </aside>
 
               {/* Reset */}
@@ -402,7 +402,7 @@ export default function CapRateCalculatorPage() {
           </p>
         </div>
       </div>
-      <ToolGuide purpose="Explore how income, purchase price and an assumed capitalisation rate relate to one another." inputs="A purchase price, annual net operating income or a cap-rate assumption. Enter two fields to calculate the third." result="A scenario based on the inputs shown. Preset rates are examples, not a market appraisal or a recommended purchase price." next="Explore commercial buyer-side support" href="/buyers-agency" />
+      <div className="cap-rate-guide"><ToolGuide purpose="Explore how income, purchase price and an assumed capitalisation rate relate to one another." inputs="A purchase price, annual net operating income or a cap-rate assumption. Enter two fields to calculate the third." result="A scenario based on the inputs shown. Preset rates are examples, not a market appraisal or a recommended purchase price." next="Explore commercial buyer-side support" href="/buyers-agency" /></div>
       </main>
 
       <Footer />
