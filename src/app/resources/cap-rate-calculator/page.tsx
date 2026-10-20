@@ -1,18 +1,11 @@
 'use client'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
+import Link from 'next/link'
+import ToolGuide from '@/components/ToolGuide'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
-import { ENQUIRY } from '@/lib/constants'
-
-const BENCHMARKS = [
-  { type: 'Newcastle CBD Office', low: 5.5, high: 7.0 },
-  { type: 'Hunter Valley Industrial', low: 5.0, high: 6.5 },
-  { type: 'Suburban Retail / Strip', low: 6.0, high: 8.0 },
-  { type: 'Medical / Allied Health', low: 5.5, high: 7.0 },
-  { type: 'Childcare / Education', low: 4.5, high: 6.0 },
-]
 
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
@@ -25,21 +18,22 @@ function NumberInput({ label, value, onChange, placeholder, prefix = '$', suffix
   label: string; value: string; onChange: (v: string) => void; placeholder?: string;
   prefix?: string; suffix?: string; hint?: string;
 }) {
+  const id = useId()
   return (
     <div>
-      <label className="block text-white/55 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</label>
+      <label htmlFor={id} className="block text-white/75 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{label}</label>
       <div className="relative flex items-center">
-        {prefix && <span className="absolute left-4 text-white/30 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>{prefix}</span>}
-        <input type="text" value={value} onChange={e => {
+        {prefix && <span className="absolute left-4 text-white/75 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>{prefix}</span>}
+        <input id={id} aria-describedby={hint ? `${id}-hint` : undefined} inputMode="decimal" type="text" value={value} onChange={e => {
           const raw = e.target.value.replace(/[^0-9.]/g, '')
           onChange(raw)
         }} placeholder={placeholder || '0'}
-          className="w-full bg-white/8 text-white border border-white/12 focus:border-teal outline-none font-light placeholder:text-white/20 transition-colors"
+          className="w-full bg-white/8 text-white border border-white/12 focus:border-teal font-light placeholder:text-white/75 transition-colors"
           style={{ padding: prefix ? '0.9rem 1rem 0.9rem 2rem' : '0.9rem 1rem', fontSize: '1.1rem' }}
         />
-        {suffix && <span className="absolute right-4 text-white/30 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>{suffix}</span>}
+        {suffix && <span className="absolute right-4 text-white/75 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>{suffix}</span>}
       </div>
-      {hint && <p className="text-white/20 font-light mt-1" style={{ fontSize: '0.72rem' }}>{hint}</p>}
+      {hint && <p id={`${id}-hint`} className="text-white/75 font-light mt-1" style={{ fontSize: '0.72rem' }}>{hint}</p>}
     </div>
   )
 }
@@ -48,9 +42,9 @@ function NumberInput({ label, value, onChange, placeholder, prefix = '$', suffix
 function MetricCard({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
     <div className="bg-white/5 border border-white/10" style={{ padding: '1.5rem 1.5rem' }}>
-      <p className="text-white/35 font-light mb-1" style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{label}</p>
+      <p className="text-white/75 font-light mb-1" style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{label}</p>
       <p className="text-white font-black" style={{ fontSize: '1.75rem', lineHeight: 1 }}>{value || ', '}</p>
-      {sub && <p className="text-white/30 font-light mt-1" style={{ fontSize: '0.75rem' }}>{sub}</p>}
+      {sub && <p className="text-white/75 font-light mt-1" style={{ fontSize: '0.75rem' }}>{sub}</p>}
     </div>
   )
 }
@@ -171,7 +165,7 @@ export default function CapRateCalculatorPage() {
               style={{ fontSize: 'clamp(2rem,5vw,4rem)', marginBottom: '1.25rem' }}>
               Cap Rate Calculator
             </h1>
-            <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.75 }}>
+            <p className="text-white/75 font-light leading-relaxed" style={{ fontSize: '1rem', lineHeight: 1.75 }}>
               Fill any two fields to calculate the third. All results update in real time. Use the net rent helper to derive rent from gross rent, or enter it directly.
             </p>
           </div>
@@ -184,17 +178,17 @@ export default function CapRateCalculatorPage() {
 
               {/* Net Rent Input */}
               <div className="mb-8">
-                <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 1, Net rent</p>
+                <p className="text-white/75 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 1, Net rent</p>
 
                 {/* Toggle derive vs direct */}
                 <div className="flex gap-0 border border-white/15 mb-5 rounded overflow-hidden" style={{ maxWidth: 420 }}>
-                  <button onClick={() => { setNetRentMode('derive'); setNetRentDirect('') }}
-                    className={`flex-1 font-bold transition-all ${netRentMode === 'derive' ? 'bg-teal text-white' : 'bg-white/5 text-white/40 hover:text-white/60'}`}
+                  <button aria-pressed={netRentMode === 'derive'} onClick={() => { setNetRentMode('derive'); setNetRentDirect('') }}
+                    className={`flex-1 font-bold transition-all ${netRentMode === 'derive' ? 'bg-teal text-near-black' : 'bg-white/5 text-white/75 hover:text-white/75'}`}
                     style={{ padding: '0.7rem 0.75rem', fontSize: '0.78rem' }}>
                     Derive from gross
                   </button>
-                  <button onClick={() => { setNetRentMode('direct'); setGrossRent(''); setVacancy('5'); setOutgoings('') }}
-                    className={`flex-1 font-bold transition-all ${netRentMode === 'direct' ? 'bg-teal text-white' : 'bg-white/5 text-white/40 hover:text-white/60'}`}
+                  <button aria-pressed={netRentMode === 'direct'} onClick={() => { setNetRentMode('direct'); setGrossRent(''); setVacancy('5'); setOutgoings('') }}
+                    className={`flex-1 font-bold transition-all ${netRentMode === 'direct' ? 'bg-teal text-near-black' : 'bg-white/5 text-white/75 hover:text-white/75'}`}
                     style={{ padding: '0.7rem 0.75rem', fontSize: '0.78rem' }}>
                     Enter net directly
                   </button>
@@ -204,11 +198,11 @@ export default function CapRateCalculatorPage() {
                   <div className="flex flex-col" style={{ gap: '1.5rem' }}>
                     <NumberInput label="Gross annual rent" value={grossRent} onChange={setGrossRent} placeholder="120,000" hint="Annual rent from the lease(s)" />
                     <div>
-                      <label className="block text-white/55 font-semibold mb-3" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Vacancy allowance</label>
-                      <div className="flex gap-2 flex-wrap">
+                      <p id="vacancy-label" className="block text-white/75 font-semibold mb-3" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Vacancy allowance</p>
+                      <div role="group" aria-labelledby="vacancy-label" className="flex gap-2 flex-wrap">
                         {vacancyOptions.map(v => (
-                          <button key={v} onClick={() => setVacancy(v)}
-                            className={`font-bold border transition-all ${vacancy === v ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/40 hover:text-white/70'}`}
+                          <button key={v} aria-pressed={vacancy === v} onClick={() => setVacancy(v)}
+                            className={`font-bold border transition-all ${vacancy === v ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/75 hover:text-white/70'}`}
                             style={{ padding: '0.5rem 0.85rem', fontSize: '0.85rem', borderRadius: '0.35rem' }}>
                             {v}%
                           </button>
@@ -226,7 +220,7 @@ export default function CapRateCalculatorPage() {
                 {/* Net rent preview */}
                 {netRent > 0 && (
                   <div className="mt-4 bg-teal/10 border border-teal/20 rounded" style={{ padding: '1rem 1.25rem' }}>
-                    <p className="text-teal/70 font-semibold" style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.3rem' }}>Net rent p.a.</p>
+                    <p className="text-teal font-semibold" style={{ fontSize: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.3rem' }}>Net rent p.a.</p>
                     <p className="text-teal font-black" style={{ fontSize: '1.75rem', lineHeight: 1 }}>{fmt(netRent)}</p>
                   </div>
                 )}
@@ -237,22 +231,22 @@ export default function CapRateCalculatorPage() {
 
               {/* Bidirectional Cap Rate / Price / NOI */}
               <div>
-                <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 2, Fill any two fields</p>
+                <p className="text-white/75 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Step 2, Fill any two fields</p>
 
                 <div className="flex flex-col" style={{ gap: '1.5rem' }}>
                   {/* Purchase Price */}
                   <div>
-                    <label className="block text-white/55 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <label htmlFor="cap-price" className="block text-white/75 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                       Purchase price
                       {lastEdited === 'price' && calcPrice > 0 && <span className="ml-2 text-teal text-xs font-normal normal-case tracking-normal">(calculated)</span>}
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>$</span>
-                      <input type="text" value={purchasePrice} onChange={e => {
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/75 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>$</span>
+                      <input id="cap-price" inputMode="decimal" type="text" value={purchasePrice} onChange={e => {
                         setPurchasePrice(e.target.value.replace(/[^0-9.]/g, ''))
                         setLastEdited('price')
                       }} placeholder="1,500,000"
-                        className="w-full bg-white/8 text-white border border-white/12 focus:border-teal outline-none font-light placeholder:text-white/20 transition-colors"
+                        className="w-full bg-white/8 text-white border border-white/12 focus:border-teal font-light placeholder:text-white/75 transition-colors"
                         style={{ padding: '0.9rem 1rem 0.9rem 2rem', fontSize: '1.1rem' }}
                       />
                     </div>
@@ -260,52 +254,52 @@ export default function CapRateCalculatorPage() {
 
                   {/* Cap Rate */}
                   <div>
-                    <label className="block text-white/55 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <label htmlFor="cap-rate" className="block text-white/75 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                       Cap rate
                       {lastEdited === 'rate' && calcRate > 0 && <span className="ml-2 text-teal text-xs font-normal normal-case tracking-normal">(calculated)</span>}
                     </label>
                     <div className="flex gap-2 flex-wrap mb-3">
                       {presetRates.map(r => (
-                        <button key={r} onClick={() => { setCapRatePct(r); setLastEdited('rate') }}
-                          className={`font-bold border transition-all ${capRatePct === r ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/40 hover:text-white/70'}`}
+                        <button key={r} aria-pressed={capRatePct === r} onClick={() => { setCapRatePct(r); setLastEdited('rate') }}
+                          className={`font-bold border transition-all ${capRatePct === r ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/75 hover:text-white/70'}`}
                           style={{ padding: '0.5rem 0.85rem', fontSize: '0.85rem', borderRadius: '0.35rem' }}>
                           {r}%
                         </button>
                       ))}
                     </div>
                     <div className="relative">
-                      <input type="number" value={capRatePct} onChange={e => { setCapRatePct(e.target.value); setLastEdited('rate') }}
+                      <input id="cap-rate" inputMode="decimal" type="number" value={capRatePct} onChange={e => { setCapRatePct(e.target.value); setLastEdited('rate') }}
                         step="0.25" min="0.1" max="30" placeholder="6.50"
-                        className="w-full bg-white/8 text-white border border-white/12 focus:border-teal outline-none font-light transition-colors"
+                        className="w-full bg-white/8 text-white border border-white/12 focus:border-teal font-light transition-colors"
                         style={{ padding: '0.9rem 1rem', fontSize: '1.1rem' }}
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>%</span>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-white/75 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>%</span>
                     </div>
                   </div>
 
                   {/* Annual NOI */}
                   <div>
-                    <label className="block text-white/55 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                    <label htmlFor="cap-noi" className="block text-white/75 font-semibold mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
                       Net operating income (NOI)
                       {lastEdited === 'noi' && calcNOI > 0 && <span className="ml-2 text-teal text-xs font-normal normal-case tracking-normal">(calculated)</span>}
                     </label>
                     <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>$</span>
-                      <input type="text" value={annualNOI} onChange={e => {
+                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/75 font-light" style={{ fontSize: '1rem', pointerEvents: 'none' }}>$</span>
+                      <input id="cap-noi" inputMode="decimal" type="text" value={annualNOI} onChange={e => {
                         setAnnualNOI(e.target.value.replace(/[^0-9.]/g, ''))
                         setLastEdited('noi')
                       }} placeholder="90,000"
-                        className="w-full bg-white/8 text-white border border-white/12 focus:border-teal outline-none font-light placeholder:text-white/20 transition-colors"
+                        className="w-full bg-white/8 text-white border border-white/12 focus:border-teal font-light placeholder:text-white/75 transition-colors"
                         style={{ padding: '0.9rem 1rem 0.9rem 2rem', fontSize: '1.1rem' }}
                       />
                     </div>
-                    <p className="text-white/20 font-light mt-1" style={{ fontSize: '0.72rem' }}>Or use net rent above, all results update live</p>
+                    <p className="text-white/75 font-light mt-1" style={{ fontSize: '0.72rem' }}>Or use net rent above, all results update live</p>
                   </div>
                 </div>
 
                 {/* How-to hint */}
                 <div className="mt-4 bg-white/4 border border-white/8 rounded" style={{ padding: '0.875rem 1.25rem' }}>
-                  <p className="text-white/35 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>
+                  <p className="text-white/75 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>
                     Fill any two of the three fields above. The third is calculated automatically. For example: enter purchase price and target cap rate to find the implied value.
                   </p>
                 </div>
@@ -314,12 +308,12 @@ export default function CapRateCalculatorPage() {
 
             {/* RIGHT, Results */}
             <div>
-              <p className="text-white/40 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Your results</p>
+              <p className="text-white/75 font-semibold uppercase tracking-[0.2em] mb-5" style={{ fontSize: '0.65rem' }}>Your results</p>
 
               {/* Net rent hero */}
               {netRent > 0 && (
                 <div className="bg-teal/10 border border-teal/25 mb-4 rounded" style={{ padding: '1.5rem 1.5rem' }}>
-                  <p className="text-teal/60 font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Net rent p.a.</p>
+                  <p className="text-teal font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.6rem' }}>Net rent p.a.</p>
                   <p className="text-teal font-black" style={{ fontSize: '2.5rem', lineHeight: 1 }}>{fmt(netRent)}</p>
                 </div>
               )}
@@ -327,7 +321,7 @@ export default function CapRateCalculatorPage() {
               {/* Bidirectional results */}
               {calcRate > 0 || calcPrice > 0 || calcNOI > 0 ? (
                 <div className="flex flex-col" style={{ gap: '0.75rem' }}>
-                  <div className="grid grid-cols-3 gap-3 mb-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-2">
                     <MetricCard label="Cap rate" value={calcRate > 0 ? fmtPct(calcRate) : ', '} />
                     <MetricCard label="Property value" value={calcPrice > 0 ? fmt(calcPrice) : ', '} />
                     <MetricCard label="NOI p.a." value={calcNOI > 0 ? fmt(calcNOI) : ', '} />
@@ -340,7 +334,7 @@ export default function CapRateCalculatorPage() {
                 </div>
               ) : (
                 <div className="border border-white/8 bg-white/3 mb-5" style={{ padding: '2rem 1.5rem' }}>
-                  <p className="text-white/25 font-light text-center" style={{ fontSize: '0.875rem', lineHeight: 1.7 }}>
+                  <p className="text-white/75 font-light text-center" style={{ fontSize: '0.875rem', lineHeight: 1.7 }}>
                     Enter any two fields, purchase price, cap rate, or NOI, to see your results update in real time.
                   </p>
                 </div>
@@ -349,7 +343,7 @@ export default function CapRateCalculatorPage() {
               {/* Implied values table */}
               {netRent > 0 && (
                 <div className="border border-white/8 mb-5">
-                  <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-4" style={{ fontSize: '0.65rem' }}>
+                  <p className="text-white/75 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-4" style={{ fontSize: '0.65rem' }}>
                     Implied value at different cap rates
                   </p>
                   {valuesAtRates.map((item, i, arr) => {
@@ -358,7 +352,7 @@ export default function CapRateCalculatorPage() {
                       <div key={item.rate}
                         className={`flex justify-between items-center px-4 py-4 transition-colors ${i < arr.length - 1 ? 'border-b border-white/6' : ''} ${isActive ? 'bg-teal/8' : ''}`}>
                         <div className="flex items-center gap-3">
-                          <span className="text-white/55 font-light" style={{ fontSize: '0.9rem', minWidth: 44 }}>{fmtPct(item.rate)}</span>
+                          <span className="text-white/75 font-light" style={{ fontSize: '0.9rem', minWidth: 44 }}>{fmtPct(item.rate)}</span>
                           {isActive && <span className="text-teal font-bold px-1.5 py-0.5 border border-teal/30 rounded text-xs">YOUR RATE</span>}
                         </div>
                         <span className={`font-bold ${isActive ? 'text-teal' : 'text-white/80'}`} style={{ fontSize: '0.95rem' }}>{fmt(item.value)}</span>
@@ -368,22 +362,15 @@ export default function CapRateCalculatorPage() {
                 </div>
               )}
 
-              {/* Benchmarks */}
-              <div className="border border-white/8 mb-5">
-                <p className="text-white/40 font-semibold uppercase tracking-widest border-b border-white/8 px-4 py-4" style={{ fontSize: '0.65rem' }}>
-                  Market benchmarks, Australia (April 2026)
-                </p>
-                {BENCHMARKS.map((b, i) => (
-                  <div key={b.type} className={`flex justify-between items-center px-4 py-3 ${i < BENCHMARKS.length - 1 ? 'border-b border-white/6' : ''}`}>
-                    <span className="text-white/50 font-light" style={{ fontSize: '0.82rem' }}>{b.type}</span>
-                    <span className="text-white/70 font-semibold" style={{ fontSize: '0.82rem' }}>{b.low}–{b.high}%</span>
-                  </div>
-                ))}
-              </div>
+              <aside className="border border-white/15 p-5 mb-5" aria-labelledby="cap-assumptions-heading">
+                <h3 id="cap-assumptions-heading" className="text-white font-semibold mb-3">Check the assumptions behind the result.</h3>
+                <p className="text-white/75 leading-relaxed text-sm">The preset rates and sensitivity table are illustrative scenarios, not Newcastle market benchmarks. Use a rate supported by relevant, dated comparable evidence and check the income and costs with your advisers.</p>
+                <a href="https://ww3.rics.org/uk/en/journals/property-journal/valuation-approaches-methods-models.html" className="inline-block text-teal underline underline-offset-4 mt-4 text-sm">Read RICS guidance on valuation methods</a>
+              </aside>
 
               {/* Reset */}
               <button onClick={() => { setPurchasePrice(''); setAnnualNOI(''); setCapRatePct(''); setNetRentDirect(''); setGrossRent(''); setVacancy('5'); setOutgoings('') }}
-                className="text-white/25 hover:text-white/50 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
+                className="text-white/75 hover:text-white/75 transition-colors font-light" style={{ fontSize: '0.82rem' }}>
                 ← Reset all
               </button>
             </div>
@@ -396,13 +383,13 @@ export default function CapRateCalculatorPage() {
             <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.7rem' }}>Want expert analysis?</p>
             <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-4"
               style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
-              We can assess any commercial opportunity and tell you if the numbers stack up.
+              Turn your calculations into a commercial property brief.
             </h2>
-            <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
-              className="inline-block bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
+            <Link href="/buyers-agency#buyer-enquiry"
+              className="inline-block bg-teal text-near-black font-bold no-underline hover:bg-white transition-colors"
               style={{ padding: '1rem 2.25rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
-              Book a Buyer Consultation →
-            </a>
+              Discuss my property brief →
+            </Link>
           </div>
 
         </div>
@@ -415,6 +402,7 @@ export default function CapRateCalculatorPage() {
           </p>
         </div>
       </div>
+      <ToolGuide purpose="Explore how income, purchase price and an assumed capitalisation rate relate to one another." inputs="A purchase price, annual net operating income or a cap-rate assumption. Enter two fields to calculate the third." result="A scenario based on the inputs shown. Preset rates are examples, not a market appraisal or a recommended purchase price." next="Explore commercial buyer-side support" href="/buyers-agency" />
       </main>
 
       <Footer />
