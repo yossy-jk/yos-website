@@ -1023,3 +1023,12 @@ main [id] { scroll-margin-top: 6rem; }
 .discovery-booking a.discovery-booking-link:hover { background: #1A1A1A; }
 .discovery-booking a.discovery-booking-link:focus-visible { outline: 3px solid #00796D; outline-offset: 3px; }
 .discovery-booking .discovery-booking-note { margin-top: 0.75rem; font-size: 0.875rem; }
+
+/* Keep calculator guidance readable under the site spacing reset. */
+.cap-rate-guide section { padding: clamp(3rem,6vw,4rem) 1.5rem; }
+.cap-rate-guide section > div { max-width: 56rem; margin: 0 auto; }
+.cap-rate-guide h2 { margin-bottom: 1rem; }
+.cap-rate-guide p { margin-top: 1rem; }
+.cap-rate-guide dl { margin-top: 1.5rem; gap: 1.5rem; }
+.cap-rate-guide dd { margin-top: .5rem; }
+.cap-rate-guide a { display: inline-block; margin-top: 1.25rem; }
