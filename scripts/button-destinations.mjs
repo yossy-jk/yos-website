@@ -48,7 +48,7 @@ try{
  matrix.push(...[
   ['/','/contact#contact-enquiry'],['/','/cleaning#cleaning-quote-form'],['/about','/contact#contact-enquiry'],['/resources','/contact#contact-enquiry'],['/tenant-rep/newcastle','/lease-health-check'],
   ...['land-tax-calculator','lease-vs-buy','rental-yield-calculator','stamp-duty-calculator'].map(slug=>['/resources/'+slug,'/contact?service=buying#contact-enquiry']),['/resources/office-size-calculator','/contact?service=leasing#contact-enquiry'],['/tenant-rep','/lease-health-check'],
-  ['/buyers-agency','/contact?service=buying#contact-enquiry'],['/office-fitout','/contact?service=fitout#contact-enquiry'],
+  ['/buyers-agency','#buyer-enquiry'],['/office-fitout','#fitout-enquiry'],
   ['/furniture','/contact?service=furniture#contact-enquiry'],['/furniture','/resources/furniture-quote#furniture-quote-form'],
   ['/tools/space-planner','/contact?service=furniture#contact-enquiry'],['/newcastle-commercial-property','/contact#contact-enquiry'],
  ].map(([route,href])=>({route,href})))

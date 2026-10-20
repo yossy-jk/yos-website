@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import ServiceEnquiry from '@/components/ServiceEnquiry'
 import WorkplaceGuides from '@/components/WorkplaceGuides'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
@@ -57,7 +59,7 @@ export default function OfficeFitoutPage() {
       <ContentBreadcrumbs title="Office fit out" path="/office-fitout" /><FadeIn><SectionLabel>Commercial FitOut &amp; project management</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Office fit out Newcastle. Managed on your behalf.</h1></FadeIn>
       <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>We act as your client-side project manager, connecting the brief, budget, design team, licensed contractors, programme and handover so you stay informed without becoming the project manager.</p></FadeIn>
-      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="/contact?service=fitout&from=office-fitout#contact-enquiry" variant="primary" size="lg">Discuss your FitOut project</Button><Button href="/resources/fitout-estimator" variant="outline-light" size="lg">Explore an indicative budget</Button></div><p className="service-next-step">Start with your location, timing and workplace priorities. We will review the brief and confirm what information is needed next.</p></FadeIn>
+      <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href="#fitout-enquiry" variant="primary" size="lg">Discuss your FitOut project</Button><Button href="/resources/fitout-estimator" variant="outline-light" size="lg">Explore an indicative budget</Button></div><p className="service-next-step">Start with your location, timing and workplace priorities. We will review the brief and confirm what information is needed next.</p></FadeIn>
     </div></section>
     <section className="bg-light-teal" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20`} style={PAD}>
       <FadeIn><SectionLabel>Protect the whole budget</SectionLabel><h2 className="text-near-black mt-3 leading-tight" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>One budget. Many decisions competing for a share.</h2></FadeIn>
@@ -81,11 +83,12 @@ export default function OfficeFitoutPage() {
       <p>Refurbishing an existing office can involve layout changes, finishes, furniture and building services. Start by separating what can be reused from what needs changing, then confirm the scope with the relevant consultants and appointed contractors.</p>
       <ul><li><strong>Define the work:</strong> record the spaces, services and furniture affected, with photos and a floor plan if available.</li><li><strong>Plan around operations:</strong> identify occupied areas, access limits, noisy work and IT changeovers before agreeing a programme.</li><li><strong>Check responsibilities:</strong> confirm landlord requirements, relevant approvals and who owns each decision before work begins.</li></ul>
       <p>YOS coordinates the client-side project. Appointed contractors carry out the building and trade work.</p>
-      <Button href="/contact?service=fitout#contact-enquiry" variant="dark">Discuss your refurbishment</Button>
+      <Button href="#fitout-enquiry" variant="dark">Discuss your refurbishment</Button>
     </div></section>
     <PlanningResources kind="project" />
     <WorkplaceGuides kind="project" />
     <ServiceFaq items={FAQS} />
-    <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us where the project stands.</h2><Button href="/contact?service=fitout#contact-enquiry" variant="dark" size="lg">Enquire</Button></div></section>
+    <section className="bg-light-teal" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Connect the property and workplace decisions</SectionLabel><h2 className="text-near-black text-3xl mt-4 mb-6">Still deciding which premises to commit to?</h2><p className="text-charcoal leading-relaxed max-w-3xl mb-6">Bring the workplace brief into the property decision early. If you are considering a lease, explore <Link className="text-action-teal underline font-semibold" href="/tenant-rep">tenant representation</Link>. If you are looking to purchase premises, see our <Link className="text-action-teal underline font-semibold" href="/buyers-agency">commercial buyers agent service</Link>. For a furniture-only project, start with <Link className="text-action-teal underline font-semibold" href="/furniture">office furniture planning</Link>.</p></div></section>
+    <ServiceEnquiry id="fitout-enquiry" service="FitOut" entryPage="/office-fitout" title="Tell us where the project stands." description="We’ll review your project stage and discuss the scope, next decisions and whether YOS’s client-side project management suits your brief." prompts={['Site suburb and whether you have secured the premises.', 'What needs changing and whether the business must remain operating.', 'Your target opening date and any budget expectations.']} placeholder="Site suburb, project stage, what needs changing and target opening date..." />
       </main><Footer /></>
 }
