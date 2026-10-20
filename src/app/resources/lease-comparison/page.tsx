@@ -278,11 +278,11 @@ export default function LeaseComparisonPage() {
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="text-left pr-8 w-56" style={{ paddingBottom: '2rem' }}>
+                  <th scope="col" className="text-left pr-8 w-56" style={{ paddingBottom: '2rem' }}>
                     <span className="text-mid-grey font-semibold text-xs tracking-widest uppercase">Field</span>
                   </th>
                   {[0, 1, 2].map(i => (
-                    <th key={i} className="text-left px-5" style={{ paddingBottom: '2rem' }}>
+                    <th key={i} id={`lease-option-${i}`} scope="col" className="text-left px-5" style={{ paddingBottom: '2rem' }}>
                       <div className="flex items-center gap-2">
                         <div className={`w-2.5 h-2.5 rounded-sm ${leases[i].faceRent && leases[i].area ? 'bg-teal' : 'bg-gray-200'}`} />
                         <span className="text-near-black font-bold" style={{ fontSize: '0.95rem' }}>Option {i + 1}</span>
@@ -295,8 +295,8 @@ export default function LeaseComparisonPage() {
                 {fields.map(f => (
                   <tr key={f.key} className="border-t border-gray-100 hover:bg-gray-50/50 transition-colors">
                     <td className="pr-8" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}>
-                      <p className="text-near-black font-bold text-sm leading-snug" style={{ marginBottom: f.hint ? '0.4rem' : 0 }}>{f.label}</p>
-                      {f.hint && <p className="text-mid-grey font-light leading-relaxed" style={{ fontSize: '0.72rem', marginTop: '0.25rem' }}>{f.hint}</p>}
+                      <p id={`lease-field-${f.key}`} className="text-near-black font-bold text-sm leading-snug" style={{ marginBottom: f.hint ? '0.4rem' : 0 }}>{f.label}</p>
+                      {f.hint && <p id={`lease-hint-${f.key}`} className="text-mid-grey font-light leading-relaxed" style={{ fontSize: '0.72rem', marginTop: '0.25rem' }}>{f.hint}</p>}
                     </td>
                     {[0, 1, 2].map(i => (
                       <td key={i} className="px-5" style={{ paddingTop: '1.5rem', paddingBottom: '1.5rem' }}>
@@ -305,6 +305,9 @@ export default function LeaseComparisonPage() {
                             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-mid-grey text-sm font-light">{f.prefix}</span>
                           )}
                           <input
+                            id={`lease-${i}-${f.key}`}
+                            aria-labelledby={`lease-option-${i} lease-field-${f.key}`}
+                            aria-describedby={f.hint ? `lease-hint-${f.key}` : undefined}
                             type={f.type || 'text'}
                             inputMode={f.key === 'name' ? 'text' : 'decimal'}
                             value={leases[i][f.key]}
