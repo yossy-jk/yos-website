@@ -32,12 +32,12 @@ const WRAP = 'max-w-screen-xl mx-auto'
 const PAD = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 const SEC = { paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }
 const PROCESS = [
-  ['Discovery & brief', 'We define headcount, growth, ways of working, brand, landlord requirements, budget and timing. You receive a written brief for approval.'],
-  ['Concept planning', 'Where required, we test the space with concept layouts so the brief is tested before design progresses.'],
-  ['Preliminary budget', 'We establish an order-of-cost range, allowances and contingency before major commitments are made.'],
-  ['Design & documentation', 'We coordinate the design team, finishes, building services, landlord requirements and approvals pathway on your behalf.'],
-  ['Procurement', 'We compare properly scoped proposals, expose exclusions and support you to appoint the appropriate licensed contractors and suppliers.'],
-  ['Delivery & handover', 'We manage the programme, decisions, risks, defects and handover as your client-side project manager.'],
+  ['Discovery & brief', 'We define headcount, growth, ways of working, brand, landlord requirements, budget and timing. You receive a written brief for approval.', 'List the essentials separately from preferences, and gather a floor plan and site photos if available.'],
+  ['Concept planning', 'Where required, we test the space with concept layouts so the brief is tested before design progresses.', 'Test headcount, meeting needs, circulation and storage before choosing finishes.'],
+  ['Preliminary budget', 'We establish an order-of-cost range, allowances and contingency before major commitments are made.', 'Check what the allowance includes: works, consultants, furniture, moving costs and contingency should be visible.'],
+  ['Design & documentation', 'We coordinate the design team, finishes, building services, landlord requirements and approvals pathway on your behalf.', 'Name the owner of each landlord, consultant and approval decision, with the date it is needed.'],
+  ['Procurement', 'We compare properly scoped proposals, expose exclusions and support you to appoint the appropriate licensed contractors and suppliers.', 'Compare access assumptions, allowances, exclusions and responsibilities alongside the headline price.'],
+  ['Delivery & handover', 'We manage the programme, decisions, risks, defects and handover as your client-side project manager.', 'Agree who closes defects, receives documentation and coordinates IT, furniture and operational readiness.'],
 ] as const
 
 const FAQS = [
@@ -69,7 +69,7 @@ export default function OfficeFitoutPage() {
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel onLight>The YOS FitOut process</SectionLabel><h2 className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Six clear stages from first brief to handover.</h2></FadeIn>
-      <ol className="fitout-process-flow">{PROCESS.map(([title, body], index) => <li key={title}><details><summary><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><i aria-hidden="true">+</i></summary><p>{body}</p></details></li>)}</ol>
+      <ol className="fitout-process-flow">{PROCESS.map(([title, body, tip], index) => <li key={title}><details><summary><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><i aria-hidden="true">+</i></summary><p>{body}</p><p><strong>Helpful check:</strong> {tip}</p></details></li>)}</ol>
     </div></section>
     <section className="bg-near-black" style={SEC}><div className={`${WRAP} grid grid-cols-1 lg:grid-cols-2 gap-12`} style={PAD}>
       <FadeIn><SectionLabel>What stays visible</SectionLabel><h2 className="text-white mt-3 leading-tight" style={{ fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Scope, budget, programme and responsibility.</h2></FadeIn>
