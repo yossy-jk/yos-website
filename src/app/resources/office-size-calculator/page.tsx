@@ -7,9 +7,8 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import ToolGate from '@/components/ToolGate'
-import { ENQUIRY } from '@/lib/constants'
+import ToolNextSteps from '@/components/ToolNextSteps'
 
-const SEC = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
 const WRAP = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 type WorkStyle = 'traditional' | 'hybrid' | 'agile'
@@ -364,40 +363,15 @@ export default function OfficeSizeCalculatorPage() {
 
           <div style={{ paddingBottom: 'clamp(4rem,8vw,6rem)' }} />
 
-          {/* CTA */}
-          <div className="mt-20 md:mt-28 pt-12 border-t border-white/8 max-w-2xl">
-            <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-3" style={{ fontSize: '0.7rem' }}>Ready to find space?</p>
-            <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-4"
-              style={{ fontSize: 'clamp(1.5rem,3vw,2.5rem)' }}>
-              We source and negotiate commercial space for Newcastle and Hunter businesses.
-            </h2>
-            <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
-              className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em] min-h-[52px] w-full sm:w-auto"
-              style={{ padding: '1.25rem 3.5rem', fontSize: '0.72rem', borderRadius: '0.5rem' }}>
-              Book a Space Consultation →
-            </a>
-          </div>
-
         </div>
       </div>
 
-      {/* CTA section */}
-      <section className="bg-teal" style={SEC}>
-        <div className="max-w-screen-xl mx-auto text-center" style={WRAP}>
-          <h2 className="text-white font-black uppercase leading-tight tracking-tight mb-6"
-            style={{ fontSize: 'clamp(1.75rem,3.5vw,3.5rem)' }}>
-            Getting the right space isn&apos;t just about sqm.
-          </h2>
-          <p className="text-white/80 font-light leading-relaxed mb-12 mx-auto"
-            style={{ fontSize: '1rem', maxWidth: '36rem', lineHeight: 1.75 }}>
-            We help tenants negotiate favourable terms, fitout contributions and lease structures that match how you actually work.
-          </p>
-          <a href="/contact?service=leasing#contact-enquiry"
-            className="inline-block bg-white text-teal font-bold no-underline hover:bg-light-teal transition-colors"
-            style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>Enquire</a>
-        </div>
-      </section>
-
+      <ToolNextSteps
+        title="Turn your space estimate into a property brief."
+        description="Share your preferred Newcastle or Hunter location, team size, estimated space range and timing, if known. These are helpful starting points; you can make an initial enquiry with just your name and email."
+        primary={{ href: '/contact?service=leasing#contact-enquiry', label: 'Discuss my space requirements' }}
+        secondary={{ href: '/tenant-rep', label: 'Explore tenant representation' }}
+      />
 
       <ToolGuide purpose="Estimate an initial office space range for your team before starting a property search." inputs="Headcount, work style, team growth and the working arrangements you expect." result="An indicative floor-area range. A measured layout, accessibility requirements and site conditions still need review." next="Discuss your property brief" href="/tenant-rep" />
 </main>
