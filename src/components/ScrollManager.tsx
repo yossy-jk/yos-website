@@ -10,6 +10,7 @@ function scrollToHash() {
   const target = document.getElementById(id) ?? document.querySelector(`[name="${CSS.escape(id)}"]`)
   if (!target) return false
   target.scrollIntoView({ block: 'start' })
+  if (target instanceof HTMLElement && target.hasAttribute('tabindex')) target.focus({ preventScroll: true })
   return true
 }
 
