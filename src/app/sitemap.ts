@@ -13,20 +13,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const caseStudies = getAllCaseStudies()
 
   const tenantRoutes = TENANT_OFFER.approvedForPublication ? ['/tenant-rep/packages', '/tenant-rep/guarantee', '/lease-health-check', '/tools/lease-cost-calculator', '/tools/time-cost-calculator', '/tools/critical-dates', '/lease-checklist', '/refer', '/insights/lease-costs'].map(route => ({url: `${BASE}${route}`,changeFrequency:'monthly' as const,priority:0.7})) : []
+  // Static lastModified dates reflect documented meaningful page releases; never the build date.
   return [
     ...tenantRoutes,
     ...CATALOGUES.map(item => ({ url: `${BASE}/catalogues/${item.id}`, changeFrequency: 'yearly' as const, priority: 0.6, lastModified: '2026-10-19' })),
-    { url: BASE,                                          changeFrequency: 'weekly',  priority: 1.0 },
-    { url: `${BASE}/buyers-agency`, lastModified: '2026-10-19', changeFrequency: 'monthly', priority: 0.9 },
+    { url: BASE, lastModified: '2026-10-21',              changeFrequency: 'weekly',  priority: 1.0 },
+    { url: `${BASE}/buyers-agency`, lastModified: '2026-10-20', changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/cleaning/work-with-us`, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/cleaning/work-with-us/cleaning`, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/tenant-rep`, lastModified: '2026-10-19',                          changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE}/tenant-rep/newcastle`, lastModified: '2026-10-19',                changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/office-fitout`, lastModified: '2026-10-19',                       changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${BASE}/commercial-construction`, lastModified: '2026-10-19', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/furniture`, lastModified: '2026-10-19',                           changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/tenant-rep/newcastle`, lastModified: '2026-10-20',                changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/office-fitout`, lastModified: '2026-10-20',                       changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/commercial-construction`, lastModified: '2026-10-20', changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${BASE}/furniture`, lastModified: '2026-10-20',                           changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/cleaning`,                            changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/about`, lastModified: '2026-10-19',                               changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/about`, lastModified: '2026-10-21',                               changeFrequency: 'monthly', priority: 0.7 },
     { url: `${BASE}/contact`,                             changeFrequency: 'yearly',  priority: 0.7 },
     { url: `${BASE}/privacy`,                             changeFrequency: 'yearly',  priority: 0.3 },
     { url: `${BASE}/terms`,                               changeFrequency: 'yearly',  priority: 0.3 },
@@ -35,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/not-for-profit-lease-support`,        changeFrequency: 'monthly', priority: 0.65 },
     { url: `${BASE}/resources`, lastModified: '2026-10-19',                           changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/resources/lease-review`,              changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/resources/fitout-estimator`,          changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE}/resources/fitout-estimator`, lastModified: '2026-10-22', changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/resources/lease-comparison`,          changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/resources/office-size-calculator`,    changeFrequency: 'yearly',  priority: 0.7 },
     { url: `${BASE}/resources/workspace-builder`,         changeFrequency: 'monthly', priority: 0.65 },
