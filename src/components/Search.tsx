@@ -22,7 +22,7 @@ const ALL_ITEMS: SearchResult[] = [
   ...FLOURISH_LINKS.slice(1).map(link => ({ title: link.label, description: link.description, href: link.href, category: 'Service' })),
   // Tools
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk rating on your commercial lease.', href: '/resources/lease-review', category: 'Tool' },
-  { title: 'Fitout Cost Estimator', description: 'Estimate your office fitout cost using 2026 Newcastle market rates.', href: '/resources/fitout-estimator', category: 'Tool' },
+  { title: 'Fitout Cost Estimator', description: 'Build an indicative fitout budget, then confirm the scope and project-specific quotes.', href: '/resources/fitout-estimator', category: 'Tool' },
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost.', href: '/resources/lease-comparison', category: 'Tool' },
   { title: 'Office Size Calculator', description: 'Work out how much space your team actually needs.', href: '/resources/office-size-calculator', category: 'Tool' },
   { title: 'Should I Relocate?', description: 'Six-question quiz gives you a Red, Amber or Green verdict on moving offices.', href: '/resources/relocate-quiz', category: 'Tool' },
@@ -33,11 +33,11 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Contact', description: 'Get in touch with the YOS team in Newcastle.', href: '/contact', category: 'Page' },
   { title: 'Blog & Articles', description: 'Commercial property guides, market insights and practical advice.', href: '/blog', category: 'Page' },
   { title: 'Resources & Tools', description: 'All free tools, calculators and market resources in one place.', href: '/resources', category: 'Page' },
-  { title: 'Newcastle Office Market Snapshot', description: 'Monthly tenant-side market report. Vacancy, rents and trends.', href: '/market-snapshot', category: 'Page' },
+  { title: 'Newcastle Office Market Snapshot', description: 'Read the May 2026 snapshot and ask for current, brief-specific market evidence.', href: '/market-snapshot', category: 'Page' },
   // Blog articles
   { title: 'What Is Tenant Representation?', description: 'How a tenant rep works, what it costs, and why you need one.', href: '/blog/what-is-tenant-representation-newcastle', category: 'Article' },
-  { title: 'Fitout Costs in Newcastle 2026', description: 'What a commercial fitout actually costs per sqm in Newcastle this year.', href: '/blog/commercial-fitout-cost-newcastle-2026', category: 'Article' },
-  { title: 'Make Good: What It Really Means', description: 'Your make-good obligations at lease end. and how to negotiate them.', href: '/blog/what-is-make-good', category: 'Article' },
+  { title: 'Newcastle FitOut Costs & Budget Planning', description: 'Define your scope, allowances and quote comparisons for a Newcastle office fitout.', href: '/blog/commercial-fitout-cost-newcastle-2026', category: 'Article' },
+  { title: 'Make Good: Scope & Budget Planning', description: 'Gather lease and condition records, clarify the scope with your advisers and plan a site-specific budget.', href: '/blog/make-good-obligations-commercial-lease-cost', category: 'Article' },
 ]
 
 const CATEGORY_COLOURS: Record<string, string> = {
