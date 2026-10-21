@@ -267,10 +267,10 @@ export default function Search({ compact = false, showShortcut = true, onOpen, f
                     </span>
                     {/* Text */}
                     <span className="flex-1 min-w-0">
-                      <span className="block text-white font-semibold" style={{ fontSize: '0.875rem', lineHeight: 1.3, marginBottom: '0.2rem' }}>
+                      <span className="block text-white font-semibold" style={{ display: 'block', fontSize: '0.875rem', lineHeight: 1.3, marginBottom: '0.2rem' }}>
                         {highlight(item.title, query)}
                       </span>
-                      <span className="block text-white/70 font-light" style={{ fontSize: '0.75rem', lineHeight: 1.5 }}>
+                      <span className="block text-white/70 font-light" style={{ display: 'block', fontSize: '0.75rem', lineHeight: 1.5 }}>
                         {highlight(item.description, query)}
                       </span>
                     </span>
