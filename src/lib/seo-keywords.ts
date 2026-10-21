@@ -71,7 +71,7 @@ export const KEYWORDS: Keyword[] = [
     intent: 'informational',
     priority: 'immediate',
     currentRank: null,
-    targetPage: '/blog/what-is-make-good',
+    targetPage: '/blog/make-good-obligations-commercial-lease-cost',
     contentGap: null,
     aeoFit: true,
     notes: 'High volume informational. Blog post already exists. Strong AEO candidate — AI tools often answer this.'

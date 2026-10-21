@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
     return [
       ...[
         ['/sitemap_index.xml', '/sitemap.xml'],
+        ['/blog/what-is-make-good', '/blog/make-good-obligations-commercial-lease-cost'],
         ['/blog/gross-vs-net-lease-newcastle', '/blog/gross-lease-vs-net-lease-newcastle-guide'],
         ['/blog/newcastle-office-fitout-costs-2026', '/blog/office-furniture-budget-newcastle'],
         ['/commercial-cleaning', '/cleaning'],
