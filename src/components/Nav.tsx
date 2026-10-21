@@ -17,8 +17,8 @@ const TOOLS_LEASING = [
 const BLOG_HIGHLIGHTS = [
   { label: 'Newcastle Commercial Property Hub', href: '/newcastle-commercial-property' },
   { label: 'What Is Tenant Representation?', href: '/blog/what-is-tenant-representation-newcastle' },
-  { label: 'Fitout Costs in Newcastle 2026', href: '/blog/commercial-fitout-cost-newcastle-2026' },
-  { label: 'Make Good: What It Really Means', href: '/blog/what-is-make-good' },
+  { label: 'Newcastle FitOut Costs & Budget Planning', href: '/blog/commercial-fitout-cost-newcastle-2026' },
+  { label: 'Make Good: Scope & Budget Planning', href: '/blog/make-good-obligations-commercial-lease-cost' },
 ]
 
 const MOBILE_SERVICES = [
