@@ -1,16 +1,9 @@
+import Link from 'next/link'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 
 const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem,8vw,10rem)' }
 const SEC_SM = { paddingTop: 'clamp(2.5rem,5vw,4rem)',   paddingBottom: 'clamp(2.5rem,5vw,4rem)' }
-const PAD    = { paddingLeft: 'clamp(1.5rem,6vw,8rem)', paddingRight: 'clamp(1.5rem,6vw,8rem)' }
-
-const SectionLabel = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-teal font-semibold uppercase tracking-widest mb-4"
-    style={{ fontSize: '0.72rem', letterSpacing: '0.18em' }}>
-    {children}
-  </p>
-)
 import NotForProfitForm from '@/components/NotForProfitForm'
 import FadeIn from '@/components/FadeIn'
 import { CONTACT } from '@/lib/constants'
@@ -34,22 +27,23 @@ export const metadata = withPageSeo({
 
 const FAQ_SCHEMA = [
   {
-    q: 'Make-good clauses that were not negotiated',
-    a: 'Standard make-good clauses can cost $20,000–$80,000 at exit. Most not-for-profits do not budget for them because they did not know they were there.',
+    q: 'What should our organisation check about make-good?',
+    a: 'Gather the signed lease, variations, entry condition report and records of any alterations. Ask your solicitor to identify the actual reinstatement obligations, then obtain a site-specific scope and costed contractor advice. A generic allowance is not a quote for your premises.',
   },
   {
-    q: 'Rent reviews with no caps or guards',
-    a: 'Uncapped rent reviews can blow out operating costs by 40% over a five-year term. Knowing what you are signing matters.',
+    q: 'How can we plan for rent changes?',
+    a: 'Record each review date and the written review method. Ask your adviser to explain any assumptions or unresolved terms, and model the effect on your operating budget alongside outgoings and other occupancy costs. Keep estimates separate from confirmed amounts.',
   },
   {
-    q: 'Security requirements that tie up working capital',
-    a: 'Large bank guarantees or security deposits lock away cash that could be funding your mission. There are better ways to structure security.',
+    q: 'What should we ask about lease security?',
+    a: 'List the proposed security amount, form, funding cost and release conditions. Ask your solicitor and finance adviser how those requirements affect your organisation and what alternatives can be put to the landlord. A requested change is not an agreed concession.',
   },
   {
-    q: 'Assignment clauses that do not account for change',
-    a: 'If your organisation merges, restructures, or changes purpose, your lease needs to handle that gracefully. Most do not.',
+    q: 'What if our organisation needs to move or restructure?',
+    a: 'Explain the possible change before committing. Ask your solicitor to check the actual assignment, subletting, permitted-use and exit provisions, including any consent requirements. Connect the advice with a relocation brief and the decisions your board needs to make.',
   },
 ]
+
 
 export default function NotForProfitPage() {
   return (
@@ -140,7 +134,7 @@ export default function NotForProfitPage() {
                   ))}
                 </ul>
                 <p className="text-charcoal font-light font-semibold" style={{ fontSize: '0.8rem' }}>
-                  Typical value: $500–$1,500. You are not paying for it.
+                  No YOS professional fee for an accepted pro bono lease review.
                 </p>
               </div>
             </FadeIn>
@@ -177,7 +171,7 @@ export default function NotForProfitPage() {
                   ))}
                 </ul>
                 <p className="text-white/40 font-light font-semibold" style={{ fontSize: '0.8rem' }}>
-                  Typical value: 3–5% of annual rent. You are not paying for it.
+                  No YOS professional fee for an accepted pro bono relocation search.
                 </p>
               </div>
             </FadeIn>
@@ -223,43 +217,32 @@ export default function NotForProfitPage() {
         </div>
       </section>
 
-      {/* ─── WHY THIS MATTERS ──────────────────────── */}
-      <section className="bg-white" style={SEC}>
+      {/* Practical questions shared with the FAQ structured data. */}
+      <section id="faq" className="bg-white" style={SEC} aria-labelledby="lease-questions-heading">
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
-          <FadeIn>
-            <div className="max-w-2xl">
-              <p className="text-teal font-semibold uppercase tracking-[0.3em] mb-4" style={{ fontSize: '0.72rem' }}>Why this matters</p>
-              <h2 className="text-near-black font-black uppercase mb-8 leading-tight"
-                style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
-                The leases we see<br />from not-for-profits
-              </h2>
-              <div className="flex flex-col gap-6">
-                {[
-                  {
-                    q: 'Make-good clauses that were not negotiated',
-                    a: 'Standard make-good clauses can cost $20,000–$80,000 at exit. Most not-for-profits do not budget for them because they did not know they were there.',
-                  },
-                  {
-                    q: 'Rent reviews with no caps or guards',
-                    a: 'Uncapped rent reviews can blow out operating costs by 40% over a five-year term. Knowing what you are signing matters.',
-                  },
-                  {
-                    q: 'Security requirements that tie up working capital',
-                    a: 'Large bank guarantees or security deposits lock away cash that could be funding your mission. There are better ways to structure security.',
-                  },
-                  {
-                    q: 'Assignment clauses that do not account for change',
-                    a: 'If your organisation merges, restructures, or changes purpose, your lease needs to handle that gracefully. Most do not.',
-                  },
-                ].map((item, i) => (
-                  <div key={i} className="border-t border-charcoal/10 pt-6">
-                    <p className="text-near-black font-bold mb-2" style={{ fontSize: '1rem' }}>{item.q}</p>
-                    <p className="text-mid-grey font-light leading-relaxed" style={{ fontSize: '0.9rem' }}>{item.a}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeIn>
+          <p className="text-action-teal font-semibold uppercase tracking-widest" style={{ fontSize: '0.72rem', marginBottom: '1rem' }}>Before the next lease decision</p>
+          <h2 id="lease-questions-heading" className="text-near-black font-black leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)', marginBottom: '2rem' }}>Questions for your lease, budget and board.</h2>
+          <div className="max-w-3xl" style={{ display: 'grid', gap: '1.5rem' }}>
+            {FAQ_SCHEMA.map(item => <article key={item.q} className="border-t border-charcoal/10" style={{ paddingTop: '1.5rem' }}>
+              <h3 className="text-near-black font-bold" style={{ fontSize: '1.1rem', marginBottom: '0.75rem' }}>{item.q}</h3>
+              <p className="text-charcoal leading-relaxed">{item.a}</p>
+            </article>)}
+          </div>
+          <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginTop: '2rem' }}>YOS helps organise the commercial questions and next steps. Your solicitor advises on legal interpretation and the rules that apply to your lease. The NSW Small Business Commissioner provides guidance on <a className="text-action-teal underline" href="https://www.smallbusiness.nsw.gov.au/help/common-questions/before-you-sign-the-lease">preparing to sign</a>, <a className="text-action-teal underline" href="https://www.smallbusiness.nsw.gov.au/help/common-questions/understanding-the-costs-of-leasing">leasing costs</a> and <a className="text-action-teal underline" href="https://www.smallbusiness.nsw.gov.au/help/common-questions/what-to-do-at-the-end-of-the-lease">the end of a lease</a>. Its retail leasing guidance does not automatically apply to every office or industrial tenancy.</p>
+        </div>
+      </section>
+
+      <section id="lease-planning-tools" className="bg-warm-grey" style={SEC} aria-labelledby="planning-tools-heading">
+        <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
+          <h2 id="planning-tools-heading" className="text-near-black font-bold leading-tight" style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', marginBottom: '1.5rem' }}>Useful while you prepare your application.</h2>
+          <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: '1.5rem' }}>Bring your location, key dates, board decision process and main workplace concerns. You can apply below without completing another tool first.</p>
+          <ul style={{ display: 'grid', gap: '1.25rem', maxWidth: '48rem' }}>
+            <li><Link className="text-action-teal font-semibold underline" href="/lease-health-check">Explore the Lease Health Check</Link><p className="text-charcoal leading-relaxed">Organise your current lease questions. Uploading an existing lease is optional.</p></li>
+            <li><Link className="text-action-teal font-semibold underline" href="/resources/lease-comparison">Compare lease options</Link><p className="text-charcoal leading-relaxed">Use consistent assumptions and separate confirmed costs from estimates.</p></li>
+            <li><Link className="text-action-teal font-semibold underline" href="/tenant-rep">Understand tenant representation</Link><p className="text-charcoal leading-relaxed">See the broader service process. This programme application remains the route to request pro bono support.</p></li>
+            <li><Link className="text-action-teal font-semibold underline" href="/blog/office-relocation-checklist">Prepare a relocation checklist</Link><p className="text-charcoal leading-relaxed">Connect premises, fit out, furniture, IT and handover decisions before choosing dates.</p></li>
+          </ul>
+          <a href="#apply" className="text-action-teal font-bold underline" style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px', marginTop: '2rem' }}>Apply for pro bono support</a>
         </div>
       </section>
 
