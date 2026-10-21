@@ -1,3 +1,4 @@
+import './blog-consolidation.test.mjs'
 import './budget-consolidation.test.mjs'
 import assert from 'node:assert/strict'
 import { access, readFile } from 'node:fs/promises'

@@ -35,7 +35,7 @@ export const SAFE_DIVISION = (d: unknown): Division =>
     ? (d as Division) : 'general'
 
 // Redirected articles must not reappear from older Redis-published copies.
-const REDIRECTED_POST_SLUGS = new Set(['newcastle-office-fitout-costs-2026'])
+const REDIRECTED_POST_SLUGS = new Set(['newcastle-office-fitout-costs-2026', 'gross-vs-net-lease-newcastle'])
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog')
 
 export const DIVISION_LABELS: Record<Division, string> = {
