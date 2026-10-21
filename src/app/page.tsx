@@ -1,3 +1,4 @@
+import CompanyPurpose from '@/components/CompanyPurpose'
 import CatalogueCards from '@/components/CatalogueCards'
 import HomeServiceGuide from '@/components/HomeServiceGuide'
 import { CLIENT_REVIEWS } from '@/lib/client-reviews'
@@ -12,7 +13,7 @@ import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
 import CapabilityDownload from '@/components/CapabilityDownload'
 import ReviewsCarousel from '@/components/ReviewsCarousel'
-import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES, SITE_URL } from '@/lib/site-schema'
+import { ORGANIZATION_ID, SITE_URL } from '@/lib/site-schema'
 
 export const metadata: Metadata = withPageSeo({
   title: 'Commercial Property, FitOut & Furniture | Your Office Space',
@@ -112,7 +113,7 @@ export default function Home() {
 
       <section className="home-proof" aria-labelledby="proof-heading"><div className="site-container"><FadeIn><div className="home-section-intro home-section-intro-left"><p className="home-eyebrow">Real relationships</p><h2 id="proof-heading">Clients and partners connected to our workplace projects.</h2></div></FadeIn><div className="home-logo-grid">{clientLogos.map(logo => <div key={logo.name} className={`home-logo-card ${'dark' in logo && logo.dark ? 'home-logo-card-dark' : ''}`}><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain" sizes="180px" /></div>)}</div></div></section>
 
-      <section className="home-journey"><div className="site-container"><FadeIn><div className="home-section-intro"><p className="home-eyebrow">One coordinated journey</p><h2>One team, from the first decision to the working workplace.</h2></div></FadeIn><ol className="home-journey-list">{services.map((service, index) => <li key={service.label}><span>0{index + 1}</span><strong>{service.label}</strong><p>{service.copy}</p></li>)}</ol></div></section>
+      <CompanyPurpose compact introduction="One team, from the first decision to the working workplace." />
 
       <section className="home-showcases" aria-labelledby="services-heading"><div className="site-container"><FadeIn><div className="home-section-intro"><p className="home-eyebrow">Choose what you need</p><h2 id="services-heading">One service, or one team across the whole journey.</h2></div></FadeIn><div className="home-showcase-list">{showcases.map((service, index) => <FadeIn key={service.eyebrow}><article className={`home-showcase ${index % 2 ? 'home-showcase-reverse' : ''}`}><div className="home-showcase-image"><Image src={service.image} alt={service.alt} fill className="object-cover" sizes="(min-width: 1100px) 50vw, 100vw" /></div><div className="home-showcase-copy"><p className="home-eyebrow">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.copy}</p><ul>{service.points.map(point => <li key={point}><span aria-hidden="true">✓</span>{point}</li>)}</ul><Link href={service.href} className="home-button home-button-dark">{service.cta}<span aria-hidden="true">→</span></Link></div></article></FadeIn>)}</div></div></section>
 
