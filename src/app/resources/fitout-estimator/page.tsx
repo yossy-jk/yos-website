@@ -273,17 +273,17 @@ export default function FitoutEstimatorPage() {
               <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
                 {/* Floor area */}
                 <div>
-                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                  <label htmlFor="fitout-area" className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                     Floor area (m2) <span className="text-teal">*</span>
                   </label>
                   <input
-                    type="number" min="1" placeholder="e.g. 250"
+                    id="fitout-area" aria-describedby="fitout-area-hint" type="number" min="1" placeholder="e.g. 250"
                     value={inputs.sqm}
                     onChange={e => set('sqm', e.target.value)}
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
                     style={{ padding: '1rem 1.25rem', fontSize: '1.15rem', borderRadius: '0.5rem', display: 'block', marginBottom: '0.75rem' }}
                   />
-                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>The net lettable area (NLA) of the space you are fitting out</p>
+                  <p id="fitout-area-hint" className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>The net lettable area (NLA) of the space you are fitting out</p>
                 </div>
                 {/* Building type */}
                 <div>
@@ -447,24 +447,24 @@ export default function FitoutEstimatorPage() {
               <div className="flex flex-col" style={{ gap: '3rem', marginBottom: '3.5rem' }}>
                 {/* Workstations */}
                 <div>
-                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+                  <label htmlFor="fitout-desks" className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1rem' }}>
                     Number of workstations <span className="text-teal">*</span>
                   </label>
-                  <input type="number" min="0" placeholder="e.g. 20"
+                  <input id="fitout-desks" aria-describedby="fitout-desks-hint" type="number" min="0" placeholder="e.g. 20"
                     value={inputs.desks} onChange={e => set('desks', e.target.value)}
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
                     style={{ padding: '1rem 1.25rem', fontSize: '1.15rem', borderRadius: '0.5rem', display: 'block', marginBottom: '0.75rem' }}
                   />
-                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes the selected workstation and seating allowances. Confirm specifications and supplier quotes for your project.</p>
+                  <p id="fitout-desks-hint" className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes the selected workstation and seating allowances. Confirm specifications and supplier quotes for your project.</p>
                 </div>
                 {/* Meeting rooms */}
                 <div>
-                  <label className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+                  <p id="fitout-meeting-label" className="block text-white/70 font-semibold" style={{ fontSize: '0.82rem', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
                     Meeting rooms
-                  </label>
-                  <div className="flex flex-wrap" style={{ gap: '0.75rem', marginBottom: '0.875rem' }}>
+                  </p>
+                  <div role="group" aria-labelledby="fitout-meeting-label" className="flex flex-wrap" style={{ gap: '0.75rem', marginBottom: '0.875rem' }}>
                     {['0', '1', '2', '3', '4+'].map(n => (
-                      <button key={n} onClick={() => set('meetingRooms', n === '4+' ? '4' : n)}
+                      <button key={n} aria-pressed={inputs.meetingRooms === (n === '4+' ? '4' : n)} onClick={() => set('meetingRooms', n === '4+' ? '4' : n)}
                         className={`font-bold border transition-colors w-14 ${inputs.meetingRooms === (n === '4+' ? '4' : n) ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/50 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.85rem', fontSize: '1rem' }}>
                         {n}
@@ -639,21 +639,23 @@ export default function FitoutEstimatorPage() {
                 onSubmit={submitReport}
                 style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '28rem' }}
               >
+                <label htmlFor="fitout-report-name" className="text-white font-semibold">Your name</label>
                 <input
-                  type="text" name="name" placeholder="Your name" autoComplete="name"
+                  id="fitout-report-name" type="text" name="name" placeholder="Your name" autoComplete="name"
                   value={reportName}
                   onChange={(event) => setReportName(event.target.value)}
                   required minLength={2} maxLength={100}
                   disabled={reportState === 'sending' || reportState === 'sent'}
-                  style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                  style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '16px', fontWeight: 300, width: '100%' }}
                 />
+                <label htmlFor="fitout-report-email" className="text-white font-semibold">Your work email</label>
                 <input
-                  type="email" name="email" placeholder="Your work email" autoComplete="email"
+                  id="fitout-report-email" type="email" name="email" placeholder="Your work email" autoComplete="email"
                   value={reportEmail}
                   onChange={(event) => setReportEmail(event.target.value)}
                   required maxLength={200}
                   disabled={reportState === 'sending' || reportState === 'sent'}
-                  style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '0.9rem', fontWeight: 300, width: '100%' }}
+                  style={{ background: 'rgba(255,255,255,0.06)', color: 'white', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '0.5rem', outline: 'none', padding: '0.875rem 1rem', fontSize: '16px', fontWeight: 300, width: '100%' }}
                 />
                 <button type="submit" disabled={reportState === 'sending' || reportState === 'sent'}
                   style={{ background: reportState === 'sent' ? 'rgba(1,167,163,0.4)' : '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
