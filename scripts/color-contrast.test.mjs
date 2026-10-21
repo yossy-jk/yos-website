@@ -98,6 +98,6 @@ test('blog cards use readable metadata, action links, and category badges', () =
 })
 
 test('fitout estimator audited intro and project captions use accessible contrast', () => {
-  assert.match(fitoutEstimatorSource, /text-white\/55[\s\S]{0,180}Real market rates/)
+  assert.match(fitoutEstimatorSource, /text-white\/55[\s\S]{0,180}Indicative planning allowances/)
   assert.doesNotMatch(fitoutEstimatorSource, /rgba\(255,255,255,0\.(?:4|45)\)/)
 })

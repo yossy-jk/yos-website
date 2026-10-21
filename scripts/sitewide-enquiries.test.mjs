@@ -102,9 +102,10 @@ test('specialised registrations and reports require confirmed inbox delivery', a
   for (const [endpoint, body] of cases) {
     for (const accepted of [true, false]) {
       const { delivery, messages } = setup(accepted ? { data: { id: 'accepted' } } : { error: { message: 'Not accepted' } })
+      const customerMessages = []
       const route = load(`src/app/api/${endpoint}/route.ts`, {
         'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest,
-        resend: { Resend: class { emails = { send: async () => ({ data: { id: 'customer' } }) } } },
+        resend: { Resend: class { emails = { send: async message => { customerMessages.push(message); return { data: { id: 'customer' } } } } } },
         '@/lib/ratelimit': { contactLimiter: () => null, fitoutLimiter: () => null, getIp: () => '' },
         '@/lib/deployment-scope': { isPreviewDeployment: () => false },
         '@/lib/download-token.mjs': { createDownloadToken: () => 'signed-fixture' },
@@ -113,6 +114,13 @@ test('specialised registrations and reports require confirmed inbox delivery', a
       const response = await route.POST(request({ ...body, submissionId: input.submissionId }))
       assert.equal(response.status, accepted ? 200 : 502, `${endpoint}: accepted=${accepted}`)
       assert.equal(messages.length, 1, `${endpoint} must attempt inbox delivery`)
+      if (endpoint === 'fitout-report' && accepted) {
+        assert.equal(customerMessages.length, 1)
+        assert.ok(customerMessages[0].html.includes('stored planning allowances'))
+        assert.ok(customerMessages[0].html.includes('not verified market evidence or a supplier quote'))
+        assert.ok(customerMessages[0].html.includes('/office-fitout#fitout-enquiry'))
+        assert.ok(!customerMessages[0].html.includes('fixed-price proposal'))
+      }
       if (endpoint === 'cleaning-careers') {
         assert.equal(messages[0].message.to, 'sarah.kelley@yourofficespace.au')
         assert.equal(messages[0].message.cc, 'jk@yourofficespace.au')
