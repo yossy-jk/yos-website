@@ -6,7 +6,7 @@ const tools = [
 ]
 const articles = [
   { href: '/blog/how-to-compare-commercial-leases', title: 'How to compare two commercial leases', text: 'A practical guide to comparing the whole deal before you commit.' },
-  { href: '/blog/what-is-make-good', title: 'Understand your make-good obligations', text: 'Know what may need to be repaired, removed or reinstated when you leave.' },
+  { href: '/blog/make-good-obligations-commercial-lease-cost', title: 'Plan your make-good scope', text: 'Organise documents, questions for your solicitor and site-specific project inputs.' },
   { href: '/blog/tenant-representation-brief-newcastle', title: 'What to prepare for your first YOS meeting', text: 'Bring the useful details for a Newcastle lease discussion, even if some answers are still unclear.' },
 ]
 export default function LeasingResources({ dark = false }: { dark?: boolean }) {

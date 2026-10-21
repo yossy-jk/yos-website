@@ -9,7 +9,7 @@ import articles from "@/content/tenant-insights.json";
 import { tenantPublicPosts } from "@/lib/tenant-content";
 import brief from "@/content/blog/tenant-representation-brief-newcastle.json";
 import representation from "@/content/blog/what-is-tenant-representation-newcastle.json";
-import makeGood from "@/content/blog/what-is-make-good.json";
+import makeGood from "@/content/blog/make-good-obligations-commercial-lease-cost.json";
 export const metadata = tenantMetadata(
   "Understand Your Commercial Lease Costs | YOS Newcastle",
   "Practical lease guidance and tools for Newcastle and Hunter businesses, covering occupancy costs, leadership time and lease dates.",
@@ -97,7 +97,7 @@ export default async function Page() {
             <Link href="/blog/what-is-tenant-representation-newcastle">
               Tenant representation explained
             </Link>
-            <Link href="/blog/what-is-make-good">Understand make-good</Link>
+            <Link href="/blog/make-good-obligations-commercial-lease-cost">Understand make-good</Link>
           </div>
         </div>
       </section>

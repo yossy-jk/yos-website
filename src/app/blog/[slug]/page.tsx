@@ -67,8 +67,8 @@ const INTERNAL_LINKS: Record<string, string> = {
   'lease comparison': '/resources/lease-comparison',
   'fitout estimator': '/resources/fitout-estimator',
   'fitout cost estimator': '/resources/fitout-estimator',
-  'make-good': '/blog/what-is-make-good',
-  'make good': '/blog/what-is-make-good',
+  'make-good': '/blog/make-good-obligations-commercial-lease-cost',
+  'make good': '/blog/make-good-obligations-commercial-lease-cost',
 }
 
 function applyInternalLinks(text: string, currentSlug: string): React.ReactNode[] {
