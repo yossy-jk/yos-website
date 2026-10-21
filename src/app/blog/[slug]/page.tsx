@@ -1,6 +1,7 @@
 import { articleInlineTokens } from '@/lib/article-inline'
 import { articleEnquiry } from '@/lib/article-enquiry'
 import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
+import PreferredSource from '@/components/PreferredSource'
 import ArticleNextSteps from '@/components/ArticleNextSteps'
 import { safeContentDate } from '@/lib/sitemap-content'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
@@ -401,6 +402,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <ContactForm initialService={enquiry.service} submitLabel={enquiry.submit} messagePlaceholder={enquiry.placeholder} />
                 </div>
               </div>
+
+              <PreferredSource />
 
               {/* Back link */}
               <div style={{ marginTop: '2.5rem' }}>
