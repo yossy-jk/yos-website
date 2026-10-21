@@ -26,10 +26,11 @@ export default function ReviewsCarousel({ reviews }: { reviews: Review[] }) {
           <span className="text-sm text-charcoal">{active + 1} of {reviews.length}</span>
         </div>
         <blockquote className="mt-8 font-semibold text-near-black" style={{ fontSize: 'clamp(20px, 3vw, 30px)', lineHeight: 1.5, overflowWrap: 'break-word' }}>“{review.quote}”</blockquote>
-        <figcaption className="mt-8 flex items-center justify-between gap-5 border-t border-black/10 pt-6" style={{ flexWrap: 'wrap' }}>
+        <figcaption className="mt-8 flex items-center justify-between gap-5 border-t border-black/10 pt-6" style={{ flexWrap: 'wrap', marginTop: '2rem', paddingTop: '1.5rem' }}>
           <span style={{ minWidth: 0, overflowWrap: 'anywhere' }}><strong className="block text-lg text-near-black">{review.name}</strong><span className="mt-1 block text-charcoal">{review.organisation}</span></span>
           {review.logo && <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '168px', maxWidth: '100%', minHeight: '72px', padding: '12px', borderRadius: '12px', background: review.logoBackground === 'dark' ? '#1a1a1a' : '#ffffff' }}><Image src={review.logo} alt={`${review.organisation} logo`} width={150} height={54} style={{ width: '144px', maxWidth: '100%', height: 'auto', maxHeight: '48px', objectFit: 'contain' }} /></span>}
         </figcaption>
+        {review.source && <a href={review.source} target="_blank" rel="noopener noreferrer" className={styles.sourceLink}>Read on Google<span className="sr-only">: {review.name} (opens in a new tab)</span></a>}
       </figure>
       <div className={styles.controls}>
         <button type="button" onClick={() => setActive(index => (index - 1 + reviews.length) % reviews.length)} className="min-h-12 min-w-12 justify-center rounded-full border border-near-black text-xl text-near-black hover:bg-near-black hover:text-white" aria-label="Previous review">←</button>
