@@ -1,3 +1,4 @@
+import CompanyPurpose from '@/components/CompanyPurpose'
 import ServiceFaq from '@/components/ServiceFaq'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -7,7 +8,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Footer from '@/components/Footer'
 import FadeIn from '@/components/FadeIn'
-import { LOGO_URL, ORGANIZATION_ID, SERVICE_TYPES } from '@/lib/site-schema'
+import { ORGANIZATION_ID } from '@/lib/site-schema'
 
 export const metadata = withPageSeo({
   title: 'About Your Office Space | Newcastle Workplace Team',
@@ -94,46 +95,9 @@ export default function AboutPage() {
         ]
       }) }} />
 
-      {/* Company story and team */}
-      <section className="bg-white" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-            <FadeIn>
-              <SectionLabel>Why we exist</SectionLabel>
-              <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-6"
-                style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
-                Your workplace should support the business you are building.
-              </h2>
-              <p className="text-charcoal leading-relaxed text-base max-w-xl">
-                A lease or purchase sets the direction. The fit out, furniture and ongoing care
-                need to work with it. You can engage us for one service, or connect the whole journey.
-              </p>
-            </FadeIn>
-            <FadeIn delay={80}>
-              <div className="space-y-6 text-charcoal leading-relaxed text-base max-w-xl">
-                <p>
-                  Established in 2025, Your Office Space brings commercial property, fit out,
-                  furniture and cleaning together under one roof. We are based in Newcastle,
-                  with tenant representation across NSW, fit out and furniture Australia-wide,
-                  and cleaning across Newcastle CBD and Lake Macquarie.
-                </p>
-                <p>
-                  Our team connects commercial property, fit out, furniture, cleaning and systems support.
-                  You work with people in clearly defined roles, with one workplace brief guiding the project.
-                </p>
-                <div className="border-l-4 border-teal pl-6">
-                  <h3 className="text-near-black font-bold text-xl mb-3">One budget. Protect the whole picture.</h3>
-                  <p>
-                    Property costs, consultants, contractors and furniture draw from the same
-                    project budget. We keep the brief, budget and delivery connected so you can
-                    see the trade-offs before committing.
-                  </p>
-                </div>
-              </div>
-            </FadeIn>
-          </div>
-        </div>
-      </section>
+      <CompanyPurpose>
+        <p>Established in 2025 and based in Newcastle, Your Office Space connects commercial property, client-side FitOut project management, furniture and workplace care. Tenant representation is provided in NSW, FitOut and furniture support Australia-wide, and commercial cleaning across Newcastle CBD and Lake Macquarie. Each service has its own agreed scope.</p>
+      </CompanyPurpose>
       <section className="bg-warm-grey" style={SEC} aria-labelledby="team-heading">
         <div className={WRAP} style={PAD}>
           <FadeIn>
@@ -220,34 +184,6 @@ export default function AboutPage() {
               ))}
             </div>
           </FadeIn>
-        </div>
-      </section>
-
-      {/* ─── WHY TENANT-SIDE ONLY ─────────────────────────── */}
-      <section className="bg-near-black" style={SEC}>
-        <div className={WRAP} style={PAD}>
-          <FadeIn>
-            <SectionLabel>Our position</SectionLabel>
-            <h2 className="text-white font-black leading-tight tracking-tight mt-3 mb-12"
-              style={{ fontSize: 'clamp(1.5rem,3.5vw,2.75rem)' }}>
-              Why we take the tenant side.
-            </h2>
-          </FadeIn>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { heading: 'A clear client position.', body: "Tenant representation is framed around the occupying business's brief, risks and commercial priorities." },
-              { heading: 'Local base. Defined reach.', body: "Newcastle is our base. We deliver tenant representation in NSW, fit out and furniture support Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie." },
-              { heading: 'End-to-end accountability.', body: "Lease decisions, fit out, furniture and cleaning can be coordinated around one brief and one accountable relationship." },
-              { heading: 'Visible decisions.', body: "Recommendations make the evidence and trade-offs clear, so you can make each decision with confidence." },
-            ].map((item, i) => (
-              <FadeIn key={item.heading} delay={i * 70} direction="up">
-                <div className="pl-6 border-l-4 border-teal py-1">
-                  <p className="text-white font-bold text-base mb-2">{item.heading}</p>
-                  <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>{item.body}</p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
         </div>
       </section>
 
