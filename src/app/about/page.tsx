@@ -1,3 +1,4 @@
+import { CLIENT_REVIEWS } from '@/lib/client-reviews'
 import CompanyPurpose from '@/components/CompanyPurpose'
 import ServiceFaq from '@/components/ServiceFaq'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -30,11 +31,7 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
-const APPROVED_GOOGLE_REVIEWERS = [
-  { name: 'Beth Gwalter', organisation: 'Recovery Station', logo: '/images/relationships/recovery-station.jpg' },
-  { name: 'Olivia Crawford', organisation: 'Australian Aboriginal Child and Family Services', logo: '/client-logos/aacafs.png' },
-  { name: 'Jason Dowdall', organisation: 'Total Fitouts', logo: '/client-logos/total-fitouts.webp' },
-]
+const APPROVED_GOOGLE_REVIEWERS = CLIENT_REVIEWS.filter(review => ['Beth Gwalter', 'Olivia Crawford', 'Jason Dowdall'].includes(review.name))
 
 
 const TEAM = [
@@ -142,21 +139,23 @@ export default function AboutPage() {
           <FadeIn>
             <SectionLabel>Independent feedback</SectionLabel>
             <h2 id="reviews-heading" className="text-near-black font-black leading-tight tracking-tight mt-3 mb-5"
-              style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)' }}>
+              style={{ fontSize: 'clamp(1.75rem,3.5vw,2.75rem)', marginTop: '0.75rem', marginBottom: '1.25rem' }}>
               Feedback from people we have worked with.
             </h2>
-            <p className="text-charcoal font-light leading-relaxed mb-10 max-w-3xl">
+            <p className="text-charcoal font-light leading-relaxed mb-10 max-w-3xl" style={{ marginBottom: '2.5rem' }}>
               Independent feedback from people who have worked with the Your Office Space team.
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {APPROVED_GOOGLE_REVIEWERS.map((reviewer, index) => (
               <FadeIn key={reviewer.name} delay={index * 70}>
-                <article className="h-full rounded-2xl border border-gray-200 bg-warm-grey p-7">
-                  <p className="text-dark-teal font-bold uppercase tracking-widest mb-5" style={{ fontSize: '0.65rem' }}>Google reviewer</p>
-                  <div className="relative mb-6 h-14 w-full max-w-44"><Image src={reviewer.logo} alt={`${reviewer.organisation} logo`} fill sizes="176px" className="object-contain object-left" /></div>
+                <article className="h-full rounded-2xl border border-gray-200 bg-warm-grey" style={{ padding: '1.75rem' }}>
+                  <p className="text-dark-teal font-bold uppercase tracking-widest mb-5" style={{ fontSize: '0.65rem', marginBottom: '1.25rem' }}>Google review excerpt</p>
+                  <blockquote className="text-near-black leading-relaxed" style={{ marginBottom: '1.5rem' }}>“{reviewer.quote}”</blockquote>
+                  {reviewer.logo && <div className="relative h-14 w-full max-w-44" style={{ marginBottom: '1.5rem', background: reviewer.logoBackground === 'dark' ? '#1a1a1a' : undefined }}><Image src={reviewer.logo} alt={`${reviewer.organisation} logo`} fill sizes="176px" className="object-contain object-left" /></div>}
                   <h3 className="text-near-black font-bold text-xl">{reviewer.name}</h3>
                   <p className="text-charcoal mt-2">{reviewer.organisation}</p>
+                  <a href={reviewer.source} target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4" style={{ display: 'inline-flex', alignItems: 'center', minHeight: '44px', marginTop: '1rem' }}>Read on Google<span className="sr-only">: {reviewer.name} (opens in a new tab)</span></a>
                 </article>
               </FadeIn>
             ))}

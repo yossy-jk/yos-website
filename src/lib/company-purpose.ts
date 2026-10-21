@@ -10,6 +10,6 @@ export const COMPANY_PURPOSE = {
     { name: 'Same standard, every time', description: 'Small jobs deserve the same care as big ones. Clear scopes, quality checks and consistent follow-through keep the basics done well.' },
     { name: 'Say it straight', description: 'Plain English, real numbers and honest answers. If something needs checking, we say so and find out. Straight and kind belong together.' },
     { name: 'Earn the next one', description: 'Do this job well, listen to feedback and earn the next recommendation or return visit. Helpful introductions to the wider team, without pressure to buy more.' },
-    { name: 'Fair to everyone at the table', description: 'Respect clients, cleaners, contractors and partners. Honour agreements, pay correctly and on time, and expect good work in return.' },
+    { name: 'Fair to everyone at the table', description: 'Respect clients, agents, suppliers, team members, contractors and partners. Honour agreements, pay correctly and on time, and expect good work in return.' },
   ],
 } as const
