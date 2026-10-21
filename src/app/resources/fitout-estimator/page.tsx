@@ -8,7 +8,6 @@ import Link from 'next/link'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
-import { ENQUIRY } from '@/lib/constants'
 import {
   FITOUT_RATES as RATES,
   calculateFitoutEstimate as calcEstimate,
@@ -17,7 +16,7 @@ import {
 } from '@/lib/fitout-estimate'
 
 const STEPS = [
-  { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Real market rates. NSW & Australia. April 2026. All figures ex GST.' },
+  { id: 'intro',       title: 'Fitout Cost Estimator',   subtitle: 'Indicative planning allowances, not a quote. All figures ex GST.' },
   { id: 'service',     title: 'What are you after?',     subtitle: 'Furniture only or a full turnkey fitout?' },
   { id: 'space',       title: 'Tell us about the space',  subtitle: 'Floor area and building type' },
   { id: 'shell',       title: 'What is the space now?',  subtitle: 'Cold shell or warm shell - this changes the estimate significantly' },
@@ -25,7 +24,7 @@ const STEPS = [
   { id: 'wkstype',     title: 'Workstation type',         subtitle: 'Fixed or adjustable - different cost, different feel' },
   { id: 'workstations',title: 'Workstations and meeting rooms', subtitle: 'Your day-to-day workspace needs' },
   { id: 'spaces',      title: 'Additional spaces',       subtitle: 'Kitchen, reception, AV and tech' },
-  { id: 'result',      title: 'Your estimate',           subtitle: 'Based on current market rates' },
+  { id: 'result',      title: 'Your estimate',           subtitle: 'Based on the tool’s planning assumptions' },
 ]
 function fmt(n: number) {
   return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(n)
@@ -34,7 +33,7 @@ const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Office Fitout Cost Estimator | Your Office Space",
-  "description": "Estimate commercial office fitout cost in seconds. Based on current 2025-26 NSW market rates.",
+  "description": "Explore an indicative office fitout budget using the tool’s planning assumptions. Confirm the scope and project-specific quotes before committing.",
   "url": "https://www.yourofficespace.au/resources/fitout-estimator",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
@@ -171,7 +170,7 @@ export default function FitoutEstimatorPage() {
                   Fitout Cost Estimator
                 </h1>
                 <p className="text-white/55 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.85, maxWidth: '36rem' }}>
-                  Real market rates. NSW & Australia. April 2026. All figures ex GST.
+                  Indicative planning allowances, not a quote. All figures ex GST.
                 </p>
               </>
             ) : (
@@ -184,7 +183,7 @@ export default function FitoutEstimatorPage() {
                   {step < STEPS.length ? STEPS[step].title : 'Your Estimate'}
                 </h1>
                 <p className="text-white/40 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.85, maxWidth: '36rem' }}>
-                  {step < STEPS.length ? STEPS[step].subtitle : 'Based on current market rates'}
+                  {step < STEPS.length ? STEPS[step].subtitle : 'Based on the tool’s planning assumptions'}
                 </p>
               </>
             )}
@@ -193,7 +192,7 @@ export default function FitoutEstimatorPage() {
           {step === 0 && (
             <div className="max-w-2xl">
               <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '3rem' }}>
-                Get a realistic cost range for your commercial fitout in under two minutes. We&apos;ll walk you through space, quality, workstations, and everything else that affects the price - with a contingency built in.
+                Explore a planning range using your floor area, quality level, workstation needs and selected extras, with a contingency allowance included. Confirm the actual project scope and quotes before committing.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
@@ -242,7 +241,7 @@ export default function FitoutEstimatorPage() {
                       </svg>
                     ),
                     label: 'Turnkey fitout',
-                    body: 'Brief to key - construction, joinery, electrical, AV, furniture. One team, ready to move in.',
+                    body: 'Include construction, services and furniture allowances in the planning range. Appointed contractors price and carry out construction.',
                   },
                 ].map(opt => (
                   <button key={opt.key} onClick={() => set('fitoutType', opt.key)}
@@ -428,7 +427,7 @@ export default function FitoutEstimatorPage() {
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Electric height adjustable</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
-                    Sit-stand capability. Dual-motor, programmable. Adds roughly 45% to workstation cost - the wellbeing ROI is well documented.
+                    Sit-stand capability. The tool applies a higher workstation allowance for this selection; confirm the actual desk specification and supplier pricing.
                   </p>
                 </button>
               </div>
@@ -456,7 +455,7 @@ export default function FitoutEstimatorPage() {
                     className="w-full max-w-xs bg-white/8 text-white border border-white/15 focus:border-teal outline-none font-light placeholder:text-white/25 transition-colors"
                     style={{ padding: '1rem 1.25rem', fontSize: '1.15rem', borderRadius: '0.5rem', display: 'block', marginBottom: '0.75rem' }}
                   />
-                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes desk, chair, and cable management. Mid-range = $1,050-$2,000 per person.</p>
+                  <p className="text-white/30" style={{ fontSize: '0.78rem', lineHeight: 1.6 }}>Includes the selected workstation and seating allowances. Confirm specifications and supplier quotes for your project.</p>
                 </div>
                 {/* Meeting rooms */}
                 <div>
@@ -608,7 +607,7 @@ export default function FitoutEstimatorPage() {
             )}
             {/* Disclaimer */}
             <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
-              Based on current NSW market rates. Rates vary by location and site conditions &mdash; figures reflect Newcastle and Hunter Region benchmarks. A site visit and detailed brief will refine this estimate significantly.
+              This range uses the tool’s stored planning allowances and your selections. It is not verified market evidence or a supplier quote. Confirm the site condition, inclusions, exclusions, timing and specialist inputs before relying on a project budget. All figures exclude GST.
             </p>
             {/* Email capture, teaser summary, then email ask */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
@@ -669,20 +668,20 @@ export default function FitoutEstimatorPage() {
             </div>
             {/* CTA, Book a consultation */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4" style={{ marginBottom: '1.5rem' }}>
-              <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
+              <a href="/office-fitout#fitout-enquiry"
                 className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors inline-flex items-center justify-center uppercase tracking-[0.14em]"
                 style={{ padding: '1.25rem 3rem', fontSize: '0.7rem', borderRadius: '0.5rem', minHeight: '52px', whiteSpace: 'nowrap' }}>
                 Book a Fitout Consultation &nbsp;→
               </a>
               <p className="text-white/30 font-light" style={{ fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '20rem' }}>
-                30-minute call. Fixed-price proposal. No obligation.
+                Discuss your scope, assumptions and the inputs needed for a project-specific budget.
               </p>
             </div>
             {/* Secondary link */}
             <Link href="/furniture"
               className="text-white/40 hover:text-white/70 no-underline transition-colors font-light"
               style={{ fontSize: '0.8rem', letterSpacing: '0.05em', display: 'inline-block', marginBottom: '3rem' }}>
-              View our furniture & fitout services &rarr;
+              Explore office furniture support &rarr;
             </Link>
             {/* Start again */}
             <button onClick={() => { setStep(0); setInputs({ fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1', hasKitchen: false, hasReception: false, hasAV: false, buildingType: '', timeframe: '' }) }}
@@ -709,9 +708,9 @@ export default function FitoutEstimatorPage() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2.5rem', position: 'relative' }}>
                 {[
                   { step: '01', title: 'Brief', body: "Tell us what you're trying to achieve. Floor plan, headcount, how your team works - we start with your needs, not a product catalogue." },
-                  { step: '02', title: '3D Design', body: "We model your layout in 3D. You see exactly where workstations, meeting rooms, and breakout areas sit before anything is ordered. Adjustments before ordering - no cost." },
-                  { step: '03', title: 'Fixed Quote', body: 'You get a fixed price based on the approved layout. Deposit structure to suit your cash flow. No surprises, no hidden line items.' },
-                  { step: '04', title: 'Install', body: "We manage delivery and installation. One team on site, one point of contact throughout. Your team walks in to a ready workspace." }
+                  { step: '02', title: 'Scope', body: 'Identify the site information, design decisions and specialist advice needed. Confirm which responsibilities sit with YOS, your advisers and appointed contractors.' },
+                  { step: '03', title: 'Compare', body: 'Compare scoped quotes, allowances, exclusions and dependencies. Agree fees and responsibilities before an engagement begins.' },
+                  { step: '04', title: 'Coordinate', body: 'YOS coordinates the agreed client-side workstream through delivery and handover. Appointed contractors and specialists retain their own construction and technical responsibilities.' }
                 ].map((s, i) => (
                   <div key={s.step} style={{ position: 'relative' }}>
                     {i < 3 && (
@@ -725,19 +724,19 @@ export default function FitoutEstimatorPage() {
               </div>
             </div>
           </section>
-          {/* ── SECTION 2: RECENT PROJECTS (case study gallery) ── */}
+          {/* ── SECTION 2: WORKPLACE INSPIRATION (illustrative gallery) ── */}
           <section style={{ background: '#0A0A0A', paddingTop: '0', paddingBottom: '5rem' }}>
             <div style={{ maxWidth: '1100px', margin: '0 auto', paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
               {/* Section label */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', paddingTop: '5rem' }}>
                 <span className="bg-teal rounded-sm" style={{ width: '0.35rem', height: '0.35rem' }} />
-                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Case Studies</span>
+                <span className="text-teal font-semibold uppercase tracking-[0.3em]" style={{ fontSize: '0.65rem' }}>Workplace inspiration</span>
               </div>
               <h2 style={{ color: '#ffffff', fontWeight: 800, letterSpacing: '-0.01em', marginBottom: '0.5rem', fontSize: 'clamp(1.75rem,3.5vw,3rem)' }}>
-                Recent projects
+                Ideas for your workplace
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '0.9rem', marginBottom: '3rem', lineHeight: 1.7 }}>
-                Selected fitouts delivered by YOS across NSW
+                Illustrative workplace images to discuss layout, furniture and finishes. These images are not YOS case studies.
               </p>
               {/* 2×3 project card grid */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginBottom: '0' }}>
@@ -783,10 +782,10 @@ export default function FitoutEstimatorPage() {
               </div>
               {/* What was involved strip */}
               <div style={{ marginTop: '3rem', padding: '2rem 2.5rem', background: '#131313', border: '1px solid #2A2A2A', borderRadius: '0.75rem' }}>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>What was involved?</p>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 500, fontSize: '0.75rem', letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>Scope items to discuss</p>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.875rem' }}>
                   {[
-                    'Desk, chair and cable management for 5-50 people',
+                    'Desk, chair and cable management requirements',
                     'Meeting room design and configuration',
                     'Joinery, shelving and storage solutions',
                     'Delivery, install and on-site management',
@@ -814,12 +813,12 @@ export default function FitoutEstimatorPage() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
                 {[
                   {
-                    q: 'Why does building grade matter?',
-                    a: "A-Grade buildings have higher base costs - deeper cores, better services, stricter BCA requirements. C-Grade and industrial tenancies are cheaper to fit out but may need more work on base condition. We adjust specs to match the building reality."
+                    q: 'What site information affects the budget?',
+                    a: "Check the actual premises condition, available services, access, intended use and landlord requirements with the appropriate advisers. A building-grade label alone does not establish the works or costs for your site."
                   },
                   {
-                    q: "What's the real timeline?",
-                    a: "Furniture-only fitout: 2-4 weeks. Full commercial fitout: 6-16 weeks depending on scope. The biggest delay is decisions - not construction. Our process compresses that phase so you move faster."
+                    q: "How should we plan the timeline?",
+                    a: "Connect design decisions, approvals where needed, contractor inputs, supplier availability and handover responsibilities in one programme. Confirm dates against the actual scope and dependencies rather than relying on a generic lead time."
                   },
                 ].map((item, i) => (
                   <div key={i} style={{ paddingLeft: '1.5rem', borderLeft: '2px solid #00B5A5' }}>
