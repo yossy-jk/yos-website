@@ -4,7 +4,6 @@ import { useEffect, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
-import HomepageTagManager from '@/components/HomepageTagManager'
 
 import { type Consent, STORAGE_KEY, CONSENT_EVENT, getAnalyticsConsent as getConsentSnapshot, setMemoryConsent } from '@/lib/analytics-consent'
 import { discardQueuedConversions } from '@/lib/analytics'
@@ -39,7 +38,6 @@ function OptionalAnalytics() {
   return (
     <>
       <GoogleAnalytics />
-      <HomepageTagManager />
       <PhoneClickTracking />
       <FurnitureStoreTracking />
       <ServiceChoiceTracking />
@@ -61,6 +59,7 @@ export default function AnalyticsConsent() {
 
   function saveConsent(next: Consent) {
     const withdrawing = consent === 'accepted' && next === 'declined'
+    window.gtag?.('consent', 'update', { analytics_storage: next === 'accepted' ? 'granted' : 'denied' })
     setMemoryConsent(next)
     try {
       window.localStorage.setItem(STORAGE_KEY, next)

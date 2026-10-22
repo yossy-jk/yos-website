@@ -81,6 +81,7 @@ const reviews = CLIENT_REVIEWS
 
 export default function Home() {
   return <>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQQ9MD23" height="0" width="0" style={{ display: 'none', visibility: 'hidden' }} title="Google Tag Manager" /></noscript>
     <Nav />
     <main id="main-content" tabIndex={-1}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }} />
