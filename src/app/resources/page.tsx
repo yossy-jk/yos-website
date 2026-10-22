@@ -31,6 +31,7 @@ export const metadata = withPageSeo({
 })
 
 const LEASING_TOOLS = [
+  { title: 'Cap Rate Calculator', description: 'Calculate cap rate, indicative capitalised value or annual NOI from your own assumptions. Includes an NOI helper and illustrative sensitivity scenarios.', href: '/resources/cap-rate-calculator', features: ['Three calculation modes', 'Annual NOI helper', 'Clear valuation limits'] },
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention. and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
   { title: 'Fitout Cost Estimator', description: 'Build an indicative fitout budget using the tool assumptions. Full breakdown across Basic, Mid-Range and Premium tiers.', href: '/resources/fitout-estimator', features: ['Indicative assumptions', 'Three quality tiers', 'Contingency included'] },
   { title: 'Lease Comparison Tool', description: 'Compare up to three lease options on true occupancy cost. not just face rent. Includes rent-free periods, outgoings and NPV.', href: '/resources/lease-comparison', features: ['3-way comparison', 'Effective rent calculation', 'Net Present Value'] },
