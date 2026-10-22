@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 
 const URL = process.env.UPSTASH_REDIS_REST_URL!
@@ -6,6 +7,8 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function GET() {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const r = await fetch(`${URL}/get/content:pipeline`, {
       headers: { Authorization: `Bearer ${TOK}` }, cache: 'no-store' })
@@ -18,6 +21,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const body = await req.json()
     await fetch(`${URL}/lpush/content:actions`, {

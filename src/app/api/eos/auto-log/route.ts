@@ -51,7 +51,7 @@ async function saveEOS(data: unknown) {
 export async function POST(req: Request) {
   // Agent token auth
   const agentToken = req.headers.get('x-eos-agent-token')
-  if (agentToken !== AGENT_TOKEN) {
+  if (!AGENT_TOKEN || !agentToken || agentToken !== AGENT_TOKEN) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

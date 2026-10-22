@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 /**
  * GET /api/auth/gsc/callback?code=...
  * Exchanges auth code for refresh token, then displays it so Joe can save it as GSC_REFRESH_TOKEN env var.
@@ -9,6 +10,8 @@ const CLIENT_SECRET = process.env.GSC_CLIENT_SECRET || ''
 const REDIRECT_URI  = 'https://www.yourofficespace.au/api/auth/gsc/callback'
 
 export async function GET(req: Request) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   const { searchParams } = new URL(req.url)
   const code = searchParams.get('code')
   const error = searchParams.get('error')
@@ -79,5 +82,5 @@ export async function GET(req: Request) {
 </body>
 </html>`
 
-  return new Response(html, { headers: { 'Content-Type': 'text/html' } })
+  return new Response(html, { headers: { 'Content-Type': 'text/html', 'Cache-Control': 'private, no-store', 'Referrer-Policy': 'no-referrer' } })
 }

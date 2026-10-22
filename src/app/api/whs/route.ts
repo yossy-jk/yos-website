@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 const RURL = process.env.UPSTASH_REDIS_REST_URL!
 const RTOK = process.env.UPSTASH_REDIS_REST_TOKEN!
@@ -5,6 +6,8 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export async function GET() {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const r = await fetch(`${RURL}/get/yos:whs:latest`, {
       headers: { Authorization: `Bearer ${RTOK}` }, cache: 'no-store' })
@@ -17,6 +20,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const body = await req.json()
     await fetch(`${RURL}/lpush/whs:actions`, {

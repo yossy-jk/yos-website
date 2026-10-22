@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 const RURL = process.env.UPSTASH_REDIS_REST_URL!
 const RTOK = process.env.UPSTASH_REDIS_REST_TOKEN!
@@ -44,6 +45,8 @@ const DONE = ['done', 'completed']
 const CLOSED = ['done', 'completed', 'standby', 'delegated', 'cancelled']
 
 export async function GET() {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const v = await rget('yos:tasks:board')
     return NextResponse.json(v ?? null)
@@ -51,6 +54,8 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   let body: Record<string, unknown> = {}
   try { body = await req.json() } catch { return NextResponse.json({ ok: false, error: 'bad json' }) }
 

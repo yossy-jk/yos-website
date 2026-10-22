@@ -23,7 +23,7 @@ async function redisPost(url: string, token: string, path: string, body?: object
 export async function POST(req: NextRequest) {
   const secret = req.headers.get('x-queue-secret')
   const QUEUE_SECRET = process.env.QUEUE_SECRET
-  if (secret !== QUEUE_SECRET) {
+  if (!QUEUE_SECRET || !secret || secret !== QUEUE_SECRET) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

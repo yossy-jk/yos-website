@@ -1,3 +1,4 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server';
 import { readFile } from 'fs/promises';
 import { join } from 'path';
@@ -5,6 +6,8 @@ import { join } from 'path';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const filePath = join(process.cwd(), '..', '..', 'tmp', 'dawn_theme.zip');
     const file = await readFile(filePath);
@@ -15,7 +18,7 @@ export async function GET() {
         'Content-Type': 'application/zip',
         'Content-Disposition': 'attachment; filename="dawn_theme.zip"',
         'Content-Length': String(file.length),
-        'Cache-Control': 'public, max-age=3600',
+        'Cache-Control': 'private, no-store',
       },
     });
   } catch (err) {
