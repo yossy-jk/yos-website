@@ -55,6 +55,12 @@ export async function sendOwnerEnquiry(data: Enquiry, routing?: { recipient: str
     ...content,
   }, { idempotencyKey: `${submissionId}-owner` })
   if (result.error || !result.data?.id) throw Error('Email delivery was not accepted')
+  if (process.env.SERVICE_CHECKLISTS_ENABLED === 'true' && data.email && data.source !== 'Service checklist request') {
+    try {
+      const { suppressChecklistFollowUps } = await import('./checklist-store')
+      await suppressChecklistFollowUps(data.email)
+    } catch { console.warn('Checklist suppression storage needs attention; enquiry was delivered.') }
+  }
   return { id: result.data.id, preview: false }
 }
 

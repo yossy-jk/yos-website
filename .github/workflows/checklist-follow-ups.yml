@@ -1,0 +1,25 @@
+name: Deliver opted-in checklist follow-ups
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: checklist-follow-up-delivery
+  cancel-in-progress: false
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check due follow-ups
+        env:
+          CHECKLIST_CRON_SECRET: ${{ secrets.CHECKLIST_CRON_SECRET }}
+        run: |
+          if [ -z "$CHECKLIST_CRON_SECRET" ]; then
+            echo 'Checklist scheduler has not been enabled.'
+            exit 0
+          fi
+          curl --fail --silent --show-error --max-time 90 \
+            -H "Authorization: Bearer $CHECKLIST_CRON_SECRET" \
+            https://www.yourofficespace.au/api/checklist-follow-ups

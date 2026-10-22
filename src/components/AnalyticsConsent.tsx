@@ -48,7 +48,7 @@ function OptionalAnalytics() {
 
 export default function AnalyticsConsent() {
   const pathname = usePathname()
-  const paymentReceipt = pathname === '/tenant-rep/payment'
+  const paymentReceipt = pathname === '/tenant-rep/payment' || pathname === '/checklist-unsubscribe'
   const consent = useSyncExternalStore(subscribeToConsent, getConsentSnapshot, () => null)
   const [preferencesOpen, setPreferencesOpen] = useState(false)
   useEffect(() => {

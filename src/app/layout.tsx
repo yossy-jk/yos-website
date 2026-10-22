@@ -2,6 +2,7 @@ import './tenant-rep/tenant-journey.css'
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import AnalyticsConsent from "@/components/AnalyticsConsent";
+import ServiceChecklistPopup from '@/components/ServiceChecklistPopup'
 import ScrollManager from "@/components/ScrollManager";
 import "./globals.css";
 
@@ -68,7 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 // End Google Tag Manager
 }` }} />
       </head>
-      <body><ScrollManager />{children}<AnalyticsConsent /></body>
+      <body><ScrollManager />{children}<AnalyticsConsent /><ServiceChecklistPopup enabled={process.env.SERVICE_CHECKLISTS_ENABLED === 'true'} /></body>
     </html>
   );
 }
