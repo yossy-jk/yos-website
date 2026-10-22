@@ -1,9 +1,12 @@
+import { requireAuth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 const RURL = process.env.UPSTASH_REDIS_REST_URL!
 const RTOK = process.env.UPSTASH_REDIS_REST_TOKEN!
 export const dynamic = 'force-dynamic'
 
 export async function POST(req: Request) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const { q } = await req.json()
     const id = Math.random().toString(36).slice(2, 10)
@@ -17,6 +20,8 @@ export async function POST(req: Request) {
 }
 
 export async function GET(req: Request) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   try {
     const id = new URL(req.url).searchParams.get('id')
     const r = await fetch(`${RURL}/get/chat:a:${id}`, {

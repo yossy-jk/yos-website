@@ -1,6 +1,6 @@
 # Temporary Next lint root-directory adapter
 
-Replaces the sole fast-glob consumer in @next/eslint-plugin-next 16.3.8,
+Replaces the sole fast-glob consumer in @next/eslint-plugin-next 16.4.2,
 without changing ESLint configuration, rules, or the audit threshold.
 Uses the existing maintained glob library, excluding files from results.
 This is not a general fast-glob implementation. Unsupported calls fail.

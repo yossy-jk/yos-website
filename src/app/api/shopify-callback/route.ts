@@ -1,6 +1,9 @@
+import { requireAuth } from '@/lib/auth'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
+  const auth = await requireAuth()
+  if (!auth.ok) return auth.response
   const { searchParams } = new URL(request.url)
   const code = searchParams.get('code')
   const state = searchParams.get('state')
