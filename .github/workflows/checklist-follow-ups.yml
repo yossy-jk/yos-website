@@ -1,7 +1,5 @@
-name: Deliver opted-in checklist follow-ups
+name: Manually check opted-in checklist follow-ups
 on:
-  schedule:
-    - cron: '7,22,37,52 * * * *'
   workflow_dispatch:
 permissions: {}
 concurrency:

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "crons": [
+    {
+      "path": "/api/checklist-follow-ups",
+      "schedule": "7,22,37,52 * * * *"
+    }
+  ]
+}
