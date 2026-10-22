@@ -13,8 +13,8 @@ function unsubscribeUrl(token: string) {
 export function checklistDeliveryEmail(service: ChecklistService, token?: string) {
   const offer = SERVICE_CHECKLISTS[service], url = BASE + offer.pdf
   const unsubscribe = token ? unsubscribeUrl(token) : null
-  const permissionText = unsubscribe ? `You also asked for one follow-up in about 24 hours. You can stop it before it is sent: ${unsubscribe}` : 'No follow-up was requested.'
-  const permissionHtml = unsubscribe ? `<p style="font-size:13px">You also asked for one follow-up in about 24 hours. <a href="${escape(unsubscribe)}">Cancel that follow-up</a> at any time.</p>` : '<p style="font-size:13px">No follow-up was requested.</p>'
+  const permissionText = unsubscribe ? `We only send the optional discovery follow-up if you selected it. Cancel checklist follow-ups at any time: ${unsubscribe}` : 'No follow-up was requested.'
+  const permissionHtml = unsubscribe ? `<p style="font-size:13px">We only send the optional discovery follow-up if you selected it. <a href="${escape(unsubscribe)}">Cancel checklist follow-ups</a> at any time.</p>` : '<p style="font-size:13px">No follow-up was requested.</p>'
   return {
     subject: `Your ${offer.label.toLowerCase()} checklist`,
     text: `Here is your free ${offer.title}.\n\nDownload: ${url}\n\nUse the practical checks and tips to clarify your next steps. If you would like to talk through what you are tackling, book a discovery session: ${DISCOVERY_BOOKING_URL}\n\nOr reply to Joe at jk@yourofficespace.au.\n\n${permissionText}\n\nReceiving this checklist does not subscribe you to ongoing marketing.\n\nYour Office Space · 02 4092 0733`,

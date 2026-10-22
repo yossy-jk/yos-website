@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { checklistService, SERVICE_CHECKLISTS, CHECKLIST_FOLLOWUP_PERMISSION } from '@/lib/service-checklists'
+import { trackConversion } from '@/lib/analytics'
 import './service-checklist-popup.css'
 
 const SEEN = 'yos_checklist_offer_seen'
@@ -23,6 +24,9 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [message, setMessage] = useState('')
   const submissionId = useRef('')
+  const lastAttempt = useRef<{ submissionId: string; email: string; permission: boolean } | null>(null)
+  const replacements = useRef<{ submissionId: string; email: string }[]>([])
+  const measured = useRef(false)
   const panel = useRef<HTMLDivElement>(null)
   const previousFocus = useRef<HTMLElement | null>(null)
   const offer = service ? SERVICE_CHECKLISTS[service] : null
@@ -35,7 +39,7 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
     }
     const show = () => {
       if (shown || blocked() || Date.now() - started < 30000 || document.visibilityState !== 'visible') return
-      if (document.querySelector('[role="dialog"],dialog[open]') || document.activeElement?.matches('input,textarea,select')) return
+      if (document.querySelector('[role="dialog"],dialog[open]') || document.activeElement?.closest('form') || document.activeElement?.matches('input,textarea,select,[contenteditable="true"]')) return
       shown = true
       try { localStorage.setItem(SEEN, String(Date.now())) } catch { /* Per-page suppression remains. */ }
       previousFocus.current = document.activeElement as HTMLElement
@@ -79,14 +83,25 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!service || state === 'sending') return
+    const address = email.trim().toLowerCase()
+    if (lastAttempt.current && (address !== lastAttempt.current.email || permission !== lastAttempt.current.permission)) {
+      if (replacements.current.length >= 8) { setState('error'); setMessage('Please call 02 4092 0733 so we can help with your request.'); return }
+      replacements.current.push({ submissionId: lastAttempt.current.submissionId, email: lastAttempt.current.email })
+      submissionId.current = ''
+    }
     if (!submissionId.current) submissionId.current = crypto.randomUUID()
+    lastAttempt.current = { submissionId: submissionId.current, email: address, permission }
     setState('sending'); setMessage('')
     try {
-      const response = await fetch('/api/service-checklist', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ service, email, followUpConsent: permission, submissionId: submissionId.current, page: pathname }) })
+      const response = await fetch('/api/service-checklist', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ service, email: address, followUpConsent: permission, submissionId: submissionId.current, replaces: replacements.current, page: pathname }) })
       const result = await response.json()
       if (!response.ok || !result.ok) throw Error('Please try again, or contact us for the checklist.')
       setState('sent')
       try { localStorage.setItem(CONVERTED, '1') } catch {}
+      if (!measured.current) {
+        measured.current = true
+        try { trackConversion('service_checklist_request', { service }) } catch { /* Optional measurement never blocks delivery. */ }
+      }
     } catch { setState('error'); setMessage('We could not send your checklist. Please try again or call 02 4092 0733.') }
   }
   if (!enabled || !open || !offer) return null

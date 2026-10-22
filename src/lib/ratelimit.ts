@@ -34,6 +34,13 @@ export function voucherLimiter() {
   return new Ratelimit({ redis, limiter: Ratelimit.slidingWindow(3, '30 m'), prefix: deploymentScopedKey('rl:voucher') })
 }
 
+// Checklist retries must not consume the existing catalogue/voucher allowance.
+export function checklistLimiter(kind: 'request' | 'recipient') {
+  const redis = getRedis()
+  if (!redis) return null
+  return new Ratelimit({ redis, limiter: kind === 'request' ? Ratelimit.slidingWindow(10, '10 m') : Ratelimit.slidingWindow(3, '30 m'), prefix: deploymentScopedKey(`rl:checklist:${kind}`) })
+}
+
 // HubSpot route — 10 per IP per 10 minutes (tool gates, form gates)
 export function hubspotLimiter() {
   const redis = getRedis()
