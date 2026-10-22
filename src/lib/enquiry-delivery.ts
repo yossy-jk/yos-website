@@ -20,7 +20,7 @@ const clean = (value: unknown, max: number) => typeof value === 'string' ? value
 export function enquiryPage(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined
   const path = value.split(/[?#]/)[0]
-  return /^\/(?:$|(?:contact|tenant-rep|buyers-agency|office-fitout|commercial-construction|furniture|cleaning|flourish|resources|blog|catalogues|tools|lease-health-check|lease-checklist)(?:\/[a-z0-9-]+)*$)/.test(path)
+  return /^\/(?:$|(?:about|contact|tenant-rep|buyers-agency|office-fitout|commercial-construction|furniture|cleaning|flourish|resources|blog|catalogues|tools|lease-health-check|lease-checklist)(?:\/[a-z0-9-]+)*$)/.test(path)
     && !/^\/tenant-rep\/(?:brief|payment)(?:\/|$)/.test(path) && path.length <= 200 ? path : undefined
 }
 export function normaliseEnquiry(raw: Record<string, unknown>): Enquiry {
