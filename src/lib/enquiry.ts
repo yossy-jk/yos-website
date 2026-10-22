@@ -2,6 +2,17 @@
 export interface LeadPayload {
   firstname: string; email: string; source: string; context?: string; marketingConsent?: boolean
 }
+async function noteCompletedEnquiry(response: Response): Promise<Response> {
+  if (typeof window === 'undefined' || !response.ok) return response
+  try {
+    const result = await response.clone().json()
+    if (result.ok === true || result.success === true) {
+      try { window.localStorage.setItem('yos_checklist_offer_converted', '1') } catch {}
+      window.dispatchEvent(new Event('yos-enquiry-completed'))
+    }
+  } catch { /* Preserve the original response for the caller. */ }
+  return response
+}
 const ids = new Map<string, { id: string; submittedAt: string }>()
 export async function postEnquiry(endpoint: string, payload: Record<string, unknown>, attachment?: File, attachmentField: 'lease' | 'attachment' = 'lease'): Promise<Response> {
   const digest = attachment ? Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', await attachment.arrayBuffer()))).map(n => n.toString(16).padStart(2, '0')).join('') : ''
@@ -16,9 +27,9 @@ export async function postEnquiry(endpoint: string, payload: Record<string, unkn
   if (attachment) {
     const form = new FormData()
     form.set('payload', JSON.stringify(data)); form.set(attachmentField, attachment)
-    return fetch(endpoint, { method: 'POST', body: form })
+    return noteCompletedEnquiry(await fetch(endpoint, { method: 'POST', body: form }))
   }
-  return fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+  return noteCompletedEnquiry(await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }))
 }
 export async function sendEnquiry(payload: Record<string, unknown>): Promise<{ ok: boolean; preview?: boolean; reference?: string }> {
   try {

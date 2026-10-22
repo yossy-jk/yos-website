@@ -36,6 +36,10 @@ export default function TenantPaymentStatus({
           else {
             setError("");
             setResult(data);
+            if (data.status === 'paid') {
+              try { window.localStorage.setItem('yos_checklist_offer_converted', '1'); } catch {}
+              window.dispatchEvent(new Event('yos-enquiry-completed'));
+            }
           }
         }
       })

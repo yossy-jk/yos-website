@@ -13,6 +13,7 @@ declare global {
 }
 
 export function publicAnalyticsPath(path: string): string | undefined {
+  if (path.split(/[?#]/)[0] === '/checklist-unsubscribe') return undefined
   const cleanPath = path.split(/[?#]/)[0] || '/'
   if (/^\/(?:api|dashboard)(?:\/|$)/.test(cleanPath) || /^\/tenant-rep\/(?:brief|payment)(?:\/|$)/.test(cleanPath)) return undefined
   return cleanPath
