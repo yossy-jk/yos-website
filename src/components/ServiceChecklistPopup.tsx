@@ -49,9 +49,15 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
     const converted = () => { try { localStorage.setItem(CONVERTED, '1') } catch {} setOpen(false) }
     document.addEventListener('mouseout', exit)
     window.addEventListener('scroll', scroll, { passive: true })
+    // Someone may reach halfway before the engagement delay, then stop scrolling.
+    const engagementTimer = window.setTimeout(scroll, 30000)
     window.addEventListener('yos-enquiry-completed', converted)
-    return () => { document.removeEventListener('mouseout', exit); window.removeEventListener('scroll', scroll); window.removeEventListener('yos-enquiry-completed', converted); started = 0 }
+    return () => { window.clearTimeout(engagementTimer); document.removeEventListener('mouseout', exit); window.removeEventListener('scroll', scroll); window.removeEventListener('yos-enquiry-completed', converted); started = 0 }
   }, [enabled, service])
+
+  useEffect(() => {
+    if (state === 'sent') panel.current?.querySelector<HTMLAnchorElement>('a.checklist-action')?.focus()
+  }, [state])
 
   useEffect(() => {
     if (!open) return
@@ -90,7 +96,7 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
       <p className="checklist-eyebrow">YOUR OFFICE SPACE · FREE CHECKLIST</p>
       <h2 id="checklist-title">{state === 'sent' ? 'Your checklist is ready.' : offer.headline}</h2>
       <p id="checklist-detail">{state === 'sent' ? 'Check your inbox for the download link. You can also open it below.' : offer.detail}</p>
-      {state === 'sent' ? <><a className="checklist-action" href={offer.pdf} target="_blank" rel="noopener noreferrer">Open your checklist (PDF)</a><Link href={offer.servicePath}>Explore {offer.label.toLowerCase()}</Link></> : <form onSubmit={submit}>
+      {state === 'sent' ? <><a className="checklist-action" href={offer.pdf} target="_blank" rel="noopener noreferrer">Open your checklist (PDF)</a><Link href={offer.servicePath}>Explore {offer.label.toLowerCase()}</Link></> : <form onSubmit={submit} aria-busy={state === 'sending'}>
         <label htmlFor="checklist-email">Your email address</label>
         <input id="checklist-email" name="email" type="email" autoComplete="email" maxLength={254} required value={email} onChange={e => setEmail(e.target.value)} disabled={state === 'sending'} />
         <label className="checklist-permission"><input type="checkbox" checked={permission} onChange={e => setPermission(e.target.checked)} disabled={state === 'sending'} /><span>{CHECKLIST_FOLLOWUP_PERMISSION}</span></label>

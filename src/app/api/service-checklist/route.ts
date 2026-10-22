@@ -3,7 +3,7 @@ import { Resend } from 'resend'
 import { randomUUID } from 'node:crypto'
 import { SERVICE_CHECKLISTS, CHECKLIST_FOLLOWUP_PERMISSION, type ChecklistService } from '@/lib/service-checklists'
 import { checklistDeliveryEmail } from '@/lib/checklist-email'
-import { checklistRedis, checklistKey, newChecklistRecord, saveChecklistRecord, queueChecklistFollowUp, type ChecklistRecord } from '@/lib/checklist-store'
+import { checklistRedis, checklistKey, newChecklistRecord, saveChecklistRecord, queueChecklistFollowUp, registerChecklistUnsubscribe, type ChecklistRecord } from '@/lib/checklist-store'
 import { sendOwnerEnquiry } from '@/lib/enquiry-delivery'
 import { voucherLimiter, getIp } from '@/lib/ratelimit'
 export const runtime = 'nodejs'
@@ -32,7 +32,8 @@ export async function POST(req: Request) {
         if (record.deliveryAttemptedAt && Date.now() - record.deliveryAttemptedAt > 23 * 3600000) throw Error('Delivery needs manual verification')
         record.deliveryAttemptedAt = record.deliveryAttemptedAt || Date.now()
         await saveChecklistRecord(redis, record)
-        const result = await new Resend(process.env.RESEND_API_KEY).emails.send({ from: 'Your Office Space <notifications@yourofficespace.au>', to: email, replyTo: 'jk@yourofficespace.au', ...checklistDeliveryEmail(service) }, { idempotencyKey: record.id + '-checklist' })
+        await registerChecklistUnsubscribe(redis, record)
+        const result = await new Resend(process.env.RESEND_API_KEY).emails.send({ from: 'Your Office Space <notifications@yourofficespace.au>', to: email, replyTo: 'jk@yourofficespace.au', ...checklistDeliveryEmail(service, record.consent ? record.unsubscribeToken : undefined) }, { idempotencyKey: record.id + '-checklist' })
         if (result.error || !result.data?.id) throw Error('Checklist delivery unavailable')
         record.deliveredAt = Date.now(); record.dueAt = record.deliveredAt + 86400000
         await saveChecklistRecord(redis, record)

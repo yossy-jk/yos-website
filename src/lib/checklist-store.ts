@@ -19,9 +19,12 @@ export function newChecklistRecord(id: string, email: string, service: Checklist
   return { id, email: email.trim().toLowerCase(), service, consent, createdAt: now, deliveredAt: null, dueAt: now + 86400000, status: 'pending', unsubscribed: false, enquiryReceived: false, paymentReceived: false, ownerDelivered: false, unsubscribeToken: randomBytes(32).toString('base64url') }
 }
 export async function saveChecklistRecord(redis: Redis, record: ChecklistRecord) { await redis.set(checklistKey(record.id), record, { ex: RETENTION }) }
+export async function registerChecklistUnsubscribe(redis: Redis, record: ChecklistRecord) {
+  if (record.consent) await redis.set(checklistUnsubscribeKey(record.unsubscribeToken), record.email, { ex: RETENTION })
+}
 export async function queueChecklistFollowUp(redis: Redis, record: ChecklistRecord) {
   if (!record.consent || record.deliveredAt === null || record.status !== 'pending') return
-  await redis.set(checklistUnsubscribeKey(record.unsubscribeToken), record.email, { ex: RETENTION })
+  await registerChecklistUnsubscribe(redis, record)
   await redis.zadd(checklistDueKey, { score: record.dueAt, member: record.id })
 }
 export async function suppressChecklistFollowUps(email: string) {
