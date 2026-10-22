@@ -44,7 +44,7 @@ function MetricCard({ label, value, sub }: { label: string; value: string; sub?:
   return (
     <div className="bg-white/5 border border-white/10" style={{ padding: '1.5rem 1.5rem' }}>
       <p className="text-white/75 font-light mb-1" style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>{label}</p>
-      <p className="text-white font-black" style={{ fontSize: '1.75rem', lineHeight: 1.2, overflowWrap: 'anywhere' }}>{value || '—'}</p>
+      <p className="text-white font-black" style={{ fontSize: '1.75rem', lineHeight: 1.2, overflowWrap: 'anywhere' }}>{value || 'Not calculated'}</p>
       {sub && <p className="text-white/75 font-light mt-1" style={{ fontSize: '0.75rem' }}>{sub}</p>}
     </div>
   )
