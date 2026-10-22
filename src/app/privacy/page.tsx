@@ -70,7 +70,7 @@ export default function PrivacyPage() {
           </FadeIn>
           <FadeIn delay={220}>
             <p className="text-white/25 font-light mt-6" style={{ fontSize: '0.82rem' }}>
-              Last updated: April 2025
+              Last updated: 23 October 2026
             </p>
           </FadeIn>
         </div>
@@ -97,6 +97,7 @@ export default function PrivacyPage() {
               <p>We only collect what we need to help you:</p>
               <ul>
                 <li><strong>Name and email address</strong>, when you submit an enquiry form or sign up for updates.</li>
+                <li><strong>Checklist requests</strong>, your email address, selected service, optional follow-up choice, request and delivery times, and delivery status.</li>
                 <li><strong>Phone number</strong>, if you choose to include it in an enquiry.</li>
                 <li><strong>Enquiry details</strong>, the information you type into any contact or service form.</li>
                 <li><strong>Lease Health Check and tool details</strong>, business name, role, suburb, lease dates, area, headcount, plans, concerns and calculator inputs or results that you choose to send us.</li>
@@ -113,6 +114,7 @@ export default function PrivacyPage() {
             <PrivacySection title="Why we collect it">
               <ul>
                 <li>To respond to your enquiry and provide the service you asked about.</li>
+                <li>To email the checklist you requested, notify Joe of your request, and send one discovery invitation about 24 hours later only if you selected that separate option.</li>
                 <li>To respond to your Lease Health Check and deliver any separately agreed advisory work.</li>
                 <li>To send you occasional updates or resources if you&apos;ve opted in (you can unsubscribe any time).</li>
                 <li>To protect the website from abuse (rate limiting).</li>
@@ -136,8 +138,13 @@ export default function PrivacyPage() {
                   link="https://policies.google.com/privacy"
                 />
                 <ThirdParty
+                  name="Google Tag Manager"
+                  role="The homepage loads the Google Tag Manager container with analytics and advertising storage denied by default. Optional Google Analytics remains separately controlled by your analytics preference."
+                  link="https://policies.google.com/privacy"
+                />
+                <ThirdParty
                   name="Resend"
-                  role="Email delivery, sends confirmations and reports, and delivers enquiries and optional lease attachments to the YOS inbox."
+                  role="Email delivery, sends requested checklists, separately opted-in discovery invitations, confirmations and reports, and delivers enquiries and optional lease attachments to the YOS inbox."
                   link="https://resend.com/privacy"
                 />
                 <ThirdParty
@@ -147,7 +154,7 @@ export default function PrivacyPage() {
                 />
                 <ThirdParty
                   name="Upstash (Redis)"
-                  role="Rate limiting and temporary delivery receipt identifiers, used to prevent form spam and duplicate enquiry processing. These records expire automatically."
+                  role="Rate limiting, temporary delivery receipts and checklist delivery records. Checklist records include your email, selected service, follow-up choice and delivery status. Hashed email identifiers help prevent duplicate invitations and remember cancellations or known enquiries. These records expire automatically."
                   link="https://upstash.com/trust/privacy.pdf"
                 />
               </div>
@@ -161,10 +168,12 @@ export default function PrivacyPage() {
 
             <PrivacySection title="Requested results and marketing">
               <p>Sending a Health Check request, requesting a checklist or emailing yourself tool results does not automatically subscribe you to marketing. Marketing uses a separate, unticked choice. We keep a record of that choice and the wording you were shown.</p>
+              <p>The free service checklist is available whether or not you choose the optional follow-up. That choice authorises one discovery invitation, not an ongoing email series. A known website enquiry or payment, or a cancellation through the checklist email, suppresses the optional invitation. An external calendar booking is not currently connected to this automatic suppression.</p>
               <p>We use short-lived session storage to carry campaign labels and the first landing page into your enquiry, and receipt identifiers to handle retries without repeating a delivery. You can submit an enquiry when session storage is unavailable.</p>
             </PrivacySection>
 
             <PrivacySection title="Cookies">
+              <p>Checklist offers use browser local storage to avoid repeating an offer for seven days. A marker for a successful checklist request, enquiry or payment also prevents further offers in that browser; it remains until browser storage is cleared. These markers do not contain your email address. If storage is unavailable, repeat-offer suppression may be limited to the current page.</p>
               <p>
                 Essential session and security storage is used where required for the site to function. Optional Google Analytics is disabled by default and only loads after you select <strong>Accept analytics</strong>.
               </p>
@@ -174,6 +183,7 @@ export default function PrivacyPage() {
             </PrivacySection>
 
             <PrivacySection title="How long we keep your data">
+              <p>Temporary checklist request and unsubscribe-link records in Upstash expire 90 days after their last update. Checklist cancellation and known-enquiry suppression records also expire after 90 days. A separate hashed-email record limits discovery invitations to one per seven days. The checklist emails and notifications delivered to the YOS inbox follow the email retention approach below.</p>
               <p>
                 New enquiry data is delivered to the YOS email inbox. Historical HubSpot records and enquiry emails are retained for as long as they&apos;re reasonably needed to manage the relationship or
                 provide the requested service, typically no longer than three years of inactivity.
@@ -203,8 +213,7 @@ export default function PrivacyPage() {
 
             <PrivacySection title="Unsubscribing">
               <p>
-                Every marketing email we send includes an unsubscribe link. Click it and you&apos;re off the list, no confirmation
-                loop, no re-engagement emails. You can also email{' '}
+                Checklist emails include a cancellation link. Open it and select <strong>Stop checklist follow-ups</strong> on the confirmation page to stop the optional invitation. Opening the link alone does not change your preference. You can also email{' '}
                 <a href="mailto:jk@yourofficespace.au" className="text-teal hover:underline">jk@yourofficespace.au</a>{' '}
                 and we&apos;ll remove you manually.
               </p>
