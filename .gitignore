@@ -41,8 +41,10 @@ yarn-error.log*
 next-env.d.ts
 credentials/
 *.json
+!vercel.json
 # Blog content (JSON files tracked in git)
 !src/content/blog/*.json
+!vercel.json
 credentials/
 *.pre-*
 
