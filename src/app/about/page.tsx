@@ -190,7 +190,7 @@ export default function AboutPage() {
         <div className={WRAP} style={PAD}>
           <SectionLabel>Work or partner with us</SectionLabel>
           <h2 id="join-yos-heading" style={{ fontSize: 'clamp(1.8rem,4vw,3rem)', marginBottom: '1.25rem' }}>Good people. Shared standards.</h2>
-          <p style={{ maxWidth: '44rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>We’re always interested in hearing from contract cleaners, installers and tenant representatives who take pride in their work. Explore the team, the way we work and where your skills could fit.</p>
+          <p style={{ maxWidth: '44rem', lineHeight: 1.8, marginBottom: '1.5rem' }}>We’re always interested in hearing from tenant representatives, furniture referral partners and cleaning team members who take pride in their work. We prefer employee cleaners and also welcome contractor interest. Explore the team, the way we work and where your skills could fit.</p>
           <Button href="/about/work-with-yos" variant="dark">Work or Partner with YOS</Button>
         </div>
       </section>

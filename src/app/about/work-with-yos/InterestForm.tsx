@@ -9,6 +9,8 @@ export default function InterestForm() {
   const successRef = useRef<HTMLHeadingElement>(null)
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [error, setError] = useState('')
+  const [role, setRole] = useState('')
+  const [arrangement, setArrangement] = useState('Open to discussing')
   useEffect(() => { if (status === 'success') successRef.current?.focus() }, [status])
   return <div className={styles.formCard}>
     {status === 'success' ? <div role="status"><h3 ref={successRef} tabIndex={-1}>Thanks for putting your hand up.</h3><p>Your interest has been delivered to the YOS team. We’ll review your experience, location and availability and contact you about suitable next steps.</p><p>You’re welcome to <a href="mailto:jk@yourofficespace.au">email Joe</a> if your details change.</p></div> : <form onSubmit={async event => {
@@ -29,9 +31,10 @@ export default function InterestForm() {
         <div><label htmlFor="team-email">Email *</label><input id="team-email" name="email" type="email" autoComplete="email" maxLength={254} required /></div>
         <div><label htmlFor="team-phone">Phone (optional)</label><input id="team-phone" name="phone" type="tel" autoComplete="tel" maxLength={80} /></div>
         <div><label htmlFor="team-location">Suburb or region *</label><input id="team-location" name="location" autoComplete="address-level2" maxLength={200} required /></div>
-        <div><label htmlFor="team-role">I’m interested in *</label><select id="team-role" name="role" defaultValue="" required><option value="" disabled>Choose an opportunity</option>{TEAM_ROLES.map(role => <option key={role}>{role}</option>)}</select></div>
-        <div><label htmlFor="team-arrangement">How would you like to work? *</label><select id="team-arrangement" name="arrangement" defaultValue="Open to discussing" required>{TEAM_ARRANGEMENTS.map(value => <option key={value}>{value}</option>)}</select></div>
+        <div><label htmlFor="team-role">I’m interested in *</label><select id="team-role" name="role" value={role} onChange={event => { const value = event.target.value; setRole(value); setArrangement(value === 'Cleaning team member' ? 'Employment' : value === 'Furniture referral partner' ? 'Partnership' : 'Open to discussing') }} required><option value="" disabled>Choose an opportunity</option>{TEAM_ROLES.map(role => <option key={role}>{role}</option>)}</select></div>
+        <div><label htmlFor="team-arrangement">How would you like to work? *</label><select id="team-arrangement" name="arrangement" value={arrangement} onChange={event => setArrangement(event.target.value)} aria-describedby="team-arrangement-hint" required>{TEAM_ARRANGEMENTS.map(value => <option key={value}>{value}</option>)}</select></div>
       </div>
+      <p id="team-arrangement-hint" className={styles.hint}>{role === 'Cleaning team member' ? 'Employee cleaners are our preference. Choose Employment to join our team, or Contracting if you prefer to work through your own business.' : role === 'Furniture referral partner' ? 'Tell us how you’d like to partner. Referral terms are discussed and agreed individually.' : 'Tell us your preferred arrangement. We’ll discuss the right fit and terms with you.'}</p>
       <label htmlFor="team-company">Business or trading name (optional)</label><input id="team-company" name="company" autoComplete="organization" maxLength={200} />
       <label htmlFor="team-experience">A little about your experience (optional)</label><textarea id="team-experience" name="experience" rows={4} maxLength={3000} aria-describedby="team-experience-hint" /><p id="team-experience-hint" className={styles.hint}>Tell us what you do well and any relevant qualifications or licences. Please leave out identity documents, financial details and confidential client information.</p>
       <label htmlFor="team-availability">Availability and preferred work areas (optional)</label><input id="team-availability" name="availability" maxLength={500} />
