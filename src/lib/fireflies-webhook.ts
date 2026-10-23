@@ -49,7 +49,11 @@ export function parseFirefliesEvent(value: unknown, now = Date.now()): Fireflies
 /** The queue write and receipt must succeed together, including concurrent retries. */
 export const FIREFLIES_ENQUEUE_SCRIPT = `
 if redis.call('EXISTS', KEYS[1]) == 1 then return 0 end
-redis.call('LPUSH', KEYS[2], ARGV[1])
 redis.call('SET', KEYS[1], '1', 'EX', ARGV[2])
+local queued = redis.pcall('LPUSH', KEYS[2], ARGV[1])
+if type(queued) == 'table' and queued.err then
+  redis.call('DEL', KEYS[1])
+  return redis.error_reply(queued.err)
+end
 return 1
 `
