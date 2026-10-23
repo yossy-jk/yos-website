@@ -23,19 +23,22 @@ export default function WorkWithYosPage() {
     <section className={styles.hero}><div className={styles.wrap}>
       <p className={styles.eyebrow}>Good people. Shared standards.</p>
       <h1>Work or Partner<br /><span>with YOS.</span></h1>
-      <p className={styles.lead}>We’re always looking for good people who care about doing the job well.</p>
-      <p className={styles.heroDetail}>Contract cleaners, installers and tenant representatives: help us find, create and care for workplaces that work. Bring your skills, your pride in your work and your way of making things better.</p>
+      <p className={styles.lead}>Do work you’re proud of, with people who respect what you bring.</p>
+      <p className={styles.heroDetail}>We’re actively welcoming contract cleaners, installers and tenant representatives. Bring your expertise to a team with a shared purpose: finding, creating and caring for workplaces that work.</p>
       <div className={styles.actions}><a className={styles.primary} href="#register-interest">Register your interest <span aria-hidden="true">→</span></a><a className={styles.secondary} href="#opportunities">Find your fit</a></div>
       <p className={styles.heroNote}>Actively welcoming expressions of interest for employment, contracting and partnership conversations.</p>
     </div></section>
     <section className={styles.section} aria-labelledby="why-yos"><div className={styles.wrap}>
-      <p className={styles.eyebrow}>Why YOS</p><h2 id="why-yos">Good work starts with<br />how we treat each other.</h2>
+      <p className={styles.eyebrow}>What’s in it for you</p><h2 id="why-yos">Your work matters.<br />So does how you’re treated.</h2>
       <p className={styles.intro}>Our mission is simple: {COMPANY_PURPOSE.mission.charAt(0).toLowerCase() + COMPANY_PURPOSE.mission.slice(1)} Joining YOS means bringing that purpose to life with people who value practical thinking and follow-through.</p>
+      <p className={styles.promise}><strong>Our commitment to our people:</strong> meaningful work, clear expectations, respect for your expertise and a voice in how the work gets done.</p>
       <div className={styles.values}>
-        <article><h3>Clear conversations.</h3><p>We say it straight, listen to feedback and make expectations visible. Ask questions, flag problems early and help the team find the next step.</p></article>
-        <article><h3>Respect at every level.</h3><p>Our values call for fairness to clients, agents, suppliers, team members, contractors and partners. Honour agreements, pay correctly and on time, and expect good work in return.</p></article>
-        <article><h3>Pride in the outcome.</h3><p>From a careful clean to a well-finished installation or a considered property brief, the details matter. Do the basics well and earn the next recommendation together.</p></article>
+        <article><h3>Work worth caring about.</h3><p>Help people feel the difference in their workplace. A space cared for, an installation finished properly or a property decision made with confidence: your contribution has a clear purpose.</p></article>
+        <article><h3>Know where you stand.</h3><p>We believe in clear scopes and straight answers. Before an engagement is agreed, we talk through responsibilities, pay or fees, availability and expectations so you can make an informed decision.</p></article>
+        <article><h3>Respect at every level.</h3><p>Fairness is one of our stated values: honour agreements, pay correctly and on time, and expect good work in return. That respect extends to employees, contractors and partners alike.</p></article>
+        <article><h3>Your experience has a voice.</h3><p>Bring your ideas, ask questions and flag a better way. We value practical thinking, honest feedback and people who take pride in improving the result together.</p></article>
       </div>
+      <div className={styles.arrangements}><h3>A conversation about the right arrangement.</h3><p>Looking for an employed role? Tell us what you’re looking for. Bringing your own business or installation team? Let’s discuss a contracting or partnership arrangement. We’ll be clear about the role and terms; each arrangement is considered individually.</p></div>
       <Link className={styles.textLink} href="/about#values">Meet our team and see our values <span aria-hidden="true">→</span></Link>
     </div></section>
     <section id="opportunities" className={`${styles.section} ${styles.tint}`} aria-labelledby="opportunities-heading"><div className={styles.wrap}>
