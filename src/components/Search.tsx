@@ -9,6 +9,7 @@ type SearchResult = {
   description: string
   href: string
   category: string
+  keywords?: string
 }
 
 const ALL_ITEMS: SearchResult[] = [
@@ -29,6 +30,7 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Workspace Builder', description: 'Plan your office layout. rooms, desks, and space requirements.', href: '/resources/workspace-builder', category: 'Tool' },
   { title: 'Lease Health Check', description: 'Start a free conversation about lease dates, costs and your next decision.', href: '/lease-health-check', category: 'Tool' },
   // Pages
+  { title: 'Work or Partner with YOS', description: 'Tenant representatives, furniture referral partners and cleaning team members. Employee cleaners preferred; contractor interest welcome.', href: '/about/work-with-yos', category: 'Page', keywords: 'jobs careers hiring employment work with YOS join YOS cleaning jobs cleaner furniture referrals tenant representative' },
   { title: 'About Your Office Space', description: 'Who we are, what we do, and how we work with Newcastle businesses.', href: '/about', category: 'Page' },
   { title: 'Contact', description: 'Get in touch with the YOS team in Newcastle.', href: '/contact', category: 'Page' },
   { title: 'Blog & Articles', description: 'Commercial property guides, market insights and practical advice.', href: '/blog', category: 'Page' },
@@ -74,7 +76,7 @@ export default function Search({ compact = false, showShortcut = true, onOpen, f
   const results = query.trim().length < 1
     ? ALL_ITEMS.slice(0, 8)
     : ALL_ITEMS.filter(item =>
-        [item.title, item.description, item.category].some(f =>
+        [item.title, item.description, item.category, item.keywords || ''].some(f =>
           f.toLowerCase().includes(query.toLowerCase())
         )
       ).slice(0, 10)
