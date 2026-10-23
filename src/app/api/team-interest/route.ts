@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     } catch { /* Inbox delivery remains available if the rate-limit store is unavailable. */ }
     const submissionId = enquirySubmissionId(raw.submissionId)
     const data = normaliseEnquiry({ ...details, submissionId, source: `Work or Partner with YOS: ${details.role}`, enquiryPage: '/about/work-with-yos', submittedAt: raw.submittedAt, details: { ...details, contactPermission: true, purpose: 'Contact about working or partnering with YOS; no marketing opt-in' } })
-    await sendOwnerEnquiry(data, details.role === 'Contract cleaner' ? { recipient: 'sarah.kelley@yourofficespace.au', cc: 'jk@yourofficespace.au' } : undefined)
+    await sendOwnerEnquiry(data, ['Cleaning team member', 'Contract cleaner'].includes(details.role) ? { recipient: 'sarah.kelley@yourofficespace.au', cc: 'jk@yourofficespace.au' } : undefined)
     return NextResponse.json({ ok: true, reference: submissionId }, { headers })
   } catch { return NextResponse.json({ ok: false, error: 'We could not confirm delivery. Please retry or email jk@yourofficespace.au.' }, { status: 502, headers }) }
 }

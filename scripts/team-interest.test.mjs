@@ -6,7 +6,7 @@ import ts from 'typescript'
 const transpile = path => ts.transpileModule(fs.readFileSync(path, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
 const policy = {}
 vm.runInNewContext(transpile('src/lib/team-interest.ts'), { exports: policy })
-const valid = { name: 'Fixture Person', email: 'fixture@example.invalid', location: 'Fixture region', role: 'Installer', arrangement: 'Open to discussing', contactPermission: true, submissionId: 'a1234567-1234-1234-1234-123456789abc' }
+const valid = { name: 'Fixture Person', email: 'fixture@example.invalid', location: 'Fixture region', role: 'Tenant representative', arrangement: 'Open to discussing', contactPermission: true, submissionId: 'a1234567-1234-1234-1234-123456789abc' }
 function handler({ preview = false, limited = false, failure = false } = {}) {
   const calls = [], exports = {}
   const mocks = {
@@ -28,7 +28,7 @@ for (const role of policy.TEAM_ROLES) test(`${role}: inbox routing and fixed app
   assert.equal(data.details.contactPermission, true)
   assert.equal(data.marketingConsent, undefined)
   assert.equal(data.submissionId, valid.submissionId)
-  if (role === 'Contract cleaner') { assert.equal(routing.recipient, 'sarah.kelley@yourofficespace.au'); assert.equal(routing.cc, 'jk@yourofficespace.au') } else assert.equal(routing, undefined)
+  if (role === 'Cleaning team member') { assert.equal(routing.recipient, 'sarah.kelley@yourofficespace.au'); assert.equal(routing.cc, 'jk@yourofficespace.au') } else assert.equal(routing, undefined)
 })
 test('missing fields, invalid role/email/arrangement, spam and withheld contact permission never deliver', async () => {
   for (const change of [{ name: '' }, { email: 'bad' }, { location: '' }, { role: 'invented' }, { arrangement: 'invented' }, { contactPermission: false }, { _honey: 'spam' }]) {
@@ -53,4 +53,20 @@ test('rate limit blocks delivery and provider failure cannot claim success', asy
 test('optional phone, business and experience remain optional and free text is bounded', () => {
   const data = policy.parseTeamInterest({ ...valid, experience: 'a'.repeat(4000) })
   assert.equal(data.phone, ''); assert.equal(data.company, ''); assert.equal(data.experience.length, 3000)
+})
+
+test('cleaning employment and contracting interests both reach the cleaning team', async () => {
+  for (const arrangement of ['Employment', 'Contracting']) {
+    const h = handler(); assert.equal((await h.post({ ...valid, role: 'Cleaning team member', arrangement })).status, 200)
+    assert.equal(h.calls[0][0].details.arrangement, arrangement)
+    assert.equal(h.calls[0][1].recipient, 'sarah.kelley@yourofficespace.au')
+  }
+})
+test('previously opened application forms remain deliverable without relabelling installer interest as referrals', async () => {
+  for (const role of ['Contract cleaner', 'Installer']) {
+    const h = handler(); assert.equal((await h.post({ ...valid, role })).status, 200)
+    assert.equal(h.calls[0][0].details.role, role)
+    if (role === 'Contract cleaner') assert.equal(h.calls[0][1].recipient, 'sarah.kelley@yourofficespace.au')
+    else assert.equal(h.calls[0][1], undefined)
+  }
 })
