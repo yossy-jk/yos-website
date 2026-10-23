@@ -44,11 +44,12 @@ try {
     assert.equal(await page.$$eval('.yos-mobile-group-toggle[aria-expanded="true"]', items => items.length), 0)
     assert.equal(await page.$$eval('.yos-mobile-group-links a', items => items.filter(item => item.getClientRects().length).length), 0)
     assert.equal(await page.$$eval('.yos-mobile-nav-actions .site-search-trigger', items => items.length), 0)
-    assert.equal(await page.$$eval('#mobile-navigation-menu .yos-mobile-simple-link', items => items.length), 2)
+    assert.equal(await page.$$eval('#mobile-navigation-menu .yos-mobile-simple-link', items => items.length), 1)
+    assert.equal(await page.$eval('#mobile-navigation-menu .yos-mobile-simple-link', element => element.getAttribute('href')), '/contact')
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth))
     assert.ok(await page.$eval('.yos-mobile-enquire', element => element.getBoundingClientRect().width >= innerWidth - 48), 'Full-width enquiry action.')
-    const simpleRows = await page.$$eval('.yos-mobile-simple-link', items => items.map(item => ({ top: item.getBoundingClientRect().top, bottom: item.getBoundingClientRect().bottom })))
-    assert.ok(simpleRows[1].top >= simpleRows[0].bottom - 1, 'About and Contact occupy separate rows.')
+    const simpleRows = await page.$$eval('button[aria-controls="mobile-about-links"], .yos-mobile-simple-link', items => items.map(item => ({ top: item.getBoundingClientRect().top, bottom: item.getBoundingClientRect().bottom })))
+    assert.ok(simpleRows[1].top >= simpleRows[0].bottom - 1, 'About disclosure and Contact occupy separate rows.')
     const enquire = await page.$eval('.yos-mobile-enquire', element => ({ top: element.getBoundingClientRect().top, bottom: element.getBoundingClientRect().bottom }))
     assert.ok(enquire.top >= 72 && enquire.bottom <= 740, 'Enquiry is always visible.')
     await page.addScriptTag({ content: axe.source })
@@ -60,10 +61,14 @@ try {
     assert.equal(await page.evaluate(() => document.activeElement?.getAttribute('aria-label')), 'Your Office Space home')
     await page.keyboard.down('Shift'); await page.keyboard.press('Tab'); await page.keyboard.up('Shift')
     assert.ok(await page.evaluate(() => document.activeElement?.classList.contains('yos-mobile-call')))
-    for (const key of ['services', 'care', 'resources']) {
+    for (const key of ['services', 'care', 'about', 'resources']) {
       await page.click(`button[aria-controls="mobile-${key}-links"]`)
       assert.equal(await page.$$eval('.yos-mobile-group-toggle[aria-expanded="true"]', items => items.length), 1)
       assert.ok(await page.$eval(`#mobile-${key}-links`, element => !element.hidden))
+      if (key === 'about') {
+        assert.deepEqual(await page.$$eval('#mobile-about-links a', items => items.map(item => item.getAttribute('href'))), ['/about', '/about/work-with-yos'])
+        assert.equal(await page.$eval('#mobile-about-links a[href="/about/work-with-yos"]', element => element.textContent), 'Work or Partner with YOS')
+      }
       if (key === 'services' || key === 'care') assert.equal(await page.$$eval(`#mobile-${key}-links a[href="/cleaning"]`, items => items.length), 1, 'Cleaning belongs to both menu groups.')
       assert.ok(await page.$eval('.yos-mobile-enquire', element => element.getBoundingClientRect().bottom <= innerHeight))
     }
@@ -101,7 +106,7 @@ try {
     await openMenu()
     await page.setViewport({ width: 1440, height: 900 })
     await page.waitForFunction(() => document.querySelector('#mobile-navigation-menu').hidden && !document.querySelector('main').inert)
-    results.push({ width, collapsedGroups: 3, expandedOneAtATime: true, fixedEnquiry: true, search: true, shortcut: true, escape: true, wideScreenCleanup: true, axeViolations: violations })
+    results.push({ width, collapsedGroups: 4, expandedOneAtATime: true, fixedEnquiry: true, search: true, shortcut: true, escape: true, wideScreenCleanup: true, axeViolations: violations })
     await context.close()
   }
   writeFileSync(`${out}/report.json`, JSON.stringify(results, null, 2))

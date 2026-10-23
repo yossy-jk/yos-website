@@ -30,7 +30,6 @@ const MOBILE_SERVICES = [
 ]
 
 const NAV_LINKS_SIMPLE = [
-  { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ]
 
@@ -38,7 +37,10 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const [resourcesOpen, setResourcesOpen] = useState(false)
-  const [mobileSection, setMobileSection] = useState<'services' | 'care' | 'resources' | null>(null)
+  const [aboutOpen, setAboutOpen] = useState(false)
+  const aboutRef = useRef<HTMLDivElement>(null)
+  const aboutButtonRef = useRef<HTMLButtonElement>(null)
+  const [mobileSection, setMobileSection] = useState<'services' | 'care' | 'resources' | 'about' | null>(null)
   const mobilePanelRef = useRef<HTMLDivElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
@@ -69,6 +71,7 @@ export default function Nav() {
 
   useEffect(() => {
     function handle(e: MouseEvent) {
+      if (aboutRef.current && !aboutRef.current.contains(e.target as Node)) setAboutOpen(false)
       if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
         setServicesOpen(false)
       }
@@ -100,6 +103,11 @@ export default function Nav() {
         servicesButtonRef.current?.focus()
         return
       }
+      if (aboutOpen) {
+        setAboutOpen(false)
+        aboutButtonRef.current?.focus()
+        return
+      }
       if (resourcesOpen) {
         setResourcesOpen(false)
         resourcesButtonRef.current?.focus()
@@ -108,7 +116,7 @@ export default function Nav() {
 
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [open, resourcesOpen, servicesOpen])
+  }, [open, resourcesOpen, servicesOpen, aboutOpen])
 
   useEffect(() => {
     const wide = window.matchMedia('(min-width: 1280px)')
@@ -121,7 +129,7 @@ export default function Nav() {
 
   const closeMobile = () => { setOpen(false); setMobileSection(null) }
   const toggleMobile = () => { setOpen(!open); setMobileSection(null) }
-  const closeAll = () => { setServicesOpen(false); setResourcesOpen(false) }
+  const closeAll = () => { setServicesOpen(false); setResourcesOpen(false); setAboutOpen(false) }
 
   return (
     <>
@@ -144,7 +152,7 @@ export default function Nav() {
             <div className="relative" ref={servicesRef}>
               <button
                 ref={servicesButtonRef}
-                onClick={() => { setServicesOpen(v => !v); setResourcesOpen(false) }}
+                onClick={() => { setServicesOpen(v => !v); setResourcesOpen(false); setAboutOpen(false) }}
                 className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0"
                 style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
                 aria-expanded={servicesOpen}
@@ -195,7 +203,7 @@ export default function Nav() {
             <div className="relative" ref={resourcesRef}>
               <button
                 ref={resourcesButtonRef}
-                onClick={() => { setResourcesOpen(v => !v); setServicesOpen(false) }}
+                onClick={() => { setResourcesOpen(v => !v); setServicesOpen(false); setAboutOpen(false) }}
                 className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer p-0"
                 style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}
                 aria-expanded={resourcesOpen}
@@ -273,6 +281,20 @@ export default function Nav() {
               </div>
             </div>
 
+            <div className="relative" ref={aboutRef} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setAboutOpen(false) }}>
+              <button ref={aboutButtonRef} type="button" aria-expanded={aboutOpen} aria-controls="desktop-about-menu"
+                onClick={() => { setAboutOpen(value => !value); setServicesOpen(false); setResourcesOpen(false) }}
+                className="text-white/60 font-medium hover:text-white transition-colors flex items-center gap-1.5 bg-transparent border-none cursor-pointer"
+                style={{ fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', minHeight: 44 }}>
+                About us <span aria-hidden="true">⌄</span>
+              </button>
+              <div id="desktop-about-menu" hidden={!aboutOpen} className="absolute right-0 bg-near-black border border-white/20 rounded-lg shadow-2xl"
+                style={{ width: '18rem', padding: '0.5rem', top: '100%' }}>
+                <Link href="/about" onClick={closeAll} className="block p-4 text-white no-underline hover:bg-white/10 rounded">About YOS</Link>
+                <Link href="/about/work-with-yos" onClick={closeAll} className="block p-4 text-white no-underline hover:bg-white/10 rounded">Work or Partner with YOS</Link>
+              </div>
+            </div>
+
             {/* Plain links */}
             {NAV_LINKS_SIMPLE.map(link => (
               <Link key={link.href} href={link.href}
@@ -322,7 +344,7 @@ export default function Nav() {
       <div className="yos-mobile-header-spacer xl:hidden" aria-hidden="true" />
 
       {/* Desktop backdrop */}
-      {(servicesOpen || resourcesOpen) && (
+      {(servicesOpen || resourcesOpen || aboutOpen) && (
         <div className="fixed inset-0 z-40 hidden xl:block"
           style={{ background: 'rgba(0,0,0,0.5)', top: `${NAV_H}px` }}
           onClick={closeAll}
@@ -337,6 +359,7 @@ export default function Nav() {
             {([
               { key: 'services', title: 'Services', links: MOBILE_SERVICES },
               { key: 'care', title: 'Workplace Care', links: [{ label: 'Explore Flourish', href: '/flourish' }, ...FLOURISH_LINKS.map(link => ({ href: link.href, label: link.label.replace(/^Office /, '') }))] },
+              { key: 'about', title: 'About us', links: [{ label: 'About YOS', href: '/about' }, { label: 'Work or Partner with YOS', href: '/about/work-with-yos' }] },
               { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Articles & Guides', href: '/blog' }] },
             ] as const).map(group => <div key={group.key} className="yos-mobile-group">
               <button type="button" aria-expanded={mobileSection === group.key} aria-controls={`mobile-${group.key}-links`} onClick={() => setMobileSection(mobileSection === group.key ? null : group.key)} className="yos-mobile-group-toggle">
@@ -346,7 +369,6 @@ export default function Nav() {
                 {group.links.map(link => <Link key={link.href} href={link.href} onClick={closeMobile}>{link.label}</Link>)}
               </div>
             </div>)}
-            <Link href="/about" onClick={closeMobile} className="yos-mobile-simple-link">About YOS</Link>
             <Link href="/contact" onClick={closeMobile} className="yos-mobile-simple-link">Contact</Link>
           </div>
         </div>

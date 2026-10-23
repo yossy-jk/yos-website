@@ -99,6 +99,7 @@ export default function PrivacyPage() {
                 <li><strong>Name and email address</strong>, when you submit an enquiry form or sign up for updates.</li>
                 <li><strong>Checklist requests</strong>, your email address, selected service, optional follow-up choice, request and delivery times, and delivery status.</li>
                 <li><strong>Phone number</strong>, if you choose to include it in an enquiry.</li>
+                <li><strong>Work and partnership interest</strong>, your name, contact details, selected role, location and any experience, business or availability details you choose to provide. We use these to review your interest and contact you about working with YOS. These expressions of interest are delivered directly to the relevant YOS team by email, without subscribing you to marketing.</li>
                 <li><strong>Enquiry details</strong>, the information you type into any contact or service form.</li>
                 <li><strong>Lease Health Check and tool details</strong>, business name, role, suburb, lease dates, area, headcount, plans, concerns and calculator inputs or results that you choose to send us.</li>
                 <li><strong>Optional lease documents</strong>, your current lease if you choose to attach it to a lease check. It is emailed to the YOS inbox with your request through our email provider.</li>
