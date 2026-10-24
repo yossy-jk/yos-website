@@ -1,4 +1,5 @@
 'use client'
+import { LEASE_QUESTIONS as QUESTIONS, LEASE_REVIEW_MESSAGES, assessLeaseAnswers as getRisk } from '@/lib/lease-review'
 import LeaseAttachmentField from '@/components/LeaseAttachmentField'
 import LeasingResources from '@/components/LeasingResources'
 import { leaseFileError } from '@/lib/lease-file-rules'
@@ -12,99 +13,13 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
 
-const QUESTIONS = [
-  {
-    id: 'term',
-    label: 'What is the initial lease term?',
-    hint: 'Longer terms carry more financial risk if your business needs change.',
-    options: ['1–2 years', '3 years', '5 years', '7+ years'],
-    risk: { '7+ years': 'high', '1–2 years': 'medium' }
-  },
-  {
-    id: 'options',
-    label: 'Do you have options to renew?',
-    hint: 'Options give you certainty. No options means you could be forced out.',
-    options: ['No options', '1 option', '2+ options'],
-    risk: { 'No options': 'high' }
-  },
-  {
-    id: 'rent_review',
-    label: 'How is rent reviewed during the lease?',
-    hint: 'Market reviews can result in significant rent increases with little control.',
-    options: ['Fixed % increases', 'CPI (Consumer Price Index)', 'Market review', 'Combination / not sure'],
-    risk: { 'Market review': 'high', 'Combination / not sure': 'medium' }
-  },
-  {
-    id: 'outgoings',
-    label: 'Who pays outgoings (rates, insurance, maintenance)?',
-    hint: 'Outgoings can add 20–40% on top of face rent. Clarity is critical.',
-    options: ['Landlord pays all', 'Tenant pays some', 'Tenant pays all', 'Not clear in lease'],
-    risk: { 'Tenant pays all': 'high', 'Not clear in lease': 'high', 'Tenant pays some': 'medium' }
-  },
-  {
-    id: 'makegood',
-    label: 'Does the lease include make-good obligations?',
-    hint: 'Full reinstatement clauses can cost hundreds of thousands at lease end.',
-    options: ['No make-good clause', 'Fair wear and tear only', 'Full reinstatement required', 'Not sure'],
-    risk: { 'Full reinstatement required': 'high', 'Not sure': 'high' }
-  },
-  {
-    id: 'assignment',
-    label: 'Can you assign or sublet the lease?',
-    hint: 'Restrictions here can trap you if you sell your business or need to exit.',
-    options: ['Yes, with landlord consent', 'No, not permitted', 'Not mentioned / not sure'],
-    risk: { 'No, not permitted': 'high', 'Not mentioned / not sure': 'medium' }
-  },
-  {
-    id: 'guarantee',
-    label: 'Does the lease require a personal guarantee?',
-    hint: 'Unlimited personal guarantees put your personal assets at risk.',
-    options: ['No personal guarantee', 'Yes, limited guarantee', 'Yes, unlimited guarantee', 'Not sure'],
-    risk: { 'Yes, unlimited guarantee': 'high', 'Not sure': 'medium' }
-  },
-  {
-    id: 'demolition',
-    label: 'Does the landlord have a demolition or redevelopment clause?',
-    hint: 'This clause can allow the landlord to terminate your lease early.',
-    options: ['No such clause', 'Yes, with notice period', 'Yes, without adequate notice', 'Not sure'],
-    risk: { 'Yes, without adequate notice': 'high', 'Not sure': 'medium' }
-  },
-  {
-    id: 'fitout',
-    label: 'Have you negotiated a fitout contribution or rent-free period?',
-    hint: 'Most landlords offer these, if you haven\'t asked, you\'ve likely left money on the table.',
-    options: ['Yes, documented in lease', 'Agreed verbally but not in lease', 'No incentive offered', 'Not requested'],
-    risk: { 'Agreed verbally but not in lease': 'high', 'No incentive offered': 'medium', 'Not requested': 'medium' }
-  },
-  {
-    id: 'solicitor',
-    label: 'Has a solicitor reviewed this lease?',
-    hint: 'A lease review by a property solicitor can identify clauses that cost you significantly.',
-    options: ['Yes, fully reviewed', 'Skimmed it myself', 'No review yet'],
-    risk: { 'No review yet': 'high', 'Skimmed it myself': 'medium' }
-  },
-]
 
-type RiskLevel = 'high' | 'medium' | 'low'
 type Step = 'intro' | number | 'capture' | 'result'
 
-function getRisk(answers: Record<string, string>): { level: RiskLevel; high: number; medium: number } {
-  let high = 0, medium = 0
-  for (const q of QUESTIONS) {
-    const answer = answers[q.id]
-    if (!answer) continue
-    const r = ((q.risk as unknown) as Record<string, string>)[answer]
-    if (r === 'high') high++
-    else if (r === 'medium') medium++
-  }
-  const level: RiskLevel = high >= 3 ? 'high' : high >= 1 || medium >= 3 ? 'medium' : 'low'
-  return { level, high, medium }
-}
-
 const RISK_CONFIG = {
-  high: { label: 'HIGH RISK', colour: '#ef4444', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', message: 'This lease has significant risk factors. Before you sign anything, you need a professional review.' },
-  medium: { label: 'MODERATE RISK', colour: '#f59e0b', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', message: 'There are some areas worth attention. A full review will show you exactly what to negotiate.' },
-  low: { label: 'LOWER RISK', colour: '#10b981', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', message: 'Your lease looks relatively standard. A full review will confirm there are no hidden issues.' },
+  high: { label: 'HIGHER REVIEW PRIORITY', colour: '#FF8A8A', bg: 'bg-red-50', border: 'border-red-200', text: 'text-red-700', message: LEASE_REVIEW_MESSAGES.high },
+  medium: { label: 'REVIEW PRIORITY', colour: '#f59e0b', bg: 'bg-amber-50', border: 'border-amber-200', text: 'text-amber-700', message: LEASE_REVIEW_MESSAGES.medium },
+  low: { label: 'FEWER REVIEW FLAGS', colour: '#10b981', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', message: LEASE_REVIEW_MESSAGES.low },
 }
 
 
@@ -112,7 +27,7 @@ const SCHEMA = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "Commercial Lease Risk Checker | Your Office Space",
-  "description": "Identify hidden risks in your commercial lease before you sign. Free clause-by-clause review.",
+  "description": "A free questionnaire to organise lease topics for discussion with a commercial solicitor and your advisers. It does not analyse the lease.",
   "url": "https://www.yourofficespace.au/resources/lease-review",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "Web",
@@ -243,14 +158,14 @@ export default function LeaseRiskCheckerPage() {
               </div>
               <h1 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)' }}>
-                Free Lease Risk Review
+                Free Lease Questions Check
               </h1>
               <p className="text-white/80 font-semibold mb-4" style={{ fontSize: '1.05rem' }}>
-                No document required. Takes 3 minutes.
+                No document required. Answer at your own pace.
               </p>
               <p className="text-white/60 font-light leading-relaxed mb-14"
                 style={{ fontSize: '1rem', lineHeight: 1.8, maxWidth: '36rem' }}>
-                Answer 10 questions about your lease. Get an instant Red / Amber / Green risk rating and the top 3 issues to watch out for before you sign.
+                Answer 10 questions to organise topics for further review. The summary uses your answers only; it does not read or interpret your lease. Uploading a document does not change the automated result.
               </p>
               <div className="flex flex-col sm:flex-row gap-5 items-start mb-14">
                 <div className="flex items-center gap-2">
@@ -429,7 +344,7 @@ export default function LeaseRiskCheckerPage() {
           {step === 'result' && risk && riskConfig && (
             <div className="max-w-2xl">
               <p className="text-white/40 font-light mb-6" style={{ fontSize: '0.78rem', letterSpacing: '0.1em' }}>
-                Your lease risk assessment
+                Your questionnaire summary
               </p>
 
               {capturePreview ? <p role="status" className="text-white mb-5">Preview only. No details or lease were sent.</p> : lease ? <p role="status" className="text-white mb-5">Your lease was included with your request to the YOS team.</p> : null}
@@ -443,7 +358,7 @@ export default function LeaseRiskCheckerPage() {
 
               <h2 ref={stepHeadingRef} tabIndex={-1} className="text-white font-black uppercase leading-tight tracking-tight mb-6 outline-none"
                 style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)' }}>
-                {risk.level === 'high' ? 'This lease needs attention.' : risk.level === 'medium' ? 'Some things to watch.' : 'Looking reasonable.'}
+                {risk.level === 'high' ? 'Several answers need review.' : risk.level === 'medium' ? 'Some answers need review.' : 'Fewer flags in these answers.'}
               </h2>
 
               <p className="text-white/65 font-light leading-relaxed mb-12"
@@ -455,7 +370,7 @@ export default function LeaseRiskCheckerPage() {
               <div className="flex gap-6 mb-10 p-5 border border-white/10 bg-white/4">
                 <div className="text-center">
                   <p className="font-black text-red-400 leading-none mb-1" style={{ fontSize: '2rem' }}>{risk.high}</p>
-                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>HIGH RISK<br />CLAUSES</p>
+                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>HIGHER REVIEW<br />FLAGS</p>
                 </div>
                 <div className="w-px bg-white/10" />
                 <div className="text-center">
@@ -465,7 +380,7 @@ export default function LeaseRiskCheckerPage() {
                 <div className="w-px bg-white/10" />
                 <div className="text-center">
                   <p className="font-black text-white/60 leading-none mb-1" style={{ fontSize: '2rem' }}>{QUESTIONS.length - risk.high - risk.medium}</p>
-                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>LOWER<br />RISK</p>
+                  <p className="text-white/40 font-light" style={{ fontSize: '0.72rem' }}>OTHER<br />ANSWERS</p>
                 </div>
               </div>
 
@@ -474,21 +389,23 @@ export default function LeaseRiskCheckerPage() {
                 <p className="text-white/40 font-light uppercase mb-5" style={{ fontSize: '0.7rem', letterSpacing: '0.15em' }}>Three things to act on</p>
                 <ul className="flex flex-col" style={{ gap: '1.25rem', listStyle: 'none', padding: 0, margin: 0 }}>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                    Get the full clause-by-clause breakdown before you sign or renew anything. Most lease risk is invisible until it isn&apos;t.
+                    Ask a commercial property solicitor to review the actual lease and explain your rights, obligations and options before you commit.
                   </li>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                    Make-good and outgoings clauses are the two most expensive surprises in commercial leases. Know what yours say.
+                    Clarify outgoings, make-good, guarantees and any other obligations that affect your brief. Obtain project-specific cost advice where needed.
                   </li>
                   <li className="text-white/75 font-light" style={{ fontSize: '0.95rem', lineHeight: 1.75 }}>
-                    If your lease is coming up in the next 12 months, start now. Leverage disappears the closer you get to the deadline.
+                    Record expiry, option-notice and other key dates. Discuss the available time and choices with your appointed advisers.
                   </li>
                 </ul>
               </div>
 
               {/* Legal disclaimer */}
               <p className="text-white/30 font-light mb-8" style={{ fontSize: '0.78rem', lineHeight: 1.8, borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem' }}>
-                This is a commercial risk assessment, not legal advice. Always engage a qualified commercial solicitor before signing, varying, or exiting any commercial lease.
+                This is an answer-based planning prompt, not a lease analysis, valuation or legal opinion. Retail and non-retail leasing requirements can differ. Ask your commercial solicitor which rules apply before signing, varying or exiting a lease.
               </p>
+
+              <p className="text-white/70 mb-8"><a href="https://www.lawsociety.com.au/for-the-public/know-your-rights/going-into-business/what-to-know-beforehand" className="text-teal underline underline-offset-4">Law Society of NSW: getting advice before entering a business lease</a></p>
 
               {/* CTA – current Lease Health Check */}
               <div className="mb-8 rounded-sm p-6" style={{ background: 'rgba(20,184,166,0.08)', border: '1px solid rgba(20,184,166,0.25)' }}>
@@ -508,7 +425,7 @@ export default function LeaseRiskCheckerPage() {
 
               <button
                 onClick={() => { setStep('intro'); setAnswers({}); setSelected(null) }}
-                className="text-white/25 font-light hover:text-white/50 transition-colors"
+                className="text-white/75 font-light hover:text-white transition-colors"
                 style={{ fontSize: '0.82rem' }}>
                 ← Start again
               </button>
