@@ -50,6 +50,7 @@ export default function FitoutEstimatorPage() {
   const [reportEmail, setReportEmail] = useState('')
   const [reportState, setReportState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [reportMessage, setReportMessage] = useState('')
+  const [reportPreview, setReportPreview] = useState(false)
   const [inputs, setInputs] = useState<Inputs>({
     fitoutType: '', sqm: '', shellCondition: 'warm', tier: '', workstationType: '', desks: '', meetingRooms: '1',
     hasKitchen: false, hasReception: false, hasAV: false,
@@ -131,11 +132,12 @@ export default function FitoutEstimatorPage() {
           hasAV: inputs.hasAV,
           source: 'fitout-estimator',
         })
-      const result = await response.json().catch(() => ({})) as { error?: string; message?: string }
-      if (!response.ok) throw new Error(result.error || 'We could not send the report right now.')
+      const result = await response.json().catch(() => ({})) as { ok?: boolean; preview?: boolean; error?: string; message?: string }
+      if (!response.ok || result.ok !== true) throw new Error(result.error || 'We could not confirm report delivery. Please try again or call (02) 4092 0733.')
 
+      setReportPreview(result.preview === true)
       setReportState('sent')
-      setReportMessage(result.message || 'Your report has been sent. Check your inbox.')
+      setReportMessage(result.message || (result.preview ? 'Preview completed. No email was sent.' : 'Your report has been sent. Check your inbox.'))
     } catch (error) {
       setReportState('error')
       setReportMessage(error instanceof Error ? error.message : 'We could not send the report right now.')
@@ -659,7 +661,7 @@ export default function FitoutEstimatorPage() {
                 />
                 <button type="submit" disabled={reportState === 'sending' || reportState === 'sent'}
                   style={{ background: reportState === 'sent' ? 'rgba(1,167,163,0.4)' : '#00B5A5', color: 'white', fontWeight: 800, fontSize: '0.7rem', letterSpacing: '0.18em', textTransform: 'uppercase', padding: '1rem 2.5rem', borderRadius: '0.5rem', border: 'none', cursor: reportState === 'sending' || reportState === 'sent' ? 'not-allowed' : 'pointer', minHeight: '48px', alignSelf: 'flex-start', transition: 'background 0.15s' }}>
-                  {reportState === 'sending' ? 'Sending…' : reportState === 'sent' ? 'Report sent' : 'Send me the full report →'}
+                  {reportState === 'sending' ? 'Sending…' : reportState === 'sent' ? (reportPreview ? 'Preview completed' : 'Report sent') : 'Send me the full report →'}
                 </button>
                 {reportMessage && (
                   <p role="status" aria-live="polite" style={{ color: reportState === 'error' ? '#FF8A8A' : '#5FE3D5', fontSize: '0.82rem', lineHeight: 1.6 }}>
