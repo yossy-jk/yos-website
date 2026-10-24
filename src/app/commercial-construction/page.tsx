@@ -61,7 +61,7 @@ export default function ConstructionPage() {
     <section id="construction-enquiry" tabIndex={-1} aria-labelledby="construction-enquiry-heading" className="bg-warm-grey" style={{ ...SECTION, scrollMarginTop: 110 }}><div style={{ ...WRAP, maxWidth: 820 }}>
       <SectionLabel>Tell us about the project</SectionLabel><h2 id="construction-enquiry-heading" style={{ fontSize: 'clamp(1.9rem,4vw,3rem)', marginTop: 20, marginBottom: 20 }}>Start with your site, scope and timing.</h2>
       <p className="text-charcoal leading-relaxed" style={{ marginBottom: 32 }}>Share what you know so far. We’ll discuss the next steps and whether YOS’s client-side project management is suited to your brief. You can also call <a href="tel:0240920733" className="font-semibold text-dark-teal">02 4092 0733</a>.</p>
-      <ContactForm initialService="fitout" fixedService submitLabel="Send project enquiry →" messagePlaceholder="Site suburb, project scope, current stage, budget expectations and target completion date..." />
+      <ContactForm initialService="fitout" fixedService serviceLabel="construction project management" submitLabel="Send project enquiry →" messagePlaceholder="Site suburb, project scope, current stage, budget expectations and target completion date..." />
     </div></section>
 </main><Footer /></>
 }
