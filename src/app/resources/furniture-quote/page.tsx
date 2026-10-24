@@ -1,7 +1,7 @@
 'use client'
 import ToolGuide from '@/components/ToolGuide'
 
-import { useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import SectionLabel from '@/components/SectionLabel'
@@ -22,6 +22,10 @@ const labelClass = 'block text-near-black font-medium text-sm mb-1.5'
 
 export default function FurnitureQuotePage() {
   const [submitted, setSubmitted] = useState(false)
+  const receiptRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (submitted) receiptRef.current?.focus()
+  }, [submitted])
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [receipt, setReceipt] = useState<{ preview?: boolean; reference?: string }>({})
@@ -126,7 +130,7 @@ export default function FurnitureQuotePage() {
           <div className="max-w-2xl">
             {submitted ? (
               <FadeIn>
-                <div role="status" className="bg-warm-grey rounded-sm p-10 sm:p-14" style={{ padding: 'clamp(1.5rem,4vw,3rem)' }}>
+                <div ref={receiptRef} tabIndex={-1} role="status" className="bg-warm-grey rounded-sm p-10 sm:p-14" style={{ scrollMarginTop: '10rem', padding: 'clamp(1.5rem,4vw,3rem)' }}>
                   <div className="w-10 h-1 bg-teal mb-8" />
                   <h2 className="text-near-black font-bold leading-tight mb-4">
                     {receipt.preview ? 'Preview completed.' : 'We have your brief.'}
