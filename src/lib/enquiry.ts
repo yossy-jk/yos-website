@@ -11,7 +11,7 @@ async function noteCompletedEnquiry(response: Response): Promise<Response> {
   if (typeof window === 'undefined' || !response.ok) return response
   try {
     const result = await response.clone().json()
-    if (result.ok === true || result.success === true) {
+    if (result.preview !== true && (result.ok === true || result.success === true)) {
       recordCompletedEnquiry()
     }
   } catch { /* Preserve the original response for the caller. */ }

@@ -30,3 +30,31 @@ test('optional analytics remains consent gated globally', () => {
   assert.doesNotMatch(consent, /hs-script-loader|hs-scripts\.com/)
 })
 
+
+// Exercise the real browser transport without sending requests.
+test('only accepted non-preview enquiry responses suppress future checklist prompts', async () => {
+  const ts = await import('typescript')
+  const { runInNewContext } = await import('node:vm')
+  for (const fixture of [
+    { body: { ok: true }, marked: true },
+    { body: { success: true }, marked: true },
+    { body: { ok: true, preview: true }, marked: false },
+    { body: { success: true, preview: true }, marked: false },
+    { body: { ok: false }, marked: false },
+    { body: { ok: true }, status: 502, marked: false },
+    { raw: 'invalid JSON', marked: false },
+  ]) {
+    const writes = [], events = [], exports = {}
+    const response = new Response(fixture.raw ?? JSON.stringify(fixture.body), { status: fixture.status ?? 200 })
+    runInNewContext(ts.transpileModule(read('src/lib/enquiry.ts'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, {
+      exports, crypto: { randomUUID: () => 'fixture-id' }, Event,
+      window: { location: { pathname: '/buying' }, localStorage: { setItem: (...args) => writes.push(args) }, dispatchEvent: e => events.push(e.type) },
+      fetch: async () => response,
+    })
+    const result = await exports.postEnquiry('/api/enquiry', { email: 'fixture@example.com' })
+    assert.equal(writes.length, fixture.marked ? 1 : 0)
+    assert.equal(events.length, fixture.marked ? 1 : 0)
+    assert.equal(result, response)
+    assert.equal(await result.text(), fixture.raw ?? JSON.stringify(fixture.body))
+  }
+})
