@@ -1,6 +1,6 @@
 'use client'
 import { postEnquiry } from '@/lib/enquiry'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { CheckIcon } from '@/components/Icons'
 
 const INPUT = {
@@ -60,6 +60,16 @@ export default function SalesCareersForm() {
   const [industry, setIndustry] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [preview, setPreview] = useState(false)
+  const receiptRef = useRef<HTMLHeadingElement>(null)
+  useEffect(() => {
+    if (!submitted) return
+    const frame = requestAnimationFrame(() => {
+      receiptRef.current?.focus({ preventScroll: true })
+      receiptRef.current?.scrollIntoView({ block: 'center' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [submitted])
   const [error, setError] = useState('')
 
   const [form, setForm] = useState({
@@ -82,6 +92,7 @@ export default function SalesCareersForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (submitting) return
     setError('')
     if (!form.name || !form.email || !form.phone) {
       setError('Please fill in your name, email and mobile.')
@@ -96,13 +107,17 @@ export default function SalesCareersForm() {
           channels: channel.join(', '),
           industries: industry.join(', '),
         })
-      if (!res.ok) {
-        const d = await res.json()
-        throw new Error(d.error || 'Submission failed')
+      const result = await res.json()
+      if (!res.ok || result.ok !== true) {
+        setError(res.status === 429
+          ? 'Too many attempts. Please wait a few minutes before trying again. Your details are still here.'
+          : 'We could not confirm delivery. Your details are still here. Please try again.')
+        return
       }
+      setPreview(result.preview === true)
       setSubmitted(true)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } catch {
+      setError('We could not confirm delivery. Your details are still here. Please try again.')
     } finally {
       setSubmitting(false)
     }
@@ -110,11 +125,11 @@ export default function SalesCareersForm() {
 
   if (submitted) {
     return (
-      <div style={{ background: 'rgba(1,167,163,0.08)', border: '1px solid rgba(1,167,163,0.25)', padding: '2.5rem', textAlign: 'center' }}>
+      <div role="status" style={{ background: 'rgba(1,167,163,0.08)', border: '1px solid rgba(1,167,163,0.25)', padding: '2.5rem', textAlign: 'center' }}>
         <div style={{ width: '48px', height: '48px', background: '#00B5A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.25rem' }}><CheckIcon size={28} /></div>
-        <h3 style={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.75rem' }}>Application received.</h3>
+        <h3 ref={receiptRef} tabIndex={-1} style={{ color: 'white', fontWeight: 800, fontSize: '1.1rem', marginBottom: '0.75rem' }}>{preview ? 'Preview completed.' : 'Application received.'}</h3>
         <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: '0.9rem', lineHeight: 1.7, margin: 0 }}>
-          Joe will be in touch within 2 business days.
+          {preview ? 'This preview has not sent an email.' : 'Your application has been delivered to the YOS team.'}
         </p>
       </div>
     )
@@ -258,8 +273,8 @@ export default function SalesCareersForm() {
       <input type="text" name="_honey" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
 
       {error && (
-        <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', padding: '0.875rem 1rem', marginBottom: '1rem' }}>
-          <p style={{ color: '#ef4444', fontSize: '0.82rem', margin: 0 }}>{error}</p>
+        <div role="alert" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', padding: '0.875rem 1rem', marginBottom: '1rem' }}>
+          <p style={{ color: '#ffaaaa', fontSize: '0.82rem', margin: 0 }}>{error} You can also <a style={{ color: 'inherit', textDecoration: 'underline' }} href="mailto:jk@yourofficespace.au">email Joe</a>.</p>
         </div>
       )}
 
