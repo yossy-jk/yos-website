@@ -2,13 +2,17 @@
 export interface LeadPayload {
   firstname: string; email: string; source: string; context?: string; marketingConsent?: boolean
 }
+export function recordCompletedEnquiry(): void {
+  if (typeof window === 'undefined') return
+  try { window.localStorage.setItem('yos_checklist_offer_converted', '1') } catch {}
+  window.dispatchEvent(new Event('yos-enquiry-completed'))
+}
 async function noteCompletedEnquiry(response: Response): Promise<Response> {
   if (typeof window === 'undefined' || !response.ok) return response
   try {
     const result = await response.clone().json()
     if (result.ok === true || result.success === true) {
-      try { window.localStorage.setItem('yos_checklist_offer_converted', '1') } catch {}
-      window.dispatchEvent(new Event('yos-enquiry-completed'))
+      recordCompletedEnquiry()
     }
   } catch { /* Preserve the original response for the caller. */ }
   return response
