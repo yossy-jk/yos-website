@@ -150,7 +150,8 @@ export default function FurnitureQuotePage() {
               </FadeIn>
             ) : (
               <FadeIn>
-                <form id="furniture-quote-form" tabIndex={-1} aria-label="Furniture quote request" onSubmit={handleSubmit} className="furniture-quote-form space-y-6">
+                <form id="furniture-quote-form" tabIndex={-1} aria-label="Furniture quote request" onSubmit={handleSubmit} className="furniture-quote-form space-y-6" aria-describedby="furniture-quote-help">
+                  <p id="furniture-quote-help" className="text-charcoal leading-relaxed">Start with your name and email. Phone, company, quantities, area, budget, timing, notes and any attachment are optional. Share what you know; we can help clarify the furniture brief.</p>
                   <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
                   {/* Name + Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -161,6 +162,7 @@ export default function FurnitureQuotePage() {
                       <input
                         id="name"
                         name="name"
+                        autoComplete="name"
                         type="text"
                         required
                         value={form.name}
@@ -176,6 +178,7 @@ export default function FurnitureQuotePage() {
                       <input
                         id="email"
                         name="email"
+                        autoComplete="email"
                         type="email"
                         required
                         value={form.email}
@@ -193,6 +196,7 @@ export default function FurnitureQuotePage() {
                       <input
                         id="phone"
                         name="phone"
+                        autoComplete="tel"
                         type="tel"
                         value={form.phone}
                         onChange={handleChange}
@@ -205,6 +209,7 @@ export default function FurnitureQuotePage() {
                       <input
                         id="company"
                         name="company"
+                        autoComplete="organization"
                         type="text"
                         value={form.company}
                         onChange={handleChange}
