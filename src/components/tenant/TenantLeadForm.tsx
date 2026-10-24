@@ -1,4 +1,5 @@
 "use client";
+import { recordCompletedEnquiry } from "@/lib/enquiry";
 import LeaseAttachmentField from "@/components/LeaseAttachmentField";
 import LeasingResources from "@/components/LeasingResources";
 import { leaseFileError } from "@/lib/lease-file-rules";
@@ -192,6 +193,7 @@ export default function TenantLeadForm({
       setPreview(Boolean(data.preview));
       setEmailOnly(Boolean(data.emailOnly));
       setDone(true);
+      if (!data.preview) recordCompletedEnquiry();
       if (!data.preview && !data.duplicate) {
         const event =
           kind === "health_check"
