@@ -196,7 +196,7 @@ export default function LeaseRiskCheckerPage() {
       const res = await postEnquiry('/api/lease-risk-capture', { firstname: firstName.trim(), email: captureEmail.trim(), answers }, lease || undefined)
 
       const delivered = await res.json().catch(() => ({}))
-      if (!res.ok) throw new Error(delivered.error || 'We could not confirm delivery. Please retry.')
+      if (!res.ok || delivered.ok !== true) throw new Error(delivered.error || 'We could not confirm delivery. Please retry or call (02) 4092 0733.')
       setCapturePreview(Boolean(delivered.preview))
 
       setStep('result')
