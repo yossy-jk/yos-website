@@ -72,6 +72,7 @@ export default function TenantLeadForm({
       <input
         id={`${kind}-${key}`}
         name={key}
+        autoComplete={key.startsWith("referred") ? "off" : ({ name: "name", email: "email", business: "organization", mobile: "tel" } as Record<string, string>)[key]}
         type={type}
         required={required}
         value={fields[key] || ""}
