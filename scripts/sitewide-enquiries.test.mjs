@@ -12,6 +12,7 @@ function load(file, mocks, extra = {}) {
 }
 const fileRules = load('src/lib/lease-file-rules.ts', {});
 const leaseRequest = load('src/lib/lease-request.ts', { 'node:buffer': { Buffer }, 'node:crypto': { createHash: (await import('node:crypto')).createHash }, './lease-file-rules': fileRules });
+const leaseReview = load('src/lib/lease-review.ts', {});
 const json = { NextResponse: { json: (body, opts) => Response.json(body, opts) } }
 function setup(result = { data: { id: 'accepted' } }, env = {}) {
   const messages = []
@@ -104,7 +105,7 @@ test('specialised registrations and reports require confirmed inbox delivery', a
       const { delivery, messages } = setup(accepted ? { data: { id: 'accepted' } } : { error: { message: 'Not accepted' } })
       const customerMessages = []
       const route = load(`src/app/api/${endpoint}/route.ts`, {
-        'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest,
+        'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest, '@/lib/lease-review': leaseReview,
         resend: { Resend: class { emails = { send: async message => { customerMessages.push(message); return { data: { id: 'customer' } } } } } },
         '@/lib/ratelimit': { contactLimiter: () => null, fitoutLimiter: () => null, getIp: () => '' },
         '@/lib/deployment-scope': { isPreviewDeployment: () => false },
@@ -133,7 +134,7 @@ test('specialised registrations and reports require confirmed inbox delivery', a
 test('the ten-question lease review forwards an optional attachment only to the YOS inbox', async () => {
   const { delivery, messages } = setup()
   const route = load('src/app/api/lease-risk-capture/route.ts', {
-    'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest,
+    'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest, '@/lib/lease-review': leaseReview,
     resend: { Resend: class { emails = { send: async () => ({ data: { id: 'customer' } }) } } },
   }, { console: { error() {}, warn() {} } })
   const form = new FormData()
@@ -167,4 +168,27 @@ test('browser transport records public page context without query data and omits
   await browser.sendEnquiry(input)
   assert.equal(calls[1].enquiryPage, undefined)
   assert.doesNotMatch(JSON.stringify(calls), /private@example.invalid|private-token/)
+})
+
+
+test('lease questionnaire email matches the screen scoring for the three previously mismatched answer labels and a matching control', async () => {
+  const { delivery } = setup()
+  const sent = []
+  const route = load('src/app/api/lease-risk-capture/route.ts', {
+    'next/server': json, '@/lib/enquiry-delivery': delivery, '@/lib/lease-request': leaseRequest, '@/lib/lease-review': leaseReview,
+    resend: { Resend: class { emails = { send: async message => { sent.push(message); return { data: { id: 'fixture' } } } } } },
+  }, { console: { error() {}, warn() {} } })
+  const answers = { assignment: 'No, not permitted', guarantee: 'Yes, unlimited guarantee', demolition: 'Yes, without adequate notice', solicitor: 'Skimmed it myself' }
+  const risk = leaseReview.assessLeaseAnswers(answers)
+  assert.equal(risk.high, 3)
+  assert.equal(risk.medium, 1)
+  assert.equal(risk.level, 'high')
+  assert.equal((await route.POST(request({ firstname: '<b>QA Fixture</b>', email: input.email, answers, submissionId: input.submissionId }))).status, 200)
+  assert.equal(sent.length, 1)
+  assert.ok(sent[0].html.includes('&lt;b&gt;QA Fixture&lt;/b&gt;'))
+  assert.ok(!sent[0].html.includes('<b>QA Fixture</b>'))
+  assert.ok(sent[0].html.includes('HIGHER REVIEW PRIORITY'))
+  for (const issue of risk.issues) assert.ok(sent[0].html.includes(issue))
+  assert.ok(sent[0].html.includes(leaseReview.LEASE_REVIEW_MESSAGES.high))
+  assert.ok(!sent[0].html.includes('no hidden issues'))
 })

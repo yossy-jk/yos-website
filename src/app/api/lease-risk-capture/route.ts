@@ -1,3 +1,4 @@
+import { LEASE_REVIEW_MESSAGES as RISK_MESSAGES, assessLeaseAnswers as getRisk } from '@/lib/lease-review'
 import { readLeaseRequest, LeaseRequestError } from "@/lib/lease-request"
 import { enquirySubmissionId } from '@/lib/enquiry-delivery'
 import { NextResponse } from 'next/server'
@@ -5,48 +6,12 @@ import { Resend } from 'resend'
 
 import { enquiryResponse } from '@/lib/enquiry-delivery'
 
+const htmlText = (value: string) => value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
+
 const RISK_LABELS: Record<string, string> = {
-  high: 'HIGH RISK',
-  medium: 'MODERATE RISK',
-  low: 'LOWER RISK',
-}
-
-const RISK_MESSAGES: Record<string, string> = {
-  high: 'This lease has significant risk factors. Before you sign anything, you need a professional review.',
-  medium: 'There are some areas worth attention. A full review will show you exactly what to negotiate.',
-  low: 'Your lease looks relatively standard. A full review will confirm there are no hidden issues.',
-}
-
-const QUESTIONS: { id: string; label: string; risk: Record<string, string> }[] = [
-  { id: 'term', label: 'Lease term', risk: { '7+ years': 'high', '1–2 years': 'medium' } },
-  { id: 'options', label: 'Renewal options', risk: { 'No options': 'high' } },
-  { id: 'rent_review', label: 'Rent review method', risk: { 'Market review': 'high', 'Combination / not sure': 'medium' } },
-  { id: 'outgoings', label: 'Outgoings', risk: { 'Tenant pays all': 'high', 'Not clear in lease': 'high', 'Tenant pays some': 'medium' } },
-  { id: 'makegood', label: 'Make-good obligations', risk: { 'Full reinstatement required': 'high', 'Not sure': 'high' } },
-  { id: 'assignment', label: 'Assignment / sublet', risk: { 'No – not permitted': 'high', 'Not mentioned / not sure': 'medium' } },
-  { id: 'guarantee', label: 'Personal guarantee', risk: { 'Yes – unlimited guarantee': 'high', 'Not sure': 'medium' } },
-  { id: 'demolition', label: 'Demolition clause', risk: { 'Yes – without adequate notice': 'high', 'Not sure': 'medium' } },
-  { id: 'fitout', label: 'Fitout / incentives', risk: { 'Agreed verbally but not in lease': 'high', 'No incentive offered': 'medium', 'Not requested': 'medium' } },
-  { id: 'solicitor', label: 'Solicitor review', risk: { 'No review yet': 'high', 'Skimmed it myself': 'medium' } },
-]
-
-function getRisk(answers: Record<string, string>): { level: string; high: number; medium: number; issues: string[] } {
-  let high = 0, medium = 0
-  const issues: string[] = []
-  for (const q of QUESTIONS) {
-    const answer = answers[q.id]
-    if (!answer) continue
-    const r = q.risk[answer]
-    if (r === 'high') {
-      high++
-      issues.push(`${q.label}: ${answer}`)
-    } else if (r === 'medium') {
-      medium++
-      issues.push(`${q.label}: ${answer}`)
-    }
-  }
-  const level = high >= 3 ? 'high' : high >= 1 || medium >= 3 ? 'medium' : 'low'
-  return { level, high, medium, issues }
+  high: 'HIGHER REVIEW PRIORITY',
+  medium: 'REVIEW PRIORITY',
+  low: 'FEWER REVIEW FLAGS',
 }
 
 export async function POST(req: Request) {
@@ -77,27 +42,27 @@ export async function POST(req: Request) {
       const riskMessage = RISK_MESSAGES[risk.level] || ''
       const topIssues = risk.issues.slice(0, 5)
 
-      const riskColour = risk.level === 'high' ? '#ef4444' : risk.level === 'medium' ? '#f59e0b' : '#10b981'
+      const riskColour = risk.level === 'high' ? '#b91c1c' : risk.level === 'medium' ? '#92400e' : '#047857'
 
       const issuesHtml = topIssues.length > 0
-        ? topIssues.map(i => `<li style="padding: 6px 0; color: #444; font-size: 14px; line-height: 1.6;">${i}</li>`).join('')
-        : '<li style="padding: 6px 0; color: #444; font-size: 14px;">No major risk clauses identified.</li>'
+        ? topIssues.map(i => `<li style="padding: 6px 0; color: #444; font-size: 14px; line-height: 1.6;">${htmlText(i)}</li>`).join('')
+        : '<li style="padding: 6px 0; color: #444; font-size: 14px;">Fewer answers triggered the questionnaire flags; this is not confirmation that the lease is free of risks.</li>'
 
       const delivered = await resend.emails.send({
         from: 'YOS LeaseIntel <notifications@yourofficespace.au>',
         to: String(email).slice(0, 200),
         replyTo: 'jk@yourofficespace.au',
-        subject: `Your lease risk rating: ${riskLabel}`,
+        subject: `Your lease questionnaire summary: ${riskLabel}`,
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #ffffff;">
             <div style="background: #0A0A0A; padding: 24px; margin-bottom: 28px;">
               <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space – LeaseIntel</p>
-              <p style="color: white; font-weight: 800; font-size: 20px; margin: 0; text-transform: uppercase;">Your Lease Risk Rating</p>
+              <p style="color: white; font-weight: 800; font-size: 20px; margin: 0; text-transform: uppercase;">Your Lease Questionnaire Summary</p>
             </div>
 
-            <p style="color: #333; font-size: 15px; margin: 0 0 20px;">Hi ${String(firstname).slice(0, 200)},</p>
+            <p style="color: #333; font-size: 15px; margin: 0 0 20px;">Hi ${htmlText(String(firstname).slice(0, 200))},</p>
             <p style="color: #333; font-size: 15px; line-height: 1.7; margin: 0 0 24px;">
-              Here is your free lease risk rating based on the 10 questions you answered.
+              Here is the summary of your 10 questionnaire answers. It does not read or interpret your lease, including any attached document. Ask a commercial property solicitor to review the actual terms.
             </p>
 
             <div style="background: ${riskColour}15; border: 1px solid ${riskColour}40; padding: 20px 24px; margin-bottom: 28px;">
@@ -109,7 +74,7 @@ export async function POST(req: Request) {
               <div style="display: flex; gap: 16px; margin-bottom: 16px;">
                 <div style="text-align: center; padding: 16px 24px; background: #fef2f2; border: 1px solid #fecaca;">
                   <p style="font-size: 28px; font-weight: 800; color: #ef4444; margin: 0 0 4px;">${risk.high}</p>
-                  <p style="font-size: 11px; color: #999; margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">High risk<br>clauses</p>
+                  <p style="font-size: 11px; color: #999; margin: 0; text-transform: uppercase; letter-spacing: 0.05em;">Higher review<br>flags</p>
                 </div>
                 <div style="text-align: center; padding: 16px 24px; background: #fffbeb; border: 1px solid #fde68a;">
                   <p style="font-size: 28px; font-weight: 800; color: #f59e0b; margin: 0 0 4px;">${risk.medium}</p>
@@ -120,7 +85,7 @@ export async function POST(req: Request) {
 
             ${topIssues.length > 0 ? `
             <div style="margin-bottom: 28px;">
-              <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 12px; font-weight: 600;">Top issues identified</p>
+              <p style="font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin: 0 0 12px; font-weight: 600;">Answers to discuss with your advisers</p>
               <ul style="margin: 0; padding: 0 0 0 16px; border-left: 3px solid ${riskColour};">
                 ${issuesHtml}
               </ul>
