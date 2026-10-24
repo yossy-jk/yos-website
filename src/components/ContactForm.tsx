@@ -58,10 +58,11 @@ function resolveService(requested?: string): Service | '' {
 /**
  * Contact form with confirmed direct YOS inbox delivery.
  */
-export default function ContactForm({ initialService, entryPage, fixedService = false, submitLabel = 'Send Message →', messagePlaceholder = "Tell us what you're working on..." }: {
+export default function ContactForm({ initialService, entryPage, fixedService = false, serviceLabel, submitLabel = 'Send Message →', messagePlaceholder = "Tell us what you're working on..." }: {
   initialService?: string
   entryPage?: string
   fixedService?: boolean
+  serviceLabel?: string
   submitLabel?: string
   messagePlaceholder?: string
 }) {
@@ -146,7 +147,7 @@ export default function ContactForm({ initialService, entryPage, fixedService = 
 
   return (
     <form onSubmit={handleSubmit} noValidate className="contact-enquiry-form flex flex-col gap-4">
-      <p className="contact-form-help">{fields.service ? `Enquiring about ${fields.service}.` : 'Choose the service you need, or select Not sure.'} Your name and email are required. Business name, phone and message are optional.</p>
+      <p className="contact-form-help">{fields.service ? `Enquiring about ${fixedService && serviceLabel ? serviceLabel : fields.service}.` : 'Choose the service you need, or select Not sure.'} Your name and email are required. Business name, phone and message are optional.</p>
       {/* Honeypot. hidden from real users, filled by bots */}
       <input type="text" name="_honey" value={honey} onChange={e => setHoney(e.target.value)} style={{ display: 'none' }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
