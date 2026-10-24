@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { sendEnquiry } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
@@ -69,6 +69,10 @@ export default function ContactForm({ initialService, entryPage, fixedService = 
   const [showServices, setShowServices] = useState(!resolveService(initialService))
   const [receipt, setReceipt] = useState<{ preview?: boolean; reference?: string }>({})
   const [sent, setSent] = useState(false)
+  const receiptRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (sent) receiptRef.current?.focus()
+  }, [sent])
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [honey, setHoney] = useState('')
@@ -127,7 +131,7 @@ export default function ContactForm({ initialService, entryPage, fixedService = 
 
   if (sent) {
     return (
-      <div role="status" className="contact-receipt">
+      <div ref={receiptRef} tabIndex={-1} role="status" className="contact-receipt" style={{ scrollMarginTop: '10rem' }}>
         <p className="text-action-teal font-black text-lg mb-2">{receipt.preview ? 'Preview completed.' : 'Message received.'}</p>
         <p className="text-charcoal font-light text-sm">{receipt.preview ? 'This preview has not sent an email.' : 'Thank you. The YOS team will review what you need and contact you about the next step.'}</p>
         {receipt.reference && <p className="contact-reference">Enquiry reference: {receipt.reference}</p>}
