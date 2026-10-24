@@ -9,11 +9,12 @@ export default function InterestForm() {
   const successRef = useRef<HTMLHeadingElement>(null)
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [error, setError] = useState('')
+  const [preview, setPreview] = useState(false)
   const [role, setRole] = useState('')
   const [arrangement, setArrangement] = useState('Open to discussing')
   useEffect(() => { if (status === 'success') successRef.current?.focus() }, [status])
   return <div className={styles.formCard}>
-    {status === 'success' ? <div role="status"><h3 ref={successRef} tabIndex={-1}>Thanks for putting your hand up.</h3><p>Your interest has been delivered to the YOS team. We’ll review your experience, location and availability and contact you about suitable next steps.</p><p>You’re welcome to <a href="mailto:jk@yourofficespace.au">email Joe</a> if your details change.</p></div> : <form onSubmit={async event => {
+    {status === 'success' ? <div role="status"><h3 ref={successRef} tabIndex={-1}>{preview ? 'Preview completed.' : 'Thanks for putting your hand up.'}</h3><p>{preview ? 'This preview has not sent an email.' : 'Your interest has been delivered to the YOS team. We’ll review your experience, location and availability and contact you about suitable next steps.'}</p><p>You’re welcome to <a href="mailto:jk@yourofficespace.au">email Joe</a> if your details change.</p></div> : <form onSubmit={async event => {
       event.preventDefault()
       if (status === 'sending') return
       const data = new FormData(event.currentTarget)
@@ -21,9 +22,14 @@ export default function InterestForm() {
       try {
         const response = await postEnquiry('/api/team-interest', { ...Object.fromEntries(data), contactPermission: data.get('contactPermission') === 'on' })
         const result = await response.json()
-        if (!response.ok || !result.ok) throw Error(result.error || 'Please try again or email Joe.')
+        if (!response.ok || !result.ok) {
+          setError(typeof result.error === 'string' ? result.error : 'We could not confirm delivery. Please try again.')
+          setStatus('error')
+          return
+        }
+        setPreview(result.preview === true)
         setStatus('success')
-      } catch (failure) { setError(failure instanceof Error ? failure.message : 'Please try again or email Joe.'); setStatus('error') }
+      } catch { setError('We could not confirm delivery. Your details are still here. Please try again.'); setStatus('error') }
     }}>
       <p className={styles.formIntro}>Start with the essentials. No CV upload or account needed. Fields marked * are required.</p>
       <div className={styles.fields}>
@@ -41,7 +47,7 @@ export default function InterestForm() {
       <div className={styles.honey} aria-hidden="true"><label htmlFor="team-website">Leave blank</label><input id="team-website" name="_honey" tabIndex={-1} autoComplete="off" /></div>
       <label className={styles.permission}><input name="contactPermission" type="checkbox" required /><span>I agree to YOS using these details to contact me about work or partnership opportunities. *</span></label>
       <p className={styles.hint}>Your details go directly to our team by email. This form doesn’t subscribe you to marketing. Read our <Link href="/privacy">privacy policy</Link>.</p>
-      {status === 'error' && <p role="alert" className={styles.error}>{error}</p>}
+      {status === 'error' && <p role="alert" className={styles.error}>{error} You can also <a href="mailto:jk@yourofficespace.au">email Joe</a>.</p>}
       <button type="submit" disabled={status === 'sending'} className={styles.primary}>{status === 'sending' ? 'Sending your interest…' : 'Register my interest'}<span aria-hidden="true"> →</span></button>
       <p className={styles.hint}>Prefer a conversation? Email <a href="mailto:jk@yourofficespace.au">jk@yourofficespace.au</a>.</p>
     </form>}
