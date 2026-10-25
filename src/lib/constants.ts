@@ -14,8 +14,8 @@ export const ENQUIRY = {
   contactUrl: '/contact#contact-enquiry',
 }
 
-// Temporary booking provider; normal enquiry delivery remains independent.
-export const DISCOVERY_BOOKING_URL = 'https://meetings-ap1.hubspot.com/projects1?uuid=05c79c5c-b183-4c09-9c74-9278a6dde354'
+// Public Outlook-connected booking page; enquiry email delivery remains independent.
+export const DISCOVERY_BOOKING_URL = 'https://bookings.cloud.microsoft/bookwithme/user/22b335abe25a42329fe8b249c3313606%40yourofficespace.au?anonymous&ismsaljsauthenabled'
 
 // Top-level nav — Services is a dropdown
 export const NAV_LINKS = [
