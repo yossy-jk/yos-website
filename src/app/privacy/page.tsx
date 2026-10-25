@@ -130,8 +130,13 @@ export default function PrivacyPage() {
               <div className="not-prose space-y-5 my-6">
                 <ThirdParty
                   name="HubSpot"
-                  role="Optional appointment booking and historical CRM records. If you choose the external HubSpot calendar, the booking details you enter there are processed by HubSpot to arrange your appointment. Normal website enquiry forms deliver directly to the YOS inbox by email and do not send data to HubSpot."
+                  role="Historical CRM records. Normal website enquiry forms deliver directly to the YOS inbox by email and do not send data to HubSpot."
                   link="https://legal.hubspot.com/privacy-policy"
+                />
+                <ThirdParty
+                  name="Microsoft Bookings and Teams"
+                  role="Optional appointment scheduling connected to Outlook. If you choose the external Microsoft booking calendar, Microsoft processes the details you enter there to arrange your appointment and online meeting. Opening the booking link does not by itself confirm an appointment."
+                  link="https://privacy.microsoft.com/privacystatement"
                 />
                 <ThirdParty
                   name="Google Analytics"
