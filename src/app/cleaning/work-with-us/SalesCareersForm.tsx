@@ -1,5 +1,6 @@
 'use client'
 import { postEnquiry } from '@/lib/enquiry'
+import Link from 'next/link'
 import { useEffect, useId, useRef, useState } from 'react'
 import { CheckIcon } from '@/components/Icons'
 
@@ -297,8 +298,8 @@ export default function SalesCareersForm() {
       >
         {submitting ? 'Submitting...' : 'Send my application →'}
       </button>
-      <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.72rem', marginTop: '0.75rem', textAlign: 'center' }}>
-        Joe will be in touch within 2 business days. Your details are kept private and never shared.
+      <p data-application-privacy style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.72rem', marginTop: '0.75rem', textAlign: 'center' }}>
+        Joe will be in touch within 2 business days. Your application goes to the YOS team by email. This does not subscribe you to marketing. Read our <Link href="/privacy" style={{ color: 'inherit', textDecoration: 'underline' }}>privacy policy</Link>.
       </p>
     </form>
   )
