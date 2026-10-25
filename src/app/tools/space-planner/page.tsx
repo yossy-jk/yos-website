@@ -8,11 +8,11 @@ import { ENQUIRY } from '@/lib/constants'
 
 export const metadata = withPageSeo({
   title: 'Space Planner | Your Office Space',
-  description: 'Draw your floor plan, drag furniture in, get an instant quote. The YOS Space Planner is coming soon, book a call to get started now.',
+  description: 'The YOS online Space Planner is not available yet. Share your furniture brief with our team for a scoped quote.',
   alternates: { canonical: 'https://www.yourofficespace.au/tools/space-planner' },
   openGraph: {
     title: 'Space Planner | Your Office Space',
-    description: 'Draw your floor plan, drag furniture in, get an instant quote. Coming soon, but you can start now.',
+    description: 'The YOS online Space Planner is not available yet. Request a furniture quote from our team.',
     images: [{ url: '/og/og-default.png', width: 1200, height: 630, alt: 'Your Office Space' }],
     url: 'https://www.yourofficespace.au/tools/space-planner',
     siteName: 'Your Office Space',
@@ -35,13 +35,10 @@ export default function SpacePlannerPage() {
       {/* ─── SCHEMA ────────────────────────────────────────── */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
         "@context": "https://schema.org",
-        "@type": "WebApplication",
+        "@type": "WebPage",
         "name": "Office Space Planner | Your Office Space",
-        "description": "Draw your floor plan, drag furniture in, get an instant quote. Coming soon.",
+        "description": "The YOS online Space Planner is not available yet. Contact the team to discuss your furniture brief.",
         "url": "https://www.yourofficespace.au/tools/space-planner",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Web",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
         "provider": ORGANIZATION_SCHEMA,
         "areaServed": { "@type": "Country", "name": "Australia" },
       }) }} />
@@ -58,16 +55,16 @@ export default function SpacePlannerPage() {
               Space Planner
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.55)', fontWeight: 300, fontSize: '1.1rem', lineHeight: 1.8, maxWidth: '40rem', marginBottom: '3rem' }}>
-              Draw your floor plan, drag workstations and furniture into it, and get a real quote on the spot. No sign-up required.
+              The online Space Planner is not available yet. You can share your room measurements, furniture requirements and timing with our team to request a quote.
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
               <a href={ENQUIRY.contactUrl} target="_blank" rel="noopener noreferrer"
                 className="bg-teal text-white font-bold no-underline hover:bg-dark-teal transition-colors"
                 style={{ padding: '1.1rem 2.5rem', fontSize: '0.72rem', letterSpacing: '0.15em', textTransform: 'uppercase', borderRadius: '0.5rem', minHeight: '52px', display: 'inline-flex', alignItems: 'center' }}>Request a call</a>
-              <a href="/furniture"
+              <a href="/resources/furniture-quote#furniture-quote-form"
                 className="text-white/50 no-underline hover:text-white transition-colors"
                 style={{ fontSize: '0.85rem', letterSpacing: '0.05em' }}>
-                Browse furniture first →
+                Request a furniture quote →
               </a>
             </div>
           </FadeIn>
@@ -80,16 +77,16 @@ export default function SpacePlannerPage() {
           <FadeIn>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem' }}>
               <span style={{ width: '0.35rem', height: '0.35rem', background: '#00B5A5', borderRadius: '50%', display: 'block' }} />
-              <span style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase' }}>How it works</span>
+              <span style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase' }}>Start with your brief</span>
             </div>
             <h2 style={{ color: '#ffffff', fontWeight: 800, fontSize: 'clamp(1.75rem,3.5vw,3rem)', letterSpacing: '-0.01em', marginBottom: '4rem' }}>
-              Three steps to your layout
+              Prepare your furniture enquiry
             </h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2.5rem' }}>
               {[
-                { n: '01', title: 'Draw your space', body: 'Enter your floor area and shape. No CAD skills needed, just numbers and clicks.' },
-                { n: '02', title: 'Drag furniture in', body: 'Pick workstations, meeting rooms, breakout zones. See the layout update in real time.' },
-                { n: '03', title: 'Get your quote', body: 'Instant estimate based on your specific layout. Take it or refine it, no pressure.' },
+                { n: '01', title: 'Measure your space', body: 'Note room dimensions, doors, windows and access constraints. Include an existing plan if you have one.' },
+                { n: '02', title: 'Describe the work', body: 'List who will use the space, the tasks they perform and the furniture you need to retain or replace.' },
+                { n: '03', title: 'Request a scoped quote', body: 'Ask the team to confirm suitable products, availability, delivery, installation and exclusions for your brief.' },
               ].map(step => (
                 <div key={step.n}>
                   <p style={{ color: '#00B5A5', fontWeight: 900, fontSize: '2.75rem', lineHeight: 1, marginBottom: '1.25rem', letterSpacing: '-0.02em' }}>{step.n}</p>
