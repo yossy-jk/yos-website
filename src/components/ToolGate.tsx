@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { submitLead } from '@/lib/enquiry'
 import { trackConversion } from '@/lib/analytics'
 
@@ -24,6 +24,9 @@ export default function ToolGate({
   onUnlock,
   dark = true,
 }: ToolGateProps) {
+  const fieldId = useId()
+  const nameId = `${fieldId}-name`
+  const emailId = `${fieldId}-email`
   const [unlocked, setUnlocked] = useState(false)
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -135,11 +138,14 @@ export default function ToolGate({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.75rem' }}>
 
             <div>
-              <label style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
+              <label htmlFor={nameId} style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                 First name <span style={{ color: '#00B5A5' }}>*</span>
               </label>
               <input
+                id={nameId}
                 type="text"
+                aria-invalid={!!errors.name}
+                aria-describedby={errors.name ? `${nameId}-error` : undefined}
                 value={name}
                 onChange={e => { setName(e.target.value); setErrors(p => ({ ...p, name: undefined })) }}
                 placeholder="Frank"
@@ -155,15 +161,18 @@ export default function ToolGate({
                 onFocus={e => e.target.style.borderColor = inputFocus}
                 onBlur={e => e.target.style.borderColor = errors.name ? '#ef4444' : inputBorder}
               />
-              {errors.name && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.4rem' }}>{errors.name}</p>}
+              {errors.name && <p id={`${nameId}-error`} style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.4rem' }}>{errors.name}</p>}
             </div>
 
             <div>
-              <label style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
+              <label htmlFor={emailId} style={{ display: 'block', color: labelColor, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                 Work email <span style={{ color: '#00B5A5' }}>*</span>
               </label>
               <input
+                id={emailId}
                 type="email"
+                aria-invalid={!!errors.email}
+                aria-describedby={errors.email ? `${emailId}-error` : undefined}
                 value={email}
                 onChange={e => { setEmail(e.target.value); setErrors(p => ({ ...p, email: undefined })) }}
                 placeholder="joe@company.com.au"
@@ -179,7 +188,7 @@ export default function ToolGate({
                 onFocus={e => e.target.style.borderColor = inputFocus}
                 onBlur={e => e.target.style.borderColor = errors.email ? '#ef4444' : inputBorder}
               />
-              {errors.email && <p style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.4rem' }}>{errors.email}</p>}
+              {errors.email && <p id={`${emailId}-error`} style={{ color: '#ef4444', fontSize: '0.75rem', marginTop: '0.4rem' }}>{errors.email}</p>}
             </div>
           </div>
 
