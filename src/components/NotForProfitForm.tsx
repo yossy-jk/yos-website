@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { sendEnquiry } from '@/lib/enquiry'
 
 const LEASE_TYPE_OPTIONS = [
@@ -18,6 +18,16 @@ const SITUATION_OPTIONS = [
 export default function NotForProfitForm() {
   const formRef = useRef<HTMLFormElement>(null)
   const [sent, setSent] = useState(false)
+  const [preview, setPreview] = useState(false)
+  const receiptRef = useRef<HTMLParagraphElement>(null)
+  useEffect(() => {
+    if (!sent) return
+    const frame = requestAnimationFrame(() => {
+      receiptRef.current?.focus({ preventScroll: true })
+      receiptRef.current?.scrollIntoView({ block: 'center' })
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [sent])
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
   const [honey, setHoney] = useState('')
@@ -54,7 +64,7 @@ export default function NotForProfitForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validate()) return
+    if (submitting || !validate()) return
     setSubmitting(true)
 
     const leaseTypeLabel = LEASE_TYPE_OPTIONS.find(o => o.value === fields.leaseType)?.label || fields.leaseType
@@ -70,16 +80,16 @@ export default function NotForProfitForm() {
     })
 
     setSubmitting(false)
-    if (result.ok) setSent(true)
-    else setSubmitError('We could not confirm delivery. Please retry or call 02 4092 0733.')
+    if (result.ok) { setPreview(result.preview === true); setSent(true) }
+    else setSubmitError('We could not confirm delivery. Your details are still here. Please retry or call 02 4092 0733.')
   }
 
   if (sent) {
     return (
-      <div className="bg-teal/5 border border-teal/20 rounded-sm p-10 text-center">
-        <p className="text-teal font-black text-xl mb-3">Application received.</p>
+      <div role="status" className="bg-teal/5 border border-teal/20 rounded-sm p-10 text-center">
+        <p ref={receiptRef} tabIndex={-1} className="text-action-teal font-black text-xl mb-3">{preview ? 'Preview completed.' : 'Application received.'}</p>
         <p className="text-charcoal font-light text-sm leading-relaxed">
-          We&apos;ll review the submission, confirm eligibility and identify the appropriate next step.
+          {preview ? 'This preview has not sent an email.' : 'We’ll review the submission, confirm eligibility and identify the appropriate next step.'}
         </p>
       </div>
     )
@@ -187,7 +197,7 @@ export default function NotForProfitForm() {
       </button>
 
       <p className="text-charcoal text-xs leading-relaxed">
-        Your information is handled under the Australian Privacy Act 1988 and never shared with third parties.
+        Your details go to the YOS team by email to assess this application. This does not subscribe you to marketing.
         We may contact you to confirm eligibility before proceeding.
       </p>
     </form>
