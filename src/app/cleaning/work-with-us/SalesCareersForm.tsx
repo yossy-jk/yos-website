@@ -1,6 +1,6 @@
 'use client'
 import { postEnquiry } from '@/lib/enquiry'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { CheckIcon } from '@/components/Icons'
 
 const INPUT = {
@@ -58,6 +58,7 @@ const INDUSTRIES = [
 export default function SalesCareersForm() {
   const [channel, setChannel] = useState<string[]>([])
   const [industry, setIndustry] = useState<string[]>([])
+  const fieldId = useId()
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [preview, setPreview] = useState(false)
@@ -142,22 +143,22 @@ export default function SalesCareersForm() {
         <p style={SECTION_HEAD}>Your details</p>
         <div style={{ display: 'grid', gap: '1rem' }}>
           <div>
-            <label style={LABEL}>Full name <span style={{ color: '#ef4444' }}>*</span></label>
-            <input style={INPUT} value={form.name} onChange={e => set('name', e.target.value)} placeholder="Your full name" required />
+            <label htmlFor={`${fieldId}-name`} style={LABEL}>Full name <span style={{ color: '#ef4444' }}>*</span></label>
+            <input id={`${fieldId}-name`} style={INPUT} value={form.name} onChange={e => set('name', e.target.value)} placeholder="Your full name" required />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <div>
-              <label style={LABEL}>Email <span style={{ color: '#ef4444' }}>*</span></label>
-              <input style={INPUT} type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="you@email.com" required />
+              <label htmlFor={`${fieldId}-email`} style={LABEL}>Email <span style={{ color: '#ef4444' }}>*</span></label>
+              <input id={`${fieldId}-email`} style={INPUT} type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="you@email.com" required />
             </div>
             <div>
-              <label style={LABEL}>Mobile <span style={{ color: '#ef4444' }}>*</span></label>
-              <input style={INPUT} type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="04XX XXX XXX" required />
+              <label htmlFor={`${fieldId}-phone`} style={LABEL}>Mobile <span style={{ color: '#ef4444' }}>*</span></label>
+              <input id={`${fieldId}-phone`} style={INPUT} type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="04XX XXX XXX" required />
             </div>
           </div>
           <div>
-            <label style={LABEL}>Suburb / area in Newcastle</label>
-            <input style={INPUT} value={form.suburb} onChange={e => set('suburb', e.target.value)} placeholder="e.g. Hamilton, Merewether, Maitland" />
+            <label htmlFor={`${fieldId}-suburb`} style={LABEL}>Suburb / area in Newcastle</label>
+            <input id={`${fieldId}-suburb`} style={INPUT} value={form.suburb} onChange={e => set('suburb', e.target.value)} placeholder="e.g. Hamilton, Merewether, Maitland" />
           </div>
         </div>
       </div>
@@ -167,13 +168,13 @@ export default function SalesCareersForm() {
         <p style={SECTION_HEAD}>Your situation</p>
         <div style={{ display: 'grid', gap: '1rem' }}>
           <div>
-            <label style={LABEL}>Current role or situation</label>
-            <input style={INPUT} value={form.currentRole} onChange={e => set('currentRole', e.target.value)} placeholder="e.g. BDM at XYZ Property, self-employed, currently between roles" />
+            <label htmlFor={`${fieldId}-currentRole`} style={LABEL}>Current role or situation</label>
+            <input id={`${fieldId}-currentRole`} style={INPUT} value={form.currentRole} onChange={e => set('currentRole', e.target.value)} placeholder="e.g. BDM at XYZ Property, self-employed, currently between roles" />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <div>
-              <label style={LABEL}>Years in sales / business development</label>
-              <select style={INPUT} value={form.yearsExp} onChange={e => set('yearsExp', e.target.value)}>
+              <label htmlFor={`${fieldId}-yearsExp`} style={LABEL}>Years in sales / business development</label>
+              <select id={`${fieldId}-yearsExp`} style={INPUT} value={form.yearsExp} onChange={e => set('yearsExp', e.target.value)}>
                 <option value="">Select...</option>
                 <option value="Less than 1 year">Less than 1 year</option>
                 <option value="1–2 years">1–2 years</option>
@@ -183,8 +184,8 @@ export default function SalesCareersForm() {
               </select>
             </div>
             <div>
-              <label style={LABEL}>Commission expectation (annual)</label>
-              <select style={INPUT} value={form.commissionExpectation} onChange={e => set('commissionExpectation', e.target.value)}>
+              <label htmlFor={`${fieldId}-commissionExpectation`} style={LABEL}>Commission expectation (annual)</label>
+              <select id={`${fieldId}-commissionExpectation`} style={INPUT} value={form.commissionExpectation} onChange={e => set('commissionExpectation', e.target.value)}>
                 <option value="">Select...</option>
                 <option value="Under $30k">Under $30,000</option>
                 <option value="$30–50k">$30,000–$50,000</option>
@@ -220,8 +221,9 @@ export default function SalesCareersForm() {
           ))}
         </div>
         <div>
-          <label style={LABEL}>Describe your approach</label>
+          <label htmlFor={`${fieldId}-sellingApproach`} style={LABEL}>Describe your approach</label>
           <textarea
+              id={`${fieldId}-sellingApproach`}
             style={{ ...INPUT, minHeight: '100px', resize: 'vertical' }}
             value={form.sellingApproach}
             onChange={e => set('sellingApproach', e.target.value)}
@@ -256,8 +258,8 @@ export default function SalesCareersForm() {
           </div>
         </div>
         <div>
-          <label style={LABEL}>How did you hear about this?</label>
-          <select style={INPUT} value={form.referralSource} onChange={e => set('referralSource', e.target.value)}>
+          <label htmlFor={`${fieldId}-referralSource`} style={LABEL}>How did you hear about this?</label>
+          <select id={`${fieldId}-referralSource`} style={INPUT} value={form.referralSource} onChange={e => set('referralSource', e.target.value)}>
             <option value="">Select...</option>
             <option value="Google search">Google search</option>
             <option value="LinkedIn">LinkedIn</option>

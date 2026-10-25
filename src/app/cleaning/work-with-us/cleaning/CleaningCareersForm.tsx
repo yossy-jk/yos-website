@@ -1,6 +1,6 @@
 'use client'
 import { postEnquiry } from '@/lib/enquiry'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { CheckIcon } from '@/components/Icons'
 
 type AppType = 'employee' | 'contractor'
@@ -59,6 +59,7 @@ export default function CleaningCareersForm() {
   const [appType, setAppType] = useState<AppType>('employee')
   const [experience, setExperience] = useState<string[]>([])
   const [availability, setAvailability] = useState<string[]>([])
+  const fieldId = useId()
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [preview, setPreview] = useState(false)
@@ -179,22 +180,22 @@ export default function CleaningCareersForm() {
         <p style={SECTION_HEAD}>Your details</p>
         <div style={{ display: 'grid', gap: '1rem' }}>
           <div>
-            <label style={LABEL}>Full name <span style={{ color: '#ef4444' }}>*</span></label>
-            <input style={INPUT} value={form.name} onChange={e => set('name', e.target.value)} placeholder="Jane Smith" required />
+            <label htmlFor={`${fieldId}-name`} style={LABEL}>Full name <span style={{ color: '#ef4444' }}>*</span></label>
+            <input id={`${fieldId}-name`} style={INPUT} value={form.name} onChange={e => set('name', e.target.value)} placeholder="Jane Smith" required />
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <div>
-              <label style={LABEL}>Email <span style={{ color: '#ef4444' }}>*</span></label>
-              <input style={INPUT} type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@email.com" required />
+              <label htmlFor={`${fieldId}-email`} style={LABEL}>Email <span style={{ color: '#ef4444' }}>*</span></label>
+              <input id={`${fieldId}-email`} style={INPUT} type="email" value={form.email} onChange={e => set('email', e.target.value)} placeholder="jane@email.com" required />
             </div>
             <div>
-              <label style={LABEL}>Mobile <span style={{ color: '#ef4444' }}>*</span></label>
-              <input style={INPUT} type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="04XX XXX XXX" required />
+              <label htmlFor={`${fieldId}-phone`} style={LABEL}>Mobile <span style={{ color: '#ef4444' }}>*</span></label>
+              <input id={`${fieldId}-phone`} style={INPUT} type="tel" value={form.phone} onChange={e => set('phone', e.target.value)} placeholder="04XX XXX XXX" required />
             </div>
           </div>
           <div>
-            <label style={LABEL}>Suburb / area</label>
-            <input style={INPUT} value={form.suburb} onChange={e => set('suburb', e.target.value)} placeholder="e.g. Broadmeadow, Maitland, Lake Macquarie" />
+            <label htmlFor={`${fieldId}-suburb`} style={LABEL}>Suburb / area</label>
+            <input id={`${fieldId}-suburb`} style={INPUT} value={form.suburb} onChange={e => set('suburb', e.target.value)} placeholder="e.g. Broadmeadow, Maitland, Lake Macquarie" />
           </div>
         </div>
       </div>
@@ -226,8 +227,8 @@ export default function CleaningCareersForm() {
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
           <div>
-            <label style={LABEL}>Years of experience</label>
-            <select style={INPUT} value={form.yearsExp} onChange={e => set('yearsExp', e.target.value)}>
+            <label htmlFor={`${fieldId}-yearsExp`} style={LABEL}>Years of experience</label>
+            <select id={`${fieldId}-yearsExp`} style={INPUT} value={form.yearsExp} onChange={e => set('yearsExp', e.target.value)}>
               <option value="">Select...</option>
               <option value="Less than 1 year">Less than 1 year</option>
               <option value="1–2 years">1–2 years</option>
@@ -273,12 +274,12 @@ export default function CleaningCareersForm() {
           <div style={{ display: 'grid', gap: '1rem', marginBottom: '1.5rem' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <div>
-                <label style={LABEL}>ABN <span style={{ color: '#ef4444' }}>*</span></label>
-                <input style={INPUT} value={form.abn} onChange={e => set('abn', e.target.value)} placeholder="XX XXX XXX XXX" required />
+                <label htmlFor={`${fieldId}-abn`} style={LABEL}>ABN <span style={{ color: '#ef4444' }}>*</span></label>
+                <input id={`${fieldId}-abn`} style={INPUT} value={form.abn} onChange={e => set('abn', e.target.value)} placeholder="XX XXX XXX XXX" required />
               </div>
               <div>
-                <label style={LABEL}>Business / trading name</label>
-                <input style={INPUT} value={form.businessName} onChange={e => set('businessName', e.target.value)} placeholder="Smith Cleaning Services" />
+                <label htmlFor={`${fieldId}-businessName`} style={LABEL}>Business / trading name</label>
+                <input id={`${fieldId}-businessName`} style={INPUT} value={form.businessName} onChange={e => set('businessName', e.target.value)} placeholder="Smith Cleaning Services" />
               </div>
             </div>
           </div>
@@ -288,20 +289,20 @@ export default function CleaningCareersForm() {
             <p style={{ color: 'rgba(167,139,250,0.8)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>Public Liability Insurance</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <div>
-                <label style={LABEL}>Insurer</label>
-                <input style={INPUT} value={form.plInsurer} onChange={e => set('plInsurer', e.target.value)} placeholder="e.g. CGU, NRMA, Vero" />
+                <label htmlFor={`${fieldId}-plInsurer`} style={LABEL}>Insurer</label>
+                <input id={`${fieldId}-plInsurer`} style={INPUT} value={form.plInsurer} onChange={e => set('plInsurer', e.target.value)} placeholder="e.g. CGU, NRMA, Vero" />
               </div>
               <div>
-                <label style={LABEL}>Policy number</label>
-                <input style={INPUT} value={form.plPolicyNumber} onChange={e => set('plPolicyNumber', e.target.value)} placeholder="POL-XXXXXXX" />
+                <label htmlFor={`${fieldId}-plPolicyNumber`} style={LABEL}>Policy number</label>
+                <input id={`${fieldId}-plPolicyNumber`} style={INPUT} value={form.plPolicyNumber} onChange={e => set('plPolicyNumber', e.target.value)} placeholder="POL-XXXXXXX" />
               </div>
               <div>
-                <label style={LABEL}>Expiry date</label>
-                <input style={{ ...INPUT, colorScheme: 'dark' }} type="date" value={form.plExpiry} onChange={e => set('plExpiry', e.target.value)} />
+                <label htmlFor={`${fieldId}-plExpiry`} style={LABEL}>Expiry date</label>
+                <input id={`${fieldId}-plExpiry`} style={{ ...INPUT, colorScheme: 'dark' }} type="date" value={form.plExpiry} onChange={e => set('plExpiry', e.target.value)} />
               </div>
               <div>
-                <label style={LABEL}>Cover amount</label>
-                <select style={INPUT} value={form.plAmount} onChange={e => set('plAmount', e.target.value)}>
+                <label htmlFor={`${fieldId}-plAmount`} style={LABEL}>Cover amount</label>
+                <select id={`${fieldId}-plAmount`} style={INPUT} value={form.plAmount} onChange={e => set('plAmount', e.target.value)}>
                   <option value="">Select...</option>
                   <option value="$10M">$10M</option>
                   <option value="$20M">$20M</option>
@@ -316,24 +317,24 @@ export default function CleaningCareersForm() {
             <p style={{ color: 'rgba(167,139,250,0.8)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '0.875rem' }}>Workers Compensation / Personal Accident</p>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <div>
-                <label style={LABEL}>Insurer</label>
-                <input style={INPUT} value={form.wcInsurer} onChange={e => set('wcInsurer', e.target.value)} placeholder="e.g. EML, GIO, WorkCover" />
+                <label htmlFor={`${fieldId}-wcInsurer`} style={LABEL}>Insurer</label>
+                <input id={`${fieldId}-wcInsurer`} style={INPUT} value={form.wcInsurer} onChange={e => set('wcInsurer', e.target.value)} placeholder="e.g. EML, GIO, WorkCover" />
               </div>
               <div>
-                <label style={LABEL}>Policy number</label>
-                <input style={INPUT} value={form.wcPolicyNumber} onChange={e => set('wcPolicyNumber', e.target.value)} placeholder="POL-XXXXXXX" />
+                <label htmlFor={`${fieldId}-wcPolicyNumber`} style={LABEL}>Policy number</label>
+                <input id={`${fieldId}-wcPolicyNumber`} style={INPUT} value={form.wcPolicyNumber} onChange={e => set('wcPolicyNumber', e.target.value)} placeholder="POL-XXXXXXX" />
               </div>
               <div>
-                <label style={LABEL}>Expiry date</label>
-                <input style={{ ...INPUT, colorScheme: 'dark' }} type="date" value={form.wcExpiry} onChange={e => set('wcExpiry', e.target.value)} />
+                <label htmlFor={`${fieldId}-wcExpiry`} style={LABEL}>Expiry date</label>
+                <input id={`${fieldId}-wcExpiry`} style={{ ...INPUT, colorScheme: 'dark' }} type="date" value={form.wcExpiry} onChange={e => set('wcExpiry', e.target.value)} />
               </div>
             </div>
           </div>
 
           {/* Police check */}
           <div>
-            <label style={LABEL}>Police check</label>
-            <select style={INPUT} value={form.policeCheck} onChange={e => set('policeCheck', e.target.value)}>
+            <label htmlFor={`${fieldId}-policeCheck`} style={LABEL}>Police check</label>
+            <select id={`${fieldId}-policeCheck`} style={INPUT} value={form.policeCheck} onChange={e => set('policeCheck', e.target.value)}>
               <option value="">Select...</option>
               <option value="Yes, within 12 months">Yes, within the last 12 months</option>
               <option value="Yes, over 12 months ago">Yes, more than 12 months ago</option>
@@ -352,8 +353,9 @@ export default function CleaningCareersForm() {
         <p style={SECTION_HEAD}>Anything else</p>
         <div style={{ display: 'grid', gap: '1rem' }}>
           <div>
-            <label style={LABEL}>Anything you&apos;d like us to know</label>
+            <label htmlFor={`${fieldId}-message`} style={LABEL}>Anything you&apos;d like us to know</label>
             <textarea
+              id={`${fieldId}-message`}
               style={{ ...INPUT, minHeight: '100px', resize: 'vertical' }}
               value={form.message}
               onChange={e => set('message', e.target.value)}
@@ -361,8 +363,8 @@ export default function CleaningCareersForm() {
             />
           </div>
           <div>
-            <label style={LABEL}>How did you hear about us?</label>
-            <select style={INPUT} value={form.howHeard} onChange={e => set('howHeard', e.target.value)}>
+            <label htmlFor={`${fieldId}-howHeard`} style={LABEL}>How did you hear about us?</label>
+            <select id={`${fieldId}-howHeard`} style={INPUT} value={form.howHeard} onChange={e => set('howHeard', e.target.value)}>
               <option value="">Select...</option>
               <option value="Google search">Google search</option>
               <option value="Facebook / Instagram">Facebook / Instagram</option>
