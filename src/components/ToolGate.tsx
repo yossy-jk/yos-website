@@ -33,7 +33,8 @@ export default function ToolGate({
 
   const storageKey = `yos_tool_unlocked_${tool.toLowerCase().replace(/\s+/g, '_')}`
   if (typeof window !== 'undefined' && !unlocked) {
-    const stored = localStorage.getItem(storageKey)
+    let stored: string | null = null
+    try { stored = localStorage.getItem(storageKey) } catch { /* Results remain usable when browser storage is unavailable. */ }
     if (stored === 'true') return <>{children}</>
   }
 
@@ -49,7 +50,7 @@ export default function ToolGate({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validate()) return
+    if (loading || !validate()) return
     setLoading(true)
     setSubmitError('')
 
@@ -58,14 +59,14 @@ export default function ToolGate({
       email: email.trim(),
       source: tool,
       context: context?.(),
-    }).catch(() => ({ ok: false }))
+    }).catch(() => ({ ok: false, preview: false }))
 
     if (!leadResult.ok) {
       setSubmitError('We could not confirm delivery. Please retry or call 02 4092 0733.')
       setLoading(false)
       return
     }
-    trackConversion('tool_complete', {
+    if (!leadResult.preview) trackConversion('tool_complete', {
       tool,
       email_delivery: leadResult.ok,
     })

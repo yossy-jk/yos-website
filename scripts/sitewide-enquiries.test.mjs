@@ -192,3 +192,22 @@ test('lease questionnaire email matches the screen scoring for the three previou
   assert.ok(sent[0].html.includes(leaseReview.LEASE_REVIEW_MESSAGES.high))
   assert.ok(!sent[0].html.includes('no hidden issues'))
 })
+
+test('capability downloads retain signed access while identifying previews without sending mail', async () => {
+  for (const preview of [false, true]) {
+    const { delivery, messages } = setup(undefined, { VERCEL_ENV: preview ? 'preview' : 'production' })
+    const tokens = []
+    const route = load('src/app/api/download/capability-statement/route.ts', {
+      'next/server': json, '@/lib/enquiry-delivery': delivery,
+      '@/lib/download-token.mjs': { createDownloadToken: (...args) => { tokens.push(args); return 'signed-fixture' } },
+    }, { process: { env: { DOWNLOAD_SIGNING_SECRET: 'fixture', VERCEL_ENV: preview ? 'preview' : 'production' } } })
+    const response = await route.POST(request({ firstname: 'QA Fixture', email: input.email, submissionId: input.submissionId }))
+    assert.equal(response.status, 200)
+    const result = await response.json()
+    assert.equal(result.preview, preview)
+    assert.equal(result.downloadUrl, '/api/file/YOS-Capability-Statement.pdf?t=signed-fixture')
+    assert.equal(tokens.length, 1)
+    assert.equal(tokens[0][0], 'YOS-Capability-Statement.pdf')
+    assert.equal(messages.length, preview ? 0 : 1)
+  }
+})

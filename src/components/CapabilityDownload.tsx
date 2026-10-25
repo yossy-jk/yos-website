@@ -1,6 +1,6 @@
 'use client'
 import { postEnquiry } from '@/lib/enquiry'
-import { useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { trackConversion } from '@/lib/analytics'
 
 interface Props {
@@ -19,7 +19,18 @@ export default function CapabilityDownload({
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const modalRef = useRef<HTMLDivElement>(null)
+  const modalRef = useRef<HTMLDialogElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const dialog = modalRef.current
+    const previousFocus = document.activeElement as HTMLElement | null
+    dialog?.showModal()
+    return () => {
+      dialog?.close()
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true })
+    }
+  }, [open])
 
   const baseStyles =
     'inline-flex items-center gap-3 font-bold text-sm cursor-pointer transition-all duration-200 min-h-[58px] px-9 justify-center no-underline shadow-sm hover:-translate-y-0.5 hover:shadow-lg'
@@ -46,17 +57,23 @@ export default function CapabilityDownload({
   }
 
   // Close on backdrop click
-  function handleBackdrop(e: React.MouseEvent<HTMLDivElement>) {
+  function handleBackdrop(e: React.MouseEvent<HTMLDialogElement>) {
     if (e.target === modalRef.current) closeModal()
   }
 
-  // Close on Escape
-  function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (e.key === 'Escape') closeModal()
+  // Keep keyboard navigation within the open dialog.
+  function handleKeyDown(e: React.KeyboardEvent<HTMLDialogElement>) {
+    if (e.key !== 'Tab') return
+    const controls = modalRef.current?.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), a[href]')
+    if (!controls?.length) return
+    const first = controls[0], last = controls[controls.length - 1]
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (loading) return
     setError('')
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -74,7 +91,7 @@ export default function CapabilityDownload({
 
       const data = await res.json()
       if (!res.ok || !data.downloadUrl) {
-        setError(data.error ?? 'Something went wrong. Please try again.')
+        setError(res.status === 429 ? 'Please wait a few minutes before trying again. Your details are still here.' : 'We could not prepare your download. Your details are still here. Please try again.')
         setLoading(false)
         return
       }
@@ -88,11 +105,11 @@ export default function CapabilityDownload({
       a.click()
       document.body.removeChild(a)
 
-      trackConversion('capability_statement_download', { asset: 'YOS-Capability-Statement.pdf' })
+      if (!data.preview) trackConversion('capability_statement_download', { asset: 'YOS-Capability-Statement.pdf' })
 
       closeModal()
     } catch {
-      setError('Connection error. Please check your internet and try again.')
+      setError('We could not prepare your download. Your details are still here. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -126,10 +143,11 @@ export default function CapabilityDownload({
       </button>
 
       {open && (
-        <div
+        <dialog
           ref={modalRef}
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ background: 'rgba(10,59,56,0.75)', backdropFilter: 'blur(4px)' }}
+          style={{ background: 'rgba(10,59,56,0.75)', backdropFilter: 'blur(4px)', width: '100vw', height: '100dvh', maxWidth: 'none', maxHeight: 'none', margin: 0, border: 0, padding: '1rem' }}
+          onCancel={event => { event.preventDefault(); closeModal() }}
           onClick={handleBackdrop}
           onKeyDown={handleKeyDown}
           role="dialog"
@@ -138,12 +156,12 @@ export default function CapabilityDownload({
         >
           <div
             className="bg-white w-full max-w-lg overflow-hidden shadow-2xl"
-            style={{ maxHeight: '90vh', overflowY: 'auto', borderRadius: '1.5rem' }}
+            style={{ width: '100%', maxWidth: '32rem', maxHeight: '90dvh', overflowY: 'auto', borderRadius: '1.5rem' }}
           >
             {/* Header */}
             <div
               className="flex items-center justify-between px-7 pt-7 pb-6"
-              style={{ borderBottom: '1px solid #f0f0f0' }}
+              style={{ borderBottom: '1px solid #f0f0f0', padding: '1.5rem' }}
             >
               <div>
                 <p
@@ -174,7 +192,7 @@ export default function CapabilityDownload({
             </div>
 
             {/* Body */}
-            <div className="px-7 py-6">
+            <div className="px-7 py-6" style={{ padding: '1.5rem' }}>
               <p className="text-charcoal font-light leading-relaxed mb-6" style={{ fontSize: '0.95rem', lineHeight: 1.8 }}>
                 Get the concise YOS capability statement with our services, delivery approach and the sectors we support. No spam and no follow-up calls unless you ask.
               </p>
@@ -194,7 +212,7 @@ export default function CapabilityDownload({
                       autoComplete="given-name"
                       required
                       className="w-full border px-4 py-3 text-near-black font-light focus:outline-none focus:ring-2 focus:ring-teal/50 transition-shadow"
-                      style={{ borderRadius: '0.375rem', borderColor: '#d1d5db', fontSize: '0.95rem' }}
+                      style={{ borderRadius: '0.375rem', borderColor: '#d1d5db', fontSize: '0.95rem', padding: '0.75rem 1rem' }}
                     />
                   </div>
 
@@ -211,13 +229,13 @@ export default function CapabilityDownload({
                       autoComplete="email"
                       required
                       className="w-full border px-4 py-3 text-near-black font-light focus:outline-none focus:ring-2 focus:ring-teal/50 transition-shadow"
-                      style={{ borderRadius: '0.375rem', borderColor: '#d1d5db', fontSize: '0.95rem' }}
+                      style={{ borderRadius: '0.375rem', borderColor: '#d1d5db', fontSize: '0.95rem', padding: '0.75rem 1rem' }}
                     />
                   </div>
                 </div>
 
                 {error && (
-                  <p className="mt-4 text-red-600 font-medium" style={{ fontSize: '0.85rem' }}>
+                  <p role="alert" className="mt-4 text-red-700 font-medium" style={{ fontSize: '0.85rem' }}>
                     {error}
                   </p>
                 )}
@@ -239,7 +257,7 @@ export default function CapabilityDownload({
                       <svg className="animate-spin" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                         <path d="M21 12a9 9 0 1 1-6.219-8.56" />
                       </svg>
-                      Sending link...
+                      Preparing download...
                     </>
                   ) : (
                     <>
@@ -248,18 +266,18 @@ export default function CapabilityDownload({
                         <polyline points="7 10 12 15 17 10" />
                         <line x1="12" y1="15" x2="12" y2="3" />
                       </svg>
-                      Send My Copy
+                      Download My Copy
                     </>
                   )}
                 </button>
               </form>
 
               <p className="mt-4 text-center text-charcoal/50" style={{ fontSize: '0.75rem' }}>
-                Your details are stored in our CRM and will only be used to send you relevant updates.
+                Your request goes directly to the YOS team by email. This does not subscribe you to marketing.
               </p>
             </div>
           </div>
-        </div>
+        </dialog>
       )}
     </>
   )

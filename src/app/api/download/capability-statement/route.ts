@@ -39,13 +39,14 @@ export async function POST(req: Request) {
     const delivery = await enquiryResponse(new Request(req.url, { method: 'POST', headers: req.headers,
       body: JSON.stringify({ firstname, email, source: 'Capability Statement Download', submissionId: body.submissionId }) }))
     if (!delivery.ok) return delivery
+    const deliveryResult = await delivery.json()
 
     // The token contains only file scope and expiry. Its HMAC is verified server-side.
     const expiresAt = Math.floor(Date.now() / 1000) + DOWNLOAD_TTL
     const token = createDownloadToken(PDF_FILENAME, expiresAt, signingSecret)
     const downloadUrl = `${PDF_ROUTE}?t=${token}`
 
-    return NextResponse.json({ downloadUrl, expiresAt })
+    return NextResponse.json({ downloadUrl, expiresAt, preview: deliveryResult.preview === true })
   } catch (err) {
     console.error('[capability-download]', err)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
