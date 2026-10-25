@@ -78,6 +78,9 @@ function RegistrationPopup({ onClose }: PopupProps) {
   const [region, setRegion] = useState('Newcastle')
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [preview, setPreview] = useState(false)
+  const receiptRef = useRef<HTMLHeadingElement>(null)
+  useEffect(() => { if (submitted) receiptRef.current?.focus() }, [submitted])
   const [error, setError] = useState('')
   const dialogRef = useRef<HTMLDialogElement>(null)
   useEffect(() => {
@@ -92,21 +95,24 @@ function RegistrationPopup({ onClose }: PopupProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!firstname.trim() || !email.trim()) return
+    if (submitting || !firstname.trim() || !email.trim()) return
     setSubmitting(true)
     setError('')
 
     try {
       const res = await postEnquiry('/api/market-snapshot-register', { firstname: firstname.trim(), email: email.trim(), region })
-      if (res.ok) {
-        try { localStorage.setItem('snapshot-registered', '1') } catch { /* Optional popup suppression only. */ }
+      const result = await res.json()
+      if (res.ok && result.ok === true) {
+        setPreview(result.preview === true)
+        if (!result.preview) {
+          try { localStorage.setItem('snapshot-registered', '1') } catch { /* Optional popup suppression only. */ }
+        }
         setSubmitted(true)
-        setTimeout(onClose, 3500)
       } else {
-        setError('Something went wrong. Try again or email jk@yourofficespace.au.')
+        setError('We could not confirm delivery. Your details are still here. Please try again or email jk@yourofficespace.au.')
       }
     } catch {
-      setError('Something went wrong. Try again or email jk@yourofficespace.au.')
+      setError('We could not confirm delivery. Your details are still here. Please try again or email jk@yourofficespace.au.')
     }
 
     setSubmitting(false)
@@ -215,15 +221,15 @@ function RegistrationPopup({ onClose }: PopupProps) {
             </p>
           </div>
         ) : (
-          <div className="text-center" style={{ padding: '3rem 2.75rem' }}>
+          <div role="status" className="text-center" style={{ padding: '3rem 2.75rem' }}>
             <div className="w-14 h-14 rounded-sm bg-teal/10 flex items-center justify-center mx-auto mb-5">
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
                 <path d="M6 14l6 6 10-12" stroke="#00B5A5" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            <h3 className="text-near-black font-bold text-xl mb-3">Done. First edition coming your way.</h3>
+            <h3 ref={receiptRef} tabIndex={-1} className="text-near-black font-bold text-xl mb-3">{preview ? 'Preview completed.' : 'Registration received.'}</h3>
             <p className="text-mid-grey font-light text-sm" style={{ lineHeight: 1.8 }}>
-              Check your inbox, we&apos;ll send you the next edition when it drops.
+              {preview ? 'This preview has not sent an email.' : 'The YOS team has received your request for future editions. There is no fixed publication schedule.'}
             </p>
           </div>
         )}
@@ -274,7 +280,10 @@ export default function MarketSnapshotPageContent({
   const [popupOpen, setPopupOpen] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const openPopup = () => setPopupOpen(true)
+  const openPopup = () => {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    setPopupOpen(true)
+  }
   const closePopup = () => setPopupOpen(false)
 
   // Auto-show after 15s if not already registered
