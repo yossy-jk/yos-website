@@ -23,6 +23,7 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
   const [permission, setPermission] = useState(false)
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
   const [message, setMessage] = useState('')
+  const [preview, setPreview] = useState(false)
   const submissionId = useRef('')
   const lastAttempt = useRef<{ submissionId: string; email: string; permission: boolean } | null>(null)
   const replacements = useRef<{ submissionId: string; email: string }[]>([])
@@ -96,9 +97,10 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
       const response = await fetch('/api/service-checklist', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ service, email: address, followUpConsent: permission, submissionId: submissionId.current, replaces: replacements.current, page: pathname }) })
       const result = await response.json()
       if (!response.ok || !result.ok) throw Error('Please try again, or contact us for the checklist.')
+      setPreview(result.preview === true)
       setState('sent')
-      try { localStorage.setItem(CONVERTED, '1') } catch {}
-      if (!measured.current) {
+      if (!result.preview) { try { localStorage.setItem(CONVERTED, '1') } catch {} }
+      if (!result.preview && !measured.current) {
         measured.current = true
         try { trackConversion('service_checklist_request', { service }) } catch { /* Optional measurement never blocks delivery. */ }
       }
@@ -109,8 +111,8 @@ function ChecklistOffer({ enabled, pathname }: { enabled: boolean; pathname: str
     <div ref={panel} role="dialog" aria-modal="true" aria-labelledby="checklist-title" aria-describedby="checklist-detail" className="checklist-dialog">
       <button className="checklist-close" type="button" aria-label="Close checklist offer" onClick={() => setOpen(false)}>×</button>
       <p className="checklist-eyebrow">YOUR OFFICE SPACE · FREE CHECKLIST</p>
-      <h2 id="checklist-title">{state === 'sent' ? 'Your checklist is ready.' : offer.headline}</h2>
-      <p id="checklist-detail">{state === 'sent' ? 'Check your inbox for the download link. You can also open it below.' : offer.detail}</p>
+      <h2 id="checklist-title">{state === 'sent' ? (preview ? 'Preview completed.' : 'Your checklist is ready.') : offer.headline}</h2>
+      <p id="checklist-detail">{state === 'sent' ? (preview ? 'This preview has not sent an email. You can open the checklist below.' : 'Check your inbox for the download link. You can also open it below.') : offer.detail}</p>
       {state === 'sent' ? <><a className="checklist-action" href={offer.pdf} target="_blank" rel="noopener noreferrer">Open your checklist (PDF)</a><Link href={offer.servicePath}>Explore {offer.label.toLowerCase()}</Link></> : <form onSubmit={submit} aria-busy={state === 'sending'}>
         <label htmlFor="checklist-email">Your email address</label>
         <input id="checklist-email" name="email" type="email" autoComplete="email" maxLength={254} required value={email} onChange={e => setEmail(e.target.value)} disabled={state === 'sending'} />

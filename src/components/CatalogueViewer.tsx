@@ -29,6 +29,8 @@ export default function CatalogueViewer({
   const dialog = useRef<HTMLDialogElement>(null);
   const offerButton = useRef<HTMLButtonElement>(null);
   const shown = useRef(false);
+  const receipt = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { if (success) receipt.current?.focus() }, [success]);
 
   function openOffer() {
     shown.current = true;
@@ -80,6 +82,7 @@ export default function CatalogueViewer({
 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (busy) return;
     setBusy(true);
     setError("");
     const data = new FormData(event.currentTarget);
@@ -93,21 +96,21 @@ export default function CatalogueViewer({
         _honey: data.get("website") || "",
       });
       const result = await response.json();
-      if (!response.ok || !result.ok)
-        throw Error(
-          result.error || "We could not confirm delivery. Please try again.",
-        );
+      if (!response.ok || result.ok !== true) {
+        setError(response.status === 429 ? "Please wait before trying again, or call 02 4092 0733. Your details are still here." : "We could not confirm delivery. Your details are still here. Please retry or call 02 4092 0733.");
+        return;
+      }
       setPreview(result.preview === true);
       setSuccess(intent);
       setShopUrl(result.shopUrl || "");
-      trackConversion(
+      if (!result.preview) trackConversion(
         intent === "discount"
           ? "catalogue_discount_request"
           : "catalogue_discovery_request",
         { catalogue: catalogue.id },
       );
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Please try again.");
+    } catch {
+      setError("We could not confirm delivery. Your details are still here. Please retry or call 02 4092 0733.");
     } finally {
       setBusy(false);
     }
@@ -209,13 +212,13 @@ export default function CatalogueViewer({
                 Preview only: your request was checked, but no email was sent.
               </p>
             )}
-            <h2 id="catalogue-offer-title">
-              {success === "discount"
+            <h2 ref={receipt} tabIndex={-1} id="catalogue-offer-title">
+              {preview ? "Preview completed." : success === "discount"
                 ? "Your 5% code is on its way."
                 : "Let’s talk about your project."}
             </h2>
             <p>
-              {success === "discount"
+              {preview ? "No email was sent. You can continue browsing or use the links below." : success === "discount"
                 ? "Check your inbox for your first-order code and shopping link."
                 : "Your session request has been sent. Our team will contact you to arrange a time; no appointment is booked yet."}
             </p>
