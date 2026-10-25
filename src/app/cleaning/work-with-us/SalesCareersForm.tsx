@@ -206,6 +206,7 @@ export default function SalesCareersForm() {
             <button
               key={opt.value}
               type="button"
+              aria-pressed={channel.includes(opt.value)}
               onClick={() => toggle(channel, setChannel, opt.value)}
               style={{
                 padding: '0.65rem 1rem',
@@ -242,6 +243,7 @@ export default function SalesCareersForm() {
               <button
                 key={opt.value}
                 type="button"
+                aria-pressed={industry.includes(opt.value)}
                 onClick={() => toggle(industry, setIndustry, opt.value)}
                 style={{
                   padding: '0.65rem 0.875rem',
