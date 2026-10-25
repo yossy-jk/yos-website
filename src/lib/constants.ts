@@ -14,8 +14,8 @@ export const ENQUIRY = {
   contactUrl: '/contact#contact-enquiry',
 }
 
-// Public Outlook-connected booking page; enquiry email delivery remains independent.
-export const DISCOVERY_BOOKING_URL = 'https://bookings.cloud.microsoft/bookwithme/user/22b335abe25a42329fe8b249c3313606%40yourofficespace.au?anonymous&ismsaljsauthenabled'
+// Direct 15-minute initial discovery booking; enquiry email delivery stays independent.
+export const DISCOVERY_BOOKING_URL = 'https://bookings.cloud.microsoft/bookwithme/user/22b335abe25a42329fe8b249c3313606%40yourofficespace.au/meetingtype/xgiD8hPbTUmAq_UVWu_5Zg2?anonymous&ismsaljsauthenabled'
 
 // Top-level nav — Services is a dropdown
 export const NAV_LINKS = [
