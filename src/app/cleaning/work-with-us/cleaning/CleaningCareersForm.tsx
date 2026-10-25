@@ -149,6 +149,7 @@ export default function CleaningCareersForm() {
             <button
               key={t}
               type="button"
+              aria-pressed={appType === t}
               onClick={() => setAppType(t)}
               style={{
                 padding: '1rem',
@@ -210,6 +211,7 @@ export default function CleaningCareersForm() {
               <button
                 key={opt.value}
                 type="button"
+                aria-pressed={experience.includes(opt.value)}
                 onClick={() => toggleExp(opt.value)}
                 style={{
                   padding: '0.65rem 0.875rem',
@@ -249,6 +251,7 @@ export default function CleaningCareersForm() {
             <button
               key={opt.value}
               type="button"
+              aria-pressed={availability.includes(opt.value)}
               onClick={() => toggleAvail(opt.value)}
               style={{
                 padding: '0.65rem 1rem',
