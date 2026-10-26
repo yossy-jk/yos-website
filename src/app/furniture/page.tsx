@@ -18,7 +18,7 @@ import ServiceFaq from '@/components/ServiceFaq'
 
 export const metadata: Metadata = withPageSeo({
   title: 'Office Furniture Newcastle | Your Office Space',
-  description: 'Office furniture in Newcastle and the Hunter: workstations, seating, boardrooms and storage, with quoting, delivery and installation coordination across Australia.',
+  description: 'Office furniture in Newcastle and the Hunter: workstations, seating, boardrooms and storage, with product quoting and site-specific delivery and installation coordination.',
   alternates: { canonical: 'https://www.yourofficespace.au/furniture' },
   openGraph: {
     title: 'Office Furniture Newcastle | Your Office Space',
@@ -34,8 +34,8 @@ const WRAP = 'max-w-screen-xl mx-auto'
 const PAD = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 const SEC = { paddingTop: 'clamp(4rem,8vw,8rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }
 const CATEGORIES = [
-  ['Desks & workstations', 'Fixed-height, sit-stand and workstation systems selected for the team, floorplate and technology.', 'List the desks used on your busiest day, screen sizes and any existing workstations you want to retain.', '/blog/adaptable-office-furniture-growth-relocation', 'Plan furniture for growth and relocation'],
-  ['Task & executive seating', 'Commercial seating assessed for ergonomics, durability, adjustability and daily use.', 'Record who uses each chair, typical daily use and the adjustments or sample checks you want to discuss.', '/blog/compare-office-furniture-quotes-installed-cost', 'Compare specifications and installed quotes'],
+  ['Desks & workstations', 'Fixed-height, sit-stand and workstation systems selected for the team, floorplate and technology.', 'List the desks used on your busiest day, screen sizes and any existing workstations you want to retain.', '/blog/office-desks-newcastle', 'Compare office desks and use the buying checklist'],
+  ['Task & executive seating', 'Commercial seating assessed for ergonomics, durability, adjustability and daily use.', 'Record who uses each chair, typical daily use and the adjustments or sample checks you want to discuss.', '/blog/office-chairs-newcastle', 'Compare office chairs and use the buying checklist'],
   ['Meeting & boardroom', 'Tables, seating, power and presentation requirements resolved as one setting.', 'Include usual and maximum meeting numbers, room dimensions, screen positions and any power or cable requirements.', '/blog/standard-modified-custom-office-furniture-newcastle', 'Compare standard, modified and custom options'],
   ['Storage & lockers', 'Personal, team and document storage planned around what genuinely needs a home.', 'Measure what you need to store and identify usable cabinets before adding new storage to the furniture schedule.', '/blog/office-furniture-reuse-audit-newcastle', 'Audit what you can retain or reuse'],
   ['Breakout & collaboration', 'Flexible settings for informal meetings, focused work, waiting and reset time.', 'Describe the activities and expected group sizes, and note any shared space that needs to serve more than one purpose.', '/resources/workspace-builder', 'Build a workplace furniture brief'],
@@ -106,6 +106,27 @@ export default function FurniturePage() {
     </div></section>
 
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><div className="bg-white rounded-3xl p-8 sm:p-12 lg:p-16 flex flex-col lg:flex-row gap-8 items-start lg:items-center"><div className="flex-1"><SectionLabel>More than furniture?</SectionLabel><h2 className="text-near-black mt-3 mb-3 text-3xl">Planning building work as well?</h2><p className="text-charcoal leading-relaxed">Our separate fit out service provides client-side project management across brief, budget, design, procurement and delivery.</p></div><Button href="/office-fitout" variant="outline" size="lg">Explore fit out</Button></div></div></section>
+    <section className="bg-white" style={SEC} aria-labelledby="furniture-buying-pack"><div className={WRAP} style={PAD}>
+      <SectionLabel onLight>Office furniture Newcastle: buying resources</SectionLabel>
+      <h2 id="furniture-buying-pack" className="text-near-black text-3xl" style={{ marginTop: 20, marginBottom: 24 }}>A complete order starts with a complete brief.</h2>
+      <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 24 }}>Use our Newcastle buying guide and four-page planning pack to list each room, compare what is included in supplier quotes and record delivery checks. Keep retained furniture, optional additions and unconfirmed dates visible.</p>
+      <div className="flex flex-col sm:flex-row gap-4"><Button href="/blog/office-furniture-newcastle" variant="primary">Read the Newcastle buying guide</Button><Button href="/guides/furniture-ordering-checklist.pdf" variant="outline">Download the furniture pack (PDF)</Button></div>
+      <p className="text-charcoal text-sm" style={{ marginTop: 20 }}>12 checks, a product schedule, quote comparison and delivery record. No email required. Availability, suitability and installation scope are confirmed for your order.</p>
+    </div></section>
+    <section className="bg-warm-grey" style={SEC} aria-labelledby="office-desks-newcastle"><div className={WRAP} style={PAD}>
+      <SectionLabel onLight>Office desks Newcastle</SectionLabel>
+      <h2 id="office-desks-newcastle" className="text-near-black text-3xl" style={{ marginTop: 20, marginBottom: 24 }}>Measure the workstation before choosing the desk.</h2>
+      <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 20 }}>Compare straight desks, corner returns, sit-stand desks and shared workstations against the tasks, equipment and measured layout. Confirm the exact dimensions, orientation, accessories, delivery route and installation scope before ordering.</p>
+      <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 24 }}>For a single desk, browse the current <a href="https://www.yourofficefurniture.com.au/collections/workstations" className="text-action-teal underline font-semibold">YOF workstation range</a>. For a team or mixed layout, send the floor plan, quantities, retained furniture and target date for a project quote. Product availability and suitability are confirmed for the brief.</p>
+      <div className="flex flex-col sm:flex-row gap-4"><Button href="/blog/office-desks-newcastle" variant="primary">Read the Newcastle desk guide</Button><Button href="/guides/office-desk-buying-checklist-newcastle.pdf" variant="outline">Download the desk checklist (PDF)</Button></div>
+    </div></section>
+    <section className="bg-white" style={SEC} aria-labelledby="office-chairs-newcastle"><div className={WRAP} style={PAD}>
+      <SectionLabel onLight>Office chairs Newcastle</SectionLabel>
+      <h2 id="office-chairs-newcastle" className="text-near-black text-3xl" style={{ marginTop: 20, marginBottom: 24 }}>Compare the chair with the person, task and desk.</h2>
+      <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 20 }}>Task seating, meeting chairs and visitor seating serve different purposes. Record adjustment needs, the existing workstation and written product specifications. Ask about demonstration or assessment options where available; trial and return terms must be confirmed for the actual product.</p>
+      <p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 24 }}>Browse <a href="https://www.yourofficefurniture.com.au/collections/seating" className="text-action-teal underline font-semibold">YOF seating</a> or discuss a coordinated chair order. The buying checklist helps compare model, adjustments, intended use, delivered scope and support. Seek appropriate advice for individual ergonomic or health concerns.</p>
+      <div className="flex flex-col sm:flex-row gap-4"><Button href="/blog/office-chairs-newcastle" variant="primary">Read the Newcastle chair guide</Button><Button href="/guides/office-chair-buying-checklist-newcastle.pdf" variant="outline">Download the chair checklist (PDF)</Button></div>
+    </div></section>
     <PlanningResources kind="furniture" />
     <CatalogueCards />
     <ServiceFaq items={FAQS} />
