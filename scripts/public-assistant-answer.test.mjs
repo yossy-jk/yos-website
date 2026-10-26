@@ -57,3 +57,12 @@ test('a limiter timeout cannot admit a paid AI call, even if the SDK returns suc
   assert.equal(answers.assistantLimitAllows({ success: false }), false)
   assert.equal(answers.assistantLimitAllows({ success: true }), true)
 })
+
+test('website fallback is client-facing and avoids unrelated fitout advice for furniture delivery', () => {
+  for (const question of ['Where do you clean?', 'height adjustable desks', 'phone pods']) {
+    assert.doesNotMatch(publicAssistantFallback(question).answer, /Do not promise|Do not claim/)
+  }
+  const response = publicAssistantFallback('Can Your Office Furniture deliver to Darwin?')
+  assert.match(response.answer, /Northern Territory.*excluded/)
+  assert.doesNotMatch(response.answer, /client-side FitOut/)
+})
