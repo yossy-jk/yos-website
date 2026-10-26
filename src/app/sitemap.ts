@@ -38,7 +38,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/resources`, lastModified: '2026-10-22',                           changeFrequency: 'weekly',  priority: 0.8 },
     { url: `${BASE}/resources/cap-rate-calculator`, lastModified: '2026-10-22', changeFrequency: 'yearly', priority: 0.65 },
     { url: `${BASE}/resources/lease-review`,              changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${BASE}/resources/fitout-estimator`, lastModified: '2026-10-22', changeFrequency: 'monthly', priority: 0.75 },
+    { url: `${BASE}/resources/fitout-estimator`, lastModified: '2026-10-27', changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/resources/lease-comparison`,          changeFrequency: 'monthly', priority: 0.75 },
     { url: `${BASE}/resources/office-size-calculator`,    changeFrequency: 'yearly',  priority: 0.7 },
     { url: `${BASE}/resources/workspace-builder`,         changeFrequency: 'monthly', priority: 0.65 },
