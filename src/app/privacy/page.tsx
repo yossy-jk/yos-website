@@ -70,7 +70,7 @@ export default function PrivacyPage() {
           </FadeIn>
           <FadeIn delay={220}>
             <p className="text-white/25 font-light mt-6" style={{ fontSize: '0.82rem' }}>
-              Last updated: 23 October 2026
+              Last updated: 26 October 2026
             </p>
           </FadeIn>
         </div>
@@ -80,6 +80,12 @@ export default function PrivacyPage() {
       <section className="bg-white" style={SEC}>
         <div className={WRAP} style={PAD}>
           <div className="max-w-3xl prose-style">
+
+            <PrivacySection title="Website assistant and optional follow-up">
+              <p>The public YOS and Your Office Furniture assistant answers questions using reviewed public website information. Questions and recent question context may be sent to our AI provider, MiniMax, to prepare an answer. Please do not enter contact details, order numbers, passwords or confidential client information in the question box. The assistant cannot access individual orders, accounts or projects.</p>
+              <p>Chat history stays in the current page session and is not saved as a chat transcript by our website. We use temporary, hashed network identifiers and request counters to limit abuse and AI usage. Provider processing is subject to the provider’s own privacy practices.</p>
+              <p>If you choose a team follow-up, the separate form asks for your name, email, optional phone and business, an editable enquiry summary and permission to contact you. The form details and the summary you submit are emailed to the YOS team; the full chat transcript is not sent. This does not subscribe you to marketing. You can ask public questions without submitting the follow-up form.</p>
+            </PrivacySection>
 
             <PrivacySection title="Who we are">
               <p>

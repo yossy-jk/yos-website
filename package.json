@@ -7,7 +7,7 @@
     "build": "node scripts/check-tenant-offer.mjs && next build",
     "start": "next start",
     "lint": "node --test scripts/next-root-glob.test.mjs && eslint",
-    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links && npm run test:sitemap-content && npm run test:case-study-publication && npm run test:enquiry-measurement && npm run test:tenant-journey && npm run test:sitewide-enquiries && npm run test:lease-upload && npm run test:enquiry-email && npm run test:tenant-payments && npm run test:catalogues && npm run test:furniture-enquiry && npm run test:lease-consolidation && npm run test:cap-rate && npm run test:service-checklist && npm run test:private-api && npm run test:team-interest && npm run test:fireflies && npm run test:lease-review",
+    "test": "npm run test:credential-scan && npm run test:download-token && npm run test:fitout-estimate && npm run test:auth-v2-session && npm run test:deployment-scope && npm run test:nav-accessibility && npm run test:form-accessibility && npm run test:conversion-integrity && npm run test:technical-integrity && npm run test:color-contrast && npm run test:audit-dependencies && npm run test:main-landmark && npm run test:internal-links && npm run test:sitemap-content && npm run test:case-study-publication && npm run test:enquiry-measurement && npm run test:tenant-journey && npm run test:sitewide-enquiries && npm run test:lease-upload && npm run test:enquiry-email && npm run test:tenant-payments && npm run test:catalogues && npm run test:furniture-enquiry && npm run test:lease-consolidation && npm run test:cap-rate && npm run test:service-checklist && npm run test:private-api && npm run test:team-interest && npm run test:fireflies && npm run test:lease-review && npm run test:public-assistant",
     "test:credential-scan": "node --test scripts/scan-source-credentials.test.mjs",
     "test:download-token": "node --test src/lib/download-token.test.mjs",
     "test:fitout-estimate": "node --no-warnings --experimental-strip-types --test src/lib/fitout-estimate.test.ts",
@@ -50,7 +50,8 @@
     "test:team-interest": "node --test scripts/team-interest.test.mjs",
     "test:lease-review": "node --no-warnings --experimental-strip-types --test src/lib/lease-review.test.ts",
     "test:fireflies": "node --test scripts/fireflies-webhook.test.mjs",
-    "test:fireflies-redis": "node --test scripts/fireflies-queue-redis.test.mjs"
+    "test:fireflies-redis": "node --test scripts/fireflies-queue-redis.test.mjs",
+    "test:public-assistant": "node --no-warnings --experimental-strip-types --test src/lib/public-assistant.test.ts && node --test scripts/public-assistant-answer.test.mjs"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",
