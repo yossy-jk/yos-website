@@ -20,7 +20,7 @@ const STEPS = [
   { id: 'service',     title: 'What are you after?',     subtitle: 'Furniture only or a full turnkey fitout?' },
   { id: 'space',       title: 'Tell us about the space',  subtitle: 'Floor area and building type' },
   { id: 'shell',       title: 'What is the space now?',  subtitle: 'Cold shell or warm shell - this changes the estimate significantly' },
-  { id: 'quality',     title: 'What quality level?',     subtitle: 'This drives the biggest cost variable' },
+  { id: 'quality',     title: 'What quality level?',     subtitle: 'Define the specification alongside shell condition and services' },
   { id: 'wkstype',     title: 'Workstation type',         subtitle: 'Fixed or adjustable - different cost, different feel' },
   { id: 'workstations',title: 'Workstations and meeting rooms', subtitle: 'Your day-to-day workspace needs' },
   { id: 'spaces',      title: 'Additional spaces',       subtitle: 'Kitchen, reception, AV and tech' },
@@ -196,6 +196,10 @@ export default function FitoutEstimatorPage() {
               <p className="text-white/60 font-light leading-relaxed" style={{ fontSize: '1.05rem', lineHeight: 1.85, marginBottom: '3rem' }}>
                 Explore a planning range using your floor area, quality level, workstation needs and selected extras, with a contingency allowance included. Confirm the actual project scope and quotes before committing.
               </p>
+              <aside aria-label="Understand your fitout budget" className="border border-white/20 rounded-lg p-5 mb-8 text-white/80 leading-relaxed">
+                <p>Use $/m² as a guide. Furniture, mechanical services and other scope differences can substantially change the rate. This tool cannot assess building services or replace a coordinated design and project-specific budget.</p>
+                <Link href="/blog/commercial-fitout-cost-newcastle-2026" className="text-white underline font-semibold inline-block mt-3">Compare Newcastle fitout costs, shells and finish levels</Link>
+              </aside>
               <div className="grid grid-cols-1 sm:grid-cols-3" style={{ gap: '1.25rem', marginBottom: '3.5rem' }}>
                 {[
                   { num: '01', label: '5 quick questions' },
@@ -336,7 +340,7 @@ export default function FitoutEstimatorPage() {
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Cold shell</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
-                    Base build in place. No ceiling, no HVAC extension, no existing services. Lower base cost but more groundwork required.
+                    More tenancy infrastructure or finishes may need to be installed. Confirm ceilings, services connections and the landlord handover scope before relying on the allowance.
                   </p>
                 </button>
                 <button onClick={() => set('shellCondition', 'warm')}
@@ -347,7 +351,7 @@ export default function FitoutEstimatorPage() {
                   </div>
                   <p className="text-white font-black uppercase" style={{ fontSize: '0.95rem', marginBottom: '0.625rem' }}>Warm shell</p>
                   <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
-                    Existing ceiling grid, HVAC to tenant area, and fire services already in place. A clean base to work from. Most common for commercial tenancies.
+                    Some base-building services or finishes are assumed to be available for reuse. Confirm their condition and suitability for the proposed layout and headcount.
                   </p>
                 </button>
               </div>
@@ -378,15 +382,15 @@ export default function FitoutEstimatorPage() {
                             <span className="text-white font-black uppercase" style={{ fontSize: '1rem' }}>{r.label}</span>
                           </div>
                           <p className="text-white/50 font-light leading-relaxed" style={{ fontSize: '0.875rem', lineHeight: 1.6 }}>
-                            {key === 'basic' && 'Functional. Does the job. No frills. Best for short-term tenancies or tight budgets.'}
-                            {key === 'mid' && 'Professional standard. Quality materials, considered design, full technology. The right choice for most growing businesses.'}
+                            {key === 'basic' && 'Functional specification using standard products. Confirm durability, operational needs and the actual scope.'}
+                            {key === 'mid' && 'Considered materials and workplace features. Technology and room allowances depend on your selections and confirmed scope.'}
                             {key === 'premium' && 'High-specification. Premium materials, integrated technology, architectural design. Makes a clear statement.'}
                           </p>
                         </div>
                         <div className="text-right flex-shrink-0">
                           <p className="text-white/40 font-light" style={{ fontSize: '0.7rem', letterSpacing: '0.05em', marginBottom: '0.2rem' }}>
                             {key === 'basic' && 'Entry level'}
-                            {key === 'mid' && 'Most popular'}
+                            {key === 'mid' && 'Considered specification'}
                             {key === 'premium' && 'High specification'}
                           </p>
                         </div>
@@ -395,7 +399,7 @@ export default function FitoutEstimatorPage() {
                   )
                 })}
               </div>
-              <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Your full cost estimate - including all items - will be shown at the end.</p>
+              <p className="text-white/25 font-light mb-8" style={{ fontSize: '0.78rem' }}>Your model estimate for the listed allowances and selected extras will be shown at the end. Other project costs may still be required.</p>
               <div className="flex items-center" style={{ gap: '1.5rem' }}>
                 <button onClick={() => setStep(5)} disabled={!canProceed()}
                   className={`font-bold transition-all ${canProceed() ? 'bg-teal text-white hover:bg-dark-teal' : 'bg-white/10 text-white/30 cursor-not-allowed'}`}
@@ -611,6 +615,10 @@ export default function FitoutEstimatorPage() {
             <p className="text-white/30 font-light leading-relaxed mb-12" style={{ fontSize: '0.78rem', lineHeight: 1.85 }}>
               This range uses the tool’s stored planning allowances and your selections. It is not verified market evidence or a supplier quote. Confirm the site condition, inclusions, exclusions, timing and specialist inputs before relying on a project budget. All figures exclude GST.
             </p>
+            <aside aria-label="Review your budget assumptions" className="border border-white/20 rounded-lg p-5 mb-8 text-white/80 leading-relaxed">
+              <p>The total per m² combines the listed model allowances, selected extras and contingency. It is not a construction-only rate or a complete business-case budget. Check furniture and mechanical scope for gaps or double counting, then refine the design and pricing against your funding envelope.</p>
+              <Link href="/blog/commercial-fitout-cost-newcastle-2026" className="text-white underline font-semibold inline-block mt-3">Read the Newcastle cost and business-case guide</Link>
+            </aside>
             {/* Email capture, teaser summary, then email ask */}
             <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)', marginBottom: '2rem' }}>
               <div style={{ width: '2.5rem', height: '3px', background: '#00B5A5', borderRadius: '2px', marginBottom: '1.25rem' }} />

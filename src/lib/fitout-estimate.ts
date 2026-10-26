@@ -126,8 +126,8 @@ export function calculateFitoutEstimate(inputs: FitoutInputs) {
     coverageNote: isFurniture
       ? 'Price is for supply and installation of furniture items listed. Excludes construction, electrical, and joinery.'
       : rateKey === 'turnkey-cold'
-        ? 'Cold shell condition assumed. Base build services and ceiling works are included.'
-        : 'Warm shell condition assumed. Base build services already in place.',
+        ? 'Cold shell model allowance includes an assumed contribution for base services and ceiling works, not a site-assessed scope. Major mechanical or other services upgrades may exceed it; confirm landlord and tenant responsibilities.'
+        : 'Warm shell model assumes usable base-building services are already in place. Suitability, capacity and alterations require specialist assessment; major mechanical upgrades are not individually assessed.',
     joineryNote: isFurniture
       ? 'If your fitout includes built-in joinery or custom storage (reception desks, kitchenettes, bookshelves), budget an additional 25-35% on top of this estimate. Speak to us for a joinery quote alongside your furniture package.'
       : null,
