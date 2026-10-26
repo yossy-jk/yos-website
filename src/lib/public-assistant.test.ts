@@ -12,6 +12,9 @@ test('matches actual enquiries to relevant public evidence', () => {
     ['What phone meeting pods do you have?', 'pods'],
     ['Can I visit a showroom?', 'yof-contact'],
     ['Is delivery available to Northern Territory?', 'yof'],
+    ['Can you supply furniture to Darwin, and are you the builder for our fit out?', 'yof'],
+    ['Can you arrange office plant hire or electrical test and tag?', 'flourish'],
+    ['What tables and reception furniture do you sell?', 'range'],
     ['Can you give us a furniture project quote?', 'yof-quote'],
   ]) assert.ok(selectAssistantSources(question).some(source => source.id === id), `${question}: ${id}`)
 })
