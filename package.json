@@ -51,7 +51,7 @@
     "test:lease-review": "node --no-warnings --experimental-strip-types --test src/lib/lease-review.test.ts",
     "test:fireflies": "node --test scripts/fireflies-webhook.test.mjs",
     "test:fireflies-redis": "node --test scripts/fireflies-queue-redis.test.mjs",
-    "test:public-assistant": "node --no-warnings --experimental-strip-types --test src/lib/public-assistant.test.ts && node --test scripts/public-assistant-answer.test.mjs"
+    "test:public-assistant": "node --no-warnings --experimental-strip-types --test src/lib/public-assistant.test.ts && node --test scripts/public-assistant-answer.test.mjs && node --test scripts/public-assistant-routes.test.mjs"
   },
   "dependencies": {
     "@fal-ai/client": "^1.10.1",
