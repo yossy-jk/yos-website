@@ -85,6 +85,14 @@ export default function OfficeFitoutPage() {
       <p>YOS coordinates the client-side project. Appointed contractors carry out the building and trade work.</p>
       <Button href="#fitout-enquiry" variant="dark">Discuss your refurbishment</Button>
     </div></section>
+    <section className="bg-white" style={SEC} aria-labelledby="newcastle-planning-pack"><div className={WRAP} style={PAD}>
+      <SectionLabel onLight>Office fitout Newcastle: planning pack</SectionLabel>
+      <h2 id="newcastle-planning-pack" className="text-near-black text-3xl mt-4 mb-6">Bring the same brief to every project conversation.</h2>
+      <p className="text-charcoal leading-relaxed max-w-3xl mb-6">Before comparing quotes, record the premises, essential opening-day needs, landlord requirements and what is still unconfirmed. Our Newcastle guide connects those questions with budget, approval responsibilities, procurement and handover.</p>
+      <ul className="text-charcoal leading-relaxed space-y-3 mb-8"><li><strong>Premises:</strong> check available plans, existing condition, loading and goods-lift access with the building manager.</li><li><strong>Proposals:</strong> compare one scope revision, quantities, allowances, exclusions and delivery responsibilities.</li><li><strong>Readiness:</strong> give each decision, required document and outstanding handover item an owner.</li></ul>
+      <div className="flex flex-col sm:flex-row gap-4"><Button href="/blog/office-fitout-newcastle-planning-checklist" variant="primary">Read the Newcastle planning guide</Button><Button href="/guides/fitout-project-checklist.pdf" variant="outline">Download the planning pack (PDF)</Button></div>
+      <p className="text-charcoal text-sm mt-5">Four pages: 12 checks, a premises brief, quote comparison and decision register. No email required. Planning prompts, not an approval assessment or construction quote.</p>
+    </div></section>
     <PlanningResources kind="project" />
     <WorkplaceGuides kind="project" />
     <ServiceFaq items={FAQS} />

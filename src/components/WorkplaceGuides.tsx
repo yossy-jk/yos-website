@@ -25,6 +25,7 @@ const COLLECTIONS = {
     "Plan the workplace delivery",
     "Connect your Newcastle project budget, delivery responsibilities and handover checks.",
     [
+      "office-fitout-newcastle-planning-checklist",
       "commercial-fitout-cost-newcastle-2026",
       "commercial-construction-project-manager-vs-builder-newcastle",
       "office-fitout-handover-checklist"

@@ -160,7 +160,7 @@ function renderBody(body: string, slug: string) {
       <ol key={key++} style={{ margin: '1.5rem 0 2rem', padding: 0, listStyle: 'none', counterReset: 'yos-counter' }}>
         {numberedBuffer.map((item, i) => (
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1.25rem', marginBottom: '1rem', counterIncrement: 'yos-counter' }}>
-            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: '#00B5A5', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
+            <span style={{ flexShrink: 0, minWidth: '1.75rem', height: '1.75rem', background: 'var(--color-action-teal)', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', fontWeight: 800, marginTop: '0.15em' }}>
               {i + 1}
             </span>
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300, flex: 1 }}>
