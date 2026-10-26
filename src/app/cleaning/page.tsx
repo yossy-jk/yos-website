@@ -32,13 +32,13 @@ const CLEANING_FAQS = [
 ] as const
 
 export const metadata = withPageSeo({
-  title: 'Commercial Cleaning Newcastle & Lake Macquarie | YOS',
+  title: 'Office Cleaning Newcastle & Lake Macquarie | YOS',
   description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with a documented Scope of Works, consistent teams wherever possible and a site-specific proposal.',
   twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope, consistent teams wherever possible and direct quality management.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
     title: 'Commercial Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space',
-    description: 'Commercial cleaning for Newcastle offices and workplaces, with a clear scope, a consistent team and monthly quality checks.',
+    description: 'Office cleaning for Newcastle CBD and Lake Macquarie, with a clear scope, consistent teams wherever possible and regular quality checks.',
     url: 'https://www.yourofficespace.au/cleaning',
     images: [{ url: '/og/og-cleaning.png', width: 1200, height: 630, alt: 'Commercial Office Cleaning Newcastle | Consistent, Accountable, Local | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -59,18 +59,10 @@ export default function CleaningPage() {
             "@id": "https://www.yourofficespace.au/cleaning#service",
             "name": "Commercial Cleaning Newcastle",
             "provider": { "@id": "https://www.yourofficespace.au/#organization" },
-            "description": "Commercial cleaning for workplaces in Newcastle CBD and Lake Macquarie, with a consistent team and monthly quality assurance.",
+            "description": "Office cleaning for workplaces in Newcastle CBD and Lake Macquarie, with a documented scope and regular quality assurance.",
             "areaServed": [
-              { "@type": "City", "name": "Newcastle" },
-              { "@type": "City", "name": "Lake Macquarie" },
-              { "@type": "City", "name": "Charlestown" },
-              { "@type": "City", "name": "Merewether" },
-              { "@type": "City", "name": "Adamstown" },
-              { "@type": "City", "name": "Kotara" },
-              { "@type": "City", "name": "Wallsend" },
-              { "@type": "City", "name": "Cardiff" },
-              { "@type": "City", "name": "Cameron Park" },
-              { "@type": "State", "name": "New South Wales" }
+              { "@type": "Place", "name": "Newcastle CBD" },
+              { "@type": "City", "name": "Lake Macquarie" }
             ],
             "serviceType": "Commercial Cleaning",
             "url": "https://www.yourofficespace.au/cleaning"
@@ -91,14 +83,14 @@ export default function CleaningPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              A clean office, every visit,<br />
-              <span className="text-teal">without chasing anyone.</span>
+              Office cleaning Newcastle.<br />
+              <span className="text-teal">A clear scope. An accountable team.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              The same team every visit, monthly quality assurance overseen by Sarah, and a clear Scope of Works for workplaces in Newcastle CBD and Lake Macquarie.
+              Office cleaning for Newcastle CBD and Lake Macquarie, with a documented Scope of Works, consistent teams wherever possible and quality assurance overseen by Sarah.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -116,6 +108,14 @@ export default function CleaningPage() {
         </div>
       </section>
 
+      <section className="bg-white" style={SEC_SM} aria-labelledby="office-cleaning-pack"><div className="max-w-screen-xl mx-auto" style={PAD}>
+        <SectionLabel onLight>Office cleaning Newcastle: scope and checklist</SectionLabel>
+        <h2 id="office-cleaning-pack" className="text-near-black text-3xl" style={{ marginTop: 20, marginBottom: 24 }}>Compare the same tasks, frequency and standards.</h2>
+        <p className="text-charcoal leading-relaxed" style={{ maxWidth: '48rem', marginBottom: 24 }}>List each area, its tasks and the visit pattern. Keep periodic detail work, consumables, access and exclusions visible before comparing proposals. Our guide and four-page planning pack help you prepare that conversation and record quality-review actions.</p>
+        <div className="flex flex-col sm:flex-row gap-4"><Button href="/blog/commercial-cleaning-newcastle-what-to-expect" variant="primary">Read the office cleaning guide</Button><Button href="/guides/workplace-cleaning-scope-checklist.pdf" variant="outline">Download the cleaning pack (PDF)</Button></div>
+        <p className="text-charcoal text-sm" style={{ marginTop: 20 }}>No email required. Current service area: Newcastle CBD and Lake Macquarie. A site inspection and written proposal confirm the actual scope and service arrangements.</p>
+      </div></section>
+
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5"
         style={SEC_SM}>
@@ -123,7 +123,7 @@ export default function CleaningPage() {
           <div className="max-w-screen-xl mx-auto" style={PAD}>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white/5">
               {[
-                { stat: 'Same team', label: 'Every visit, no surprises' },
+                { stat: 'Consistent team', label: 'Wherever possible, with documented site notes' },
                 { stat: 'Monthly', label: 'Quality audits on every site' },
                 { stat: 'After hours', label: 'Timing agreed around your workplace' },
                 { stat: 'Clear scope', label: 'Tasks and standards documented' },
@@ -276,9 +276,9 @@ export default function CleaningPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
             {[
               {
-                title: 'Same team, every time',
-                body: 'No rotating cast of contractors. The same people clean your space every visit. They learn your building. They know what matters. Consistency builds trust.',
-                aside: 'Familiarity = fewer mistakes.'
+                title: 'Consistency with a documented handover',
+                body: 'We aim to keep the same team on each site wherever possible. Documented scopes and site notes support a clear handover when cover or a change is needed.',
+                aside: 'Site knowledge stays connected to the scope.'
               },
               {
                 title: 'Monthly quality audits',
@@ -356,10 +356,10 @@ export default function CleaningPage() {
                   Tell us about your space.
                 </h2>
                 <p className="text-white/60 font-light leading-relaxed mb-8" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
-                  We cover Newcastle CBD and Lake Macquarie. After the site inspection, we prepare your tailored quote within 24 hours.
+                  We cover Newcastle CBD and Lake Macquarie. A site inspection informs the tailored proposal, with scope, service frequency and commencement arrangements confirmed for your workplace.
                 </p>
                 <div className="flex flex-col gap-2 text-white/40 text-sm">
-                  {["Newcastle CBD", "Lake Macquarie", "Same team every visit", "Monthly QA overseen by Sarah", "Quote within 24 hours of site inspection"].map(s => (
+                  {["Newcastle CBD", "Lake Macquarie", "Consistent teams wherever possible", "Monthly QA overseen by Sarah", "Site-specific proposal after inspection"].map(s => (
                     <span key={s} className="flex items-center gap-2"><CheckIcon />{s}</span>
                   ))}
                 </div>
