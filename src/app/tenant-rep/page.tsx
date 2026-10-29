@@ -350,7 +350,7 @@ export default function Page() {
           <Link href="/tenant-rep/packages">Compare the package details</Link>
         </div>
       </section>
-      <section className="tenant-section">
+      <section className="tenant-section" id="roi-guarantee">
         <div className="tenant-wrap tenant-two">
           <div>
             <p className="tenant-eyebrow">Commercial protection</p>

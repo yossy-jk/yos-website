@@ -121,15 +121,15 @@ function applyInternalLinks(text: string, currentSlug: string): React.ReactNode[
   return parts
 }
 
-function inlineRender(text: string, slug: string): React.ReactNode[] {
+function inlineRender(text: string, slug: string, exactCopy = false): React.ReactNode[] {
   return articleInlineTokens(text).map((token, i) => {
     if (token.kind === 'bold') return <strong key={i} style={{ fontWeight: 700, color: '#111827' }}>{token.text}</strong>
     if (token.kind === 'link') return <Link key={i} href={token.href} className="text-action-teal font-semibold underline underline-offset-4">{token.text}</Link>
-    return <span key={i}>{applyInternalLinks(token.text, slug)}</span>
+    return <span key={i}>{exactCopy ? token.text : applyInternalLinks(token.text, slug)}</span>
   })
 }
 
-function renderBody(body: string, slug: string) {
+function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: { label: string; href: string }) {
   const lines = body.split('\n')
   const elements: React.ReactNode[] = []
   let key = 0
@@ -145,7 +145,7 @@ function renderBody(body: string, slug: string) {
           <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.875rem' }}>
             <span style={{ flexShrink: 0, width: '3px', height: '1.4em', background: '#00B5A5', borderRadius: '2px', marginTop: '0.2em', display: 'block' }} />
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300 }}>
-              {inlineRender(item, slug)}
+              {inlineRender(item, slug, exactCopy)}
             </span>
           </li>
         ))}
@@ -164,7 +164,7 @@ function renderBody(body: string, slug: string) {
               {i + 1}
             </span>
             <span style={{ color: '#4B5563', fontSize: '1.0625rem', lineHeight: 1.8, fontWeight: 300, flex: 1 }}>
-              {inlineRender(item, slug)}
+              {inlineRender(item, slug, exactCopy)}
             </span>
           </li>
         ))}
@@ -198,7 +198,7 @@ function renderBody(body: string, slug: string) {
               <tr key={ri} style={{ background: ri % 2 === 0 ? 'white' : '#F9FAFB', borderBottom: '1px solid #F3F4F6' }}>
                 {row.map((cell, ci) => (
                   <td key={ci} style={{ padding: '0.875rem 1.1rem', color: ci === 0 ? '#111827' : '#4B5563', fontWeight: ci === 0 ? 600 : 300, lineHeight: 1.6, verticalAlign: 'top' }}>
-                    {inlineRender(cell, slug)}
+                    {inlineRender(cell, slug, exactCopy)}
                   </td>
                 ))}
               </tr>
@@ -213,6 +213,16 @@ function renderBody(body: string, slug: string) {
   const flushAll = () => { flushList(); flushNumbered(); flushTable() }
 
   for (const line of lines) {
+    if (bodyButton && line === `[BUTTON: ${bodyButton.label}]` && /^\/(?!\/)/.test(bodyButton.href)) {
+      flushAll()
+      elements.push(<Link key={key++} href={bodyButton.href} className="inline-flex items-center justify-center rounded-lg bg-action-teal text-white font-bold px-7 py-4 my-6 focus-visible:outline-2 focus-visible:outline-offset-4">{bodyButton.label}</Link>)
+      continue
+    }
+    if (exactCopy && line.startsWith('*') && !line.startsWith('**') && line.endsWith('*')) {
+      flushAll()
+      elements.push(<p key={key++} style={{ fontSize: '1.0625rem', color: '#4B5563', lineHeight: 1.85, fontWeight: 300 }}><em>{inlineRender(line.slice(1, -1), slug, true)}</em></p>)
+      continue
+    }
     // Table row
     if (line.trim().startsWith('|')) {
       flushList(); flushNumbered()
@@ -225,7 +235,7 @@ function renderBody(body: string, slug: string) {
     if (line.startsWith('## ')) {
       flushAll()
       elements.push(
-        <h2 key={key++} style={{ fontSize: 'clamp(1.35rem,2.5vw,1.75rem)', fontWeight: 900, color: '#0A0A0A', textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.15, marginTop: '3.5rem', marginBottom: '1.25rem', paddingTop: '0.5rem', borderTop: '2px solid #F3F4F6' }}>
+        <h2 key={key++} style={{ fontSize: 'clamp(1.35rem,2.5vw,1.75rem)', fontWeight: 900, color: '#0A0A0A', textTransform: exactCopy ? 'none' : 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.15, marginTop: '3.5rem', marginBottom: '1.25rem', paddingTop: '0.5rem', borderTop: '2px solid #F3F4F6' }}>
           {line.replace('## ', '')}
         </h2>
       )
@@ -253,7 +263,7 @@ function renderBody(body: string, slug: string) {
       flushAll()
       elements.push(
         <p key={key++} style={{ fontSize: '1.0625rem', color: '#4B5563', lineHeight: 1.85, fontWeight: 300, marginBottom: '0.5rem' }}>
-          {inlineRender(line, slug)}
+          {inlineRender(line, slug, exactCopy)}
         </p>
       )
     }
@@ -303,19 +313,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {post.faqs && post.faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: post.faqs.map(faq => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) }).replace(/</g, '\u003c') }} />}
       <Nav />
 
       <main id="main-content" tabIndex={-1}>
 
       {/* ── HERO ─────────────────────────────────── */}
       <section className="relative bg-near-black overflow-hidden" style={{ minHeight: 'clamp(24rem,48vw,38rem)' }}>
-        <Image
+        {!post.exactCopy && <Image
           src={post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]}
           alt={post.heroImageAlt || post.title}
           fill
           className="object-cover object-center"
           priority
-        />
+        />}
         {/* Dark gradient overlay. heavier at bottom */}
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.96) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
 
@@ -345,6 +356,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
+      {post.exactCopy && <div className="bg-white"><Image src={heroImage} alt={post.heroImageAlt || post.title} width={1200} height={630} priority className="w-full h-auto max-w-[1200px] mx-auto" /></div>}
+
       {/* ── ARTICLE BODY ─────────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 'clamp(3.5rem,7vw,6rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)' }}>
@@ -353,13 +366,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {/* ── MAIN CONTENT ── */}
             <article>
               {/* Excerpt / lead */}
-              <p style={{ fontSize: 'clamp(1.1rem,2vw,1.3rem)', color: '#374151', lineHeight: 1.8, fontWeight: 300, marginBottom: '3rem', paddingBottom: '3rem', borderBottom: '1px solid #F3F4F6' }}>
+              {!post.exactCopy && <p style={{ fontSize: 'clamp(1.1rem,2vw,1.3rem)', color: '#374151', lineHeight: 1.8, fontWeight: 300, marginBottom: '3rem', paddingBottom: '3rem', borderBottom: '1px solid #F3F4F6' }}>
                 {post.excerpt}
-              </p>
+              </p>}
 
               {/* Body */}
               <div style={{ maxWidth: '68ch' }}>
-                {renderBody(post.body, slug)}
+                {renderBody(post.body, slug, post.exactCopy, post.bodyButton)}
               </div>
 
               {post.sources && post.sources.length > 0 && <section className="article-sources border-t border-gray-200" aria-labelledby="article-sources-heading">
@@ -369,7 +382,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   {source.note && <p className="text-charcoal leading-relaxed mt-2">{source.note}</p>}
                 </li>)}</ul>
               </section>}
-              <ArticleNextSteps slug={post.slug} division={post.division} />
+              {!post.exactCopy && <ArticleNextSteps slug={post.slug} division={post.division} />}
               {/* Tags */}
               {post.tags.length > 0 && (
                 <div style={{ marginTop: '3.5rem', paddingTop: '2rem', borderTop: '1px solid #F3F4F6', display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
@@ -382,7 +395,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               )}
 
               {/* CTA block */}
-              <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+              {!post.exactCopy && <div style={{ marginTop: '4rem', background: '#0A0A0A', borderRadius: '1rem', padding: 'clamp(2rem,4vw,3rem)', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
                   <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.25em', textTransform: 'uppercase', marginBottom: '0.625rem' }}>
                     Your next step
@@ -403,7 +416,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
               </div>
 
-              <PreferredSource />
+              }
+              {!post.exactCopy && <PreferredSource />}
 
               {/* Back link */}
               <div style={{ marginTop: '2.5rem' }}>
