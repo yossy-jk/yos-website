@@ -1,8 +1,8 @@
 import FlourishServices from '@/components/FlourishServices'
-import ServiceArticle from '@/components/ServiceArticle'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
+import Link from 'next/link'
 import Nav from '@/components/Nav'
 import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
@@ -32,7 +32,7 @@ const CLEANING_FAQS = [
 ] as const
 
 export const metadata = withPageSeo({
-  title: 'Office Cleaning Newcastle & Lake Macquarie | YOS',
+  title: 'Commercial Cleaning Newcastle & Lake Macquarie | YOS',
   description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with a documented Scope of Works, consistent teams wherever possible and a site-specific proposal.',
   twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope, consistent teams wherever possible and direct quality management.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
@@ -54,6 +54,13 @@ export default function CleaningPage() {
         "@context": "https://schema.org",
         "@graph": [
           ORGANIZATION_SCHEMA,
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.yourofficespace.au" },
+              { "@type": "ListItem", "position": 2, "name": "Commercial Cleaning Newcastle", "item": "https://www.yourofficespace.au/cleaning" }
+            ]
+          },
           {
             "@type": "Service",
             "@id": "https://www.yourofficespace.au/cleaning#service",
@@ -83,14 +90,14 @@ export default function CleaningPage() {
           <FadeIn delay={100}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight max-w-4xl mb-8"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              Office cleaning Newcastle.<br />
+              Commercial cleaning Newcastle.<br />
               <span className="text-teal">A clear scope. An accountable team.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={200}>
             <p className="text-white/80 font-light leading-relaxed max-w-2xl mb-8 sm:mb-12"
               style={{ fontSize: 'clamp(1.05rem, 2vw, 1.375rem)' }}>
-              Office cleaning for Newcastle CBD and Lake Macquarie, with a documented Scope of Works, consistent teams wherever possible and quality assurance overseen by Sarah.
+              Commercial and office cleaning for Newcastle CBD and Lake Macquarie, with a documented Scope of Works, consistent teams wherever possible and quality assurance overseen by Sarah.
             </p>
           </FadeIn>
           <FadeIn delay={300}>
@@ -107,6 +114,17 @@ export default function CleaningPage() {
           </FadeIn>
         </div>
       </section>
+
+      <nav aria-label="Commercial cleaning page sections" className="bg-warm-grey border-b border-black/10">
+        <div className="max-w-screen-xl mx-auto flex flex-wrap gap-x-8 gap-y-3 py-6" style={PAD}>
+          {[
+            ['#cleaning-services', 'Cleaning services'],
+            ['#cleaning-start', 'How to get started'],
+            ['#cleaning-reviews-heading', 'Client feedback'],
+            ['#cleaning-planning', 'Costs and planning guides'],
+          ].map(([href, label]) => <a key={href} href={href} className="text-dark-teal font-semibold underline underline-offset-4 py-2">{label}</a>)}
+        </div>
+      </nav>
 
       <section className="bg-white" style={SEC_SM} aria-labelledby="office-cleaning-pack"><div className="max-w-screen-xl mx-auto" style={PAD}>
         <SectionLabel onLight>Office cleaning Newcastle: scope and checklist</SectionLabel>
@@ -157,6 +175,7 @@ export default function CleaningPage() {
           <h2 id="cleaning-reviews-heading" className="text-near-black font-bold" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)', marginTop: '1rem' }}>What businesses say about YOS.</h2>
           <p className="text-charcoal leading-relaxed" style={{ marginTop: '1rem', maxWidth: '44rem' }}>Feedback from clients across our workplace services, starting with commercial cleaning.</p>
           <ReviewsCarousel reviews={CLEANING_REVIEWS} />
+          <p className="text-charcoal leading-relaxed text-center mt-6">The cleaning feedback from Sophie Collinson at Jirsch Sutherland is an existing client review. <a href="https://share.google/HXVrtRaWPBmZm0aEh" target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4">Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a>.</p>
         </div>
       </section>
 
@@ -165,7 +184,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <FadeIn>
             <SectionLabel>What we clean</SectionLabel>
-            <h2 className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl"
+            <h2 id="cleaning-services" className="text-near-black font-bold leading-tight tracking-tight mt-3 mb-10 max-w-2xl scroll-mt-24"
               style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}>
               Practical services for working spaces.
             </h2>
@@ -240,6 +259,21 @@ export default function CleaningPage() {
         </div>
       </section>
 
+      <section className="bg-white" style={SEC_SM} aria-labelledby="cleaning-start">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <SectionLabel>From enquiry to an agreed service</SectionLabel>
+          <h2 id="cleaning-start" className="text-near-black text-3xl font-bold mt-5 mb-8 scroll-mt-24">Know what happens before the first clean.</h2>
+          <ol className="grid md:grid-cols-3 gap-8 list-none">
+            {[
+              { title: '1. Confirm the workplace', body: 'Share the address, type of workplace, preferred schedule and the issue you want resolved. We confirm the site and requirements within Newcastle CBD and Lake Macquarie.' },
+              { title: '2. Inspect and agree the scope', body: 'A site inspection informs a written proposal covering areas, tasks, visit frequency, access and exclusions. Routine, periodic and separately quoted work stay distinct.' },
+              { title: '3. Set up, then review', body: 'Confirm commencement, site instructions and contacts. Sarah oversees monthly quality assurance against the agreed scope, with a direct pathway for issues and approved changes.' },
+            ].map(step => <li key={step.title} className="border-t-2 border-teal pt-6"><h3 className="text-near-black text-xl font-bold mb-4">{step.title}</h3><p className="text-charcoal leading-relaxed">{step.body}</p></li>)}
+          </ol>
+          <p className="text-charcoal leading-relaxed mt-8">Pricing depends on the actual workload, not floor area alone. Compare visit counts, periodic tasks, consumables and commencement work using our <Link href="/blog/commercial-cleaning-cost-newcastle" className="text-dark-teal font-semibold underline underline-offset-4">commercial cleaning cost guide</Link>. Service timing and arrangements are confirmed in your proposal.</p>
+        </div>
+      </section>
+
       {/* LOCAL QUALITY OWNERSHIP */}
       <section className="bg-light-teal" style={SEC_SM}>
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-16 items-center" style={PAD}>
@@ -257,6 +291,7 @@ export default function CleaningPage() {
               Sarah oversees the cleaning relationship and regular quality assurance. Your agreed scope, site feedback and follow-up stay connected to one accountable team.
             </p>
             <p className="text-near-black font-semibold">Sarah Kelley · Cleaning quality lead</p>
+            <Link href="/about" className="inline-block text-dark-teal font-semibold underline underline-offset-4 mt-5">Meet the YOS team</Link>
           </FadeIn>
         </div>
       </section>
@@ -418,7 +453,20 @@ export default function CleaningPage() {
 
       <FlourishServices compact />
 
-      <ServiceArticle slug="commercial-cleaning-scope-busier-office" />
+      <section className="bg-warm-grey" style={SEC_SM} aria-labelledby="cleaning-planning">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <SectionLabel>Commercial cleaning Newcastle: practical planning</SectionLabel>
+          <h2 id="cleaning-planning" className="text-near-black text-3xl font-bold mt-5 mb-8 scroll-mt-24">Choose, brief and review your cleaning service.</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              { href: '/blog/commercial-cleaning-cost-newcastle', title: 'Compare the whole cleaning cost', body: 'A worked annual comparison shows how visits, periodic work, consumables and one-off tasks change the headline price.' },
+              { href: '/blog/switch-commercial-cleaning-company-newcastle', title: 'Plan a provider changeover', body: 'Keep dates, scope, key custody, starting condition and first-month reviews connected during a handover.' },
+              { href: '/blog/what-good-commercial-cleaning-looks-like', title: 'Review cleaning quality', body: 'Separate missed scheduled tasks from scope changes, access problems and maintenance needs.' },
+              { href: '/blog/commercial-cleaning-scope-busier-office', title: 'Update a busier office scope', body: 'Match the task schedule to attendance, visitor activity and shared-space use.' },
+            ].map(guide => <article key={guide.href} className="bg-white border border-black/10 p-6"><h3 className="text-near-black text-xl font-bold mb-4"><Link href={guide.href} className="underline underline-offset-4 hover:text-dark-teal">{guide.title}</Link></h3><p className="text-charcoal leading-relaxed">{guide.body}</p></article>)}
+          </div>
+        </div>
+      </section>
       </main>
 
       <Footer />
