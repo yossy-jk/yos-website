@@ -18,6 +18,9 @@ export interface BlogPost {
   heroImageAlt?: string
   metaTitle?: string
   metaDescription?: string
+  exactCopy?: boolean
+  bodyButton?: { label: string; href: string }
+  faqs?: { question: string; answer: string }[]
 }
 
 // Default hero images per division — used when heroImage is not set on a post
