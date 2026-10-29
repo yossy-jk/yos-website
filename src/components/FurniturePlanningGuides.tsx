@@ -3,6 +3,7 @@ import { getPostBySlug } from '@/lib/blog'
 
 const GUIDE_SLUGS = [
   'office-furniture-newcastle',
+  'boardroom-office-furniture-newcastle',
   'office-desks-newcastle',
   'office-chairs-newcastle',
   'office-furniture-budget-newcastle',
