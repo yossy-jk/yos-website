@@ -116,7 +116,7 @@ export default function CleaningPage() {
       </section>
 
       <nav aria-label="Commercial cleaning page sections" className="bg-warm-grey border-b border-black/10">
-        <div className="max-w-screen-xl mx-auto flex flex-wrap gap-x-8 gap-y-3 py-6" style={PAD}>
+        <div className="max-w-screen-xl mx-auto flex flex-wrap gap-x-8 gap-y-3" style={{ ...PAD, paddingTop: 24, paddingBottom: 24 }}>
           {[
             ['#cleaning-services', 'Cleaning services'],
             ['#cleaning-start', 'How to get started'],
@@ -175,7 +175,7 @@ export default function CleaningPage() {
           <h2 id="cleaning-reviews-heading" className="text-near-black font-bold" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)', marginTop: '1rem' }}>What businesses say about YOS.</h2>
           <p className="text-charcoal leading-relaxed" style={{ marginTop: '1rem', maxWidth: '44rem' }}>Feedback from clients across our workplace services, starting with commercial cleaning.</p>
           <ReviewsCarousel reviews={CLEANING_REVIEWS} />
-          <p className="text-charcoal leading-relaxed text-center mt-6">The cleaning feedback from Sophie Collinson at Jirsch Sutherland is an existing client review. <a href="https://share.google/HXVrtRaWPBmZm0aEh" target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4">Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a>.</p>
+          <p className="text-charcoal leading-relaxed text-center" style={{ marginTop: 24 }}>The cleaning feedback from Sophie Collinson at Jirsch Sutherland is an existing client review. <a href="https://share.google/HXVrtRaWPBmZm0aEh" target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4">Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a>.</p>
         </div>
       </section>
 
@@ -262,15 +262,15 @@ export default function CleaningPage() {
       <section className="bg-white" style={SEC_SM} aria-labelledby="cleaning-start">
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <SectionLabel>From enquiry to an agreed service</SectionLabel>
-          <h2 id="cleaning-start" className="text-near-black text-3xl font-bold mt-5 mb-8 scroll-mt-24">Know what happens before the first clean.</h2>
+          <h2 id="cleaning-start" className="text-near-black text-3xl font-bold scroll-mt-24" style={{ marginTop: 20, marginBottom: 32 }}>Know what happens before the first clean.</h2>
           <ol className="grid md:grid-cols-3 gap-8 list-none">
             {[
               { title: '1. Confirm the workplace', body: 'Share the address, type of workplace, preferred schedule and the issue you want resolved. We confirm the site and requirements within Newcastle CBD and Lake Macquarie.' },
               { title: '2. Inspect and agree the scope', body: 'A site inspection informs a written proposal covering areas, tasks, visit frequency, access and exclusions. Routine, periodic and separately quoted work stay distinct.' },
               { title: '3. Set up, then review', body: 'Confirm commencement, site instructions and contacts. Sarah oversees monthly quality assurance against the agreed scope, with a direct pathway for issues and approved changes.' },
-            ].map(step => <li key={step.title} className="border-t-2 border-teal pt-6"><h3 className="text-near-black text-xl font-bold mb-4">{step.title}</h3><p className="text-charcoal leading-relaxed">{step.body}</p></li>)}
+            ].map(step => <li key={step.title} className="border-t-2 border-teal" style={{ paddingTop: 24 }}><h3 className="text-near-black text-xl font-bold" style={{ marginBottom: 16 }}>{step.title}</h3><p className="text-charcoal leading-relaxed">{step.body}</p></li>)}
           </ol>
-          <p className="text-charcoal leading-relaxed mt-8">Pricing depends on the actual workload, not floor area alone. Compare visit counts, periodic tasks, consumables and commencement work using our <Link href="/blog/commercial-cleaning-cost-newcastle" className="text-dark-teal font-semibold underline underline-offset-4">commercial cleaning cost guide</Link>. Service timing and arrangements are confirmed in your proposal.</p>
+          <p className="text-charcoal leading-relaxed" style={{ marginTop: 32 }}>Pricing depends on the actual workload, not floor area alone. Compare visit counts, periodic tasks, consumables and commencement work using our <Link href="/blog/commercial-cleaning-cost-newcastle" className="text-dark-teal font-semibold underline underline-offset-4">commercial cleaning cost guide</Link>. Service timing and arrangements are confirmed in your proposal.</p>
         </div>
       </section>
 
@@ -291,7 +291,7 @@ export default function CleaningPage() {
               Sarah oversees the cleaning relationship and regular quality assurance. Your agreed scope, site feedback and follow-up stay connected to one accountable team.
             </p>
             <p className="text-near-black font-semibold">Sarah Kelley · Cleaning quality lead</p>
-            <Link href="/about" className="inline-block text-dark-teal font-semibold underline underline-offset-4 mt-5">Meet the YOS team</Link>
+            <Link href="/about" className="inline-block text-dark-teal font-semibold underline underline-offset-4" style={{ marginTop: 20 }}>Meet the YOS team</Link>
           </FadeIn>
         </div>
       </section>
@@ -456,14 +456,14 @@ export default function CleaningPage() {
       <section className="bg-warm-grey" style={SEC_SM} aria-labelledby="cleaning-planning">
         <div className="max-w-screen-xl mx-auto" style={PAD}>
           <SectionLabel>Commercial cleaning Newcastle: practical planning</SectionLabel>
-          <h2 id="cleaning-planning" className="text-near-black text-3xl font-bold mt-5 mb-8 scroll-mt-24">Choose, brief and review your cleaning service.</h2>
+          <h2 id="cleaning-planning" className="text-near-black text-3xl font-bold scroll-mt-24" style={{ marginTop: 20, marginBottom: 32 }}>Choose, brief and review your cleaning service.</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {[
               { href: '/blog/commercial-cleaning-cost-newcastle', title: 'Compare the whole cleaning cost', body: 'A worked annual comparison shows how visits, periodic work, consumables and one-off tasks change the headline price.' },
               { href: '/blog/switch-commercial-cleaning-company-newcastle', title: 'Plan a provider changeover', body: 'Keep dates, scope, key custody, starting condition and first-month reviews connected during a handover.' },
               { href: '/blog/what-good-commercial-cleaning-looks-like', title: 'Review cleaning quality', body: 'Separate missed scheduled tasks from scope changes, access problems and maintenance needs.' },
               { href: '/blog/commercial-cleaning-scope-busier-office', title: 'Update a busier office scope', body: 'Match the task schedule to attendance, visitor activity and shared-space use.' },
-            ].map(guide => <article key={guide.href} className="bg-white border border-black/10 p-6"><h3 className="text-near-black text-xl font-bold mb-4"><Link href={guide.href} className="underline underline-offset-4 hover:text-dark-teal">{guide.title}</Link></h3><p className="text-charcoal leading-relaxed">{guide.body}</p></article>)}
+            ].map(guide => <article key={guide.href} className="bg-white border border-black/10" style={{ padding: 24 }}><h3 className="text-near-black text-xl font-bold" style={{ marginBottom: 16 }}><Link href={guide.href} className="underline underline-offset-4 hover:text-dark-teal">{guide.title}</Link></h3><p className="text-charcoal leading-relaxed">{guide.body}</p></article>)}
           </div>
         </div>
       </section>
