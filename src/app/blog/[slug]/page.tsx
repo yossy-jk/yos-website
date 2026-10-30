@@ -16,7 +16,7 @@ import Footer from '@/components/Footer'
 import BookingCTA from '@/components/BookingCTA'
 import ContactForm from '@/components/ContactForm'
 import { getPublicPosts, getAllPublicPostsAsync, getPostBySlugAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO_IMAGES } from '@/lib/blog'
-import type { Division } from '@/lib/blog'
+import type { Division, BlogPost } from '@/lib/blog'
 
 export async function generateStaticParams() {
   return getPublicPosts().map(post => ({ slug: post.slug }))
@@ -129,7 +129,7 @@ function inlineRender(text: string, slug: string, exactCopy = false): React.Reac
   })
 }
 
-function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: { label: string; href: string }) {
+function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: { label: string; href: string }, bodyImages: BlogPost['bodyImages'] = []) {
   const lines = body.split('\n')
   const elements: React.ReactNode[] = []
   let key = 0
@@ -213,6 +213,17 @@ function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: 
   const flushAll = () => { flushList(); flushNumbered(); flushTable() }
 
   for (const line of lines) {
+    const image = bodyImages?.find(image => line === `![${image.alt}](${image.src})` && image.src.startsWith('/images/blog/'))
+    if (image) {
+      flushAll()
+      elements.push(<figure key={key++} style={{ margin: '2rem 0' }}><Image src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(max-width: 1024px) 100vw, 780px" style={{ width: '100%', height: 'auto', borderRadius: '0.75rem' }} /><figcaption style={{ color: '#4B5563', fontSize: '0.875rem', lineHeight: 1.6, marginTop: '0.75rem' }}>{image.caption}</figcaption></figure>)
+      continue
+    }
+    if (bodyImages?.length && line.startsWith('> ')) {
+      flushAll()
+      elements.push(<blockquote key={key++} style={{ margin: '2rem 0', padding: '1.25rem 1.5rem', borderLeft: '4px solid #00867b', background: '#eef8f6', color: '#374151', lineHeight: 1.8 }}>{inlineRender(line.slice(2), slug, exactCopy)}</blockquote>)
+      continue
+    }
     if (bodyButton && line === `[BUTTON: ${bodyButton.label}]` && /^\/(?!\/)/.test(bodyButton.href)) {
       flushAll()
       elements.push(<Link key={key++} href={bodyButton.href} className="inline-flex items-center justify-center rounded-lg bg-action-teal text-white font-bold px-7 py-4 my-6 focus-visible:outline-2 focus-visible:outline-offset-4">{bodyButton.label}</Link>)
@@ -356,7 +367,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      {post.exactCopy && <div className="bg-white"><Image src={heroImage} alt={post.heroImageAlt || post.title} width={1200} height={630} priority className="w-full h-auto max-w-[1200px] mx-auto" /></div>}
+      {post.exactCopy && <div className="bg-white"><Image src={heroImage} alt={post.heroImageAlt || post.title} width={post.bodyImages?.find(image => image.src === heroImage)?.width || 1200} height={post.bodyImages?.find(image => image.src === heroImage)?.height || 630} priority sizes="(max-width: 1200px) 100vw, 1200px" className="w-full h-auto max-w-[1200px] mx-auto" /></div>}
 
       {/* ── ARTICLE BODY ─────────────────────────── */}
       <section className="bg-white" style={{ paddingTop: 'clamp(3.5rem,7vw,6rem)', paddingBottom: 'clamp(4rem,8vw,8rem)' }}>
@@ -372,7 +383,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Body */}
               <div style={{ maxWidth: '68ch' }}>
-                {renderBody(post.body, slug, post.exactCopy, post.bodyButton)}
+                {renderBody(post.body, slug, post.exactCopy, post.bodyButton, post.bodyImages)}
               </div>
 
               {post.sources && post.sources.length > 0 && <section className="article-sources border-t border-gray-200" aria-labelledby="article-sources-heading">
