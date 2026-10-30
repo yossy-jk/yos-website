@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/tenant-rep/newcastle`, lastModified: '2026-10-20',                changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/office-fitout`, lastModified: '2026-10-29',                       changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/commercial-construction`, lastModified: '2026-10-20', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/furniture`, lastModified: '2026-10-29',                           changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${BASE}/furniture`, lastModified: '2026-10-30',                           changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/cleaning`, lastModified: '2026-10-29', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/about/work-with-yos`, lastModified: '2026-10-23', changeFrequency: 'monthly', priority: 0.65 },
     { url: `${BASE}/about`, lastModified: '2026-10-23',                               changeFrequency: 'monthly', priority: 0.7 },
