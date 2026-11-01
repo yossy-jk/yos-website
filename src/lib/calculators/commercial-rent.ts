@@ -18,6 +18,7 @@ export function validateCommercialRent(i: CommercialRentInput): Record<string, s
   if (!Number.isInteger(i.rentFreeMonths) || i.rentFreeMonths < 0 || i.rentFreeMonths > 36) errors.rentFreeMonths = 'Enter a whole number from 0 to 36 months'
   if (i.rentFreeMonths > i.termYears * 12) errors.rentFreeMonths = "Rent-free can't be longer than the lease"
   if (i.capRatePct !== null && (!Number.isFinite(i.capRatePct) || i.capRatePct < 1 || i.capRatePct > 20)) errors.capRatePct = 'Enter a cap rate from 1% to 20%'
+  if (i.capRatePct !== null && !errors.capRatePct && Math.abs(i.capRatePct / 0.05 - Math.round(i.capRatePct / 0.05)) > 1e-8) errors.capRatePct = 'Use cap rate increments of 0.05%'
   if (i.leaseType !== 'net' && i.leaseType !== 'gross') errors.leaseType = 'Choose a net or gross lease'
   return errors
 }
@@ -47,5 +48,5 @@ export function calculateCommercialRent(i: CommercialRentInput) {
   const canValue = i.capRatePct !== null && !errors.capRatePct && !errors.ownerCostsAnnual && noi_year1 > 0
   const cap = i.capRatePct || 0
   const sens = canValue ? [-1, -0.5, 0, 0.5, 1].map(d => ({ rate: cap + d, value: noi_year1 / ((cap + d) / 100) })).filter(r => r.rate > 0) : []
-  return { errors, result: { rows, year1_base, year1_base_monthly: year1_base / 12, year1_occupancy_ex, year1_occupancy_inc: year1_occupancy_ex * (i.showGst ? 1.1 : 1), total_base_gross, rent_free_value, fitout: i.fitoutContribution, incentive_total, incentive_pct: incentive_total / total_base_gross * 100, effective_rent_annual: (total_base_gross - incentive_total) / i.termYears, effective_rent_psm: (total_base_gross - incentive_total) / i.termYears / i.areaM2, total_occupancy_ex: sum('total_ex'), total_occupancy_inc: sum('total_inc'), noi_year1, value: canValue ? noi_year1 / (cap / 100) : null, sens, value_per_1000_rent: canValue ? 1000 / (cap / 100) : null } }
+  return { errors, result: { rows, year1_base, year1_base_monthly: year1_base / 12, year1_occupancy_ex, year1_occupancy_inc: year1_occupancy_ex * (i.showGst ? 1.1 : 1), year1_occupancy_monthly_ex: year1_occupancy_ex / 12, year1_occupancy_monthly_inc: year1_occupancy_ex * (i.showGst ? 1.1 : 1) / 12, total_outgoings: sum('outgoings_payable'), total_gst: sum('gst'), total_base_gross, rent_free_value, fitout: i.fitoutContribution, incentive_total, incentive_pct: incentive_total / total_base_gross * 100, effective_rent_annual: (total_base_gross - incentive_total) / i.termYears, effective_rent_psm: (total_base_gross - incentive_total) / i.termYears / i.areaM2, total_occupancy_ex: sum('total_ex'), total_occupancy_inc: sum('total_inc'), noi_year1, value: canValue ? noi_year1 / (cap / 100) : null, sens, value_per_1000_rent: canValue ? 1000 / (cap / 100) : null } }
 }

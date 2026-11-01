@@ -37,3 +37,14 @@ test('fitout contribution changes effective rent but never the cash schedule; un
   assert.equal(a.total_occupancy_inc, a.rows.reduce((s, r) => s + r.total_inc, 0))
   assert.notEqual(a.total_occupancy_inc, a.rows.reduce((s, r) => s + cents(r.total_inc), 0))
 })
+test('monthly occupancy and schedule totals are supplied by the pure module', () => {
+  const r = calculateCommercialRent(input).result!
+  assert.equal(r.year1_occupancy_monthly_ex, 6625)
+  assert.equal(r.year1_occupancy_monthly_inc, 7287.5)
+  assert.equal(cents(r.total_outgoings), 63709.63)
+  assert.equal(cents(r.total_gst), 42567.61)
+})
+test('cap rate accepts 0.05 percentage-point steps without floating-point false rejections', () => {
+  for (const capRatePct of [1, 6.05, 6.5, 6.55, 20]) assert.equal(calculateCommercialRent({ ...input, capRatePct }).errors.capRatePct, undefined)
+  assert.equal(calculateCommercialRent({ ...input, capRatePct: 6.33 }).errors.capRatePct, 'Use cap rate increments of 0.05%')
+})
