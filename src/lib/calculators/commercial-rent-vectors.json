@@ -1,0 +1,376 @@
+[
+  {
+    "id": "V1",
+    "inp": {
+      "areaM2": 150,
+      "faceRentPsm": 450,
+      "leaseType": "net",
+      "outgoingsAnnual": 12000,
+      "termYears": 5,
+      "reviewPct": 3.5000000000000004,
+      "outgoingsIncreasePct": 3.0,
+      "rentFreeMonths": 0,
+      "outgoingsDuringRentFree": true,
+      "fitoutContribution": 0,
+      "showGst": true,
+      "capRatePct": null,
+      "ownerCostsAnnual": 0
+    },
+    "expected": {
+      "year1_base": 67500,
+      "year1_base_monthly": 5625.0,
+      "total_base_gross": 361966.45,
+      "rent_free_value": 0.0,
+      "fitout": 0,
+      "incentive_total": 0.0,
+      "incentive_pct": 0.0,
+      "effective_rent_annual": 72393.29,
+      "effective_rent_psm": 482.62,
+      "total_occupancy_ex": 425676.08,
+      "total_occupancy_inc": 468243.68,
+      "rows": [
+        {
+          "year": 1,
+          "base": 67500.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 12000.0,
+          "total_ex": 79500.0,
+          "gst": 7950.0,
+          "total_inc": 87450.0
+        },
+        {
+          "year": 2,
+          "base": 69862.5,
+          "rent_free": 0.0,
+          "outgoings_payable": 12360.0,
+          "total_ex": 82222.5,
+          "gst": 8222.25,
+          "total_inc": 90444.75
+        },
+        {
+          "year": 3,
+          "base": 72307.69,
+          "rent_free": 0.0,
+          "outgoings_payable": 12730.8,
+          "total_ex": 85038.49,
+          "gst": 8503.85,
+          "total_inc": 93542.34
+        },
+        {
+          "year": 4,
+          "base": 74838.46,
+          "rent_free": 0.0,
+          "outgoings_payable": 13112.72,
+          "total_ex": 87951.18,
+          "gst": 8795.12,
+          "total_inc": 96746.3
+        },
+        {
+          "year": 5,
+          "base": 77457.8,
+          "rent_free": 0.0,
+          "outgoings_payable": 13506.11,
+          "total_ex": 90963.91,
+          "gst": 9096.39,
+          "total_inc": 100060.3
+        }
+      ]
+    }
+  },
+  {
+    "id": "V2",
+    "inp": {
+      "areaM2": 200,
+      "faceRentPsm": 350,
+      "leaseType": "net",
+      "outgoingsAnnual": 16000,
+      "termYears": 5,
+      "reviewPct": 3.0,
+      "outgoingsIncreasePct": 3.0,
+      "rentFreeMonths": 6,
+      "outgoingsDuringRentFree": true,
+      "fitoutContribution": 20000,
+      "showGst": true,
+      "capRatePct": 6.5,
+      "ownerCostsAnnual": 0
+    },
+    "expected": {
+      "year1_base": 70000,
+      "year1_base_monthly": 5833.33,
+      "total_base_gross": 371639.51,
+      "rent_free_value": 35000.0,
+      "fitout": 20000,
+      "incentive_total": 55000.0,
+      "incentive_pct": 14.8,
+      "effective_rent_annual": 63327.9,
+      "effective_rent_psm": 316.64,
+      "total_occupancy_ex": 421585.68,
+      "total_occupancy_inc": 463744.25,
+      "rows": [
+        {
+          "year": 1,
+          "base": 70000.0,
+          "rent_free": 35000.0,
+          "outgoings_payable": 16000.0,
+          "total_ex": 51000.0,
+          "gst": 5100.0,
+          "total_inc": 56100.0
+        },
+        {
+          "year": 2,
+          "base": 72100.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 16480.0,
+          "total_ex": 88580.0,
+          "gst": 8858.0,
+          "total_inc": 97438.0
+        },
+        {
+          "year": 3,
+          "base": 74263.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 16974.4,
+          "total_ex": 91237.4,
+          "gst": 9123.74,
+          "total_inc": 100361.14
+        },
+        {
+          "year": 4,
+          "base": 76490.89,
+          "rent_free": 0.0,
+          "outgoings_payable": 17483.63,
+          "total_ex": 93974.52,
+          "gst": 9397.45,
+          "total_inc": 103371.97
+        },
+        {
+          "year": 5,
+          "base": 78785.62,
+          "rent_free": 0.0,
+          "outgoings_payable": 18008.14,
+          "total_ex": 96793.76,
+          "gst": 9679.38,
+          "total_inc": 106473.13
+        }
+      ],
+      "noi_year1": 70000,
+      "value": 1076923.08,
+      "sens": {
+        "5.5": 1272727.27,
+        "6.0": 1166666.67,
+        "6.5": 1076923.08,
+        "7.0": 1000000.0,
+        "7.5": 933333.33
+      },
+      "value_per_1000_rent": 15384.62
+    }
+  },
+  {
+    "id": "V3",
+    "inp": {
+      "areaM2": 200,
+      "faceRentPsm": 350,
+      "leaseType": "net",
+      "outgoingsAnnual": 16000,
+      "termYears": 5,
+      "reviewPct": 3.0,
+      "outgoingsIncreasePct": 3.0,
+      "rentFreeMonths": 6,
+      "outgoingsDuringRentFree": false,
+      "fitoutContribution": 20000,
+      "showGst": true,
+      "capRatePct": null,
+      "ownerCostsAnnual": 0
+    },
+    "expected": {
+      "year1_base": 70000,
+      "year1_base_monthly": 5833.33,
+      "total_base_gross": 371639.51,
+      "rent_free_value": 35000.0,
+      "fitout": 20000,
+      "incentive_total": 55000.0,
+      "incentive_pct": 14.8,
+      "effective_rent_annual": 63327.9,
+      "effective_rent_psm": 316.64,
+      "total_occupancy_ex": 413585.68,
+      "total_occupancy_inc": 454944.25,
+      "rows": [
+        {
+          "year": 1,
+          "base": 70000.0,
+          "rent_free": 35000.0,
+          "outgoings_payable": 8000.0,
+          "total_ex": 43000.0,
+          "gst": 4300.0,
+          "total_inc": 47300.0
+        },
+        {
+          "year": 2,
+          "base": 72100.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 16480.0,
+          "total_ex": 88580.0,
+          "gst": 8858.0,
+          "total_inc": 97438.0
+        },
+        {
+          "year": 3,
+          "base": 74263.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 16974.4,
+          "total_ex": 91237.4,
+          "gst": 9123.74,
+          "total_inc": 100361.14
+        },
+        {
+          "year": 4,
+          "base": 76490.89,
+          "rent_free": 0.0,
+          "outgoings_payable": 17483.63,
+          "total_ex": 93974.52,
+          "gst": 9397.45,
+          "total_inc": 103371.97
+        },
+        {
+          "year": 5,
+          "base": 78785.62,
+          "rent_free": 0.0,
+          "outgoings_payable": 18008.14,
+          "total_ex": 96793.76,
+          "gst": 9679.38,
+          "total_inc": 106473.13
+        }
+      ]
+    }
+  },
+  {
+    "id": "V4",
+    "inp": {
+      "areaM2": 300,
+      "faceRentPsm": 400,
+      "leaseType": "gross",
+      "outgoingsAnnual": 15000,
+      "termYears": 3,
+      "reviewPct": 3.0,
+      "outgoingsIncreasePct": 3.0,
+      "rentFreeMonths": 3,
+      "outgoingsDuringRentFree": true,
+      "fitoutContribution": 0,
+      "showGst": true,
+      "capRatePct": 7.0,
+      "ownerCostsAnnual": 0
+    },
+    "expected": {
+      "year1_base": 120000,
+      "year1_base_monthly": 10000.0,
+      "total_base_gross": 370908.0,
+      "rent_free_value": 30000.0,
+      "fitout": 0,
+      "incentive_total": 30000.0,
+      "incentive_pct": 8.09,
+      "effective_rent_annual": 113636.0,
+      "effective_rent_psm": 378.79,
+      "total_occupancy_ex": 340908.0,
+      "total_occupancy_inc": 374998.8,
+      "rows": [
+        {
+          "year": 1,
+          "base": 120000.0,
+          "rent_free": 30000.0,
+          "outgoings_payable": 0.0,
+          "total_ex": 90000.0,
+          "gst": 9000.0,
+          "total_inc": 99000.0
+        },
+        {
+          "year": 2,
+          "base": 123600.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 0.0,
+          "total_ex": 123600.0,
+          "gst": 12360.0,
+          "total_inc": 135960.0
+        },
+        {
+          "year": 3,
+          "base": 127308.0,
+          "rent_free": 0.0,
+          "outgoings_payable": 0.0,
+          "total_ex": 127308.0,
+          "gst": 12730.8,
+          "total_inc": 140038.8
+        }
+      ],
+      "noi_year1": 105000.0,
+      "value": 1500000.0,
+      "sens": {
+        "6.0": 1750000.0,
+        "6.5": 1615384.62,
+        "7.0": 1500000.0,
+        "7.5": 1400000.0,
+        "8.0": 1312500.0
+      },
+      "value_per_1000_rent": 14285.71
+    }
+  },
+  {
+    "id": "V5",
+    "inp": {
+      "areaM2": 120,
+      "faceRentPsm": 300,
+      "leaseType": "net",
+      "outgoingsAnnual": 9000,
+      "termYears": 3,
+      "reviewPct": 4.0,
+      "outgoingsIncreasePct": 3.0,
+      "rentFreeMonths": 15,
+      "outgoingsDuringRentFree": true,
+      "fitoutContribution": 0,
+      "showGst": false,
+      "capRatePct": null,
+      "ownerCostsAnnual": 0
+    },
+    "expected": {
+      "year1_base": 36000,
+      "year1_base_monthly": 3000.0,
+      "total_base_gross": 112377.6,
+      "rent_free_value": 45360.0,
+      "fitout": 0,
+      "incentive_total": 45360.0,
+      "incentive_pct": 40.36,
+      "effective_rent_annual": 22339.2,
+      "effective_rent_psm": 186.16,
+      "total_occupancy_ex": 94835.7,
+      "total_occupancy_inc": 94835.7,
+      "rows": [
+        {
+          "year": 1,
+          "base": 36000.0,
+          "rent_free": 36000.0,
+          "outgoings_payable": 9000.0,
+          "total_ex": 9000.0,
+          "gst": 0,
+          "total_inc": 9000.0
+        },
+        {
+          "year": 2,
+          "base": 37440.0,
+          "rent_free": 9360.0,
+          "outgoings_payable": 9270.0,
+          "total_ex": 37350.0,
+          "gst": 0,
+          "total_inc": 37350.0
+        },
+        {
+          "year": 3,
+          "base": 38937.6,
+          "rent_free": 0.0,
+          "outgoings_payable": 9548.1,
+          "total_ex": 48485.7,
+          "gst": 0,
+          "total_inc": 48485.7
+        }
+      ]
+    }
+  }
+]
