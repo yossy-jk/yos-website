@@ -357,6 +357,7 @@ export default function CapRateCalculatorPage() {
           </p>
         </div>
       </div>
+      <p style={{ padding: '24px', maxWidth: 944, margin: '0 auto' }}><Link className="text-action-teal font-semibold underline underline-offset-4" href="/resources/commercial-rent-calculator">Model one lease in the Commercial Rent Calculator</Link></p>
       <div className="cap-rate-guide"><ToolGuide purpose="Explore how income, purchase price and an assumed capitalisation rate relate to one another." inputs="A purchase price, annual net operating income or a cap-rate assumption. Enter two fields to calculate the third." result="A scenario based on the inputs shown. Preset rates are examples, not a market appraisal or a recommended purchase price." next="Explore commercial buyer-side support" href="/buyers-agency" /></div>
       </main>
 
