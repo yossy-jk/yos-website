@@ -184,23 +184,25 @@ function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: 
     elements.push(
       <div key={key++} tabIndex={0} role="region" aria-label="Article table" style={{ overflowX: 'auto', margin: '2rem 0 2.5rem' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', minWidth: '400px' }}>
-          <thead>
+          {headers.some(Boolean) && <thead>
             <tr style={{ background: '#0A0A0A' }}>
-              {headers.map((h, i) => (
-                <th key={i} style={{ padding: '0.875rem 1.1rem', textAlign: 'left', color: 'white', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
+              {headers.map((h, i) => {
+                const HeaderCell = h ? 'th' : 'td'
+                return <HeaderCell scope={h ? 'col' : undefined} key={i} style={{ padding: '0.875rem 1.1rem', textAlign: 'left', color: 'white', fontWeight: 700, fontSize: '0.75rem', letterSpacing: '0.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>
                   {h}
-                </th>
-              ))}
+                </HeaderCell>
+              })}
             </tr>
-          </thead>
+          </thead>}
           <tbody>
             {dataRows.map((row, ri) => (
               <tr key={ri} style={{ background: ri % 2 === 0 ? 'white' : '#F9FAFB', borderBottom: '1px solid #F3F4F6' }}>
-                {row.map((cell, ci) => (
-                  <td key={ci} style={{ padding: '0.875rem 1.1rem', color: ci === 0 ? '#111827' : '#4B5563', fontWeight: ci === 0 ? 600 : 300, lineHeight: 1.6, verticalAlign: 'top' }}>
+                {row.map((cell, ci) => {
+                  const Cell = !headers.some(Boolean) && ci === 0 ? 'th' : 'td'
+                  return <Cell scope={Cell === 'th' ? 'row' : undefined} key={ci} style={{ padding: '0.875rem 1.1rem', color: ci === 0 ? '#111827' : '#4B5563', fontWeight: ci === 0 ? 600 : 300, lineHeight: 1.6, verticalAlign: 'top' }}>
                     {inlineRender(cell, slug, exactCopy)}
-                  </td>
-                ))}
+                  </Cell>
+                })}
               </tr>
             ))}
           </tbody>
@@ -331,7 +333,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.yourofficespace.au/blog/${post.slug}` },
     image: absoluteAssetUrl(heroImage),
     keywords: post.tags?.join(', '),
-    articleSection: DIVISION_LABELS[post.division as Division],
+    articleSection: post.categoryLabel || DIVISION_LABELS[post.division as Division],
   }
 
   return (
@@ -360,7 +362,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <ContentBreadcrumbs section="Blog" sectionPath="/blog" title={post.title} path={`/blog/${post.slug}`} />
             <div className="flex flex-wrap items-center gap-3 mb-5">
               <span className={`text-xs font-bold px-3 py-1 rounded-sm tracking-widest uppercase ${DIVISION_COLORS[post.division as Division]}`}>
-                {DIVISION_LABELS[post.division as Division]}
+                {post.categoryLabel || DIVISION_LABELS[post.division as Division]}
               </span>
               <span className="text-white/40 text-xs">
                 {publicationDate ? new Date(publicationDate).toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Australia/Sydney' }) : 'Publication date not recorded'}

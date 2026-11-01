@@ -10,6 +10,7 @@ export interface BlogPost {
   date: string
   updatedDate?: string
   sources?: { title: string; url: string; note?: string }[]
+  categoryLabel?: string
   division: Division
   author: string
   body: string
