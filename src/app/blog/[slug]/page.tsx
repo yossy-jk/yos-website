@@ -129,7 +129,7 @@ function inlineRender(text: string, slug: string, exactCopy = false): React.Reac
   })
 }
 
-function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: { label: string; href: string }, bodyImages: BlogPost['bodyImages'] = []) {
+function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: { label: string; href: string }, bodyImages: BlogPost['bodyImages'] = [], bodyButtons: BlogPost['bodyButtons'] = [], toolButtons: BlogPost['toolButtons'] = []) {
   const lines = body.split('\n')
   const elements: React.ReactNode[] = []
   let key = 0
@@ -219,9 +219,22 @@ function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: 
       elements.push(<figure key={key++} style={{ margin: '2rem 0' }}><Image src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(max-width: 1024px) 100vw, 780px" style={{ width: '100%', height: 'auto', borderRadius: '0.75rem' }} /><figcaption style={{ color: '#4B5563', fontSize: '0.875rem', lineHeight: 1.6, marginTop: '0.75rem' }}>{image.caption}</figcaption></figure>)
       continue
     }
-    if (bodyImages?.length && line.startsWith('> ')) {
+    if ((bodyImages?.length || bodyButtons?.length) && line.startsWith('> ')) {
       flushAll()
       elements.push(<blockquote key={key++} style={{ margin: '2rem 0', padding: '1.25rem 1.5rem', borderLeft: '4px solid #00867b', background: '#eef8f6', color: '#374151', lineHeight: 1.8 }}>{inlineRender(line.slice(2), slug, exactCopy)}</blockquote>)
+      continue
+    }
+    const primaryButton = bodyButtons?.find(button => line === `[BUTTON: ${button.label}]` && /^\/(?!\/)/.test(button.href))
+    const toolButton = toolButtons?.find(button => line === `[${button.label}](${button.href})` && /^\/(?!\/)/.test(button.href))
+    if (primaryButton || toolButton) {
+      flushAll()
+      const button = (primaryButton || toolButton)!
+      elements.push(<Link key={key++} href={button.href} className={primaryButton ? "inline-flex items-center justify-center rounded-lg bg-action-teal text-white font-bold px-7 py-4 my-4 focus-visible:outline-2 focus-visible:outline-offset-4" : "inline-flex items-center justify-center rounded-lg border-2 border-action-teal text-action-teal font-bold px-6 py-3 my-4 focus-visible:outline-2 focus-visible:outline-offset-4"}>{button.label}</Link>)
+      continue
+    }
+    if (bodyButtons?.length && line === '---') {
+      flushAll()
+      elements.push(<hr key={key++} className="my-8 border-gray-200" />)
       continue
     }
     if (bodyButton && line === `[BUTTON: ${bodyButton.label}]` && /^\/(?!\/)/.test(bodyButton.href)) {
@@ -383,7 +396,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
               {/* Body */}
               <div style={{ maxWidth: '68ch' }}>
-                {renderBody(post.body, slug, post.exactCopy, post.bodyButton, post.bodyImages)}
+                {renderBody(post.body, slug, post.exactCopy, post.bodyButton, post.bodyImages, post.bodyButtons, post.toolButtons)}
               </div>
 
               {post.sources && post.sources.length > 0 && <section className="article-sources border-t border-gray-200" aria-labelledby="article-sources-heading">
