@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import ToolGuide from '@/components/ToolGuide'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 
@@ -506,6 +507,7 @@ export default function LeaseComparisonPage() {
         secondary={{ href: '/tenant-rep#packages', label: 'Compare tenant rep packages' }}
       />
 
+      <p style={{ padding: '24px', maxWidth: 944, margin: '0 auto' }}><Link className="text-action-teal font-semibold underline underline-offset-4" href="/resources/commercial-rent-calculator">Model one lease in the Commercial Rent Calculator</Link></p>
       <ToolGuide purpose="Compare commercial lease options on the same basis rather than relying only on advertised rent." inputs="Rental amounts, floor areas, outgoings, lease terms, incentives and relevant assumptions for each option." result="An indicative occupancy-cost comparison. Check lease wording, timing and assumptions with your advisers." next="Get tenant-side lease advice" href="/tenant-rep" />
 </main>
 
