@@ -81,7 +81,7 @@ export default async function BlogPage() {
                   <div style={{ position: 'absolute', top: '1.25rem', left: '1.25rem' }}>
                     <span className={`text-xs font-bold px-3 py-1 rounded-sm tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(featured.division)]}`}
                       style={{ fontSize: '0.58rem' }}>
-                      {DIVISION_LABELS[SAFE_DIVISION(featured.division)]}
+                      {featured.categoryLabel || DIVISION_LABELS[SAFE_DIVISION(featured.division)]}
                     </span>
                   </div>
                 </div>
@@ -135,7 +135,7 @@ export default async function BlogPage() {
                       <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
                         <span className={`font-bold rounded-sm tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(post.division)]}`}
                           style={{ fontSize: '0.58rem', padding: '0.25rem 0.625rem', display: 'inline-block' }}>
-                          {DIVISION_LABELS[SAFE_DIVISION(post.division)]}
+                          {post.categoryLabel || DIVISION_LABELS[SAFE_DIVISION(post.division)]}
                         </span>
                       </div>
                     </div>

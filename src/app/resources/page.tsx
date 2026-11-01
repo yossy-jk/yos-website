@@ -233,7 +233,7 @@ export default function ResourcesPage() {
                       <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
                         <span className={`text-white font-bold uppercase tracking-widest inline-block ${DIVISION_COLORS[post.division as Division]}`}
                           style={{ fontSize: '0.58rem', padding: '0.3rem 0.7rem', borderRadius: '9999px' }}>
-                          {DIVISION_LABELS[post.division as keyof typeof DIVISION_LABELS]}
+                          {post.categoryLabel || DIVISION_LABELS[post.division as keyof typeof DIVISION_LABELS]}
                         </span>
                       </div>
                     </div>
