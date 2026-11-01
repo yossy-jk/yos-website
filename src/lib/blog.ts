@@ -21,6 +21,8 @@ export interface BlogPost {
   bodyImages?: { src: string; alt: string; width: number; height: number; caption: string }[]
   exactCopy?: boolean
   bodyButton?: { label: string; href: string }
+  bodyButtons?: { label: string; href: string }[]
+  toolButtons?: { label: string; href: string }[]
   faqs?: { question: string; answer: string }[]
 }
 

@@ -10,6 +10,7 @@ export default function ToolGuide({ purpose, inputs, result, next, href }: { pur
       </dl>
       <p style={{ marginTop: 24 }} className="mt-6 leading-relaxed text-charcoal">This is an initial planning aid. Results depend on the inputs and assumptions shown and are not a final quote, lease assessment or professional recommendation. Some tools request contact details to unlock results or a report.</p>
       <Link style={{ marginTop: 20, display: 'inline-block' }} className="mt-5 inline-block font-semibold text-action-teal underline underline-offset-4" href={href}>{next}</Link>
+      <p className="mt-6"><Link href="/blog/free-commercial-property-tools-newcastle" className="font-semibold text-action-teal underline underline-offset-4">How to use our free tools</Link></p>
     </div>
   </section>
 }
