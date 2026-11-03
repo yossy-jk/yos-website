@@ -75,8 +75,7 @@ export default function ResourcesPage() {
             "@type": "WebPage",
             "name": "Resources & Tools. Your Office Space",
             "description": "Practical tools including a lease risk checker, fit out estimator, lease comparison and office size calculator for Australian business owners.",
-            "url": "https://www.yourofficespace.au/resources",
-            "hasPart": { "@id": "https://www.yourofficespace.au/resources#case-studies" }
+            "url": "https://www.yourofficespace.au/resources"
           },
 
           {
