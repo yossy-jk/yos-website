@@ -59,6 +59,15 @@ async function routeExists(target) {
     return ids.some(id => target === `/catalogues/${id}`)
   }
 
+  if (target.startsWith('/case-studies/')) {
+    const slug = target.slice('/case-studies/'.length)
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return false
+    try {
+      const study = JSON.parse(await readFile(new URL(`../src/content/case-studies/${slug}.json`, import.meta.url), 'utf8'))
+      return study.slug === slug && study.published === true
+    } catch { return false }
+  }
+
   if (target.startsWith('/blog/')) {
     const slug = target.slice('/blog/'.length)
     const posts = (await readdir(blogRoot)).filter(file => file.endsWith('.json'))

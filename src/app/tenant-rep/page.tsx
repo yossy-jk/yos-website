@@ -489,6 +489,14 @@ export default function Page() {
         </div>
       </section>
       <section className="tenant-section">
+        <div className="tenant-wrap">
+          <p className="tenant-eyebrow">Client case study</p>
+          <h2>Recovery Station: the right clinical space in East Maitland.</h2>
+          <p>After six months searching, Recovery Station engaged YOS to assess five potential properties and negotiate a suitable tenancy. The lease was signed in August 2026.</p>
+          <Link href="/case-studies/recovery-station-east-maitland-tenant-representation">Read Recovery Station’s story →</Link>
+        </div>
+      </section>
+      <section className="tenant-section">
         <div className="tenant-wrap tenant-inline-links">
           <Link href="/tenant-rep/newcastle">
             Tenant representation in Newcastle

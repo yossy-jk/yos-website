@@ -1,3 +1,5 @@
+import styles from '../case-studies.module.css'
+import Image from 'next/image'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { absoluteAssetUrl } from '@/lib/page-seo'
@@ -76,7 +78,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 pt-12 pb-16">
+        <div className={`${styles.wrap} ${styles.intro}`}>
+          {cs.logo && <div className={styles.logo}><Image src={cs.logo} alt={`${cs.client} logo`} width={294} height={165} className="max-w-full h-auto" /></div>}
           <ContentBreadcrumbs section="Case studies" sectionPath="/case-studies" title={cs.title} path={`/case-studies/${cs.slug}`} />
           <div className="flex items-center gap-3 mb-6">
             <span className={`text-xs font-semibold px-3 py-1 rounded-sm ${DIVISION_COLORS[cs.division as Division]}`}>
@@ -91,13 +94,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* METRICS BAR */}
       {cs.metrics.length > 0 && (
-        <section className="bg-teal py-10">
-          <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
-            <div className={`grid grid-cols-2 md:grid-cols-${Math.min(cs.metrics.length, 4)} gap-6`}>
+        <section className={`bg-teal ${styles.metrics}`}>
+          <div className={styles.wrap}>
+            <div className={`${styles.metricsGrid} grid grid-cols-2 ${cs.metrics.length >= 4 ? 'md:grid-cols-4' : 'md:grid-cols-2'} gap-6`}>
               {cs.metrics.map(m => (
                 <div key={m.label} className="text-center">
-                  <p className="text-white font-bold text-3xl lg:text-4xl mb-1">{m.value}</p>
-                  <p className="text-white/70 font-light text-xs">{m.label}</p>
+                  <p className="text-near-black font-bold text-3xl lg:text-4xl mb-1">{m.value}</p>
+                  <p className="text-near-black font-medium text-xs">{m.label}</p>
                 </div>
               ))}
             </div>
@@ -107,9 +110,18 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* BODY */}
       <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-            <div className="lg:col-span-2 space-y-12">
+        <div className={styles.wrap}>
+          <div className={styles.bodyGrid}>
+            <div className={styles.story}>
+              {cs.sections ? <>
+                <p className="text-charcoal font-light text-lg leading-relaxed">{cs.challenge}</p>
+                <p className="text-charcoal font-light text-lg leading-relaxed">{cs.solution}</p>
+                {cs.sections.map(section => <section key={section.heading}>
+                  <h2 className="text-near-black font-bold text-2xl leading-snug mb-5">{section.heading}</h2>
+                  {section.paragraphs.map(paragraph => <p key={paragraph} className="text-charcoal font-light text-lg leading-relaxed mb-5">{paragraph}</p>)}
+                  {section.bullets && <ul className="list-disc pl-6 text-charcoal text-lg leading-relaxed space-y-2">{section.bullets.map(item => <li key={item}>{item}</li>)}</ul>}
+                </section>)}
+              </> : <>
               <div>
                 <p className="text-teal font-semibold text-xs tracking-widest uppercase mb-4">The challenge</p>
                 <p className="text-charcoal font-light text-lg leading-relaxed">{cs.challenge}</p>
@@ -123,11 +135,24 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 <p className="text-charcoal font-light text-lg leading-relaxed">{cs.outcome}</p>
               </div>
 
-              {/* Named quotations remain unpublished until attribution and display permission are recorded. */}
+              </>}
+              {cs.quote?.approvedForPublication === true && <section>
+                <h2 className="text-near-black font-bold text-2xl mb-5">What {cs.client} said</h2>
+                <figure className="border-l-4 border-teal pl-6">
+                  <blockquote className="text-charcoal text-lg leading-relaxed space-y-5">{cs.quote.text.split('\n\n').map(paragraph => <p key={paragraph}>{paragraph}</p>)}</blockquote>
+                  <figcaption className="mt-6 text-near-black font-semibold">{cs.quote.attribution}</figcaption>
+                </figure>
+              </section>}
+              {cs.closing && <section>
+                <h2 className="text-near-black font-bold text-2xl mb-5">{cs.closing.heading}</h2>
+                {cs.closing.paragraphs.map(paragraph => <p key={paragraph} className="text-charcoal text-lg leading-relaxed mb-5">{paragraph}</p>)}
+                <Button href={cs.closing.href} variant="primary">{cs.closing.linkText}</Button>
+              </section>}
+              {/* Only explicitly approved quotations are displayed. */}
             </div>
 
             {/* SIDEBAR */}
-            <div className="space-y-8">
+            <div className={styles.sidebar}>
               <div className="bg-warm-grey rounded-sm p-8">
                 <p className="text-near-black font-bold text-sm mb-6">Project details</p>
                 <div className="space-y-4">
@@ -164,7 +189,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
           </div>
 
-          <div className="mt-16 pt-10 border-t border-gray-100">
+          <div className={`${styles.back} border-t border-gray-100`}>
             <Link href="/case-studies" className="text-teal font-semibold text-sm no-underline hover:text-dark-teal transition-colors">
               ← All case studies
             </Link>

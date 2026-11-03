@@ -10,12 +10,15 @@ export interface CaseStudy {
   division: Division
   date: string
   excerpt: string
+  logo?: string
+  sections?: { heading: string; paragraphs: string[]; bullets?: string[] }[]
+  closing?: { heading: string; paragraphs: string[]; linkText: string; href: string }
   heroImage?: string
   challenge: string
   solution: string
   outcome: string
   metrics: { label: string; value: string }[]
-  quote?: { text: string; attribution: string }
+  quote?: { text: string; attribution: string; approvedForPublication?: boolean }
   tags: string[]
   metaTitle?: string
   metaDescription?: string
