@@ -1,3 +1,4 @@
+import styles from './case-studies.module.css'
 import Image from 'next/image'
 import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
@@ -29,12 +30,12 @@ export const metadata = withPageSeo({
 })
 
 const SEC  = { paddingTop: 'clamp(5rem,10vw,12rem)', paddingBottom: 'clamp(5rem,10vw,12rem)' }
-const WRAP = 'max-w-screen-xl mx-auto'
+const WRAP = styles.wrap
 const PAD  = { paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }
 
 function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   return (
-    <Link href={`/case-studies/${cs.slug}`} className="no-underline group">
+    <Link href={`/case-studies/${cs.slug}`} className={`${styles.card} no-underline group`}>
       <div className="border border-white/10 overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
         {cs.logo && <div className="bg-white p-6 border-b border-gray-200"><Image src={cs.logo} alt={`${cs.client} logo`} width={294} height={165} className="w-full h-36 object-contain" /></div>}
         {cs.heroImage && (
@@ -105,7 +106,7 @@ export default function CaseStudiesPage() {
           {all.length === 0 ? (
             <div><p className="text-charcoal text-lg" style={{ marginBottom: 24 }}>Approved case studies will be added when available. Start with a practical guide for your next decision.</p><Button href="/blog" variant="primary">Explore articles &amp; guides</Button></div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className={styles.indexGrid}>
               {all.map(cs => <CaseStudyCard key={cs.slug} cs={cs} />)}
             </div>
           )}

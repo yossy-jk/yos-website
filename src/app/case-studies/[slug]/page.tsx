@@ -1,3 +1,4 @@
+import styles from '../case-studies.module.css'
 import Image from 'next/image'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -77,8 +78,8 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 pt-12 pb-16">
-          {cs.logo && <div className="bg-white rounded-sm p-4 mb-8 w-fit"><Image src={cs.logo} alt={`${cs.client} logo`} width={294} height={165} className="max-w-full h-auto" /></div>}
+        <div className={`${styles.wrap} ${styles.intro}`}>
+          {cs.logo && <div className={styles.logo}><Image src={cs.logo} alt={`${cs.client} logo`} width={294} height={165} className="max-w-full h-auto" /></div>}
           <ContentBreadcrumbs section="Case studies" sectionPath="/case-studies" title={cs.title} path={`/case-studies/${cs.slug}`} />
           <div className="flex items-center gap-3 mb-6">
             <span className={`text-xs font-semibold px-3 py-1 rounded-sm ${DIVISION_COLORS[cs.division as Division]}`}>
@@ -93,9 +94,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* METRICS BAR */}
       {cs.metrics.length > 0 && (
-        <section className="bg-teal py-10">
-          <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
-            <div className={`grid grid-cols-2 ${cs.metrics.length >= 4 ? 'md:grid-cols-4' : 'md:grid-cols-2'} gap-6`}>
+        <section className={`bg-teal ${styles.metrics}`}>
+          <div className={styles.wrap}>
+            <div className={`${styles.metricsGrid} grid grid-cols-2 ${cs.metrics.length >= 4 ? 'md:grid-cols-4' : 'md:grid-cols-2'} gap-6`}>
               {cs.metrics.map(m => (
                 <div key={m.label} className="text-center">
                   <p className="text-near-black font-bold text-3xl lg:text-4xl mb-1">{m.value}</p>
@@ -109,9 +110,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
 
       {/* BODY */}
       <section className="bg-white" style={{ paddingTop: 'clamp(4rem,8vw,7rem)', paddingBottom: 'clamp(4rem,8vw,7rem)' }}>
-        <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-            <div className="lg:col-span-2 space-y-12">
+        <div className={styles.wrap}>
+          <div className={styles.bodyGrid}>
+            <div className={styles.story}>
               {cs.sections ? <>
                 <p className="text-charcoal font-light text-lg leading-relaxed">{cs.challenge}</p>
                 <p className="text-charcoal font-light text-lg leading-relaxed">{cs.solution}</p>
@@ -151,7 +152,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
 
             {/* SIDEBAR */}
-            <div className="space-y-8">
+            <div className={styles.sidebar}>
               <div className="bg-warm-grey rounded-sm p-8">
                 <p className="text-near-black font-bold text-sm mb-6">Project details</p>
                 <div className="space-y-4">
@@ -188,7 +189,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             </div>
           </div>
 
-          <div className="mt-16 pt-10 border-t border-gray-100">
+          <div className={`${styles.back} border-t border-gray-100`}>
             <Link href="/case-studies" className="text-teal font-semibold text-sm no-underline hover:text-dark-teal transition-colors">
               ← All case studies
             </Link>
