@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
 import Nav from '@/components/Nav'
@@ -13,12 +14,12 @@ const hasPublishedStudies = getAllCaseStudies().length > 0
 export const metadata = withPageSeo({
   robots: hasPublishedStudies ? undefined : { index: false, follow: true },
   title: 'Case Studies | Your Office Space',
-  description: 'Explore Your Office Space services and practical workplace planning guides. Approved project case studies will be added when available.',
+  description: 'Explore approved Your Office Space case studies, including Recovery Station’s clinical and office tenancy search in East Maitland.',
   alternates: { canonical: 'https://www.yourofficespace.au/case-studies' },
-  twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Explore Your Office Space services and practical workplace planning guides. Approved project case studies will be added when available.' },
+  twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Explore approved Your Office Space case studies, including Recovery Station’s clinical and office tenancy search in East Maitland.' },
   openGraph: {
     title: 'Case Studies | Your Office Space',
-    description: 'Explore Your Office Space services and practical workplace planning guides. Approved project case studies will be added when available.',
+    description: 'Explore approved Your Office Space case studies, including Recovery Station’s clinical and office tenancy search in East Maitland.',
     url: 'https://www.yourofficespace.au/case-studies',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -35,6 +36,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
   return (
     <Link href={`/case-studies/${cs.slug}`} className="no-underline group">
       <div className="border border-white/10 overflow-hidden hover:border-teal transition-colors duration-200 h-full flex flex-col">
+        {cs.logo && <div className="bg-white p-6 border-b border-gray-200"><Image src={cs.logo} alt={`${cs.client} logo`} width={294} height={165} className="w-full h-36 object-contain" /></div>}
         {cs.heroImage && (
           <div className="h-52 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
