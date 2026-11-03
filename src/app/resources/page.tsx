@@ -1,3 +1,4 @@
+import { getAllCaseStudies } from '@/lib/case-studies'
 import WorkplaceGuides from '@/components/WorkplaceGuides'
 import ServiceFaq from '@/components/ServiceFaq'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -16,12 +17,12 @@ import type { Division } from '@/lib/blog'
 
 export const metadata = withPageSeo({
   title: 'Resources & Insights | Your Office Space',
-  description: 'Practical tenant-side commercial property tools for Australian businesses, including lease risk, fit out cost, lease comparison and office size tools.',
-  twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Practical lease, fit out and workplace planning tools for Australian business owners.' },
+  description: 'Commercial property tools, practical guides and approved client case studies to help Australian businesses plan their next workplace decision.',
+  twitter: { card: 'summary_large_image', title: 'Resources | Your Office Space', description: 'Commercial property tools, workplace planning guides and approved Your Office Space client case studies.' },
   alternates: { canonical: 'https://www.yourofficespace.au/resources' },
   openGraph: {
     title: 'Resources & Insights | Your Office Space',
-    description: 'Practical lease, fit out and workplace planning tools for Australian business owners.',
+    description: 'Commercial property tools, workplace planning guides and approved Your Office Space client case studies.',
     url: 'https://www.yourofficespace.au/resources',
     siteName: 'Your Office Space',
     locale: 'en_AU',
@@ -50,6 +51,7 @@ const FILTERS = [
 
 export default function ResourcesPage() {
   const posts = getPublicPosts()
+  const caseStudies = getAllCaseStudies().slice(0, 3)
 
   return (
     <>
@@ -62,6 +64,13 @@ export default function ResourcesPage() {
         "@context": "https://schema.org",
         "@graph": [
           ORGANIZATION_SCHEMA,
+          {
+            '@type': 'ItemList',
+            '@id': 'https://www.yourofficespace.au/resources#case-studies',
+            name: 'Client case studies',
+            numberOfItems: caseStudies.length,
+            itemListElement: caseStudies.map((study, index) => ({ '@type': 'ListItem', position: index + 1, name: study.title, url: `https://www.yourofficespace.au/case-studies/${study.slug}` })),
+          },
           {
             "@type": "WebPage",
             "name": "Resources & Tools. Your Office Space",
@@ -123,9 +132,26 @@ export default function ResourcesPage() {
             </h1>
             <p className="text-white/60 font-light leading-relaxed"
               style={{ fontSize: '1rem', maxWidth: '38rem', lineHeight: 1.75 }}>
-              Free tools for commercial property decisions, practical articles and workplace planning guides. Some tools request contact details to unlock results or a report.
+              Free tools for commercial property decisions, practical articles, workplace planning guides and approved client case studies. Some tools request contact details to unlock results or a report.
             </p>
           </FadeIn>
+        </div>
+      </section>
+
+      <section id="case-studies" aria-labelledby="resources-case-studies-heading" className="bg-warm-grey" style={{ ...SEC, scrollMarginTop: '140px' }}>
+        <div style={{ ...PAD, maxWidth: '1280px', margin: '0 auto' }}>
+          <p className="text-teal font-semibold uppercase" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', marginBottom: '16px' }}>Client case studies</p>
+          <h2 id="resources-case-studies-heading" className="text-near-black font-bold" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)', lineHeight: 1.2, marginBottom: '20px' }}>See how YOS helps businesses move forward.</h2>
+          <p className="text-charcoal" style={{ maxWidth: '44rem', lineHeight: 1.8, marginBottom: '24px' }}>Explore the challenge, the work undertaken and the documented outcome. Each published case study includes client-approved project details.</p>
+          <Link href="/case-studies" className="text-teal font-semibold" style={{ display: 'inline-block', marginBottom: '32px' }}>View all case studies →</Link>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '24px' }}>
+            {caseStudies.map(study => <Link key={study.slug} href={`/case-studies/${study.slug}`} className="bg-white text-charcoal no-underline hover:text-dark-teal" style={{ display: 'block', padding: 'clamp(24px,4vw,40px)', border: '1px solid #d6dddd', borderRadius: '8px' }}>
+              {study.logo && <Image src={study.logo} alt={`${study.client} logo`} width={294} height={165} style={{ objectFit: 'contain', maxWidth: '100%', height: 'auto', marginBottom: '24px' }} />}
+              <h3 className="text-near-black font-bold" style={{ fontSize: '1.4rem', lineHeight: 1.35, marginBottom: '16px' }}>{study.title}</h3>
+              <p style={{ maxWidth: '46rem', lineHeight: 1.8, marginBottom: '24px' }}>{study.excerpt}</p>
+              <span className="text-teal font-semibold">Read case study →</span>
+            </Link>)}
+          </div>
         </div>
       </section>
 

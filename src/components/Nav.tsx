@@ -251,7 +251,18 @@ export default function Nav() {
                         </div>
                       </div>
 
-                      {/* Col 2. Blog */}
+                      {/* Col 2. Case studies */}
+                      <div style={{ flex: '1 1 0', borderRight: '1px solid rgba(255,255,255,0.07)', padding: '1.75rem' }}>
+                        <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Case Studies</p>
+                        <Link href="/case-studies" onClick={closeAll}
+                          className="no-underline group flex flex-col hover:bg-white/[0.04] transition-colors"
+                          style={{ padding: '0.6rem 0.875rem', borderRadius: '0.5rem' }}>
+                          <span className="text-white font-semibold group-hover:text-teal" style={{ fontSize: '0.75rem', marginBottom: '0.35rem' }}>Client case studies →</span>
+                          <span className="text-white/55" style={{ fontSize: '0.7rem', lineHeight: 1.6 }}>Explore client challenges, YOS’s role and documented project outcomes.</span>
+                        </Link>
+                      </div>
+
+                      {/* Col 3. Blog */}
                       <div style={{ flex: '1 1 0', padding: '1.75rem 0 1.75rem 1.75rem' }}>
                         <p className="text-teal font-bold uppercase" style={{ fontSize: '0.58rem', letterSpacing: '0.25em', marginBottom: '1rem' }}>Latest Articles</p>
                         <div className="flex flex-col" style={{ gap: '0.1rem' }}>
@@ -360,7 +371,7 @@ export default function Nav() {
               { key: 'services', title: 'Services', links: MOBILE_SERVICES },
               { key: 'care', title: 'Workplace Care', links: [{ label: 'Explore Flourish', href: '/flourish' }, ...FLOURISH_LINKS.map(link => ({ href: link.href, label: link.label.replace(/^Office /, '') }))] },
               { key: 'about', title: 'About us', links: [{ label: 'About YOS', href: '/about' }, { label: 'Work or Partner with YOS', href: '/about/work-with-yos' }] },
-              { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Articles & Guides', href: '/blog' }] },
+              { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Case Studies', href: '/case-studies' }, { label: 'Articles & Guides', href: '/blog' }] },
             ] as const).map(group => <div key={group.key} className="yos-mobile-group">
               <button type="button" aria-expanded={mobileSection === group.key} aria-controls={`mobile-${group.key}-links`} onClick={() => setMobileSection(mobileSection === group.key ? null : group.key)} className="yos-mobile-group-toggle">
                 {group.title}<span aria-hidden="true">{mobileSection === group.key ? '−' : '+'}</span>
