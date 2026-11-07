@@ -61,15 +61,14 @@ function calculate(
 
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Commercial Rental Yield Calculator | Your Office Space",
   "description": "Calculate gross and net rental yield on commercial property investments.",
   "url": "https://www.yourofficespace.au/resources/rental-yield-calculator",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function RentalYieldCalculatorPage() {
@@ -343,7 +342,6 @@ export default function RentalYieldCalculatorPage() {
             style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>Enquire</a>
         </div>
       </section>
-
 
       {/* Disclaimer */}
       <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>

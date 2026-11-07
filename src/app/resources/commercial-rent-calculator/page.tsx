@@ -8,7 +8,7 @@ import { withPageSeo } from '@/lib/page-seo'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import CommercialRentCalculator from './CommercialRentCalculator'
 
-const title = 'Commercial Rent Calculator | Lease Cost & Effective Rent | Your Office Space'
+const title = 'Commercial Rent & Lease Cost Calculator | Your Office Space'
 const description = 'Free commercial rent calculator. See monthly and annual rent, outgoings, GST, a full lease schedule, effective rent after incentives and what the rent means for value.'
 export const metadata: Metadata = withPageSeo({ title, description, robots: { index: true, follow: true }, alternates: { canonical: 'https://www.yourofficespace.au/resources/commercial-rent-calculator' }, openGraph: { title, description, url: 'https://www.yourofficespace.au/resources/commercial-rent-calculator', siteName: 'Your Office Space', locale: 'en_AU', type: 'website', images: [{ url: '/og/og-resources.png', width: 1200, height: 630, alt: 'Commercial property planning tools from Your Office Space' }] }, twitter: { card: 'summary_large_image', title, description, images: ['/og/og-resources.png'] } })
 const faqs = [
@@ -20,7 +20,7 @@ const faqs = [
 ]
 export default function CommercialRentPage() {
   return <><Nav /><main id="main-content" tabIndex={-1}>
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebApplication', name: 'Commercial Rent Calculator', url: 'https://www.yourofficespace.au/resources/commercial-rent-calculator', description, applicationCategory: 'FinanceApplication', operatingSystem: 'Web', offers: { '@type': 'Offer', price: '0', priceCurrency: 'AUD' }, provider: ORGANIZATION_SCHEMA }) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'WebPage', name: 'Commercial Rent Calculator', url: 'https://www.yourofficespace.au/resources/commercial-rent-calculator', description,   isAccessibleForFree: true, provider: ORGANIZATION_SCHEMA }) }} />
     <header style={{ padding: 'clamp(10rem,18vw,14rem) 24px 64px', background: '#1a1a1a', color: 'white', marginBottom: 40 }}><div style={{ maxWidth: 1184, margin: '0 auto' }}><Link href="/resources" className="text-white underline underline-offset-4">Resources</Link><p style={{ color: '#00b5a5', textTransform: 'uppercase', letterSpacing: '.18em', fontWeight: 700, margin: '24px 0 16px', fontSize: 13 }}>Free planning tool</p><h1 style={{ fontSize: 'clamp(2rem,5vw,4.5rem)', fontWeight: 900, lineHeight: 1.1, maxWidth: '18ch' }}>Commercial Rent Calculator</h1><p style={{ maxWidth: 850, lineHeight: 1.8, marginTop: 28 }}>Work out what a commercial lease really costs. Enter the rent, outgoings, reviews and incentives to see your monthly cost, a year-by-year lease schedule and your effective rent.</p><p style={{ marginTop: 20, color: '#d7e9e3', fontSize: 14 }}>AUD. Enter amounts before GST. Results run in your browser and are not sent to the YOS team.</p></div></header>
     <CommercialRentCalculator />
     <section aria-labelledby="rent-assumptions-heading" style={{ maxWidth: 1120, margin: '0 auto', padding: '0 24px 64px', lineHeight: 1.8 }}><h2 id="rent-assumptions-heading" className="text-2xl font-bold">Understanding your lease figures</h2>

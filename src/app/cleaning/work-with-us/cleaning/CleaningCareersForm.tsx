@@ -1,4 +1,5 @@
 'use client'
+import PublicEmailLink from '@/components/PublicEmailLink'
 import { postEnquiry } from '@/lib/enquiry'
 import Link from 'next/link'
 import { useEffect, useId, useRef, useState } from 'react'
@@ -387,7 +388,7 @@ export default function CleaningCareersForm() {
 
       {error && (
         <div role="alert" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', padding: '0.875rem 1rem', marginBottom: '1rem' }}>
-          <p style={{ color: '#ffaaaa', fontSize: '0.82rem', margin: 0 }}>{error} You can also <a style={{ color: 'inherit', textDecoration: 'underline' }} href="mailto:jk@yourofficespace.au">email Joe</a>.</p>
+          <p style={{ color: '#ffaaaa', fontSize: '0.82rem', margin: 0 }}>{error} You can also <PublicEmailLink email="jk@yourofficespace.au" label="email Joe" style={{ color: 'inherit', textDecoration: 'underline' }} />.</p>
         </div>
       )}
 

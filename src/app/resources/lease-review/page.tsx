@@ -13,7 +13,6 @@ import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import { CheckIcon } from '@/components/Icons'
 
-
 type Step = 'intro' | number | 'capture' | 'result'
 
 const RISK_CONFIG = {
@@ -22,18 +21,16 @@ const RISK_CONFIG = {
   low: { label: 'FEWER REVIEW FLAGS', colour: '#10b981', bg: 'bg-emerald-50', border: 'border-emerald-200', text: 'text-emerald-700', message: LEASE_REVIEW_MESSAGES.low },
 }
 
-
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Commercial Lease Risk Checker | Your Office Space",
   "description": "A free questionnaire to organise lease topics for discussion with a commercial solicitor and your advisers. It does not analyse the lease.",
   "url": "https://www.yourofficespace.au/resources/lease-review",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function LeaseRiskCheckerPage() {
@@ -433,7 +430,6 @@ export default function LeaseRiskCheckerPage() {
           )}
         </div>
       </div>
-
 
       <ToolGuide purpose="Use the questions to identify lease topics that warrant closer review before you commit or renew." inputs="Your lease and information about rent reviews, make-good, options and other commercial obligations." result="A risk summary based on your answers. It does not analyse the full lease or replace a solicitor." next="Start a free Lease Health Check" href="/lease-health-check" />
 </main>

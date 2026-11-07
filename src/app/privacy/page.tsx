@@ -1,3 +1,4 @@
+import PublicEmailLink from '@/components/PublicEmailLink'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
@@ -157,7 +158,7 @@ export default function PrivacyPage() {
                 <ThirdParty
                   name="Resend"
                   role="Email delivery, sends requested checklists, separately opted-in discovery invitations, confirmations and reports, and delivers enquiries and optional lease attachments to the YOS inbox."
-                  link="https://resend.com/privacy"
+                  link="https://resend.com/legal/privacy-policy"
                 />
                 <ThirdParty
                   name="Vercel"
@@ -218,7 +219,7 @@ export default function PrivacyPage() {
               </ul>
               <p>
                 To exercise any of these rights, just email us at{' '}
-                <a href="mailto:jk@yourofficespace.au" className="text-teal hover:underline">jk@yourofficespace.au</a>.
+                <PublicEmailLink email="jk@yourofficespace.au" className="text-teal hover:underline" />.
                 We&apos;ll respond within 30 days.
               </p>
             </PrivacySection>
@@ -226,7 +227,7 @@ export default function PrivacyPage() {
             <PrivacySection title="Unsubscribing">
               <p>
                 Checklist emails include a cancellation link. Open it and select <strong>Stop checklist follow-ups</strong> on the confirmation page to stop the optional invitation. Opening the link alone does not change your preference. You can also email{' '}
-                <a href="mailto:jk@yourofficespace.au" className="text-teal hover:underline">jk@yourofficespace.au</a>{' '}
+                <PublicEmailLink email="jk@yourofficespace.au" className="text-teal hover:underline" />{' '}
                 and we&apos;ll remove you manually.
               </p>
             </PrivacySection>
@@ -234,7 +235,7 @@ export default function PrivacyPage() {
             <PrivacySection title="Data deletion requests">
               <p>
                 Want us to delete everything we hold on you? Email{' '}
-                <a href="mailto:jk@yourofficespace.au" className="text-teal hover:underline">jk@yourofficespace.au</a>{' '}
+                <PublicEmailLink email="jk@yourofficespace.au" className="text-teal hover:underline" />{' '}
                 with &ldquo;Delete my data&rdquo; in the subject line. We&apos;ll action it within 30 days, unless we&apos;re legally required
                 to retain certain records (for example, transaction data for tax purposes).
               </p>
@@ -262,7 +263,7 @@ export default function PrivacyPage() {
                 <strong className="text-near-black">Joe Kelley</strong><br />
                 Managing Director, Your Office Space<br />
                 Tenant representation is delivered within verified NSW licensing coverage.<br />
-                <a href="mailto:jk@yourofficespace.au" className="text-teal hover:underline">jk@yourofficespace.au</a>
+                <PublicEmailLink email="jk@yourofficespace.au" className="text-teal hover:underline" />
               </address>
             </PrivacySection>
 

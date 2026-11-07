@@ -18,6 +18,7 @@ export default function Page() {
     >
       <section className="tenant-section">
         <div className="tenant-wrap">
+          <h2>Compare the package options.</h2>
           <PackageCards paymentsEnabled={tenantPaymentRuntime().enabled} />
           <h2>The core service in every package.</h2>
           <ul className="tenant-list">

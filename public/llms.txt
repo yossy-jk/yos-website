@@ -1,0 +1,23 @@
+# Your Office Space
+
+> Newcastle-based commercial property and workplace support. Tenant representation and commercial buying operate in NSW. YOS provides client-side FitOut project management, furniture support and selected workplace services. Appointed contractors perform construction. Cleaning is limited to Newcastle CBD and Lake Macquarie.
+
+## Services
+- [Tenant representation](https://www.yourofficespace.au/tenant-rep): Search, property comparison and commercial negotiation support for tenants.
+- [Commercial buyers agency](https://www.yourofficespace.au/buyers-agency): Buyer-side commercial property support.
+- [Office FitOut](https://www.yourofficespace.au/office-fitout): Client-side project coordination and scope planning.
+- [Office furniture](https://www.yourofficespace.au/furniture): Furniture briefs, product selection and installation coordination.
+- [Commercial cleaning](https://www.yourofficespace.au/cleaning): Workplace cleaning in Newcastle CBD and Lake Macquarie.
+
+## Guides and planning tools
+- [Resources](https://www.yourofficespace.au/resources): Planning tools, guides and published client case studies. Tool results depend on the stated inputs and assumptions.
+- [Articles](https://www.yourofficespace.au/blog): Commercial property and workplace planning guides. Refer to each article's publication date and sources.
+- [Client case studies](https://www.yourofficespace.au/case-studies): Approved client stories and documented outcomes.
+- [Recovery Station](https://www.yourofficespace.au/case-studies/recovery-station-east-maitland-tenant-representation): Clinical and office tenancy search in East Maitland.
+
+## Business information
+- [About YOS](https://www.yourofficespace.au/about): Team and service information.
+- [Contact](https://www.yourofficespace.au/contact): Discuss a specific property or workplace requirement.
+- [Privacy](https://www.yourofficespace.au/privacy): Website data and enquiry handling.
+
+This file is a navigation aid. It does not override robots.txt, content-use preferences, service eligibility or the qualifications stated on each page. General website information is not a substitute for project-specific quotations, legal advice or financial advice.

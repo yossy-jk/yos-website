@@ -467,6 +467,7 @@ export default function CleaningPage() {
           </div>
         </div>
       </section>
+      <div style={{ padding: '1.5rem', textAlign: 'center' }}><Link href="/cleaning/work-with-us/cleaning" className="text-action-teal font-semibold underline">Interested in joining the cleaning team?</Link></div>
       </main>
 
       <Footer />

@@ -49,7 +49,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const cs = getCaseStudyBySlug(slug)
   if (!cs) notFound()
 
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -184,7 +183,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
               <div className="bg-near-black rounded-sm p-8">
                 <p className="text-white font-bold text-base mb-3">Want a similar outcome?</p>
                 <p className="text-white/60 font-light text-sm mb-6">Talk to us about your situation. First conversation is always free.</p>
-                <Button href={ENQUIRY.contactUrl} variant="primary" external>Request a call</Button>
+                <Button href={ENQUIRY.contactUrl} variant="primary">Request a call</Button>
               </div>
             </div>
           </div>

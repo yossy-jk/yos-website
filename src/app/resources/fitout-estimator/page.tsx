@@ -31,15 +31,14 @@ function fmt(n: number) {
 }
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Office Fitout Cost Estimator | Your Office Space",
   "description": "Explore an indicative office fitout budget using the tool’s planning assumptions. Confirm the scope and project-specific quotes before committing.",
   "url": "https://www.yourofficespace.au/resources/fitout-estimator",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 export default function FitoutEstimatorPage() {
   const [step, setStep] = useState(0)

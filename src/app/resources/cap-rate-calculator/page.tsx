@@ -13,7 +13,6 @@ function fmt(n: number) {
 }
 function fmtPct(n: number) { return n.toFixed(2) + '%' }
 
-
 // Number input with comma formatting
 function NumberInput({ label, value, onChange, placeholder, prefix = '$', suffix, hint }: {
   label: string; value: string; onChange: (v: string) => void; placeholder?: string;
@@ -52,15 +51,14 @@ function MetricCard({ label, value, sub }: { label: string; value: string; sub?:
 
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Cap Rate Calculator for Commercial Property | Your Office Space",
   "description": "Calculate an indicative cap rate, capitalised value or annual NOI from your own assumptions. Not a property valuation.",
   "url": "https://www.yourofficespace.au/resources/cap-rate-calculator",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function CapRateCalculatorPage() {
@@ -313,7 +311,7 @@ export default function CapRateCalculatorPage() {
               )}
 
               <aside style={{ padding: 20, marginBottom: 20 }} className="border border-white/15" aria-labelledby="cap-assumptions-heading">
-                <h3 id="cap-assumptions-heading" style={{ marginBottom: 12 }} className="text-white font-semibold mb-3">Check the assumptions behind the result.</h3>
+                <h2 id="cap-assumptions-heading" style={{ marginBottom: 12 }} className="text-white font-semibold mb-3">Check the assumptions behind the result.</h2>
                 <p className="text-white/75 leading-relaxed text-sm">The sensitivity rates are examples, not market benchmarks. A passing-income yield is not automatically a market capitalisation rate. A valuer must assess comparable transactions, sustainable income, condition and the appropriate valuation method.</p>
                 <p className="text-white/75 text-sm leading-relaxed mt-4">Use consistent GST treatment for income, expenses and price. This tool does not calculate GST liability, tax deductions, acquisition costs or equity returns. NOI is not cash left after mortgage payments. Capital works and acquisition costs need separate assessment.</p>
                 <p className="text-white/75 text-sm leading-relaxed mt-4">This one-period model does not separately model lease expiry, incentives, rent reviews, future vacancy, capital works, growth or sale proceeds. A property requiring stabilisation or redevelopment may need another valuation method.</p>

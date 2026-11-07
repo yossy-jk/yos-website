@@ -181,15 +181,14 @@ function YearTable({ result, isBest }: { result: LeaseResult; isBest: boolean })
 
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Commercial Lease Comparison Tool | Your Office Space",
   "description": "Compare two commercial lease scenarios side by side. Rent, outgoings, incentives and term.",
   "url": "https://www.yourofficespace.au/resources/lease-comparison",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function LeaseComparisonPage() {

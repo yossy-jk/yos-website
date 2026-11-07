@@ -1,3 +1,4 @@
+import PublicEmailLink from '@/components/PublicEmailLink'
 import DiscoveryBooking from '@/components/DiscoveryBooking'
 import ServiceFaq from '@/components/ServiceFaq'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -224,11 +225,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   {/* Email */}
                   <div style={{ paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)' }}>
                     <p className="text-mid-grey font-semibold uppercase tracking-widest mb-1" style={{ fontSize: '0.65rem' }}>Email</p>
-                    <a href={`mailto:${CONTACT.email}`}
-                      className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
-                      style={{ fontSize: '1rem' }}>
-                      {CONTACT.email}
-                    </a>
+                    <PublicEmailLink email={CONTACT.email} className="text-teal font-bold no-underline hover:text-dark-teal transition-colors block mb-1"
+                      style={{ fontSize: '1rem' }} />
                     <p className="text-charcoal font-light" style={{ fontSize: '0.85rem' }}>
                       We read every enquiry and confirm the appropriate next step.
                     </p>
