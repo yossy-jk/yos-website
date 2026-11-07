@@ -87,15 +87,14 @@ const WORK_STYLE_RECOMMENDATIONS: Record<WorkStyle, string[]> = {
 
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Office Size Calculator | Your Office Space",
   "description": "Calculate how much office space your team needs based on staff count and work style.",
   "url": "https://www.yourofficespace.au/resources/office-size-calculator",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function OfficeSizeCalculatorPage() {

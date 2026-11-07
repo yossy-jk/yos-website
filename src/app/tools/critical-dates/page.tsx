@@ -13,7 +13,7 @@ export default function Page() {
     >
       <section className="tenant-section">
         <div className="tenant-wrap">
-          <DatesCalculator />
+          <DatesCalculator headingLevel="h2" />
         </div>
       </section>
     </TenantShell>

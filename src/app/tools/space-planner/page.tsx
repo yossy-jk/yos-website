@@ -1,3 +1,4 @@
+import PublicEmailLink from '@/components/PublicEmailLink'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
@@ -40,7 +41,7 @@ export default function SpacePlannerPage() {
         "description": "The YOS online Space Planner is not available yet. Contact the team to discuss your furniture brief.",
         "url": "https://www.yourofficespace.au/tools/space-planner",
         "provider": ORGANIZATION_SCHEMA,
-        "areaServed": { "@type": "Country", "name": "Australia" },
+        "spatialCoverage": { "@type": "Country", "name": "Australia" },
       }) }} />
 
       {/* ─── HERO ─────────────────────────────────────────── */}
@@ -121,10 +122,7 @@ export default function SpacePlannerPage() {
                   style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.9rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
                   (02) 4092 0733
                 </a>
-                <a href="mailto:hello@yourofficespace.au"
-                  style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem', textDecoration: 'none', letterSpacing: '0.05em' }}>
-                  hello@yourofficespace.au
-                </a>
+                <PublicEmailLink email="hello@yourofficespace.au" style={{ color: 'rgba(255,255,255,0.35)', fontSize: '0.85rem', textDecoration: 'none', letterSpacing: '0.05em' }} />
               </div>
             </div>
           </FadeIn>

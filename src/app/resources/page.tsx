@@ -32,6 +32,10 @@ export const metadata = withPageSeo({
 })
 
 const LEASING_TOOLS = [
+  { title: 'Commercial Property Health Check', description: 'Review your lease, fitout, furniture and cleaning priorities before deciding what needs attention.', href: '/resources/health-check', features: ['Workplace priorities', 'Planning questions', 'Next steps'] },
+  { title: 'Furniture Workspace Builder', description: 'Prepare a furniture layout brief using your space and workstation requirements. Confirm measurements and suitability before ordering.', href: '/resources/workspace-builder', features: ['Furniture brief', 'Layout planning', 'Scope review'] },
+  { title: 'Space Planner', description: 'Explore a furniture layout using your own measurements. Confirm access, services and compliance with the appropriate advisers.', href: '/tools/space-planner', features: ['Measured layout', 'Furniture planning', 'Review before commitment'] },
+  { title: 'Newcastle Market Context', description: 'Review local commercial property context, dates and questions to investigate alongside property-specific evidence.', href: '/market-snapshot', features: ['Local context', 'Evidence questions', 'Property planning'] },
   { title: 'Commercial Rent Calculator', description: 'See the full cost of a lease: monthly rent, outgoings, GST, a year-by-year schedule and your effective rent after incentives.', href: '/resources/commercial-rent-calculator', features: ['Instant result', 'Lease schedule', 'Optional value scenario'] },
   { title: 'Cap Rate Calculator', description: 'Calculate cap rate, indicative capitalised value or annual NOI from your own assumptions. Includes an NOI helper and illustrative sensitivity scenarios.', href: '/resources/cap-rate-calculator', features: ['Three calculation modes', 'Annual NOI helper', 'Clear valuation limits'] },
   { title: 'Lease Risk Checker', description: 'Answer 10 questions and get an instant risk report. We flag the clauses that need attention. and tell you what to negotiate.', href: '/resources/lease-review', features: ['10-question assessment', 'Plain-English risk flags', 'Instant results'] },
@@ -66,6 +70,13 @@ export default function ResourcesPage() {
           ORGANIZATION_SCHEMA,
           {
             '@type': 'ItemList',
+            '@id': 'https://www.yourofficespace.au/resources#planning-tools',
+            name: 'Commercial property planning tools',
+            numberOfItems: LEASING_TOOLS.length,
+            itemListElement: LEASING_TOOLS.map((tool, index) => ({ '@type': 'ListItem', position: index + 1, name: tool.title, url: 'https://www.yourofficespace.au' + tool.href })),
+          },
+          {
+            '@type': 'ItemList',
             '@id': 'https://www.yourofficespace.au/resources#case-studies',
             name: 'Client case studies',
             numberOfItems: caseStudies.length,
@@ -78,46 +89,6 @@ export default function ResourcesPage() {
             "url": "https://www.yourofficespace.au/resources"
           },
 
-          {
-            "@type": "SoftwareApplication",
-            "name": "Lease Risk Checker",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free instant risk assessment" },
-            "url": "https://www.yourofficespace.au/resources/lease-review"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Fitout Cost Estimator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free fitout cost estimate" },
-            "url": "https://www.yourofficespace.au/resources/fitout-estimator"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Lease Comparison Tool",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free lease comparison" },
-            "url": "https://www.yourofficespace.au/resources/lease-comparison"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Office Size Calculator",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free office space calculator" },
-            "url": "https://www.yourofficespace.au/resources/office-size-calculator"
-          },
-          {
-            "@type": "SoftwareApplication",
-            "name": "Should I Relocate Quiz",
-            "applicationCategory": "BusinessApplication",
-            "operatingSystem": "Web",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free office relocation assessment" },
-            "url": "https://www.yourofficespace.au/resources/relocate-quiz"
-          },
         ]
       }) }} />
 
@@ -168,6 +139,7 @@ export default function ResourcesPage() {
             </h2>
           </FadeIn>
 
+          <p className="text-charcoal" style={{ marginBottom: '32px', lineHeight: 1.8 }}>Compare the assumptions before comparing properties. <Link href="/insights/lease-costs" className="text-action-teal font-semibold underline">Read the guide to commercial lease costs</Link>.</p>
           <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" style={{ marginBottom: 'clamp(5rem,10vw,10rem)' }}>
             {LEASING_TOOLS.map((tool, i) => (
               <FadeIn key={tool.title} delay={i * 60}>
@@ -294,7 +266,6 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-
       {/* ─── CTA ──────────────────────────────── */}
       <section className="bg-teal text-white" style={SEC}>
         <div className="max-w-screen-xl mx-auto" style={PAD}>
@@ -313,7 +284,6 @@ export default function ResourcesPage() {
           </FadeIn>
         </div>
       </section>
-
 
       <ServiceFaq items={[{"question": "Are the tools free to use?", "answer": "The listed planning tools have no usage charge. Some tools request your name and work email to unlock a result or report. A tailored advisory or project engagement is separately scoped."}, {"question": "Can I rely on a calculator result as a final quote?", "answer": "No. Results are indicative and depend on the inputs and assumptions shown. Confirm current rates, site conditions and scope before making a decision. Obtain legal, tax or financial advice where relevant."}, {"question": "Which tool should I use first?", "answer": "Use the office size calculator for an initial space brief, the lease comparison tool to assess options, or the FitOut estimator for an indicative project budget. If you already have a lease, start with a lease risk review."}]} />
       </main>

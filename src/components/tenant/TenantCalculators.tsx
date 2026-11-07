@@ -81,7 +81,8 @@ function ToolResults({
     </div>
   );
 }
-export function TimeCalculator({ compact = false }: { compact?: boolean }) {
+export function TimeCalculator({ compact = false, headingLevel = 'h3' }: { compact?: boolean; headingLevel?: 'h2' | 'h3' }) {
+  const ResultHeading = headingLevel
   const [hourly, setHourly] = useState(0),
     [annual, setAnnual] = useState(0),
     [basis, setBasis] = useState("hourly"),
@@ -216,7 +217,7 @@ export function TimeCalculator({ compact = false }: { compact?: boolean }) {
       </form>
       {result === null ? (
         <aside className="tenant-results">
-          <h3>What else could your team do with that time?</h3>
+          <ResultHeading>What else could your team do with that time?</ResultHeading>
           <p>
             Include searching listings, calls, inspections, comparing offers and
             coordinating the move. This is the value of time used, not a promise
@@ -293,7 +294,8 @@ function LeaseFields({
     </div>
   );
 }
-export function LeaseCalculator() {
+export function LeaseCalculator({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h3' } = {}) {
+  const ResultHeading = headingLevel
   const [inputs, setInputs] = useState<LeaseInputs>({
       ...TENANT_OFFER.lease,
       outgoings: 0,
@@ -366,7 +368,7 @@ export function LeaseCalculator() {
         </ToolResults>
       ) : (
         <aside className="tenant-results">
-          <h3>Compare the full commitment.</h3>
+          <ResultHeading>Compare the full commitment.</ResultHeading>
           <p>
             A lower face rent can still come with a larger overall cost. Use the
             same assumptions for every offer, then check incentives, reviews and
@@ -515,7 +517,8 @@ export function GuaranteeCalculator() {
     </form>
   );
 }
-export function DatesCalculator() {
+export function DatesCalculator({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h3' } = {}) {
+  const ResultHeading = headingLevel
   const [start, setStart] = useState(""),
     [expiryOverride, setExpiryOverride] = useState(""),
     [years, setYears] = useState<number>(TENANT_OFFER.dates.years),
@@ -663,7 +666,7 @@ export function DatesCalculator() {
             expiry: expiryOverride,
           }}
         >
-          <h3>Your estimated dates</h3>
+          <ResultHeading>Your estimated dates</ResultHeading>
           <ul className="tenant-checklist">
             {dates.map((d) => (
               <li key={d.date + d.label}>
@@ -695,7 +698,7 @@ export function DatesCalculator() {
         </ToolResults>
       ) : (
         <aside className="tenant-results">
-          <h3>Check notice deadlines first.</h3>
+          <ResultHeading>Check notice deadlines first.</ResultHeading>
           <p>
             Expiry is only one date. An option notice can be due months earlier.
             Ask your solicitor to confirm the exact window and notice

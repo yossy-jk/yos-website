@@ -1,3 +1,4 @@
+import PublicEmailLink from '@/components/PublicEmailLink'
 import Link from 'next/link'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
@@ -24,7 +25,6 @@ export const metadata = withPageSeo({
   },
 })
 
-
 const FAQ_SCHEMA = [
   {
     q: 'What should our organisation check about make-good?',
@@ -43,7 +43,6 @@ const FAQ_SCHEMA = [
     a: 'Explain the possible change before committing. Ask your solicitor to check the actual assignment, subletting, permitted-use and exit provisions, including any consent requirements. Connect the advice with a relocation brief and the decisions your board needs to make.',
   },
 ]
-
 
 export default function NotForProfitPage() {
   return (
@@ -296,10 +295,8 @@ export default function NotForProfitPage() {
                 <div className="flex flex-col gap-4">
                   <div>
                     <p className="text-charcoal font-semibold" style={{ fontSize: '0.8rem' }}>Email</p>
-                    <a href={`mailto:${CONTACT.email}`} className="text-teal hover:text-near-black transition-colors"
-                      style={{ fontSize: '0.9rem' }}>
-                      {CONTACT.email}
-                    </a>
+                    <PublicEmailLink email={CONTACT.email} className="text-teal hover:text-near-black transition-colors"
+                      style={{ fontSize: '0.9rem' }} />
                   </div>
                   <div>
                     <p className="text-charcoal font-semibold" style={{ fontSize: '0.8rem' }}>Phone</p>

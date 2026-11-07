@@ -8,7 +8,7 @@ const resources = {
       ['lease-exit-plan-template.csv', 'Current lease exit planning sheet', 'Ask your solicitor to confirm notice windows and obligations before assigning dates and action owners.'],
       ['relocation-roadmap-template.csv', 'Relocation roadmap', 'Connect the brief, comparison, commitment, preparation and handover with dependencies visible.'],
     ],
-    links: [{ href: '/tenant-rep/packages', title: 'Compare the package inclusions' }, { href: '/tools/lease-cost-calculator', title: 'Explore lease costs' }, { href: '/market-snapshot', title: 'Evaluate Newcastle market evidence' }],
+    links: [{ href: '/tenant-rep/packages', title: 'Compare the package inclusions' }, { href: '/tools/lease-cost-calculator', title: 'Explore lease costs' }, { href: '/insights/lease-costs', title: 'Understand the costs behind a lease comparison' }, { href: '/market-snapshot', title: 'Evaluate Newcastle market evidence' }],
   },
   furniture: {
     label: 'Furniture brief', heading: 'Make the first quote easier to prepare.', intro: 'List the rooms, quantities and furniture you want to keep. Add a plan if available, then confirm finishes, delivery access and the required date. Product availability and installation scope are confirmed in the quote.',

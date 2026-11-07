@@ -1,4 +1,5 @@
 'use client'
+import PublicEmailLink from '@/components/PublicEmailLink'
 import { postEnquiry } from '@/lib/enquiry'
 import { useState, useEffect, useRef } from 'react'
 import Nav from '@/components/Nav'
@@ -476,9 +477,7 @@ export default function MarketSnapshotPageContent({
         >
           <p className="text-mid-grey font-light" style={{ fontSize: '0.82rem' }}>
             Published by Your Office Space | Newcastle |{' '}
-            <a href="mailto:jk@yourofficespace.au" className="text-action-teal no-underline hover:underline">
-              jk@yourofficespace.au
-            </a>{' '}
+            <PublicEmailLink email="jk@yourofficespace.au" className="text-action-teal no-underline hover:underline" />{' '}
             | (02) 4092 0733
           </p>
         </div>
@@ -490,8 +489,6 @@ export default function MarketSnapshotPageContent({
       </main>
 
       <Footer />
-
-
 
       {/* ── Popup ────────────────────────────────────────── */}
       {popupOpen && <RegistrationPopup onClose={closePopup} />}

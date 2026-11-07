@@ -1,5 +1,5 @@
 # NEWCASTLE OFFICE MARKET SNAPSHOT
-### Historical May 2026 edition | Prepared by Your Office Space
+Historical May 2026 edition | Prepared by Your Office Space
 
 ## EDITORIAL UPDATE — 19 OCTOBER 2026
 

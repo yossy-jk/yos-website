@@ -1,3 +1,4 @@
+import { relatedPosts as selectRelatedPosts } from '@/lib/related-posts'
 import { articleInlineTokens } from '@/lib/article-inline'
 import { articleEnquiry } from '@/lib/article-enquiry'
 import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
@@ -305,20 +306,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const enquiry = articleEnquiry(post.slug, post.division)
 
-  // Related posts. same division, exclude current
   const allPosts = await getAllPublicPostsAsync()
-  const related = allPosts
-    .filter(p => p.slug !== slug && p.division === post.division)
-    .slice(0, 3)
-  const otherPosts = allPosts
-    .filter(p => p.slug !== slug && p.division !== post.division)
-    .slice(0, Math.max(0, 3 - related.length))
-  const relatedPosts = [...related, ...otherPosts].slice(0, 3)
+  const relatedPosts = selectRelatedPosts(allPosts, post)
 
   const authorProfile = EDITORIAL_AUTHORS[post.author]
   const publicationDate = safeContentDate(post.date)
   const readTime = Math.max(2, Math.round(post.body.split(' ').length / 200))
-
 
   const heroImage = post.heroImage || DIVISION_HERO_IMAGES[post.division as Division]
   const jsonLd = {

@@ -148,15 +148,14 @@ const STATE_NAMES: Record<State, string> = {
 
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Commercial Stamp Duty Calculator Australia | Your Office Space",
   "description": "Calculate transfer duty on commercial property across all Australian states. 2025-26 verified rates.",
   "url": "https://www.yourofficespace.au/resources/stamp-duty-calculator",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function StampDutyCalculatorPage() {
@@ -410,7 +409,6 @@ export default function StampDutyCalculatorPage() {
             style={{ padding: '1.25rem 3rem', fontSize: '0.72rem', letterSpacing: '0.2em', textTransform: 'uppercase', borderRadius: '0.5rem' }}>Enquire</a>
         </div>
       </section>
-
 
       {/* Disclaimer */}
       <div className="bg-gray-50" style={{ padding: "1.5rem clamp(1.5rem,8vw,10rem)" }}>

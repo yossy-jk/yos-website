@@ -273,15 +273,14 @@ function NavButtons({ onNext, onBack, nextLabel = 'Next →', disabled = false }
 // ─── Main page ───────────────────────────────────────────────────────────────
 const SCHEMA = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": 'WebPage',
   "name": "Commercial Office Workspace Builder | Your Office Space",
   "description": "Plan and price a full commercial office fitout with real Hunter Valley supplier pricing.",
   "url": "https://www.yourofficespace.au/resources/workspace-builder",
-  "applicationCategory": "FinanceApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD", "description": "Free to use" },
+
+  isAccessibleForFree: true,
   "provider": ORGANIZATION_SCHEMA,
-  "areaServed": { "@type": "Country", "name": "Australia" },
+  "spatialCoverage": { "@type": "Country", "name": "Australia" },
 }
 
 export default function WorkspaceBuilderPage() {
@@ -812,7 +811,6 @@ export default function WorkspaceBuilderPage() {
 
         </div>
       </div>
-
 
       <ToolGuide purpose="Build an initial workplace furniture specification to discuss with the YOS team." inputs="Team size, workspace requirements, furniture preferences and your approximate budget." result="An initial specification for further discussion. Availability, dimensions, installation and pricing require confirmation." next="Explore commercial furniture supply and installation" href="/furniture" />
 </main>

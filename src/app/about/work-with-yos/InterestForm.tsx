@@ -1,4 +1,5 @@
 'use client'
+import PublicEmailLink from '@/components/PublicEmailLink'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { postEnquiry } from '@/lib/enquiry'
@@ -14,7 +15,7 @@ export default function InterestForm() {
   const [arrangement, setArrangement] = useState('Open to discussing')
   useEffect(() => { if (status === 'success') successRef.current?.focus() }, [status])
   return <div className={styles.formCard}>
-    {status === 'success' ? <div role="status"><h3 ref={successRef} tabIndex={-1}>{preview ? 'Preview completed.' : 'Thanks for putting your hand up.'}</h3><p>{preview ? 'This preview has not sent an email.' : 'Your interest has been delivered to the YOS team. We’ll review your experience, location and availability and contact you about suitable next steps.'}</p><p>You’re welcome to <a href="mailto:jk@yourofficespace.au">email Joe</a> if your details change.</p></div> : <form onSubmit={async event => {
+    {status === 'success' ? <div role="status"><h3 ref={successRef} tabIndex={-1}>{preview ? 'Preview completed.' : 'Thanks for putting your hand up.'}</h3><p>{preview ? 'This preview has not sent an email.' : 'Your interest has been delivered to the YOS team. We’ll review your experience, location and availability and contact you about suitable next steps.'}</p><p>You’re welcome to <PublicEmailLink email="jk@yourofficespace.au" label="email Joe" /> if your details change.</p></div> : <form onSubmit={async event => {
       event.preventDefault()
       if (status === 'sending') return
       const data = new FormData(event.currentTarget)
@@ -47,9 +48,9 @@ export default function InterestForm() {
       <div className={styles.honey} aria-hidden="true"><label htmlFor="team-website">Leave blank</label><input id="team-website" name="_honey" tabIndex={-1} autoComplete="off" /></div>
       <label className={styles.permission}><input name="contactPermission" type="checkbox" required /><span>I agree to YOS using these details to contact me about work or partnership opportunities. *</span></label>
       <p className={styles.hint}>Your details go directly to our team by email. This form doesn’t subscribe you to marketing. Read our <Link href="/privacy">privacy policy</Link>.</p>
-      {status === 'error' && <p role="alert" className={styles.error}>{error} You can also <a href="mailto:jk@yourofficespace.au">email Joe</a>.</p>}
+      {status === 'error' && <p role="alert" className={styles.error}>{error} You can also <PublicEmailLink email="jk@yourofficespace.au" label="email Joe" />.</p>}
       <button type="submit" disabled={status === 'sending'} className={styles.primary}>{status === 'sending' ? 'Sending your interest…' : 'Register my interest'}<span aria-hidden="true"> →</span></button>
-      <p className={styles.hint}>Prefer a conversation? Email <a href="mailto:jk@yourofficespace.au">jk@yourofficespace.au</a>.</p>
+      <p className={styles.hint}>Prefer a conversation? Email <PublicEmailLink email="jk@yourofficespace.au" />.</p>
     </form>}
   </div>
 }

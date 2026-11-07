@@ -583,6 +583,12 @@ p, li, span, label {
   min-height: revert;
 }
 
+/* Keep protected public email anchors equivalent to their original links. */
+.public-email-link { display: contents; }
+.public-email-link > a { display: inline-flex; min-height: 44px; align-items: center; }
+p .public-email-link > a, li .public-email-link > a, span .public-email-link > a { display: inline; min-height: unset; }
+
+
 /* ─── Typography ─────────────────────────────────────────── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), "Helvetica Neue", Arial, sans-serif;

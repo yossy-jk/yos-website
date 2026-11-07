@@ -1,3 +1,4 @@
+import PublicEmailLink from '@/components/PublicEmailLink'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Nav from '@/components/Nav'
@@ -315,9 +316,7 @@ export default function TermsPage() {
                   1988 (Cth). We use the information you provide to deliver our services, communicate with
                   you, and improve what we do. We do not sell your data. For questions about your privacy,
                   contact us at{' '}
-                  <a href="mailto:jk@yourofficespace.au" className="text-teal font-medium hover:underline">
-                    jk@yourofficespace.au
-                  </a>.
+                  <PublicEmailLink email="jk@yourofficespace.au" className="text-teal font-medium hover:underline" />.
                 </p>
               </Section>
             </FadeIn>
@@ -359,9 +358,7 @@ export default function TermsPage() {
                   <p className="text-near-black font-semibold">Joe Kelley, Managing Director</p>
                   <p>Your Office Space</p>
                   <p>
-                    <a href="mailto:jk@yourofficespace.au" className="text-teal font-medium hover:underline">
-                      jk@yourofficespace.au
-                    </a>
+                    <PublicEmailLink email="jk@yourofficespace.au" className="text-teal font-medium hover:underline" />
                   </p>
                   <p className="text-mid-grey text-sm">Tenant representation is delivered within verified NSW licensing coverage.</p>
                 </div>

@@ -1,3 +1,4 @@
+import PublicEmailLink from '@/components/PublicEmailLink'
 import PrivacySettingsButton from '@/components/PrivacySettingsButton'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -68,11 +69,8 @@ export default function Footer() {
           <div>
             <p className="text-white/60 font-bold uppercase tracking-[0.25em] mb-5" style={{ fontSize: '0.65rem' }}>Get in touch</p>
             <div className="flex flex-col gap-3">
-              <a href={`mailto:${CONTACT.email}`}
-                className="text-white/80 font-light no-underline hover:text-white transition-colors py-1"
-                style={{ fontSize: '0.875rem' }}>
-                {CONTACT.email}
-              </a>
+              <PublicEmailLink email={CONTACT.email} className="text-white/80 font-light no-underline hover:text-white transition-colors py-1"
+                style={{ fontSize: '0.875rem' }} />
               <a href={`tel:${CONTACT.phone.replace(/\D/g, '')}`}
                 className="text-white/80 font-light no-underline hover:text-white transition-colors py-1"
                 style={{ fontSize: '0.875rem' }}>

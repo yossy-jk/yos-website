@@ -501,6 +501,7 @@ export default function Page() {
           <Link href="/tenant-rep/newcastle">
             Tenant representation in Newcastle
           </Link>
+          <Link href="/not-for-profit-lease-support">Not-for-profit lease support</Link>
           <Link href="/insights/lease-costs">Understand your lease costs</Link>
           <Link href="/lease-checklist">Before-you-sign checklist</Link>
         </div>
