@@ -4,7 +4,7 @@ export const BLOG_CLUSTERS = [
     searchTerms: ['Commercial Fitout Newcastle', 'Office Fitout Newcastle'],
     description: 'Connect the workplace brief, shell condition, design, budget, programme and handover before committing to your Newcastle premises.',
     serviceHref: '/office-fitout', serviceLabel: 'Explore commercial and office FitOut support',
-    slugs: ['office-fitout-newcastle-planning-checklist', 'commercial-fitout-cost-newcastle-2026', 'office-fitout-timeline-newcastle', 'office-fitout-handover-checklist', 'office-fitout-guide-australia-2026', 'office-fitout-cost-guide-australia-2026', 'office-space-per-person-australia'],
+    slugs: ['office-fitout-newcastle-planning-checklist', 'commercial-fitout-cost-newcastle-2026', 'office-fitout-timeline-newcastle', 'office-fitout-handover-checklist', 'office-fitout-guide-australia-2026', 'office-fitout-cost-guide-australia-2026', 'office-space-per-person-australia', 'christmas-office-refresh-newcastle'],
   },
   {
     id: 'office-furniture-newcastle', label: 'Office furniture Newcastle', shortLabel: 'Office furniture',
