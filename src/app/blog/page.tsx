@@ -1,3 +1,5 @@
+import BlogTopicGuides from '@/components/BlogTopicGuides'
+import { getBlogCluster } from '@/lib/blog-clusters'
 import { withPageSeo } from '@/lib/page-seo'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -8,7 +10,7 @@ import { getAllPublicPostsAsync, DIVISION_LABELS, DIVISION_COLORS, DIVISION_HERO
 
 export const metadata = withPageSeo({
   title: 'Blog | Your Office Space',
-  description: 'Commercial property insights for Australian businesses. Leasing, fitout, furniture, cleaning and market updates.',
+  description: 'Newcastle commercial and office FitOut, office furniture, commercial cleaning and office construction guides, plus practical leasing and buying insights.',
   alternates: { canonical: 'https://www.yourofficespace.au/blog' },
   twitter: { card: 'summary_large_image', title: 'Blog | Your Office Space', description: 'Commercial property insights for Australian business owners. Lease guides, fitout costs, cleaning standards and more.' },
   openGraph: {
@@ -59,6 +61,8 @@ export default async function BlogPage() {
           </p>
         </div>
       </section>
+
+      <BlogTopicGuides />
 
       {/* ─── FEATURED POST ────────────────────────── */}
       {featured && (
@@ -135,7 +139,7 @@ export default async function BlogPage() {
                       <div style={{ position: 'absolute', top: '1rem', left: '1rem' }}>
                         <span className={`font-bold rounded-sm tracking-widest uppercase ${DIVISION_COLORS[SAFE_DIVISION(post.division)]}`}
                           style={{ fontSize: '0.58rem', padding: '0.25rem 0.625rem', display: 'inline-block' }}>
-                          {post.categoryLabel || DIVISION_LABELS[SAFE_DIVISION(post.division)]}
+                        {getBlogCluster(post.slug)?.shortLabel || post.categoryLabel || DIVISION_LABELS[SAFE_DIVISION(post.division)]}
                         </span>
                       </div>
                     </div>

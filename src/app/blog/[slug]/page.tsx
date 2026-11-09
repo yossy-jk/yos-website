@@ -1,4 +1,6 @@
 import { relatedPosts as selectRelatedPosts } from '@/lib/related-posts'
+import { getBlogCluster } from '@/lib/blog-clusters'
+import { ArticleTopicLink } from '@/components/BlogTopicGuides'
 import { articleInlineTokens } from '@/lib/article-inline'
 import { articleEnquiry } from '@/lib/article-enquiry'
 import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
@@ -307,7 +309,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const enquiry = articleEnquiry(post.slug, post.division)
 
   const allPosts = await getAllPublicPostsAsync()
-  const relatedPosts = selectRelatedPosts(allPosts, post)
+  const relatedPosts = selectRelatedPosts(allPosts, post, 3, slug => getBlogCluster(slug)?.id)
 
   const authorProfile = EDITORIAL_AUTHORS[post.author]
   const publicationDate = safeContentDate(post.date)
@@ -401,6 +403,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   {source.note && <p className="text-charcoal leading-relaxed mt-2">{source.note}</p>}
                 </li>)}</ul>
               </section>}
+              {!post.exactCopy && <ArticleTopicLink slug={post.slug} />}
               {!post.exactCopy && <ArticleNextSteps slug={post.slug} division={post.division} />}
               {/* Tags */}
               {post.tags.length > 0 && (
@@ -492,7 +495,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <Link key={rp.slug} href={`/blog/${rp.slug}`} style={{ display: 'block', textDecoration: 'none', paddingBottom: i < relatedPosts.length - 1 ? '1rem' : 0, marginBottom: i < relatedPosts.length - 1 ? '1rem' : 0, borderBottom: i < relatedPosts.length - 1 ? '1px solid #F3F4F6' : 'none' }}
                       className="group">
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-sm tracking-widest uppercase ${DIVISION_COLORS[rp.division as Division]}`} style={{ fontSize: '0.6rem', marginBottom: '0.5rem', display: 'inline-block' }}>
-                        {DIVISION_LABELS[rp.division as Division]}
+                        {getBlogCluster(rp.slug)?.shortLabel || DIVISION_LABELS[rp.division as Division]}
                       </span>
                       <p style={{ color: '#111827', fontSize: '0.85rem', fontWeight: 700, lineHeight: 1.4, marginTop: '0.375rem' }} className="group-hover:text-teal transition-colors">
                         {rp.title}

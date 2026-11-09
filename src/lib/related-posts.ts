@@ -1,9 +1,10 @@
 interface RelatedPost { slug: string; division: string; tags: string[] }
 
-// Same-service neighbours keep the full library discoverable; tag overlap adds
-// a topical third suggestion instead of showing only the newest three posts.
-export function relatedPosts<T extends RelatedPost>(posts: T[], current: T, limit = 3): T[] {
-  const peers = posts.filter(post => post.division === current.division)
+// Topic neighbours keep each planning collection connected. Unclassified posts
+// retain the broader service-based fallback, including older leasing articles.
+export function relatedPosts<T extends RelatedPost>(posts: T[], current: T, limit = 3, topicForSlug?: (slug: string) => string | undefined): T[] {
+  const topic = topicForSlug?.(current.slug)
+  const peers = posts.filter(post => topic ? topicForSlug?.(post.slug) === topic : post.division === current.division)
   const index = peers.findIndex(post => post.slug === current.slug)
   const chosen: T[] = []
   const add = (post: T | undefined) => {
@@ -16,6 +17,6 @@ export function relatedPosts<T extends RelatedPost>(posts: T[], current: T, limi
   const tags = new Set(current.tags.map(tag => tag.toLowerCase()))
   const overlap = (post: T) => post.tags.filter(tag => tags.has(tag.toLowerCase())).length
   for (const post of [...peers].sort((a, b) => overlap(b) - overlap(a))) add(post)
-  for (const post of posts) add(post)
+  if (!topic) for (const post of posts) add(post)
   return chosen
 }

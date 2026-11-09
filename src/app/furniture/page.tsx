@@ -16,6 +16,7 @@ import SectionLabel from '@/components/SectionLabel'
 import Button from '@/components/Button'
 import Image from 'next/image'
 import ServiceFaq from '@/components/ServiceFaq'
+import BlogTopicGuides from '@/components/BlogTopicGuides'
 
 export const metadata: Metadata = withPageSeo({
   title: 'Office Furniture Newcastle | Your Office Space',
@@ -144,6 +145,7 @@ export default function FurniturePage() {
     </div></section>
     <PlanningResources kind="furniture" />
     <CatalogueCards />
+    <BlogTopicGuides clusterId="office-furniture-newcastle" />
     <div id="furniture-faq" style={{ scrollMarginTop: 136 }}><ServiceFaq items={FAQS} /></div>
     <section className="bg-teal" style={SEC}><div className={`${WRAP} text-center`} style={PAD}><DiscoveryBooking /><h2 className="text-near-black mb-6" style={{ fontSize: 'clamp(2rem,4vw,4rem)' }}>Tell us what the workplace needs.</h2><div className="flex flex-col sm:flex-row justify-center gap-4"><Button href={FURNITURE_STORE_URL} variant="dark" size="lg">Shop furniture online</Button><Button href="/contact?service=furniture#contact-enquiry" variant="dark" size="lg">Enquire about a project</Button></div></div></section>
   <FurniturePlanningGuides />

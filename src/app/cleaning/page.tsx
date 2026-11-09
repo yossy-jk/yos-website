@@ -467,6 +467,7 @@ export default function CleaningPage() {
           </div>
         </div>
       </section>
+      <div className="max-w-screen-xl mx-auto px-6 pb-8"><Link href="/blog#commercial-cleaning-newcastle" className="text-action-teal font-semibold underline underline-offset-4">Browse the Newcastle commercial cleaning guide collection</Link></div>
       <div style={{ padding: '1.5rem', textAlign: 'center' }}><Link href="/cleaning/work-with-us/cleaning" className="text-action-teal font-semibold underline">Interested in joining the cleaning team?</Link></div>
       </main>
 

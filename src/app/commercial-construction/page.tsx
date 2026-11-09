@@ -1,4 +1,4 @@
-import WorkplaceGuides from '@/components/WorkplaceGuides'
+import BlogTopicGuides from '@/components/BlogTopicGuides'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
 import type { Metadata } from 'next'
@@ -12,7 +12,7 @@ import ServiceSchema from '@/components/ServiceSchema'
 import { withPageSeo } from '@/lib/page-seo'
 
 export const metadata: Metadata = withPageSeo({
-  title: 'Commercial Construction Newcastle | Your Office Space',
+  title: 'Office & Commercial Construction Newcastle | YOS',
   description: 'Client-side commercial construction project management in Newcastle and the Hunter. YOS coordinates your brief, consultants, appointed contractors and handover.',
   alternates: { canonical: 'https://www.yourofficespace.au/commercial-construction' },
   openGraph: { images: [{ url: '/og/og-office-fitout.png', width: 1200, height: 630, alt: 'Your Office Space commercial project management' }] },
@@ -35,7 +35,7 @@ export default function ConstructionPage() {
     <ServiceSchema name="Client-side Commercial Construction Project Management" path="/commercial-construction" area="NSW" description="Client-side commercial construction project management for Newcastle and Hunter business briefs, coordinating consultants and appointed contractors under an agreed scope." />
     <section className="bg-near-black text-white" style={{ ...SECTION, paddingTop: 'clamp(8rem,15vw,12rem)' }}><div style={WRAP}>
       <ContentBreadcrumbs title="Client-side construction project management" path="/commercial-construction" /><SectionLabel>Newcastle &amp; the Hunter · Client-side project management</SectionLabel>
-      <h1 style={{ fontSize: 'clamp(2.3rem,5.5vw,5rem)', lineHeight: 1.05, maxWidth: 950, marginTop: 24, marginBottom: 28 }}>Commercial construction Newcastle. A clear plan on your side.</h1>
+      <h1 style={{ fontSize: 'clamp(2.3rem,5.5vw,5rem)', lineHeight: 1.05, maxWidth: 950, marginTop: 24, marginBottom: 28 }}>Office and commercial construction Newcastle. A clear plan on your side.</h1>
       <p className="text-white/80 leading-relaxed" style={{ maxWidth: 720, fontSize: '1.15rem', marginBottom: 24 }}>Your Office Space helps business owners manage commercial construction projects in Newcastle and the Hunter. We coordinate the client’s brief, consultants, appointed contractors and decisions, from planning through handover.</p>
       <p className="text-white/80 leading-relaxed" style={{ maxWidth: 720, marginBottom: 32 }}>YOS acts as your client-side project manager. The appointed builder and trade contractors deliver the building work under their own agreed responsibilities.</p>
       <Button href="#construction-enquiry" variant="primary" size="lg">Discuss your construction project</Button><p className="service-next-step">Share the site, proposed work and target timing. We will confirm the next step and the specialist inputs your project needs.</p>
@@ -56,7 +56,7 @@ export default function ConstructionPage() {
       <div className="flex flex-wrap gap-4"><Button href="/office-fitout" variant="primary">Office fit out</Button><Button href="/furniture" variant="primary">Office furniture</Button><Button href="/buyers-agency" variant="primary">Commercial property buying</Button></div>
     </div></section>
     <PlanningResources kind="project" />
-    <WorkplaceGuides kind="project" />
+    <BlogTopicGuides clusterId="office-construction-newcastle" />
     <ServiceFaq heading="Planning a commercial construction project?" items={FAQS} />
     <section id="construction-enquiry" tabIndex={-1} aria-labelledby="construction-enquiry-heading" className="bg-warm-grey" style={{ ...SECTION, scrollMarginTop: 110 }}><div style={{ ...WRAP, maxWidth: 820 }}>
       <SectionLabel>Tell us about the project</SectionLabel><h2 id="construction-enquiry-heading" style={{ fontSize: 'clamp(1.9rem,4vw,3rem)', marginTop: 20, marginBottom: 20 }}>Start with your site, scope and timing.</h2>
