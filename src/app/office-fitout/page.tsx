@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { CLIENT_REVIEWS } from '@/lib/client-reviews'
 import ServiceEnquiry from '@/components/ServiceEnquiry'
-import WorkplaceGuides from '@/components/WorkplaceGuides'
+import BlogTopicGuides from '@/components/BlogTopicGuides'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
 import ServiceSchema from '@/components/ServiceSchema'
@@ -110,7 +110,7 @@ export default function OfficeFitoutPage() {
       <figure className="bg-white rounded-2xl" style={{ padding: 28 }}><p className="text-dark-teal font-semibold" style={{ marginBottom: 20 }}>Existing YOS client feedback</p><blockquote className="text-near-black text-xl leading-relaxed">“{FITOUT_REVIEW.quote}”</blockquote><figcaption className="text-charcoal" style={{ marginTop: 24 }}><strong>{FITOUT_REVIEW.name}</strong><br />{FITOUT_REVIEW.organisation}<br /><a href={FITOUT_REVIEW.source} target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4" style={{ display: 'inline-block', marginTop: 16 }}>Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a></figcaption></figure>
     </div></section>
     <PlanningResources kind="project" />
-    <WorkplaceGuides kind="project" />
+    <BlogTopicGuides clusterId="office-fitout-newcastle" />
     <ServiceFaq items={FAQS} />
     <section className="bg-light-teal" style={SEC}><div className={WRAP} style={PAD}><SectionLabel onLight>Connect the property and workplace decisions</SectionLabel><h2 className="text-near-black text-3xl mt-4 mb-6">Still deciding which premises to commit to?</h2><p className="text-charcoal leading-relaxed max-w-3xl mb-6">Bring the workplace brief into the property decision early. If you are considering a lease, explore <Link className="text-action-teal underline font-semibold" href="/tenant-rep">tenant representation</Link>. If you are looking to purchase premises, see our <Link className="text-action-teal underline font-semibold" href="/buyers-agency">commercial buyers agent service</Link>. For a furniture-only project, start with <Link className="text-action-teal underline font-semibold" href="/furniture">office furniture planning</Link>.</p></div></section>
     <ServiceEnquiry id="fitout-enquiry" service="FitOut" entryPage="/office-fitout" title="Tell us where the project stands." description="We’ll review your project stage and discuss the scope, next decisions and whether YOS’s client-side project management suits your brief." prompts={['Site suburb and whether you have secured the premises.', 'What needs changing and whether the business must remain operating.', 'Your target opening date and any budget expectations.']} placeholder="Site suburb, project stage, what needs changing and target opening date..." />

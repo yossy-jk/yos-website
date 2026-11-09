@@ -1,3 +1,4 @@
+import BlogTopicGuides from '@/components/BlogTopicGuides'
 import { getAllCaseStudies } from '@/lib/case-studies'
 import WorkplaceGuides from '@/components/WorkplaceGuides'
 import ServiceFaq from '@/components/ServiceFaq'
@@ -176,7 +177,7 @@ export default function ResourcesPage() {
 
       <WorkplaceGuides kind="tenant" />
       <WorkplaceGuides kind="buyer" />
-      <WorkplaceGuides kind="project" />
+      <BlogTopicGuides />
 
       {/* ─── INSIGHTS: ARTICLES ───────────────── */}
       <section className="bg-warm-grey" style={SEC}>
