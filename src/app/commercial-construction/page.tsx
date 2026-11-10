@@ -55,6 +55,7 @@ export default function ConstructionPage() {
       <p className="text-charcoal leading-relaxed" style={{ maxWidth: 760, marginBottom: 28 }}>An office fit out focuses on the workplace layout, finishes and delivery. Commercial construction project management addresses the broader client coordination brief. We clarify which scope you need and connect property, fit out and furniture decisions where relevant.</p>
       <div className="flex flex-wrap gap-4"><Button href="/office-fitout" variant="primary">Office fit out</Button><Button href="/furniture" variant="primary">Office furniture</Button><Button href="/buyers-agency" variant="primary">Commercial property buying</Button></div>
     </div></section>
+    <section className="bg-light-teal" style={SECTION}><div style={WRAP}><h2 style={{ fontSize: 'clamp(1.9rem,4vw,3rem)', marginBottom: 24 }}>Plan the connection before move-in.</h2><p className="text-charcoal leading-relaxed" style={{ maxWidth: 760, marginBottom: 28 }}>Include internet availability, phone numbers, equipment and provider lead times in the workplace brief. YOS coordinates business NBN, fibre, phone system and mobile enquiries through Newvo, with the service and installation scope confirmed for your address.</p><Button href="/business-communications-newcastle" variant="primary">Business NBN, fibre and phones</Button></div></section>
     <PlanningResources kind="project" />
     <BlogTopicGuides clusterId="office-construction-newcastle" />
     <ServiceFaq heading="Planning a commercial construction project?" items={FAQS} />

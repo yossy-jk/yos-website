@@ -46,3 +46,11 @@ test('handoff requires explicit contact permission, valid email, name and useful
   assert.equal('transcript' in lead, false)
   assert.equal(lead.phone, '123')
 })
+
+
+test('communications questions use reviewed provider facts rather than furniture pods', () => {
+  for (const question of ['Business NBN Newcastle', 'Newvo fibre internet', 'VoIP PBX for our office', 'Business mobiles through Newvo']) {
+    const sources = selectAssistantSources(question)
+    assert.ok(sources.some(source => source.id === 'communications'), question)
+  }
+})
