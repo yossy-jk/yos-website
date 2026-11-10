@@ -27,6 +27,7 @@ const MOBILE_SERVICES = [
   { label: 'Office FitOut', href: '/office-fitout' },
   { label: 'Office Furniture', href: '/furniture' },
   { label: 'Commercial Cleaning', href: '/cleaning' },
+  { label: 'Business NBN, Fibre & Phones', href: '/business-communications-newcastle' },
 ]
 
 const NAV_LINKS_SIMPLE = [

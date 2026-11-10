@@ -211,3 +211,13 @@ test('capability downloads retain signed access while identifying previews witho
     assert.equal(messages.length, preview ? 0 : 1)
   }
 })
+
+
+test('communications enquiries retain their public service attribution without tokens', () => {
+  const { delivery } = setup()
+  const data = delivery.normaliseEnquiry({ ...input, source: 'Contact Form — Business Communications', enquiryPage: '/business-communications-newcastle?secret=omitted#communications-enquiry', entryPage: '/business-communications-newcastle' })
+  assert.equal(data.enquiryPage, '/business-communications-newcastle')
+  assert.equal(data.entryPage, '/business-communications-newcastle')
+  assert.equal(data.source, 'Contact Form — Business Communications')
+  assert.equal(data.marketingConsent, false)
+})

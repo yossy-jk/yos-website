@@ -14,6 +14,7 @@ type SearchResult = {
 
 const ALL_ITEMS: SearchResult[] = [
   // Services
+  { title: 'Business NBN, Fibre & Phone Systems Newcastle', description: 'Business internet, voice and mobile enquiries through YOS and Newvo.', href: '/business-communications-newcastle', category: 'Service', keywords: 'telecommunications telecoms communications nbn fibre fiber phones voip pbx mobiles Newvo' },
   { title: 'Commercial Construction Project Management', description: 'Client-side commercial construction support in Newcastle and the Hunter.', href: '/commercial-construction', category: 'Service' },
   { title: 'Tenant Representation', description: 'Tenant-side commercial lease advice and negotiation.', href: '/tenant-rep', category: 'Service' },
   { title: 'Commercial FitOut & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },

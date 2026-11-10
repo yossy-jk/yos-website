@@ -36,6 +36,8 @@ try {
       ['/contact?service=buying', 'Buying'],
       ['/contact?service=furniture', 'Furniture'],
       ['/contact?service=leasing', 'Leasing'],
+      ['/contact?service=communications', 'Business Communications'],
+      ['/business-communications-newcastle', 'Business Communications'],
     ]) {
       console.log(`CHECK ${path} @ ${width}`)
       await page.goto(base + path, { waitUntil: 'networkidle2' })
