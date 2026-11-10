@@ -53,3 +53,5 @@
 .hero a:focus-visible, .dark a:focus-visible { outline-color: #6be4d6; }
 @media (max-width: 1000px) { .heroGrid { grid-template-columns: 1fr; gap: 2rem; } .cards, .process { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 650px) { .split, .comparison, .checks, .cards, .process { grid-template-columns: 1fr; } .split { gap: 1.5rem; } .actions { align-items: flex-start; } }
+
+.button { display: inline-flex; padding: 1rem 1.5rem; min-height: 56px; justify-content: center; align-items: center; text-align: center; }
