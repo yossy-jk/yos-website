@@ -8,12 +8,12 @@ const resources = {
       ['lease-exit-plan-template.csv', 'Current lease exit planning sheet', 'Ask your solicitor to confirm notice windows and obligations before assigning dates and action owners.'],
       ['relocation-roadmap-template.csv', 'Relocation roadmap', 'Connect the brief, comparison, commitment, preparation and handover with dependencies visible.'],
     ],
-    links: [{ href: '/tenant-rep/packages', title: 'Compare the package inclusions' }, { href: '/tools/lease-cost-calculator', title: 'Explore lease costs' }, { href: '/insights/lease-costs', title: 'Understand the costs behind a lease comparison' }, { href: '/market-snapshot', title: 'Evaluate Newcastle market evidence' }],
+    links: [{ href: '/blog/tenant-representatives-commercial-buyers-agents-newcastle', title: 'Compare tenant representatives and commercial property advisers' }, { href: '/tenant-rep/packages', title: 'Compare the package inclusions' }, { href: '/tools/lease-cost-calculator', title: 'Explore lease costs' }, { href: '/insights/lease-costs', title: 'Understand the costs behind a lease comparison' }, { href: '/market-snapshot', title: 'Evaluate Newcastle market evidence' }],
   },
   furniture: {
     label: 'Furniture brief', heading: 'Make the first quote easier to prepare.', intro: 'List the rooms, quantities and furniture you want to keep. Add a plan if available, then confirm finishes, delivery access and the required date. Product availability and installation scope are confirmed in the quote.',
     files: [['furniture-brief-template.csv', 'Furniture brief and schedule', 'A blank worksheet for quantities, specifications, access, dates and quote inclusions.']],
-    links: [{ href: '/about#frank-smith', title: 'Meet Frank, Head of Furniture' }, { href: '/resources/furniture-quote#furniture-quote-form', title: 'Request a project furniture quote' }, { href: '/catalogues/acoustics', title: 'Consider workplace acoustics' }],
+    links: [{ href: '/blog/best-office-furniture-companies-newcastle', title: 'Compare selected Newcastle furniture companies' }, { href: '/about#frank-smith', title: 'Meet Frank, Head of Furniture' }, { href: '/resources/furniture-quote#furniture-quote-form', title: 'Request a project furniture quote' }, { href: '/catalogues/acoustics', title: 'Consider workplace acoustics' }],
   },
   project: {
     label: 'Project planning', heading: 'Keep the next decision and its owner visible.', intro: 'Use a milestone sheet to connect the business brief, appointed advisers, contractor inputs and handover. It is an illustrative planning aid, not a contracted programme or an approval assessment. YOS coordinates the client-side workstream; appointed specialists retain their responsibilities.',
@@ -23,7 +23,7 @@ const resources = {
   buyer: {
     label: 'Before inspecting properties', heading: 'Give every opportunity the same test.', intro: 'Write down the business use, location, access, budget and timing before a listing sets the agenda. The blank brief helps coordinate questions for your solicitor, finance team and building specialists. Scope and fees are agreed before an engagement starts.',
     files: [['commercial-buyer-brief-template.csv', 'Commercial buyer brief', 'Record requirements, missing evidence, adviser responsibilities and decisions.']],
-    links: [{ href: '/commercial-construction', title: 'Consider works before you commit' }, { href: '/office-fitout', title: 'Plan the workplace after settlement' }, { href: '/contact?service=buying#contact-enquiry', title: 'Discuss a buying brief' }],
+    links: [{ href: '/blog/tenant-representatives-commercial-buyers-agents-newcastle', title: 'Compare commercial representation options' }, { href: '/commercial-construction', title: 'Consider works before you commit' }, { href: '/office-fitout', title: 'Plan the workplace after settlement' }, { href: '/contact?service=buying#contact-enquiry', title: 'Discuss a buying brief' }],
   },
 } as const
 
