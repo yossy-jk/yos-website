@@ -25,6 +25,18 @@ export interface BlogPost {
   bodyButtons?: { label: string; href: string }[]
   toolButtons?: { label: string; href: string }[]
   faqs?: { question: string; answer: string }[]
+  video?: {
+    name: string
+    description: string
+    src: string
+    poster: string
+    captions: string
+    width: number
+    height: number
+    duration: string
+    uploadDate: string
+    transcript: string[]
+  }
 }
 
 // Default hero images per division — used when heroImage is not set on a post
