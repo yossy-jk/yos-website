@@ -31,6 +31,10 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Workspace Builder', description: 'Plan your office layout. rooms, desks, and space requirements.', href: '/resources/workspace-builder', category: 'Tool' },
   { title: 'Lease Health Check', description: 'Start a free conversation about lease dates, costs and your next decision.', href: '/lease-health-check', category: 'Tool' },
   // Pages
+  { title: 'Video Guides', description: 'Captioned workplace planning videos with transcripts and companion worksheets.', href: '/videos', category: 'Page', keywords: 'watch video guides' },
+  { title: 'Office FitOut Project Management Video', description: 'Who owns the next fitout decision?', href: '/videos/office-fitout-project-management', category: 'Page', keywords: 'watch video fitout responsibility matrix' },
+  { title: 'Commercial Lease Renewal Video', description: 'Your lease expiry may not be your action date.', href: '/videos/commercial-lease-renewal', category: 'Page', keywords: 'watch video lease renewal dates' },
+  { title: 'Office Make-Good Planning Video', description: 'Clarify the scope before comparing prices.', href: '/videos/office-make-good-planning', category: 'Page', keywords: 'watch video make good handback' },
   { title: 'Work or Partner with YOS', description: 'Tenant representatives, furniture referral partners and cleaning team members. Employee cleaners preferred; contractor interest welcome.', href: '/about/work-with-yos', category: 'Page', keywords: 'jobs careers hiring employment work with YOS join YOS cleaning jobs cleaner furniture referrals tenant representative' },
   { title: 'About Your Office Space', description: 'Who we are, what we do, and how we work with Newcastle businesses.', href: '/about', category: 'Page' },
   { title: 'Contact', description: 'Get in touch with the YOS team in Newcastle.', href: '/contact', category: 'Page' },

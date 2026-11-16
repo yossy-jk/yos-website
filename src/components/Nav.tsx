@@ -249,6 +249,7 @@ export default function Nav() {
                             style={{ fontSize: '0.65rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                             All tools →
                           </Link>
+                          <Link href="/videos" onClick={closeAll} className="block text-teal font-semibold no-underline" style={{ marginTop: '1rem', fontSize: '0.75rem' }}>Watch video guides →</Link>
                         </div>
                       </div>
 
@@ -372,7 +373,7 @@ export default function Nav() {
               { key: 'services', title: 'Services', links: MOBILE_SERVICES },
               { key: 'care', title: 'Workplace Care', links: [{ label: 'Explore Flourish', href: '/flourish' }, ...FLOURISH_LINKS.map(link => ({ href: link.href, label: link.label.replace(/^Office /, '') }))] },
               { key: 'about', title: 'About us', links: [{ label: 'About YOS', href: '/about' }, { label: 'Work or Partner with YOS', href: '/about/work-with-yos' }] },
-              { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Case Studies', href: '/case-studies' }, { label: 'Articles & Guides', href: '/blog' }] },
+              { key: 'resources', title: 'Resources', links: [{ label: 'Free Tools', href: '/resources' }, { label: 'Case Studies', href: '/case-studies' }, { label: 'Video Guides', href: '/videos' }, { label: 'Articles & Guides', href: '/blog' }] },
             ] as const).map(group => <div key={group.key} className="yos-mobile-group">
               <button type="button" aria-expanded={mobileSection === group.key} aria-controls={`mobile-${group.key}-links`} onClick={() => setMobileSection(mobileSection === group.key ? null : group.key)} className="yos-mobile-group-toggle">
                 {group.title}<span aria-hidden="true">{mobileSection === group.key ? '−' : '+'}</span>
