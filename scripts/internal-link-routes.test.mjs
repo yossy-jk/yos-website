@@ -68,12 +68,18 @@ async function routeExists(target) {
     } catch { return false }
   }
 
-  if (target.startsWith('/blog/')) {
-    const slug = target.slice('/blog/'.length)
+  if (target.startsWith('/blog/') || target.startsWith('/videos/')) {
+    const videoRoute = target.startsWith('/videos/')
+    const slug = target.slice(videoRoute ? '/videos/'.length : '/blog/'.length)
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) return false
     const posts = (await readdir(blogRoot)).filter(file => file.endsWith('.json'))
     for (const post of posts) {
       const content = JSON.parse(await readFile(new URL(post, blogRoot), 'utf8'))
-      if (content.slug === slug) return true
+      if (!videoRoute && content.slug === slug) return true
+      if (videoRoute && content.video?.watchSlug === slug) {
+        const watchPage = new URL('videos/[slug]/page.tsx', appRoot)
+        return (await stat(watchPage)).isFile()
+      }
     }
   }
 
@@ -90,4 +96,10 @@ test('literal internal link targets resolve to application routes', async () => 
 
   assert.ok(targets.length > 0, `No internal link targets found below ${root.pathname}`)
   assert.deepEqual(missing, [], `Missing application routes: ${missing.join(', ')}`)
+})
+
+test('video route validation rejects unknown and malformed content paths', async () => {
+  assert.equal(await routeExists('/videos/not-a-published-video'), false)
+  assert.equal(await routeExists('/videos/../private'), false)
+  assert.equal(await routeExists('/videos/office-fitout-project-management'), true)
 })
