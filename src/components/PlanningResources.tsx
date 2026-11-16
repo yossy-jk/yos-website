@@ -8,7 +8,7 @@ const resources = {
       ['lease-exit-plan-template.csv', 'Current lease exit planning sheet', 'Ask your solicitor to confirm notice windows and obligations before assigning dates and action owners.'],
       ['relocation-roadmap-template.csv', 'Relocation roadmap', 'Connect the brief, comparison, commitment, preparation and handover with dependencies visible.'],
     ],
-    links: [{ href: '/blog/tenant-representatives-commercial-buyers-agents-newcastle', title: 'Compare tenant representatives and commercial property advisers' }, { href: '/tenant-rep/packages', title: 'Compare the package inclusions' }, { href: '/tools/lease-cost-calculator', title: 'Explore lease costs' }, { href: '/insights/lease-costs', title: 'Understand the costs behind a lease comparison' }, { href: '/market-snapshot', title: 'Evaluate Newcastle market evidence' }],
+    links: [{ href: '/blog/commercial-lease-renewal-newcastle-timeline', title: 'Prepare a lease renewal decision and dates checklist' }, { href: '/blog/make-good-obligations-commercial-lease-cost', title: 'Plan office make-good scope and handback' }, { href: '/blog/tenant-representatives-commercial-buyers-agents-newcastle', title: 'Compare tenant representatives and commercial property advisers' }, { href: '/tenant-rep/packages', title: 'Compare the package inclusions' }, { href: '/tools/lease-cost-calculator', title: 'Explore lease costs' }, { href: '/insights/lease-costs', title: 'Understand the costs behind a lease comparison' }, { href: '/market-snapshot', title: 'Evaluate Newcastle market evidence' }],
   },
   furniture: {
     label: 'Furniture brief', heading: 'Make the first quote easier to prepare.', intro: 'List the rooms, quantities and furniture you want to keep. Add a plan if available, then confirm finishes, delivery access and the required date. Product availability and installation scope are confirmed in the quote.',
@@ -18,7 +18,7 @@ const resources = {
   project: {
     label: 'Project planning', heading: 'Keep the next decision and its owner visible.', intro: 'Use a milestone sheet to connect the business brief, appointed advisers, contractor inputs and handover. It is an illustrative planning aid, not a contracted programme or an approval assessment. YOS coordinates the client-side workstream; appointed specialists retain their responsibilities.',
     files: [['project-milestone-template.csv', 'Project milestone and responsibility sheet', 'Record required evidence, decision owners, dependencies and confirmed dates.']],
-    links: [{ href: '/commercial-construction', title: 'Understand client-side project management' }, { href: '/office-fitout', title: 'Plan an office fit out' }, { href: '/furniture', title: 'Coordinate the furniture brief' }],
+    links: [{ href: '/blog/office-fitout-guide-australia-2026', title: 'Use the fitout project management responsibility guide' }, { href: '/commercial-construction', title: 'Understand client-side project management' }, { href: '/office-fitout', title: 'Plan an office fit out' }, { href: '/furniture', title: 'Coordinate the furniture brief' }],
   },
   buyer: {
     label: 'Before inspecting properties', heading: 'Give every opportunity the same test.', intro: 'Write down the business use, location, access, budget and timing before a listing sets the agenda. The blank brief helps coordinate questions for your solicitor, finance team and building specialists. Scope and fees are agreed before an engagement starts.',
