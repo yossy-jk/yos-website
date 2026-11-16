@@ -139,6 +139,7 @@ function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: 
   let listBuffer: string[] = []
   let numberedBuffer: string[] = []
   let tableBuffer: string[] = []
+  let tableNumber = 0
 
   const flushList = () => {
     if (listBuffer.length === 0) return
@@ -184,8 +185,9 @@ function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: 
     )
     const headers = rows[0] || []
     const dataRows = rows.slice(2) // skip separator row
+    const tableLabel = `Article table ${++tableNumber}: ${headers.filter(Boolean).join(", ")}`
     elements.push(
-      <div key={key++} tabIndex={0} role="region" aria-label="Article table" style={{ overflowX: 'auto', margin: '2rem 0 2.5rem' }}>
+      <div key={key++} tabIndex={0} role="region" aria-label={tableLabel} style={{ overflowX: 'auto', margin: '2rem 0 2.5rem' }}>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem', minWidth: '400px' }}>
           {headers.some(Boolean) && <thead>
             <tr style={{ background: '#0A0A0A' }}>
