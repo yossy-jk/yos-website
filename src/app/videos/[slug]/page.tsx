@@ -37,10 +37,10 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
           <p id="watch-description">{video.description}</p>
           <h2 className="text-near-black font-bold">Put the explanation into practice</h2>
           <p>{fitout ? 'Use the responsibility matrix to separate client approvals, coordination and specialist delivery. Record the evidence behind the next scope or budget decision.' : post.slug.startsWith('commercial-lease-renewal') ? 'Build a verified dates register and compare renewal with realistic alternatives. Ask your solicitor to confirm the actual notice requirements before relying on a date.' : 'Clarify the lease position with your solicitor, then organise the physical scope, comparable proposals and handback records with the appointed team.'}</p>
-          <Link href={`/blog/${post.slug}`} className={styles.primary}>Read the full planning guide</Link>
-          <a href={`/downloads/${worksheet}`} download className="text-action-teal underline">Download the free worksheet (CSV)</a>
+          <Link href={`/blog/${post.slug}`} className={styles.primary} style={{ display: 'block' }}>Read the full planning guide</Link>
+          <a href={`/downloads/${worksheet}`} download className="text-action-teal underline" style={{ display: 'block' }}>Download the free worksheet (CSV)</a>
           <p className={styles.note}>No email required. Fill in your own information. The guide and worksheet are planning aids; legal advice and the actual project scope need the appropriate appointed advisers.</p>
-          <Link href={fitout ? '/office-fitout#fitout-enquiry' : '/lease-health-check'} className="text-action-teal underline">{fitout ? 'Discuss your fitout project with YOS' : 'Start a Lease Health Check'}</Link>
+          <Link href={fitout ? '/office-fitout#fitout-enquiry' : '/lease-health-check'} className="text-action-teal underline" style={{ display: 'block' }}>{fitout ? 'Discuss your fitout project with YOS' : 'Start a Lease Health Check'}</Link>
         </aside>
       </div>
       <section aria-labelledby="transcript-heading" className={styles.transcript}><h2 id="transcript-heading" className="text-near-black font-bold">Video transcript</h2>{video.transcript.map((text, i) => <p key={i}>{text}</p>)}</section>
