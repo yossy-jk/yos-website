@@ -1,3 +1,4 @@
+import { getVideoResources } from '@/lib/video-resources'
 import { CATALOGUES } from '@/lib/catalogues'
 import { TENANT_OFFER } from '@/lib/tenant-offer'
 import { blogSitemapEntries, safeContentDate } from '@/lib/sitemap-content'
@@ -16,6 +17,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static lastModified dates reflect documented meaningful page releases; never the build date.
   return [
     ...tenantRoutes,
+    { url: `${BASE}/videos`, lastModified: '2026-11-16', changeFrequency: 'monthly', priority: 0.7 },
+    ...getVideoResources().map(video => ({ url: `${BASE}${video.href}`, lastModified: video.video.uploadDate, changeFrequency: 'monthly' as const, priority: 0.65 })),
     ...CATALOGUES.map(item => ({ url: `${BASE}/catalogues/${item.id}`, changeFrequency: 'yearly' as const, priority: 0.6, lastModified: '2026-10-19' })),
     { url: BASE, lastModified: '2026-10-21',              changeFrequency: 'weekly',  priority: 1.0 },
     { url: `${BASE}/business-communications-newcastle`, lastModified: '2026-11-11', changeFrequency: 'monthly', priority: 0.8 },

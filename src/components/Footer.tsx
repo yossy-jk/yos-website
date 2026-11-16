@@ -54,6 +54,7 @@ export default function Footer() {
                 { label: 'Work or Partner with YOS', href: '/about/work-with-yos' },
                 { label: 'Resources', href: '/resources' },
                 { label: 'Blog', href: '/blog' },
+                { label: 'Video Guides', href: '/videos' },
                 { label: 'Contact', href: '/contact' },
               ].map(link => (
                 <Link key={link.href} href={link.href}

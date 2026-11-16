@@ -21,6 +21,7 @@ export default function BlogVideo({ video }: { video: NonNullable<BlogPost['vide
       Your browser does not support video. <a href={video.src}>Open the video</a>.
     </video>
     <p className="text-sm" style={{ marginTop: '1rem' }}><a href={video.src} className="text-action-teal font-semibold underline underline-offset-4">Open video in its own player</a></p>
+    {video.watchSlug && <p style={{ marginTop: '1rem' }}><a href={`/videos/${video.watchSlug}`} className="text-action-teal font-semibold underline underline-offset-4">Watch on the dedicated video page</a></p>}
     <details className="border border-black/10 rounded-xl" style={{ marginTop: '1.5rem', padding: '1.25rem' }}>
       <summary className="text-near-black font-semibold cursor-pointer" style={{ minHeight: '1.5rem' }}>Read the video transcript</summary>
       <div className="text-charcoal leading-relaxed" style={{ marginTop: '1.25rem' }}>{video.transcript.map((paragraph, index) => <p key={index} style={{ marginBottom: index === video.transcript.length - 1 ? 0 : '1rem' }}>{paragraph}</p>)}</div>

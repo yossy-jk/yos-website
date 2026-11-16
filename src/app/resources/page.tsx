@@ -1,3 +1,4 @@
+import VideoResources from '@/components/VideoResources'
 import BlogTopicGuides from '@/components/BlogTopicGuides'
 import { getAllCaseStudies } from '@/lib/case-studies'
 import WorkplaceGuides from '@/components/WorkplaceGuides'
@@ -110,6 +111,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
+      <VideoResources />
       <section id="case-studies" aria-labelledby="resources-case-studies-heading" className="bg-warm-grey" style={{ ...SEC, scrollMarginTop: '140px' }}>
         <div style={{ ...PAD, maxWidth: '1280px', margin: '0 auto' }}>
           <p className="text-teal font-semibold uppercase" style={{ fontSize: '0.72rem', letterSpacing: '0.2em', marginBottom: '16px' }}>Client case studies</p>
