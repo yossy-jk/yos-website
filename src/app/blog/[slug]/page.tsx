@@ -6,6 +6,7 @@ import { articleEnquiry } from '@/lib/article-enquiry'
 import { EDITORIAL_AUTHORS } from '@/lib/editorial-authors'
 import PreferredSource from '@/components/PreferredSource'
 import ArticleNextSteps from '@/components/ArticleNextSteps'
+import BlogVideo from '@/components/BlogVideo'
 import { safeContentDate } from '@/lib/sitemap-content'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
@@ -331,11 +332,26 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     image: absoluteAssetUrl(heroImage),
     keywords: post.tags?.join(', '),
     articleSection: post.categoryLabel || DIVISION_LABELS[post.division as Division],
+    ...(post.video ? { video: { '@id': `https://www.yourofficespace.au/blog/${post.slug}#article-video` } } : {}),
   }
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {post.video && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        '@id': `https://www.yourofficespace.au/blog/${post.slug}#article-video`,
+        name: post.video.name,
+        description: post.video.description,
+        thumbnailUrl: absoluteAssetUrl(post.video.poster),
+        contentUrl: absoluteAssetUrl(post.video.src),
+        uploadDate: post.video.uploadDate,
+        duration: post.video.duration,
+        transcript: post.video.transcript.join(' '),
+        inLanguage: 'en-AU',
+        publisher: ORGANIZATION_SCHEMA,
+      }).replace(/</g, '\\u003c') }} />}
       {post.faqs && post.faqs.length > 0 && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: post.faqs.map(faq => ({ '@type': 'Question', name: faq.question, acceptedAnswer: { '@type': 'Answer', text: faq.answer } })) }).replace(/</g, '\u003c') }} />}
       <Nav />
 
@@ -388,6 +404,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
             {/* ── MAIN CONTENT ── */}
             <article>
+              {post.video && <BlogVideo video={post.video} />}
               {/* Excerpt / lead */}
               {!post.exactCopy && <p style={{ fontSize: 'clamp(1.1rem,2vw,1.3rem)', color: '#374151', lineHeight: 1.8, fontWeight: 300, marginBottom: '3rem', paddingBottom: '3rem', borderBottom: '1px solid #F3F4F6' }}>
                 {post.excerpt}

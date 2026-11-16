@@ -45,5 +45,25 @@
       "question": "Can YOS help coordinate an office make-good plan?",
       "answer": "YOS can discuss the agreed tenant-side commercial workstream and client-side coordination. Your solicitor provides legal advice and appointed contractors carry out trade and construction work. Responsibilities are scoped before work begins."
     }
-  ]
+  ],
+  "video": {
+    "name": "Clarify the make-good scope before comparing prices",
+    "description": "How to organise lease questions, comparable work scopes and handback evidence before deciding on an office make-good proposal.",
+    "transcript": [
+      "Two make-good prices can look very different because they cover different work. Start with the lease and condition records.",
+      "Ask your solicitor to clarify the obligation, then have the right appointed specialists assess the physical scope.",
+      "When proposals arrive, check the same items: what stays, what is removed, services interfaces, access, disposal, allowances and the GST basis.",
+      "A rate per square metre is not a verified quote for your premises. An itemised brief helps you see what is included and what is still uncertain.",
+      "Plan the handback evidence as well: scope revisions, relevant photos, required records and an owner for each outstanding action.",
+      "Returning keys and obtaining a legal release are different matters, so confirm the actual requirements with your solicitor.",
+      "Our free make-good worksheet helps organise the questions. Read the guide and discuss the client-side coordination scope with YOS if you need support."
+    ],
+    "src": "/videos/office-make-good-planning-2026-11.mp4",
+    "poster": "/videos/office-make-good-planning-2026-11-poster.jpg",
+    "captions": "/videos/office-make-good-planning-2026-11.vtt",
+    "width": 720,
+    "height": 1280,
+    "duration": "PT62.378S",
+    "uploadDate": "2026-11-16"
+  }
 }

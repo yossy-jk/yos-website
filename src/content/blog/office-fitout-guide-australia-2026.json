@@ -39,5 +39,23 @@
       "question": "Can we use the responsibility worksheet before choosing premises?",
       "answer": "Yes. Start with the business brief, decision owners and missing information. Add the actual site, adviser inputs, scope and confirmed dates as they become available. The worksheet is a planning aid, not an approval assessment or construction programme."
     }
-  ]
+  ],
+  "video": {
+    "name": "Who owns the next fitout decision?",
+    "description": "A short guide to decision owners, client-side coordination and approving connected changes in an office fitout.",
+    "transcript": [
+      "A FitOut program can tell you when work is planned, but can it tell you who can approve the next decision, what evidence they need, and what is waiting on it?",
+      "Before committing to work, agree three things: the business brief, the scope of each appointment, and the person authorised to approve changes.",
+      "A client-side project manager coordinates the agreed business workstream. Your builder, designers and other appointed specialists still hold their own responsibilities.",
+      "Take a meeting room added after pricing. It may affect more than the partition. Services, lighting, furniture and technology may all need another look. Record the connected change, get the relevant inputs, and approve it before updating the baseline.",
+      "Our free responsibility worksheet gives you a place to record those questions. Start with the guide, then talk to YOS about the client-side support your project needs."
+    ],
+    "src": "/videos/office-fitout-project-management-2026-11.mp4",
+    "poster": "/videos/office-fitout-project-management-2026-11-poster.jpg",
+    "captions": "/videos/office-fitout-project-management-2026-11.vtt",
+    "width": 720,
+    "height": 1280,
+    "duration": "PT58.517S",
+    "uploadDate": "2026-11-16"
+  }
 }
