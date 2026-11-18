@@ -7,6 +7,11 @@ const exports = {}
 vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/lib/article-enquiry.ts', 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS } }).outputText, { exports })
 const { articleEnquiry } = exports
 
+test('occupied refurbishment enquiries use FitOut while primary service divisions remain respected', () => {
+  assert.equal(articleEnquiry('office-refurbishment-newcastle-stay-open', 'general').service, 'FitOut')
+  assert.equal(articleEnquiry('cleaning-during-refurbishment', 'cleaning').service, 'Cleaning')
+})
+
 test('article prompts retain the service intent, including FitOut within the furniture division', () => {
   for (const [slug, division, expected] of [
     ['what-is-tenant-representation-newcastle', 'tenant-rep', 'Leasing'],

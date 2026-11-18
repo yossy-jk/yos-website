@@ -237,7 +237,7 @@ function renderBody(body: string, slug: string, exactCopy = false, bodyButton?: 
     if (primaryButton || toolButton) {
       flushAll()
       const button = (primaryButton || toolButton)!
-      elements.push(<Link key={key++} href={button.href} className={primaryButton ? "inline-flex items-center justify-center rounded-lg bg-action-teal text-white font-bold px-7 py-4 my-4 focus-visible:outline-2 focus-visible:outline-offset-4" : "inline-flex items-center justify-center rounded-lg border-2 border-action-teal text-action-teal font-bold px-6 py-3 my-4 focus-visible:outline-2 focus-visible:outline-offset-4"}>{button.label}</Link>)
+      elements.push(<Link key={key++} href={button.href} style={primaryButton ? { padding: '1rem 1.75rem', margin: '1rem 0', minHeight: 48, maxWidth: '100%', lineHeight: 1.5, textAlign: 'center', overflowWrap: 'anywhere' } : undefined} className={primaryButton ? "inline-flex items-center justify-center rounded-lg bg-action-teal text-white font-bold px-7 py-4 my-4 focus-visible:outline-2 focus-visible:outline-offset-4" : "inline-flex items-center justify-center rounded-lg border-2 border-action-teal text-action-teal font-bold px-6 py-3 my-4 focus-visible:outline-2 focus-visible:outline-offset-4"}>{button.label}</Link>)
       continue
     }
     if (bodyButtons?.length && line === '---') {
@@ -453,7 +453,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
                 {/* Inline contact form */}
                 <div id="blog-contact-form" tabIndex={-1} role="region" aria-labelledby="article-enquiry-heading" className="enquiry-form-card" style={{ marginTop: '1.5rem', background: 'white', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
-                  <ContactForm initialService={enquiry.service} submitLabel={enquiry.submit} messagePlaceholder={enquiry.placeholder} />
+                  <ContactForm entryPage={`/blog/${post.slug}`} initialService={enquiry.service} submitLabel={enquiry.submit} messagePlaceholder={enquiry.placeholder} />
                 </div>
               </div>
 
