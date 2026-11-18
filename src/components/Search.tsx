@@ -44,6 +44,9 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Blog & Articles', description: 'Commercial property guides, market insights and practical advice.', href: '/blog', category: 'Page' },
   { title: 'Resources & Tools', description: 'All free tools, calculators and market resources in one place.', href: '/resources', category: 'Page' },
   { title: 'Newcastle Office Market Snapshot', description: 'Read the May 2026 snapshot and ask for current, brief-specific market evidence.', href: '/market-snapshot', category: 'Page' },
+  { title: "Office Fitout Approvals Newcastle: What to Check Before You Commit", description: "Prepare the right approval questions before signing a lease or committing to building work, with a Newcastle premises record and approvals checklist.", href: '/blog/office-fitout-approvals-newcastle', category: 'Article' },
+  { title: "Office Refurbishment Newcastle: Can Your Business Stay Open?", description: "Work through the business-continuity questions before promising staff can stay, with a staging and interruption checklist for your appointed project team.", href: '/blog/office-refurbishment-newcastle-stay-open', category: 'Article' },
+  { title: "Office Fitout Readiness Newcastle: Is the Premises Ready for Your Business?", description: "Compare the premises you are considering against the workplace you actually need, with an evidence-and-actions checklist rather than an unsupported ready/not-ready score.", href: '/blog/office-fitout-readiness-newcastle', category: 'Article' },
   // Blog articles
   { title: 'What Is Tenant Representation?', description: 'How a tenant rep works, what it costs, and why you need one.', href: '/blog/what-is-tenant-representation-newcastle', category: 'Article' },
   { title: 'Newcastle FitOut Costs & Budget Planning', description: 'Define your scope, allowances and quote comparisons for a Newcastle office fitout.', href: '/blog/commercial-fitout-cost-newcastle-2026', category: 'Article' },
