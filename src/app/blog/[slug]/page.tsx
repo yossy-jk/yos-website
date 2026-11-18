@@ -453,7 +453,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
                 {/* Inline contact form */}
                 <div id="blog-contact-form" tabIndex={-1} role="region" aria-labelledby="article-enquiry-heading" className="enquiry-form-card" style={{ marginTop: '1.5rem', background: 'white', borderRadius: '1rem', padding: 'clamp(1.5rem,4vw,2.5rem)' }}>
-                  <ContactForm initialService={enquiry.service} submitLabel={enquiry.submit} messagePlaceholder={enquiry.placeholder} />
+                  <ContactForm entryPage={`/blog/${post.slug}`} initialService={enquiry.service} submitLabel={enquiry.submit} messagePlaceholder={enquiry.placeholder} />
                 </div>
               </div>
 

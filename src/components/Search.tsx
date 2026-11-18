@@ -44,6 +44,7 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Blog & Articles', description: 'Commercial property guides, market insights and practical advice.', href: '/blog', category: 'Page' },
   { title: 'Resources & Tools', description: 'All free tools, calculators and market resources in one place.', href: '/resources', category: 'Page' },
   { title: 'Newcastle Office Market Snapshot', description: 'Read the May 2026 snapshot and ask for current, brief-specific market evidence.', href: '/market-snapshot', category: 'Page' },
+  { title: 'Newcastle Fitout Contractors & Value Guide', description: 'Compare 15 contractors, scope, exclusions and client-side project management.', href: '/blog/office-fitout-contractors-newcastle', category: 'Article', keywords: 'office fitout commercial Newcastle contractor quote value' },
   // Blog articles
   { title: 'What Is Tenant Representation?', description: 'How a tenant rep works, what it costs, and why you need one.', href: '/blog/what-is-tenant-representation-newcastle', category: 'Article' },
   { title: 'Newcastle FitOut Costs & Budget Planning', description: 'Define your scope, allowances and quote comparisons for a Newcastle office fitout.', href: '/blog/commercial-fitout-cost-newcastle-2026', category: 'Article' },
