@@ -370,7 +370,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(10,10,10,0.96) 30%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.3) 100%)' }} />
 
         <div className="relative flex min-h-[inherit] items-end">
-          <div className="w-full" style={{ maxWidth: '52rem', paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)', paddingTop: '8rem' }}>
+          <div className="w-full" style={{ maxWidth: '52rem', paddingLeft: 'clamp(1.5rem,8vw,6rem)', paddingRight: 'clamp(1.5rem,8vw,6rem)', paddingBottom: 'clamp(2.5rem,5vw,4rem)', paddingTop: '8rem' }}>
             {/* Division + meta */}
             <ContentBreadcrumbs section="Blog" sectionPath="/blog" title={post.title} path={`/blog/${post.slug}`} />
             <div className="flex flex-wrap items-center gap-3 mb-5">
