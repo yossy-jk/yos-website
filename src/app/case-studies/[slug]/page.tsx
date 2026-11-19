@@ -140,6 +140,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 <figure className="border-l-4 border-teal pl-6">
                   <blockquote className="text-charcoal text-lg leading-relaxed space-y-5">{cs.quote.text.split('\n\n').map(paragraph => <p key={paragraph}>{paragraph}</p>)}</blockquote>
                   <figcaption className="mt-6 text-near-black font-semibold">{cs.quote.attribution}</figcaption>
+                  {cs.quote.source && <a href={cs.quote.source} target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4" style={{ display: 'inline-block', marginTop: 16 }}>Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a>}
                 </figure>
               </section>}
               {cs.closing && <section>

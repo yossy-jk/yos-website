@@ -53,7 +53,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE}/resources/relocate-quiz`,             changeFrequency: 'yearly',  priority: 0.5 },
     { url: `${BASE}/resources/health-check`,              changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE}/blog`, lastModified: '2026-11-19',      changeFrequency: 'weekly',  priority: 0.8 },
-    ...(caseStudies.length > 0 ? [{ url: `${BASE}/case-studies`, lastModified: '2026-11-03', changeFrequency: 'monthly' as const, priority: 0.75 }] : []),
+    ...(caseStudies.length > 0 ? [{ url: `${BASE}/case-studies`, lastModified: '2026-11-19', changeFrequency: 'monthly' as const, priority: 0.75 }] : []),
     { url: `${BASE}/tools/space-planner`,                 changeFrequency: 'monthly', priority: 0.65 },
     { url: `${BASE}/flourish`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/flourish/office-plant-hire-newcastle`, changeFrequency: 'monthly', priority: 0.8 },

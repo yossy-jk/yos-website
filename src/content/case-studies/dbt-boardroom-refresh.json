@@ -1,47 +1,82 @@
 {
   "slug": "dbt-boardroom-refresh",
-  "title": "Boardroom Refresh \u2014 Dynamic Business Technologies",
+  "title": "Dynamic Business Technologies: boardroom refurbishment in Warners Bay",
   "client": "Dynamic Business Technologies",
-  "location": "Newcastle, NSW",
+  "location": "Warners Bay, NSW",
   "division": "furniture",
-  "date": "2026-03-01",
+  "date": "2026-11-19",
   "featured": true,
-  "excerpt": "A cluttered, underutilised boardroom transformed into a high-impression meeting space with custom joinery, integrated bar fridge credenza, barrel base boardroom table, and a fully integrated Microsoft Teams conference room setup.",
-  "heroImage": "/images/furniture/space-cogc-office.jpg",
-  "challenge": "Dynamic Business Technologies had a boardroom that wasn't working. The room was cluttered, the AV setup was ad-hoc, and the furniture didn't reflect the calibre of the business. For a technology company that regularly hosts clients and runs hybrid meetings with national teams, a first impression that didn't land was costing them \u2014 in confidence, in credibility, and in the perception of their brand.",
-  "solution": "We scoped and delivered a complete boardroom transformation. The brief was clear: the room needed to look impressive, function flawlessly, and make every person in it \u2014 physically or on screen \u2014 feel like they were in a serious environment.\n\nThe centrepiece is a custom joinery credenza running the full width of the room, with built-in bar fridges integrated seamlessly into the cabinetry. Above it, the wall-mounted display and Rally Bar sit flush and clean \u2014 no visible cables, no afterthought mounting.\n\nThe barrel base boardroom table was specified for DBT specifically \u2014 proportioned to the room, with a profile that reads as confident without being heavy. Leather-bound executive chairs complete the setting.\n\nOn the technology side, we coordinated the full integration of a Logitech Rally Bar system with MS Teams Rooms programming. Every camera angle, every audio zone, every control layout \u2014 tested and signed off before handover. Walk in, tap a button, the meeting starts.",
-  "outcome": "The boardroom now does what a boardroom should: it makes people feel like they're dealing with the best in the business. DBT's team reported an immediate lift in confidence when hosting client meetings. The hybrid meeting capability has simplified their national team coordination significantly \u2014 no more patchy Zoom calls from a laptop camera.",
+  "published": true,
+  "excerpt": "A 2025 boardroom refurbishment at DBT\u2019s Warners Bay headquarters, with the YOS scope covering the table, chairs and joinery.",
+  "logo": "/client-logos/dynamic-business-technologies.jpg",
+  "challenge": "Dynamic Business Technologies undertook a boardroom refurbishment at its headquarters in Warners Bay in 2025. Your Office Space\u2019s scope covered three elements: the table, chairs and joinery.",
+  "solution": "The project brought those elements into a boardroom refurbishment, supported by the practical advice and attention to detail described in Nathan Franks\u2019 client feedback.",
+  "outcome": "Nathan Franks described the end result as functional and professional.",
+  "sections": [
+    {
+      "heading": "The project: a boardroom refurbishment at DBT\u2019s headquarters",
+      "paragraphs": [
+        "This was a boardroom project at an existing business headquarters in Warners Bay. The project year was 2025.",
+        "A boardroom brief connects the room with how a business wants to use it. In this case, the confirmed YOS scope centred on the table, chairs and joinery."
+      ]
+    },
+    {
+      "heading": "The scope: three connected elements",
+      "paragraphs": [
+        "The YOS scope for the refurbishment covered:"
+      ],
+      "bullets": [
+        "The boardroom table.",
+        "The chairs.",
+        "The joinery."
+      ]
+    },
+    {
+      "heading": "The client\u2019s perspective",
+      "paragraphs": [
+        "Nathan Franks\u2019 approved Google review excerpt highlights practical advice, attention to detail and a functional, professional end result. His feedback is reproduced below."
+      ]
+    },
+    {
+      "heading": "What to prepare for your own boardroom refurbishment",
+      "paragraphs": [
+        "Start with a measured room plan, the furniture and joinery you want to retain or change, the people using the room and the requirements you need the appointed team to assess.",
+        "Keep the table, seating and joinery scope clear when comparing proposals. If technology, building services or construction work is also needed, identify those workstreams and the appropriate appointments separately.",
+        "Agree the business brief and budget before committing to products or work. The scope, delivery arrangements and responsibilities should be confirmed for the actual project."
+      ]
+    }
+  ],
   "metrics": [
     {
-      "label": "Lead time",
-      "value": "6 weeks"
+      "label": "Project year",
+      "value": "2025"
     },
     {
-      "label": "Space",
-      "value": "Boardroom"
-    },
-    {
-      "label": "Scope",
-      "value": "Custom joinery, furniture, AV integration"
-    },
-    {
-      "label": "Technology",
-      "value": "MS Teams Rooms with Rally Bar"
+      "label": "Project location",
+      "value": "Warners Bay"
     }
   ],
   "quote": {
-    "text": "The room completely changed how we present ourselves. Clients notice it immediately. Our team actually wants to use it now.",
-    "attribution": "Dynamic Business Technologies"
+    "text": "His advice was practical, his attention to detail excellent, and the end result both functional and professional.",
+    "attribution": "Nathan Franks, Dynamic Business Technologies (Google review excerpt)",
+    "approvedForPublication": true,
+    "source": "https://share.google/sdMxxcSIOrRfm1U4R"
+  },
+  "closing": {
+    "heading": "Planning a boardroom refurbishment?",
+    "paragraphs": [
+      "Tell us where the project stands, what needs changing and what you would like the room to do. YOS can discuss the furniture and joinery brief and whether an agreed client-side project management scope would be useful.",
+      "YOS does not act as the builder or head contractor. Appointed contractors and specialist advisers retain their respective responsibilities."
+    ],
+    "linkText": "Discuss my boardroom refurbishment",
+    "href": "/office-fitout#fitout-enquiry"
   },
   "tags": [
-    "boardroom",
-    "custom joinery",
-    "MS Teams",
-    "AV integration",
-    "Newcastle",
-    "furniture fitout"
+    "Boardroom refurbishment",
+    "Table and chairs",
+    "Joinery",
+    "Warners Bay"
   ],
-  "metaTitle": "Office Boardroom Furniture Fitout Newcastle | Your Office Space",
-  "metaDescription": "How Your Office Space transformed Dynamic Business Technologies' boardroom with premium furniture, acoustic panelling and AV integration in Newcastle NSW.",
-  "published": false
+  "metaTitle": "DBT Boardroom Refurbishment, Warners Bay | Your Office Space",
+  "metaDescription": "Explore YOS\u2019s 2025 boardroom refurbishment scope for Dynamic Business Technologies in Warners Bay: table, chairs, joinery and approved client feedback."
 }
