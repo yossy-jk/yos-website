@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...tenantRoutes,
     { url: `${BASE}/office-fitout-central-coast`, lastModified: '2026-11-17', changeFrequency: 'monthly', priority: 0.8 },
     { url: `${BASE}/office-furniture-central-coast`, lastModified: '2026-11-17', changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${BASE}/videos`, lastModified: '2026-11-16', changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${BASE}/videos`, lastModified: '2026-11-20', changeFrequency: 'monthly', priority: 0.7 },
     ...getVideoResources().map(video => ({ url: `${BASE}${video.href}`, lastModified: video.video.uploadDate, changeFrequency: 'monthly' as const, priority: 0.65 })),
     ...CATALOGUES.map(item => ({ url: `${BASE}/catalogues/${item.id}`, changeFrequency: 'yearly' as const, priority: 0.6, lastModified: '2026-10-19' })),
     { url: BASE, lastModified: '2026-10-21',              changeFrequency: 'weekly',  priority: 1.0 },

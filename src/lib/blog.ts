@@ -26,6 +26,8 @@ export interface BlogPost {
   toolButtons?: { label: string; href: string }[]
   faqs?: { question: string; answer: string }[]
   video?: {
+    aiAssisted?: boolean
+    youtubeId?: string
     watchSlug?: string
     name: string
     description: string
