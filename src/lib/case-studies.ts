@@ -18,7 +18,7 @@ export interface CaseStudy {
   solution: string
   outcome: string
   metrics: { label: string; value: string }[]
-  quote?: { text: string; attribution: string; approvedForPublication?: boolean }
+  quote?: { text: string; attribution: string; approvedForPublication?: boolean; source?: string }
   tags: string[]
   metaTitle?: string
   metaDescription?: string
