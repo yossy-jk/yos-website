@@ -25,7 +25,7 @@
       "note": "Approval pathways depend on the premises, proposed use and applicable rules. Your appointed planning adviser or certifier should assess the actual project."
     }
   ],
-  "updatedDate": "2026-11-16",
+  "updatedDate": "2026-11-20",
   "faqs": [
     {
       "question": "What does a client-side office fitout project manager do?",
@@ -41,22 +41,37 @@
     }
   ],
   "video": {
+    "watchSlug": "office-fitout-project-management",
     "name": "Who owns the next fitout decision?",
-    "description": "A short guide to decision owners, client-side coordination and approving connected changes in an office fitout.",
+    "description": "How client-side project management connects your Newcastle office fitout brief, budget, approvals and delivery responsibilities.",
+    "src": "/videos/office-fitout-project-management-2026-11-20.mp4",
+    "poster": "/videos/office-fitout-project-management-2026-11-20-poster.jpg",
+    "captions": "/videos/office-fitout-project-management-2026-11-20.vtt",
+    "width": 1280,
+    "height": 720,
+    "duration": "PT65.58S",
+    "uploadDate": "2026-11-20T09:00:00+11:00",
     "transcript": [
-      "A FitOut program can tell you when work is planned, but can it tell you who can approve the next decision, what evidence they need, and what is waiting on it?",
-      "Before committing to work, agree three things: the business brief, the scope of each appointment, and the person authorised to approve changes.",
-      "A client-side project manager coordinates the agreed business workstream. Your builder, designers and other appointed specialists still hold their own responsibilities.",
-      "Take a meeting room added after pricing. It may affect more than the partition. Services, lighting, furniture and technology may all need another look. Record the connected change, get the relevant inputs, and approve it before updating the baseline.",
-      "Our free responsibility worksheet gives you a place to record those questions. Start with the guide, then talk to YOS about the client-side support your project needs."
+      "Planning an office fit out in Newcastle?",
+      "Who is keeping the business brief, budget and next decision connected?",
+      "Your Office Space provides client-side project management.",
+      "The role is to help organise what the business needs,",
+      "the information still missing and the decisions that need the client's approval.",
+      "Before commitment, that can mean coordinating the workplace brief,",
+      "premises questions and budget assumptions.",
+      "During planning, Your Office Space brings client decisions together",
+      "to the appointed designers, contractors and suppliers.",
+      "During delivery, the agreed work can include tracking scope changes,",
+      "program dependencies and handover actions.",
+      "Your Office Space does not act as the builder or head contractor.",
+      "The appointed contractors and specialist advisors retain their responsibilities",
+      "and the management scope is agreed for the actual project.",
+      "You stay in control of the significant business decisions",
+      "with a clearer view of what needs attention next.",
+      "Explore the free Newcastle fitout guides and checklists,",
+      "then tell the Your Office Space team where your project stands."
     ],
-    "src": "/videos/office-fitout-project-management-2026-11.mp4",
-    "poster": "/videos/office-fitout-project-management-2026-11-poster.jpg",
-    "captions": "/videos/office-fitout-project-management-2026-11.vtt",
-    "width": 720,
-    "height": 1280,
-    "duration": "PT58.517S",
-    "uploadDate": "2026-11-16",
-    "watchSlug": "office-fitout-project-management"
+    "youtubeId": "SsFItNib268",
+    "aiAssisted": true
   }
 }
