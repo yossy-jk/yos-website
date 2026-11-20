@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { CLIENT_REVIEWS } from '@/lib/client-reviews'
+import { getCaseStudyBySlug } from '@/lib/case-studies'
 import DiscoveryBooking from '@/components/DiscoveryBooking'
 import ContentBreadcrumbs from '@/components/ContentBreadcrumbs'
 import PlanningResources from '@/components/PlanningResources'
@@ -59,6 +60,7 @@ const FAQS = [
 const FURNITURE_REVIEW = CLIENT_REVIEWS.find(review => review.name === 'Mitch Peck')!
 
 export default function FurniturePage() {
+  const boardroomCase = getCaseStudyBySlug('dbt-boardroom-refresh')
   return <><Nav /><main id="main-content" tabIndex={-1}>
       <ServiceSchema name="Office and Commercial Furniture" path="/furniture" description="Commercial furniture selection, supply and installation for workplace briefs across Australia." area="Australia" />
     <section className="hero-static relative min-h-[82vh] flex items-center overflow-hidden"><Image src="/images/furniture/space-liverpool-a.jpg" alt="Commercial workplace furnished with workstations and collaborative settings" fill preload sizes="100vw" className="object-cover" /><div className="absolute inset-0 bg-near-black/75" /><div className={`relative z-10 ${WRAP}`} style={{ ...PAD, ...SEC, paddingTop: 'clamp(8rem,12vw,11rem)' }}>
@@ -68,7 +70,7 @@ export default function FurniturePage() {
       <FadeIn delay={220}><div className="flex flex-col sm:flex-row gap-4"><Button href={FURNITURE_STORE_URL} variant="primary" size="lg">Shop furniture online</Button><Button href="/resources/furniture-quote#furniture-quote-form" variant="outline-light" size="lg">Request a furniture quote</Button></div><p className="service-next-step">Buy individual items in the store, or send a brief for help with quantities, specifications and project delivery.</p></FadeIn>
     </div></section>
 
-    <nav aria-label="Furniture page sections" className="bg-warm-grey border-b border-black/10"><div className={`${WRAP} flex flex-wrap gap-x-8 gap-y-3`} style={{ ...PAD, paddingTop: 24, paddingBottom: 24 }}>{[['#furniture-shopping', 'Shop or plan'], ['#furniture-ranges', 'Furniture ranges'], ['#furniture-team', 'Your team and feedback'], ['#furniture-buying-pack', 'Buying guide and checklist'], ['#furniture-faq', 'Common questions']].map(([href, label]) => <a key={href} href={href} className="text-dark-teal font-semibold underline underline-offset-4">{label}</a>)}</div></nav>
+    <nav aria-label="Furniture page sections" className="bg-warm-grey border-b border-black/10"><div className={`${WRAP} flex flex-wrap gap-x-8 gap-y-3`} style={{ ...PAD, paddingTop: 24, paddingBottom: 24 }}>{[['#furniture-shopping', 'Shop or plan'], ...(boardroomCase ? [['#furniture-boardroom-case', 'DBT boardroom case']] : []), ['#furniture-ranges', 'Furniture ranges'], ['#furniture-team', 'Your team and feedback'], ['#furniture-buying-pack', 'Buying guide and checklist'], ['#furniture-faq', 'Common questions']].map(([href, label]) => <a key={href} href={href} className="text-dark-teal font-semibold underline underline-offset-4">{label}</a>)}</div></nav>
 
     <section className="bg-light-teal" aria-labelledby="furniture-shopping" style={SEC}><div className={WRAP} style={PAD}>
       <SectionLabel>Your Office Space + Your Office Furniture</SectionLabel><h2 id="furniture-shopping" className="text-near-black mt-3 mb-6 leading-tight" style={{ scrollMarginTop: 136, fontSize: 'clamp(2rem,4vw,3rem)', marginTop: 20, marginBottom: 24 }}>From a workplace brief to the right furniture.</h2>
@@ -83,6 +85,18 @@ export default function FurniturePage() {
 
     <section className="bg-light-teal" style={SEC}><div className={WRAP} style={PAD}><h2 className="text-near-black text-3xl mb-6">Planning a Central Coast workplace?</h2><p className="text-charcoal leading-relaxed mb-5">Explore our regional service guide for project scope, quote preparation and site-specific delivery questions.</p><Link className="text-dark-teal font-semibold underline underline-offset-4" href="/office-furniture-central-coast">Central Coast office furniture planning and supply</Link></div></section>
     <section className="bg-warm-grey" style={SEC}><div className={WRAP} style={PAD}><SectionLabel>Planning office furniture in Newcastle</SectionLabel><h2 className="text-near-black leading-tight max-w-3xl" style={{ fontSize: 'clamp(2rem,4vw,3rem)', marginTop: 20, marginBottom: 24, scrollMarginTop: 136 }}>Start with a usable brief, then compare the installed quote.</h2><p className="text-charcoal leading-relaxed max-w-3xl" style={{ marginBottom: 20 }}>For a Newcastle, Lake Macquarie or Hunter office, send the floor plan, suburb, team size, furniture you want to retain and target move-in date. We can plan workstations, ergonomic seating, meeting rooms and storage around those requirements.</p><p className="text-charcoal leading-relaxed max-w-3xl">Confirm the delivery address, lift or stair access, loading arrangements and any building booking rules early. Compare product specifications, freight, installation, packaging removal and lead times together, so the quote reflects the whole job.</p></div></section>
+
+    {boardroomCase && <section className="bg-white" style={SEC} aria-labelledby="furniture-boardroom-case"><div className={`${WRAP} grid lg:grid-cols-2 gap-12`} style={PAD}>
+      <div><SectionLabel onLight>Boardroom furniture in practice</SectionLabel><h2 id="furniture-boardroom-case" className="text-near-black leading-tight" style={{ scrollMarginTop: 168, fontSize: 'clamp(2rem,4vw,3rem)', marginTop: 20, marginBottom: 24 }}>A boardroom refurbishment at DBT’s Warners Bay headquarters.</h2>
+        <p className="text-charcoal text-lg leading-relaxed" style={{ marginBottom: 24 }}>{boardroomCase.excerpt}</p>
+        <p className="text-charcoal leading-relaxed" style={{ marginBottom: 28 }}>Read the confirmed project scope and the client’s feedback, then bring your measured room plan, retained furniture and requirements to your own boardroom brief.</p>
+        <div className="furniture-case-actions flex flex-col sm:items-start gap-4"><Button href={`/case-studies/${boardroomCase.slug}`} variant="outline">Read the DBT case study</Button><Button href="/contact?service=furniture#contact-enquiry" variant="primary">Discuss boardroom furniture</Button></div>
+      </div>
+      <figure className="bg-warm-grey rounded-2xl" style={{ padding: 'clamp(1.5rem,3vw,2.5rem)' }}>
+        {boardroomCase.logo && <Image src={boardroomCase.logo} alt="Dynamic Business Technologies client logo" width={320} height={160} className="object-contain" style={{ maxWidth: '100%', height: 'auto', marginBottom: 28 }} />}
+        {boardroomCase.quote?.approvedForPublication && <><blockquote className="text-near-black text-xl leading-relaxed">“{boardroomCase.quote.text}”</blockquote><figcaption className="text-charcoal leading-relaxed" style={{ marginTop: 24 }}>{boardroomCase.quote.attribution}{boardroomCase.quote.source && <><br /><a href={boardroomCase.quote.source} target="_blank" rel="noopener noreferrer" className="text-action-teal font-semibold underline underline-offset-4" style={{ display: 'inline-block', marginTop: 16 }}>Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a></>}</figcaption></>}
+      </figure>
+    </div></section>}
 
     <section className="bg-white" style={SEC}><div className={WRAP} style={PAD}>
       <FadeIn><SectionLabel>What we specify</SectionLabel><h2 id="furniture-ranges" className="text-near-black mt-3 mb-12 max-w-3xl leading-tight" style={{ scrollMarginTop: 136, fontSize: 'clamp(2rem,4vw,3.5rem)' }}>Every setting has a job to do.</h2></FadeIn>
