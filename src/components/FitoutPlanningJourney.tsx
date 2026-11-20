@@ -20,6 +20,7 @@ const STAGES = [
     description: 'Connect workplace requirements, design information, the whole-project budget and decision dates before comparing proposals.',
     links: [
       ['Design brief: decide what the workplace needs to do', '/blog/office-fitout-design-brief-newcastle'],
+      ['Workplace examples: connect furniture with the fitout brief', '/blog/newcastle-office-furniture-workplace-examples'],
       ['Newcastle fitout costs: understand scope and allowances', '/blog/commercial-fitout-cost-newcastle-2026'],
       ['Construction quotes: compare inclusions and exclusions', '/blog/compare-office-construction-quotes-newcastle'],
       ['Fitout timeline: connect decisions and dependencies', '/blog/office-fitout-timeline-newcastle'],
