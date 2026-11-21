@@ -58,6 +58,14 @@ try {
     const violations = await page.evaluate(async () => (await window.axe.run('main', { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } })).violations)
     assert.deepEqual(violations.map(v => v.id), [])
     if (width === 390 || width === 1440) {
+      await page.evaluate(async () => {
+        const video = document.querySelector('video')
+        await new Promise((resolve, reject) => {
+          const timeout = setTimeout(() => reject(Error('Representative frame did not load')), 10000)
+          video.addEventListener('seeked', () => { clearTimeout(timeout); resolve() }, { once: true })
+          video.currentTime = 14
+        })
+      })
       await page.$eval('video', el => el.scrollIntoView({ block: 'center' }))
       await page.screenshot({ path: `${out}/${route.split('/').pop()}-${width}.png` })
     }
