@@ -13,6 +13,7 @@ const results = []
 try {
   for (const path of paths) for (const width of [390, 768, 1440]) {
     const page = await browser.newPage()
+    await page.setCacheEnabled(false)
     await page.setViewport({ width, height: 1000 })
     await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }])
     await page.setRequestInterception(true)
