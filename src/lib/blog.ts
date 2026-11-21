@@ -27,6 +27,7 @@ export interface BlogPost {
   faqs?: { question: string; answer: string }[]
   video?: {
     aiAssisted?: boolean
+    captionsDefault?: boolean
     youtubeId?: string
     watchSlug?: string
     name: string

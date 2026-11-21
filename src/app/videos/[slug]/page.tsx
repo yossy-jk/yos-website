@@ -17,6 +17,7 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
   const resource = getVideoResource((await params).slug)
   if (!resource) notFound()
   const { video, post } = resource
+  const cleaning = post.division === 'cleaning'
   const quote = post.slug === 'compare-office-construction-quotes-newcastle'
   const fitout = post.slug === 'office-fitout-guide-australia-2026' || quote
   const worksheet = fitout ? 'office-fitout-decision-register.csv' : post.slug.startsWith('commercial-lease-renewal') ? 'commercial-lease-renewal-decision.csv' : 'office-make-good-scope-worksheet.csv'
@@ -29,7 +30,7 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
         <section aria-label="Watch the video" className={styles.player}>
           <video controls playsInline preload="none" width={video.width} height={video.height} poster={video.poster} style={{ aspectRatio: `${video.width} / ${video.height}` }} aria-label={video.name} aria-describedby="watch-description">
             <source src={video.src} type="video/mp4" />
-            <track src={video.captions} kind="captions" srcLang="en" label="English" default />
+            <track src={video.captions} kind="captions" srcLang="en" label="English" default={video.captionsDefault !== false} />
             Your browser does not support video. <a href={video.src}>Open the video</a>.
           </video>
           {video.youtubeId && <a href={`https://www.youtube.com/watch?v=${video.youtubeId}`} className="text-action-teal underline">Watch on YouTube</a>}
@@ -39,11 +40,11 @@ export default async function WatchPage({ params }: { params: Promise<{ slug: st
           {video.aiAssisted && <p className={styles.note}>AI-assisted video presentation. Read the transcript below.</p>}
           <p id="watch-description">{video.description}</p>
           <h2 className="text-near-black font-bold">Put the explanation into practice</h2>
-          <p>{quote ? 'Compare the same drawing revision, inclusions, exclusions, allowances, program dependencies and completion obligations before deciding. Keep construction pricing separate from the whole project budget.' : fitout ? 'Use the responsibility matrix to separate client approvals, coordination and specialist delivery. Record the evidence behind the next scope or budget decision.' : post.slug.startsWith('commercial-lease-renewal') ? 'Build a verified dates register and compare renewal with realistic alternatives. Ask your solicitor to confirm the actual notice requirements before relying on a date.' : 'Clarify the lease position with your solicitor, then organise the physical scope, comparable proposals and handback records with the appointed team.'}</p>
+          <p>{cleaning ? 'Define each area, task, frequency and access arrangement before comparing cleaning proposals. YOS cleaning covers Newcastle CBD and Lake Macquarie, with the actual scope and price confirmed after a site inspection.' : quote ? 'Compare the same drawing revision, inclusions, exclusions, allowances, program dependencies and completion obligations before deciding. Keep construction pricing separate from the whole project budget.' : fitout ? 'Use the responsibility matrix to separate client approvals, coordination and specialist delivery. Record the evidence behind the next scope or budget decision.' : post.slug.startsWith('commercial-lease-renewal') ? 'Build a verified dates register and compare renewal with realistic alternatives. Ask your solicitor to confirm the actual notice requirements before relying on a date.' : 'Clarify the lease position with your solicitor, then organise the physical scope, comparable proposals and handback records with the appointed team.'}</p>
           <Link href={`/blog/${post.slug}`} className={styles.primary} style={{ display: 'block' }}>Read the full planning guide</Link>
-          <a href={quote ? '/guides/office-construction-quote-comparison-newcastle.txt' : `/downloads/${worksheet}`} download className="text-action-teal underline" style={{ display: 'block' }}>Download the free worksheet ({quote ? 'TXT' : 'CSV'})</a>
-          <p className={styles.note}>No email required. Fill in your own information. The guide and worksheet are planning aids; legal advice and the actual project scope need the appropriate appointed advisers.</p>
-          <Link href={fitout ? '/office-fitout#fitout-enquiry' : '/lease-health-check'} className="text-action-teal underline" style={{ display: 'block' }}>{fitout ? 'Discuss your fitout project with YOS' : 'Start a Lease Health Check'}</Link>
+          <a href={cleaning ? '/guides/office-cleaning-planning-template.txt' : quote ? '/guides/office-construction-quote-comparison-newcastle.txt' : `/downloads/${worksheet}`} download className="text-action-teal underline" style={{ display: 'block' }}>Download the free {cleaning ? 'cleaning planning template' : 'worksheet'} ({cleaning || quote ? 'TXT' : 'CSV'})</a>
+          <p className={styles.note}>{cleaning ? 'No email required. Use the template to prepare your requirements. Keep access codes and passwords out of the general brief; arrange secure handover with the provider.' : 'No email required. Fill in your own information. The guide and worksheet are planning aids; legal advice and the actual project scope need the appropriate appointed advisers.'}</p>
+          <Link href={cleaning ? '/cleaning#cleaning-quote-form' : fitout ? '/office-fitout#fitout-enquiry' : '/lease-health-check'} className="text-action-teal underline" style={{ display: 'block' }}>{cleaning ? 'Request a cleaning quote' : fitout ? 'Discuss your fitout project with YOS' : 'Start a Lease Health Check'}</Link>
         </aside>
       </div>
       <section aria-labelledby="transcript-heading" className={styles.transcript}><h2 id="transcript-heading" className="text-near-black font-bold">Video transcript</h2>{video.transcript.map((text, i) => <p key={i}>{text}</p>)}</section>
