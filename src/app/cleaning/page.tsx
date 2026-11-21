@@ -1,4 +1,6 @@
 import FlourishServices from '@/components/FlourishServices'
+import BlogVideo from '@/components/BlogVideo'
+import { getVideoResource, videoSchema } from '@/lib/video-resources'
 import { ORGANIZATION_SCHEMA } from '@/lib/site-schema'
 import { withPageSeo } from '@/lib/page-seo'
 import Image from 'next/image'
@@ -48,6 +50,7 @@ export const metadata = withPageSeo({
 })
 
 export default function CleaningPage() {
+  const capability = getVideoResource('commercial-office-cleaning-newcastle')
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -154,6 +157,11 @@ export default function CleaningPage() {
           <p className="text-charcoal leading-relaxed" style={{ marginTop: 24 }}><Link href="/guides/office-cleaning-planning-template.txt" className="text-dark-teal font-semibold underline underline-offset-4">Download the editable office cleaning planning template (TXT)</Link>. No email required. Keep passwords and alarm codes out of the general brief.</p>
         </div>
       </section>
+
+      {capability && <section className="bg-white" style={SEC_SM} aria-label="Cleaning capability video">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema(capability)).replace(/</g, '\\u003c') }} />
+        <div className="max-w-screen-xl mx-auto" style={PAD}><BlogVideo video={capability.video} /></div>
+      </section>}
 
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5"

@@ -5,7 +5,7 @@ import { getVideoResources } from '@/lib/video-resources'
 import { withPageSeo } from '@/lib/page-seo'
 import { SITE_URL } from '@/lib/site-schema'
 
-export const metadata = withPageSeo({ title: 'Workplace Planning Video Guides | Your Office Space', description: 'Watch short YOS video guides on office fitout decisions, commercial lease renewal and make-good planning. Includes captions, transcripts and practical resources.', alternates: { canonical: `${SITE_URL}/videos` } })
+export const metadata = withPageSeo({ title: 'Workplace Planning Video Guides | Your Office Space', description: 'Watch short YOS video guides on commercial cleaning, office fitout decisions, commercial lease renewal and make-good planning. Includes captions, transcripts and practical resources.', alternates: { canonical: `${SITE_URL}/videos` } })
 
 export default function VideosPage() {
   const videos = getVideoResources()

@@ -18,7 +18,7 @@ export default function BlogVideo({ video }: { video: NonNullable<BlogPost['vide
       style={{ width: '100%', maxWidth: video.width > video.height ? '100%' : '22.5rem', height: 'auto', aspectRatio: `${video.width} / ${video.height}`, display: 'block', margin: '0 auto', background: '#191919', borderRadius: '0.75rem' }}
     >
       <source src={video.src} type="video/mp4" />
-      <track src={video.captions} kind="captions" srcLang="en" label="English" default />
+      <track src={video.captions} kind="captions" srcLang="en" label="English" default={video.captionsDefault !== false} />
       Your browser does not support video. <a href={video.src}>Open the video</a>.
     </video>
     <p className="text-sm" style={{ marginTop: '1rem' }}><a href={video.src} className="text-action-teal font-semibold underline underline-offset-4">Open video in its own player</a></p>
