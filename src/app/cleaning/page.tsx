@@ -32,8 +32,8 @@ const CLEANING_FAQS = [
 ] as const
 
 export const metadata = withPageSeo({
-  title: 'Commercial Cleaning Newcastle & Lake Macquarie | YOS',
-  description: 'Commercial cleaning for Newcastle CBD and Lake Macquarie workplaces, with a documented Scope of Works, consistent teams wherever possible and a site-specific proposal.',
+  title: 'Commercial & Office Cleaning Newcastle | YOS',
+  description: 'Commercial and office cleaning for Newcastle CBD and Lake Macquarie. Clear task schedules, monthly quality audits and a tailored quote after a site inspection.',
   twitter: { card: 'summary_large_image', title: 'Commercial Cleaning Newcastle | Your Office Space', description: 'Clear scope, consistent teams wherever possible and direct quality management.' },
   alternates: { canonical: 'https://www.yourofficespace.au/cleaning' },
   openGraph: {
@@ -119,6 +119,7 @@ export default function CleaningPage() {
         <div className="max-w-screen-xl mx-auto flex flex-wrap gap-x-8 gap-y-3" style={{ ...PAD, paddingTop: 24, paddingBottom: 24 }}>
           {[
             ['#cleaning-services', 'Cleaning services'],
+            ['#office-cleaning-newcastle', 'Office cleaning scope'],
             ['#cleaning-start', 'How to get started'],
             ['#cleaning-reviews-heading', 'Client feedback'],
             ['#cleaning-planning', 'Costs and planning guides'],
@@ -133,6 +134,26 @@ export default function CleaningPage() {
         <div className="flex flex-col sm:flex-row gap-4"><Button href="/blog/commercial-cleaning-newcastle-what-to-expect" variant="primary">Read the office cleaning guide</Button><Button href="/guides/workplace-cleaning-scope-checklist.pdf" variant="outline">Download the cleaning pack (PDF)</Button></div>
         <p className="text-charcoal text-sm" style={{ marginTop: 20 }}>No email required. Current service area: Newcastle CBD and Lake Macquarie. A site inspection and written proposal confirm the actual scope and service arrangements.</p>
       </div></section>
+
+      <section className="bg-warm-grey" style={SEC_SM} aria-labelledby="office-cleaning-newcastle">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <SectionLabel onLight>Office cleaning Newcastle</SectionLabel>
+          <h2 id="office-cleaning-newcastle" className="text-near-black font-bold text-3xl scroll-mt-24" style={{ marginTop: 20, marginBottom: 24 }}>A cleaning schedule built around your working week.</h2>
+          <p className="text-charcoal leading-relaxed" style={{ maxWidth: '48rem', marginBottom: 24 }}>A hybrid office, a busy reception and shared amenities create different workloads. We clarify the areas, tasks, visit pattern and access before preparing a proposal. Our service covers Newcastle CBD and Lake Macquarie; your address and site requirements are confirmed during the enquiry.</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { title: 'Routine office tasks', body: 'Agree accessible surfaces, waste, kitchens, amenities and floor care. Record the frequency and standard for each area rather than relying on a general promise to clean the office.' },
+              { title: 'Periodic work and exclusions', body: 'Keep detail work, consumables, equipment exclusions and specialist requirements visible. Confirm what is included and what needs separate assessment or pricing.' },
+              { title: 'Access and accountability', body: 'Agree service times, authorised access and the issue-reporting pathway. Sarah oversees monthly quality audits against the written scope.' },
+            ].map(item => <article key={item.title} className="bg-white border border-black/10 p-6"><h3 className="text-near-black text-xl font-bold mb-4">{item.title}</h3><p className="text-charcoal leading-relaxed">{item.body}</p></article>)}
+          </div>
+          <div className="flex flex-col sm:flex-row flex-wrap gap-4" style={{ marginTop: 28 }}>
+            <Button href="/blog/office-cleaning-frequency-newcastle" variant="primary">Plan your cleaning frequency</Button>
+            <Button href="/blog/after-hours-office-cleaning-newcastle" variant="outline">Prepare after-hours access</Button>
+          </div>
+          <p className="text-charcoal leading-relaxed" style={{ marginTop: 24 }}><Link href="/guides/office-cleaning-planning-template.txt" className="text-dark-teal font-semibold underline underline-offset-4">Download the editable office cleaning planning template (TXT)</Link>. No email required. Keep passwords and alarm codes out of the general brief.</p>
+        </div>
+      </section>
 
       {/* STATS BAR */}
       <section className="bg-near-black border-b border-white/5"
@@ -459,6 +480,8 @@ export default function CleaningPage() {
           <h2 id="cleaning-planning" className="text-near-black text-3xl font-bold scroll-mt-24" style={{ marginTop: 20, marginBottom: 32 }}>Choose, brief and review your cleaning service.</h2>
           <div className="grid md:grid-cols-2 gap-8">
             {[
+              { href: '/blog/office-cleaning-frequency-newcastle', title: 'Build a task-by-task cleaning schedule', body: 'Use a practical area matrix to connect attendance, routine tasks, daytime responsibilities and review triggers.' },
+              { href: '/blog/after-hours-office-cleaning-newcastle', title: 'Prepare after-hours access safely', body: 'Clarify building access, restricted areas, credential custody and end-of-visit responsibilities before commencement.' },
               { href: '/blog/commercial-cleaning-cost-newcastle', title: 'Compare the whole cleaning cost', body: 'A worked annual comparison shows how visits, periodic work, consumables and one-off tasks change the headline price.' },
               { href: '/blog/switch-commercial-cleaning-company-newcastle', title: 'Plan a provider changeover', body: 'Keep dates, scope, key custody, starting condition and first-month reviews connected during a handover.' },
               { href: '/blog/what-good-commercial-cleaning-looks-like', title: 'Review cleaning quality', body: 'Separate missed scheduled tasks from scope changes, access problems and maintenance needs.' },

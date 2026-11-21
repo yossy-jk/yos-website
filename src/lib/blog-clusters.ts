@@ -15,10 +15,10 @@ export const BLOG_CLUSTERS = [
   },
   {
     id: 'commercial-cleaning-newcastle', label: 'Commercial cleaning Newcastle', shortLabel: 'Commercial cleaning',
-    searchTerms: ['Commercial cleaning Newcastle'],
+    searchTerms: ['Commercial cleaning Newcastle', 'Office cleaning Newcastle'],
     description: 'Define the cleaning scope, compare whole-service costs, review quality and plan a provider changeover. YOS cleaning covers Newcastle CBD and Lake Macquarie.',
     serviceHref: '/cleaning', serviceLabel: 'Explore commercial cleaning and request a scope review',
-    slugs: ['commercial-cleaning-newcastle-what-to-expect', 'commercial-cleaning-cost-newcastle', 'switch-commercial-cleaning-company-newcastle', 'what-good-commercial-cleaning-looks-like', 'commercial-cleaning-scope-busier-office'],
+    slugs: ['office-cleaning-frequency-newcastle', 'after-hours-office-cleaning-newcastle', 'commercial-cleaning-newcastle-what-to-expect', 'commercial-cleaning-cost-newcastle', 'switch-commercial-cleaning-company-newcastle', 'what-good-commercial-cleaning-looks-like', 'commercial-cleaning-scope-busier-office'],
   },
   {
     id: 'office-construction-newcastle', label: 'Office construction Newcastle', shortLabel: 'Office construction',
