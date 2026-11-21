@@ -28,7 +28,10 @@ test('small libraries have no self-links or duplicates and prefer their own serv
 test('Newcastle topic collections use published, unique articles and retain two-way discovery', () => {
   const assigned = BLOG_CLUSTERS.flatMap(cluster => [...cluster.slugs])
   assert.equal(new Set(assigned).size, assigned.length, 'An article has one primary planning intent')
-  assert.equal(BLOG_CLUSTERS.flatMap(cluster => [...cluster.searchTerms]).length, 5)
+  const searchTerms = BLOG_CLUSTERS.flatMap(cluster => [...cluster.searchTerms])
+  assert.ok(BLOG_CLUSTERS.every(cluster => cluster.searchTerms.length > 0))
+  assert.ok(searchTerms.every(term => term.trim().length > 0))
+  assert.equal(new Set(searchTerms.map(term => term.toLowerCase())).size, searchTerms.length, 'Search terms have one primary collection')
   const posts = assigned.map(slug => JSON.parse(readFileSync(new URL(`../content/blog/${slug}.json`, import.meta.url), 'utf8')))
   const incoming = new Map(assigned.map(slug => [slug, new Set<string>()]))
   for (const cluster of BLOG_CLUSTERS) {
