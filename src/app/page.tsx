@@ -91,7 +91,7 @@ export default function Home() {
         <div className="site-container home-hero-inner">
           <FadeIn>
             <p className="home-eyebrow home-eyebrow-light">Your outsourced property team</p>
-            <h1>Your Office Space is an outsourced property team.</h1>
+            <h1>Workplace Solutions</h1>
             <p className="home-hero-copy text-white/85">We partner with businesses to take the strain out of growing.</p><p className="text-white/85" style={{ marginTop: 20, lineHeight: 1.7 }}>{primaryTagline}</p>
             <div className="home-actions"><Link href="/free-space-plan" className="home-button home-button-primary">Get a free space plan</Link><Link href="/resources/fitout-estimator" className="home-button home-button-ghost">Estimate your FitOut</Link></div><HomeServiceGuide />
           </FadeIn>
@@ -103,7 +103,7 @@ export default function Home() {
 
       <section className="home-capability"><div className="site-container home-capability-inner"><div><p className="home-eyebrow">See how we work</p><h2>Review our capability before we talk.</h2><p>Our services, approach and the sectors we support, in one concise document.</p></div><CapabilityDownload label="Download capability statement" variant="primary" /></div></section>
 
-      <section className="home-proof" aria-labelledby="proof-heading"><div className="site-container"><FadeIn><div className="home-section-intro home-section-intro-left"><p className="home-eyebrow">Real relationships</p><h2 id="proof-heading">Client projects shared with permission.</h2></div></FadeIn><div className="home-logo-grid">{clientLogos.map(logo => <div key={logo.name} className={`home-logo-card ${'dark' in logo && logo.dark ? 'home-logo-card-dark' : ''}`}><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain" sizes="180px" /></div>)}</div></div></section>
+      <section className="home-proof" aria-labelledby="proof-heading"><div className="site-container"><FadeIn><div className="home-section-intro home-section-intro-left"><p className="home-eyebrow">Real relationships</p><h2 id="proof-heading">Client projects.</h2></div></FadeIn><div className="home-logo-grid">{clientLogos.map(logo => <div key={logo.name} className={`home-logo-card ${'dark' in logo && logo.dark ? 'home-logo-card-dark' : ''}`}><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain" sizes="180px" /></div>)}</div></div></section>
 
       <CompanyPurpose compact introduction="An outsourced property team, from the premises decision to after-move-in care." />
 
