@@ -29,3 +29,7 @@
 .indexGrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
 @media (min-width: 768px) { .indexGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .bodyGrid { grid-template-columns: minmax(0, 1fr) 280px; gap: 48px; } .story { grid-column: auto; } }
+
+.gallery { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.galleryImage { display: block; width: 100%; height: auto; border-radius: 6px; }
+@media (min-width: 640px) { .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
