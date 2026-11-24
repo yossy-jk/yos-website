@@ -143,6 +143,12 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   {cs.quote.source && <a href={cs.quote.source} target="_blank" rel="noopener noreferrer" className="text-dark-teal font-semibold underline underline-offset-4" style={{ display: 'inline-block', marginTop: 16 }}>Read the original Google review<span className="sr-only"> (opens in a new tab)</span></a>}
                 </figure>
               </section>}
+              {cs.gallery && cs.gallery.length > 0 && <section aria-labelledby="project-photos-heading">
+                <h2 id="project-photos-heading" className="text-near-black font-bold text-2xl mb-5">Completed project photographs</h2>
+                <div className={styles.gallery}>
+                  {cs.gallery.map(photo => <Image key={photo.src} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 330px" className={styles.galleryImage} />)}
+                </div>
+              </section>}
               {cs.closing && <section>
                 <h2 className="text-near-black font-bold text-2xl mb-5">{cs.closing.heading}</h2>
                 {cs.closing.paragraphs.map(paragraph => <p key={paragraph} className="text-charcoal text-lg leading-relaxed mb-5">{paragraph}</p>)}

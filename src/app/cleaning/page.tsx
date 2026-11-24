@@ -377,6 +377,21 @@ export default function CleaningPage() {
         </div>
       </section>
 
+      <section className="bg-white" style={SEC} aria-labelledby="cleaning-case-study-heading">
+        <div className="max-w-screen-xl mx-auto" style={PAD}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: 'clamp(24px,5vw,64px)', alignItems: 'center' }}>
+            <Image src="/images/case-studies/ginger-grain/service-area.webp" alt="Completed Ginger Grain service area following the builders clean" width={720} height={1280} sizes="(max-width: 767px) 90vw, 45vw" style={{ width: '100%', height: 'auto', maxHeight: '520px', objectFit: 'cover', borderRadius: '12px' }} />
+            <div>
+              <p className="text-dark-teal font-semibold" style={{ marginBottom: '16px' }}>Builders-clean case study</p>
+              <h2 id="cleaning-case-study-heading" className="text-near-black font-bold" style={{ fontSize: 'clamp(1.75rem,3.5vw,3rem)', lineHeight: 1.2, marginBottom: '24px' }}>Ginger Grain: flexible cleaning around a moving programme.</h2>
+              <p className="text-charcoal" style={{ lineHeight: 1.8, marginBottom: '20px' }}>A two-day builders clean of approximately 150 m² for Total Fitouts Newcastle. Close coordination with the project manager supported preparation for handover, and the builder accepted the finished clean.</p>
+              <p className="text-charcoal" style={{ lineHeight: 1.8, marginBottom: '24px' }}>This Nelson Bay project was undertaken for a regular builder client. Our regular office and commercial cleaning service remains focused on Newcastle CBD and Lake Macquarie.</p>
+              <Button href="/case-studies/ginger-grain-builders-clean-nelson-bay" variant="primary">Read the builders-clean case study</Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* BUNDLE, cross-sell to fitout */}
       <section className="bg-warm-grey"
         style={SEC}>

@@ -15,12 +15,12 @@ const hasPublishedStudies = getAllCaseStudies().length > 0
 export const metadata = withPageSeo({
   robots: hasPublishedStudies ? undefined : { index: false, follow: true },
   title: 'Case Studies | Your Office Space',
-  description: 'Explore approved Your Office Space case studies, including Recovery Station’s clinical and office tenancy search in East Maitland.',
+  description: 'Explore YOS client case studies in tenant representation, furniture and builders cleaning, with confirmed project scopes and outcomes.',
   alternates: { canonical: 'https://www.yourofficespace.au/case-studies' },
-  twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Explore approved Your Office Space case studies, including Recovery Station’s clinical and office tenancy search in East Maitland.' },
+  twitter: { card: 'summary_large_image', title: 'Case Studies | Your Office Space', description: 'Explore YOS client case studies in tenant representation, furniture and builders cleaning, with confirmed project scopes and outcomes.' },
   openGraph: {
     title: 'Case Studies | Your Office Space',
-    description: 'Explore approved Your Office Space case studies, including Recovery Station’s clinical and office tenancy search in East Maitland.',
+    description: 'Explore YOS client case studies in tenant representation, furniture and builders cleaning, with confirmed project scopes and outcomes.',
     url: 'https://www.yourofficespace.au/case-studies',
     siteName: 'Your Office Space',
     locale: 'en_AU',
