@@ -75,8 +75,8 @@ try{
    const link=await page.$(selector)
    assert.ok(link,`${route}: missing action ${href}`)
    await link.evaluate(e=>e.scrollIntoView({block:'center',behavior:'instant'}))
+   const expected=new URL(href,page.url())
    await link.click()
-   const expected=new URL(href,base+route)
    await page.waitForFunction((path,query,hash)=>{
     if(location.pathname!==path||location.search!==query||location.hash!==hash)return false
     if(!hash)return [...document.querySelectorAll('form input, form select, form textarea')].some(e=>!e.disabled&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0)
