@@ -149,6 +149,24 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                   {cs.gallery.map(photo => <Image key={photo.src} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 330px" className={styles.galleryImage} />)}
                 </div>
               </section>}
+              {cs.shopping && <section aria-labelledby="case-shopping-heading">
+                <h2 id="case-shopping-heading" className="text-near-black font-bold text-2xl mb-5">{cs.shopping.heading}</h2>
+                <p className="text-charcoal text-lg leading-relaxed">{cs.shopping.description}</p>
+                <div className={styles.shoppingGrid}>
+                  {cs.shopping.items.map(item => <article key={item.name} className={styles.shoppingCard}>
+                    {item.image && <Image src={item.image} alt={item.name} width={480} height={580} sizes="(max-width: 767px) 80vw, 310px" className={styles.shoppingImage} />}
+                    <h3 className="text-near-black font-bold text-xl">{item.name}</h3>
+                    <p className="text-charcoal leading-relaxed">{item.description}</p>
+                    <a href={item.href} className="text-dark-teal font-semibold underline underline-offset-4">{item.linkText}</a>
+                    {item.cartHref && <a href={item.cartHref} className={styles.cartLink}>{item.cartText}</a>}
+                  </article>)}
+                </div>
+                <p className="text-charcoal leading-relaxed" style={{ marginTop: 24 }}>{cs.shopping.cartNotice}</p>
+              </section>}
+              {cs.relatedLinks && <nav aria-label="Related furniture planning guides">
+                <h2 className="text-near-black font-bold text-2xl mb-5">Plan your office furniture</h2>
+                <ul>{cs.relatedLinks.map(link => <li key={link.href}><Link href={link.href} className="text-dark-teal font-semibold underline underline-offset-4">{link.label}</Link></li>)}</ul>
+              </nav>}
               {cs.closing && <section>
                 <h2 className="text-near-black font-bold text-2xl mb-5">{cs.closing.heading}</h2>
                 {cs.closing.paragraphs.map(paragraph => <p key={paragraph} className="text-charcoal text-lg leading-relaxed mb-5">{paragraph}</p>)}
