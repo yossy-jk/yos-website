@@ -45,6 +45,7 @@ function CaseStudyCard({ cs }: { cs: CaseStudy }) {
               src={cs.heroImage}
               alt={cs.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: cs.heroImagePosition || 'center' }}
             />
           </div>
         )}
