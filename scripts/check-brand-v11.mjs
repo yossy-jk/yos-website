@@ -34,10 +34,10 @@ const capabilityStatementPath = path.join(root, 'public/YOS-Capability-Statement
 const capabilityStatementHash = createHash('sha256')
   .update(fs.readFileSync(capabilityStatementPath))
   .digest('hex')
-// 25 November 2026 company-record preview draft. Joe must approve before production publication.
-const approvedCapabilityStatementHash = '1e9f77f06a41ba9c6672e377a3b47c1c78d23500a815016eba3fc7a70e564770'
+// 25 November 2026 company record, approved by Joe for production publication.
+const approvedCapabilityStatementHash = 'f2083c1f55aa0a71663f282631bc66cbe294d56cdacc4b7e9c65ab9e609c3346'
 if (capabilityStatementHash !== approvedCapabilityStatementHash) {
-  failures.push('public/YOS-Capability-Statement.pdf: does not match the 25 November preview capability statement')
+  failures.push('public/YOS-Capability-Statement.pdf: does not match the 25 November approved capability statement')
 }
 
 for (const token of ['#00B5A5', '#1A1A1A', '#00796D', '#E0F5F3', '#F5F5F5', '#6B6B6B', '#333333']) {
@@ -168,4 +168,4 @@ console.log('- Homepage uses the company-record tagline, enquiry routes and four
 console.log('- Commercial Buyers Agent is public with readiness language and professional-advice safeguards.')
 console.log('- Legacy brand tokens are absent from application source.')
 console.log('- Public copy is free of em dashes, no-pitch language and one-business-day promises.')
-console.log('- The public capability statement matches the company-record preview asset.')
+console.log('- The public capability statement matches the approved company-record asset.')

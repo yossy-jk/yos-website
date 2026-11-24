@@ -1,6 +1,6 @@
-# Pages changed for Joe’s preview review
+# Pages changed in the approved company record update
 
-These changes are on a review branch only. Production has not been changed.
+Joe approved publication on 25 November 2026. The release removes review-only labels from the approved guides and public reference files.
 
 Every public page receives the updated shared footer, company positioning, tagline and Free space plan link. Pages using the shared booking component now say Book a Clarity Call and retain the existing booking destination.
 
@@ -64,9 +64,9 @@ Existing addresses and original publication dates are retained. Copy and punctua
 
 - Resource listings, blog listings, search results, case study pages and video pages inherit the shared footer and booking updates. Approved published case studies remain published; unverified case drafts stay unpublished.
 - `/commercial-cleaning`: now returns an explicit HTTP 301 redirect to `/cleaning`.
-- `/catalogues/furniture` and `/catalogues/acoustics`: owned planning guides replace supplier-branded catalogues in this preview. These are briefing guides, not priced product catalogues.
-- Capability statement: replaced with a three-page draft reflecting the new company record. The replacement downloads are marked for Joe’s preview review.
+- `/catalogues/furniture` and `/catalogues/acoustics`: owned planning guides replace supplier-branded catalogues. These are briefing guides, not priced product catalogues.
+- Capability statement: replaced with a three-page guide reflecting the approved company record. Review-only labels are removed for publication.
 - `llms.txt`, `YOS-Brief.txt`, public assistant reference information and relevant email or planner labels: company record and public wording updated.
 - Older supplier or unapproved client brochure assets and the former company capability video are held outside the public website.
 
-The Your Office Furniture store, product prices, checkout and production theme are unchanged. No production deployment or merge has been performed.
+The Your Office Furniture store, product prices, checkout and production theme are unchanged. Publication follows the required checks and a normal pull request merge.

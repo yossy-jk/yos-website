@@ -1,4 +1,4 @@
-// Owner-supplied YOS company record, 25 November 2026. Preview requires Joe's approval before release.
+// Owner-supplied YOS company record, 25 November 2026. Approved by Joe for publication.
 export const COMPANY_POSITIONING = 'Your Office Space is an outsourced property team. We partner with businesses to take the strain out of growing.'
 export const COMPANY_TAGLINE = 'Find It, Fit It Out, Furnish It and help it Flourish.'
 export const GOOGLE_REVIEW_PROOF = { count: 9, stars: 5, asOf: '2026-11-25' } as const
