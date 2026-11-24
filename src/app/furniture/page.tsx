@@ -89,7 +89,7 @@ export default function FurniturePage() {
     <section className="bg-white" style={SEC} aria-labelledby="cardiff-reception-case"><div className={WRAP} style={PAD}>
       <SectionLabel onLight>Reception furniture in practice</SectionLabel>
       <h2 id="cardiff-reception-case" className="text-near-black font-bold" style={{ fontSize: 'clamp(2rem,4vw,3rem)', lineHeight: 1.2, marginTop: 20, marginBottom: 24 }}>A welcoming reception for a Cardiff business.</h2>
-      <p className="text-charcoal text-lg leading-relaxed" style={{ maxWidth: '48rem', marginBottom: 24 }}>See the completed reception furniture makeover for Total Fitouts Newcastle, with actual project photos and a wider two-stage furniture brief for a growing team.</p>
+      <p className="text-charcoal text-lg leading-relaxed" style={{ maxWidth: '48rem', marginBottom: 24 }}>See the reception furniture supplied and installed by Your Office Furniture for Total Fitouts Newcastle, with actual Cardiff project photos and a wider two-stage furniture brief for a growing team.</p>
       <Button href="/case-studies/cardiff-reception-makeover-office-furniture-newcastle" variant="primary">Explore the Cardiff reception makeover</Button>
     </div></section>
 
