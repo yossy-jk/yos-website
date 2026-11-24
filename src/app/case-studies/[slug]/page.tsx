@@ -158,7 +158,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     <h3 className="text-near-black font-bold text-xl">{item.name}</h3>
                     <p className="text-charcoal leading-relaxed">{item.description}</p>
                     <a href={item.href} className="text-dark-teal font-semibold underline underline-offset-4">{item.linkText}</a>
-                    {item.cartHref && <a href={item.cartHref} className={styles.cartLink}>{item.cartText}</a>}
+                    {item.cartHref && <><p className="text-charcoal leading-relaxed" style={{ marginTop: 20 }}>Starts a new cart, replacing any existing YOF cart items.</p><a href={item.cartHref} className={styles.cartLink}>{item.cartText}</a></>}
                   </article>)}
                 </div>
                 <p className="text-charcoal leading-relaxed" style={{ marginTop: 24 }}>{cs.shopping.cartNotice}</p>
