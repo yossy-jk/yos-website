@@ -8,9 +8,9 @@ const DISMISSED = 'yos-service-guide-dismissed'
 const SERVICES = [
   { title: 'Tenant Representation', detail: 'Lease, renew or relocate your workplace.', href: '/tenant-rep' },
   { title: 'Commercial Buyers Agency', detail: 'Find and buy premises for your business.', href: '/buyers-agency' },
-  { title: 'Office FitOut', detail: 'Plan and deliver your workplace FitOut.', href: '/office-fitout' },
+  { title: 'Office FitOut', detail: 'Client-side fitout project management.', href: '/office-fitout' },
   { title: 'Office & Commercial Furniture', detail: 'Furnish a workplace that works for your team.', href: '/furniture' },
-  { title: 'Commercial Cleaning', detail: 'Keep your office clean and ready for business.', href: '/cleaning' },
+  { title: 'Commercial Cleaning', detail: 'The Flourish Team, Newcastle CBD and Lake Macquarie.', href: '/cleaning' },
   { title: 'Flourish Workplace Care', detail: 'Plants, test and tag, fire and first aid support.', href: '/flourish' },
 ]
 

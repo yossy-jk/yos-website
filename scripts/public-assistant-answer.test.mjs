@@ -3,12 +3,13 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import vm from 'node:vm'
 import ts from 'typescript'
-const knowledge = {}, answers = {}
+const knowledge = {}, answers = {}, copy = {}
 function compile(path, exports, require) {
   vm.runInNewContext(ts.transpileModule(fs.readFileSync(path, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText, { exports, require, AbortSignal, fetch })
 }
+compile('src/lib/public-copy.ts', copy)
 compile('src/lib/public-assistant.ts', knowledge)
-compile('src/lib/public-assistant-answer.ts', answers, id => { assert.equal(id, './public-assistant'); return knowledge })
+compile('src/lib/public-assistant-answer.ts', answers, id => { if (id === './public-copy') return copy; assert.equal(id, './public-assistant'); return knowledge })
 const { parseAssistantRequest, containsContactOrSecret, parseAssistantAnswer, generateAssistantAnswer, publicAssistantFallback } = answers
 const selected = knowledge.selectAssistantSources('office cleaning')
 

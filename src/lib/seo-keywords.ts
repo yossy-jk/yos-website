@@ -74,7 +74,7 @@ export const KEYWORDS: Keyword[] = [
     targetPage: '/blog/make-good-obligations-commercial-lease-cost',
     contentGap: null,
     aeoFit: true,
-    notes: 'High volume informational. Blog post already exists. Strong AEO candidate — AI tools often answer this.'
+    notes: 'High volume informational. Blog post already exists. Strong AEO candidate - AI tools often answer this.'
   },
   {
     id: 'tr-05',
@@ -102,7 +102,7 @@ export const KEYWORDS: Keyword[] = [
     targetPage: '/blog/commercial-lease-negotiation-tips-australia',
     contentGap: null,
     aeoFit: true,
-    notes: 'High volume. Blog exists. Strong AEO candidate — frequently appears in AI summaries.'
+    notes: 'High volume. Blog exists. Strong AEO candidate - frequently appears in AI summaries.'
   },
   {
     id: 'tr-07',
@@ -116,7 +116,7 @@ export const KEYWORDS: Keyword[] = [
     targetPage: '/blog/commercial-tenant-rights-nsw',
     contentGap: null,
     aeoFit: true,
-    notes: 'High AEO fit — AI assistants regularly answer tenant rights questions.'
+    notes: 'High AEO fit - AI assistants regularly answer tenant rights questions.'
   },
   {
     id: 'tr-08',
@@ -246,7 +246,7 @@ export const KEYWORDS: Keyword[] = [
     targetPage: '/blog/office-fitout-cost-guide-australia-2026',
     contentGap: null,
     aeoFit: true,
-    notes: 'Very high volume. AEO gold — AI assistants regularly cite cost guides. Blog exists.'
+    notes: 'Very high volume. AEO gold - AI assistants regularly cite cost guides. Blog exists.'
   },
   {
     id: 'fu-04',

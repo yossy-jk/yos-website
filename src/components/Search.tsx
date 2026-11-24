@@ -17,7 +17,7 @@ const ALL_ITEMS: SearchResult[] = [
   { title: 'Central Coast Office Furniture', description: 'Desks, chairs, room planning and site-specific delivery.', href: '/office-furniture-central-coast', category: 'Service', keywords: 'Gosford Erina Tuggerah Wyong office furniture' },
   { title: 'Central Coast Workplace Planning Guide', description: 'An editable brief connecting fitout, furniture and delivery decisions.', href: '/blog/central-coast-office-fitout-furniture-planning', category: 'Article' },
   // Services
-  { title: 'Business NBN, Fibre & Phone Systems Newcastle', description: 'Business internet, voice and mobile enquiries through YOS and Newvo.', href: '/business-communications-newcastle', category: 'Service', keywords: 'telecommunications telecoms communications nbn fibre fiber phones voip pbx mobiles Newvo' },
+  { title: 'Business NBN, Fibre & Phone Systems Newcastle', description: 'Business internet, voice and mobile enquiries through YOS and the telecommunications provider.', href: '/business-communications-newcastle', category: 'Service', keywords: 'telecommunications telecoms communications nbn fibre fiber phones voip pbx mobiles the telecommunications provider' },
   { title: 'Commercial Construction Project Management', description: 'Client-side commercial construction support in Newcastle and the Hunter.', href: '/commercial-construction', category: 'Service' },
   { title: 'Tenant Representation', description: 'Tenant-side commercial lease advice and negotiation.', href: '/tenant-rep', category: 'Service' },
   { title: 'Commercial FitOut & Project Management', description: 'From workplace brief through delivery and handover.', href: '/office-fitout', category: 'Service' },

@@ -57,7 +57,7 @@ const FAQS = [
   { question: 'Can you remove or reuse existing furniture?', answer: 'We can review what should be retained, relocated, repurposed or separately removed, then reflect those decisions in the furniture plan and delivery sequence.' },
 ] as const
 
-const FURNITURE_REVIEW = CLIENT_REVIEWS.find(review => review.name === 'Mitch Peck')!
+const FURNITURE_REVIEW = CLIENT_REVIEWS.find(review => review.name === 'Nathan Franks')!
 
 export default function FurniturePage() {
   const boardroomCase = getCaseStudyBySlug('dbt-boardroom-refresh')

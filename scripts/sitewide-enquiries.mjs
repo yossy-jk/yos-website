@@ -48,7 +48,7 @@ try {
       await page.type('#contact-email', 'qa@example.invalid')
       await clickSubmit('form button[type=submit]')
       await page.waitForFunction(() => document.body.innerText.includes('Message received.'))
-      assert.equal(requests.at(-1).source, `Contact Form — ${service}`)
+      assert.equal(requests.at(-1).source, `Contact Form - ${service}`)
       report.push({ width, path, directEmail: true })
     }
     console.log(`CHECK blog/NFP/tool @ ${width}`)

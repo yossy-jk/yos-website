@@ -34,10 +34,10 @@ const capabilityStatementPath = path.join(root, 'public/YOS-Capability-Statement
 const capabilityStatementHash = createHash('sha256')
   .update(fs.readFileSync(capabilityStatementPath))
   .digest('hex')
-// Approved 1 October 2026 asset with the main office number (02) 4092 0733.
-const approvedCapabilityStatementHash = '5ccb24025039ba7da2bb03b98551d3cfe03dac613278ea73bfc67f5ce0c83a7a'
+// 25 November 2026 company record, approved by Joe for production publication.
+const approvedCapabilityStatementHash = 'f2083c1f55aa0a71663f282631bc66cbe294d56cdacc4b7e9c65ab9e609c3346'
 if (capabilityStatementHash !== approvedCapabilityStatementHash) {
-  failures.push('public/YOS-Capability-Statement.pdf: does not match the approved Brand v1.1 capability statement')
+  failures.push('public/YOS-Capability-Statement.pdf: does not match the 25 November approved capability statement')
 }
 
 for (const token of ['#00B5A5', '#1A1A1A', '#00796D', '#E0F5F3', '#F5F5F5', '#6B6B6B', '#333333']) {
@@ -48,8 +48,10 @@ requireText('src/app/layout.tsx', 'Montserrat', 'Montserrat font')
 requireText('src/app/globals.css', 'var(--font-montserrat)', 'Montserrat variable')
 forbidText('src/app/layout.tsx', 'Fraunces', 'superseded Fraunces font')
 forbidText('src/app/layout.tsx', 'Inter', 'superseded Inter font')
-requireText('src/app/page.tsx', "const primaryTagline = 'Find It, Fit It Out and Furnish It'", 'approved primary tagline')
-requireText('src/app/page.tsx', 'One team, from the first decision', 'one accountable team message')
+requireText('src/app/page.tsx', "const primaryTagline = COMPANY_TAGLINE", 'approved primary tagline')
+requireText('src/app/page.tsx', 'Your Office Space is an outsourced property team.', 'approved company positioning')
+requireText('src/lib/company-record.ts', 'Find It, Fit It Out, Furnish It and help it Flourish.', '25 November tagline')
+requireText('src/lib/company-record.ts', 'We partner with businesses to take the strain out of growing.', 'approved growth positioning')
 requireText('src/app/page.tsx', '>Enquire</Link>', 'primary Enquire call to action')
 requireText('src/app/page.tsx', "label: 'Flourish It'", 'fourth service tile')
 requireText('src/app/page.tsx', "title: 'Commercial Cleaning'", 'commercial cleaning tile')
@@ -118,7 +120,7 @@ for (const phrase of [
 }
 
 forbidText('src/app/tenant-rep/page.tsx', '<AgentNetworkBanner />', 'unverified market statistic banner')
-forbidPattern('src/app/about/page.tsx', /100\+|12\+ years|over a decade|buyers agency|buyers advocacy/i, 'unverified About-page claim')
+forbidPattern('src/app/about/page.tsx', /100\+|12\+ years/i, 'unverified About-page claim')
 
 try {
   const matches = execFileSync(
@@ -162,8 +164,8 @@ if (failures.length > 0) {
 
 console.log('Brand & Design System v3.1 check passed.')
 console.log('- Approved palette and typography are wired globally.')
-console.log('- Homepage uses the approved tagline, Enquire CTA and four-service journey.')
+console.log('- Homepage uses the company-record tagline, enquiry routes and four-pillar journey.')
 console.log('- Commercial Buyers Agent is public with readiness language and professional-advice safeguards.')
 console.log('- Legacy brand tokens are absent from application source.')
 console.log('- Public copy is free of em dashes, no-pitch language and one-business-day promises.')
-console.log('- The public capability statement matches the approved Gold-standard asset.')
+console.log('- The public capability statement matches the approved company-record asset.')

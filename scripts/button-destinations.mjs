@@ -43,6 +43,7 @@ try{
   assert.equal(await page.$('.analytics-consent-panel'), null, 'Privacy preferences must only open on request.')
   assert.equal(await page.$('.analytics-consent-trigger'), null, 'No floating privacy notification.')
  }
+ const settleLayout=async()=>page.evaluate(async()=>{await document.fonts.ready;await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)))})
  const interactions=[]
  const matrix=report.pages.flatMap(row=>[...new Set(row.anchors.filter(a=>a.region==='main'&&a.href.startsWith('#')).map(a=>a.href))].map(href=>({route:row.route,href})))
  matrix.push(...[
@@ -52,7 +53,7 @@ try{
   ['/furniture','/contact?service=furniture#contact-enquiry'],['/furniture','/resources/furniture-quote#furniture-quote-form'],
   ['/tools/space-planner','/contact?service=furniture#contact-enquiry'],['/newcastle-commercial-property','/contact#contact-enquiry'],
  ].map(([route,href])=>({route,href})))
- for(const width of (process.env.LINK_AUDIT_FOCUS ? [1440] : [390,1440])) {
+ for(const width of [390,1440]) {
   await page.setViewport({width,height:900})
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}])
   // Never send test enquiries, registrations, uploads, or bookings, including in live verification.
@@ -69,14 +70,15 @@ try{
   for(const {route,href} of matrix.filter(item=>!process.env.LINK_AUDIT_FOCUS || item.route===process.env.LINK_AUDIT_FOCUS)) {
    console.log(`CHECK ${route} → ${href} @ ${width}px`)
    await page.goto(base+route,{waitUntil:'networkidle2'})
+   await settleLayout()
    await dismissConsent()
    let selector=`main a[href=${JSON.stringify(href)}]`
    if(!await page.$(selector))selector=`a[href=${JSON.stringify(href)}]`
    const link=await page.$(selector)
    assert.ok(link,`${route}: missing action ${href}`)
    await link.evaluate(e=>e.scrollIntoView({block:'center',behavior:'instant'}))
+   const expected=new URL(href,page.url())
    await link.click()
-   const expected=new URL(href,base+route)
    await page.waitForFunction((path,query,hash)=>{
     if(location.pathname!==path||location.search!==query||location.hash!==hash)return false
     if(!hash)return [...document.querySelectorAll('form input, form select, form textarea')].some(e=>!e.disabled&&getComputedStyle(e).visibility!=='hidden'&&e.getBoundingClientRect().height>0)
@@ -85,9 +87,11 @@ try{
    },{timeout:15000},expected.pathname,expected.search,expected.hash)
    // Repeat same-page clicks after deliberately moving away; repeated hash links must still work.
    if(href.startsWith('#')) {
+    await settleLayout()
     await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}))
+    await settleLayout()
     await page.$eval(selector,e=>e.click())
-    await page.waitForFunction(hash=>document.getElementById(hash.slice(1))?.getBoundingClientRect().top>=75&&document.getElementById(hash.slice(1))?.getBoundingClientRect().top<140,{},expected.hash)
+    try { await page.waitForFunction(hash=>document.getElementById(hash.slice(1))?.getBoundingClientRect().top>=75&&document.getElementById(hash.slice(1))?.getBoundingClientRect().top<140,{},expected.hash) } catch(error) { console.error('Repeated anchor state', await page.evaluate(hash=>({location:location.href,scrollY,ready:document.readyState,fonts:document.fonts.status,top:document.getElementById(hash.slice(1))?.getBoundingClientRect().top,margin:document.getElementById(hash.slice(1))&&getComputedStyle(document.getElementById(hash.slice(1))).scrollMarginTop}),expected.hash));throw error }
    }
    const detail=await page.evaluate(()=>({top:document.getElementById(decodeURIComponent(location.hash.slice(1)))?.getBoundingClientRect().top,service:document.querySelector('input[name="service"]')?.value,nameTop:document.querySelector('#contact-name')?.getBoundingClientRect().top}))
    const services={leasing:'Leasing',buying:'Buying',fitout:'FitOut',furniture:'Furniture'}

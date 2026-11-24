@@ -12,7 +12,7 @@ import { createDownloadToken } from '@/lib/download-token.mjs'
 
 const PDF_FILENAME = 'YOS-Capability-Statement.pdf'
 const PDF_ROUTE = `/api/file/${PDF_FILENAME}`
-const DOWNLOAD_TTL = 15 * 60 // 15 minutes – signed URL valid window
+const DOWNLOAD_TTL = 15 * 60 // 15 minutes - signed URL valid window
 
 // ── Route ─────────────────────────────────────────────────────────
 export async function POST(req: Request) {

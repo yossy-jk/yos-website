@@ -1,3 +1,4 @@
+import { COMPANY_POSITIONING } from './company-record'
 export const SITE_URL = 'https://www.yourofficespace.au'
 export const ORGANIZATION_ID = `${SITE_URL}/#organization`
 export const LOGO_URL = `${SITE_URL}/brand/yos-logo-black.png`
@@ -23,8 +24,9 @@ export const ORGANIZATION_SCHEMA = {
   logo: { '@type': 'ImageObject', url: LOGO_URL },
   telephone: '+61240920733',
   email: 'hello@yourofficespace.au',
-  description: 'Newcastle-based workplace support: tenant representation and commercial buying in NSW, FitOut and furniture Australia-wide, and cleaning in Newcastle CBD and Lake Macquarie.',
+  description: COMPANY_POSITIONING,
   address: { '@type': 'PostalAddress', streetAddress: '2 Portside Crescent', addressLocality: 'Maryville', addressRegion: 'NSW', postalCode: '2293', addressCountry: 'AU' },
+  foundingDate: '2025',
   knowsAbout: SERVICE_TYPES,
   brand: { '@type': 'Brand', name: 'Your Office Furniture', url: 'https://www.yourofficefurniture.com.au' },
   sameAs: ['https://www.linkedin.com/company/yourofficespace'],

@@ -144,9 +144,9 @@ function calcQLD(value: number, ownerType: OwnerType): LandTaxResult {
       thresholdNote = `Above the $2,250,000 threshold.`
       calcNote = `$15,000 + (${fmt(value)} − $2,250,000) × 1.75% = ${fmt(tax)}`
     } else if (value <= 10000000) {
-      // Gap $5M–$10M, rates unconfirmed in brief, estimate based on continuation
+      // Gap $5M-$10M, rates unconfirmed in brief, estimate based on continuation
       tax = 63125 + (value - 5000000) * 0.025
-      thresholdNote = `Above $5,000,000. Note: QLD rates in the $5M–$10M range should be verified with the Queensland Office of State Revenue.`
+      thresholdNote = `Above $5,000,000. Note: QLD rates in the $5M-$10M range should be verified with the Queensland Office of State Revenue.`
       calcNote = `Estimated: $63,125 + (${fmt(value)} − $5,000,000) × 2.5% = ${fmt(tax)} (unconfirmed, verify with QLD OSR)`
     } else {
       tax = 125625 + (value - 10000000) * 0.0275
@@ -185,9 +185,9 @@ function calcWA(value: number, ownerType: OwnerType): LandTaxResult {
     thresholdNote = `Above the $1,800,000 threshold.`
     calcNote = `$16,720 + (${fmt(value)} − $1,800,000) × 1.9% = ${fmt(tax)}`
   } else if (value <= 11000000) {
-    // Gap $5M–$11M, estimate continuation
+    // Gap $5M-$11M, estimate continuation
     tax = 77520 + (value - 5000000) * 0.024
-    thresholdNote = `Above $5,000,000. Note: WA rates in the $5M–$11M range should be verified with the WA Office of State Revenue.`
+    thresholdNote = `Above $5,000,000. Note: WA rates in the $5M-$11M range should be verified with the WA Office of State Revenue.`
     calcNote = `Estimated: $77,520 + (${fmt(value)} − $5,000,000) × 2.4% = ${fmt(tax)} (unconfirmed, verify with WA OSR)`
   } else {
     tax = 221520 + (value - 11000000) * 0.0267
@@ -265,8 +265,8 @@ function calcACT(value: number, ownerType: OwnerType): LandTaxResult {
 
   // ACT: Fixed $1,326 + progressive rates
   // Rate 1: 0.54% on first $150k
-  // Rate 2: 0.64% on $150k–$275k portion
-  // Rate 3: 1.09% on $275k–$2,000k portion
+  // Rate 2: 0.64% on $150k-$275k portion
+  // Rate 3: 1.09% on $275k-$2,000k portion
   // Rate 4: 1.12% on excess over $2,000k
   const base = 1326
   const r1 = Math.min(value, 150000) * 0.0054

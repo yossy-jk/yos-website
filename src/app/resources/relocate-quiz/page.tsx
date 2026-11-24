@@ -25,8 +25,8 @@ const QUESTIONS: Question[] = [
     text: 'When does your lease expire?',
     options: [
       { label: 'Under 6 months', score: 2 },
-      { label: '6–12 months', score: 2 },
-      { label: '1–2 years', score: 1 },
+      { label: '6-12 months', score: 2 },
+      { label: '1-2 years', score: 1 },
       { label: 'More than 2 years', score: 0 },
     ],
   },
@@ -130,7 +130,7 @@ function getVerdictConfig(score: number): VerdictConfig {
       recommendations: [
         'There are signals that a market comparison is overdue, your current rent may not reflect today\'s conditions.',
         'Running a formal lease comparison could reveal significant savings on a new or renewed agreement.',
-        'Consider engaging a tenant representative before your next lease event to maximise leverage.',
+        'Consider engaging a tenant representative before your next lease event to maximise negotiating position.',
         'A relocation feasibility assessment costs nothing upfront and could unlock better alternatives.',
       ],
       color: '#f59e0b',
@@ -149,7 +149,7 @@ function getVerdictConfig(score: number): VerdictConfig {
       'Multiple indicators point to a clear case for relocation, staying put is likely costing you more over time.',
       'Your space fit, lease timing, and team factors all suggest the window to act is now.',
       'Begin assessing alternative premises in your target area to understand what\'s available and at what price.',
-      'Engage a tenant representative before your lease expires, waiting reduces your negotiating leverage significantly.',
+      'Engage a tenant representative before your lease expires, waiting reduces your negotiating negotiating position significantly.',
     ],
     color: '#ef4444',
     bgColor: 'rgba(239,68,68,0.08)',

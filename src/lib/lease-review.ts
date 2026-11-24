@@ -5,8 +5,8 @@ export const LEASE_QUESTIONS: LeaseQuestion[] = [
     id: 'term',
     label: 'What is the initial lease term?',
     hint: 'Consider how the term, renewal options and exit arrangements fit your business plans.',
-    options: ['1–2 years', '3 years', '5 years', '7+ years'],
-    risk: { '7+ years': 'high', '1–2 years': 'medium' }
+    options: ['1-2 years', '3 years', '5 years', '7+ years'],
+    risk: { '7+ years': 'high', '1-2 years': 'medium' }
   },
   {
     id: 'options',
@@ -85,7 +85,7 @@ export function assessLeaseAnswers(answers: Record<string, string>): { level: Le
   let high = 0, medium = 0
   const issues: string[] = []
   for (const question of LEASE_QUESTIONS) {
-    const answer = answers[question.id]
+    const answer = answers[question.id]?.replace(/[\u2013\u2014]/g, '-')
     const priority = question.risk[answer]
     if (priority === 'high') high++
     else if (priority === 'medium') medium++

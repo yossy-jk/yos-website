@@ -1,3 +1,4 @@
+import { COMPANY_POSITIONING, COMPANY_TAGLINE, COMPANY_FAQS } from '@/lib/company-record'
 import { CLIENT_REVIEWS } from '@/lib/client-reviews'
 import CompanyPurpose from '@/components/CompanyPurpose'
 import ServiceFaq from '@/components/ServiceFaq'
@@ -12,13 +13,13 @@ import FadeIn from '@/components/FadeIn'
 import { ORGANIZATION_ID } from '@/lib/site-schema'
 
 export const metadata = withPageSeo({
-  title: 'About Your Office Space | Newcastle Workplace Team',
-  description: 'Based in Newcastle. Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+  title: 'About Our Outsourced Property Team Newcastle | YOS',
+  description: COMPANY_POSITIONING + ' Established in 2025.',
   alternates: { canonical: 'https://www.yourofficespace.au/about' },
-  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: 'One team. Clear direction. No guesswork. Tenant-side commercial property advisory and workplace services.' },
+  twitter: { card: 'summary_large_image', title: 'About | Your Office Space Newcastle', description: COMPANY_POSITIONING },
   openGraph: {
     title: 'About | Your Office Space Newcastle',
-    description: 'Tenant representation in NSW, office fit out and furniture Australia-wide, and commercial cleaning in Newcastle CBD and Lake Macquarie.',
+    description: COMPANY_POSITIONING + ' Established in 2025.',
     url: 'https://www.yourofficespace.au/about',
     images: [{ url: '/og/og-about.png', width: 1200, height: 630, alt: 'About Your Office Space | Newcastle NSW | Your Office Space' }],
     siteName: 'Your Office Space',
@@ -31,14 +32,14 @@ const SEC    = { paddingTop: 'clamp(4rem,8vw,10rem)', paddingBottom: 'clamp(4rem
 const WRAP = 'max-w-screen-xl mx-auto'
 const PAD  = { paddingLeft: 'clamp(1.25rem,3vw,2rem)', paddingRight: 'clamp(1.25rem,3vw,2rem)' }
 
-const APPROVED_GOOGLE_REVIEWERS = CLIENT_REVIEWS.filter(review => ['Beth Gwalter', 'Olivia Crawford', 'Jason Dowdall'].includes(review.name))
+const APPROVED_GOOGLE_REVIEWERS = CLIENT_REVIEWS.filter(review => ['Beth Gwalter', 'Sophie Collinson', 'Jason Dowdall', 'Nathan Franks'].includes(review.name))
 
 
 const TEAM = [
-  { name: 'Joe Kelley', title: 'Commercial Property & Workplace Strategy', image: '/team/joe-kelley.jpg', initials: 'JK', description: 'Joe supports commercial property, fit out and workplace strategy as part of the YOS team, bringing more than a decade of industry experience.' },
-  { name: 'Sarah Kelley', title: 'Director, Cleaning Division', image: '/team/sarah-kelley.jpg', initials: 'SK', description: 'Sarah leads the Cleaning Division and manages its clients, team and service delivery.' },
+  { name: 'Joe Kelley', title: 'Commercial Property & Workplace Strategy', image: '/team/joe-kelley.jpg', initials: 'JK', description: 'Joe brings a decade of commercial property and workplace experience. That experience belongs to Joe; Your Office Space was established in 2025.' },
+  { name: 'Sarah Kelley', title: 'Director, Flourish Team Cleaning', image: '/team/sarah-kelley.jpg', initials: 'SK', description: 'Sarah leads the Flourish Team’s cleaning service, with responsibility for client communication, the agreed scope and monthly quality assurance.' },
   { name: 'Frank Smith', title: 'Head of Furniture', image: '/team/frank-smith.webp', initials: 'FS', description: 'Frank turns workplace briefs into clear furniture plans, schedules and prompt quotes. He guides clients through the project journey, from the first brief and product selection to delivery, keeping requirements, timing and next steps clear.' },
-  { name: 'Mary Jenkins', title: 'Head of AI and Systems', image: '/team/mary-jenkins.webp', initials: 'MJ', description: 'Mary leads AI and systems at YOS and has helped build the team from scratch. She brings people, processes and technology together, developing practical ways of working that support a growing team and keep the client journey organised.' },
+  { name: 'Mary Jenkins', title: 'Head of AI and Systems', image: '/team/mary-jenkins.webp', initials: 'MJ', description: 'Mary supports the systems and practical processes used to organise the client journey.' },
 ]
 
 export default function AboutPage() {
@@ -59,16 +60,13 @@ export default function AboutPage() {
           <FadeIn delay={80}>
             <h1 className="text-white font-black leading-[0.95] tracking-tight mb-8 max-w-3xl"
               style={{ fontSize: 'clamp(2rem,6vw,6rem)' }}>
-              One team.<br />
-              <span className="text-teal">Genuinely on your side.</span>
+              Your outsourced<br /><span className="text-teal">property team.</span>
             </h1>
           </FadeIn>
           <FadeIn delay={160}>
             <p className="text-white/85 font-light leading-relaxed max-w-xl"
               style={{ fontSize: 'clamp(1.05rem,2vw,1.25rem)' }}>
-              Your property decision, fit out, furniture and ongoing workplace care belong in one conversation.
-              Engage an experienced Newcastle team, with different roles working towards the same workplace outcome.
-              One service, or one team across the whole journey.
+              {COMPANY_POSITIONING}
             </p>
           </FadeIn>
         </div>
@@ -93,7 +91,8 @@ export default function AboutPage() {
       }) }} />
 
       <CompanyPurpose>
-        <p>Established in 2025 and based in Newcastle, Your Office Space connects commercial property, client-side FitOut project management, furniture and workplace care. Tenant representation is provided in NSW, FitOut and furniture support Australia-wide, and commercial cleaning across Newcastle CBD and Lake Macquarie. Each service has its own agreed scope.</p>
+        <p>{COMPANY_TAGLINE}</p>
+        <p>Established in 2025 and based in Newcastle, Your Office Space is an outsourced property team. Find It covers tenant representation in NSW and commercial buyers agency, best for businesses moving from leasing to buying. Fit It Out is client-side fitout project management. Furnish It covers furniture projects and the Your Office Furniture online store. Flourish It includes cleaning by the Flourish Team in Newcastle CBD and Lake Macquarie and after-move-in services. Each service has its own agreed scope.</p>
       </CompanyPurpose>
       <section className="bg-warm-grey" style={SEC} aria-labelledby="team-heading">
         <div className={WRAP} style={PAD}>
@@ -104,7 +103,7 @@ export default function AboutPage() {
               Different roles. One accountable team.
             </h2>
             <p className="text-charcoal leading-relaxed max-w-2xl mb-10">
-              By teaming up with Your Office Space, you engage an experienced team across
+              With Your Office Space, you have a client-side point of contact across
               commercial property, workplace projects, furniture, cleaning and business support.
             </p>
           </FadeIn>
@@ -214,7 +213,7 @@ export default function AboutPage() {
       </section>
 
 
-      <ServiceFaq items={[{"question": "What does Your Office Space do?", "answer": "YOS helps businesses lease or buy commercial space in NSW, then coordinates client-side FitOut project management and commercial furniture. Commercial cleaning is available in Newcastle CBD and Lake Macquarie."}, {"question": "Where is Your Office Space based?", "answer": "Our team is based in Newcastle, NSW. Tenant representation and commercial buying are provided in NSW; FitOut and furniture briefs can be supported Australia-wide, subject to the agreed scope."}, {"question": "How are scope and fees agreed?", "answer": "We confirm the brief, responsibilities, scope and fees before an engagement begins. Each service has its own agreed scope."}]} />
+      <ServiceFaq items={COMPANY_FAQS} heading="About YOS: common questions" />
       </main>
 
       <Footer />

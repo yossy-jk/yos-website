@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { EOF_PRODUCTS } from '@/lib/space-planner/store'
+import { PLANNER_PRODUCTS } from '@/lib/space-planner/store'
 
 interface ShopifyProduct {
   id: number
@@ -101,8 +101,8 @@ async function getShopifyToken(): Promise<string | null> {
 }
 
 export async function GET() {
-  // Fallback: EOF static products
-  const fallbackProducts: PlannerProduct[] = EOF_PRODUCTS.map((p) => ({
+  // Fallback: planning catalogue static products
+  const fallbackProducts: PlannerProduct[] = PLANNER_PRODUCTS.map((p) => ({
     id: p.id,
     plannerProductId: p.id,
     name: p.name,
@@ -158,8 +158,8 @@ export async function GET() {
           dims = DEFAULT_DIMS_BY_CATEGORY[category] ?? { width: 60, depth: 60 }
         }
 
-        // Try to find matching EOF product for plannerProductId
-        const eofMatch = EOF_PRODUCTS.find((ep) =>
+        // Try to find matching planning catalogue product for plannerProductId
+        const eofMatch = PLANNER_PRODUCTS.find((ep) =>
           ep.name.toLowerCase().includes(p.title.toLowerCase().substring(0, 10)) ||
           p.title.toLowerCase().includes(ep.name.toLowerCase().substring(0, 10))
         )

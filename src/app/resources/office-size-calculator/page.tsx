@@ -122,8 +122,8 @@ export default function OfficeSizeCalculatorPage() {
 
   const WORK_STYLES: { value: WorkStyle; label: string }[] = [
     { value: 'traditional', label: 'Traditional (all in daily)' },
-    { value: 'hybrid', label: 'Hybrid (50–70% in)' },
-    { value: 'agile', label: 'Agile (30–50% in)' },
+    { value: 'hybrid', label: 'Hybrid (50-70% in)' },
+    { value: 'agile', label: 'Agile (30-50% in)' },
   ]
 
   const PRIVATE_OFFICE_OPTIONS: PrivateOffices[] = ['0', '1-2', '3-5', '6+']
@@ -134,7 +134,7 @@ export default function OfficeSizeCalculatorPage() {
       <div className="bg-teal/10 border border-teal/30" style={{ padding: '1.5rem 1.25rem' }}>
         <p className="text-teal/70 font-light mb-1 uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Recommended Space</p>
         <p className="text-teal font-black leading-tight blur-sm select-none" style={{ fontSize: '1.6rem' }}>
-          {result.sqmLow}–{result.sqmHigh} sqm
+          {result.sqmLow}-{result.sqmHigh} sqm
         </p>
       </div>
       <div className="bg-white/5 border border-white/8" style={{ padding: '1.5rem 1.25rem' }}>
@@ -157,7 +157,7 @@ export default function OfficeSizeCalculatorPage() {
         <div className="bg-teal/10 border border-teal/30" style={{ padding: '1.5rem 1.25rem' }}>
           <p className="text-teal/70 font-light mb-1 uppercase tracking-widest" style={{ fontSize: '0.65rem' }}>Recommended Space</p>
           <p className="text-teal font-black leading-tight" style={{ fontSize: '1.6rem' }}>
-            {result.sqmLow}–{result.sqmHigh} sqm
+            {result.sqmLow}-{result.sqmHigh} sqm
           </p>
         </div>
         <div className="bg-white/5 border border-white/8" style={{ padding: '1.5rem 1.25rem' }}>

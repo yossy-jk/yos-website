@@ -216,9 +216,9 @@ export default function CareersForm() {
             <select style={INPUT} value={form.yearsExp} onChange={e => set('yearsExp', e.target.value)}>
               <option value="">Select...</option>
               <option value="Less than 1 year">Less than 1 year</option>
-              <option value="1–2 years">1–2 years</option>
-              <option value="3–5 years">3–5 years</option>
-              <option value="5–10 years">5–10 years</option>
+              <option value="1-2 years">1-2 years</option>
+              <option value="3-5 years">3-5 years</option>
+              <option value="5-10 years">5-10 years</option>
               <option value="10+ years">10+ years</option>
             </select>
           </div>

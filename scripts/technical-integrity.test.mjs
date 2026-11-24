@@ -39,7 +39,7 @@ test('sitemap does not fabricate current timestamps for static routes', () => {
 })
 
 test('homepage preserves the approved responsive composition', () => {
-  assert.match(home, /const primaryTagline = 'Find It, Fit It Out and Furnish It'/)
+  assert.match(home, /const primaryTagline = COMPANY_TAGLINE/)
   assert.match(home, /className="home-service-grid"/)
   assert.match(home, /className="home-service-card"/)
   assert.doesNotMatch(home, /grid-cols-1 md:grid-cols-2/)
@@ -64,11 +64,7 @@ test('default social and schema assets exist', async () => {
   await access(new URL('../public/brand/yos-logo-black.png', import.meta.url))
 })
 
-test('capability video is controlled, opt-in and below the hero and service choices', async () => {
-  assert.match(home, /<video controls playsInline preload="none"/)
-  assert.doesNotMatch(home, /<video[^>]*autoPlay/)
-  assert.ok(home.indexOf('capability-video-heading') > home.indexOf('home-service-choice'))
-  for (const asset of ['videos/yos-one-team.mp4', 'videos/yos-one-team-poster.jpg', 'team/frank-smith.webp', 'team/mary-jenkins.webp']) {
-    await access(new URL(`../public/${asset}`, import.meta.url))
-  }
+test('obsolete company capability video is no longer publicly served', async () => {
+  assert.doesNotMatch(home, /yos-one-team|capability-video-heading/)
+  await assert.rejects(access(new URL('../public/videos/yos-one-team.mp4', import.meta.url)))
 })

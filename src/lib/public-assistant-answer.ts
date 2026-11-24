@@ -1,3 +1,4 @@
+import { publicCopy, hasBlockedPublicName } from './public-copy'
 import { assistantEvidence, selectAssistantSources, type AssistantSource } from './public-assistant'
 
 export const ASSISTANT_SYSTEM = `You are the public YOS and Your Office Furniture website assistant. Help prospective clients understand their options, then naturally offer a team follow-up, project quote or Joe's 15-minute discovery call. Answer the question first. Ask at most one useful question about their brief. Never demand contact details in chat: a separate optional form collects name, email and optional phone with explicit follow-up permission. Never claim an enquiry was sent or a booking made.
@@ -28,7 +29,8 @@ export function parseAssistantAnswer(content: unknown, selected: AssistantSource
   if (typeof raw.answer !== 'string' || !raw.answer.trim() || raw.answer.length > 1800 || /<[^>]*>|https?:|www\.|<think|\]\(/i.test(raw.answer)) throw Error('Invalid answer')
   const sources = assistantEvidence(raw.sourceIds, selected)
   if (!sources.length) throw Error('Answer needs reviewed sources')
-  return { answer: raw.answer.replace(/\u2014/g, ','), sources, mode: 'ai' as const }
+  if (hasBlockedPublicName(raw.answer)) throw Error('Answer could not be verified against current public copy rules')
+  return { answer: publicCopy(raw.answer.replace(/\u2014/g, ',')), sources, mode: 'ai' as const }
 }
 
 export async function generateAssistantAnswer(question: string, previousQuestions: string[], apiKey: string, fetcher: typeof fetch = fetch) {

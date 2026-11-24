@@ -25,7 +25,7 @@ test('every application page owns or delegates a main landmark', () => {
     const relative = path.relative(APP_ROOT, file)
     if (delegatedPages.has(relative)) continue
     const source = fs.readFileSync(file, 'utf8')
-    if (/import \{ permanentRedirect \} from ["']next\/navigation["']/.test(source) && /permanentRedirect\(["']\/lease-health-check["']\)/.test(source) && !source.includes('return <')) continue
+    if (/import \{ permanentRedirect \} from ["']next\/navigation["']/.test(source) && /permanentRedirect\(["']\/[a-z0-9/-]+["']\)/.test(source) && !source.includes('return <')) continue
     if (!/<main\b/.test(source) && !(source.includes("@/components/tenant/TenantShell") && /<TenantShell\b/.test(source))) failures.push(relative)
   }
 

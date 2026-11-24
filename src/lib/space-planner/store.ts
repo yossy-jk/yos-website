@@ -198,8 +198,8 @@ export const ROOM_PRESETS: Record<LegacyRoomType, RoomPreset> = {
   },
 };
 
-// --- EOF Product Catalogue ---
-export interface EOFProduct {
+// --- Furniture Planning Catalogue ---
+export interface PlannerCatalogueProduct {
   id: string;
   name: string;
   category: string;
@@ -208,7 +208,7 @@ export interface EOFProduct {
   silhouetteType: "chair-task" | "chair-executive" | "chair-meeting" | "chair-visitor" | "chair-lounge" | "desk" | "meeting-table" | "round-table" | "storage" | "screen" | "sofa-2" | "sofa-3" | "coffee-table" | "reception-desk" | "lounge-chair";
 }
 
-export const EOF_PRODUCTS: EOFProduct[] = [
+export const PLANNER_PRODUCTS: PlannerCatalogueProduct[] = [
   // Seating
   { id: "chair-task", name: "Task Chair", category: "Seating", width: 60, depth: 60, silhouetteType: "chair-task" },
   { id: "chair-executive", name: "Executive Chair", category: "Seating", width: 70, depth: 70, silhouetteType: "chair-executive" },
@@ -507,7 +507,7 @@ export const usePlannerStore = create<PlannerStore>((set, get) => ({
     get().pushHistory();
     const PIXELS_PER_CM = 0.5;
     const newItems: PlannerItem[] = preset.suggestedItems.map((si) => {
-      const product = EOF_PRODUCTS.find((p) => p.id === si.productId);
+      const product = PLANNER_PRODUCTS.find((p) => p.id === si.productId);
       if (!product) return null;
       return {
         id: nanoid(),
