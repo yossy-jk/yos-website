@@ -83,6 +83,18 @@
       "alt": "Castle Deluxe reception desk with timber-look feature front at the Cardiff office",
       "width": 720,
       "height": 1280
+    },
+    {
+      "src": "/images/case-studies/cardiff-reception/yos-delivery-truck.webp",
+      "alt": "Your Office Space branded furniture delivery truck, supplied with the Cardiff project photographs",
+      "width": 1280,
+      "height": 1280
+    },
+    {
+      "src": "/images/case-studies/cardiff-reception/behind-the-scenes.webp",
+      "alt": "Three children posing inside the truck in a behind-the-scenes photograph supplied with the Cardiff project",
+      "width": 720,
+      "height": 1280
     }
   ],
   "shopping": {
@@ -148,5 +160,6 @@
   ],
   "metaTitle": "Newcastle Office Furniture: Cardiff Reception Makeover | YOS",
   "metaDescription": "See a completed Cardiff reception furniture makeover for Total Fitouts Newcastle, with real photos, a staged office upgrade and YOF shopping options.",
-  "heroImagePosition": "center 65%"
+  "heroImagePosition": "center 65%",
+  "galleryHeading": "Reception and behind-the-scenes photographs"
 }

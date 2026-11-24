@@ -144,7 +144,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </figure>
               </section>}
               {cs.gallery && cs.gallery.length > 0 && <section aria-labelledby="project-photos-heading">
-                <h2 id="project-photos-heading" className="text-near-black font-bold text-2xl mb-5">Completed project photographs</h2>
+                <h2 id="project-photos-heading" className="text-near-black font-bold text-2xl mb-5">{cs.galleryHeading || 'Completed project photographs'}</h2>
                 <div className={styles.gallery}>
                   {cs.gallery.map(photo => <Image key={photo.src} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 330px" className={styles.galleryImage} />)}
                 </div>
