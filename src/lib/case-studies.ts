@@ -16,6 +16,7 @@ export interface CaseStudy {
   gallery?: { src: string; alt: string; width: number; height: number }[]
   shopping?: { heading: string; description: string; items: { name: string; description: string; image?: string; href: string; linkText: string; cartHref?: string; cartText?: string }[]; cartNotice: string }
   relatedLinks?: { label: string; href: string }[]
+  heroImagePosition?: string
   heroImage?: string
   challenge: string
   solution: string

@@ -73,7 +73,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         {cs.heroImage && (
           <div className="relative h-72 lg:h-96 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" />
+          <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: cs.heroImagePosition || 'center' }} />
             <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
