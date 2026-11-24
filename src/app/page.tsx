@@ -101,6 +101,16 @@ export default function Home() {
       <section id="services" style={{ scrollMarginTop: 100 }} className="home-service-choice" aria-labelledby="service-choice-heading"><div className="site-container"><div className="home-service-choice-heading"><p className="home-eyebrow">Start with what you need</p><h2 id="service-choice-heading">Four ways we can help.</h2></div><div className="home-service-grid" aria-label="Our services">{services.map((service, index) => <FadeIn key={service.label} delay={index * 70}><Link href={service.href} className="home-service-card"><span className="home-service-number">0{index + 1}</span><span className="home-service-content"><span className="home-service-label">{service.label}</span><strong>{service.title}</strong><span>{service.copy}</span><span className="home-card-arrow" aria-hidden="true">→</span></span></Link></FadeIn>)}</div></div></section>
 
 
+      <section aria-labelledby="capability-video-heading" style={{ padding: 'clamp(2rem, 5vw, 4rem) 0', background: '#F5F5F5' }}>
+        <div className="site-container">
+          <h2 id="capability-video-heading" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.25rem)', fontWeight: 700, marginBottom: '1.5rem' }}>See how we support your workplace.</h2>
+          <video controls playsInline preload="none" poster="/videos/yos-one-team-poster.jpg" aria-label="Your Office Space capability video" style={{ width: '100%', aspectRatio: '16 / 9', display: 'block', background: '#191919', borderRadius: '0.5rem' }}>
+            <source src="/videos/yos-one-team.mp4" type="video/mp4" />
+            Your browser does not support video. <a href="/videos/yos-one-team.mp4">Watch the capability video</a>.
+          </video>
+        </div>
+      </section>
+
       <section className="home-capability"><div className="site-container home-capability-inner"><div><p className="home-eyebrow">See how we work</p><h2>Review our capability before we talk.</h2><p>Our services, approach and the sectors we support, in one concise document.</p></div><CapabilityDownload label="Download capability statement" variant="primary" /></div></section>
 
       <section className="home-proof" aria-labelledby="proof-heading"><div className="site-container"><FadeIn><div className="home-section-intro home-section-intro-left"><p className="home-eyebrow">Real relationships</p><h2 id="proof-heading">Client projects.</h2></div></FadeIn><div className="home-logo-grid">{clientLogos.map(logo => <div key={logo.name} className={`home-logo-card ${'dark' in logo && logo.dark ? 'home-logo-card-dark' : ''}`}><Image src={logo.src} alt={`${logo.name} logo`} fill className="object-contain" sizes="180px" /></div>)}</div></div></section>
