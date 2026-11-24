@@ -10,6 +10,7 @@ process.env.TURBOPACK = '0';
 const nextConfig: NextConfig = {
   async redirects() {
     return [
+      { source: '/commercial-cleaning', destination: '/cleaning', statusCode: 301 },
       ...[
         ['/sitemap_index.xml', '/sitemap.xml'],
         ['/blog/what-is-make-good', '/blog/make-good-obligations-commercial-lease-cost'],
@@ -18,7 +19,6 @@ const nextConfig: NextConfig = {
         ['/create-a-flexible-workplace-design-that-boosts-productivity', '/blog/flexible-office-layout-hybrid-teams-newcastle'],
         ['/creating-a-culture-of-collaboration-through-office-layout', '/blog/flexible-office-layout-hybrid-teams-newcastle'],
         ['/future-of-work-hybrid-models-and-office-space-adaptation', '/blog/flexible-office-layout-hybrid-teams-newcastle'],
-        ['/commercial-cleaning', '/cleaning'],
         ['/tennant-representation', '/tenant-rep'],
         ['/tenant-representation', '/tenant-rep'],
         ['/ContactPage', '/contact'],
@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
         ['/off-market-commercial-property-deserves-look', '/blog/off-market-commercial-property-newcastle'],
         ['/avoiding-common-pitfalls-in-commercial-lease-negotiations', '/blog/commercial-lease-negotiation-tips-australia'],
         ['/top-5-risks-in-commercial-property-investment-and-how-to-mitigate-them', '/blog/commercial-property-due-diligence-newcastle'],
+        ['/wholesale', '/furniture'],
         ['/eof-group', '/about'],
         ['/eof-group/furniture', '/furniture'],
         ['/eof-group/tenant-representation', '/tenant-rep'],

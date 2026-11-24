@@ -27,12 +27,12 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png?v=yos-oct06',
   },
-  title: "Your Office Space | Find It, Fit It Out and Furnish It",
-  description: "Lease or buy the right commercial space, then coordinate the FitOut, furniture and ongoing workplace services with one team on your side.",
+  title: "Outsourced Property Team Newcastle | Your Office Space",
+  description: "Your Office Space is an outsourced property team. We partner with businesses to take the strain out of growing.",
   metadataBase: new URL("https://www.yourofficespace.au"),
   openGraph: {
-    title: "Your Office Space | One Team for Your Commercial Space",
-    description: "Find it. Fit it out. Furnish it. Look after it. Commercial space support from one accountable team.",
+    title: "Outsourced Property Team Newcastle | Your Office Space",
+    description: "Your Office Space is an outsourced property team. We partner with businesses to take the strain out of growing.",
     url: "https://www.yourofficespace.au",
     siteName: "Your Office Space",
     locale: "en_AU",
@@ -41,8 +41,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Your Office Space | One Team for Your Commercial Space",
-    description: "Find it. Fit it out. Furnish it. Look after it. Commercial space support from one accountable team.",
+    title: "Outsourced Property Team Newcastle | Your Office Space",
+    description: "Your Office Space is an outsourced property team. We partner with businesses to take the strain out of growing.",
     images: ["/og/og-default.png"],
   },
 };

@@ -29,7 +29,7 @@ const EXEC_CHAIR: TieredRange  = { basic:{low:600,high:900},   mid:{low:900,high
 const VISIT_CHAIR: TieredRange = { basic:{low:150,high:250},   mid:{low:250,high:350},    premium:{low:350,high:450} }
 
 function getTier(budget: string): Tier {
-  if (budget === 'Under $10k' || budget === '$10–30k') return 'basic'
+  if (budget === 'Under $10k' || budget === '$10-30k') return 'basic'
   if (budget === '$150k+') return 'premium'
   return 'mid'
 }
@@ -122,7 +122,7 @@ function calcSpec(
   const ssQty = spaces.sitStand ? spaces.sitStandQty : 0
   const totalDesks = wsQty + ssQty
 
-  const visitMid = team.visitorsPerDay === '5–15' ? 10 : team.visitorsPerDay === '15+' ? 20 : 3
+  const visitMid = team.visitorsPerDay === '5-15' ? 10 : team.visitorsPerDay === '15+' ? 20 : 3
   const visitorChairs = visitMid * 2
 
   const hasExecs = priorities.roles.includes('Executives')
@@ -135,7 +135,7 @@ function calcSpec(
     MEET_2P
   const mrQty = spaces.meetingRooms ? spaces.meetingRoomsQty : 0
   const mrLabel =
-    mrSize === '4-6-person' ? '4–6 person' :
+    mrSize === '4-6-person' ? '4-6 person' :
     mrSize === 'boardroom'  ? 'Boardroom 8+' :
     '2-person'
 
@@ -432,7 +432,7 @@ export default function WorkspaceBuilderPage() {
                     Total floor area (sqm) <span className="text-teal">*</span>
                   </label>
                   <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
-                    {['Under 100', '100–200', '200–500', '500+'].map(opt => (
+                    {['Under 100', '100-200', '200-500', '500+'].map(opt => (
                       <button key={opt} onClick={() => setSpace('floorArea', opt)}
                         className={`font-medium border transition-colors ${spaceData.floorArea === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1.5rem', fontSize: '0.875rem', borderRadius: '0.5rem' }}>
@@ -517,7 +517,7 @@ export default function WorkspaceBuilderPage() {
                   {[
                     { key: 'alwaysIn' as const, label: 'Always in office', desc: '5 days/wk', color: '#00B5A5' },
                     { key: 'hybrid'   as const, label: 'Hybrid',           desc: '3+ days/wk', color: '#4DC3BA' },
-                    { key: 'flexi'    as const, label: 'Flexi',            desc: '1–2 days/wk', color: '#80D4CD' },
+                    { key: 'flexi'    as const, label: 'Flexi',            desc: '1-2 days/wk', color: '#80D4CD' },
                     { key: 'remote'   as const, label: 'Remote',           desc: 'Occasionally in', color: '#B3E6E3' },
                   ].map(s => (
                     <div key={s.key} style={{ marginBottom: '1.5rem' }}>
@@ -550,7 +550,7 @@ export default function WorkspaceBuilderPage() {
                     Average visitors per day <span className="text-teal">*</span>
                   </label>
                   <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
-                    {['0–5', '5–15', '15+'].map(opt => (
+                    {['0-5', '5-15', '15+'].map(opt => (
                       <button key={opt} onClick={() => setTeam('visitorsPerDay', opt)}
                         className={`font-medium border transition-colors ${teamData.visitorsPerDay === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1.5rem', fontSize: '0.875rem', borderRadius: '0.5rem' }}>
@@ -619,7 +619,7 @@ export default function WorkspaceBuilderPage() {
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
                         {[
                           { val: '2-person', label: '2-person' },
-                          { val: '4-6-person', label: '4–6 person' },
+                          { val: '4-6-person', label: '4-6 person' },
                           { val: 'boardroom', label: 'Boardroom 8+' },
                         ].map(sz => (
                           <button key={sz.val} onClick={() => setSpaces('meetingRoomSize', sz.val)}
@@ -718,7 +718,7 @@ export default function WorkspaceBuilderPage() {
                     Budget range (furniture only, ex GST) <span className="text-teal">*</span>
                   </label>
                   <div className="flex flex-wrap" style={{ gap: '0.75rem' }}>
-                    {['Under $10k', '$10–30k', '$30–75k', '$75–150k', '$150k+'].map(opt => (
+                    {['Under $10k', '$10-30k', '$30-75k', '$75-150k', '$150k+'].map(opt => (
                       <button key={opt} onClick={() => setPrio('budgetRange', opt)}
                         className={`font-medium border transition-colors ${prioritiesData.budgetRange === opt ? 'border-teal bg-teal/10 text-white' : 'border-white/15 text-white/55 hover:border-white/30 hover:text-white'}`}
                         style={{ padding: '0.75rem 1.25rem', fontSize: '0.875rem', borderRadius: '0.5rem' }}>
@@ -744,7 +744,7 @@ export default function WorkspaceBuilderPage() {
               <ToolGate
                 tool="Workspace Builder"
                 context={() =>
-                  `Headcount: ${teamData.headcount} | Building: ${spaceData.buildingType} | Budget: ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}–${fmt(spec.totalHigh)}`
+                  `Headcount: ${teamData.headcount} | Building: ${spaceData.buildingType} | Budget: ${prioritiesData.budgetRange} | Est: ${fmt(spec.totalLow)}-${fmt(spec.totalHigh)}`
                 }
                 heading="Where should we send your specification?"
                 subheading="Share your details with YOS and view your workspace specification here."
@@ -761,7 +761,7 @@ export default function WorkspaceBuilderPage() {
                       </p>
                       <h2 className="text-white font-black uppercase leading-none tracking-tight"
                         style={{ fontSize: 'clamp(2rem,5vw,3.5rem)', marginBottom: '0.75rem' }}>
-                        {fmt(spec.totalLow)} – {fmt(spec.totalHigh)}
+                        {fmt(spec.totalLow)} - {fmt(spec.totalHigh)}
                       </h2>
                       <p className="text-white/40 font-light" style={{ fontSize: '0.85rem' }}>
                         Estimated investment range · All figures ex GST
@@ -882,7 +882,7 @@ function ResultsContent({
         </p>
         <h2 className="text-white font-black uppercase leading-none tracking-tight"
           style={{ fontSize: 'clamp(1.75rem,4vw,3.5rem)', marginBottom: '1rem' }}>
-          {fmt(spec.totalLow)} – {fmt(spec.totalHigh)}
+          {fmt(spec.totalLow)} - {fmt(spec.totalHigh)}
         </h2>
         <p className="text-white/40 font-light" style={{ fontSize: '0.875rem' }}>
           Estimated investment range &nbsp;·&nbsp; All figures ex GST &nbsp;·&nbsp; April 2026
@@ -938,8 +938,8 @@ function ResultsContent({
               <span className="text-white font-medium" style={{ fontSize: '0.875rem' }}>{item.space}</span>
               <span className="text-white/50 font-light" style={{ fontSize: '0.8rem', lineHeight: 1.4, paddingRight: '1rem' }}>{item.items}</span>
               <span className="text-white font-bold" style={{ fontSize: '0.95rem' }}>{item.qty}</span>
-              <span className="text-white/60 font-light" style={{ fontSize: '0.8rem' }}>{fmt(item.unitLow)}–{fmt(item.unitHigh)}</span>
-              <span className="text-white font-semibold" style={{ fontSize: '0.875rem' }}>{fmt(item.totalLow)}–{fmt(item.totalHigh)}</span>
+              <span className="text-white/60 font-light" style={{ fontSize: '0.8rem' }}>{fmt(item.unitLow)}-{fmt(item.unitHigh)}</span>
+              <span className="text-white font-semibold" style={{ fontSize: '0.875rem' }}>{fmt(item.totalLow)}-{fmt(item.totalHigh)}</span>
             </div>
           ))}
 
@@ -955,7 +955,7 @@ function ResultsContent({
             <span />
             <span />
             <span />
-            <span className="text-teal font-black" style={{ fontSize: '1rem' }}>{fmt(spec.totalLow)}–{fmt(spec.totalHigh)}</span>
+            <span className="text-teal font-black" style={{ fontSize: '1rem' }}>{fmt(spec.totalLow)}-{fmt(spec.totalHigh)}</span>
           </div>
         </div>
 
@@ -969,14 +969,14 @@ function ResultsContent({
               </div>
               <p className="text-white/40 font-light" style={{ fontSize: '0.78rem', marginBottom: '0.75rem' }}>{item.items}</p>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span className="text-white/50" style={{ fontSize: '0.78rem' }}>Unit: {fmt(item.unitLow)}–{fmt(item.unitHigh)}</span>
-                <span className="text-teal font-semibold" style={{ fontSize: '0.875rem' }}>{fmt(item.totalLow)}–{fmt(item.totalHigh)}</span>
+                <span className="text-white/50" style={{ fontSize: '0.78rem' }}>Unit: {fmt(item.unitLow)}-{fmt(item.unitHigh)}</span>
+                <span className="text-teal font-semibold" style={{ fontSize: '0.875rem' }}>{fmt(item.totalLow)}-{fmt(item.totalHigh)}</span>
               </div>
             </div>
           ))}
           <div className="bg-teal/10 border border-teal/30" style={{ borderRadius: '0.625rem', padding: '1rem 1.25rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span className="text-white font-black uppercase" style={{ fontSize: '0.85rem' }}>Total estimate</span>
-            <span className="text-teal font-black" style={{ fontSize: '1rem' }}>{fmt(spec.totalLow)}–{fmt(spec.totalHigh)}</span>
+            <span className="text-teal font-black" style={{ fontSize: '1rem' }}>{fmt(spec.totalLow)}-{fmt(spec.totalHigh)}</span>
           </div>
         </div>
       </div>

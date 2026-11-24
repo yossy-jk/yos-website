@@ -555,10 +555,10 @@ export default function FitoutEstimatorPage() {
                 className="text-white font-black uppercase leading-none tracking-tight mb-3 outline-none"
                 style={{ fontSize: 'clamp(2.75rem,6vw,5.5rem)', lineHeight: 1, scrollMarginTop: '7rem' }}
               >
-                {fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}
+                {fmt(storedEstimate!.totalLow)} - {fmt(storedEstimate!.totalHigh)}
               </h2>
               <p className="text-white/45 font-light" style={{ fontSize: '0.875rem', lineHeight: 1.75 }}>
-                {fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round((RATES[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
+                {fmt(storedEstimate!.perSqm.low)} - {fmt(storedEstimate!.perSqm.high)} per m2 &nbsp;·&nbsp; Ex GST &nbsp;·&nbsp; {Math.round((RATES[isFurnitureOnly ? 'furniture-only' : (inputs.shellCondition === 'cold' ? 'turnkey-cold' : 'turnkey-warm')][inputs.tier as Tier]?.contingency ?? 0) * 100)}% contingency included
               </p>
             </div>
             {/* Inputs summary */}
@@ -593,7 +593,7 @@ export default function FitoutEstimatorPage() {
                   style={{ padding: '1.25rem 1.75rem', background: row.label.includes('Total') ? 'rgba(1,167,163,0.1)' : (row.label.includes('Contingency') ? 'rgba(255,255,255,0.02)' : 'transparent') }}>
                   <span className={`font-light ${row.label.includes('Contingency') ? 'text-white/35 font-semibold' : 'text-white/70'}`} style={{ fontSize: '0.9rem' }}>{row.label}</span>
                   <span className={`font-semibold ${row.label.includes('Total') ? 'text-teal' : (row.label.includes('Contingency') ? 'text-white/35' : 'text-white/85')}`} style={{ fontSize: '0.9rem' }}>
-                    {fmt(row.low)} &ndash; {fmt(row.high)}
+                    {fmt(row.low)} - {fmt(row.high)}
                   </span>
                 </div>
               ))}
@@ -629,11 +629,11 @@ export default function FitoutEstimatorPage() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '1.5rem' }}>
                   <div>
                     <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Total estimate</p>
-                    <p className="text-white font-black" style={{ fontSize: 'clamp(1.1rem,3vw,1.5rem)', lineHeight: 1.1 }}>{fmt(storedEstimate!.totalLow)} &ndash; {fmt(storedEstimate!.totalHigh)}</p>
+                    <p className="text-white font-black" style={{ fontSize: 'clamp(1.1rem,3vw,1.5rem)', lineHeight: 1.1 }}>{fmt(storedEstimate!.totalLow)} - {fmt(storedEstimate!.totalHigh)}</p>
                   </div>
                   <div>
                     <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Per m2</p>
-                    <p className="text-white font-semibold" style={{ fontSize: '1rem' }}>{fmt(storedEstimate!.perSqm.low)} &ndash; {fmt(storedEstimate!.perSqm.high)}</p>
+                    <p className="text-white font-semibold" style={{ fontSize: '1rem' }}>{fmt(storedEstimate!.perSqm.low)} - {fmt(storedEstimate!.perSqm.high)}</p>
                   </div>
                   <div>
                     <p className="text-white/30 font-light uppercase tracking-wider mb-1" style={{ fontSize: '0.58rem' }}>Contingency</p>
@@ -798,7 +798,7 @@ export default function FitoutEstimatorPage() {
                   {[
                     'Desk, chair and cable management requirements',
                     'Meeting room design and configuration',
-                    'Joinery, shelving and storage solutions',
+                    'Joinery, shelving and storage options',
                     'Delivery, install and on-site management',
                   ].map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

@@ -1,0 +1,15 @@
+import Nav from '@/components/Nav'
+import Footer from '@/components/Footer'
+import ServiceFaq from '@/components/ServiceFaq'
+import DiscoveryBooking from '@/components/DiscoveryBooking'
+import SpacePlanForm from './SpacePlanForm'
+import styles from './space-plan.module.css'
+import { withPageSeo } from '@/lib/page-seo'
+const FAQS = [
+  { question: 'Who can request the free space plan?', answer: 'The offer is for businesses that have not yet engaged a builder. We discuss your brief and confirm the suitability and scope of the initial plan.' },
+  { question: 'What should I include in my request?', answer: 'Tell us the business suburb, how the workplace needs to function, current and future team size and timing. Mention an existing measured plan if you have one. We can confirm the information needed in the follow-up conversation.' },
+  { question: 'Is the free space plan construction documentation?', answer: 'No. It is an initial planning aid. Detailed design, site verification, approvals, engineering and construction documentation are separately scoped with the appropriate professionals.' },
+  { question: 'Do I have to appoint YOS or a builder?', answer: 'Submitting the form is a request to discuss the free space plan. It does not sign an agency, project management or building agreement. Any further service is agreed separately.' },
+] as const
+export const metadata = withPageSeo({ title:'Free Space Plan Newcastle | Before You Engage a Builder | YOS', description:'Have not engaged a builder? Request a free space plan for your Newcastle workplace. Share your brief with the YOS outsourced property team.', alternates:{canonical:'https://www.yourofficespace.au/free-space-plan'} })
+export default function FreeSpacePlanPage(){return <><Nav/><main id="main-content" tabIndex={-1}><section className={styles.hero}><div className={styles.wrap}><p>Fit It Out - start with the workplace brief</p><h1>A free space plan before you engage a builder.</h1><p>For businesses that have not yet engaged a builder. Tell us how your workplace needs to function so we can discuss your requirements and confirm a suitable initial planning scope.</p><p>YOS provides client-side fitout project management. The free space plan is an initial planning aid, with any detailed design, approvals and construction work separately appointed and scoped.</p><a href="#space-plan-form" className="text-teal font-semibold underline">Request your free space plan</a></div></section><section className={styles.wrap} id="space-plan-form" style={{scrollMarginTop:120}}><h2 className="text-near-black text-3xl font-bold" style={{marginBottom:24}}>Tell us about your workplace.</h2><p className="text-charcoal leading-relaxed" style={{marginBottom:32}}>Name, email, business suburb and a short brief are required. Phone, business name, team size and timing are optional. We confirm suitability, information needed and scope before planning proceeds.</p><SpacePlanForm/><DiscoveryBooking/></section><ServiceFaq items={FAQS} heading="Free space plan: common questions"/></main><Footer/></>}

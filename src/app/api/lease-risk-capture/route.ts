@@ -56,7 +56,7 @@ export async function POST(req: Request) {
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #ffffff;">
             <div style="background: #0A0A0A; padding: 24px; margin-bottom: 28px;">
-              <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space – LeaseIntel</p>
+              <p style="color: #00B5A5; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 6px; font-weight: 600;">Your Office Space - LeaseIntel</p>
               <p style="color: white; font-weight: 800; font-size: 20px; margin: 0; text-transform: uppercase;">Your Lease Questionnaire Summary</p>
             </div>
 
@@ -101,7 +101,7 @@ export async function POST(req: Request) {
             </div>
 
             <p style="color: #aaa; font-size: 11px; margin: 0;">
-              Joseph Kelley – Your Office Space, Newcastle NSW<br>
+              Joseph Kelley - Your Office Space, Newcastle NSW<br>
               <a href="https://www.yourofficespace.au" style="color: #00B5A5; text-decoration: none;">yourofficespace.au</a>
             </p>
           </div>

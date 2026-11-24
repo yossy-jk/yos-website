@@ -20,7 +20,7 @@ const clean = (value: unknown, max: number) => typeof value === 'string' ? value
 export function enquiryPage(value: unknown): string | undefined {
   if (typeof value !== 'string') return undefined
   const path = value.split(/[?#]/)[0]
-  return /^\/(?:$|(?:about|contact|tenant-rep|buyers-agency|office-fitout|commercial-construction|business-communications-newcastle|furniture|cleaning|flourish|resources|blog|catalogues|tools|lease-health-check|lease-checklist)(?:\/[a-z0-9-]+)*$)/.test(path)
+  return /^\/(?:$|(?:free-space-plan|about|contact|tenant-rep|buyers-agency|office-fitout|commercial-construction|business-communications-newcastle|furniture|cleaning|flourish|resources|blog|catalogues|tools|lease-health-check|lease-checklist)(?:\/[a-z0-9-]+)*$)/.test(path)
     && !/^\/tenant-rep\/(?:brief|payment)(?:\/|$)/.test(path) && path.length <= 200 ? path : undefined
 }
 export function normaliseEnquiry(raw: Record<string, unknown>): Enquiry {
@@ -51,7 +51,7 @@ export async function sendOwnerEnquiry(data: Enquiry, routing?: { recipient: str
     ...(routing?.cc ? { cc: routing.cc } : {}),
     ...(data.email ? { replyTo: data.email } : {}),
     ...(data.attachment ? { attachments: [{ filename: data.attachment.filename, content: data.attachment.content }] } : {}),
-    subject: `YOS ${data.source.replace(/[\r\n]/g, ' ')} — ${(data.name || data.email || data.phone || 'Enquiry').replace(/[\r\n]/g, ' ')}`,
+    subject: `YOS ${data.source.replace(/[\r\n]/g, ' ')} - ${(data.name || data.email || data.phone || 'Enquiry').replace(/[\r\n]/g, ' ')}`,
     ...content,
   }, { idempotencyKey: `${submissionId}-owner` })
   if (result.error || !result.data?.id) throw Error('Email delivery was not accepted')

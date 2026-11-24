@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
-import { EOF_PRODUCTS, getCategoryColor, type EOFProduct } from "@/lib/space-planner/store";
+import { PLANNER_PRODUCTS, getCategoryColor, type PlannerCatalogueProduct } from "@/lib/space-planner/store";
 
 // Keep Product interface for backward compat
 export interface Product {
@@ -15,8 +15,8 @@ export interface Product {
   depth: number;
 }
 
-// Convert EOF_PRODUCTS → Product format for consumers that still use MOCK_PRODUCTS
-export const MOCK_PRODUCTS: Product[] = EOF_PRODUCTS.map((p) => ({
+// Convert PLANNER_PRODUCTS → Product format for consumers that still use MOCK_PRODUCTS
+export const MOCK_PRODUCTS: Product[] = PLANNER_PRODUCTS.map((p) => ({
   id: p.id,
   name: p.name,
   category: p.category,
@@ -42,7 +42,7 @@ const CATEGORIES = ["All", "Desks", "Seating", "Meeting", "Storage", "Breakout"]
 
 const PIXELS_PER_CM = 0.5;
 
-function ProductImage({ product, imageUrl }: { product: EOFProduct | ShopifyProduct; imageUrl?: string }) {
+function ProductImage({ product, imageUrl }: { product: PlannerCatalogueProduct | ShopifyProduct; imageUrl?: string }) {
   const [imgError, setImgError] = useState(false);
 
   if (imageUrl && !imgError) {
@@ -132,7 +132,7 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
           setShopifyProducts(data.products);
         }
       } catch {
-        // Fall back to EOF products
+        // Fall back to planning products
         if (!cancelled) setShopifyProducts(null);
       } finally {
         if (!cancelled) setLoading(false);
@@ -143,7 +143,7 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
   }, []);
 
   // Build display list
-  const displayProducts: Array<{ id: string; name: string; category: string; widthCm: number; depthCm: number; imageUrl?: string; eofProduct?: EOFProduct }> = (() => {
+  const displayProducts: Array<{ id: string; name: string; category: string; widthCm: number; depthCm: number; imageUrl?: string; catalogueProduct?: PlannerCatalogueProduct }> = (() => {
     if (shopifyProducts && shopifyProducts.length > 0) {
       return shopifyProducts.map((p) => ({
         id: p.id,
@@ -154,15 +154,15 @@ export default function ProductSidebar({ products: _propProducts }: ProductSideb
         imageUrl: p.imageUrl,
       }));
     }
-    // Fallback to EOF
-    return EOF_PRODUCTS.map((p) => ({
+    // Fallback to planning catalogue
+    return PLANNER_PRODUCTS.map((p) => ({
       id: p.id,
       name: p.name,
       category: p.category,
       widthCm: p.width,
       depthCm: p.depth,
       imageUrl: undefined,
-      eofProduct: p,
+      catalogueProduct: p,
     }));
   })();
 

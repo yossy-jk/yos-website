@@ -40,7 +40,7 @@ export default function FlourishPage() {
         <div className="yos-container relative">
           <p className="text-teal font-semibold text-sm uppercase tracking-widest">Flourish It</p>
           <h1 className="text-white font-bold text-[clamp(2.5rem,6vw,5rem)] leading-tight max-w-4xl mt-5">A workplace that keeps working for you.</h1>
-          <p className="text-white/85 text-lg leading-relaxed max-w-3xl mt-7">Ongoing care for Newcastle workplaces, from commercial cleaning and indoor greenery to coordinated electrical, fire and first aid support. Choose one service or bring the needs together in one brief.</p>
+          <p className="text-white/85 text-lg leading-relaxed max-w-3xl mt-7">After-move-in services by the Flourish Team for Newcastle workplaces, from commercial cleaning and indoor greenery to coordinated electrical, fire and first aid support. Choose one service or bring the needs together in one brief.</p>
           <a href="#flourish-enquiry" className="inline-flex bg-teal text-near-black font-bold rounded-lg px-7 py-4 no-underline mt-8 hover:bg-white">Discuss your workplace</a>
         </div>
       </section>

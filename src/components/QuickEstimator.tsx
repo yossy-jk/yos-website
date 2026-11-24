@@ -79,7 +79,7 @@ export default function QuickEstimator() {
                 {tier.label}
               </p>
               <p className="text-near-black font-black text-sm leading-tight">
-                ${lo}k–${hi}k
+                ${lo}k-${hi}k
               </p>
               <p className="text-[9px] text-mid-grey font-light mt-0.5">{tier.desc}</p>
             </div>

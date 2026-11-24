@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YOS LeaseIntel™ — Decrypt Tool</title>
+  <title>YOS LeaseIntel™ - Decrypt Tool</title>
   <meta name="robots" content="noindex, nofollow" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -108,7 +108,7 @@
   <h1>Decrypt Lease Document</h1>
   <p class="sub">
     Opens AES-256-GCM encrypted lease files received from LeaseIntel™ submissions.
-    Decryption runs entirely in your browser — the file never leaves your machine.
+    Decryption runs entirely in your browser - the file never leaves your machine.
   </p>
 
   <div class="field">
@@ -123,16 +123,16 @@
   <div class="field">
     <label>Decryption passphrase</label>
     <input type="password" id="passphrase" placeholder="Enter the YOS encryption passphrase" autocomplete="off" />
-    <p class="hint">This is stored in your .env.local — NEXT_PUBLIC_LEASE_ENCRYPT_KEY</p>
+    <p class="hint">This is stored in your .env.local - NEXT_PUBLIC_LEASE_ENCRYPT_KEY</p>
   </div>
 
   <div class="field">
-    <label>IV (from email — decrypt_iv field)</label>
+    <label>IV (from email - decrypt_iv field)</label>
     <input type="text" id="ivHex" placeholder="24 hex characters" autocomplete="off" />
   </div>
 
   <div class="field">
-    <label>Salt (from email — decrypt_salt field)</label>
+    <label>Salt (from email - decrypt_salt field)</label>
     <input type="text" id="saltHex" placeholder="32 hex characters" autocomplete="off" />
   </div>
 
@@ -140,7 +140,7 @@
   <div class="status" id="status"></div>
 
   <hr class="divider" />
-  <p class="note">Internal use only — YOS team. Do not share this URL publicly.</p>
+  <p class="note">Internal use only - YOS team. Do not share this URL publicly.</p>
 </div>
 
 <script>

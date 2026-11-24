@@ -455,7 +455,7 @@ export default function MarketSnapshotPageContent({
                   href={leaseIntelHref}
                   className="inline-flex items-center justify-center gap-2 rounded-[4px] font-bold uppercase tracking-[0.1em] bg-near-black text-white hover:bg-charcoal transition-colors min-h-[48px] px-10 py-4 text-[0.72rem] no-underline"
                 >
-                  Lease review – request scope confirmation
+                  Lease review - request scope confirmation
                 </Link>
               </div>
             </div>

@@ -6,7 +6,7 @@ const sitemapResponse = await fetch(`${base}/sitemap.xml`)
 if (!sitemapResponse.ok) throw new Error('Sitemap cannot be fetched')
 const xml = await sitemapResponse.text()
 const sitemapUrls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1].replaceAll('&amp;', '&'))
-const additional = ['/resources/lease-vs-buy', '/resources/stamp-duty-calculator', '/resources/rental-yield-calculator', '/resources/cap-rate-calculator', '/resources/land-tax-calculator', '/resources/purchase-checklist', '/blog/commercial-property-stamp-duty-australia-guide', '/dashboard/login', '/wholesale', '/tenant-rep/brief/seo-audit-invalid-token']
+const additional = ['/resources/lease-vs-buy', '/resources/stamp-duty-calculator', '/resources/rental-yield-calculator', '/resources/cap-rate-calculator', '/resources/land-tax-calculator', '/resources/purchase-checklist', '/blog/commercial-property-stamp-duty-australia-guide', '/dashboard/login', '/tenant-rep/brief/seo-audit-invalid-token']
 const paths = [...new Set([...sitemapUrls.map(url => new URL(url).pathname), ...additional])]
 const executablePath = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium'].find(existsSync)
 const browser = await puppeteer.launch({headless: true, ...(executablePath ? {executablePath} : {}), args: ['--no-sandbox']})
@@ -35,7 +35,7 @@ try {
     return results
   }, paths)
   const failures=[]
-  const redirects = { '/lease-review': '/lease-health-check', '/leaseintel': '/lease-health-check', '/eof-group': '/about', '/eof-group/furniture': '/furniture', '/eof-group/tenant-representation': '/tenant-rep', '/eof-group/lease-review': '/lease-health-check', '/eof-group/newcastle': '/newcastle-commercial-property' }
+  const redirects = { '/wholesale': '/furniture', '/commercial-cleaning': '/cleaning', '/lease-review': '/lease-health-check', '/leaseintel': '/lease-health-check', '/eof-group': '/about', '/eof-group/furniture': '/furniture', '/eof-group/tenant-representation': '/tenant-rep', '/eof-group/lease-review': '/lease-health-check', '/eof-group/newcastle': '/newcastle-commercial-property' }
   for (const [source, destination] of Object.entries(redirects)) {
     const response = await fetch(`${base}${source}`, {redirect: 'manual'})
     const target = new URL(response.headers.get('location') || '/', base).pathname

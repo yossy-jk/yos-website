@@ -4,18 +4,18 @@ import { readFileSync, existsSync } from 'node:fs'
 
 const page = readFileSync(new URL('../src/app/page.tsx', import.meta.url), 'utf8')
 const reviews = readFileSync(new URL('../src/lib/client-reviews.ts', import.meta.url), 'utf8')
-test('homepage includes all eight owner-supplied reviewers and distinct original review links', () => {
-  for (const name of ['Beth Gwalter', 'Olivia Crawford', 'Mitch Peck', 'Nathan Franks', 'Liz Murray', 'Jason Dowdall', 'Sophie Collinson', 'Kristy Cashman']) assert.ok(reviews.includes(`name: '${name}'`), name)
+test('homepage includes four approved client reviewers and distinct original review links', () => {
+  for (const name of ['Beth Gwalter', 'Nathan Franks', 'Jason Dowdall', 'Sophie Collinson']) assert.ok(reviews.includes(`name: '${name}'`), name)
   const sources = [...reviews.matchAll(/source: '(https:\/\/share.google\/[^']+)'/g)].map(match => match[1])
-  assert.equal(sources.length, 8)
-  assert.equal(new Set(sources).size, 8)
+  assert.equal(sources.length, 4)
+  assert.equal(new Set(sources).size, 4)
 })
 test('every assigned logo is a real local asset', () => {
   const logos = [...reviews.matchAll(/logo: '([^']+)'/g)].map(match => match[1])
-  assert.equal(logos.length, 7, 'Owner requested ConnectAbility name only, without a logo')
+  assert.equal(logos.length, 4)
   for (const logo of logos) assert.ok(existsSync(new URL(`../public${logo}`, import.meta.url)), logo)
 })
-test('eight-review navigation wraps and cards do not clip the supplied text', () => {
+test('review navigation wraps and cards do not clip the supplied text', () => {
   const carousel = readFileSync(new URL('../src/components/ReviewsCarousel.tsx', import.meta.url), 'utf8')
   assert.ok(carousel.includes("flexWrap: 'wrap'"))
   assert.ok(carousel.includes("fontSize: 'clamp(20px, 3vw, 30px)'"))

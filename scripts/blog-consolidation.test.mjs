@@ -6,7 +6,7 @@ import vm from 'node:vm'
 import ts from 'typescript'
 function load(file, extra = {}) {
   const exports = {}
-  vm.runInNewContext(ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true } }).outputText, { exports, require: name => ({fs,path})[name], process: { cwd: () => process.cwd(), env: {} }, AbortSignal, ...extra })
+  vm.runInNewContext(ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true } }).outputText, { exports, require: name => ({fs,path,'./public-copy': load('src/lib/public-copy.ts')})[name], process: { cwd: () => process.cwd(), env: {} }, AbortSignal, ...extra })
   return exports
 }
 for (const [retired, destination] of [['gross-vs-net-lease-newcastle', 'gross-lease-vs-net-lease-newcastle-guide'], ['what-is-make-good', 'make-good-obligations-commercial-lease-cost']]) {

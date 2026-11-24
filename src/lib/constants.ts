@@ -17,7 +17,7 @@ export const ENQUIRY = {
 // Direct 15-minute initial discovery booking; enquiry email delivery stays independent.
 export const DISCOVERY_BOOKING_URL = 'https://bookings.cloud.microsoft/bookwithme/user/22b335abe25a42329fe8b249c3313606%40yourofficespace.au/meetingtype/xgiD8hPbTUmAq_UVWu_5Zg2?anonymous&ismsaljsauthenabled'
 
-// Top-level nav — Services is a dropdown
+// Top-level nav - Services is a dropdown
 export const NAV_LINKS = [
   { label: 'Resources', href: '/resources' },
   { label: 'About', href: '/about' },
@@ -30,5 +30,5 @@ export const SERVICE_LINKS = [
   { label: 'Commercial FitOut & Project Management', href: '/office-fitout', tagline: 'From brief to delivered workspace.' },
   { label: 'Office & Commercial Furniture', href: '/furniture', tagline: 'Furniture selected, supplied and installed.' },
   { label: 'Commercial Cleaning', href: '/cleaning', tagline: 'Shows up. Every time.' },
-  { label: 'Business NBN, Fibre & Phones', href: '/business-communications-newcastle', tagline: 'Internet, voice and mobiles through Newvo.' },
+  { label: 'Business NBN, Fibre & Phones', href: '/business-communications-newcastle', tagline: 'Internet, voice and mobile requirements.' },
 ]

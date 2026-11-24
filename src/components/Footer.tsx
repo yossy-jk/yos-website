@@ -1,3 +1,4 @@
+import { COMPANY_POSITIONING, COMPANY_TAGLINE } from '@/lib/company-record'
 import PublicEmailLink from '@/components/PublicEmailLink'
 import PrivacySettingsButton from '@/components/PrivacySettingsButton'
 import Link from 'next/link'
@@ -21,8 +22,8 @@ export default function Footer() {
               <Image src="/brand/yos-logo-white.png" alt="Your Office Space" width={3148} height={482} className="h-8 w-auto" />
             </Link>
             <p className="text-white/55 font-light leading-relaxed" style={{ fontSize: '0.875rem' }}>
-              Based in Newcastle. Working Australia-wide for FitOut and furniture, with tenant representation delivered in NSW.
-            <span className="block mt-3 text-teal font-semibold" style={{ fontSize: '0.8rem' }}>One team. Clear direction. No guesswork.</span>
+              {COMPANY_POSITIONING}{' '}
+            <span className="block mt-3 text-teal font-semibold" style={{ fontSize: '0.8rem' }}>{COMPANY_TAGLINE}</span>
             </p>
           </div>
 
@@ -53,6 +54,7 @@ export default function Footer() {
                 { label: 'About', href: '/about' },
                 { label: 'Work or Partner with YOS', href: '/about/work-with-yos' },
                 { label: 'Resources', href: '/resources' },
+                { label: 'Free space plan', href: '/free-space-plan' },
                 { label: 'Blog', href: '/blog' },
                 { label: 'Video Guides', href: '/videos' },
                 { label: 'Contact', href: '/contact' },

@@ -37,7 +37,7 @@ const WHAT_YOU_SELL = [
   {
     icon: 'handshake',
     heading: 'Tenant Representation',
-    body: 'Leasing support for businesses moving or growing. Smallish deals (50–300sqm) that move fast and pay well.',
+    body: 'Leasing support for businesses moving or growing. Smallish deals (50-300sqm) that move fast and pay well.',
   },
 ]
 
@@ -83,7 +83,7 @@ export default function SalesPartnersPage() {
       }}>
         <div className="max-w-screen-xl mx-auto" style={{ paddingLeft: 'clamp(1.5rem,8vw,10rem)', paddingRight: 'clamp(1.5rem,8vw,10rem)' }}>
           <p style={{ color: '#00B5A5', fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.28em', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
-            Sales Partnership – Newcastle &amp; Hunter Valley
+            Sales Partnership - Newcastle &amp; Hunter Valley
           </p>
           <h1 style={{
             color: 'white', fontWeight: 900, lineHeight: 0.95, letterSpacing: '-0.02em',

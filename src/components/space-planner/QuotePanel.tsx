@@ -63,7 +63,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
     suggestions.push('Meeting rooms need seating, aim for 1 chair per person at the table');
   }
   if (deskCount >= 10 && items.filter(i => i.name.toLowerCase().includes('height') || i.name.toLowerCase().includes('sit-stand') || i.name.toLowerCase().includes('adjustable')).length === 0) {
-    suggestions.push('Sit-stand desks improve ergonomics, recommend 20–30% of total workstations');
+    suggestions.push('Sit-stand desks improve ergonomics, recommend 20-30% of total workstations');
   }
 
   // Aggregate items by productId, qty only, no pricing
@@ -189,7 +189,7 @@ export default function QuotePanel({ onGetQuote }: QuotePanelProps) {
       <div style={{ padding: '1rem', borderTop: '1px solid #E5E5E5' }}>
         {items.length > 0 && (
           <p style={{ fontSize: '0.72rem', color: '#6B6B6B', fontFamily: 'var(--font-montserrat), Montserrat, Arial, sans-serif', marginBottom: '0.65rem', lineHeight: 1.5 }}>
-            Submit your layout and we will come back with a full quote – no obligation.
+            Submit your layout and we will come back with a full quote - no obligation.
           </p>
         )}
         <button

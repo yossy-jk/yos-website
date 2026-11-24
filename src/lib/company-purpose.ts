@@ -1,5 +1,5 @@
 export const COMPANY_PURPOSE = {
-  tagline: 'Spaces that work. On your side.',
+  tagline: 'Find It, Fit It Out, Furnish It and help it Flourish.',
   mission: 'We find and create spaces that work, so businesses can grow and flourish.',
   missionDetail: "We stay on our client’s side from the first property conversation to the weekly clean, protecting their budget, their time and their focus.",
   vision: 'To be the most trusted workplace partner for businesses that share our values, wherever they are.',

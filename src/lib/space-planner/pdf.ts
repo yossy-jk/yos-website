@@ -64,7 +64,7 @@ export function generateQuotePDF({
   doc.setFont("helvetica", "normal");
   doc.setFontSize(9);
   doc.setTextColor("#FFFFFF");
-  doc.text("Powered by Your Office Space — yourofficespace.au", pageW - margin, 12, {
+  doc.text("Powered by Your Office Space - yourofficespace.au", pageW - margin, 12, {
     align: "right",
   });
 
@@ -87,7 +87,7 @@ export function generateQuotePDF({
     month: "long",
     year: "numeric",
   });
-  doc.text(`Prepared for: ${name}${company ? ` — ${company}` : ""}`, margin, y);
+  doc.text(`Prepared for: ${name}${company ? ` - ${company}` : ""}`, margin, y);
   y += 6;
   doc.text(`Email: ${email}`, margin, y);
   y += 6;

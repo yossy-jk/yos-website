@@ -9,7 +9,7 @@ const executablePath=['/Applications/Google Chrome.app/Contents/MacOS/Google Chr
 const browser=await puppeteer.launch({headless:true,...(executablePath?{executablePath}:{}),args:['--no-sandbox']})
 const results=[]
 try {
- for(const [id,width,pages] of [['furniture',390,73],['acoustics',1440,19]]) {
+ for(const [id,width,pages] of [['furniture',390,4],['acoustics',1440,3]]) {
   const page=await browser.newPage();const posts=[]
   await page.setViewport({width,height:900})
   await page.emulateMediaFeatures([{name:'prefers-reduced-motion',value:'reduce'}])

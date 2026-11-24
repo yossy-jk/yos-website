@@ -1,3 +1,4 @@
+import { publicCopy, isAllowedPublicPost } from './public-copy'
 import fs from 'fs'
 import path from 'path'
 
@@ -15,7 +16,7 @@ export interface BlogPost {
   author: string
   body: string
   tags: string[]
-  heroImage?: string   // URL or /images/... path — optional, falls back to division default
+  heroImage?: string   // URL or /images/... path - optional, falls back to division default
   heroImageAlt?: string
   metaTitle?: string
   metaDescription?: string
@@ -43,7 +44,7 @@ export interface BlogPost {
   }
 }
 
-// Default hero images per division — used when heroImage is not set on a post
+// Default hero images per division - used when heroImage is not set on a post
 export const DIVISION_HERO_IMAGES: Record<Division, string> = {
   'tenant-rep':     'https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1920&q=80',
   'buyers-agency':  'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80',
@@ -145,7 +146,7 @@ export async function getAllPostsAsync(): Promise<BlogPost[]> {
   // Merge: filesystem takes precedence if same slug exists in both
   const slugSet = new Set(fsPosts.map(p => p.slug))
   const merged = [...fsPosts, ...redisPosts.filter(p => !slugSet.has(p.slug))]
-  return merged.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  return merged.filter(isAllowedPublicPost).map(post => ({ ...post, title: publicCopy(post.title), excerpt: publicCopy(post.excerpt), body: publicCopy(post.body), ...(post.metaDescription ? { metaDescription: publicCopy(post.metaDescription) } : {}) })).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
 export async function getAllPublicPostsAsync(): Promise<BlogPost[]> {
@@ -169,7 +170,9 @@ export async function getPostBySlugAsync(slug: string): Promise<BlogPost | null>
     })
     const d = await res.json() as { result: string | null }
     if (!d.result) return null
-    return JSON.parse(d.result) as BlogPost
+    const post = JSON.parse(d.result) as BlogPost
+    if (!isAllowedPublicPost(post)) return null
+    return { ...post, title: publicCopy(post.title), excerpt: publicCopy(post.excerpt), body: publicCopy(post.body), ...(post.metaDescription ? { metaDescription: publicCopy(post.metaDescription) } : {}) }
   } catch {
     return null
   }

@@ -22,7 +22,7 @@ test('contact service choices are accessible, required, and captured in the emai
   assert.match(contactSource, /<fieldset id="contact-service" tabIndex=\{-1\}/)
   assert.match(contactSource, /aria-pressed=\{selected\}/)
   assert.match(contactSource, /<input type="hidden" name="service" value=\{fields\.service\}/)
-  assert.match(contactSource, /source: `Contact Form — \$\{fields\.service\}/)
+  assert.match(contactSource, /source: `Contact Form - \$\{fields\.service\}/)
 })
 
 test('contact form supports service query prefill and only confirms accepted delivery', () => {

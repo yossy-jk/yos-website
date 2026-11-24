@@ -1,23 +1,23 @@
 export const CATALOGUES = [
   {
     id: "furniture",
-    title: "Furniture Catalogue 2026",
+    title: "Furniture Planning Catalogue 2026",
     shortTitle: "Furniture",
-    pages: 73,
-    size: "7.8 MB",
+    pages: 4,
+    size: "0.1 MB",
     pdf: "/catalogues/your-office-furniture-2026.pdf",
     description:
       "Explore workstations, seating, storage and accessories for your workplace.",
   },
   {
     id: "acoustics",
-    title: "Acoustic Catalogue 2026",
+    title: "Acoustic Planning Catalogue 2026",
     shortTitle: "Acoustics",
-    pages: 19,
-    size: "5.9 MB",
+    pages: 3,
+    size: "0.1 MB",
     pdf: "/catalogues/your-office-acoustics-2026.pdf",
     description:
-      "Explore acoustic solutions and the 2026 Habitat collection for your workplace.",
+      "Explore acoustic screens, room requirements and a clear project brief.",
   },
 ] as const;
 export type Catalogue = (typeof CATALOGUES)[number];

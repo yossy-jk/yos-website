@@ -25,7 +25,7 @@ const CLEANING_REVIEWS = [...CLIENT_REVIEWS].sort((a, b) => Number(b.name === 'S
 const CLEANING_FAQS = [
   { question: 'How is commercial cleaning priced?', answer: 'Pricing depends on the size, use, frequency, access and agreed Scope of Works. We inspect the site before preparing a tailored proposal.' },
   { question: 'Do you use the same cleaning team every visit?', answer: 'We aim to keep the same team on each site wherever possible, supported by documented scopes, site notes and quality checks.' },
-  { question: 'Where is commercial cleaning available?', answer: 'Our commercial cleaning service covers Newcastle CBD and Lake Macquarie.' },
+  { question: 'Where is commercial cleaning available?', answer: 'The Flourish Team provides commercial cleaning in Newcastle CBD and Lake Macquarie, with monthly quality assurance.' },
   { question: 'How often should a commercial office be cleaned?', answer: 'The right frequency depends on occupancy, visitor numbers, amenities and presentation requirements. We recommend a schedule after inspecting the workplace.' },
   { question: 'What is included in a standard office clean?', answer: 'The agreed scope may include rubbish removal, kitchens, bathrooms, surface wiping, vacuuming and hard-floor care. Every inclusion and exclusion is documented before service begins.' },
   { question: 'Can cleaning happen after hours?', answer: 'Yes. Access, timing, alarms, keys and security requirements are agreed during the site inspection and documented before commencement.' },
@@ -352,7 +352,7 @@ export default function CleaningPage() {
               {
                 title: 'Direct line to management',
                 body: 'If something is not right, the issue goes to the team responsible for the service. The response stays connected to your Scope of Works.',
-                aside: 'Real problems, real solutions.'
+                aside: 'Real problems, real options.'
               },
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 80} direction="up">

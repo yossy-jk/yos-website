@@ -56,7 +56,7 @@ const DOMAINS: DomainConfig[] = [
         recs: [
           'You\'re in a solid lease position right now. Use this window to understand your renewal options before market conditions shift.',
           'Review your rent review clauses and negotiate rent-free periods or incentives at your next opportunity.',
-          'An independent lease review once a year keeps you informed, and gives you leverage you wouldn\'t otherwise have.',
+          'An independent lease review once a year keeps you informed, and gives you negotiating position you wouldn\'t otherwise have.',
         ],
       },
       AMBER: {
@@ -71,7 +71,7 @@ const DOMAINS: DomainConfig[] = [
       RED: {
         summary: 'Your lease situation carries real risk, act before it forces your hand.',
         recs: [
-          'Multiple lease indicators are pointing red. Waiting for a lease event to act will cost you negotiating leverage.',
+          'Multiple lease indicators are pointing red. Waiting for a lease event to act will cost you negotiating negotiating position.',
           'Get an independent review of your current rent against the market immediately. The gap may be significant.',
           'If your lease expires in under 12 months, begin exploring your options now, renewal, relocation, or renegotiation.',
           'A tenant representative costs you nothing and can recover multiples of their effort in rent savings and incentives.',
@@ -90,7 +90,7 @@ const DOMAINS: DomainConfig[] = [
       GREEN: {
         summary: 'Your space is working well for your team right now.',
         recs: [
-          'Your workspace is in good shape. Keep an eye on headcount changes that may shift your space requirements in the next 12–24 months.',
+          'Your workspace is in good shape. Keep an eye on headcount changes that may shift your space requirements in the next 12-24 months.',
           'Consider a minor refresh to keep the space feeling current, amenity areas and meeting rooms age quickly.',
           'Document what\'s working well now so you can replicate it if you relocate or expand.',
         ],
@@ -199,8 +199,8 @@ const QUESTIONS: Question[] = [
     text: 'When does your current lease expire?',
     options: [
       { label: 'Under 6 months', score: 2 },
-      { label: '6–12 months', score: 2 },
-      { label: '1–2 years', score: 1 },
+      { label: '6-12 months', score: 2 },
+      { label: '1-2 years', score: 1 },
       { label: '2+ years', score: 0 },
     ],
   },
@@ -254,8 +254,8 @@ const QUESTIONS: Question[] = [
     text: 'When was your office last refitted or updated?',
     options: [
       { label: 'Under 2 years', score: 0 },
-      { label: '2–5 years', score: 1 },
-      { label: '5–10 years', score: 2 },
+      { label: '2-5 years', score: 1 },
+      { label: '5-10 years', score: 2 },
       { label: 'Over 10 years', score: 2 },
     ],
   },
@@ -288,8 +288,8 @@ const QUESTIONS: Question[] = [
     text: 'How old is your current office furniture?',
     options: [
       { label: 'Under 2 years', score: 0 },
-      { label: '2–5 years', score: 0 },
-      { label: '5–10 years', score: 1 },
+      { label: '2-5 years', score: 0 },
+      { label: '5-10 years', score: 1 },
       { label: 'Over 10 years', score: 2 },
     ],
   },
@@ -333,7 +333,7 @@ const QUESTIONS: Question[] = [
     text: 'How often is your office professionally cleaned?',
     options: [
       { label: 'Daily', score: 0 },
-      { label: '2–3x per week', score: 0 },
+      { label: '2-3x per week', score: 0 },
       { label: 'Weekly', score: 1 },
       { label: 'Rarely / never', score: 2 },
     ],

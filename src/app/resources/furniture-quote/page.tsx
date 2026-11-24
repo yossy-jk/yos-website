@@ -265,8 +265,8 @@ export default function FurnitureQuotePage() {
                     >
                       <option value="">Select a budget range</option>
                       <option value="Under $50k">Under $50k</option>
-                      <option value="$50k–$150k">$50k–$150k</option>
-                      <option value="$150k–$500k">$150k–$500k</option>
+                      <option value="$50k-$150k">$50k-$150k</option>
+                      <option value="$150k-$500k">$150k-$500k</option>
                       <option value="$500k+">$500k+</option>
                     </select>
                   </div>
@@ -300,8 +300,8 @@ export default function FurnitureQuotePage() {
                       >
                         <option value="">Select timeline</option>
                         <option value="ASAP">ASAP</option>
-                        <option value="1–3 months">1–3 months</option>
-                        <option value="3–6 months">3–6 months</option>
+                        <option value="1-3 months">1-3 months</option>
+                        <option value="3-6 months">3-6 months</option>
                         <option value="Flexible">Flexible</option>
                       </select>
                     </div>

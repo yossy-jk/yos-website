@@ -34,7 +34,7 @@ export default function DiscoveryBooking() {
         if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return
         event.preventDefault()
         setOpen(true)
-      }}>Book a Project Discovery Session</a>
+      }}>Book a Clarity Call</a>
       <p className="discovery-booking-note">Choose an available time in Joe Kelley’s Microsoft Bookings calendar and complete Microsoft’s confirmation to book your appointment.</p>
       {open && (
         <dialog ref={modal} className="discovery-dialog" aria-labelledby={titleId} aria-describedby={descriptionId} onCancel={event => { event.preventDefault(); setOpen(false) }} onClose={() => setOpen(false)}>

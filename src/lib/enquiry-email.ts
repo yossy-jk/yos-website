@@ -55,7 +55,7 @@ export function renderEnquiryEmail(data: EnquiryEmail): { html: string; text: st
     ? Object.fromEntries(Object.entries(data.details).filter(([key, value]) => !redundant.has(key) || redundant.get(key) !== value)) : data.details
   const details = [...rows(uniqueDetails), ...rows(structuredMessage)]
   if (details.length) sections.push({ title: 'Submission details', rows: details })
-  if (data.attachment) sections.splice(1, 0, { title: data.attachment.label || 'Lease attached', rows: [{ label: 'File', value: `${data.attachment.filename} (${Math.ceil(data.attachment.size / 1024)} KB) — attached to this email` }] })
+  if (data.attachment) sections.splice(1, 0, { title: data.attachment.label || 'Lease attached', rows: [{ label: 'File', value: `${data.attachment.filename} (${Math.ceil(data.attachment.size / 1024)} KB) - attached to this email` }] })
   const meta = rows({ enquiryPage: data.enquiryPage, entryPage: data.entryPage, received: enquirySydneyDate(data.submittedAt), marketingPermission: data.marketingConsent === true ? 'Opted in' : 'Not opted in', reference: data.submissionId })
   const email = data.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) ? data.email : ''
   const phone = data.phone?.replace(/[^+0-9]/g, '') || ''

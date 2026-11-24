@@ -179,9 +179,9 @@ export default function SalesCareersForm() {
               <select id={`${fieldId}-yearsExp`} style={INPUT} value={form.yearsExp} onChange={e => set('yearsExp', e.target.value)}>
                 <option value="">Select...</option>
                 <option value="Less than 1 year">Less than 1 year</option>
-                <option value="1–2 years">1–2 years</option>
-                <option value="3–5 years">3–5 years</option>
-                <option value="5–10 years">5–10 years</option>
+                <option value="1-2 years">1-2 years</option>
+                <option value="3-5 years">3-5 years</option>
+                <option value="5-10 years">5-10 years</option>
                 <option value="10+ years">10+ years</option>
               </select>
             </div>
@@ -190,8 +190,8 @@ export default function SalesCareersForm() {
               <select id={`${fieldId}-commissionExpectation`} style={INPUT} value={form.commissionExpectation} onChange={e => set('commissionExpectation', e.target.value)}>
                 <option value="">Select...</option>
                 <option value="Under $30k">Under $30,000</option>
-                <option value="$30–50k">$30,000–$50,000</option>
-                <option value="$50–80k">$50,000–$80,000</option>
+                <option value="$30-50k">$30,000-$50,000</option>
+                <option value="$50-80k">$50,000-$80,000</option>
                 <option value="$80k+">$80,000+</option>
                 <option value="Open">Open, let&apos;s talk</option>
               </select>

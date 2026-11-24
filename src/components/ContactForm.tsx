@@ -114,7 +114,7 @@ export default function ContactForm({ initialService, entryPage, fixedService = 
     const result = await sendEnquiry({
       name: fields.name, company: fields.company, email: fields.email,
       phone: fields.phone, message: fields.message, entryPage,
-      source: `Contact Form — ${fields.service}`, _honey: honey,
+      source: `Contact Form - ${fields.service}`, _honey: honey,
     })
     setSubmitting(false)
     const emailAccepted = result.ok

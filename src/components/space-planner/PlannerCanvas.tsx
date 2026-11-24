@@ -16,7 +16,7 @@ import {
   usePlannerStore,
   snapToGridValue,
   type PlannerItem,
-  type EOFProduct,
+  type PlannerCatalogueProduct,
   type Room,
   ROOM_TYPE_COLORS,
 } from "@/lib/space-planner/store";
@@ -257,7 +257,7 @@ function ItemLabel({ item }: { item: PlannerItem }) {
   );
 }
 
-function getSilhouetteType(item: PlannerItem): EOFProduct["silhouetteType"] {
+function getSilhouetteType(item: PlannerItem): PlannerCatalogueProduct["silhouetteType"] {
   const id = item.productId.toLowerCase();
   if (id.includes("executive")) return "chair-executive";
   if (id.includes("lounge-2") || id.includes("sofa-2")) return "sofa-2";

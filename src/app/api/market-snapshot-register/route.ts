@@ -45,10 +45,10 @@ export async function POST(req: Request) {
       try {
         const resend = new Resend(apiKey)
         const delivered = await resend.emails.send({
-          from: 'Joe Kelley – Your Office Space <notifications@yourofficespace.au>',
+          from: 'Joe Kelley - Your Office Space <notifications@yourofficespace.au>',
           to: email.trim().toLowerCase(),
           replyTo: 'jk@yourofficespace.au',
-          subject: `You're on the list – Newcastle Office Market Snapshot`,
+          subject: `You're on the list - Newcastle Office Market Snapshot`,
           html: `
 <div style="font-family:-apple-system,Helvetica,sans-serif;max-width:560px;margin:0 auto;padding:32px 24px;color:#1A1A1A">
   <div style="background:#1A1A1A;padding:24px 28px;margin-bottom:28px;border-radius:4px">
@@ -67,7 +67,7 @@ export async function POST(req: Request) {
   </p>
 
   <p style="font-size:15px;line-height:1.8;margin:0 0 8px;font-weight:300">
-    If your lease is coming up, or you just want to know whether your current rent is market – feel free to reply to this email or call me directly.
+    If your lease is coming up, or you just want to know whether your current rent is market - feel free to reply to this email or call me directly.
   </p>
 
   <div style="margin:32px 0;padding:20px 24px;background:#F5F5F5;border-left:3px solid #00B5A5;border-radius:0 4px 4px 0">

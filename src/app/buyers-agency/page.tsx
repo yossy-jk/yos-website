@@ -48,7 +48,7 @@ export default function BuyersAgencyPage() {
     <section className="bg-near-black min-h-[78vh] flex items-center" style={SEC}><div className={WRAP} style={{ ...PAD, paddingTop: 'clamp(5rem,10vw,9rem)' }}>
       <ContentBreadcrumbs title="Commercial buyers agent" path="/buyers-agency" /><FadeIn><SectionLabel>Commercial Buyers Agent · NSW</SectionLabel></FadeIn>
       <FadeIn delay={80}><h1 className="text-white leading-[0.98] mt-3 mb-7 max-w-4xl" style={{ fontSize: 'clamp(2.5rem,6vw,6rem)' }}>Commercial buyers agent Newcastle & NSW.</h1></FadeIn>
-      <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Based in Newcastle, we represent commercial buyers across Newcastle, the Hunter and NSW, turning the business objective into a clear property brief and coordinating the search, evidence, professional advice and negotiation before you commit.</p></FadeIn>
+      <FadeIn delay={160}><p className="text-white/80 leading-relaxed max-w-2xl mb-9" style={{ fontSize: 'clamp(1.05rem,2vw,1.3rem)' }}>Best suited to businesses moving from leasing to buying, we represent commercial buyers across Newcastle, the Hunter and NSW, turning the business objective into a clear property brief and coordinating the search, evidence, professional advice and negotiation before you commit.</p></FadeIn>
       <FadeIn delay={220}><Button href="#buyer-enquiry" variant="primary" size="lg">Discuss your property brief</Button><p className="service-next-step">Tell us what the property needs to do for your business. We will review your brief and confirm the next conversation.</p></FadeIn>
     </div></section>
 

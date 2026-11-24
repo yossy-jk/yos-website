@@ -87,10 +87,10 @@ function fmt(n: number) {
 function buildEmailHtml(data: ReportData): string {
   const tierLabel = { basic: 'Basic', mid: 'Mid-Range', premium: 'Premium' }[data.tier as string] || data.tier
   const typeLabel = data.fitoutType === 'furniture-only' ? 'Furniture Only' : 'Full Fitout'
-  const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` – ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
+  const shellLabel = data.fitoutType === 'furniture-only' ? '' : ` - ${data.shellCondition === 'cold' ? 'Cold Shell' : 'Warm Shell'}`
   const wkstLabel = data.workstationType === 'eha' ? 'Height-adjustable (EHA)' : 'Fixed workstation'
   const rows = data.breakdown.map(r =>
-    `<tr><td style="padding:0.75rem 1rem;font-size:0.85rem;color:#ffffffb3;border-bottom:1px solid #ffffff14">${r.label}</td><td style="padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;color:#ffffff;text-align:right;border-bottom:1px solid #ffffff14">${fmt(r.low)} – ${fmt(r.high)}</td></tr>`
+    `<tr><td style="padding:0.75rem 1rem;font-size:0.85rem;color:#ffffffb3;border-bottom:1px solid #ffffff14">${r.label}</td><td style="padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;color:#ffffff;text-align:right;border-bottom:1px solid #ffffff14">${fmt(r.low)} - ${fmt(r.high)}</td></tr>`
   ).join('')
 
   return `<!DOCTYPE html>
@@ -109,8 +109,8 @@ function buildEmailHtml(data: ReportData): string {
 <tr><td style="padding:2rem 0 1rem">
 <div style="background:rgba(1,167,163,0.1);border:1px solid #00B5A533;border-radius:0.75rem;padding:1.5rem;text-align:center">
 <p style="margin:0 0 0.25rem;font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:#00B5A5;font-weight:700">Estimated Cost Range (ex GST)</p>
-<p style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff;letter-spacing:-0.03em;line-height:1">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</p>
-<p style="margin:0.5rem 0 0;font-size:0.75rem;color:#ffffff60">${fmt(data.perSqmLow)} – ${fmt(data.perSqmHigh)} per m² · Ex GST · Incl. contingency</p>
+<p style="margin:0;font-size:2.5rem;font-weight:900;color:#ffffff;letter-spacing:-0.03em;line-height:1">${fmt(data.totalLow)} - ${fmt(data.totalHigh)}</p>
+<p style="margin:0.5rem 0 0;font-size:0.75rem;color:#ffffff60">${fmt(data.perSqmLow)} - ${fmt(data.perSqmHigh)} per m² · Ex GST · Incl. contingency</p>
 </div>
 </td></tr>
 <tr><td style="padding:0 0 1.5rem">
@@ -118,7 +118,7 @@ function buildEmailHtml(data: ReportData): string {
 ${rows}
 <tr style="background:rgba(1,167,163,0.08)">
 <td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5">Estimated Total (ex GST)</td>
-<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5;text-align:right">${fmt(data.totalLow)} – ${fmt(data.totalHigh)}</td>
+<td style="padding:1rem;font-size:0.85rem;font-weight:700;color:#00B5A5;text-align:right">${fmt(data.totalLow)} - ${fmt(data.totalHigh)}</td>
 </tr>
 </table>
 </td></tr>
@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
       from: 'Your Office Space <notifications@yourofficespace.au>',
       to: data.email,
       replyTo: 'jk@yourofficespace.au',
-      subject: `Your Fitout Estimate – ${data.sqm}m² ${data.tier} · Your Office Space`,
+      subject: `Your Fitout Estimate - ${data.sqm}m² ${data.tier} · Your Office Space`,
       html: buildEmailHtml(data),
     }, { idempotencyKey: `${submissionId}-fitout-client` })
     if (reportResult.error || !reportResult.data?.id) {
