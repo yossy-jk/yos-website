@@ -73,7 +73,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         {cs.heroImage && (
           <div className="relative h-72 lg:h-96 overflow-hidden">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" />
+          <img src={cs.heroImage} alt={cs.title} className="w-full h-full object-cover opacity-40" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: cs.heroImagePosition || 'center' }} />
             <div className="absolute inset-0 bg-near-black/60" />
           </div>
         )}
@@ -144,11 +144,29 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                 </figure>
               </section>}
               {cs.gallery && cs.gallery.length > 0 && <section aria-labelledby="project-photos-heading">
-                <h2 id="project-photos-heading" className="text-near-black font-bold text-2xl mb-5">Completed project photographs</h2>
+                <h2 id="project-photos-heading" className="text-near-black font-bold text-2xl mb-5">{cs.galleryHeading || 'Completed project photographs'}</h2>
                 <div className={styles.gallery}>
                   {cs.gallery.map(photo => <Image key={photo.src} src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 330px" className={styles.galleryImage} />)}
                 </div>
               </section>}
+              {cs.shopping && <section aria-labelledby="case-shopping-heading">
+                <h2 id="case-shopping-heading" className="text-near-black font-bold text-2xl mb-5">{cs.shopping.heading}</h2>
+                <p className="text-charcoal text-lg leading-relaxed">{cs.shopping.description}</p>
+                <div className={styles.shoppingGrid}>
+                  {cs.shopping.items.map(item => <article key={item.name} className={styles.shoppingCard}>
+                    {item.image && <Image src={item.image} alt={item.name} width={480} height={580} sizes="(max-width: 767px) 80vw, 310px" className={styles.shoppingImage} />}
+                    <h3 className="text-near-black font-bold text-xl">{item.name}</h3>
+                    <p className="text-charcoal leading-relaxed">{item.description}</p>
+                    <a href={item.href} className="text-dark-teal font-semibold underline underline-offset-4">{item.linkText}</a>
+                    {item.cartHref && <><p className="text-charcoal leading-relaxed" style={{ marginTop: 20 }}>Starts a new cart, replacing any existing YOF cart items.</p><a href={item.cartHref} className={styles.cartLink}>{item.cartText}</a></>}
+                  </article>)}
+                </div>
+                <p className="text-charcoal leading-relaxed" style={{ marginTop: 24 }}>{cs.shopping.cartNotice}</p>
+              </section>}
+              {cs.relatedLinks && <nav aria-label="Related furniture planning guides">
+                <h2 className="text-near-black font-bold text-2xl mb-5">Plan your office furniture</h2>
+                <ul>{cs.relatedLinks.map(link => <li key={link.href}><Link href={link.href} className="text-dark-teal font-semibold underline underline-offset-4">{link.label}</Link></li>)}</ul>
+              </nav>}
               {cs.closing && <section>
                 <h2 className="text-near-black font-bold text-2xl mb-5">{cs.closing.heading}</h2>
                 {cs.closing.paragraphs.map(paragraph => <p key={paragraph} className="text-charcoal text-lg leading-relaxed mb-5">{paragraph}</p>)}
