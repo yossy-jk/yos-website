@@ -48,7 +48,7 @@ export default async function Page({
           <Link href="/furniture">← Office furniture</Link>
           <h1>{item.title}</h1>
           <p>
-            {item.description} Browse page by page or download the planning PDF.
+            {item.description} Browse page by page or download the full catalogue PDF.
           </p>
           <section className="catalogue-planning-guide" aria-labelledby="catalogue-guidance-heading">
             <h2 id="catalogue-guidance-heading" className="text-2xl font-bold mb-4">{catalogue === 'acoustics' ? 'Choose acoustics for the problem you need to solve.' : 'Turn your furniture shortlist into a clear brief.'}</h2>

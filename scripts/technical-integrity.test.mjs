@@ -64,7 +64,10 @@ test('default social and schema assets exist', async () => {
   await access(new URL('../public/brand/yos-logo-black.png', import.meta.url))
 })
 
-test('obsolete company capability video is no longer publicly served', async () => {
-  assert.doesNotMatch(home, /yos-one-team|capability-video-heading/)
-  await assert.rejects(access(new URL('../public/videos/yos-one-team.mp4', import.meta.url)))
+test('homepage capability video plays only when requested', async () => {
+  assert.match(home, /<video controls playsInline preload="none"/)
+  assert.doesNotMatch(home, /autoPlay/)
+  assert.ok(home.indexOf('capability-video-heading') > home.indexOf('id="services"'))
+  await access(new URL('../public/videos/yos-one-team.mp4', import.meta.url))
+  await access(new URL('../public/videos/yos-one-team-poster.jpg', import.meta.url))
 })

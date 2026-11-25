@@ -14,7 +14,9 @@ for(const width of [390,768,1440]){
 await p.setViewport({width,height:950});await p.goto(base+route,{waitUntil:'networkidle0'});await p.evaluate(()=>document.fonts.ready)
 const data=await p.evaluate(()=>({title:document.title,description:document.querySelector('meta[name="description"]')?.content,h1:document.querySelectorAll('h1').length,overflow:document.documentElement.scrollWidth>innerWidth,text:document.body.innerText,schemas:[...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(e=>{try{return [JSON.parse(e.textContent)]}catch{return []}})}))
 assert.equal(data.overflow,false,route+width+' overflow');assert.equal(data.h1,1,route+' H1');assert.ok(data.description)
-assert.doesNotMatch(data.text,/\b(?:EOF|Newvo|Rapidline|OzChild|AACFS|Access Industries|Hansen Yuncken|solutions|synergies|leverage|holistic|seamlessly|game-changer|passionate about|robust|scalable|innovative|cutting-edge|best-in-class|world-class)\b|[–—]/i,route+' copy')
+// The owner approved Workplace Solutions specifically for the homepage H1.
+const checkedCopy=route==='/' ? data.text.replace('Workplace Solutions','') : data.text
+assert.doesNotMatch(checkedCopy,/\b(?:EOF|Newvo|Rapidline|OzChild|AACFS|Access Industries|Hansen Yuncken|solutions|synergies|leverage|holistic|seamlessly|game-changer|passionate about|robust|scalable|innovative|cutting-edge|best-in-class|world-class)\b|[–—]/i,route+' copy')
 await p.addScriptTag({content:axe.source});const a=await p.evaluate(async()=>await axe.run(document.querySelector('main'),{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}));assert.equal(a.violations.length,0,route+width+JSON.stringify(a.violations.map(v=>({id:v.id,nodes:v.nodes.map(n=>n.target)}))))
 await p.screenshot({path:out+'/'+(route.replaceAll('/','_')||'home')+'-'+width+'.png',fullPage:true});findings.push({route,width,title:data.title,faq:JSON.stringify(data.schemas).includes('FAQPage')})
 }
